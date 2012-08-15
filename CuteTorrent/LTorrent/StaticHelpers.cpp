@@ -107,3 +107,35 @@ void StaticHelpers::dellDir(QString path)
 	torrentDir.cdUp();
 	torrentDir.rmdir(path);
 }
+
+QString StaticHelpers::toTimeString( int seconds )
+{
+	int min=0,hour=0,day=0,Week=0;
+	Week = seconds/(7*24*60*60);
+	seconds -=Week*(7*24*60*60);
+	day = seconds / (24*60*60);
+	seconds -=day*(24*60*60);
+	hour=seconds / (60*60);
+	seconds -=hour*60*60;
+	min=seconds/60;
+	seconds-=min*60;
+	QString result;
+	if (Week>0)
+	{
+		result.append(QString("%1 Недель ").arg(QString::number(Week)));
+	}
+	if (day>0)
+	{
+		result.append(QString("%1 Дней ").arg(QString::number(day)));
+	}
+	if (hour>=0)
+	{
+		result.append(QString("%1:").arg(QString::number(hour)));
+	}
+	if (min>=0)
+	{
+		result.append(QString("%1:").arg(QString::number(min)));
+	}
+	result.append(QString::number(seconds));
+	return result;
+}

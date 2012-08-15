@@ -11,16 +11,13 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Выбирите образ</string>
+   <string>Выберите образ</string>
   </property>
   <property name="windowIcon">
    <iconset resource="ltorrent.qrc">
     <normaloff>:/icons/app.ico</normaloff>:/icons/app.ico</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <widget class="QTreeView" name="treeView"/>
-   </item>
    <item row="0" column="1">
     <layout class="QVBoxLayout">
      <property name="spacing">
@@ -58,6 +55,9 @@
      </item>
     </layout>
    </item>
+   <item row="0" column="0">
+    <widget class="QListView" name="listView"/>
+   </item>
   </layout>
  </widget>
  <resources>
@@ -68,7 +68,7 @@
    <sender>okButton</sender>
    <signal>clicked()</signal>
    <receiver>DTMountDialog</receiver>
-   <slot>accept()</slot>
+   <slot>MountSelected()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>351</x>
@@ -97,4 +97,7 @@
    </hints>
   </connection>
  </connections>
+ <slots>
+  <slot>MountSelected()</slot>
+ </slots>
 </ui>

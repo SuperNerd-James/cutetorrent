@@ -16,16 +16,19 @@ class Torrent : public QObject
 private:
 	StaticHelpers* helper;
 	torrent_status cur_torrent;
-	QStringList files;
+	//QStringList files;
 	QIcon icon;
 	QString ErrorString;
 	bool mountable;
 	QString base_suffix;
 	QStringList imageFiles;
 public :
+
 	Torrent::Torrent(const Torrent &): QObject(0){};
 	Torrent(): QObject(0){};
 	~Torrent() {};
+	QString GetRemainingTime();
+	QStringList GetImageFiles();
 	QString GetSuffix();
 	QString GetErrorMessage() const;
   	Torrent(torrent_status torrentStatus);

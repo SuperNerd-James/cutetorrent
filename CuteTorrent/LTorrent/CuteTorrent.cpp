@@ -41,9 +41,13 @@ void CuteTorrent::setupStatusBar()
 	upLabelText = new QLabel(this);
 	upLabelText->setMinimumWidth(140);
 	upLabel->setPixmap(QPixmap(QString::fromUtf8(":/icons/upload.ico")));
+	upLabel->setToolTip(tr(QString::fromLocal8Bit("Отданно(Отдача)").toUtf8().data()));
+	upLabelText->setToolTip(tr(QString::fromLocal8Bit("Отданно(Отдача)").toUtf8().data()));
 	QLabel* downLabel = new QLabel(this);
+	downLabel->setToolTip(tr(QString::fromLocal8Bit("Загружнно(Загрузка)").toUtf8().data()));
 	downLabel->setPixmap(QPixmap(QString::fromUtf8(":/icons/download.ico")));
 	downLabelText = new QLabel(this);
+	downLabelText->setToolTip(tr(QString::fromLocal8Bit("Загружнно(Загрузка)").toUtf8().data()));
 	downLabelText->setMinimumWidth(140);
 	statusBar()->addPermanentWidget(upLabel);
 	statusBar()->addPermanentWidget(upLabelText);
@@ -280,13 +284,13 @@ void CuteTorrent::UpdateInfoTab()
 		uploadedBytesLabel->setText(tor->GetTotalUploaded());
 		downloadSpeedLabel->setText(tor->GetDwonloadSpeed());
 		activetimeLabel->setText(tor->GetActiveTime());
-		timeleftLabel->setText("");
 		uploadSpeedLabel->setText(tor->GetUploadSpeed());
 		pathLabel->setText(tor->GetSavePath());
 		totalSizeLabel->setText(tor->GetTotalSize());
 		seedCoutLabel->setText(tor->GetSeedString());
 		peerCoutLabel->setText(tor->GetPeerString());
 		describtionLabel->setText("");
+		timeleftLabel->setText(tor->GetRemainingTime());
 	}
 	else
 	{
@@ -372,8 +376,7 @@ void CuteTorrent::UpadteTrackerTab()
 		{
 			trackerTableWidget->setItem(i,0,new QTableWidgetItem(trackers[i].url.c_str()));
 			trackerTableWidget->setItem(i,1,new QTableWidgetItem(trackers[i].message.length() >0 ? QString::fromUtf8(trackers[i].message.c_str()) : "Ok" ));
-			QDateTime dt = QDateTime::fromTime_t(  trackers[i].next_announce_in());
-			trackerTableWidget->setItem(i,2,new QTableWidgetItem(dt.toString("hh:mm:ss")));
+			trackerTableWidget->setItem(i,2,new QTableWidgetItem(StaticHelpers::toTimeString(trackers[i].next_announce_in())));
 		}
 		trackers.~vector();
 	}
