@@ -22,6 +22,7 @@ public:
 	 static QString toKbMbGb(libtorrent::size_type size);
 	 static QIcon guessMimeIcon(QString path);
 	 static void dellDir(QString path);
+	 static QString toTimeString(int seconds);
 };
 
 #endif

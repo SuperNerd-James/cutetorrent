@@ -1,9 +1,12 @@
 #include "QTorrentDisplayModel.h"
+#include "QApplicationSettings.h"
+#include <QProcess>
 #include <QItemSelectionModel>
 #include <QDesktopServices>
 #include <QDir>
 #include <QUrl>
 #include <QDebug>
+#include "MultipleDTDialog.h"
 QTorrentDisplayModel::QTorrentDisplayModel(QListView* _parrent)
 {
 	parrent=_parrent;
@@ -66,9 +69,29 @@ void QTorrentDisplayModel::MountDT()
 	Torrent* tor=GetSelectedTorrent();
 	if (tor!=NULL)
 	{
-		if (tor->isDaemonToolsMountable())
+		if (tor->isDaemonToolsMountable() && tor->isSeeding())
 		{
-
+			tor->pause();
+			QStringList images = tor->GetImageFiles();
+			if (images.count()>1)
+			{
+				MultipleDTDialog dlg(images);
+				dlg.exec();
+			}
+			else
+			{
+				QApplicationSettings* settings=QApplicationSettings::getInstance();
+				QString exe = settings->valueString("DT","Executable");
+				bool useCustomCmd = settings->valueBool("DT","UseCustomCommand");
+				int driveNum = settings->valueInt("DT","Drive");
+				QString command = useCustomCmd ?  settings->valueString("DT","CustomtCommand"): settings->valueString("DT","DefaultCommand"); 
+				QProcess dt;
+				QStringList args;
+				qDebug() << exe << " -mount " << command.arg(QString::number(driveNum)).arg(images.first());
+				args << "-mount" << command.arg(QString::number(driveNum)).arg(images.first());
+				dt.start(exe,args);
+				QApplicationSettings::FreeInstance();
+			}
 		}
 	}
 }

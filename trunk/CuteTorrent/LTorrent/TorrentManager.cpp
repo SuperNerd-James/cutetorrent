@@ -285,6 +285,7 @@ session_settings TorrentManager::readSettings()
 	s_settings.disk_cache_algorithm = session_settings::avoid_readback;
 	s_settings.volatile_read_cache = false;
 	s_settings.allow_reordered_disk_operations = false;
+	s_settings.user_agent = "CuteTorrent "CT_VERSION;
 	DTInstallPath = torrentSettings->valueString("DT","DTInstallPath");
 	
 	return s_settings;
