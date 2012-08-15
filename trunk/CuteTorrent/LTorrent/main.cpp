@@ -1,4 +1,4 @@
-#include "ltorrent.h"
+#include "CuteTorrent.h"
 #include <QDir>
 #include <qtsingleapplication.h>
 #include <cstdio>
@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 	a.addLibraryPath(QCoreApplication::applicationDirPath ()+"/plugins");
 	qDebug() << "=======================================================================================";
 	qDebug() << "==Application started:" << QDateTime::currentDateTime();
-	LTorrent w;
+	CuteTorrent w;
 	QFile File(":/icons/BaseStyle.qss");
 	File.open(QFile::ReadOnly);
 	QString StyleSheet = QString::fromUtf8(File.readAll().data());

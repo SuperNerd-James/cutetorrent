@@ -66,17 +66,13 @@ void QTorrentDisplayModel::MountDT()
 	Torrent* tor=GetSelectedTorrent();
 	if (tor!=NULL)
 	{
+		if (tor->isDaemonToolsMountable())
+		{
 
+		}
 	}
 }
-void QTorrentDisplayModel::SetSequentual()
-{
-	Torrent* tor=GetSelectedTorrent();
-	if (tor!=NULL)
-	{
-		tor->seqensialDownload();
-	}
-}
+
 void QTorrentDisplayModel::OpenDirSelected()
 {
 	Torrent* tor=GetSelectedTorrent();
@@ -137,11 +133,16 @@ void QTorrentDisplayModel::AddTorrent(Torrent* tr)
 	if (tr!=NULL)
 	{
 		QObject::connect(tr,SIGNAL(TorrentCompleted(const QString)),this,SLOT(TorrentCompletedProxy(const QString)));
+		QObject::connect(tr,SIGNAL(TorrentError(const QString)),this,SLOT(TorrentErrorProxy(const QString)));
 		torrents.append(tr);
 		id_to_torrent.insert(auto_id,tr);
 		id_to_row.insert(torrents.size(),auto_id);
 		auto_id++;
 	}
+}
+void QTorrentDisplayModel::TorrentErrorProxy(const QString& name)
+{
+	emit TorrentErrorProxySender(name);
 }
 void QTorrentDisplayModel::ChangeData(int row)
 {

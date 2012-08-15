@@ -43,16 +43,18 @@ public:
 	bool updateTorrent(QString infohash,torrent_status status);
 signals:
 	void TorrentCompletedProxySender(const QString);
+	void TorrentErrorProxySender(const QString);
 public slots:
 	void AddTorrent(Torrent*);
 	void UpdateSelectedIndex(const QModelIndex &);
+	void TorrentErrorProxy(const QString&);
 	void TorrentCompletedProxy(const QString);
 	void contextualMenu(const QPoint &);
 	void OpenDirSelected();
 	void Rehash();
 	void DellAll();
 	void MountDT();
-	void SetSequentual();
+	
 };
 
 

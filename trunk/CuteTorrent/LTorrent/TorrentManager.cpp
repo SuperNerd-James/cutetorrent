@@ -128,30 +128,6 @@ std::vector<torrent_status> TorrentManager::GetTorrents()
 }
 void TorrentManager::PostTorrentUpdate()
 {
-/*	std::deque<alert*> alerts;
-		ses->pop_alerts(&alerts);
-		std::string now = time_now_string();
-		for (std::deque<alert*>::iterator i = alerts.begin()
-			, end(alerts.end()); i != end; ++i)
-		{
-			bool need_resort = false;
-			TORRENT_TRY
-			{
-				
-					// if we didn't handle the alert, print it to the log
-					
-					QMessageBox::warning(0,"",QString::fromLocal8Bit((*i)->message().c_str()));
-					
-				
-			} TORRENT_CATCH(std::exception& e) {}
-
-			
-
-
-
-			delete *i;
-		}
-		alerts.clear();*/
 	ses->post_torrent_updates();
 }
 bool TorrentManager::AddTorrent(QString path, QString save_path)

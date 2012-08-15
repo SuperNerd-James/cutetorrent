@@ -6,7 +6,7 @@
 #include <QFileDialog>
 #include <QString>
 #include <QTimer>
-#include "ui_ltorrent.h"
+#include "ui_CuteTorrent.h"
 #include "SettingsDialog.h"
 #include "TorrentManager.h"
 #include "CreateTorrentDilaog.h"
@@ -18,15 +18,15 @@
 #include <QEvent>
 #include <QCloseEvent>
 #include "QTorrentListView.h"
-class LTorrent : public QMainWindow , private Ui::LTorrentClass
+class CuteTorrent : public QMainWindow , private Ui::CuteTorrentClass
 {
 	Q_OBJECT
 
 public:
-	LTorrent(QWidget *parent = 0, Qt::WFlags flags = 0);
+	CuteTorrent(QWidget *parent = 0, Qt::WFlags flags = 0);
 	void ConnectMessageReceved(QtSingleApplication* a);
 	
-	~LTorrent();
+	~CuteTorrent();
 protected:
 	void changeEvent(QEvent *event);
 	void closeEvent(QCloseEvent* ce);
@@ -59,6 +59,7 @@ private:
 public slots:
 	void HandleNewTorrent(const QString &);
 private slots:
+	void ShowTorrentError(const QString&);
 	void enableNitifyShow();
 	void showTorrentCompletedNotyfy(const QString);
 	void ShowCreateTorrentDialog();

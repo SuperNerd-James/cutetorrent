@@ -12,10 +12,10 @@ GroupForFileFiltering::GroupForFileFiltering(QString _name,QString _extensions,Q
 	{
 		for (int i = 0; i < extensionList.count() ; i++)
 		{
-			//QMessageBox::warning(0,"",extensionList.at(i));
+			
 			if (!extensionList.at(i).isEmpty())
 			{
-			//	QMessageBox::warning(0,"",extensionList.at(i));
+			
 				extensions.insert(extensionList.at(i));
 			}
 		}
@@ -39,7 +39,7 @@ QString GroupForFileFiltering::Extensions() const
 		res=res.append(*i);
 		res=res.append("|");
 	}
-	//QMessageBox::warning(0,"",res);
+	
 	return res;
 }
 QString GroupForFileFiltering::SavePath() const

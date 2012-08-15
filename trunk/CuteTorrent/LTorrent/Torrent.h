@@ -21,6 +21,7 @@ private:
 	QString ErrorString;
 	bool mountable;
 	QString base_suffix;
+	QStringList imageFiles;
 public :
 	Torrent::Torrent(const Torrent &): QObject(0){};
 	Torrent(): QObject(0){};
@@ -65,6 +66,7 @@ public :
 	void pause();
 	void resume();
 signals:
+	void TorrentError(const QString&);
 	void TorrentCompleted(const QString&);
 };
 
