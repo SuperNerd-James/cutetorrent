@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>LTorrentClass</class>
- <widget class="QMainWindow" name="LTorrentClass">
+ <class>CuteTorrentClass</class>
+ <widget class="QMainWindow" name="CuteTorrentClass">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -459,7 +459,7 @@
   <connection>
    <sender>actionCreateTorrent</sender>
    <signal>triggered()</signal>
-   <receiver>LTorrentClass</receiver>
+   <receiver>CuteTorrentClass</receiver>
    <slot>ShowCreateTorrentDialog()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -475,7 +475,7 @@
   <connection>
    <sender>actionOpenTorrent</sender>
    <signal>triggered()</signal>
-   <receiver>LTorrentClass</receiver>
+   <receiver>CuteTorrentClass</receiver>
    <slot>ShowOpenTorrentDialog()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -491,7 +491,7 @@
   <connection>
    <sender>actionStart</sender>
    <signal>triggered()</signal>
-   <receiver>LTorrentClass</receiver>
+   <receiver>CuteTorrentClass</receiver>
    <slot>ResumeSelected()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -507,7 +507,7 @@
   <connection>
    <sender>actionPause</sender>
    <signal>triggered()</signal>
-   <receiver>LTorrentClass</receiver>
+   <receiver>CuteTorrentClass</receiver>
    <slot>PauseSelected()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -523,7 +523,7 @@
   <connection>
    <sender>actionRemove</sender>
    <signal>triggered()</signal>
-   <receiver>LTorrentClass</receiver>
+   <receiver>CuteTorrentClass</receiver>
    <slot>DeleteSelected()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -539,7 +539,7 @@
   <connection>
    <sender>actionSettings</sender>
    <signal>triggered()</signal>
-   <receiver>LTorrentClass</receiver>
+   <receiver>CuteTorrentClass</receiver>
    <slot>OpenSettingsDialog()</slot>
    <hints>
     <hint type="sourcelabel">
