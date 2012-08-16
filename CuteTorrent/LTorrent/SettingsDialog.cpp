@@ -24,6 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMessageBox>
 #include "TorrentManager.h"
 #include <QDebug>
+#include <QTranslator>
+#include "application.h"
 SettingsDialog::SettingsDialog(QWidget* parrent,int flags) 
 {
 	setupUi(this);
@@ -164,8 +166,14 @@ void SettingsDialog::saveSettings()
 	}
 	else
 		bootUpSettings.remove("/CurrentVersion/Run/CuteTorrent");
-	
 #endif
+	int curLocaleIndex=localeComboBox->currentIndex();
+	Application::setLanguage("cutetorrent_"+localeComboBox->currentText().toUpper());
+	/*if (curLocaleIndex==0)
+		translator->load(":/translations/cutetorrent_ru.ts");
+	else*/
+		
+//	emit needRetranslate();
 	close();
 }
 void SettingsDialog::ApplySettingsToSession()

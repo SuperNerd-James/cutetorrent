@@ -30,6 +30,8 @@ public:
  	SettingsDialog(QWidget* parent=0,int flags=0);
 	~SettingsDialog();
 	void ApplySettingsToSession();
+signals:
+	void needRetranslate();
 private slots:
 	void saveSettings();
 	void proxySwitcher();

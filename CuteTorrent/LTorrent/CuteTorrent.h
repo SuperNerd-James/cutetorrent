@@ -80,6 +80,7 @@ private:
 public slots:
 	void HandleNewTorrent(const QString &);
 private slots:
+	void retranslate();
 	void ShowTorrentError(const QString&);
 	void enableNitifyShow();
 	void showTorrentCompletedNotyfy(const QString);
