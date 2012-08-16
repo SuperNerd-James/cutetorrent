@@ -61,7 +61,7 @@ public:
 	bool updateTorrent(QString infohash,torrent_status status);
 signals:
 	void TorrentCompletedProxySender(const QString);
-	void TorrentErrorProxySender(const QString);
+	void TorrentErrorPoxySender(const QString&);
 public slots:
 	void AddTorrent(Torrent*);
 	void UpdateSelectedIndex(const QModelIndex &);

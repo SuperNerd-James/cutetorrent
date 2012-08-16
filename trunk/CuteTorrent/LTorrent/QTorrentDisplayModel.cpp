@@ -87,7 +87,7 @@ void QTorrentDisplayModel::MountDT()
 	Torrent* tor=GetSelectedTorrent();
 	if (tor!=NULL)
 	{
-		if (tor->isDaemonToolsMountable() && tor->isSeeding())
+		if (tor->isDaemonToolsMountable()/* && (tor->isSeeding() || tor->isPaused())*/)
 		{
 			tor->pause();
 			QStringList images = tor->GetImageFiles();
@@ -103,12 +103,22 @@ void QTorrentDisplayModel::MountDT()
 				bool useCustomCmd = settings->valueBool("DT","UseCustomCommand");
 				int driveNum = settings->valueInt("DT","Drive");
 				QString command = useCustomCmd ?  settings->valueString("DT","CustomtCommand"): settings->valueString("DT","DefaultCommand"); 
-				QProcess dt;
+				QProcess *dt = new QProcess(this);
 				QStringList args;
+				/*args << "-mount";
+				args << command.arg(QString::number(driveNum)).arg(images.first());*/
 				qDebug() << exe << " -mount " << command.arg(QString::number(driveNum)).arg(images.first());
-				args << "-mount" << command.arg(QString::number(driveNum)).arg(images.first());
-				dt.start(exe,args);
+				dt->setNativeArguments("-mount "+command.arg(QString::number(driveNum)).arg(images.first()));
+				dt->start(exe,args);
 				QApplicationSettings::FreeInstance();
+				if (!dt->waitForStarted(5000))
+				{
+					QMessageBox::warning(parrent,"DT Mounter",QString::fromLocal8Bit("Не удалось запустить ")+exe);
+					return;
+				}
+				
+				dt->waitForFinished();
+				delete dt;
 			}
 		}
 	}
@@ -183,7 +193,7 @@ void QTorrentDisplayModel::AddTorrent(Torrent* tr)
 }
 void QTorrentDisplayModel::TorrentErrorProxy(const QString& name)
 {
-	emit TorrentErrorProxySender(name);
+	emit TorrentErrorPoxySender(name);
 }
 void QTorrentDisplayModel::ChangeData(int row)
 {
