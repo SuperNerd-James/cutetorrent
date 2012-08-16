@@ -34,6 +34,7 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	qDebug() << "QMainWindow ascked TorrentManager::getInstance";
 	mng = TorrentManager::getInstance();
 	mayShowNotifies = false;
+	setAcceptDrops(true);
 	setupStatusBar();
 	setupTray();
 	setupToolBar();
@@ -434,3 +435,16 @@ CuteTorrent::~CuteTorrent()
 {
 	
 }
+/*
+void CuteTorrent::dropEvent( QDropEvent *event )
+{
+//	QMessageBox::warning(this,"",event->mimeData()->text());
+}
+
+void CuteTorrent::dragEnterEvent( QDragEnterEvent *event )
+{
+	QMessageBox::warning(this,"",event->mimeData()->text());
+	if (event->mimeData()->hasFormat("application/x-bittorrent"))
+		event->acceptProposedAction();
+}
+*/

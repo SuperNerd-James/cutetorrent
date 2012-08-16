@@ -43,8 +43,8 @@ void myMessageOutput(QtMsgType type, const char *msg)
 
 int main(int argc, char *argv[])
 {
-	FILE * fp=freopen("ct_debug.log","a+",stderr);
-	qInstallMsgHandler(myMessageOutput);
+/*	FILE * fp=freopen("ct_debug.log","a+",stderr);
+	qInstallMsgHandler(myMessageOutput);*/
 	QtSingleApplication a(argc, argv);
 	if (a.isRunning())
 	{
@@ -71,6 +71,6 @@ int main(int argc, char *argv[])
 	int res=a.exec();
 	qDebug() << "==Application exited:" << QDateTime::currentDateTime();
 	qDebug() << "=======================================================================================";
-	fclose(fp);
+//	fclose(fp);
 	return res;
 }

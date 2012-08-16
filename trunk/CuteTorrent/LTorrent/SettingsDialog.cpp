@@ -52,7 +52,7 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	DTPathEdit->setText(settings->valueString("DT","Executable"));
 	int driveNumber=settings->valueInt("DT","Drive");
 	driveNumberComboBox->setCurrentIndex(driveNumber < driveNumberComboBox->count() ? driveNumber : 0);
-	settings->setValue("DT","DefaultCommand","dt,%1,\"%2\"");
+	settings->setValue("DT","DefaultCommand","-mount dt,%1,\"%2\"");
 	bool useCustomCommand=settings->valueBool("DT","UseCustomCommand");
 	customMountCheckBox->setChecked(useCustomCommand);
 	customCommandEdit->setText( (useCustomCommand ? settings->valueString("DT","CustomtCommand") : settings->valueString("DT","DefaultCommand")));

@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QStandardItemModel>
 #include <QStandardItem>
 #include <QProcess>
+#include <QDebug>
 #include <QAbstractItemView>
 #include "StaticHelpers.h"
 MultipleDTDialog::MultipleDTDialog(QStringList _files,QWidget* parrent/* =0 */,int flags/* =0 */)
@@ -51,13 +52,31 @@ void MultipleDTDialog::Mount( QString filename )
 {
 
 	QApplicationSettings* settings=QApplicationSettings::getInstance();
+	
 	QString exe = settings->valueString("DT","Executable");
+	if (exe.isEmpty())
+	{
+		QMessageBox::warning(this,"DT Mounter",QString::fromLocal8Bit("Укажите в настройках путь к Daemon Tools!"));
+		return;
+	}
 	bool useCustomCmd = settings->valueBool("DT","UseCustomCommand");
 	int driveNum = settings->valueInt("DT","Drive");
 	QString command = useCustomCmd ?  settings->valueString("DT","CustomtCommand"): settings->valueString("DT","DefaultCommand"); 
-	QProcess dt;
+	QProcess *dt = new QProcess(this);
 	QStringList args;
-	args << "-mount" << command.arg(QString::number(driveNum)).arg(filename);
-	dt.start(exe,args);
+	/*args << "-mount";
+	args << command.arg(QString::number(driveNum)).arg(images.first());*/
+	qDebug() << exe << " -mount " << command.arg(QString::number(driveNum)).arg(filename);
+	dt->setNativeArguments(command.arg(QString::number(driveNum)).arg(filename));
+	dt->start(exe,args);
 	QApplicationSettings::FreeInstance();
+	if (!dt->waitForStarted(5000))
+	{
+		QMessageBox::warning(this,"DT Mounter",QString::fromLocal8Bit("Не удалось запустить ")+exe);
+		return;
+	}
+			
+	dt->waitForFinished();
+	delete dt;
+	
 }
