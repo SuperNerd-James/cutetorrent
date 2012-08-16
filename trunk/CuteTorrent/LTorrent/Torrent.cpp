@@ -327,7 +327,7 @@ QString Torrent::GetRemainingTime()
 		res.append(QChar(8734));
 	else
 	{
-		int time=cur_torrent.handle.get_torrent_info().total_size() / cur_torrent.download_rate;
+		int time=(cur_torrent.handle.get_torrent_info().total_size()-cur_torrent.all_time_download) / cur_torrent.download_rate;
 		res = StaticHelpers::toTimeString(time);
 	}
 	return res;

@@ -141,7 +141,7 @@ QString StaticHelpers::toTimeString( int seconds )
 
 	if (Week>0)
 	{
-		result.append(QString("%1 Недель ").arg(QString::number(Week)));
+		result.append(QString::fromLocal8Bit("%1 Недель ").arg(QString::number(Week)));
 	}
 	if (day>0)
 	{
