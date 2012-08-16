@@ -203,32 +203,32 @@
 <context>
     <name>CuteTorrent</name>
     <message>
-        <location filename="CuteTorrent.cpp" line="190"/>
+        <location filename="CuteTorrent.cpp" line="196"/>
         <source>CuteTorrent ïðîäîëæàåò ðàáîòàòü.×òî áû âûéòè âûáåðåòå ïóíêò Âûõîä èç êîíòåêñòíîãî ìåíþ.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="247"/>
+        <location filename="CuteTorrent.cpp" line="259"/>
         <source>Ñâåðíóòü</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="250"/>
+        <location filename="CuteTorrent.cpp" line="262"/>
         <source>Ðàçâåðíóòü íà âåñü ýêðàí</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="253"/>
+        <location filename="CuteTorrent.cpp" line="265"/>
         <source>Ðàçâåðíóòü</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="256"/>
+        <location filename="CuteTorrent.cpp" line="268"/>
         <source>Âûõîä</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="281"/>
+        <location filename="CuteTorrent.cpp" line="293"/>
         <source>Îòêðûòü òîððåíò</source>
         <translation></translation>
     </message>
@@ -439,17 +439,17 @@
 <context>
     <name>LTorrentClass</name>
     <message>
-        <location filename="CuteTorrent.cpp" line="118"/>
+        <location filename="CuteTorrent.cpp" line="122"/>
         <source>rutracker.org</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="119"/>
+        <location filename="CuteTorrent.cpp" line="123"/>
         <source>thepiratebay.se</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="120"/>
+        <location filename="CuteTorrent.cpp" line="124"/>
         <source>rutor.org</source>
         <translation></translation>
     </message>
@@ -550,316 +550,351 @@
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="57"/>
+        <location filename="SettingsDialog.ui" line="53"/>
         <source>Порт</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="70"/>
+        <location filename="SettingsDialog.ui" line="69"/>
         <source>Настройки Прокси</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="76"/>
+        <location filename="SettingsDialog.ui" line="75"/>
         <source>Тип прокси сервера</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="89"/>
+        <location filename="SettingsDialog.ui" line="88"/>
         <source>Имя пользователя</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="96"/>
+        <location filename="SettingsDialog.ui" line="95"/>
         <source>Хост (IP:port)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="107"/>
+        <location filename="SettingsDialog.ui" line="106"/>
         <source>Socks4</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="112"/>
+        <location filename="SettingsDialog.ui" line="111"/>
         <source>Socks5</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="117"/>
+        <location filename="SettingsDialog.ui" line="116"/>
         <source>Socks5 с паролем</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="122"/>
+        <location filename="SettingsDialog.ui" line="121"/>
         <source>http</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="127"/>
+        <location filename="SettingsDialog.ui" line="126"/>
         <source>http с паролем</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="132"/>
+        <location filename="SettingsDialog.ui" line="131"/>
         <source>i2p</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="140"/>
-        <location filename="SettingsDialog.ui" line="611"/>
+        <location filename="SettingsDialog.ui" line="139"/>
+        <location filename="SettingsDialog.ui" line="610"/>
         <source>Пароль</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="150"/>
+        <location filename="SettingsDialog.ui" line="149"/>
         <source>Ограничения</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="156"/>
+        <location filename="SettingsDialog.ui" line="155"/>
         <source>Ограничить отдачу(Kb/s)</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="166"/>
+        <location filename="SettingsDialog.ui" line="165"/>
         <source>Активных торрентов</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="176"/>
+        <location filename="SettingsDialog.ui" line="175"/>
         <source>Ограничить загрузку(Kb/s)</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="186"/>
+        <location filename="SettingsDialog.ui" line="185"/>
         <source>Активных Раздач</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="196"/>
+        <location filename="SettingsDialog.ui" line="195"/>
         <source>Активных Загрузок</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="209"/>
+        <location filename="SettingsDialog.ui" line="208"/>
         <source>Ассоцироавть с torrent файлами</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="216"/>
+        <location filename="SettingsDialog.ui" line="215"/>
         <source>Запускать вместе с windows</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="224"/>
+        <location filename="SettingsDialog.ui" line="223"/>
         <source>Фильтрация торрентов</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="236"/>
+        <location filename="SettingsDialog.ui" line="235"/>
         <source>Группы</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="245"/>
+        <location filename="SettingsDialog.ui" line="244"/>
         <source>Удалить</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="268"/>
+        <location filename="SettingsDialog.ui" line="267"/>
         <source>Добавить\Изменить группу</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="287"/>
-        <location filename="SettingsDialog.ui" line="524"/>
+        <location filename="SettingsDialog.ui" line="286"/>
+        <location filename="SettingsDialog.ui" line="523"/>
         <source>Добавить</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="300"/>
+        <location filename="SettingsDialog.ui" line="299"/>
         <source>Расиширения файлов(формат: jpg|png|bmp)</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="325"/>
+        <location filename="SettingsDialog.ui" line="324"/>
         <source>Куда сохранять</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="334"/>
-        <location filename="SettingsDialog.ui" line="373"/>
+        <location filename="SettingsDialog.ui" line="333"/>
+        <location filename="SettingsDialog.ui" line="372"/>
         <source>Обзор</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="358"/>
+        <location filename="SettingsDialog.ui" line="357"/>
         <source>DaemonTools</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="364"/>
+        <location filename="SettingsDialog.ui" line="363"/>
         <source>Путь к DaemonTools</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="383"/>
+        <location filename="SettingsDialog.ui" line="382"/>
         <source>№ привода</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="390"/>
+        <location filename="SettingsDialog.ui" line="389"/>
         <source>1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="395"/>
+        <location filename="SettingsDialog.ui" line="394"/>
         <source>2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="400"/>
+        <location filename="SettingsDialog.ui" line="399"/>
         <source>3</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="405"/>
+        <location filename="SettingsDialog.ui" line="404"/>
         <source>4</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="410"/>
+        <location filename="SettingsDialog.ui" line="409"/>
         <source>5</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="415"/>
+        <location filename="SettingsDialog.ui" line="414"/>
         <source>6</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="420"/>
+        <location filename="SettingsDialog.ui" line="419"/>
         <source>7</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="425"/>
+        <location filename="SettingsDialog.ui" line="424"/>
         <source>8</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="430"/>
+        <location filename="SettingsDialog.ui" line="429"/>
         <source>9</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="435"/>
+        <location filename="SettingsDialog.ui" line="434"/>
         <source>10</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="446"/>
+        <location filename="SettingsDialog.ui" line="445"/>
         <source>Использовать свою команду для монтирования образа</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="456"/>
+        <location filename="SettingsDialog.ui" line="455"/>
         <source>Команда</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="469"/>
+        <location filename="SettingsDialog.ui" line="468"/>
         <source>Поиск по трекерам</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="475"/>
+        <location filename="SettingsDialog.ui" line="474"/>
         <source>Трекер</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="485"/>
+        <location filename="SettingsDialog.ui" line="484"/>
         <source>Добавление трекера</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="491"/>
-        <location filename="SettingsDialog.ui" line="598"/>
+        <location filename="SettingsDialog.ui" line="490"/>
+        <location filename="SettingsDialog.ui" line="597"/>
         <source>Метод</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="498"/>
-        <location filename="SettingsDialog.ui" line="621"/>
+        <location filename="SettingsDialog.ui" line="497"/>
+        <location filename="SettingsDialog.ui" line="620"/>
         <source>Строка запроса</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="532"/>
-        <location filename="SettingsDialog.ui" line="585"/>
+        <location filename="SettingsDialog.ui" line="531"/>
+        <location filename="SettingsDialog.ui" line="584"/>
         <source>GET</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="537"/>
-        <location filename="SettingsDialog.ui" line="590"/>
+        <location filename="SettingsDialog.ui" line="536"/>
+        <location filename="SettingsDialog.ui" line="589"/>
         <source>POST</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="545"/>
+        <location filename="SettingsDialog.ui" line="544"/>
         <source>Использовать автооризацию</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="571"/>
+        <location filename="SettingsDialog.ui" line="570"/>
         <source>Данные для авторизации</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="577"/>
+        <location filename="SettingsDialog.ui" line="576"/>
         <source>Имя</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="661"/>
+        <location filename="SettingsDialog.ui" line="660"/>
         <source>Отмена</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="668"/>
+        <location filename="SettingsDialog.ui" line="667"/>
         <source>OK</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="688"/>
+        <location filename="SettingsDialog.ui" line="687"/>
         <source>Применить</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="695"/>
+        <location filename="SettingsDialog.ui" line="694"/>
         <source>Справка</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="147"/>
+        <location filename="SettingsDialog.cpp" line="162"/>
         <source>Torrent file</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="271"/>
+        <location filename="SettingsDialog.cpp" line="293"/>
         <source>Unable to find %1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="279"/>
+        <location filename="SettingsDialog.cpp" line="301"/>
         <source>Open Directory</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="290"/>
+        <location filename="SettingsDialog.cpp" line="312"/>
         <source>Óêàçàòü ïàïêó ñ DaemonTools</source>
         <translation></translation>
+    </message>
+</context>
+<context>
+    <name>Torrent</name>
+    <message>
+        <location filename="Torrent.cpp" line="196"/>
+        <source>???????? ?????? (q)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Torrent.cpp" line="197"/>
+        <source>???????? ??????</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Torrent.cpp" line="198"/>
+        <location filename="Torrent.cpp" line="199"/>
+        <source>????????</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Torrent.cpp" line="200"/>
+        <location filename="Torrent.cpp" line="202"/>
+        <source>??????????</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Torrent.cpp" line="201"/>
+        <source>???????</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="Torrent.cpp" line="203"/>
+        <source>???????? ?????? (r)</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

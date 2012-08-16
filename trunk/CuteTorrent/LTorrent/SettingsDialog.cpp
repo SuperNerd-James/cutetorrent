@@ -64,6 +64,19 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	asociationCheckBox->setChecked( torrentAssociation == "CuteTorrent.file");
 	QSettings bootUpSettings("Microsoft", "Windows");
 	QVariant val=bootUpSettings.value("/CurrentVersion/Run/CuteTorrent");
+	int current=0;
+	QString curLoc=Application::currentLocale().split('_')[1];
+	foreach (QString avail, Application::availableLanguages())
+	{
+		QString loc=avail.split('_')[1];
+
+		localeComboBox->addItem(loc);
+		
+		if (loc==curLoc)
+			localeComboBox->setCurrentIndex(current);
+		current++;
+		
+	}
 	
 	qDebug() << val;
 	runOnbootCheckBox->setChecked(val.isNull());	
@@ -169,6 +182,7 @@ void SettingsDialog::saveSettings()
 #endif
 	int curLocaleIndex=localeComboBox->currentIndex();
 	Application::setLanguage("cutetorrent_"+localeComboBox->currentText().toUpper());
+	settings->setValue("System","Lang",localeComboBox->currentText().toUpper());
 	/*if (curLocaleIndex==0)
 		translator->load(":/translations/cutetorrent_ru.ts");
 	else*/

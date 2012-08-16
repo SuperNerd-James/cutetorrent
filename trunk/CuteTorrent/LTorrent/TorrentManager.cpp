@@ -28,6 +28,7 @@ using namespace libtorrent;
 TorrentManager::TorrentManager()
 {
 
+	try{
 	
 	torrentSettings = QApplicationSettings::getInstance();
 	
@@ -84,6 +85,11 @@ TorrentManager::TorrentManager()
 	ses->set_settings(s_settings);
 	qDebug() << "TorrentManager: intialisation completed";
 	qDebug() << "TorrentManager: session restored";
+	}
+	catch(std::exception ex)
+	{
+		QMessageBox::warning(0,"Error",QString("Error ocured in TorrentManager::TorrentManager()\n")+ex.what());
+	}
 /*	ses->load_asnum_db("GeoIPASNum.dat");
 	ses->load_country_db("GeoIP.dat");*/
 }
@@ -92,8 +98,9 @@ void TorrentManager::initSession()
 {
 	QDir dir("CT_DATA");
 	QStringList filter;
-	error_code ec;
+	
 	filter <<"*.torrent";
+	qDebug() << "TorrentManager::initSession: getting torrentfiles we added";
 	QStringList torrentFiles=dir.entryList(filter);
 	QFile path_infohashFile("CT_DATA/path.resume");
 	if (path_infohashFile.open(QFile::ReadOnly))
@@ -115,9 +122,11 @@ void TorrentManager::initSession()
 	else
 	{
 		QMessageBox::warning(NULL,"Warning",QString::fromLocal8Bit("Не удалось открыть файл CT_DATA/path.resume!\nЕсли вы запускаете приложенеие первый раз просто нажмите Ok."));
-			
+		return;	
 			
 	}
+	qDebug() << "TorrentManager::initSession: found " <<torrentFiles.count();
+	error_code ec;
 	for (QStringList::iterator i=torrentFiles.begin();i!=torrentFiles.end();i++)
 	{
 		

@@ -16,6 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#define DEBUG
 #include "CuteTorrent.h"
 #include <QDir>
 #include <qtsingleapplication.h>
@@ -23,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 #include <QDateTime>
 #include "application.h"
+#include <QMessageBox>
 void myMessageOutput(QtMsgType type, const char *msg)
 {
 	fflush(stderr);
@@ -41,11 +43,23 @@ void myMessageOutput(QtMsgType type, const char *msg)
 		 abort();
 	}
 }
-
+LONG WINAPI UEF(
+				_EXCEPTION_POINTERS *ExceptionInfo 
+				)
+{
+	QMessageBox::warning(0,"Error","Error code:"+QString::number(ExceptionInfo->ExceptionRecord->ExceptionCode,16)+" at "+QString::number((DWORD)ExceptionInfo->ExceptionRecord->ExceptionAddress,16));
+	return EXCEPTION_EXECUTE_HANDLER;
+}
 int main(int argc, char *argv[])
 {
-/*	FILE * fp=freopen("ct_debug.log","a+",stderr);
-	qInstallMsgHandler(myMessageOutput);*/
+#ifdef DEBUG
+
+	FILE * fp=freopen("ct_debug.log","a+",stderr);
+	qInstallMsgHandler(myMessageOutput);
+#endif // DEBUG
+#ifdef _WIN32
+	  SetUnhandledExceptionFilter (UEF);
+#endif // win_32
 	Application a(argc, argv);
 	if (a.isRunning())
 	{
@@ -55,6 +69,7 @@ int main(int argc, char *argv[])
 	}
 	a.loadTranslations(":/translations");
 	a.addLibraryPath(QCoreApplication::applicationDirPath ()+"/plugins");
+	
 	qDebug() << "=======================================================================================";
 	qDebug() << "==Application started:" << QDateTime::currentDateTime();
 	CuteTorrent w;
@@ -73,6 +88,8 @@ int main(int argc, char *argv[])
 	int res=a.exec();
 	qDebug() << "==Application exited:" << QDateTime::currentDateTime();
 	qDebug() << "=======================================================================================";
-//	fclose(fp);
+#ifdef DEBUG
+	fclose(fp);
+#endif // DEBUG
 	return res;
 }

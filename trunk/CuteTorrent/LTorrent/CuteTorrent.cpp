@@ -16,6 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#include "application.h"
 #include "CuteTorrent.h"
 #include <QMessageBox>
 #include <QComboBox>
@@ -33,6 +34,7 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	model = new QTorrentDisplayModel(listView);
 	qDebug() << "QMainWindow ascked TorrentManager::getInstance";
 	mng = TorrentManager::getInstance();
+	
 	mayShowNotifies = false;
 	setAcceptDrops(true);
 	setupStatusBar();
@@ -46,8 +48,12 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	
 	setupConnections();
 
-	
+	QApplicationSettings* settings=QApplicationSettings::getInstance();
+	qDebug() << "Application::setLanguage(\"cutetorrent_\"+settings->valueString(\"System\",\"Lang\",\"RUSSIAN\"));";
+	Application::setLanguage("cutetorrent_"+settings->valueString("System","Lang","RUSSIAN"));
+	qDebug() << "manager->initSession();";
 	mng->initSession();
+	qDebug() << "session inited; setting singl shot";
 	QTimer::singleShot(5000,this,SLOT(enableNitifyShow()));
 	qDebug() << "QMainWindow::QMainWindow()";
 	
@@ -159,6 +165,10 @@ void CuteTorrent::showTorrentCompletedNotyfy(const QString name)
 }
 void CuteTorrent::updateTabWidget(int tab)
 {
+	try
+	{
+	
+	
 	switch(tab)
 	{
 	case 0:
@@ -171,6 +181,11 @@ void CuteTorrent::updateTabWidget(int tab)
 		UpadteTrackerTab();
 		break;
 
+	}
+	}
+	catch (std::exception e)
+	{
+		QMessageBox::warning(this,"Error",QString("CuteTorrent::updateTabWidget()\n")+e.what());
 	}
 }
 void CuteTorrent::setupTray()
@@ -337,6 +352,10 @@ void CuteTorrent::UpdateInfoTab()
 }
 void CuteTorrent::updateVisibleTorrents()
 {
+	try
+	{
+	
+	
 	mng->PostTorrentUpdate();
 	torrent_filter filter=active;
 	
@@ -366,6 +385,11 @@ void CuteTorrent::updateVisibleTorrents()
 	downLabelText->setText(QString("%1(%2)").arg(mng->GetSessionDownloaded()).arg(mng->GetSessionDownloadSpeed()));
 
 	mng->PostTorrentUpdate();
+	}
+	catch (std::exception ex)
+	{
+		QMessageBox::warning(this,"Error",QString("UpdateTorrent()\n")+ex.what());
+	}
 
 }
 void CuteTorrent::UpdatePeerTab()
@@ -433,6 +457,7 @@ void CuteTorrent::OpenSettingsDialog()
 	SettingsDialog* dlg = new SettingsDialog(this);
 	QObject::connect(dlg,SIGNAL(needRetranslate()),this,SLOT(retranslate()));
 	dlg->exec();
+	delete dlg;
 }
 void CuteTorrent::closeEvent(QCloseEvent* ce)
 {
@@ -443,7 +468,7 @@ void CuteTorrent::closeEvent(QCloseEvent* ce)
 	mng->freeInstance();
 	qDebug() << "QTorrentDisplayModel::~QTorrentDisplayModel()";
 	model->~QTorrentDisplayModel();
-	
+	QApplicationSettings::FreeInstance();
 }
 CuteTorrent::~CuteTorrent()
 {
