@@ -87,7 +87,7 @@ padding-bottom: 17px;
  }
 QTabWidget::pane { /* The tab widget frame */
      border: 2px solid gray;
-     border-radius: 5px 5px 5px 5px;
+     border-radius: 5px;
      position: absolute;
      top: -0.5em;
      background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
@@ -98,11 +98,15 @@ QTabWidget::pane { /* The tab widget frame */
      alignment: center;
  }
 
+ 
  QTabBar::tab {
-     
-     border: 2px solid gray;
-     border-bottom-color: gray; 
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                 stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
+                                 stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
+     border: 2px solid #C4C4C3;
+     /* same as the pane color */
      border-radius: 4px;
+     
      min-width: 8ex;
      padding: 2px;
  }
@@ -111,11 +115,14 @@ QTabWidget::pane { /* The tab widget frame */
      background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                  stop: 0 #fafafa, stop: 0.4 #f4f4f4,
                                  stop: 0.5 #e7e7e7, stop: 1.0 #fafafa);
+    border-bottom-color: #E1E1E1;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
  }
 
  QTabBar::tab:selected {
-     border-color: gray
-    
+     border-color: #9B9B9B;
+     border-bottom-color: #C2C7CB; /* same as pane color */
  }
  QMainWindow
  {

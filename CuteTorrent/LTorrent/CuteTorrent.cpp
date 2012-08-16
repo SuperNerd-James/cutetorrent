@@ -421,13 +421,14 @@ void CuteTorrent::OpenSettingsDialog()
 }
 void CuteTorrent::closeEvent(QCloseEvent* ce)
 {
+	QMainWindow::closeEvent(ce);
 	qDebug() << "QMainWindow::~QMainWindow()";
 	trayIcon->hide();
 	qDebug() << "TorrentManager::freeInstance()";
 	mng->freeInstance();
 	qDebug() << "QTorrentDisplayModel::~QTorrentDisplayModel()";
 	model->~QTorrentDisplayModel();
-	QMainWindow::closeEvent(ce);
+	
 }
 CuteTorrent::~CuteTorrent()
 {

@@ -137,23 +137,24 @@ QString StaticHelpers::toTimeString( int seconds )
 	seconds -=hour*60*60;
 	min=seconds/60;
 	seconds-=min*60;
-	QString result;
+	QString result,tmp;
+
 	if (Week>0)
 	{
 		result.append(QString("%1 Недель ").arg(QString::number(Week)));
 	}
 	if (day>0)
 	{
-		result.append(QString("%1 Дней ").arg(QString::number(day)));
+		result.append(tmp.sprintf("%02d Дней",day));
 	}
 	if (hour>=0)
 	{
-		result.append(QString("%1:").arg(QString::number(hour)));
+		result.append(tmp.sprintf("%02d:",hour));
 	}
 	if (min>=0)
 	{
-		result.append(QString("%1:").arg(QString::number(min)));
+		result.append(tmp.sprintf("%02d:",min));
 	}
-	result.append(QString::number(seconds));
+	result.append(tmp.sprintf("%02d",seconds));
 	return result;
 }

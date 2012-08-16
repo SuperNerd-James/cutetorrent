@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDir>
 #include <QMessageBox>
 #include "TorrentManager.h"
+#include <QDebug>
 SettingsDialog::SettingsDialog(QWidget* parrent,int flags) 
 {
 	setupUi(this);
@@ -51,11 +52,21 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	DTPathEdit->setText(settings->valueString("DT","Executable"));
 	int driveNumber=settings->valueInt("DT","Drive");
 	driveNumberComboBox->setCurrentIndex(driveNumber < driveNumberComboBox->count() ? driveNumber : 0);
-	settings->setValue("DT","DefaultCommand","-mount dt,%1,\"%2\"");
+	settings->setValue("DT","DefaultCommand","dt,%1,\"%2\"");
 	bool useCustomCommand=settings->valueBool("DT","UseCustomCommand");
 	customMountCheckBox->setChecked(useCustomCommand);
 	customCommandEdit->setText( (useCustomCommand ? settings->valueString("DT","CustomtCommand") : settings->valueString("DT","DefaultCommand")));
+#ifdef _WIN32
+	QSettings assocSettings ("HKEY_CLASSES_ROOT", QSettings::NativeFormat);                                                                                   
+	QString torrentAssociation=assocSettings.value (".torrent/.").toString();                                                                                                   
+	asociationCheckBox->setChecked( torrentAssociation == "CuteTorrent.file");
+	QSettings bootUpSettings("Microsoft", "Windows");
+	QVariant val=bootUpSettings.value("/CurrentVersion/Run/CuteTorrent");
 	
+	qDebug() << val;
+	runOnbootCheckBox->setChecked(val.isNull());	
+#endif
+ 
 	
 }
 void SettingsDialog::showSelectedGroup(int row)
@@ -121,7 +132,40 @@ void SettingsDialog::saveSettings()
 	settings->setValue("DT","UseCustomCommand",(customMountCheckBox->checkState()==Qt::Checked));
 	settings->setValue("DT","CustomtCommand",customCommandEdit->text());
 	settings->SaveFilterGropups(filterGroups);
+#ifdef _WIN32 //file association for windows
+	QSettings asocSettings ("HKEY_CLASSES_ROOT", QSettings::NativeFormat);   
+	QString base_dir=QDir::toNativeSeparators(settings->valueString("System","BaseDir"))+QDir::separator()+"CuteTorrent.exe";
+	if (base_dir.isEmpty())
+	{
+		base_dir=QDir::toNativeSeparators(QApplication::applicationFilePath());
+	}
+	if (asociationCheckBox->checkState()==Qt::Checked)
+	{
+		
+
+		asocSettings.setValue (".torrent/.", "CuteTorrent.file");                                                      
+		asocSettings.setValue ("CuteTorrent.file/.", tr("Torrent file"));
+		
+		asocSettings.setValue ("CuteTorrent.file/shell/open/command/.",
+			"\"" + QDir::toNativeSeparators (base_dir) + "\"" + " \"%1\"");
+	}
+	else
+	{
+			asocSettings.remove(".torrent/.");
+			asocSettings.remove("CuteTorrent.file/.");
+			asocSettings.remove("CuteTorrent.file/shell/open/command/.");
+	}
 	
+	QSettings bootUpSettings("Microsoft", "Windows");
+	
+	if (runOnbootCheckBox->checkState()==Qt::Checked)
+	{
+		bootUpSettings. setValue("/CurrentVersion/Run/CuteTorrent",base_dir);
+	}
+	else
+		bootUpSettings.remove("/CurrentVersion/Run/CuteTorrent");
+	
+#endif
 	close();
 }
 void SettingsDialog::ApplySettingsToSession()
