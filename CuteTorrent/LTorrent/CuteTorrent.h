@@ -46,8 +46,11 @@ public:
 	
 	~CuteTorrent();
 protected:
+	
 	void changeEvent(QEvent *event);
 	void closeEvent(QCloseEvent* ce);
+	/*void dragEnterEvent(QDragEnterEvent *event);
+	void dropEvent(QDropEvent *event);*/
 private:
 	bool mayShowNotifies;
 	QSystemTrayIcon *trayIcon;
