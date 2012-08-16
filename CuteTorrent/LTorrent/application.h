@@ -23,8 +23,9 @@ public:
 
 public slots:
 	static void setLanguage(const QString& locale);
-
+	static QString currentLocale();
 private:
+	static QString current_locale;
 	static QTranslator* current;
 	static Translators translators;
 };

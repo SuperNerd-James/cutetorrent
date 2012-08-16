@@ -5,7 +5,7 @@
 #include <QMessageBox>
 QTranslator* Application::current = 0;
 Translators Application::translators;
-
+QString Application::current_locale="";
 Application::Application(int& argc, char* argv[])
 	: QtSingleApplication(argc, argv)
 {
@@ -40,12 +40,15 @@ void Application::loadTranslations(const QDir& dir)
 		if (translator->load(file.absoluteFilePath()))
 		{
 			QString locale = language + "_" + country;
-			QMessageBox::warning(0,"",locale);
+			
 			translators.insert(locale, translator);
 		}
 	}
 }
-
+QString Application::currentLocale()
+{
+	return current_locale;
+}
 const QStringList Application::availableLanguages()
 {
 	// the content won't get copied thanks to implicit sharing and constness
@@ -59,8 +62,9 @@ void Application::setLanguage(const QString& locale)
 	{
 		removeTranslator(current);
 	}
-
+	current_locale=locale;
 	// install new
+	
 	current = translators.value(locale, 0);
 	if (current)
 	{

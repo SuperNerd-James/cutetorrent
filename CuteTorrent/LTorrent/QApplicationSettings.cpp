@@ -25,10 +25,18 @@ int QApplicationSettings::_instanceCount = 0;
 
 QApplicationSettings::QApplicationSettings()
 {
-	settings = new QSettings("SevLan","CuteTorrent");
+	try
+	{
+		settings = new QSettings("SevLan","CuteTorrent");
+
+		locker= new QMutex();
+		ReedSettings();
+	}
+	catch(std::exception ex)
+	{
+		QMessageBox::warning(0,"Error",QString("QApplicationSettings::QApplicationSettings()")+ex.what());
+	}
 	
-	locker= new QMutex();
-	ReedSettings();
 }
 QApplicationSettings::~QApplicationSettings()
 {

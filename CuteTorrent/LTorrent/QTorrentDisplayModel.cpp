@@ -57,6 +57,10 @@ void QTorrentDisplayModel::Rehash()
 }
 void QTorrentDisplayModel::DellAll()
 {
+	try
+	{
+	
+	
 	Torrent* tor=GetSelectedTorrent();
 	if (tor!=NULL)
 	{
@@ -80,53 +84,67 @@ void QTorrentDisplayModel::DellAll()
 		
 		delete tor;
 	}
+	}
+	catch (std::exception e)
+	{
+		QMessageBox::warning(0,"Error",QString("QTorrentDisplayModel::DellAllMenuhandler()\n")+e.what());
+	}
 
 }
 void QTorrentDisplayModel::MountDT()
 {
+	try 
+{
 	Torrent* tor=GetSelectedTorrent();
-	if (tor!=NULL)
-	{
-		if (tor->isDaemonToolsMountable()/* && (tor->isSeeding() || tor->isPaused())*/)
+		if (tor!=NULL)
 		{
-			tor->pause();
-			QStringList images = tor->GetImageFiles();
-			if (images.count()>1)
+			if (tor->isDaemonToolsMountable()/* && (tor->isSeeding() || tor->isPaused())*/)
 			{
-				MultipleDTDialog dlg(images);
-				dlg.exec();
-			}
-			else
-			{
-				QApplicationSettings* settings=QApplicationSettings::getInstance();
-				QString exe = settings->valueString("DT","Executable");
-				if (exe.isEmpty())
+				tor->pause();
+				QStringList images = tor->GetImageFiles();
+				if (images.count()>1)
 				{
-					QMessageBox::warning(parrent,"DT Mounter",QString::fromLocal8Bit("Укажите в настройках путь к Daemon Tools!"));
-					return;
+					MultipleDTDialog dlg(images);
+					dlg.exec();
 				}
-				bool useCustomCmd = settings->valueBool("DT","UseCustomCommand");
-				int driveNum = settings->valueInt("DT","Drive");
-				QString command = useCustomCmd ?  settings->valueString("DT","CustomtCommand"): settings->valueString("DT","DefaultCommand"); 
-				QProcess *dt = new QProcess(this);
-				QStringList args;
-				/*args << "-mount";
-				args << command.arg(QString::number(driveNum)).arg(images.first());*/
-				qDebug() << exe << command.arg(QString::number(driveNum)).arg(images.first());
-				dt->setNativeArguments(command.arg(QString::number(driveNum)).arg(images.first()));
-				dt->start(exe,args);
-				QApplicationSettings::FreeInstance();
-				if (!dt->waitForStarted(5000))
+				else
 				{
-					QMessageBox::warning(parrent,"DT Mounter",QString::fromLocal8Bit("Не удалось запустить ")+exe);
-					return;
+					QApplicationSettings* settings=QApplicationSettings::getInstance();
+					QString exe = settings->valueString("DT","Executable");
+					if (exe.isEmpty())
+					{
+						QApplicationSettings::FreeInstance();
+						QMessageBox::warning(parrent,"DT Mounter",QString::fromLocal8Bit("Укажите в настройках путь к Daemon Tools!"));
+						return;
+					}
+					bool useCustomCmd = settings->valueBool("DT","UseCustomCommand");
+					int driveNum = settings->valueInt("DT","Drive");
+					QString command = useCustomCmd ?  settings->valueString("DT","CustomtCommand"): settings->valueString("DT","DefaultCommand"); 
+					QProcess *dt = new QProcess(this);
+					QStringList args;
+					/*args << "-mount";
+					args << command.arg(QString::number(driveNum)).arg(images.first());*/
+					qDebug() << exe << command.arg(QString::number(driveNum)).arg(images.first());
+					dt->setNativeArguments(command.arg(QString::number(driveNum)).arg(images.first()));
+					dt->start(exe,args);
+					QApplicationSettings::FreeInstance();
+					if (!dt->waitForStarted(5000))
+					{
+						QMessageBox::warning(parrent,"DT Mounter",QString::fromLocal8Bit("Не удалось запустить ")+exe);
+						return;
+					}
+					
+					dt->waitForFinished();
+					delete dt;
 				}
-				
-				dt->waitForFinished();
-				delete dt;
 			}
 		}
-	}
+}
+	catch (std::exception e)
+{
+	QMessageBox::warning(0,"MountDT",e.what());
+}
+
 }
 
 void QTorrentDisplayModel::OpenDirSelected()
@@ -174,7 +192,16 @@ void QTorrentDisplayModel::contextualMenu(const QPoint & point)
 void QTorrentDisplayModel::UpdateSelectedIndex(const QModelIndex & index)
 {
 	
-	selectedRow= index.row();
+	try
+	{
+		selectedRow= index.row();
+	}
+	catch (std::exception e)
+	{
+		QMessageBox::warning(0,"UpdateSelectedIndex",e.what());
+	}
+
+
 	
 	
 }
@@ -233,66 +260,99 @@ void QTorrentDisplayModel::clear()
 }
 int QTorrentDisplayModel::rowCount( const QModelIndex& parent ) const
 {
-	return torrents.count();
+	try
+	{
+		return torrents.count();
+	}
+	catch (std::exception e)
+	{
+		QMessageBox::warning(0,"rowCount",e.what());
+	}
+
 }
 Torrent* QTorrentDisplayModel::GetSelectedTorrent()
 {
 	
+	try
+{
 	if (rowCount() == 0)
-		return NULL;
-	if (selectedRow >= rowCount())
-		return NULL;
-	if (selectedRow < 0)
-		return NULL;
+			return NULL;
+		if (selectedRow >= rowCount())
+			return NULL;
+		if (selectedRow < 0)
+			return NULL;
+	
+		return torrents.at(selectedRow);
+}
+	catch (std::exception e)
+	{
+		QMessageBox::warning(0,"GetSelectedTorrent",e.what());
+	}
 
-	return torrents.at(selectedRow);
+
 
 }
 bool QTorrentDisplayModel::updateTorrent(QString InfoHash,torrent_status status)
 {
+	try
+{
 	for (QVector<Torrent*>::const_iterator tor=torrents.begin();
-		tor!=torrents.end();
-		tor++
-		)
-	        if( (*tor)->GetHashString() == InfoHash )
-			{
-				(*tor)->updateTorrent(status);
-				return true;
-			}
+			tor!=torrents.end();
+			tor++
+			)
+		        if( (*tor)->GetHashString() == InfoHash )
+				{
+					(*tor)->updateTorrent(status);
+					return true;
+				}
+}
+	catch (std::exception e)
+	{
+		QMessageBox::warning(0,"emit updateTorrent",e.what());
+	}
+
 	return false;
 }
 void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 {
 	
+	try
+{
 	if (rowCount()==0)
-		return;
-	if (selectedRow < 0)
-		return;
-	if (selectedRow >= rowCount())
-		return;
-	switch(wtf)
-	{
-	case pause:
-		torrents.at( selectedRow )->pause();
-		break;
-	case remove:
+			return;
+		if (selectedRow < 0)
+			return;
+		if (selectedRow >= rowCount())
+			return;
+		switch(wtf)
 		{
-			int oldSelection=selectedRow;
-			selectedRow=-1;
-			torrents.at( oldSelection )->RemoveTorrent(mgr);
-			torrents.remove(oldSelection);
-			int id=id_to_row[oldSelection];
-			id_to_row.remove(oldSelection);
-			
-			id_to_torrent.remove(id);
-			parrent->selectionModel()->reset();
-			
+		case pause:
+			torrents.at( selectedRow )->pause();
+			break;
+		case remove:
+			{
+				int oldSelection=selectedRow;
+				selectedRow=-1;
+				torrents.at( oldSelection )->RemoveTorrent(mgr);
+				torrents.remove(oldSelection);
+				int id=id_to_row[oldSelection];
+				id_to_row.remove(oldSelection);
+				
+				id_to_torrent.remove(id);
+				parrent->selectionModel()->reset();
+				
+			}
+			break;
+		case resume:
+			torrents.at( selectedRow )->resume();
+			break;
 		}
-		break;
-	case resume:
-		torrents.at( selectedRow )->resume();
-		break;
+}
+	catch (std::exception e)
+	{
+		QMessageBox::warning(0,"ActionOnSelectedItem",e.what());
 	}
+
 
 }
 QVariant QTorrentDisplayModel::data( const QModelIndex& index, int role ) const
