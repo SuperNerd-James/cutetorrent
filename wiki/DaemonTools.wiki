@@ -1,0 +1,5 @@
+#summary DAEMON Tools (short for Disk And Execution MONitor tools) is a virtual drive and optical disc authoring program for Microsoft Windows.
+
+= Introduction =
+
+DAEMON Tools was originally a successor of Generic SafeDisc emulator and incorporated all of its features. The program claims to be able to defeat most copy protection schemes such as SafeDisc and SecuROM. It is currently compatible with Windows XP, Windows Vista, Windows 7 and Windows 8. DAEMON Tools has a special mode for proper operation of copies of discs with advanced protection (SafeDisc, SecuRom and LaserLock, CDCOPS, StarForce and Protect CD), which are used on some discs with games.
