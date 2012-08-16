@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <cstdio>
 #include <QDebug>
 #include <QDateTime>
+#include "application.h"
 void myMessageOutput(QtMsgType type, const char *msg)
 {
 	fflush(stderr);
@@ -45,13 +46,14 @@ int main(int argc, char *argv[])
 {
 /*	FILE * fp=freopen("ct_debug.log","a+",stderr);
 	qInstallMsgHandler(myMessageOutput);*/
-	QtSingleApplication a(argc, argv);
+	Application a(argc, argv);
 	if (a.isRunning())
 	{
 		if (argc==2)
 			a.sendMessage(argv[1]);
 		return -1;
 	}
+	a.loadTranslations(":/translations");
 	a.addLibraryPath(QCoreApplication::applicationDirPath ()+"/plugins");
 	qDebug() << "=======================================================================================";
 	qDebug() << "==Application started:" << QDateTime::currentDateTime();

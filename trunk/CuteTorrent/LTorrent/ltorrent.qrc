@@ -17,4 +17,8 @@
         <file alias="download.ico">Resources/download.ico</file>
         <file alias="upload.ico">Resources/upload.ico</file>
     </qresource>
+    <qresource prefix="/translations">
+        <file>cutetorrent_english.qm</file>
+        <file>cutetorrent_russian.qm</file>
+    </qresource>
 </RCC>

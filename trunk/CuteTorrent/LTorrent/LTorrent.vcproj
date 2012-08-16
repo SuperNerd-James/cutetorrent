@@ -165,6 +165,10 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
+				RelativePath=".\application.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\CreateTorrentDialog.cpp"
 				>
 			</File>
@@ -222,6 +226,32 @@
 			Filter="h"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\application.h"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing application.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -D_UNICODE &quot;-ID:\src\LTorrent\LTorrent\QTSingleApplication&quot; &quot;-ID:\src\sevlan\boost_1_50_0&quot; &quot;-ID:\src\sevlan\libtorrent\include&quot; &quot;-ID:\src\LTorrent\LTorrent\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing application.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB &quot;-ID:\src\LTorrent\LTorrent\QTSingleApplication&quot; &quot;-ID:\src\sevlan\boost_1_50_0&quot; &quot;-ID:\src\sevlan\libtorrent\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+			</File>
 			<File
 				RelativePath=".\CreateTorrentDilaog.h"
 				>
@@ -375,6 +405,28 @@
 			<File
 				RelativePath=".\QTSingleApplication\qtsingleapplication.h"
 				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing qtsingleapplication.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -D_UNICODE &quot;-ID:\src\LTorrent\LTorrent\QTSingleApplication&quot; &quot;-ID:\src\sevlan\boost_1_50_0&quot; &quot;-ID:\src\sevlan\libtorrent\include&quot; &quot;-ID:\src\LTorrent\LTorrent\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing qtsingleapplication.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB &quot;-ID:\src\LTorrent\LTorrent\QTSingleApplication&quot; &quot;-ID:\src\sevlan\boost_1_50_0&quot; &quot;-ID:\src\sevlan\libtorrent\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\QTSingleApplication\qtsinglecoreapplication.h"
@@ -754,6 +806,86 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\cutetorrent_en.qm"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\cutetorrent_english.qm"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\cutetorrent_ru.qm"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\cutetorrent_russian.qm"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\Resources\CuteTorrentStyle.qss"
 				>
 				<FileConfiguration
@@ -883,7 +1015,7 @@
 						Name="VCCustomBuildTool"
 						Description="Rcc&apos;ing $(InputFileName)..."
 						CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name &quot;$(InputName)&quot; -no-compress &quot;$(InputPath)&quot; -o .\GeneratedFiles\qrc_$(InputName).cpp&#x0D;&#x0A;"
-						AdditionalDependencies="$(InputPath);.\Resources\Actions-application-exit.ico;.\Resources\Actions-arrow-right.ico;.\Resources\Actions-media-playback-pause.ico;.\Resources\archime.ico;.\Resources\audio.ico;.\Resources\default.ico;.\Resources\doc.ico;.\Resources\movie.ico;.\Resources\picture.ico;.\Resources\folder.ico;.\Resources\app.ico;.\Resources\CuteTorrentStyle.qss;.\Resources\arrowdown.png;.\Resources\File-iso-icon.ico;.\Resources\download.ico;.\Resources\upload.ico"
+						AdditionalDependencies="$(InputPath);.\Resources\Actions-application-exit.ico;.\Resources\Actions-arrow-right.ico;.\Resources\Actions-media-playback-pause.ico;.\Resources\archime.ico;.\Resources\audio.ico;.\Resources\default.ico;.\Resources\doc.ico;.\Resources\movie.ico;.\Resources\picture.ico;.\Resources\folder.ico;.\Resources\app.ico;.\Resources\CuteTorrentStyle.qss;.\Resources\arrowdown.png;.\Resources\File-iso-icon.ico;.\Resources\download.ico;.\Resources\upload.ico;.\cutetorrent_english.qm;.\cutetorrent_russian.qm"
 						Outputs=".\GeneratedFiles\qrc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
@@ -894,7 +1026,7 @@
 						Name="VCCustomBuildTool"
 						Description="Rcc&apos;ing $(InputFileName)..."
 						CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name &quot;$(InputName)&quot; -no-compress &quot;$(InputPath)&quot; -o .\GeneratedFiles\qrc_$(InputName).cpp&#x0D;&#x0A;"
-						AdditionalDependencies="$(InputPath);.\Resources\Actions-application-exit.ico;.\Resources\Actions-arrow-right.ico;.\Resources\Actions-media-playback-pause.ico;.\Resources\archime.ico;.\Resources\audio.ico;.\Resources\default.ico;.\Resources\doc.ico;.\Resources\movie.ico;.\Resources\picture.ico;.\Resources\folder.ico;.\Resources\app.ico;.\Resources\CuteTorrentStyle.qss;.\Resources\arrowdown.png;.\Resources\File-iso-icon.ico;.\Resources\download.ico;.\Resources\upload.ico"
+						AdditionalDependencies="$(InputPath);.\Resources\Actions-application-exit.ico;.\Resources\Actions-arrow-right.ico;.\Resources\Actions-media-playback-pause.ico;.\Resources\archime.ico;.\Resources\audio.ico;.\Resources\default.ico;.\Resources\doc.ico;.\Resources\movie.ico;.\Resources\picture.ico;.\Resources\folder.ico;.\Resources\app.ico;.\Resources\CuteTorrentStyle.qss;.\Resources\arrowdown.png;.\Resources\File-iso-icon.ico;.\Resources\download.ico;.\Resources\upload.ico;.\cutetorrent_english.qm;.\cutetorrent_russian.qm"
 						Outputs=".\GeneratedFiles\qrc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
@@ -1012,6 +1144,18 @@
 				SourceControlFiles="false"
 				>
 				<File
+					RelativePath=".\GeneratedFiles\Release\moc_application.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
 					RelativePath=".\GeneratedFiles\Release\moc_CreateTorrentDilaog.cpp"
 					>
 					<FileConfiguration
@@ -1072,6 +1216,18 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath=".\GeneratedFiles\Release\moc_qtsingleapplication.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
 					RelativePath=".\GeneratedFiles\Release\moc_SettingsDialog.cpp"
 					>
 					<FileConfiguration
@@ -1113,6 +1269,18 @@
 				Filter="cpp;moc"
 				SourceControlFiles="false"
 				>
+				<File
+					RelativePath=".\GeneratedFiles\Debug\moc_application.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
 				<File
 					RelativePath=".\GeneratedFiles\Debug\moc_CreateTorrentDilaog.cpp"
 					>
@@ -1174,6 +1342,18 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath=".\GeneratedFiles\Debug\moc_qtsingleapplication.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
 					RelativePath=".\GeneratedFiles\Debug\moc_SettingsDialog.cpp"
 					>
 					<FileConfiguration
@@ -1218,7 +1398,11 @@
 			ParseFiles="false"
 			>
 			<File
-				RelativePath=".\cutetorrent_ru.ts"
+				RelativePath=".\cutetorrent_english.ts"
+				>
+			</File>
+			<File
+				RelativePath=".\cutetorrent_russian.ts"
 				>
 			</File>
 		</Filter>

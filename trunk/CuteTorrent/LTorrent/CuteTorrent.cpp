@@ -183,17 +183,25 @@ void CuteTorrent::setupTray()
 void CuteTorrent::changeEvent(QEvent *event)
 {
 
-	 if(event->type() == QEvent::ActivationChange) {     
-    if(isVisible() && isMinimized()) {
-      event->ignore();
-	  QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Warning;
+	 if(event->type() == QEvent::ActivationChange) 
+	 {     
+		if(isVisible() && isMinimized()) 
+		{
+			event->ignore();
+			QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Warning;
 			trayIcon->showMessage("CuteTorrent", QString::fromLocal8Bit(tr("CuteTorrent продолжает работать."
 																		   "„то бы выйти выберете пункт ¬ыход из контекстного меню.").toAscii().data()), icon,
-                           5* 1000);
-      hide();
-      return;
-    }
-  }
+																																						5* 1000);
+			hide();
+			return;
+		}
+
+	}
+	 if (event->type()==QEvent::LanguageChange)
+	 {
+		//QMessageBox::warning(this,"","retramslate event occured");
+		retranslateUi(this);
+	 }
   QMainWindow::changeEvent(event);
 
 
@@ -415,10 +423,16 @@ void CuteTorrent::DeleteSelected()
 	model->ActionOnSelectedItem(QTorrentDisplayModel::remove);
 	mng->PostTorrentUpdate();
 }
+void CuteTorrent::retranslate()
+{
+	QMessageBox::warning(this,"","retranslateUi(this);");
+	retranslateUi(this);
+}
 void CuteTorrent::OpenSettingsDialog()
 {
-	SettingsDialog dlg(this);
-	dlg.exec();
+	SettingsDialog* dlg = new SettingsDialog(this);
+	QObject::connect(dlg,SIGNAL(needRetranslate()),this,SLOT(retranslate()));
+	dlg->exec();
 }
 void CuteTorrent::closeEvent(QCloseEvent* ce)
 {
