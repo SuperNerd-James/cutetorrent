@@ -40,7 +40,7 @@ private slots:
 	void browseSavepathGroup();
 	void browseDTPath();
 	void customCommandSwitcher();
-	void showCurrentTrackerSettings();
+	void showCurrenttrackerSettings();
 	void addTracker();
 	void trackerAuthSwitcher();
 	void showHint();

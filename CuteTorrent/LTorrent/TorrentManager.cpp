@@ -34,11 +34,7 @@ TorrentManager::TorrentManager()
 	
 	ses = new session(fingerprint("CuteTorrent", VERSION_MAJOR ,VERSION_MINOR,VERSION_MINCHANGES ,VERSION_MIZER)
 		, session::add_default_plugins
-		, alert::all_categories
-			& ~(alert::dht_notification
-			+ alert::progress_notification
-			+ alert::debug_notification
-			+ alert::stats_notification));
+		, alert::all_categories);
 	error_code ec;
 	std::vector<char> in;
 	if (load_file("CT_DATA/actual.state", in, ec) == 0)
@@ -84,7 +80,7 @@ TorrentManager::TorrentManager()
 
 	ses->set_settings(s_settings);
 	qDebug() << "TorrentManager: intialisation completed";
-	qDebug() << "TorrentManager: session restored";
+	
 	}
 	catch(std::exception ex)
 	{
@@ -227,7 +223,7 @@ bool TorrentManager::AddTorrent(QString path, QString save_path)
 			QMessageBox::warning(0,"Error",ec.message().c_str());
 			return false;
 		}
-		emit AddTorrentGui(new Torrent(h.status()));
+		emit AddTorrentGui(new Torrent(h));
 		QFileInfo file(path);
 		h.set_max_connections(max_connections_per_torrent);
 		QFile::copy(path,combine_path(QDir::currentPath().toAscii().data(),combine_path("CT_DATA",file.fileName().toAscii().data()).c_str()).c_str());
@@ -239,7 +235,15 @@ bool TorrentManager::AddTorrent(QString path, QString save_path)
 		{
 			save_path_data.insert(to_hex(h.info_hash().to_string()).c_str(),save_path.toUtf8().data());
 		}
-
+		QFile pathDataFile("CT_DATA/path.resume");
+		if (pathDataFile.open(QFile::WriteOnly))
+		{
+			for (QMap<QString,QString>::iterator i=save_path_data.begin();i!=save_path_data.end();i++)
+			{
+				pathDataFile.write((i.key()+"|"+i.value()+"\n").toUtf8());
+			}
+			pathDataFile.close();
+		}
 	}
 	return true;
 }
@@ -397,7 +401,7 @@ void TorrentManager::onClose()
 		++num_outstanding_resume_data;
 		printf("\r%d  ", num_outstanding_resume_data);
 	}
-	fprintf(stderr,"waiting for resume data [%d]\n", num_outstanding_resume_data);
+	qDebug("waiting for resume data %1\n", num_outstanding_resume_data);
 
 	while (num_outstanding_resume_data > 0)
 	{
@@ -493,9 +497,10 @@ TorrentManager* TorrentManager::getInstance()
 {
 	if (_instance==NULL)
 		_instance = new TorrentManager();
-	_instanceCount++;
+	
 	qDebug() << "TorrentManager: someone ascked an instance";
 	qDebug() << "TorrentManager: this is " << _instanceCount << " instance";
+	_instanceCount++;
 	return _instance;
 }
 void TorrentManager::freeInstance()

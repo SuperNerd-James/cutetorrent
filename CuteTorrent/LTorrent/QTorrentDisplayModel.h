@@ -26,8 +26,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "Torrent.h"
 #include "TorrentManager.h"
 #include <QMenu>
+#include <QTimer>
 class Torrent;
 class TorrentManager;
+
 class QTorrentDisplayModel : public QAbstractListModel
 {
 	Q_OBJECT
@@ -45,6 +47,7 @@ private:
 	QAction* DelAll;
 	QAction* setSequentual;
 	TorrentManager* mgr;
+	QTimer* timer;
 public:
 	QTorrentDisplayModel(QListView* parrent);
 	~QTorrentDisplayModel();
@@ -58,8 +61,10 @@ public:
     virtual QVariant data( const QModelIndex& index, int role = Qt::DisplayRole ) const;
     enum Role { TorrentRole = Qt::UserRole };
 	Torrent* GetSelectedTorrent();
+	
 	bool updateTorrent(QString infohash,torrent_status status);
 signals:
+	void updateTabSender(int);
 	void TorrentCompletedProxySender(const QString);
 	void TorrentErrorPoxySender(const QString&);
 public slots:
@@ -72,6 +77,7 @@ public slots:
 	void Rehash();
 	void DellAll();
 	void MountDT();
+	void updateVisibleTorrents();
 	
 };
 

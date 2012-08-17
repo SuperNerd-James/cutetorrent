@@ -112,7 +112,7 @@
 				Optimization="0"
 				AdditionalIncludeDirectories="D:\src\LTorrent\LTorrent\QTSingleApplication;D:\src\sevlan\boost_1_50_0;D:\src\sevlan\libtorrent\include;.\GeneratedFiles;.;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;"
 				PreprocessorDefinitions=",UNICODE,WIN32,QT_LARGEFILE_SUPPORT;QT_DLL;QT_CORE_LIB;QT_GUI_LIB"
-				RuntimeLibrary="3"
+				RuntimeLibrary="1"
 				TreatWChar_tAsBuiltInType="false"
 				DebugInformationFormat="3"
 			/>
@@ -127,9 +127,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib libtorrent.lib"
+				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib libtorrent.lib QtSolutions_SingleApplication-headd.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
-				AdditionalLibraryDirectories="D:\src\sevlan\libtorrent\lib;D:\src\sevlan\boost_1_50_0\lib\Debug;&quot;$(QTDIR)\lib&quot;"
+				AdditionalLibraryDirectories="D:\src\LTorrent\LTorrent\QTSingleApplication\lib;D:\src\sevlan\libtorrent\lib;D:\src\sevlan\boost_1_50_0\lib\Debug;&quot;$(QTDIR)\lib&quot;"
+				IgnoreDefaultLibraryNames="msvcprtd.lib;libcpmt.lib;LIBCMT.lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 			/>

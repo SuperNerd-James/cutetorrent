@@ -63,7 +63,7 @@ private:
 	QLabel* downLabelText;
 	QTorrentDisplayModel* model;
 	TorrentManager* mng;
-	
+	QTimer *timer;
 	
 	void createTrayIcon();
 	void createActions();
@@ -73,7 +73,6 @@ private:
 	void setupTimer();
 	void setupConnections();
 	void setupListView();
-	void SetupListViewActions();
 	void setupTabelWidgets();
 	void setupStatusBar();
 	

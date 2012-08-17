@@ -33,7 +33,7 @@ class Torrent : public QObject
 		
 private:
 	StaticHelpers* helper;
-	torrent_status cur_torrent;
+	torrent_handle cur_torrent;
 	//QStringList files;
 	QIcon icon;
 	QString ErrorString;
@@ -49,7 +49,7 @@ public :
 	QStringList GetImageFiles();
 	QString GetSuffix();
 	QString GetErrorMessage() const;
-  	Torrent(torrent_status torrentStatus);
+  	Torrent(torrent_handle torrentStatus);
 	QString GetDwonloadSpeed();
 	QString GetUploadSpeed();
 	QString GetSavePath();

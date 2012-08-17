@@ -78,7 +78,7 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 		
 	}
 	
-	qDebug() << val;
+	qDebug() <<"run on boot" << val;
 	runOnbootCheckBox->setChecked(val.isNull());	
 #endif
  
@@ -314,7 +314,7 @@ void SettingsDialog::browseDTPath()
 	DTPathEdit->setText(QDir::toNativeSeparators(DTPath));
 }
 
-void SettingsDialog::showCurrentTrackerSettings(){}
+void SettingsDialog::showCurrenttrackerSettings(){}
 void SettingsDialog::addTracker(){}
 
 void SettingsDialog::showHint(){}
