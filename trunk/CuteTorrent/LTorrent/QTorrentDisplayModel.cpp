@@ -46,6 +46,11 @@ QTorrentDisplayModel::QTorrentDisplayModel(QListView* _parrent)
 	QObject::connect(HashRecheck, SIGNAL(triggered()), this, SLOT(Rehash()));
 	menu->addAction(HashRecheck);
 
+
+	timer = new QTimer(this);
+	QObject::connect(timer, SIGNAL(timeout()), this, SLOT(updateVisibleTorrents()));
+	timer->start(1000);
+
 }
 void QTorrentDisplayModel::Rehash()
 {
@@ -146,7 +151,15 @@ void QTorrentDisplayModel::MountDT()
 }
 
 }
-
+void QTorrentDisplayModel::updateVisibleTorrents()
+{
+	for (int i=0;i<torrents.count();i++)
+	{
+		QModelIndex qmi( index( i, 0 ) );
+		emit dataChanged( qmi, qmi );
+		emit updateTabSender(-1);
+	}
+}
 void QTorrentDisplayModel::OpenDirSelected()
 {
 	Torrent* tor=GetSelectedTorrent();
@@ -268,44 +281,45 @@ int QTorrentDisplayModel::rowCount( const QModelIndex& parent ) const
 	{
 		QMessageBox::warning(0,"rowCount",e.what());
 	}
+	return 0;
 
 }
 Torrent* QTorrentDisplayModel::GetSelectedTorrent()
 {
 	
 	try
-{
-	if (rowCount() == 0)
+	{
+		if (rowCount() == 0)
 			return NULL;
 		if (selectedRow >= rowCount())
 			return NULL;
 		if (selectedRow < 0)
 			return NULL;
-	
+		
 		return torrents.at(selectedRow);
-}
+	}
 	catch (std::exception e)
 	{
 		QMessageBox::warning(0,"GetSelectedTorrent",e.what());
 	}
 
-
+	return NULL;
 
 }
 bool QTorrentDisplayModel::updateTorrent(QString InfoHash,torrent_status status)
 {
 	try
-{
-	for (QVector<Torrent*>::const_iterator tor=torrents.begin();
-			tor!=torrents.end();
-			tor++
-			)
-		        if( (*tor)->GetHashString() == InfoHash )
-				{
-					(*tor)->updateTorrent(status);
-					return true;
-				}
-}
+	{
+		for (QVector<Torrent*>::const_iterator tor=torrents.begin();
+				tor!=torrents.end();
+				tor++
+				)
+					if( (*tor)->GetHashString() == InfoHash )
+					{
+						(*tor)->updateTorrent(status);
+						return true;
+					}
+	}
 	catch (std::exception e)
 	{
 		QMessageBox::warning(0,"emit updateTorrent",e.what());
@@ -357,8 +371,10 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 }
 QVariant QTorrentDisplayModel::data( const QModelIndex& index, int role ) const
 {
+	
 	QVariant var;
     const int row = index.row( );
+
     if( row<0 || row>=torrents.size() )
         return QVariant( );
 
@@ -387,5 +403,6 @@ QVariant QTorrentDisplayModel::data( const QModelIndex& index, int role ) const
 
 QTorrentDisplayModel::~QTorrentDisplayModel()
 {
+	timer->stop();
 	TorrentManager::freeInstance();
 }

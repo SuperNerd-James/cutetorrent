@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMessageBox>
 #include <QDebug>
 
-QApplicationSettings* QApplicationSettings::_instance = NULL;
+QApplicationSettings* QApplicationSettings::_instance=NULL;
 int QApplicationSettings::_instanceCount = 0;
 
 QApplicationSettings::QApplicationSettings()

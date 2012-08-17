@@ -36,12 +36,12 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	mng = TorrentManager::getInstance();
 	
 	mayShowNotifies = false;
-	setAcceptDrops(true);
+	//setAcceptDrops(true);
 	setupStatusBar();
 	setupTray();
 	setupToolBar();
 	// TO-DO: reimplement to torrent changed signal
-	setupTimer();
+	//setupTimer();
 
 	setupListView();
 	setupTabelWidgets();
@@ -49,34 +49,38 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	setupConnections();
 
 	QApplicationSettings* settings=QApplicationSettings::getInstance();
-	qDebug() << "Application::setLanguage(\"cutetorrent_\"+settings->valueString(\"System\",\"Lang\",\"RUSSIAN\"));";
+	
 	Application::setLanguage("cutetorrent_"+settings->valueString("System","Lang","RUSSIAN"));
-	qDebug() << "manager->initSession();";
+
+
+
+	
 	mng->initSession();
-	qDebug() << "session inited; setting singl shot";
+
+	
 	QTimer::singleShot(5000,this,SLOT(enableNitifyShow()));
-	qDebug() << "QMainWindow::QMainWindow()";
+	
 	
 }
 void CuteTorrent::setupStatusBar()
 {
 	/*QIcon up(QString::fromUtf8(":/icons/upload.ico"));
 	QIcon down(QString::fromUtf8(":/icons/download.ico"));*/
-	QLabel* upLabel = new QLabel(this);
+	//QLabel* upLabel = new QLabel(this);
 	upLabelText = new QLabel(this);
 	upLabelText->setMinimumWidth(140);
-	upLabel->setPixmap(QPixmap(QString::fromUtf8(":/icons/upload.ico")));
-	upLabel->setToolTip(tr(QString::fromLocal8Bit("Отданно(Отдача)").toUtf8().data()));
+	//upLabel->setIcon(QImage(QString::fromUtf8(":/icons/upload.ico")));
+	//upLabel->setToolTip(tr(QString::fromLocal8Bit("Отданно(Отдача)").toUtf8().data()));
 	upLabelText->setToolTip(tr(QString::fromLocal8Bit("Отданно(Отдача)").toUtf8().data()));
-	QLabel* downLabel = new QLabel(this);
-	downLabel->setToolTip(tr(QString::fromLocal8Bit("Загружнно(Загрузка)").toUtf8().data()));
-	downLabel->setPixmap(QPixmap(QString::fromUtf8(":/icons/download.ico")));
+	//QLabel* downLabel = new QLabel(this);
+	//downLabel->setToolTip(tr(QString::fromLocal8Bit("Загружнно(Загрузка)").toUtf8().data()));
+	//downLabel->setIcon(QPixmap(QString::fromUtf8(":/icons/download.ico")));
 	downLabelText = new QLabel(this);
 	downLabelText->setToolTip(tr(QString::fromLocal8Bit("Загружнно(Загрузка)").toUtf8().data()));
 	downLabelText->setMinimumWidth(140);
-	statusBar()->addPermanentWidget(upLabel);
+	//statusBar()->addPermanentWidget(upLabel);
 	statusBar()->addPermanentWidget(upLabelText);
-	statusBar()->addPermanentWidget(downLabel);
+	//statusBar()->addPermanentWidget(downLabel);
 	statusBar()->addPermanentWidget(downLabelText);
 	
 }
@@ -86,15 +90,7 @@ void CuteTorrent::setupListView()
 	listView->setModel(model);
 	listView->setSelectionMode(QAbstractItemView::SingleSelection );
 	listView->setContextMenuPolicy(Qt::CustomContextMenu);
-	SetupListViewActions();
-
 }
-void CuteTorrent::SetupListViewActions()
-{
-	
-
-}
-
 void CuteTorrent::setupTabelWidgets()
 {
 	trackerTableWidget->verticalHeader()->hide();
@@ -107,7 +103,7 @@ void CuteTorrent::setupTabelWidgets()
 }
 void CuteTorrent::setupTimer()
 {
-	QTimer *timer = new QTimer(this);
+	timer = new QTimer(this);
 	QObject::connect(timer, SIGNAL(timeout()), this, SLOT(updateVisibleTorrents()));
     timer->start(1000);
 }
@@ -141,6 +137,7 @@ void CuteTorrent::setupConnections()
              this, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
 	QObject::connect(actionExit, SIGNAL(triggered()), qApp, SLOT(quit()));
 	QObject::connect(tabWidget,SIGNAL(currentChanged(int)),this,SLOT(updateTabWidget(int)));
+	QObject::connect(model,SIGNAL(updateTabSender(int)),this,SLOT(updateTabWidget(int)));
 	QObject::connect(model,SIGNAL(TorrentCompletedProxySender(const QString)),
 									this,SLOT(showTorrentCompletedNotyfy(const QString)));
 	QObject::connect(mng,SIGNAL(AddTorrentGui(Torrent*)),model,SLOT(AddTorrent(Torrent*)));
@@ -165,28 +162,31 @@ void CuteTorrent::showTorrentCompletedNotyfy(const QString name)
 }
 void CuteTorrent::updateTabWidget(int tab)
 {
+	if (tab==-1)
+		tab=tabWidget->currentIndex();
 	try
 	{
-	
-	
-	switch(tab)
-	{
-	case 0:
-		UpdateInfoTab();
-		break;
-	case 1:
-		UpdatePeerTab();
-		break;
-	case 2:
-		UpadteTrackerTab();
-		break;
+		switch(tab)
+		{
+		case 0:
+			UpdateInfoTab();
+			break;
+		case 1:
+			UpdatePeerTab();
+			break;
+		case 2:
+			UpadteTrackerTab();
+			break;
 
-	}
+		}
+		upLabelText->setText(QString("%1(%2)").arg(mng->GetSessionUploaded()).arg(mng->GetSessionUploadSpeed()));
+		downLabelText->setText(QString("%1(%2)").arg(mng->GetSessionDownloaded()).arg(mng->GetSessionDownloadSpeed()));
 	}
 	catch (std::exception e)
 	{
 		QMessageBox::warning(this,"Error",QString("CuteTorrent::updateTabWidget()\n")+e.what());
 	}
+	update();
 }
 void CuteTorrent::setupTray()
 {
@@ -357,32 +357,32 @@ void CuteTorrent::updateVisibleTorrents()
 	
 	
 	mng->PostTorrentUpdate();
-	torrent_filter filter=active;
+//	torrent_filter filter=active;
 	
-	std::vector<torrent_status> torrents_to_display=mng->GetTorrents();
-	setUpdatesEnabled( false );
+//	std::vector<torrent_status> torrents_to_display=mng->GetTorrents();
+//	setUpdatesEnabled( false );
 	
 	//model->clear();
-	for (int i=0;i<torrents_to_display.size();i++)
+/*	for (int i=0;i<torrents_to_display.size();i++)
 	{
 		model->updateTorrent(to_hex(torrents_to_display[i].info_hash.to_string()).c_str(),torrents_to_display[i]);
 	}
-	for(int k=0;k<model->rowCount();k++)
+/*	for(int k=0;k<model->rowCount();k++)
 	{
 	
 		model->ChangeData(k);
 		
 		
-	}
+	}*/
 	
 	
-	torrents_to_display.~vector();
+//	torrents_to_display.~vector();
 	updateTabWidget(tabWidget->currentIndex());
-	setUpdatesEnabled( true );
+//	setUpdatesEnabled( true );
 	
 	
-	upLabelText->setText(QString("%1(%2)").arg(mng->GetSessionUploaded()).arg(mng->GetSessionUploadSpeed()));
-	downLabelText->setText(QString("%1(%2)").arg(mng->GetSessionDownloaded()).arg(mng->GetSessionDownloadSpeed()));
+	/*upLabelText->setText(QString("%1(%2)").arg(mng->GetSessionUploaded()).arg(mng->GetSessionUploadSpeed()));
+	downLabelText->setText(QString("%1(%2)").arg(mng->GetSessionDownloaded()).arg(mng->GetSessionDownloadSpeed()));*/
 
 	mng->PostTorrentUpdate();
 	}
@@ -401,6 +401,7 @@ void CuteTorrent::UpdatePeerTab()
 	{
 		std::vector<peer_info>	peerInfos=tor->GetPeerInfo();
 		peerTableWidget->setRowCount(peerInfos.size());
+		peerTableWidget->update();	
 		for(int i=0;i<peerInfos.size();i++)
 		{
 			peerTableWidget->setItem(i,0,new QTableWidgetItem(peerInfos[i].ip.address().to_string().c_str()));
@@ -410,8 +411,9 @@ void CuteTorrent::UpdatePeerTab()
 			peerTableWidget->setItem(i,4,new QTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].up_speed)+"/s"));
 			peerTableWidget->setItem(i,5,new QTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].total_download)));
 			peerTableWidget->setItem(i,6,new QTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].total_upload)));
-			
+			peerTableWidget->update();	
 		}
+		
 		peerInfos.~vector();
 	}
 }
@@ -421,14 +423,16 @@ void CuteTorrent::UpadteTrackerTab()
 	if (tor!=NULL)
 	{
 		std::vector<announce_entry> trackers=tor->GetTrackerInfo();
-		//trackerTableWidget->clear();
 		trackerTableWidget->setRowCount(trackers.size());
+		trackerTableWidget->update();
 		for (int i=0;i<trackers.size();i++)
 		{
 			trackerTableWidget->setItem(i,0,new QTableWidgetItem(trackers[i].url.c_str()));
 			trackerTableWidget->setItem(i,1,new QTableWidgetItem(trackers[i].message.length() >0 ? QString::fromUtf8(trackers[i].message.c_str()) : "Ok" ));
 			trackerTableWidget->setItem(i,2,new QTableWidgetItem(StaticHelpers::toTimeString(trackers[i].next_announce_in())));
+			trackerTableWidget->update();
 		}
+		
 		trackers.~vector();
 	}
 }
@@ -472,7 +476,7 @@ void CuteTorrent::closeEvent(QCloseEvent* ce)
 }
 CuteTorrent::~CuteTorrent()
 {
-	
+
 }
 /*
 void CuteTorrent::dropEvent( QDropEvent *event )
