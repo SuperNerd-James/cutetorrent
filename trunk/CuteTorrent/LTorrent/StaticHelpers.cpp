@@ -1,7 +1,7 @@
 /*
-CuteTorrent BitTorrenttClient with dht support, userfriendly interface
+CuteTorrent BitTorrent Client with dht support, userfriendly interface
 and some additional features which make it more convenient.
-Copyright (C) <year>  <name of author>
+Copyright (C) 2012 Ruslan Fedoseyenko
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -98,29 +98,29 @@ QIcon StaticHelpers::guessMimeIcon(QString suffix)
 void StaticHelpers::dellDir(QString path)
 {
 	QDir torrentDir(path);
-	qDebug() << "removing dir " << path;
+	//qDebug() << "removing dir " << path;
 	//First delete any files in the current directory
 	QFileInfoList files = torrentDir.entryInfoList(QDir::NoDotAndDotDot | QDir::Files);
 	QFileInfoList dirs = torrentDir.entryInfoList(QDir::NoDotAndDotDot | QDir::Dirs);
 	for(int file = 0; file < files.count(); file++)
 	{
-		qDebug() << "removing file " << files.at(file).filePath();
+		//qDebug() << "removing file " << files.at(file).filePath();
 		torrentDir.remove(files.at(file).filePath());
 	}
 
 	
 	
-	qDebug() << "Now recursively delete any child directories";
-	qDebug() << dirs.count();
+	//qDebug() << "Now recursively delete any child directories";
+	//qDebug() << dirs.count();
 	for(int dir = 0; dir < dirs.count(); dir++)
 	{
-		qDebug() << "subdirs not empty now try to remove one";
-		qDebug() << "recursive call remove dir " << dirs.at(dir).absoluteFilePath();
+		//qDebug() << "subdirs not empty now try to remove one";
+		//qDebug() << "recursive call remove dir " << dirs.at(dir).absoluteFilePath();
 		StaticHelpers::dellDir(dirs.at(dir).absoluteFilePath());
 	}
 
 	//Finally, remove empty parent directory
-	qDebug() << "remove empty parent directory " << path;
+	//qDebug() << "remove empty parent directory " << path;
 	QString prevPath = torrentDir.path();
 	torrentDir.cdUp();
 	torrentDir.rmdir(path);

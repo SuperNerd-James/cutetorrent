@@ -27,22 +27,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QUrl>
 #include <QDebug>
 #include <QIcon>
+
 CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
 {
 	setupUi(this);
 	model = new QTorrentDisplayModel(listView);
-	qDebug() << "QMainWindow ascked TorrentManager::getInstance";
+	//qDebug() << "QMainWindow ascked TorrentManager::getInstance";
 	mng = TorrentManager::getInstance();
-	
+	notyfire = new UpdateNotifier();
 	mayShowNotifies = false;
 	//setAcceptDrops(true);
 	setupStatusBar();
 	setupTray();
 	setupToolBar();
-	// TO-DO: reimplement to torrent changed signal
-	//setupTimer();
-
 	setupListView();
 	setupTabelWidgets();
 	
@@ -60,7 +58,26 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	
 	QTimer::singleShot(5000,this,SLOT(enableNitifyShow()));
 	
-	
+	QTimer::singleShot(10000,this,SLOT(checkForUpdates()));
+}
+void CuteTorrent::checkForUpdates()
+{
+		notyfire->fetch();
+
+}
+void CuteTorrent::ShowAbout()
+{
+	QMessageBox::about(this,QString::fromLocal8Bit(tr(QString::fromLocal8Bit("О CuteTorrent").toAscii().data()
+		).toAscii().data()),QString::fromLocal8Bit(tr((QString::fromLocal8Bit("CuteTorrent ")+CT_VERSION+"\nCuteTorrent - бесплатный BitTorrent клиент с поддержкой DHT,  фильрации торрентов, монтирования образов Daemon Tools\n\nЕсли вы заплатили за это програмное обспечение потребуйте возврата денег!").toAscii().data()
+		).toAscii().data()));
+}
+void CuteTorrent::ShowUpdateNitify(const QString& newVersion)
+{
+	QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information;
+	trayIcon->showMessage("CuteTorrent", QString::fromLocal8Bit(tr(("Вышла новая версия CuteTorrent "+
+		newVersion).toAscii().data()
+		).toAscii().data()), icon,
+		5* 1000);
 }
 void CuteTorrent::setupStatusBar()
 {
@@ -100,12 +117,6 @@ void CuteTorrent::setupTabelWidgets()
 	peerTableWidget->setSortingEnabled(true);
 
 }
-void CuteTorrent::setupTimer()
-{
-	timer = new QTimer(this);
-	QObject::connect(timer, SIGNAL(timeout()), this, SLOT(updateVisibleTorrents()));
-    timer->start(1000);
-}
 void CuteTorrent::setupToolBar()
 {
 	QWidget* spacer=new QWidget(this);
@@ -140,6 +151,7 @@ void CuteTorrent::setupConnections()
 	QObject::connect(model,SIGNAL(TorrentCompletedProxySender(const QString)),
 									this,SLOT(showTorrentCompletedNotyfy(const QString)));
 	QObject::connect(mng,SIGNAL(AddTorrentGui(Torrent*)),model,SLOT(AddTorrent(Torrent*)));
+	QObject::connect(notyfire,SIGNAL(showUpdateNitify(const QString &)),this,SLOT(ShowUpdateNitify(const QString &)));
 }
 void CuteTorrent::ShowTorrentError(const QString& name)
 {
@@ -159,6 +171,7 @@ void CuteTorrent::showTorrentCompletedNotyfy(const QString name)
 																		   ).toAscii().data()), icon,
                            5* 1000);
 }
+
 void CuteTorrent::updateTabWidget(int tab)
 {
 	if (tab==-1)
@@ -465,13 +478,14 @@ void CuteTorrent::OpenSettingsDialog()
 void CuteTorrent::closeEvent(QCloseEvent* ce)
 {
 	QMainWindow::closeEvent(ce);
-	qDebug() << "QMainWindow::~QMainWindow()";
+	//qDebug() << "QMainWindow::~QMainWindow()";
 	trayIcon->hide();
-	qDebug() << "TorrentManager::freeInstance()";
+	//qDebug() << "TorrentManager::freeInstance()";
 	mng->freeInstance();
-	qDebug() << "QTorrentDisplayModel::~QTorrentDisplayModel()";
+	//qDebug() << "QTorrentDisplayModel::~QTorrentDisplayModel()";
 	model->~QTorrentDisplayModel();
 	QApplicationSettings::FreeInstance();
+	delete notyfire;
 }
 CuteTorrent::~CuteTorrent()
 {

@@ -1,7 +1,7 @@
 /*
-CuteTorrent BitTorrenttClient with dht support, userfriendly interface
+CuteTorrent BitTorrent Client with dht support, userfriendly interface
 and some additional features which make it more convenient.
-Copyright (C) <year>  <name of author>
+Copyright (C) 2012 Ruslan Fedoseyenko
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 QTorrentDisplayModel::QTorrentDisplayModel(QListView* _parrent)
 {
 	parrent=_parrent;
-	qDebug() << "QTorrentDisplayModel asking TorrentManager Instance";
+	//qDebug() << "QTorrentDisplayModel asking TorrentManager Instance";
 	mgr = TorrentManager::getInstance();
 	auto_id=0;
 	selectedRow=-1;
@@ -107,12 +107,12 @@ void QTorrentDisplayModel::MountDT()
 				if (!tor->isPaused())
 							tor->pause();
 				QStringList* images = tor->GetImageFiles();
-				qDebug() << "receved imageFiles first item : " << images->at(0);
+				//qDebug() << "receved imageFiles first item : " << images->at(0);
 				if (images->count() > 1)
 				{
-					qDebug() << "images.count>1";
+					//qDebug() << "images.count>1";
 					MultipleDTDialog *dlg = new MultipleDTDialog(images);
-					qDebug() << "MultipleDTDialog created now will be executed";
+					//qDebug() << "MultipleDTDialog created now will be executed";
 					dlg->exec();
 
 					delete dlg;
@@ -120,7 +120,7 @@ void QTorrentDisplayModel::MountDT()
 				}
 				else
 				{
-					qDebug() << "going to else brunch"	;
+					//qDebug() << "going to else brunch"	;
 					QApplicationSettings* settings=QApplicationSettings::getInstance();
 					QString exe = settings->valueString("DT","Executable");
 					if (exe.isEmpty())
@@ -136,7 +136,7 @@ void QTorrentDisplayModel::MountDT()
 					QStringList args;
 					/*args << "-mount";
 					args << command.arg(QString::number(driveNum)).arg(images.first());*/
-					qDebug() << exe << command.arg(QString::number(driveNum)).arg(images->first());
+					//qDebug() << exe << command.arg(QString::number(driveNum)).arg(images->first());
 					dt->setNativeArguments(command.arg(QString::number(driveNum)).arg(images->first()));
 					dt->start(exe,args);
 					QApplicationSettings::FreeInstance();

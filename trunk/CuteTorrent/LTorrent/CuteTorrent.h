@@ -1,5 +1,5 @@
 /*
-CuteTorrent BitTorrenttClient with dht support, userfriendly interface
+CuteTorrent BitTorrent Client with dht support, userfriendly interface
 and some additional features which make it more convenient.
 Copyright (C) <year>  <name of author>
 
@@ -36,6 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QEvent>
 #include <QCloseEvent>
 #include "QTorrentListView.h"
+#include "UpdateNotyfier.h"
 class CuteTorrent : public QMainWindow , private Ui::CuteTorrentClass
 {
 	Q_OBJECT
@@ -52,6 +53,7 @@ protected:
 	/*void dragEnterEvent(QDragEnterEvent *event);
 	void dropEvent(QDropEvent *event);*/
 private:
+	UpdateNotifier* notyfire;
 	bool mayShowNotifies;
 	QSystemTrayIcon *trayIcon;
 	QMenu *trayIconMenu;
@@ -70,7 +72,6 @@ private:
 	void showMessage();
 	void setupTray();
 	void setupToolBar();
-	void setupTimer();
 	void setupConnections();
 	void setupListView();
 	void setupTabelWidgets();
@@ -79,6 +80,9 @@ private:
 public slots:
 	void HandleNewTorrent(const QString &);
 private slots:
+	void ShowAbout();
+	void checkForUpdates();
+	void ShowUpdateNitify(const QString&);
 	void retranslate();
 	void ShowTorrentError(const QString&);
 	void enableNitifyShow();

@@ -16,36 +16,25 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef APPLICATION_H
-
-#include <QApplication>
-#include <QHash>
-#include <QStringList>
-#include "qtsingleapplication.h"
-class QDir;
-class QTranslator;
-
-typedef QHash<QString, QTranslator*> Translators;
-
-class Application : public QtSingleApplication
+#ifndef _UPDATENITYFIER_H
+#define _UPDATENITYFIER_H
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+class UpdateNotifier : public QObject
 {
 	Q_OBJECT
 
 public:
-	explicit Application(int& argc, char* argv[]);
-	~Application();
+	UpdateNotifier();
+	~UpdateNotifier();
+	void fetch(); 
+signals:
+	void showUpdateNitify(const QString&);
+	public slots:
 
-	static void loadTranslations(const QString& dir);
-	static void loadTranslations(const QDir& dir);
-	static const QStringList availableLanguages();
+		void replyFinished(QNetworkReply*);
 
-public slots:
-	static void setLanguage(const QString& locale);
-	static QString currentLocale();
 private:
-	static QString current_locale;
-	static QTranslator* current;
-	static Translators translators;
+	QNetworkAccessManager* m_manager;
 };
-
-#endif // APPLICATION_H
+#endif

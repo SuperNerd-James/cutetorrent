@@ -1,7 +1,7 @@
 /*
-CuteTorrent BitTorrenttClient with dht support, userfriendly interface
+CuteTorrent BitTorrent Client with dht support, userfriendly interface
 and some additional features which make it more convenient.
-Copyright (C) <year>  <name of author>
+Copyright (C) 2012 Ruslan Fedoseyenko
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

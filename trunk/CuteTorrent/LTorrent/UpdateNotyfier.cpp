@@ -16,36 +16,35 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef APPLICATION_H
-
-#include <QApplication>
-#include <QHash>
-#include <QStringList>
-#include "qtsingleapplication.h"
-class QDir;
-class QTranslator;
-
-typedef QHash<QString, QTranslator*> Translators;
-
-class Application : public QtSingleApplication
+#include "UpdateNotyfier.h"
+#include <QDebug>
+#include "versionInfo.h"
+#include <QUrl>
+UpdateNotifier::UpdateNotifier()
 {
-	Q_OBJECT
+	m_manager = new QNetworkAccessManager(this);
 
-public:
-	explicit Application(int& argc, char* argv[]);
-	~Application();
+	connect(m_manager, SIGNAL(finished(QNetworkReply*)),
+		this, SLOT(replyFinished(QNetworkReply*)));
 
-	static void loadTranslations(const QString& dir);
-	static void loadTranslations(const QDir& dir);
-	static const QStringList availableLanguages();
+}
 
-public slots:
-	static void setLanguage(const QString& locale);
-	static QString currentLocale();
-private:
-	static QString current_locale;
-	static QTranslator* current;
-	static Translators translators;
-};
+void UpdateNotifier::fetch()
+{
+	m_manager->get(QNetworkRequest(QUrl("http://cutetorrent.googlecode.com/svn/trunk/CuteTorrent/LTorrent/version.txt")));
+}
 
-#endif // APPLICATION_H
+void UpdateNotifier::replyFinished(QNetworkReply* pReply)
+{
+
+	QByteArray data=pReply->readAll();
+	QString str(data);
+	////qDebug() << str;
+	if (str.compare(CT_VERSION)!=0)
+		emit showUpdateNitify(str);
+}
+
+UpdateNotifier::~UpdateNotifier()
+{
+	delete m_manager;
+}
