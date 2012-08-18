@@ -205,32 +205,42 @@ Are you shure you want to continue?</translation>
 <context>
     <name>CuteTorrent</name>
     <message>
-        <location filename="CuteTorrent.cpp" line="219"/>
+        <location filename="CuteTorrent.cpp" line="160"/>
+        <source>CuteTorrent %1 - ïîñëåäíÿÿ äîñòóïíàÿ âåðñèÿ</source>
+        <translation>CuteTorrent %1 - Last Avaliable version</translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.cpp" line="169"/>
+        <source>Ïðè çàãðóçêå òîððåíòà %1 ïðîèçîøëà îøèáêà</source>
+        <translation>Error occured during downloading of torrent %1</translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.cpp" line="227"/>
         <source>CuteTorrent ïðîäîëæàåò ðàáîòàòü.×òî áû âûéòè âûáåðåòå ïóíêò Âûõîä èç êîíòåêñòíîãî ìåíþ.</source>
         <translation>CuteTorrent continue working. To exit contex menu of system tray.</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="282"/>
+        <location filename="CuteTorrent.cpp" line="290"/>
         <source>Ñâåðíóòü</source>
         <translation>Hide</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="285"/>
+        <location filename="CuteTorrent.cpp" line="293"/>
         <source>Ðàçâåðíóòü íà âåñü ýêðàí</source>
         <translation>Shiw Maximized</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="288"/>
+        <location filename="CuteTorrent.cpp" line="296"/>
         <source>Ðàçâåðíóòü</source>
         <translation>Show</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="291"/>
+        <location filename="CuteTorrent.cpp" line="299"/>
         <source>Âûõîä</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="316"/>
+        <location filename="CuteTorrent.cpp" line="324"/>
         <source>Îòêðûòü òîððåíò</source>
         <translation>Chose Torrent file</translation>
     </message>
@@ -540,6 +550,24 @@ Are you shure you want to continue?</translation>
         <location filename="QTorrentDisplayModel.cpp" line="45"/>
         <source>Îáíîâèòü õåø</source>
         <translation>Update Hash</translation>
+    </message>
+</context>
+<context>
+    <name>QTorrentItemDelegat</name>
+    <message>
+        <location filename="QTorrentItemDelegat.cpp" line="164"/>
+        <source>%1 ????????? %2 ?? %3</source>
+        <translation>%1 Downloaded %2 from %3</translation>
+    </message>
+    <message>
+        <location filename="QTorrentItemDelegat.cpp" line="168"/>
+        <source>%1 - %3 ???????? %2</source>
+        <translation>%1 -%3 Uploaded %2</translation>
+    </message>
+    <message>
+        <location filename="QTorrentItemDelegat.cpp" line="184"/>
+        <source>?????????????</source>
+        <translation>Paused</translation>
     </message>
 </context>
 <context>
@@ -875,28 +903,36 @@ Are you shure you want to continue?</translation>
 <context>
     <name>Torrent</name>
     <message>
+        <location filename="Torrent.cpp" line="193"/>
         <source>???????? ?????? (q)</source>
-        <translation type="obsolete">Checking files (q)</translation>
+        <translation>Checking files (q)</translation>
     </message>
     <message>
+        <location filename="Torrent.cpp" line="194"/>
         <source>???????? ??????</source>
-        <translation type="obsolete">Cheacking files</translation>
+        <translation>Cheacking files</translation>
     </message>
     <message>
+        <location filename="Torrent.cpp" line="195"/>
+        <location filename="Torrent.cpp" line="196"/>
         <source>????????</source>
-        <translation type="obsolete">Downloading</translation>
+        <translation>Downloading</translation>
     </message>
     <message>
+        <location filename="Torrent.cpp" line="197"/>
+        <location filename="Torrent.cpp" line="199"/>
         <source>??????????</source>
-        <translation type="obsolete">Completed</translation>
+        <translation>Completed</translation>
     </message>
     <message>
+        <location filename="Torrent.cpp" line="198"/>
         <source>???????</source>
-        <translation type="obsolete">Seeding</translation>
+        <translation>Seeding</translation>
     </message>
     <message>
+        <location filename="Torrent.cpp" line="200"/>
         <source>???????? ?????? (r)</source>
-        <translation type="obsolete">Checking files (r)</translation>
+        <translation>Checking files (r)</translation>
     </message>
 </context>
 </TS>

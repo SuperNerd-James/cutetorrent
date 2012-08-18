@@ -30,6 +30,7 @@ public:
 	void fetch(); 
 signals:
 	void showUpdateNitify(const QString&);
+	void showNoUpdateNitify(const QString&);
 	public slots:
 
 		void replyFinished(QNetworkReply*);

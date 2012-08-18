@@ -42,6 +42,8 @@ void UpdateNotifier::replyFinished(QNetworkReply* pReply)
 	////qDebug() << str;
 	if (str.compare(CT_VERSION)!=0)
 		emit showUpdateNitify(str);
+	else
+		emit showNoUpdateNitify(str);
 }
 
 UpdateNotifier::~UpdateNotifier()

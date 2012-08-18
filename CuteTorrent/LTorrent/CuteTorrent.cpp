@@ -152,13 +152,21 @@ void CuteTorrent::setupConnections()
 									this,SLOT(showTorrentCompletedNotyfy(const QString)));
 	QObject::connect(mng,SIGNAL(AddTorrentGui(Torrent*)),model,SLOT(AddTorrent(Torrent*)));
 	QObject::connect(notyfire,SIGNAL(showUpdateNitify(const QString &)),this,SLOT(ShowUpdateNitify(const QString &)));
+	QObject::connect(notyfire,SIGNAL(showNoUpdateNitify(const QString &)),this,SLOT(ShowNoUpdateNitify(const QString &)));
+}
+void CuteTorrent::ShowNoUpdateNitify(const QString & ver)
+{
+	QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information;
+	trayIcon->showMessage("CuteTorrent", QString::fromLocal8Bit(tr("CuteTorrent %1 - последняя доступная версия"
+		).arg(ver).toAscii().data()), icon,
+		5* 1000);
 }
 void CuteTorrent::ShowTorrentError(const QString& name)
 {
 	if (!mayShowNotifies)
 		return;
 	QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Critical;
-	trayIcon->showMessage("CuteTorrent", QString::fromUtf8(tr(("При загрузке торрента %1 произошла ошибка")).arg(name).toUtf8().data()), icon,
+	trayIcon->showMessage("CuteTorrent", QString::fromLocal8Bit(tr("При загрузке торрента %1 произошла ошибка").arg(name).toAscii().data()), icon,
 		5* 1000);
 }
 void CuteTorrent::showTorrentCompletedNotyfy(const QString name)

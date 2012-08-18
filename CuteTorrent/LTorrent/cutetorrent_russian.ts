@@ -203,32 +203,42 @@
 <context>
     <name>CuteTorrent</name>
     <message>
-        <location filename="CuteTorrent.cpp" line="219"/>
+        <location filename="CuteTorrent.cpp" line="160"/>
+        <source>CuteTorrent %1 - ïîñëåäíÿÿ äîñòóïíàÿ âåðñèÿ</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.cpp" line="169"/>
+        <source>Ïðè çàãðóçêå òîððåíòà %1 ïðîèçîøëà îøèáêà</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.cpp" line="227"/>
         <source>CuteTorrent ïðîäîëæàåò ðàáîòàòü.×òî áû âûéòè âûáåðåòå ïóíêò Âûõîä èç êîíòåêñòíîãî ìåíþ.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="282"/>
+        <location filename="CuteTorrent.cpp" line="290"/>
         <source>Ñâåðíóòü</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="285"/>
+        <location filename="CuteTorrent.cpp" line="293"/>
         <source>Ðàçâåðíóòü íà âåñü ýêðàí</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="288"/>
+        <location filename="CuteTorrent.cpp" line="296"/>
         <source>Ðàçâåðíóòü</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="291"/>
+        <location filename="CuteTorrent.cpp" line="299"/>
         <source>Âûõîä</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="316"/>
+        <location filename="CuteTorrent.cpp" line="324"/>
         <source>Îòêðûòü òîððåíò</source>
         <translation></translation>
     </message>
@@ -867,6 +877,41 @@
     <message>
         <location filename="SettingsDialog.cpp" line="312"/>
         <source>Óêàçàòü ïàïêó ñ DaemonTools</source>
+        <translation></translation>
+    </message>
+</context>
+<context>
+    <name>Torrent</name>
+    <message>
+        <location filename="Torrent.cpp" line="193"/>
+        <source>???????? ?????? (q)</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="Torrent.cpp" line="194"/>
+        <source>???????? ??????</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="Torrent.cpp" line="195"/>
+        <location filename="Torrent.cpp" line="196"/>
+        <source>????????</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="Torrent.cpp" line="197"/>
+        <location filename="Torrent.cpp" line="199"/>
+        <source>??????????</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="Torrent.cpp" line="198"/>
+        <source>???????</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="Torrent.cpp" line="200"/>
+        <source>???????? ?????? (r)</source>
         <translation></translation>
     </message>
 </context>
