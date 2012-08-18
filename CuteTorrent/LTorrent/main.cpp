@@ -1,7 +1,7 @@
 /*
-CuteTorrent BitTorrenttClient with dht support, userfriendly interface
+CuteTorrent BitTorrent Client with dht support, userfriendly interface
 and some additional features which make it more convenient.
-Copyright (C) <year>  <name of author>
+Copyright (C) 2012 Ruslan Fedoseyenko
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#define DEBUG
+//#define DEBUG
 #include "CuteTorrent.h"
 #include <QDir>
 #include <qtsingleapplication.h>
@@ -64,8 +64,8 @@ int main(int argc, char *argv[])
 	a.loadTranslations(":/translations");
 	a.addLibraryPath(QCoreApplication::applicationDirPath ()+"/plugins");
 	
-	qDebug() << "=======================================================================================";
-	qDebug() << "==Application started:" << QDateTime::currentDateTime();
+	//qDebug() << "=======================================================================================";
+	//qDebug() << "==Application started:" << QDateTime::currentDateTime();
 	CuteTorrent w;
 	QFile File(":/icons/BaseStyle.qss");
 	File.open(QFile::ReadOnly);
@@ -80,8 +80,8 @@ int main(int argc, char *argv[])
 		w.HandleNewTorrent(argv[1]);
 	}
 	int res=a.exec();
-	qDebug() << "==Application exited:" << QDateTime::currentDateTime();
-	qDebug() << "=======================================================================================";
+	//qDebug() << "==Application exited:" << QDateTime::currentDateTime();
+	//qDebug() << "=======================================================================================";
 #ifdef DEBUG
 	fclose(fp);
 #endif // DEBUG

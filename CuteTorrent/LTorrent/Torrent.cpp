@@ -43,17 +43,9 @@ bool Torrent::hasError() const
 }
 std::vector<peer_info> Torrent::GetPeerInfo()
 {
-
-
 	std::vector<peer_info> pInfo;
-
-	//	if (!isSeeding())
-	{
-		//		MessageBoxA(0,"cur_torrent.handle.get_peer_info(pInfo);","cur_torrent.handle.get_peer_info(pInfo);",0);
-		if (cur_torrent.is_valid())
-			cur_torrent.get_peer_info(pInfo);
-		//		MessageBoxA(0,"cur_torrent.handle.get_peer_info(pInfo);1","cur_torrent.handle.get_peer_info(pInfo);1",0);
-	}
+	if (cur_torrent.is_valid())
+		cur_torrent.get_peer_info(pInfo);
 	return pInfo;
 }
 std::vector<announce_entry> Torrent::GetTrackerInfo()
@@ -109,7 +101,7 @@ QString Torrent::GetSuffix()
 }
 QStringList* Torrent::GetImageFiles()
 {
-	qDebug() << "giving imageFiles firsy item:" << imageFiles->at(0);
+	//qDebug() << "giving imageFiles firsy item:" << imageFiles->at(0);
 	return imageFiles;
 }
 Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
@@ -135,7 +127,7 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
 			*imageFiles << QString::fromUtf8(cur_torrent.save_path().c_str())+QString::fromUtf8(storrgae.file_path(*i).c_str());
 		}
 	}
-	qDebug()<< "found " << imageFiles->count() << " imagefiles for torrent " << QString(torrentStatus.name().c_str());
+	//qDebug()<< "found " << imageFiles->count() << " imagefiles for torrent " << QString(torrentStatus.name().c_str());
 	for(libtorrent::file_storage::iterator i=bg;i!=end;i++)
 	{
 		QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));
@@ -197,7 +189,15 @@ QString Torrent::GetProgresString() const
 QString Torrent::GetStatusString() const
 {
 	QStringList state_str;
-	state_str << QString::fromLocal8Bit("Проверка файлов (q)") << QString::fromLocal8Bit("Проверка файлов") << QString::fromLocal8Bit("Загрузка") << QString::fromLocal8Bit("Загрузка") << QString::fromLocal8Bit("Законченно") << QString::fromLocal8Bit("Раздача") << QString::fromLocal8Bit("Подготовка") << QString::fromLocal8Bit("Проверка файлов (r)");
+	
+	state_str << QString::fromLocal8Bit("Проверка файлов (q)") 
+			  << QString::fromLocal8Bit("Проверка файлов") 
+			  << QString::fromLocal8Bit("Загрузка") 
+			  << QString::fromLocal8Bit("Загрузка") 
+			  << QString::fromLocal8Bit("Законченно") 
+			  << QString::fromLocal8Bit("Раздача")
+			  << QString::fromLocal8Bit("Подготовка") 
+			  << QString::fromLocal8Bit("Проверка файлов (r)");
 
 	return state_str.at(cur_torrent.status().state);
 

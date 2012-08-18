@@ -1,7 +1,7 @@
 /*
-CuteTorrent BitTorrenttClient with dht support, userfriendly interface
+CuteTorrent BitTorrent Client with dht support, userfriendly interface
 and some additional features which make it more convenient.
-Copyright (C) <year>  <name of author>
+Copyright (C) 2012 Ruslan Fedoseyenko
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -79,7 +79,7 @@ TorrentManager::TorrentManager()
 		ses->start_dht();
 
 	ses->set_settings(s_settings);
-	qDebug() << "TorrentManager: intialisation completed";
+	////qDebug() << "TorrentManager: intialisation completed";
 	
 	}
 	catch(std::exception ex)
@@ -96,7 +96,7 @@ void TorrentManager::initSession()
 	QStringList filter;
 	
 	filter <<"*.torrent";
-	qDebug() << "TorrentManager::initSession: getting torrentfiles we added";
+	////qDebug() << "TorrentManager::initSession: getting torrentfiles we added";
 	QStringList torrentFiles=dir.entryList(filter);
 	QFile path_infohashFile("CT_DATA/path.resume");
 	if (path_infohashFile.open(QFile::ReadOnly))
@@ -121,7 +121,7 @@ void TorrentManager::initSession()
 		return;	
 			
 	}
-	qDebug() << "TorrentManager::initSession: found " <<torrentFiles.count();
+	////qDebug() << "TorrentManager::initSession: found " <<torrentFiles.count();
 	error_code ec;
 	for (QStringList::iterator i=torrentFiles.begin();i!=torrentFiles.end();i++)
 	{
@@ -195,7 +195,7 @@ bool TorrentManager::AddTorrent(QString path, QString save_path,QMap<QString,int
 					filepriorities->push_back(filePriorities[storrage.file_path(*i).c_str()]);
 				else
 				{
-					qDebug() << "not found " << storrage.file_path(*i).c_str();
+					////qDebug() << "not found " << storrage.file_path(*i).c_str();
 					filepriorities->push_back(7);
 				}
 			}
@@ -368,7 +368,7 @@ void TorrentManager::writeSettings()
 }
 void TorrentManager::onClose()
 {
-	qDebug() << "start saving session";
+	////qDebug() << "start saving session";
 	writeSettings();
 	int num_outstanding_resume_data = 0;
 	std::vector<torrent_status> temp;
@@ -399,7 +399,7 @@ void TorrentManager::onClose()
 		++num_outstanding_resume_data;
 		printf("\r%d  ", num_outstanding_resume_data);
 	}
-	qDebug("waiting for resume data %1\n", num_outstanding_resume_data);
+	////qDebug("waiting for resume data %1\n", num_outstanding_resume_data);
 
 	while (num_outstanding_resume_data > 0)
 	{
@@ -443,7 +443,7 @@ void TorrentManager::onClose()
 			save_file( combine_path("CT_DATA", to_hex(h.info_hash().to_string()) + ".resume"), out);
 		}
 	}
-	qDebug() << "saving session state" ;
+	////qDebug() << "saving session state" ;
 	
 	{
 		entry session_state;
@@ -483,7 +483,7 @@ int TorrentManager::save_file(std::string const& filename, std::vector<char>& v)
 TorrentManager::~TorrentManager()
 {
 	
-	qDebug() << "TorrentManager: object distruction";
+	////qDebug() << "TorrentManager: object distruction";
 	
 	onClose();
 	QApplicationSettings::FreeInstance();
@@ -496,14 +496,14 @@ TorrentManager* TorrentManager::getInstance()
 	if (_instance==NULL)
 		_instance = new TorrentManager();
 	
-	qDebug() << "TorrentManager: someone ascked an instance";
-	qDebug() << "TorrentManager: this is " << _instanceCount << " instance";
+	////qDebug() << "TorrentManager: someone ascked an instance";
+	////qDebug() << "TorrentManager: this is " << _instanceCount << " instance";
 	_instanceCount++;
 	return _instance;
 }
 void TorrentManager::freeInstance()
 {
-	qDebug() << "TorrentManager: free " << _instanceCount << " instance";
+	////qDebug() << "TorrentManager: free " << _instanceCount << " instance";
 	_instanceCount--;
 	if (!_instanceCount)
 	{
@@ -583,12 +583,12 @@ void TorrentManager::RemoveTorrent(torrent_handle h,bool delFiles)
 		QFileInfo info(path);
 		if (info.isDir())
 		{
-			qDebug() << path << "is dir";
+			////qDebug() << path << "is dir";
 			StaticHelpers::dellDir(path);
 		}
 		else
 		{
-			qDebug() << path << "is file";
+			////qDebug() << path << "is file";
 			QFile::remove(path);
 		}
 	}*/

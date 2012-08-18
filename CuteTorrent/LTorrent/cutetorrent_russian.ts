@@ -203,32 +203,32 @@
 <context>
     <name>CuteTorrent</name>
     <message>
-        <location filename="CuteTorrent.cpp" line="196"/>
+        <location filename="CuteTorrent.cpp" line="219"/>
         <source>CuteTorrent ïðîäîëæàåò ðàáîòàòü.×òî áû âûéòè âûáåðåòå ïóíêò Âûõîä èç êîíòåêñòíîãî ìåíþ.</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="259"/>
+        <location filename="CuteTorrent.cpp" line="282"/>
         <source>Ñâåðíóòü</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="262"/>
+        <location filename="CuteTorrent.cpp" line="285"/>
         <source>Ðàçâåðíóòü íà âåñü ýêðàí</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="265"/>
+        <location filename="CuteTorrent.cpp" line="288"/>
         <source>Ðàçâåðíóòü</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="268"/>
+        <location filename="CuteTorrent.cpp" line="291"/>
         <source>Âûõîä</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="293"/>
+        <location filename="CuteTorrent.cpp" line="316"/>
         <source>Îòêðûòü òîððåíò</source>
         <translation></translation>
     </message>
@@ -364,56 +364,66 @@
     </message>
     <message utf8="true">
         <location filename="CuteTorrent.ui" line="371"/>
+        <source>Справка</source>
+        <translation>Справка</translation>
+    </message>
+    <message utf8="true">
+        <location filename="CuteTorrent.ui" line="453"/>
         <source>О CuteTorrent</source>
         <translation></translation>
     </message>
+    <message utf8="true">
+        <location filename="CuteTorrent.ui" line="458"/>
+        <source>Проверить обновления</source>
+        <translation>Проверить обновления</translation>
+    </message>
     <message>
-        <location filename="CuteTorrent.ui" line="381"/>
+        <location filename="CuteTorrent.ui" line="383"/>
         <source>toolBar</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="CuteTorrent.ui" line="396"/>
+        <location filename="CuteTorrent.ui" line="398"/>
         <source>Открыть торрент</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="CuteTorrent.ui" line="401"/>
+        <location filename="CuteTorrent.ui" line="403"/>
         <source>Открыть magnet ссылку</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="CuteTorrent.ui" line="406"/>
+        <location filename="CuteTorrent.ui" line="408"/>
         <source>Создать торрент</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="CuteTorrent.ui" line="411"/>
+        <location filename="CuteTorrent.ui" line="413"/>
         <source>Выход</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="CuteTorrent.ui" line="416"/>
+        <location filename="CuteTorrent.ui" line="418"/>
         <source>Конфигурация</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="CuteTorrent.ui" line="425"/>
+        <location filename="CuteTorrent.ui" line="427"/>
         <source>Приостановить</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="CuteTorrent.ui" line="434"/>
+        <location filename="CuteTorrent.ui" line="436"/>
         <source>Возобновить</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="443"/>
+        <location filename="CuteTorrent.ui" line="445"/>
         <source>remove</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="CuteTorrent.ui" line="446"/>
+        <location filename="CuteTorrent.ui" line="448"/>
         <source>Удалить торрент</source>
         <translation></translation>
     </message>
@@ -439,17 +449,17 @@
 <context>
     <name>LTorrentClass</name>
     <message>
-        <location filename="CuteTorrent.cpp" line="122"/>
+        <location filename="CuteTorrent.cpp" line="130"/>
         <source>rutracker.org</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="123"/>
+        <location filename="CuteTorrent.cpp" line="131"/>
         <source>thepiratebay.se</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="124"/>
+        <location filename="CuteTorrent.cpp" line="132"/>
         <source>rutor.org</source>
         <translation></translation>
     </message>
@@ -478,7 +488,6 @@
     </message>
     <message utf8="true">
         <location filename="OpenTorrentDialog.ui" line="52"/>
-        <location filename="OpenTorrentDialog.ui" line="163"/>
         <source>Имя</source>
         <translation></translation>
     </message>
@@ -489,22 +498,21 @@
     </message>
     <message utf8="true">
         <location filename="OpenTorrentDialog.ui" line="132"/>
-        <location filename="OpenTorrentDialog.ui" line="168"/>
         <source>Размер</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="OpenTorrentDialog.ui" line="192"/>
+        <location filename="OpenTorrentDialog.ui" line="178"/>
         <source>Отмена</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="OpenTorrentDialog.ui" line="199"/>
+        <location filename="OpenTorrentDialog.ui" line="185"/>
         <source>Add</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="OpenTorrentDialog.cpp" line="86"/>
+        <location filename="OpenTorrentDialog.cpp" line="101"/>
         <source>Open Directory</source>
         <translation></translation>
     </message>
@@ -860,41 +868,6 @@
         <location filename="SettingsDialog.cpp" line="312"/>
         <source>Óêàçàòü ïàïêó ñ DaemonTools</source>
         <translation></translation>
-    </message>
-</context>
-<context>
-    <name>Torrent</name>
-    <message>
-        <location filename="Torrent.cpp" line="196"/>
-        <source>???????? ?????? (q)</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Torrent.cpp" line="197"/>
-        <source>???????? ??????</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Torrent.cpp" line="198"/>
-        <location filename="Torrent.cpp" line="199"/>
-        <source>????????</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Torrent.cpp" line="200"/>
-        <location filename="Torrent.cpp" line="202"/>
-        <source>??????????</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Torrent.cpp" line="201"/>
-        <source>???????</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="Torrent.cpp" line="203"/>
-        <source>???????? ?????? (r)</source>
-        <translation type="unfinished"></translation>
     </message>
 </context>
 </TS>

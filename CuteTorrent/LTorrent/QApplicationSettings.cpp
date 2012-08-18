@@ -1,7 +1,7 @@
 /*
-CuteTorrent BitTorrenttClient with dht support, userfriendly interface
+CuteTorrent BitTorrent Client with dht support, userfriendly interface
 and some additional features which make it more convenient.
-Copyright (C) <year>  <name of author>
+Copyright (C) 2012 Ruslan Fedoseyenko
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ QApplicationSettings::QApplicationSettings()
 }
 QApplicationSettings::~QApplicationSettings()
 {
-	qDebug() << "QApplicationSettings: object destruction";
+	//qDebug() << "QApplicationSettings: object destruction";
 	WriteSettings();
 
 }
@@ -49,7 +49,7 @@ QApplicationSettings* QApplicationSettings::getInstance()
 	
 	if (_instance==NULL)
 		_instance = new QApplicationSettings();
-	qDebug() << "QApplicationSettings giving " <<_instanceCount<< " instance " ;
+	//qDebug() << "QApplicationSettings giving " <<_instanceCount<< " instance " ;
 	_instanceCount++;
 	return _instance;
 }
@@ -57,7 +57,7 @@ void QApplicationSettings::FreeInstance()
 {
 	
 	_instanceCount--;
-	qDebug() << "QApplicationSettings freeing " <<_instanceCount<< " instance " ;
+	//qDebug() << "QApplicationSettings freeing " <<_instanceCount<< " instance " ;
 	if (!_instanceCount)
 	{
 		_instance->~QApplicationSettings();
@@ -77,7 +77,7 @@ void QApplicationSettings::setValue(const QString group,const QString key,const 
 {
 	locker->lock();
 	settingsStorrage[group][key]=value;
-	qDebug() << "QApplicationSettings::setValue " << group << " " << key << " " << value;
+	//qDebug() << "QApplicationSettings::setValue " << group << " " << key << " " << value;
 	locker->unlock();
 }
 
@@ -184,7 +184,7 @@ void  QApplicationSettings::WriteSettings()
 		QMap<QString,QVariant>::const_iterator j=i.value().constBegin();
 		while (j != i.value().constEnd())
 		{
-			qDebug() << QString("[%1] %2 %3" ).arg(i.key()).arg(j.key()).arg(j.value().toString());
+			//qDebug() << QString("[%1] %2 %3" ).arg(i.key()).arg(j.key()).arg(j.value().toString());
 			settings->setValue(j.key(),j.value());
 			++j;
 		}

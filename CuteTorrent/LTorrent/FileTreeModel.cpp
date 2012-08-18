@@ -1,3 +1,21 @@
+/*
+CuteTorrent BitTorrent Client with dht support, userfriendly interface
+and some additional features which make it more convenient.
+Copyright (C) 2012 Ruslan Fedoseyenko
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 #include "FileTreeModel.h"
 #include <QDebug>
 #include <QDir>
@@ -34,7 +52,7 @@ void FileTreeModel::GetFilePrioritiesInternal(FileTreeItem* current,QMap<QString
 		int prioryty=0;
 		if (curChild->Checked()==Qt::Checked)
 			prioryty=7;
-		qDebug() << "adding priorty for " << curChild->getPath() << " with value " << prioryty;
+		//qDebug() << "adding priorty for " << curChild->getPath() << " with value " << prioryty;
 		priorities->insert(curChild->getPath(),prioryty);
 		GetFilePrioritiesInternal(curChild,priorities);
 	}
@@ -170,7 +188,7 @@ QVariant FileTreeModel::data(const QModelIndex &index, int role) const
 		if (!info.suffix().isEmpty())
 		{
 			
-			qDebug() << info.suffix();
+			//qDebug() << info.suffix();
 			QTemporaryFile tmpfile("tempFileXXXXXX."+info.suffix());
 			tmpfile.open();
 			tmpfile.close();
@@ -221,7 +239,7 @@ void FileTreeModel::addPath( QString path,QString size )
 	FileTreeItem *iterator=rootItem,*save=rootItem;
 	if (rootItem->childCount()==0)
 	{
-		qDebug() << "root item has no childs appending current path";
+		//qDebug() << "root item has no childs appending current path";
 		FileTreeItem* curitem=rootItem;
 		for (int i=0;i<pathparts.count();i++)
 		{
@@ -236,10 +254,10 @@ void FileTreeModel::addPath( QString path,QString size )
 		int foundnum=-1;
 		for (int j=0;j<iterator->childCount();j++)
 		{
-			qDebug() << iterator->child(j)->data(0) << " " << pathparts.at(i);
+			//qDebug() << iterator->child(j)->data(0) << " " << pathparts.at(i);
 			if (iterator->child(j)->data(0).toString().compare(pathparts.at(i))==0)	
 			{
-				qDebug() <<"Found :" << iterator->child(j)->data(0) << " " << pathparts.at(i);
+				//qDebug() <<"Found :" << iterator->child(j)->data(0) << " " << pathparts.at(i);
 				foundnum=j;
 				break;
 			}
@@ -251,10 +269,10 @@ void FileTreeModel::addPath( QString path,QString size )
 		}
 		else
 		{
-			qDebug() << "appending new child" << pathparts.at(i)  << " to "  << iterator->data(0) ;
+			//qDebug() << "appending new child" << pathparts.at(i)  << " to "  << iterator->data(0) ;
 			iterator->appendChild(new FileTreeItem(qMakePair(pathparts.at(i),i==pathparts.count()-1? size : ""),iterator));
 			iterator = iterator->child(iterator->childCount()-1);
-			qDebug() << "new iterator value" << iterator->data(0) ;
+			//qDebug() << "new iterator value" << iterator->data(0) ;
 		}
 
 	}

@@ -368,8 +368,10 @@
    </widget>
    <widget class="QMenu" name="menu_CuteTorrent">
     <property name="title">
-     <string>О CuteTorrent</string>
+     <string>Справка</string>
     </property>
+    <addaction name="actionAboutCuteTorrent"/>
+    <addaction name="actionCheckUpdate"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_2"/>
@@ -444,6 +446,16 @@
    </property>
    <property name="toolTip">
     <string>Удалить торрент</string>
+   </property>
+  </action>
+  <action name="actionAboutCuteTorrent">
+   <property name="text">
+    <string>О CuteTorrent</string>
+   </property>
+  </action>
+  <action name="actionCheckUpdate">
+   <property name="text">
+    <string>Проверить обновления</string>
    </property>
   </action>
  </widget>
@@ -552,6 +564,38 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>actionCheckUpdate</sender>
+   <signal>triggered()</signal>
+   <receiver>CuteTorrentClass</receiver>
+   <slot>checkForUpdates()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>282</x>
+     <y>329</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionAboutCuteTorrent</sender>
+   <signal>triggered()</signal>
+   <receiver>CuteTorrentClass</receiver>
+   <slot>ShowAbout()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>282</x>
+     <y>329</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>FillTorrentDetails(Torrent*)</signal>
@@ -561,5 +605,7 @@
   <slot>ResumeSelected()</slot>
   <slot>DeleteSelected()</slot>
   <slot>OpenSettingsDialog()</slot>
+  <slot>checkForUpdates()</slot>
+  <slot>ShowAbaut()</slot>
  </slots>
 </ui>
