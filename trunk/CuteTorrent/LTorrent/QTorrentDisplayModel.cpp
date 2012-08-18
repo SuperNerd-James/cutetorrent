@@ -98,22 +98,29 @@ void QTorrentDisplayModel::DellAll()
 }
 void QTorrentDisplayModel::MountDT()
 {
-	try 
-{
-	Torrent* tor=GetSelectedTorrent();
+
+		Torrent* tor=GetSelectedTorrent();
 		if (tor!=NULL)
 		{
-			if (tor->isDaemonToolsMountable()/* && (tor->isSeeding() || tor->isPaused())*/)
+			if (tor->isDaemonToolsMountable() && (tor->isSeeding() || tor->isPaused()))
 			{
-				tor->pause();
-				QStringList images = tor->GetImageFiles();
-				if (images.count()>1)
+				if (!tor->isPaused())
+							tor->pause();
+				QStringList* images = tor->GetImageFiles();
+				qDebug() << "receved imageFiles first item : " << images->at(0);
+				if (images->count() > 1)
 				{
-					MultipleDTDialog dlg(images);
-					dlg.exec();
+					qDebug() << "images.count>1";
+					MultipleDTDialog *dlg = new MultipleDTDialog(images);
+					qDebug() << "MultipleDTDialog created now will be executed";
+					dlg->exec();
+
+					delete dlg;
+					
 				}
 				else
 				{
+					qDebug() << "going to else brunch"	;
 					QApplicationSettings* settings=QApplicationSettings::getInstance();
 					QString exe = settings->valueString("DT","Executable");
 					if (exe.isEmpty())
@@ -129,8 +136,8 @@ void QTorrentDisplayModel::MountDT()
 					QStringList args;
 					/*args << "-mount";
 					args << command.arg(QString::number(driveNum)).arg(images.first());*/
-					qDebug() << exe << command.arg(QString::number(driveNum)).arg(images.first());
-					dt->setNativeArguments(command.arg(QString::number(driveNum)).arg(images.first()));
+					qDebug() << exe << command.arg(QString::number(driveNum)).arg(images->first());
+					dt->setNativeArguments(command.arg(QString::number(driveNum)).arg(images->first()));
 					dt->start(exe,args);
 					QApplicationSettings::FreeInstance();
 					if (!dt->waitForStarted(5000))
@@ -144,11 +151,7 @@ void QTorrentDisplayModel::MountDT()
 				}
 			}
 		}
-}
-	catch (std::exception e)
-{
-	QMessageBox::warning(0,"MountDT",e.what());
-}
+
 
 }
 void QTorrentDisplayModel::updateVisibleTorrents()

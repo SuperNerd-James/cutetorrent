@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMap>
 #include <QFileInfo>
 #include <vector>
+#include <QDebug>
 bool Torrent::hasError() const
 {
 	QString errorString="";
@@ -106,8 +107,9 @@ QString Torrent::GetSuffix()
 {
 	return base_suffix;
 }
-QStringList Torrent::GetImageFiles()
+QStringList* Torrent::GetImageFiles()
 {
+	qDebug() << "giving imageFiles firsy item:" << imageFiles->at(0);
 	return imageFiles;
 }
 Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
@@ -124,14 +126,16 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
 	mauntableTypes << QString::fromAscii("mdf");
 	mauntableTypes << QString::fromAscii("mds");
 	int maxSuffix=0;
+	imageFiles = new QStringList();
 	for (libtorrent::file_storage::iterator i=bg;i!=end;i++)
 	{
 		QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));
 		if (mauntableTypes.contains(curfile.suffix()))
 		{
-			imageFiles << QString::fromUtf8(cur_torrent.save_path().c_str())+QString::fromUtf8(storrgae.file_path(*i).c_str());
+			*imageFiles << QString::fromUtf8(cur_torrent.save_path().c_str())+QString::fromUtf8(storrgae.file_path(*i).c_str());
 		}
 	}
+	qDebug()<< "found " << imageFiles->count() << " imagefiles for torrent " << QString(torrentStatus.name().c_str());
 	for(libtorrent::file_storage::iterator i=bg;i!=end;i++)
 	{
 		QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));

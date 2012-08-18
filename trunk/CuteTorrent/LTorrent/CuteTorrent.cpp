@@ -64,23 +64,22 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 }
 void CuteTorrent::setupStatusBar()
 {
-	/*QIcon up(QString::fromUtf8(":/icons/upload.ico"));
-	QIcon down(QString::fromUtf8(":/icons/download.ico"));*/
-	//QLabel* upLabel = new QLabel(this);
+	
+	QLabel* upLabel = new QLabel(this);
 	upLabelText = new QLabel(this);
 	upLabelText->setMinimumWidth(140);
-	//upLabel->setIcon(QImage(QString::fromUtf8(":/icons/upload.ico")));
-	//upLabel->setToolTip(tr(QString::fromLocal8Bit("Отданно(Отдача)").toUtf8().data()));
+	upLabel->setPixmap(QPixmap(QString::fromUtf8(":/icons/upload.ico")));
+	upLabel->setToolTip(tr(QString::fromLocal8Bit("Отданно(Отдача)").toUtf8().data()));
 	upLabelText->setToolTip(tr(QString::fromLocal8Bit("Отданно(Отдача)").toUtf8().data()));
-	//QLabel* downLabel = new QLabel(this);
-	//downLabel->setToolTip(tr(QString::fromLocal8Bit("Загружнно(Загрузка)").toUtf8().data()));
-	//downLabel->setIcon(QPixmap(QString::fromUtf8(":/icons/download.ico")));
+	QLabel* downLabel = new QLabel(this);
+	downLabel->setToolTip(tr(QString::fromLocal8Bit("Загружнно(Загрузка)").toUtf8().data()));
+	downLabel->setPixmap(QPixmap(QString::fromUtf8(":/icons/download.ico")));
 	downLabelText = new QLabel(this);
 	downLabelText->setToolTip(tr(QString::fromLocal8Bit("Загружнно(Загрузка)").toUtf8().data()));
 	downLabelText->setMinimumWidth(140);
-	//statusBar()->addPermanentWidget(upLabel);
+	statusBar()->addPermanentWidget(upLabel);
 	statusBar()->addPermanentWidget(upLabelText);
-	//statusBar()->addPermanentWidget(downLabel);
+	statusBar()->addPermanentWidget(downLabel);
 	statusBar()->addPermanentWidget(downLabelText);
 	
 }

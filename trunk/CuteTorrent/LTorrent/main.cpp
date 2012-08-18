@@ -16,7 +16,7 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-//#define DEBUG
+#define DEBUG
 #include "CuteTorrent.h"
 #include <QDir>
 #include <qtsingleapplication.h>
@@ -25,6 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDateTime>
 #include "application.h"
 #include <QMessageBox>
+#include <QMacStyle>
+#include "CustomStyle.h"
 void myMessageOutput(QtMsgType type, const char *msg)
 {
 	fflush(stderr);

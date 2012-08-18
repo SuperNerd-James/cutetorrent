@@ -21,4 +21,11 @@
         <file>cutetorrent_english.qm</file>
         <file>cutetorrent_russian.qm</file>
     </qresource>
+    <qresource prefix="/treeview">
+        <file alias="branch-closed.png">Resources/stylesheet-branch-closed.png</file>
+        <file alias="branch-end.png">Resources/stylesheet-branch-end.png</file>
+        <file alias="branch-more.png">Resources/stylesheet-branch-more.png</file>
+        <file alias="branch-open.png">Resources/stylesheet-branch-open.png</file>
+        <file alias="vline.png">Resources/stylesheet-vline.png</file>
+    </qresource>
 </RCC>
