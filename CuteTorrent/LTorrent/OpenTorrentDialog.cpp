@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "OpenTorrentDialog.h"
 #include "QApplicationSettings.h"
 #include <QDir>
+#include <QMap>
 OpenTorrentDialog::OpenTorrentDialog(QWidget *parent, Qt::WFlags flags)
 {
 	setupUi(this);
@@ -32,6 +33,7 @@ int OpenTorrentDialog::execConditional()
 OpenTorrentDialog::~OpenTorrentDialog()
 {
 	TorrentManager::freeInstance();
+	delete model;
 }
 
 
@@ -47,15 +49,28 @@ void OpenTorrentDialog::SetData(QString filename)
 		labelNameData->setText(info->name);
 		labelComentData->setText(info->describtion);
 		labelSizeData->setText(StaticHelpers::toKbMbGb(info->size));
+		QStringList files;
 		for (libtorrent::file_storage::iterator i = info->files.begin(); 
 			i != info->files.end();
-			 ++i)
-		 {
-				QTreeWidgetItem* item= new QTreeWidgetItem(treeWidget);
-				item->setText(0,QString::fromUtf8(info->files.file_path(*i).c_str()));
-				item->setText(1,helper->toKbMbGb(info->files.file_size(*i)));
+			++i)
+		{
+			files << QString::fromUtf8(info->files.file_path(*i).c_str())+"|"+StaticHelpers::toKbMbGb(info->files.file_size(*i));
+		}
+		files.sort();
+		
+		model = new FileTreeModel();
+		for (int i=0;i<files.count();i++)
+		{
+			 
+			QStringList parts= files.at(i).split('|');
+			model->addPath(parts.at(0),parts.at(1));
+				
 		 }
-		treeWidget->sortItems(0,Qt::AscendingOrder);
+		
+		treeView->setModel(model);
+		treeView->setColumnWidth(0,300);
+		
+//		treeWidget->sortItems(0,Qt::AscendingOrder);
 		setUpdatesEnabled( true );
 		if (!info->base_suffix.isEmpty())
 		{
@@ -104,6 +119,7 @@ void OpenTorrentDialog::AccepTorrent()
 {
 	QFile file(torrentFilename);
 	file.copy(combine_path("CT_DATA",file.fileName().toAscii().data()).c_str());
-	mgr->AddTorrent(torrentFilename,pathEdit->displayText());
+	QMap<QString,int> filePriorities=model->getFilePiorites();
+	mgr->AddTorrent(torrentFilename,pathEdit->displayText(),filePriorities);
 	close();
 }

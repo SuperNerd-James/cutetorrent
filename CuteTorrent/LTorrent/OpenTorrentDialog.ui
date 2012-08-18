@@ -154,21 +154,7 @@
        </widget>
       </item>
       <item row="3" column="0" colspan="5">
-       <widget class="QTreeWidget" name="treeWidget">
-        <attribute name="headerDefaultSectionSize">
-         <number>289</number>
-        </attribute>
-        <column>
-         <property name="text">
-          <string>Имя</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
-          <string>Размер</string>
-         </property>
-        </column>
-       </widget>
+       <widget class="QTreeView" name="treeView"/>
       </item>
      </layout>
     </widget>

@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ui_OpenTorrentDialog.h"
 #include "TorrentManager.h"
 #include "StaticHelpers.h"
-//#include "FileTreeCreator.h"
+#include "FileTreeModel.h"
 class OpenTorrentDialog : public QDialog , private Ui::OpenTorrentDialog
 {
 	Q_OBJECT
@@ -41,9 +41,9 @@ public:
 	int execConditional();
 private:
 	bool validTorrent;
-	StaticHelpers* helper;
 	TorrentManager* mgr;
 	QString torrentFilename;
+	FileTreeModel* model;
 
 private slots:
 	void BrowseButton();

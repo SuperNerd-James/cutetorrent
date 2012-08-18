@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <vector>
 #include <QString>
 #include <QStringList>
+#include <QMap>
 
 #define BOOST_ASIO_SEPARATE_COMPILATION
 #include "libtorrent/config.hpp"
@@ -152,7 +153,7 @@ public:
 	std::vector<torrent_status> GetTorrents();
 	opentorrent_info* GetTorrentInfo(QString filename);
 	void RemoveTorrent(QString InfoHash);
-	bool AddTorrent(QString path, QString save_path);
+	bool AddTorrent(QString path, QString save_path,QMap<QString,int> filepriorities = QMap<QString,int>());
 	void PostTorrentUpdate();
 	void RemoveTorrent(torrent_handle h,bool dellfiles=false);
 protected:

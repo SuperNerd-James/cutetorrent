@@ -39,14 +39,14 @@ private:
 	QString ErrorString;
 	bool mountable;
 	QString base_suffix;
-	QStringList imageFiles;
+	QStringList* imageFiles;
 public :
 
 	Torrent::Torrent(const Torrent &): QObject(0){};
 	Torrent(): QObject(0){};
 	~Torrent() {};
 	QString GetRemainingTime();
-	QStringList GetImageFiles();
+	QStringList* GetImageFiles();
 	QString GetSuffix();
 	QString GetErrorMessage() const;
   	Torrent(torrent_handle torrentStatus);

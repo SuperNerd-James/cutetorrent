@@ -153,30 +153,8 @@ void TorrentManager::PostTorrentUpdate()
 {
 	ses->post_torrent_updates();
 }
-bool TorrentManager::AddTorrent(QString path, QString save_path)
+bool TorrentManager::AddTorrent(QString path, QString save_path,QMap<QString,int> filePriorities)
 {
-	if (path.startsWith("http://") || path.startsWith("udp://") || path.startsWith("https://") || path.startsWith("magnet:") )
-	{
-		add_torrent_params p;
-		p.save_path = std::string(save_path.toAscii().data());
-		p.storage_mode = storage_mode_sparse;
-		p.url = std::string(path.toAscii().data());
-		std::vector<char> buf;
-		error_code ec;
-		if (path.startsWith("magnet:"))
-		{
-			add_torrent_params tmp;
-			parse_magnet_uri(std::string(path.toAscii().data()), tmp, ec);
-			
-			std::string filename = combine_path(std::string(save_path.toAscii().data()), combine_path(".fastresume"
-				, to_hex(tmp.info_hash.to_string()) + ".fastresume"));
-			if (load_file(filename.c_str(), buf, ec) == 0)
-				p.resume_data = &buf;
-		}
-		ses->async_add_torrent(p);
-		
-	}
-	else
 	{
 		
 		boost::intrusive_ptr<torrent_info> t;
@@ -205,6 +183,25 @@ bool TorrentManager::AddTorrent(QString path, QString save_path)
 		if (load_file(filename.c_str(), buf, ec) == 0)
 		{
 			p.resume_data = &buf;
+		}
+		if (!filePriorities.isEmpty())
+		{
+			std::vector<boost::uint8_t>* filepriorities = new std::vector<boost::uint8_t>();
+			file_storage storrage = t->files();
+			for (file_storage::iterator i=storrage.begin();i!=storrage.end();i++)
+			{
+				
+				if (filePriorities.contains(QDir::toNativeSeparators(storrage.file_path(*i).c_str())))
+					filepriorities->push_back(filePriorities[storrage.file_path(*i).c_str()]);
+				else
+				{
+					qDebug() << "not found " << storrage.file_path(*i).c_str();
+					filepriorities->push_back(7);
+				}
+			}
+			p.file_priorities = filepriorities;
+			filePriorities.~QMap();
+
 		}
 		
 		p.ti = t;
@@ -398,6 +395,7 @@ void TorrentManager::onClose()
 
 		// save_resume_data will generate an alert when it's done
 		st.handle.save_resume_data();
+		
 		++num_outstanding_resume_data;
 		printf("\r%d  ", num_outstanding_resume_data);
 	}

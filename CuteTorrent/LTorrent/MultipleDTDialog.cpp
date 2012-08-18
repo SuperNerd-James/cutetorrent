@@ -24,10 +24,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 #include <QAbstractItemView>
 #include "StaticHelpers.h"
-MultipleDTDialog::MultipleDTDialog(QStringList _files,QWidget* parrent/* =0 */,int flags/* =0 */)
+MultipleDTDialog::MultipleDTDialog(QStringList* _files,QWidget* parrent/* =0 */,int flags/* =0 */)
 {
 	
-	files=_files;
+	files=*_files;
 	QStandardItemModel *model = new QStandardItemModel(files.count(),1);
 	listView->setModel(model);
 	listView->setSelectionMode(QAbstractItemView::SingleSelection);
