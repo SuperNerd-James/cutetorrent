@@ -83,6 +83,7 @@ private slots:
 	void ShowAbout();
 	void checkForUpdates();
 	void ShowUpdateNitify(const QString&);
+	void ShowNoUpdateNitify(const QString&);
 	void retranslate();
 	void ShowTorrentError(const QString&);
 	void enableNitifyShow();

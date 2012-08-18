@@ -190,14 +190,14 @@ QString Torrent::GetStatusString() const
 {
 	QStringList state_str;
 	
-	state_str << QString::fromLocal8Bit("Проверка файлов (q)") 
-			  << QString::fromLocal8Bit("Проверка файлов") 
-			  << QString::fromLocal8Bit("Загрузка") 
-			  << QString::fromLocal8Bit("Загрузка") 
-			  << QString::fromLocal8Bit("Законченно") 
-			  << QString::fromLocal8Bit("Раздача")
-			  << QString::fromLocal8Bit("Подготовка") 
-			  << QString::fromLocal8Bit("Проверка файлов (r)");
+	state_str << QString::fromLocal8Bit(tr("Проверка файлов (q)").toAscii().data()) 
+			  << QString::fromLocal8Bit(tr("Проверка файлов").toAscii().data()) 
+			  << QString::fromLocal8Bit(tr("Загрузка").toAscii().data()) 
+			  << QString::fromLocal8Bit(tr("Загрузка").toAscii().data()) 
+			  << QString::fromLocal8Bit(tr("Законченно").toAscii().data()) 
+			  << QString::fromLocal8Bit(tr("Раздача").toAscii().data())
+			  << QString::fromLocal8Bit(tr("Подготовка").toAscii().data()) 
+			  << QString::fromLocal8Bit(tr("Проверка файлов (r)").toAscii().data());
 
 	return state_str.at(cur_torrent.status().state);
 
