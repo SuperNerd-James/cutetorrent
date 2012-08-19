@@ -70,7 +70,7 @@ void OpenTorrentDialog::SetData(QString filename)
 		treeView->setModel(model);
 		treeView->setColumnWidth(0,300);
 		
-//		treeWidget->sortItems(0,Qt::AscendingOrder);
+
 		setUpdatesEnabled( true );
 		if (!info->base_suffix.isEmpty())
 		{

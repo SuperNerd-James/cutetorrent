@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "TorrentManager.h"
 #include <QMenu>
 #include <QTimer>
+#include <QMutex>
 class Torrent;
 class TorrentManager;
 
@@ -37,6 +38,7 @@ private:
 	QMap<int,int> id_to_row;
 	QMap<int,Torrent*> id_to_torrent;
 	QVector<Torrent*> torrents;
+	QVector<Torrent*> torrents_to_remove;
 	int auto_id;
 	QListView* parrent;
 	int selectedRow;
@@ -48,6 +50,7 @@ private:
 	QAction* setSequentual;
 	TorrentManager* mgr;
 	QTimer* timer;
+	QMutex* locker;
 public:
 	QTorrentDisplayModel(QListView* parrent);
 	~QTorrentDisplayModel();

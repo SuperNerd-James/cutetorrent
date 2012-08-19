@@ -90,8 +90,6 @@ private slots:
 	void showTorrentCompletedNotyfy(const QString);
 	void ShowCreateTorrentDialog();
 	void ShowOpenTorrentDialog();
-	//To DO: reimplement to torrentChanged signal
-	void updateVisibleTorrents();
 	void PauseSelected();
 	void ResumeSelected();
 	void DeleteSelected();
