@@ -27,13 +27,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QUrl>
 #include <QDebug>
 #include <QIcon>
-#include "QBaloon.h"
+
 CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
 {
 	setupUi(this);
 	model = new QTorrentDisplayModel(listView);
-	qDebug() << "QMainWindow ascked TorrentManager::getInstance";
+	//qDebug() << "QMainWindow ascked TorrentManager::getInstance";
 	mng = TorrentManager::getInstance();
 	notyfire = new UpdateNotifier();
 	mayShowNotifies = false;
@@ -86,13 +86,13 @@ void CuteTorrent::setupStatusBar()
 	upLabelText = new QLabel(this);
 	upLabelText->setMinimumWidth(140);
 	upLabel->setPixmap(QPixmap(QString::fromUtf8(":/icons/upload.ico")));
-	upLabel->setToolTip(QString::fromLocal8Bit(tr("Отданно(Отдача)").toAscii().data()));
-	upLabelText->setToolTip(QString::fromLocal8Bit(tr("Отданно(Отдача)").toAscii().data()));
+	upLabel->setToolTip(tr(QString::fromLocal8Bit("Отданно(Отдача)").toUtf8().data()));
+	upLabelText->setToolTip(tr(QString::fromLocal8Bit("Отданно(Отдача)").toUtf8().data()));
 	QLabel* downLabel = new QLabel(this);
-	downLabel->setToolTip(QString::fromLocal8Bit(tr("Загружнно(Загрузка)").toAscii().data()));
+	downLabel->setToolTip(tr(QString::fromLocal8Bit("Загружнно(Загрузка)").toUtf8().data()));
 	downLabel->setPixmap(QPixmap(QString::fromUtf8(":/icons/download.ico")));
 	downLabelText = new QLabel(this);
-	downLabelText->setToolTip(QString::fromLocal8Bit(tr("Загружнно(Загрузка)").toAscii().data()));
+	downLabelText->setToolTip(tr(QString::fromLocal8Bit("Загружнно(Загрузка)").toUtf8().data()));
 	downLabelText->setMinimumWidth(140);
 	statusBar()->addPermanentWidget(upLabel);
 	statusBar()->addPermanentWidget(upLabelText);
@@ -156,25 +156,28 @@ void CuteTorrent::setupConnections()
 }
 void CuteTorrent::ShowNoUpdateNitify(const QString & ver)
 {
-	
-	QBalloonTip::showBalloon("CuteTorrent",QString::fromLocal8Bit(tr("CuteTorrent %1 - последняя доступная версия"
-		).arg(ver).toAscii().data()),5000,false);
-	
-	
+	QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information;
+	trayIcon->showMessage("CuteTorrent", QString::fromLocal8Bit(tr("CuteTorrent %1 - последняя доступная версия"
+		).arg(ver).toAscii().data()), icon,
+		5* 1000);
 }
 void CuteTorrent::ShowTorrentError(const QString& name)
 {
 	if (!mayShowNotifies)
 		return;
-	QBalloonTip::showBalloon("CuteTorrent", QString::fromLocal8Bit(tr("При загрузке торрента %1 произошла ошибка").arg(name).toAscii().data()),15000,false);
-	
+	QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Critical;
+	trayIcon->showMessage("CuteTorrent", QString::fromLocal8Bit(tr("При загрузке торрента %1 произошла ошибка").arg(name).toAscii().data()), icon,
+		5* 1000);
 }
 void CuteTorrent::showTorrentCompletedNotyfy(const QString name)
 {
 	if (!mayShowNotifies)
 		return;
-	QBalloonTip::showBalloon("CuteTorrent", QString::fromLocal8Bit(tr(("CuteTorrent завершил загрузку торрента "+name).toAscii().data()).toAscii().data()),15000,false);
-	
+	QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information;
+			trayIcon->showMessage("CuteTorrent", QString::fromLocal8Bit(tr(("CuteTorrent завершил загрузку торрента "+
+																		   name).toAscii().data()
+																		   ).toAscii().data()), icon,
+                           5* 1000);
 }
 
 void CuteTorrent::updateTabWidget(int tab)
@@ -220,9 +223,10 @@ void CuteTorrent::changeEvent(QEvent *event)
 		if(isVisible() && isMinimized()) 
 		{
 			event->ignore();
-			QBalloonTip::showBalloon("CuteTorrent",  QString::fromLocal8Bit(tr("CuteTorrent продолжает работать."
-				"Что бы выйти выберете пункт Выход из контекстного меню.").toAscii().data()),15000,false);
-		
+			QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Warning;
+			trayIcon->showMessage("CuteTorrent", QString::fromLocal8Bit(tr("CuteTorrent продолжает работать."
+																		   "Что бы выйти выберете пункт Выход из контекстного меню.").toAscii().data()), icon,
+																																						5* 1000);
 			hide();
 			return;
 		}
@@ -259,7 +263,9 @@ void CuteTorrent::iconActivated(QSystemTrayIcon::ActivationReason reason)
  }
 void CuteTorrent::showMessage()
  {
-	 
+	 QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Warning;
+     trayIcon->showMessage("Title of message", "Some info can be placed here", icon,
+                           5* 1000);
  }
  void CuteTorrent::messageClicked()
  {
@@ -336,29 +342,17 @@ void CuteTorrent::UpdateInfoTab()
 	Torrent* tor=model->GetSelectedTorrent();
 	if (tor!=NULL)
 	{
-		if (tor==NULL) return;
 		downloadedBytesLabel->setText(tor->GetTotalDownloaded());
-		if (tor==NULL) return;
 		uploadedBytesLabel->setText(tor->GetTotalUploaded());
-		if (tor==NULL) return;
 		downloadSpeedLabel->setText(tor->GetDwonloadSpeed());
-		if (tor==NULL) return;
 		activetimeLabel->setText(tor->GetActiveTime());
-		if (tor==NULL) return;
 		uploadSpeedLabel->setText(tor->GetUploadSpeed());
-		if (tor==NULL) return;
 		pathLabel->setText(tor->GetSavePath());
-		if (tor==NULL) return;
 		totalSizeLabel->setText(tor->GetTotalSize());
-		if (tor==NULL) return;
 		seedCoutLabel->setText(tor->GetSeedString());
-		if (tor==NULL) return;
 		peerCoutLabel->setText(tor->GetPeerString());
-		if (tor==NULL) return;
 		describtionLabel->setText("");
-		if (tor==NULL) return;
 		timeleftLabel->setText(tor->GetRemainingTime());
-		if (tor==NULL) return;
 	}
 	else
 	{
@@ -375,6 +369,48 @@ void CuteTorrent::UpdateInfoTab()
 		describtionLabel->setText("");
 	}
 	mng->PostTorrentUpdate();
+}
+void CuteTorrent::updateVisibleTorrents()
+{
+	try
+	{
+	
+	
+	mng->PostTorrentUpdate();
+//	torrent_filter filter=active;
+	
+//	std::vector<torrent_status> torrents_to_display=mng->GetTorrents();
+//	setUpdatesEnabled( false );
+	
+	//model->clear();
+/*	for (int i=0;i<torrents_to_display.size();i++)
+	{
+		model->updateTorrent(to_hex(torrents_to_display[i].info_hash.to_string()).c_str(),torrents_to_display[i]);
+	}
+/*	for(int k=0;k<model->rowCount();k++)
+	{
+	
+		model->ChangeData(k);
+		
+		
+	}*/
+	
+	
+//	torrents_to_display.~vector();
+	updateTabWidget(tabWidget->currentIndex());
+//	setUpdatesEnabled( true );
+	
+	
+	/*upLabelText->setText(QString("%1(%2)").arg(mng->GetSessionUploaded()).arg(mng->GetSessionUploadSpeed()));
+	downLabelText->setText(QString("%1(%2)").arg(mng->GetSessionDownloaded()).arg(mng->GetSessionDownloadSpeed()));*/
+
+	mng->PostTorrentUpdate();
+	}
+	catch (std::exception ex)
+	{
+		QMessageBox::warning(this,"Error",QString("UpdateTorrent()\n")+ex.what());
+	}
+
 }
 void CuteTorrent::UpdatePeerTab()
 {
@@ -450,11 +486,11 @@ void CuteTorrent::OpenSettingsDialog()
 void CuteTorrent::closeEvent(QCloseEvent* ce)
 {
 	QMainWindow::closeEvent(ce);
-	qDebug() << "QMainWindow::~QMainWindow()";
+	//qDebug() << "QMainWindow::~QMainWindow()";
 	trayIcon->hide();
-	qDebug() << "TorrentManager::freeInstance()";
+	//qDebug() << "TorrentManager::freeInstance()";
 	mng->freeInstance();
-	qDebug() << "QTorrentDisplayModel::~QTorrentDisplayModel()";
+	//qDebug() << "QTorrentDisplayModel::~QTorrentDisplayModel()";
 	model->~QTorrentDisplayModel();
 	QApplicationSettings::FreeInstance();
 	delete notyfire;

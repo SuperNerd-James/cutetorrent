@@ -379,17 +379,8 @@
   </widget>
   <widget class="QStatusBar" name="mystatusBar"/>
   <widget class="QToolBar" name="toolBar">
-   <property name="contextMenuPolicy">
-    <enum>Qt::NoContextMenu</enum>
-   </property>
    <property name="windowTitle">
     <string>toolBar</string>
-   </property>
-   <property name="movable">
-    <bool>false</bool>
-   </property>
-   <property name="floatable">
-    <bool>true</bool>
    </property>
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>

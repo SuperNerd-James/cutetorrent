@@ -128,10 +128,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib QtNetworkd4.lib libtorrentd.lib QtSolutions_SingleApplication-headd.lib"
+				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib QtNetworkd4.lib libtorrent.lib QtSolutions_SingleApplication-headd.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				AdditionalLibraryDirectories="D:\src\LTorrent\LTorrent\QTSingleApplication\lib;D:\src\sevlan\libtorrent\lib;D:\src\sevlan\boost_1_50_0\lib\Debug;&quot;$(QTDIR)\lib&quot;"
-				IgnoreDefaultLibraryNames="LIBCMT.lib;msvcrtd.lib"
+				IgnoreDefaultLibraryNames="msvcprtd.lib;libcpmt.lib;LIBCMT.lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 			/>
@@ -204,10 +204,6 @@
 			</File>
 			<File
 				RelativePath=".\QApplicationSettings.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\QBaloon.cpp"
 				>
 			</File>
 			<File
@@ -414,10 +410,6 @@
 			</File>
 			<File
 				RelativePath=".\QApplicationSettings.h"
-				>
-			</File>
-			<File
-				RelativePath=".\QBaloon.h"
 				>
 			</File>
 			<File

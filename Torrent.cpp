@@ -101,7 +101,7 @@ QString Torrent::GetSuffix()
 }
 QStringList* Torrent::GetImageFiles()
 {
-	qDebug() << "giving imageFiles firsy item:" << imageFiles->at(0);
+	//qDebug() << "giving imageFiles firsy item:" << imageFiles->at(0);
 	return imageFiles;
 }
 Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
@@ -127,7 +127,7 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
 			*imageFiles << QString::fromUtf8(cur_torrent.save_path().c_str())+QString::fromUtf8(storrgae.file_path(*i).c_str());
 		}
 	}
-	qDebug()<< "found " << imageFiles->count() << " imagefiles for torrent " << QString(torrentStatus.name().c_str());
+	//qDebug()<< "found " << imageFiles->count() << " imagefiles for torrent " << QString(torrentStatus.name().c_str());
 	for(libtorrent::file_storage::iterator i=bg;i!=end;i++)
 	{
 		QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));

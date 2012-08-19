@@ -1,6 +1,8 @@
 ﻿QLineEdit {
 border-radius 4px;
-
+/* background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                 stop: 0 #D3D3D3, stop: 0.4 #D8D8D8,
+                                 stop: 0.5 #DDDDDD, stop: 1.0 #E1E1E1);*/
                                  }
 
   QToolBar {
@@ -9,18 +11,7 @@ border-radius 4px;
  }
  QDialog{
  background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 darkgray, stop: 1 #E0E0E0);
- }
- QWidget#QBalloonTip
-{
-	 border: 2px solid #8f8f91;
-	  border-radius: 6px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-}
-QWidget#QBalloonTip QPushButton {
-    
-     min-width: 10px;
+                                       stop: 0 #E0E0E0, stop: 1 #FFFFFF);
  }
  QProgressBar:horizontal {
 border: 1px solid gray;
@@ -33,16 +24,12 @@ background: qlineargradient(x1: 0, y1: 0.5, x2: 1, y2: 0.5, stop: 0 green, stop:
 }
 
 QListView{
-padding-right: 4px;
-
+padding: 4px;
+padding-bottom: 17px;
  border: 2px solid gray;
- border-radius: 5px;
+     border-radius: 10px;
 }
-QBalloonTip{
- border: 1px solid gray;
- background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #E0E0E0, stop: 1 #FFFFFF);
-}
+
  QComboBox {
 	
      border: 1px solid gray;
@@ -59,12 +46,7 @@ QBalloonTip{
       background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
                                   stop: 0 #E1E1E1, stop: 0.4 #DDDDDD,
                                   stop: 0.5 #D8D8D8, stop: 1.0 #D3D3D3);
-    
  }
- 
-QComboBox::drop-down{
-padding : 4px;
-}
 
  /* QComboBox gets the "on" state when the popup is open */
  QComboBox:!editable:on, QComboBox::drop-down:editable:on {
@@ -145,34 +127,10 @@ QTabWidget::pane { /* The tab widget frame */
  QMainWindow
  {
 	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 darkgray, stop: 1 #E0E0E0);
- }
- QListView{
- background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 darkgray, stop: 1 #E0E0E0);
+                                       stop: 0 #E0E0E0, stop: 1 #FFFFFF);
  }
 
- QListView::item:alternate{
- background-color: #FFFFFF;
- }
-  QListView::item:selected {
-     border: 1px solid #6a6ea9;
- }
 
- QListView::item:selected:!active {
-     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                 stop: 0 #ABAFE5, stop: 1 #8588B2);
- }
-
- QListView::item:selected:active {
-     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                 stop: 0 #6a6ea9, stop: 1 #888dd9);
- }
-
- QListView::item:hover {
-     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                 stop: 0 #FAFBFE, stop: 1 #DCDEF1);
- }
 QTreeView {
      alternate-background-color: yellow;
  }
@@ -231,100 +189,3 @@ QTreeView {
          border-image: none;
          image: url(:treeview/branch-open.png);
  }
-  QToolTip {
-     border: 2px solid darkkhaki;
-     padding: 5px;
-     border-radius: 3px;
-     opacity: 200;
- }
-  QLineEdit {
-     border: 2px solid gray;
-     border-radius: 6px;
-     padding: 0 8px;
-     selection-background-color: darkgray;
- }
-QTextEdit
-{
-     border: 2px solid gray;
-     border-radius: 6px;
-     padding: 2px;
-     selection-background-color: darkgray;
-}
- QPushButton {
-     border: 2px solid #8f8f91;
-     border-radius: 6px;
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #f6f7fa, stop: 1 #dadbde);
-     min-width: 80px;
- }
-
- QPushButton:pressed {
-     background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                       stop: 0 #dadbde, stop: 1 #f6f7fa);
- }
-
- QPushButton:flat {
-     border: none; /* no border for a flat push button */
- }
-
- QPushButton:default {
-     border-color: #8f8f91; /* make the default button prominent */
- }
- 
-  QMenu {
-     background-color: white;
-     margin: 2px; /* some spacing around the menu */
- }
-
- QMenu::item {
-     padding: 2px 25px 2px 20px;
-     border: 1px solid transparent; /* reserve space for selection border */
- }
-
- QMenu::item:selected {
-     border-color: darkblue;
-     background: rgba(100, 100, 100, 150);
- }
-
- QMenu::icon:checked { /* appearance of a 'checked' icon */
-     background: gray;
-     border: 1px inset gray;
-     position: absolute;
-     top: 1px;
-     right: 1px;
-     bottom: 1px;
-     left: 1px;
- }
-
- QMenu::separator {
-     height: 2px;
-     background: lightblue;
-     margin-left: 10px;
-     margin-right: 5px;
- }
-
- QMenu::indicator {
-     width: 13px;
-     height: 13px;
- }
- QMenuBar {
-     background-color: qlineargradient(x1:0, y1:0, x2:0, y2:1,
-                                       stop:0 lightgray, stop:1 darkgray);
- }
-
- QMenuBar::item {
-     spacing: 3px; /* spacing between menu bar items */
-     padding: 1px 4px;
-     background: transparent;
-     border-radius: 4px;
- }
-
- QMenuBar::item:selected { /* when selected using mouse or keyboard */
-     background: #a8a8a8;
- }
-
- QMenuBar::item:pressed {
-     background: #888888;
- }
-
- 
