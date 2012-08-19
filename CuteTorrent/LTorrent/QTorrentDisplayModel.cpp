@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 QTorrentDisplayModel::QTorrentDisplayModel(QListView* _parrent)
 {
 	parrent=_parrent;
-	//qDebug() << "QTorrentDisplayModel asking TorrentManager Instance";
+	qDebug() << "QTorrentDisplayModel asking TorrentManager Instance";
 	mgr = TorrentManager::getInstance();
 	auto_id=0;
 	selectedRow=-1;
@@ -45,7 +45,7 @@ QTorrentDisplayModel::QTorrentDisplayModel(QListView* _parrent)
 	HashRecheck = new QAction(QString::fromLocal8Bit(tr("Обновить хеш").toAscii().data()), this);
 	QObject::connect(HashRecheck, SIGNAL(triggered()), this, SLOT(Rehash()));
 	menu->addAction(HashRecheck);
-
+	locker = new QMutex(QMutex::NonRecursive);
 
 	timer = new QTimer(this);
 	QObject::connect(timer, SIGNAL(timeout()), this, SLOT(updateVisibleTorrents()));
@@ -62,38 +62,54 @@ void QTorrentDisplayModel::Rehash()
 }
 void QTorrentDisplayModel::DellAll()
 {
-	try
+	
+	if (rowCount() == 0)
 	{
 	
+		return ;
+	}
+	if (selectedRow >= rowCount())
+	{
 	
-	Torrent* tor=GetSelectedTorrent();
+		return ;
+	}
+	if (selectedRow < 0)
+	{
+	
+		return ;
+	}
+	qDebug() << "receving " << selectedRow <<" torrent";
+	qDebug() << "torrents count " << torrents.count();
+	Torrent* tor=torrents.at(selectedRow);
 	if (tor!=NULL)
 	{
-		
+		tor->pause();	
 		QString path=tor->GetSavePath();
-		
-		ActionOnSelectedItem(remove);
-		
+		qDebug() << "Save path is " << path;
+		qDebug() << "removing from gui";
+		qDebug() << "Locking mutex at DellAll";
+		locker->lock();
+		torrents_to_remove.append(tor);
+		locker->unlock();
 		mgr->PostTorrentUpdate();
 		QFileInfo info(path);
 		if (info.isDir())
 		{
-			
+
+			qDebug() << "it is a dir";
 			StaticHelpers::dellDir(path);
 		}
 		else
 		{
-		
+			qDebug() << "it is a file";
 			QFile::remove(path);
 		}
+		parrent->selectionModel()->reset();
 		
-		delete tor;
+		
 	}
-	}
-	catch (std::exception e)
-	{
-		QMessageBox::warning(0,"Error",QString("QTorrentDisplayModel::DellAllMenuhandler()\n")+e.what());
-	}
+	qDebug() << "unlocking mutex at DellAll";
+
 
 }
 void QTorrentDisplayModel::MountDT()
@@ -107,12 +123,12 @@ void QTorrentDisplayModel::MountDT()
 				if (!tor->isPaused())
 							tor->pause();
 				QStringList* images = tor->GetImageFiles();
-				//qDebug() << "receved imageFiles first item : " << images->at(0);
+				qDebug() << "receved imageFiles first item : " << images->at(0);
 				if (images->count() > 1)
 				{
-					//qDebug() << "images.count>1";
+					qDebug() << "images.count>1";
 					MultipleDTDialog *dlg = new MultipleDTDialog(images);
-					//qDebug() << "MultipleDTDialog created now will be executed";
+					qDebug() << "MultipleDTDialog created now will be executed";
 					dlg->exec();
 
 					delete dlg;
@@ -120,7 +136,7 @@ void QTorrentDisplayModel::MountDT()
 				}
 				else
 				{
-					//qDebug() << "going to else brunch"	;
+					qDebug() << "going to else brunch"	;
 					QApplicationSettings* settings=QApplicationSettings::getInstance();
 					QString exe = settings->valueString("DT","Executable");
 					if (exe.isEmpty())
@@ -136,7 +152,7 @@ void QTorrentDisplayModel::MountDT()
 					QStringList args;
 					/*args << "-mount";
 					args << command.arg(QString::number(driveNum)).arg(images.first());*/
-					//qDebug() << exe << command.arg(QString::number(driveNum)).arg(images->first());
+					qDebug() << exe << command.arg(QString::number(driveNum)).arg(images->first());
 					dt->setNativeArguments(command.arg(QString::number(driveNum)).arg(images->first()));
 					dt->start(exe,args);
 					QApplicationSettings::FreeInstance();
@@ -156,6 +172,20 @@ void QTorrentDisplayModel::MountDT()
 }
 void QTorrentDisplayModel::updateVisibleTorrents()
 {
+	locker->lock();
+	for (int i=0;i<torrents_to_remove.count();i++)
+	{
+		int index=torrents.indexOf(torrents_to_remove.at(i));
+		qDebug() << "removing " << index << "torrent of " << torrents.count();
+		torrents.at( index )->RemoveTorrent(mgr);
+		torrents.erase(torrents.begin() + index);
+		int id=id_to_row[index];
+		id_to_row.remove(index);
+		id_to_torrent.remove(id);
+	}
+	torrents_to_remove.clear();
+	locker->unlock();
+	torrents_to_remove.clear();
 	for (int i=0;i<torrents.count();i++)
 	{
 		QModelIndex qmi( index( i, 0 ) );
@@ -168,8 +198,26 @@ void QTorrentDisplayModel::OpenDirSelected()
 	Torrent* tor=GetSelectedTorrent();
 	if (tor!=NULL)
 	{
-		QString path = QFileInfo(QDir::toNativeSeparators(tor->GetSavePath())).dir().absolutePath();
-		QDesktopServices::openUrl(QUrl("file:///" + path));
+		QString path = QFileInfo(QDir::toNativeSeparators(tor->GetSavePath())).absoluteFilePath();
+#ifdef Q_WS_MAC
+		QStringList args;
+		args << "-e";
+		args << "tell application \"Finder\"";
+		args << "-e";
+		args << "activate";
+		args << "-e";
+		args << "select POSIX file \""+path+"\"";
+		args << "-e";
+		args << "end tell";
+		QProcess::startDetached("osascript", args);
+#endif
+			
+#ifdef Q_WS_WIN
+		QStringList args;
+		args << "/select," << QDir::toNativeSeparators(path);
+		QProcess::startDetached("explorer", args);
+#endif
+
 	}
 }
 
@@ -235,7 +283,7 @@ void QTorrentDisplayModel::AddTorrent(Torrent* tr)
 		QObject::connect(tr,SIGNAL(TorrentError(const QString)),this,SLOT(TorrentErrorProxy(const QString)));
 		torrents.append(tr);
 		id_to_torrent.insert(auto_id,tr);
-		id_to_row.insert(torrents.size(),auto_id);
+		id_to_row.insert(torrents.count()-1,auto_id);
 		auto_id++;
 	}
 }
@@ -289,23 +337,34 @@ int QTorrentDisplayModel::rowCount( const QModelIndex& parent ) const
 }
 Torrent* QTorrentDisplayModel::GetSelectedTorrent()
 {
+
 	
 	try
 	{
 		if (rowCount() == 0)
+		{
+	
 			return NULL;
+		}
 		if (selectedRow >= rowCount())
+		{
+	
 			return NULL;
+		}
 		if (selectedRow < 0)
+		{
+	
 			return NULL;
-		
+		}
+		qDebug() << "giving " << selectedRow << " torrent";
+	
 		return torrents.at(selectedRow);
 	}
 	catch (std::exception e)
 	{
 		QMessageBox::warning(0,"GetSelectedTorrent",e.what());
 	}
-
+	
 	return NULL;
 
 }
@@ -349,13 +408,15 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 		case remove:
 			{
 				int oldSelection=selectedRow;
+				//removeRow(oldSelection);
 				selectedRow=-1;
 				torrents.at( oldSelection )->RemoveTorrent(mgr);
-				torrents.remove(oldSelection);
+				torrents.erase(torrents.begin() + oldSelection);
 				int id=id_to_row[oldSelection];
 				id_to_row.remove(oldSelection);
 				
 				id_to_torrent.remove(id);
+				
 				parrent->selectionModel()->reset();
 				
 			}

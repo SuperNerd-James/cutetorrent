@@ -66,7 +66,7 @@ void MultipleDTDialog::Mount( QString filename )
 	QStringList args;
 	/*args << "-mount";
 	args << command.arg(QString::number(driveNum)).arg(images.first());*/
-	//qDebug() << exe << " -mount " << command.arg(QString::number(driveNum)).arg(filename);
+	qDebug() << exe << " -mount " << command.arg(QString::number(driveNum)).arg(filename);
 	dt->setNativeArguments(command.arg(QString::number(driveNum)).arg(filename));
 	dt->start(exe,args);
 	QApplicationSettings::FreeInstance();

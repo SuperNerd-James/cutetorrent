@@ -95,35 +95,68 @@ QIcon StaticHelpers::guessMimeIcon(QString suffix)
 	return fallback;
 }
 
-void StaticHelpers::dellDir(QString path)
+void StaticHelpers::dellDir(QString dirName)
 {
-	QDir torrentDir(path);
-	//qDebug() << "removing dir " << path;
+	try
+	{
+	
+	
+	bool result = true;
+	QDir dir(dirName);
+	qDebug() << "removing dirrectory" << dirName;
+	if (dir.exists(dirName)) {
+		qDebug() << "dir exists " << dirName;
+		Q_FOREACH(QFileInfo info, dir.entryInfoList(QDir::NoDotAndDotDot | QDir::System | QDir::Hidden  | QDir::AllDirs | QDir::Files, QDir::DirsFirst)) {
+			if (info.isDir()) {
+				qDebug() << "removing dir " << info.absoluteFilePath();
+				 dellDir(info.absoluteFilePath());
+			}
+			else {
+				qDebug() << "removing file " << info.absoluteFilePath();
+				 QFile::remove(info.absoluteFilePath());
+			}
+
+			
+			}
+		}
+		qDebug() << "removing prrent dirrectory " << dirName;
+		dir.rmdir(dirName);
+	
+	}
+	catch (...)
+	{
+		qDebug() << " exception caught int deldir";
+	}
+	
+	/*QDir torrentDir(path);
+	qDebug() << "removing dir " << path;
 	//First delete any files in the current directory
+	qDebug() << "getting file list";
 	QFileInfoList files = torrentDir.entryInfoList(QDir::NoDotAndDotDot | QDir::Files);
+	qDebug() << "getting dir list";
 	QFileInfoList dirs = torrentDir.entryInfoList(QDir::NoDotAndDotDot | QDir::Dirs);
 	for(int file = 0; file < files.count(); file++)
 	{
-		//qDebug() << "removing file " << files.at(file).filePath();
+		qDebug() << "removing file " << files.at(file).filePath();
 		torrentDir.remove(files.at(file).filePath());
 	}
 
 	
 	
-	//qDebug() << "Now recursively delete any child directories";
-	//qDebug() << dirs.count();
+	qDebug() << "Now recursively delete any child directories";
+	qDebug() << dirs.count();
 	for(int dir = 0; dir < dirs.count(); dir++)
 	{
-		//qDebug() << "subdirs not empty now try to remove one";
-		//qDebug() << "recursive call remove dir " << dirs.at(dir).absoluteFilePath();
+		qDebug() << "subdirs not empty now try to remove one";
+		qDebug() << "recursive call remove dir " << dirs.at(dir).absoluteFilePath();
 		StaticHelpers::dellDir(dirs.at(dir).absoluteFilePath());
 	}
 
 	//Finally, remove empty parent directory
-	//qDebug() << "remove empty parent directory " << path;
+	qDebug() << "remove empty parent directory " << path;
 	QString prevPath = torrentDir.path();
 	torrentDir.cdUp();
-	torrentDir.rmdir(path);
+	torrentDir.rmdir(path);*/
 }
 
 QString StaticHelpers::toTimeString( int seconds )
