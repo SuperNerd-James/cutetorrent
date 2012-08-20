@@ -31,15 +31,14 @@ QBalloonTip::QBalloonTip(const QString& title, const QString& message,
 						 : QWidget(parent, Qt::ToolTip), timerId(-1)
 {
 	setAttribute(Qt::WA_DeleteOnClose); // при закрытии окна уничтожить объект
-	
+	setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
 	setObjectName("QBalloonTip" );
-	
 	QFile File(":/icons/BallonStyle.qss");
 	File.open(QFile::ReadOnly);
 	QString StyleSheet = QString::fromUtf8(File.readAll().data());
 	File.close();
 	setStyleSheet(StyleSheet);
-
+	//pixmap=QPixmap(":/images/transparent.png","png");
 	cuurentIcon=icon;
 	QLabel *titleLabel = new QLabel;
 	titleLabel->installEventFilter(this);
@@ -98,13 +97,17 @@ QBalloonTip::QBalloonTip(const QString& title, const QString& message,
 	layout->setSizeConstraint(QLayout::SetFixedSize);
 	layout->setMargin(3);
 	setLayout(layout);
+	setAutoFillBackground(true);
 	QPropertyAnimation  *anim = new QPropertyAnimation(this, "windowOpacity");
 	anim->setDuration(2500);
 	anim->setStartValue(0.f);
 	anim->setEndValue(1.f);
 	anim->start();
-//	setPixmap(pixmap);
-//setMask(pixmap.mask());
+	pixmap.fill(Qt::transparent);
+	setMask(pixmap.mask());
+	QPalette pal = palette();
+	pal.setColor(QPalette::Window, QColor(0xff, 0xff, 0xe1));
+	setPalette(pal);
 }
 
 QBalloonTip::~QBalloonTip()
@@ -115,7 +118,8 @@ QBalloonTip::~QBalloonTip()
 void QBalloonTip::paintEvent(QPaintEvent *)
 {
 	QPainter painter(this);
-	painter.drawPixmap(rect(), pixmap);
+	
+	painter.fillRect(0, 0, width(), height(), QBrush(pixmap));
 	
 
 }

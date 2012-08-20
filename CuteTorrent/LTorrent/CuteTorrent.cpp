@@ -230,16 +230,14 @@ void CuteTorrent::ShowNoUpdateNitify(const QString & ver)
 }
 void CuteTorrent::ShowTorrentError(const QString& name,const QString& error)
 {
-	if (!mayShowNotifies)
-		return;
+	
 	QBalloonTip::showBalloon("CuteTorrent", QString::fromLocal8Bit(tr("При загрузке торрента %1 произошла ошибка\n%2").arg(name).arg(error).toAscii().data())
 		,QSystemTrayIcon::Critical,15000,false);
 	
 }
 void CuteTorrent::showTorrentCompletedNotyfy(const QString name)
 {
-	if (!mayShowNotifies)
-		return;
+	
 	QBalloonTip::showBalloon("CuteTorrent", QString::fromLocal8Bit(tr(("CuteTorrent завершил загрузку торрента "+name).toAscii().data()).toAscii().data())
 		,QSystemTrayIcon::Information,15000,false);
 	
