@@ -75,7 +75,7 @@ void CuteTorrent::ShowAbout()
 void CuteTorrent::ShowUpdateNitify(const QString& newVersion)
 {
 	QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information;
-	trayIcon->showMessage("CuteTorrent", QString::fromLocal8Bit(tr(("Вышла новая версия CuteTorrent "+
+	QBalloonTip::showBalloon("CuteTorrent", QString::fromLocal8Bit(tr(("Вышла новая версия CuteTorrent "+
 		newVersion).toAscii().data()
 		).toAscii().data()), icon,
 		5* 1000);
