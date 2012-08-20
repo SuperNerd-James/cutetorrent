@@ -70,7 +70,7 @@ quint64 CreateTorrentDialog::getPiceSize()
 				pieceSize=fileSize/1000;
 			}
 			if(fi.isDir()){
-				//qDebug()<<"this is dir";
+				////qDebug()<<"this is dir";
 				dirSize=listFolder(file);
 				pieceSize=dirSize/1000;
 			}
@@ -270,7 +270,7 @@ void torrentCreatorThread::create(QString _input_path, QString _save_path,QStrin
 	is_private = _is_private;
 	piece_size = _piece_size;
 	abort = false;
-	qDebug() << "starting torrentCreatorThread";
+	//qDebug() << "starting torrentCreatorThread";
 	start();
 }
 
@@ -336,9 +336,9 @@ void torrentCreatorThread::run() {
 		//      QTextCodec::setCodecForTr(codec);
 		//      QTextCodec::setCodecForCStrings(codec);
 		//      QTextCodec::setCodecForLocale(codec);
-		//      qDebug() << e.what();
+		//      //qDebug() << e.what();
 		emit ShowCreationFailture(QString::fromUtf8(e.what()));
 	}
-	qDebug() << "torrentCreatorThread finished";
+	//qDebug() << "torrentCreatorThread finished";
 }
 

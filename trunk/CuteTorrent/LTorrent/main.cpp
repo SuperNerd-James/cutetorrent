@@ -64,8 +64,8 @@ int main(int argc, char *argv[])
 	a.loadTranslations(":/translations");
 	a.addLibraryPath(QCoreApplication::applicationDirPath ()+"/plugins");
 	
-	qDebug() << "=======================================================================================";
-	qDebug() << "==Application started:" << QDateTime::currentDateTime();
+	//qDebug() << "=======================================================================================";
+	//qDebug() << "==Application started:" << QDateTime::currentDateTime();
 	CuteTorrent w;
 	QFile File(":/icons/BaseStyle.qss");
 	File.open(QFile::ReadOnly);
@@ -80,8 +80,8 @@ int main(int argc, char *argv[])
 		w.HandleNewTorrent(argv[1]);
 	}
 	int res=a.exec();
-	qDebug() << "==Application exited:" << QDateTime::currentDateTime();
-	qDebug() << "=======================================================================================";
+	//qDebug() << "==Application exited:" << QDateTime::currentDateTime();
+	//qDebug() << "=======================================================================================";
 #ifdef DEBUG
 	fclose(fp);
 #endif // DEBUG

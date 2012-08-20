@@ -43,16 +43,24 @@ class CuteTorrent : public QMainWindow , private Ui::CuteTorrentClass
 
 public:
 	CuteTorrent(QWidget *parent = 0, Qt::WFlags flags = 0);
+
+	
+
 	void ConnectMessageReceved(QtSingleApplication* a);
 	
 	~CuteTorrent();
 protected:
 	
 	void changeEvent(QEvent *event);
+	void mouseMoveEvent(QMouseEvent* event);
 	void closeEvent(QCloseEvent* ce);
+	void mousePressEvent(QMouseEvent* event); 
 	/*void dragEnterEvent(QDragEnterEvent *event);
 	void dropEvent(QDropEvent *event);*/
 private:
+	int  m_nMouseClick_X_Coordinate;
+	int  m_nMouseClick_Y_Coordinate;
+	QList<file_info> file_infos;
 	UpdateNotifier* notyfire;
 	bool mayShowNotifies;
 	QSystemTrayIcon *trayIcon;
@@ -66,7 +74,14 @@ private:
 	QTorrentDisplayModel* model;
 	TorrentManager* mng;
 	QTimer *timer;
-	
+	QMenu* fileTabMenu;
+	QAction* openFile;
+	QAction* openDir;
+	QMenu* priority;
+	QAction* lowPriority;
+	QAction* mediumPriority;
+	QAction* highPriority;
+	QAction* dontDownload;
 	void createTrayIcon();
 	void createActions();
 	void showMessage();
@@ -76,16 +91,24 @@ private:
 	void setupListView();
 	void setupTabelWidgets();
 	void setupStatusBar();
-	
+	void setupFileTabel();
+	void setupFileTabelContextMenu();
 public slots:
 	void HandleNewTorrent(const QString &);
 private slots:
+	void OpenFileSelected();
+	void OpenDirSelected();
+	void setLowForCurrentFile();
+	void setMediumForCurrentFile();
+	void setHighForCurrentFile();
+	void setNotDownloadForCurrentFile();
+	void fileTabContextMenu(const QPoint &);
 	void ShowAbout();
 	void checkForUpdates();
 	void ShowUpdateNitify(const QString&);
 	void ShowNoUpdateNitify(const QString&);
 	void retranslate();
-	void ShowTorrentError(const QString&);
+	void ShowTorrentError(const QString&,const QString&);
 	void enableNitifyShow();
 	void showTorrentCompletedNotyfy(const QString);
 	void ShowCreateTorrentDialog();
@@ -95,6 +118,7 @@ private slots:
 	void DeleteSelected();
 	void UpdateInfoTab();
 	void UpdatePeerTab();
+	void UpdateFileTab();
 	void UpadteTrackerTab();
 	void OpenSettingsDialog();
 	void iconActivated(QSystemTrayIcon::ActivationReason reason);

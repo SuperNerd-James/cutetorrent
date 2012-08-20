@@ -86,6 +86,7 @@ bool Torrent::isPaused() const
 }
 bool Torrent::isSeeding() const
 {
+	if (cur_torrent.status().state==4) return true;
 	return cur_torrent.is_seed();
 }
 int Torrent::GetProgress() const
@@ -101,7 +102,7 @@ QString Torrent::GetSuffix()
 }
 QStringList* Torrent::GetImageFiles()
 {
-	qDebug() << "giving imageFiles firsy item:" << imageFiles->at(0);
+	//qDebug() << "giving imageFiles firsy item:" << imageFiles->at(0);
 	return imageFiles;
 }
 Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
@@ -127,10 +128,11 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
 			*imageFiles << QString::fromUtf8(cur_torrent.save_path().c_str())+QString::fromUtf8(storrgae.file_path(*i).c_str());
 		}
 	}
-	qDebug()<< "found " << imageFiles->count() << " imagefiles for torrent " << QString(torrentStatus.name().c_str());
+	//qDebug()<< "found " << imageFiles->count() << " imagefiles for torrent " << QString(torrentStatus.name().c_str());
 	for(libtorrent::file_storage::iterator i=bg;i!=end;i++)
 	{
 		QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));
+		
 		if (curfile.suffix()=="mds")
 		{
 			base_suffix="mdf";
@@ -194,7 +196,7 @@ QString Torrent::GetStatusString() const
 			  << QString::fromLocal8Bit(tr("Проверка файлов").toAscii().data()) 
 			  << QString::fromLocal8Bit(tr("Загрузка").toAscii().data()) 
 			  << QString::fromLocal8Bit(tr("Загрузка").toAscii().data()) 
-			  << QString::fromLocal8Bit(tr("Законченно").toAscii().data()) 
+			  << QString::fromLocal8Bit(tr("Раздача").toAscii().data()) 
 			  << QString::fromLocal8Bit(tr("Раздача").toAscii().data())
 			  << QString::fromLocal8Bit(tr("Подготовка").toAscii().data()) 
 			  << QString::fromLocal8Bit(tr("Проверка файлов (r)").toAscii().data());
@@ -205,6 +207,7 @@ QString Torrent::GetStatusString() const
 QString Torrent::GetHashString() const
 {
 
+	
 	return to_hex(cur_torrent.info_hash().to_string()).c_str();
 }
 
@@ -287,11 +290,12 @@ void Torrent::pause()
 }
 void Torrent::resume()
 {
+	
 	cur_torrent.resume();
 }
 QString Torrent::GetSavePath()
 {
-	return QString::fromUtf8(cur_torrent.save_path().c_str())+GetName();
+	return QString::fromUtf8(cur_torrent.save_path().c_str())/*+GetName()*/;
 }
 QString Torrent::GetTotalUploaded() const
 {
@@ -335,4 +339,34 @@ QString Torrent::GetRemainingTime()
 		res = StaticHelpers::toTimeString(time);
 	}
 	return res;
+}
+
+QList<file_info> Torrent::GetFileDownloadInfo()
+{
+	QList<file_info> res;
+	torrent_info ti=cur_torrent.get_torrent_info();
+	file_storage storage=ti.files();
+	std::vector<float> progresses;
+	cur_torrent.file_progress(progresses);
+	int counter=0;
+	for (file_storage::iterator i=storage.begin();i!=storage.end();i++)
+	{
+		file_info current;
+		current.name=storage.file_path(*i).c_str();
+		current.index=storage.file_index(*i);
+		current.prioiry = cur_torrent.file_priority(current.index);
+		current.progrss =progresses[counter]*100.f;
+		current.size = storage.file_size(*i);
+		res.append(current);
+		counter++;
+	}
+	progresses.~vector();
+	return res;
+}
+void Torrent::SetFilePriority(int index,int prioryty)
+{
+	std::vector<int> priorities=cur_torrent.file_priorities();
+	priorities[index]=prioryty;
+	cur_torrent.prioritize_files(priorities);
+	
 }

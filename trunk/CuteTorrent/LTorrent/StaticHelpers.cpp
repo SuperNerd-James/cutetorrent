@@ -22,11 +22,12 @@ QString StaticHelpers::toKbMbGb(libtorrent::size_type size)
 {
 	float val=size;
 	char* Suffix[] = { " B\0", " KB\0", " MB\0", " GB\0", " TB\0" };
-    int i;
-    float dblSByte=0;
-	for (i = 0; (libtorrent::size_type)(val / 1024) > 0; i++, val /= 1024)
+    int i=0;
+    float dblSByte=val;
+	if (size > 1024)
+	for (i ; (libtorrent::size_type)(val / 1024) > 0; i++, val /= 1024)
 		dblSByte = val / 1024.f;
-	QString str=QString::number(dblSByte,'f',2);
+	QString str=QString::number(dblSByte,'f',i==0? 0 : 2);
 	str.append(Suffix[i]);
 	return str;
 }
@@ -103,60 +104,45 @@ void StaticHelpers::dellDir(QString dirName)
 	
 	bool result = true;
 	QDir dir(dirName);
-	qDebug() << "removing dirrectory" << dirName;
+	//qDebug() << "removing dirrectory" << dirName;
 	if (dir.exists(dirName)) {
-		qDebug() << "dir exists " << dirName;
+		//qDebug() << "dir exists " << dirName;
 		Q_FOREACH(QFileInfo info, dir.entryInfoList(QDir::NoDotAndDotDot | QDir::System | QDir::Hidden  | QDir::AllDirs | QDir::Files, QDir::DirsFirst)) {
 			if (info.isDir()) {
-				qDebug() << "removing dir " << info.absoluteFilePath();
+				//qDebug() << "removing dir " << info.absoluteFilePath();
 				 dellDir(info.absoluteFilePath());
 			}
 			else {
-				qDebug() << "removing file " << info.absoluteFilePath();
+				//qDebug() << "removing file " << info.absoluteFilePath();
 				 QFile::remove(info.absoluteFilePath());
 			}
 
 			
 			}
 		}
-		qDebug() << "removing prrent dirrectory " << dirName;
+		//qDebug() << "removing prrent dirrectory " << dirName;
 		dir.rmdir(dirName);
 	
 	}
 	catch (...)
 	{
-		qDebug() << " exception caught int deldir";
+		//qDebug() << " exception caught int deldir";
 	}
 	
-	/*QDir torrentDir(path);
-	qDebug() << "removing dir " << path;
-	//First delete any files in the current directory
-	qDebug() << "getting file list";
-	QFileInfoList files = torrentDir.entryInfoList(QDir::NoDotAndDotDot | QDir::Files);
-	qDebug() << "getting dir list";
-	QFileInfoList dirs = torrentDir.entryInfoList(QDir::NoDotAndDotDot | QDir::Dirs);
-	for(int file = 0; file < files.count(); file++)
-	{
-		qDebug() << "removing file " << files.at(file).filePath();
-		torrentDir.remove(files.at(file).filePath());
-	}
-
 	
-	
-	qDebug() << "Now recursively delete any child directories";
-	qDebug() << dirs.count();
-	for(int dir = 0; dir < dirs.count(); dir++)
-	{
-		qDebug() << "subdirs not empty now try to remove one";
-		qDebug() << "recursive call remove dir " << dirs.at(dir).absoluteFilePath();
-		StaticHelpers::dellDir(dirs.at(dir).absoluteFilePath());
-	}
-
-	//Finally, remove empty parent directory
-	qDebug() << "remove empty parent directory " << path;
-	QString prevPath = torrentDir.path();
-	torrentDir.cdUp();
-	torrentDir.rmdir(path);*/
+}
+QString StaticHelpers::filePriorityToString(int priority)
+{
+	static char* priority_str[] = {"Не загружать","Низкий","Средний","Высокий"};
+	if (!priority)
+		return QString::fromLocal8Bit(priority_str[0]);
+	if (priority < 3)
+		return QString::fromLocal8Bit(priority_str[1]);
+	if (priority >=3 && priority < 6)
+		return QString::fromLocal8Bit(priority_str[2]);
+	if (priority >=6)
+		return QString::fromLocal8Bit(priority_str[3]);
+	return "";
 }
 
 QString StaticHelpers::toTimeString( int seconds )
