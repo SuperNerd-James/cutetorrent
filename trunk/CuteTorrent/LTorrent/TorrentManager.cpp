@@ -283,7 +283,7 @@ bool TorrentManager::AddTorrent(QString path, QString save_path,QMap<QString,int
 		emit AddTorrentGui(new Torrent(h));
 		QFileInfo file(path);
 		h.set_max_connections(max_connections_per_torrent);
-		QFile::copy(path,combine_path(QDir::currentPath().toAscii().data(),combine_path("CT_DATA",file.fileName().toAscii().data()).c_str()).c_str());
+		QFile::copy(path,combine_path(QDir::currentPath().toAscii().data(),combine_path("CT_DATA",t->name().c_str()).c_str()).c_str());
 		if (save_path_data.contains(to_hex(h.info_hash().to_string()).c_str()))
 		{
 			save_path_data[to_hex(h.info_hash().to_string()).c_str()]=save_path;
