@@ -23,10 +23,19 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QString>
 #include <QStringList>
 #include <QIcon>
+#include <QList>
 #include <QFileIconProvider>
 #include <QMessageBox>
 class TorrentManager;
 class StaticHelpers;
+struct file_info 
+{
+	QString name;
+	size_type size;
+	float progrss;
+	int prioiry;
+	int index;
+};
 class Torrent : public QObject
 {
 	Q_OBJECT
@@ -40,11 +49,13 @@ private:
 	bool mountable;
 	QString base_suffix;
 	QStringList* imageFiles;
+	bool prevHaserror,prevIsCompleted;
 public :
 
 	Torrent::Torrent(const Torrent &): QObject(0){};
 	Torrent(): QObject(0){};
 	~Torrent() {};
+	void SetFilePriority(int index,int prioryty);
 	QString GetRemainingTime();
 	QStringList* GetImageFiles();
 	QString GetSuffix();
@@ -66,6 +77,7 @@ public :
 	int GetActivePeerCount();
 	QIcon GetMimeTypeIcon() const;
 	QIcon GetMimeTypeIcon();
+	QList<file_info> GetFileDownloadInfo();
 	bool isPaused() const;
 	bool isSeeding() const;
 	bool hasMetadata() const;
@@ -86,9 +98,7 @@ public :
 	void seqensialDownload();
 	void pause();
 	void resume();
-signals:
-	void TorrentError(const QString&);
-	void TorrentCompleted(const QString&);
+
 };
 
 Q_DECLARE_METATYPE(Torrent)

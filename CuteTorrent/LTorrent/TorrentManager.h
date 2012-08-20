@@ -119,12 +119,15 @@ class TorrentManager : public QObject
 	Q_OBJECT
 signals:
 	void AddTorrentGui(Torrent*);
+	void TorrentError(const QString&,const QString&);
+	void TorrentCompleted(const QString&);
 protected:
 	TorrentManager();
 	~TorrentManager();
 	static TorrentManager* _instance;
 	static int _instanceCount;
 private:
+	void handle_alert(alert*);
 	void writeSettings();
 	QMap<QString,QString> save_path_data;
 	libtorrent::session* ses;

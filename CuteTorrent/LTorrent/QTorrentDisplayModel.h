@@ -47,6 +47,7 @@ private:
 	QAction* DTmount;
 	QAction* HashRecheck;
 	QAction* DelAll;
+	QAction* DelTorrentOnly;
 	QAction* setSequentual;
 	TorrentManager* mgr;
 	QTimer* timer;
@@ -77,6 +78,7 @@ public slots:
 	void TorrentCompletedProxy(const QString);
 	void contextualMenu(const QPoint &);
 	void OpenDirSelected();
+	void DellTorrentOnly();
 	void Rehash();
 	void DellAll();
 	void MountDT();

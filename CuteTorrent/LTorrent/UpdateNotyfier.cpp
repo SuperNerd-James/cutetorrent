@@ -39,7 +39,7 @@ void UpdateNotifier::replyFinished(QNetworkReply* pReply)
 
 	QByteArray data=pReply->readAll();
 	QString str(data);
-	//qDebug() << str;
+	////qDebug() << str;
 	if (str.compare(CT_VERSION)!=0)
 		emit showUpdateNitify(str);
 	else

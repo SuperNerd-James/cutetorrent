@@ -118,7 +118,7 @@ void OpenTorrentDialog::BrowseButton()
 void OpenTorrentDialog::AccepTorrent()
 {
 	QFile file(torrentFilename);
-	file.copy(combine_path("CT_DATA",file.fileName().toAscii().data()).c_str());
+	file.copy(combine_path("CT_DATA",(labelNameData->text()+".torrent").toAscii().data()).c_str());
 	QMap<QString,int> filePriorities=model->getFilePiorites();
 	mgr->AddTorrent(torrentFilename,pathEdit->displayText(),filePriorities);
 	close();

@@ -1,16 +1,16 @@
 
 #include <QtGui>
 #include "QBaloon.h"
-
+#include <QPropertyAnimation>
 static QBalloonTip *theSolitaryBalloonTip = 0;
 
 QWidget *QBalloonTip::showBalloon(const QString& title,
-								  const QString& message,
-								  int timeout, bool showArrow)
+								  const QString& message,const QSystemTrayIcon::MessageIcon& icon,
+								  int timeout, bool showArrow,QWidget* parent)
 {
 	
 	hideBalloon();
-	theSolitaryBalloonTip = new QBalloonTip(title, message);
+	theSolitaryBalloonTip = new QBalloonTip(title, message,icon,parent);
 	if (timeout < 0)
 		timeout = 10000; // по умолчанию исчезнет через 10 секунд
 	theSolitaryBalloonTip->balloon(timeout, showArrow);
@@ -26,12 +26,13 @@ void QBalloonTip::hideBalloon()
 	theSolitaryBalloonTip = 0;
 }
 
-QBalloonTip::QBalloonTip(const QString& title,
-						 const QString& message,QWidget* parent)
+QBalloonTip::QBalloonTip(const QString& title, const QString& message,
+						 const QSystemTrayIcon::MessageIcon& icon,QWidget* parent)
 						 : QWidget(parent, Qt::ToolTip), timerId(-1)
 {
 	setAttribute(Qt::WA_DeleteOnClose); // при закрытии окна уничтожить объект
-	setObjectName(  "QBalloonTip" );
+	
+	setObjectName("QBalloonTip" );
 	
 	QFile File(":/icons/BallonStyle.qss");
 	File.open(QFile::ReadOnly);
@@ -39,7 +40,7 @@ QBalloonTip::QBalloonTip(const QString& title,
 	File.close();
 	setStyleSheet(StyleSheet);
 
-
+	cuurentIcon=icon;
 	QLabel *titleLabel = new QLabel;
 	titleLabel->installEventFilter(this);
 	titleLabel->setText(title);
@@ -66,18 +67,44 @@ QBalloonTip::QBalloonTip(const QString& title,
 		msgLabel->setWordWrap(true);
 		msgLabel->setFixedSize(limit, msgLabel->heightForWidth(limit));
 	}
-
+	QIcon si;
+	switch (icon) {
+	 case QSystemTrayIcon::Warning:
+		 si = style()->standardIcon(QStyle::SP_MessageBoxWarning);
+		 break;
+	 case QSystemTrayIcon::Critical:
+		 si = style()->standardIcon(QStyle::SP_MessageBoxCritical);
+		 break;
+	 case QSystemTrayIcon::Information:
+		 si = style()->standardIcon(QStyle::SP_MessageBoxInformation);
+		 break;
+	 case QSystemTrayIcon::NoIcon:
+	 default:
+		 break;
+	}
 	QGridLayout *layout = new QGridLayout;
-	layout->addWidget(titleLabel, 0, 0, 1, 2);
+	if (!si.isNull()) {
+		         QLabel *iconLabel = new QLabel;
+		         iconLabel->setPixmap(si.pixmap(15, 15));
+		         iconLabel->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+		         iconLabel->setMargin(2);
+		         layout->addWidget(iconLabel, 0, 0);
+		   layout->addWidget(titleLabel, 0, 1);
+		     } else {
+			   layout->addWidget(titleLabel, 0, 0, 1, 2);
+			    }
 	layout->addWidget(closeButton, 0, 2);
 	layout->addWidget(msgLabel, 1, 0, 1, 3);
 	layout->setSizeConstraint(QLayout::SetFixedSize);
 	layout->setMargin(3);
 	setLayout(layout);
-
-	QPalette pal = palette();
-	pal.setColor(QPalette::Window, QColor(0xff, 0xff, 0xe1));
-	setPalette(pal);
+	QPropertyAnimation  *anim = new QPropertyAnimation(this, "windowOpacity");
+	anim->setDuration(2500);
+	anim->setStartValue(0.f);
+	anim->setEndValue(1.f);
+	anim->start();
+//	setPixmap(pixmap);
+//setMask(pixmap.mask());
 }
 
 QBalloonTip::~QBalloonTip()
@@ -89,6 +116,8 @@ void QBalloonTip::paintEvent(QPaintEvent *)
 {
 	QPainter painter(this);
 	painter.drawPixmap(rect(), pixmap);
+	
+
 }
 
 void QBalloonTip::resizeEvent(QResizeEvent *ev)

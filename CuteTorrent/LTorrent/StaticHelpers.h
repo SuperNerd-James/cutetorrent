@@ -40,6 +40,7 @@ public:
 	 static QIcon guessMimeIcon(QString path);
 	 static void dellDir(QString path);
 	 static QString toTimeString(int seconds);
+	 static QString filePriorityToString(int priority);
 };
 
 #endif
