@@ -22,10 +22,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
-#define CT_VERSION "0.8.6.4"
+#define CT_VERSION "0.8.6.5"
 #define VERSION_1 0
 #define VERSION_2 8
 #define VERSION_3 6
-#define VERSION_4 4
+#define VERSION_4 5
 
 #endif
