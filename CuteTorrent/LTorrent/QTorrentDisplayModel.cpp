@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDir>
 #include <QUrl>
 #include <QDebug>
+#include <QThread>
 #include "MultipleDTDialog.h"
 QTorrentDisplayModel::QTorrentDisplayModel(QListView* _parrent)
 {
@@ -91,6 +92,31 @@ void QTorrentDisplayModel::DellTorrentOnly()
 		parrent->selectionModel()->reset();
 	}
 }
+class deleterThread : private QThread
+{private:
+QString path;
+public:
+	void create(QString _path)
+	{
+		path=_path;
+		start();
+	}
+	void run()
+	{
+		QFileInfo info(path);
+		if (info.isDir())
+		{
+
+			//qDebug() << "it is a dir";
+			StaticHelpers::dellDir(path);
+		}
+		else
+		{
+			//qDebug() << "it is a file";
+			QFile::remove(path);
+		}
+	}
+};
 void QTorrentDisplayModel::DellAll()
 {
 	
@@ -115,7 +141,7 @@ void QTorrentDisplayModel::DellAll()
 	if (tor!=NULL)
 	{
 		tor->pause();	
-		QString path=tor->GetSavePath();
+		QString path=tor->GetSavePath()+tor->GetName();
 		//qDebug() << "Save path is " << path;
 		//qDebug() << "removing from gui";
 		//qDebug() << "Locking mutex at DellAll";
@@ -123,18 +149,8 @@ void QTorrentDisplayModel::DellAll()
 		torrents_to_remove.append(tor);
 		locker->unlock();
 		mgr->PostTorrentUpdate();
-		QFileInfo info(path);
-		if (info.isDir())
-		{
-
-			//qDebug() << "it is a dir";
-			StaticHelpers::dellDir(path);
-		}
-		else
-		{
-			//qDebug() << "it is a file";
-			QFile::remove(path);
-		}
+		deleterThread* thread = new deleterThread();
+		thread->create(path);
 		parrent->selectionModel()->reset();
 		
 		
