@@ -70,7 +70,7 @@ quint64 CreateTorrentDialog::getPiceSize()
 				pieceSize=fileSize/1000;
 			}
 			if(fi.isDir()){
-				////qDebug()<<"this is dir";
+				//qDebug()<<"this is dir";
 				dirSize=listFolder(file);
 				pieceSize=dirSize/1000;
 			}
