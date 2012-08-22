@@ -100,9 +100,9 @@ QString Torrent::GetSuffix()
 {
 	return base_suffix;
 }
-QStringList* Torrent::GetImageFiles()
+QStringList& Torrent::GetImageFiles()
 {
-	//qDebug() << "giving imageFiles firsy item:" << imageFiles->at(0);
+	
 	return imageFiles;
 }
 Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
@@ -119,16 +119,16 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
 	mauntableTypes << QString::fromAscii("mdf");
 	mauntableTypes << QString::fromAscii("mds");
 	int maxSuffix=0;
-	imageFiles = new QStringList();
+	
 	for (libtorrent::file_storage::iterator i=bg;i!=end;i++)
 	{
 		QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));
 		if (mauntableTypes.contains(curfile.suffix()))
 		{
-			*imageFiles << QString::fromUtf8(cur_torrent.save_path().c_str())+QString::fromUtf8(storrgae.file_path(*i).c_str());
+			imageFiles << QString::fromUtf8(cur_torrent.save_path().c_str())+QString::fromUtf8(storrgae.file_path(*i).c_str());
 		}
 	}
-	//qDebug()<< "found " << imageFiles->count() << " imagefiles for torrent " << QString(torrentStatus.name().c_str());
+	qDebug()<< "found " << imageFiles.count() << " imagefiles for torrent " << QString(torrentStatus.name().c_str());
 	for(libtorrent::file_storage::iterator i=bg;i!=end;i++)
 	{
 		QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));
@@ -192,16 +192,16 @@ QString Torrent::GetStatusString() const
 {
 	QStringList state_str;
 	
-	state_str << QString::fromLocal8Bit(tr("Проверка файлов (q)").toAscii().data()) 
-			  << QString::fromLocal8Bit(tr("Проверка файлов").toAscii().data()) 
-			  << QString::fromLocal8Bit(tr("Загрузка").toAscii().data()) 
-			  << QString::fromLocal8Bit(tr("Загрузка").toAscii().data()) 
-			  << QString::fromLocal8Bit(tr("Раздача").toAscii().data()) 
-			  << QString::fromLocal8Bit(tr("Раздача").toAscii().data())
-			  << QString::fromLocal8Bit(tr("Подготовка").toAscii().data()) 
-			  << QString::fromLocal8Bit(tr("Проверка файлов (r)").toAscii().data());
+	state_str << QString::fromLocal8Bit(QT_TR_NOOP("STATE_FILE_CHEACKING (q)")) 
+			  << QString::fromLocal8Bit(QT_TR_NOOP("STATE_FILE_CHEACKING")) 
+			  << QString::fromLocal8Bit(QT_TR_NOOP("STATE_DOWNLOADING")) 
+			  << QString::fromLocal8Bit(QT_TR_NOOP("STATE_DOWNLOADING")) 
+			  << QString::fromLocal8Bit(QT_TR_NOOP("STATE_SEEDING")) 
+			  << QString::fromLocal8Bit(QT_TR_NOOP("STATE_SEEDING"))
+			  << QString::fromLocal8Bit(QT_TR_NOOP("STATE_PREPARING")) 
+			  << QString::fromLocal8Bit(QT_TR_NOOP("STATE_FILE_CHEACKING (r)"));
 
-	return state_str.at(cur_torrent.status().state);
+	return tr(state_str.at(cur_torrent.status().state).toAscii().data());
 
 }
 QString Torrent::GetHashString() const

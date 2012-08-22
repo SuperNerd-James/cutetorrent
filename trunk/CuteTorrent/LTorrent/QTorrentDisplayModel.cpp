@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 QTorrentDisplayModel::QTorrentDisplayModel(QListView* _parrent)
 {
 	parrent=_parrent;
-	//qDebug() << "QTorrentDisplayModel asking TorrentManager Instance";
+	qDebug() << "QTorrentDisplayModel asking TorrentManager Instance";
 	mgr = TorrentManager::getInstance();
 	auto_id=0;
 	selectedRow=-1;
@@ -107,12 +107,12 @@ public:
 		if (info.isDir())
 		{
 
-			//qDebug() << "it is a dir";
+			qDebug() << "it is a dir";
 			StaticHelpers::dellDir(path);
 		}
 		else
 		{
-			//qDebug() << "it is a file";
+			qDebug() << "it is a file";
 			QFile::remove(path);
 		}
 	}
@@ -135,16 +135,16 @@ void QTorrentDisplayModel::DellAll()
 	
 		return ;
 	}
-	//qDebug() << "receving " << selectedRow <<" torrent";
-	//qDebug() << "torrents count " << torrents.count();
+	qDebug() << "receving " << selectedRow <<" torrent";
+	qDebug() << "torrents count " << torrents.count();
 	Torrent* tor=torrents.at(selectedRow);
 	if (tor!=NULL)
 	{
 		tor->pause();	
 		QString path=tor->GetSavePath()+tor->GetName();
-		//qDebug() << "Save path is " << path;
-		//qDebug() << "removing from gui";
-		//qDebug() << "Locking mutex at DellAll";
+		qDebug() << "Save path is " << path;
+		qDebug() << "removing from gui";
+		qDebug() << "Locking mutex at DellAll";
 		locker->lock();
 		torrents_to_remove.append(tor);
 		locker->unlock();
@@ -155,10 +155,26 @@ void QTorrentDisplayModel::DellAll()
 		
 		
 	}
-	//qDebug() << "unlocking mutex at DellAll";
+	qDebug() << "unlocking mutex at DellAll";
 
 
 }
+class MountDialogThread : private QThread
+{
+	MultipleDTDialog *dlg;
+public:
+	void create(QStringList _files)
+	{
+		dlg = new MultipleDTDialog(_files);
+		start();
+	}
+protected:
+	void run()
+	{
+		dlg->exec();
+		delete dlg;
+	}
+};
 void QTorrentDisplayModel::MountDT()
 {
 
@@ -169,21 +185,20 @@ void QTorrentDisplayModel::MountDT()
 			{
 				if (!tor->isPaused())
 							tor->pause();
-				QStringList* images = tor->GetImageFiles();
-				//qDebug() << "receved imageFiles first item : " << images->at(0);
-				if (images->count() > 1)
-				{
-					//qDebug() << "images.count>1";
-					MultipleDTDialog *dlg = new MultipleDTDialog(images);
-					//qDebug() << "MultipleDTDialog created now will be executed";
-					dlg->exec();
-
-					delete dlg;
+				QStringList images = tor->GetImageFiles();
+				qDebug() << "receved imageFiles first item : " << images.at(0);
+				/*if (images->size() > 1)
+				{*/
+					qDebug() << "images.count>1";
+					MountDialogThread thread;
+					thread.create(images);
+					qDebug() << "MultipleDTDialog created now will be executed";
 					
-				}
+					
+				/*}
 				else
 				{
-					//qDebug() << "going to else brunch"	;
+					qDebug() << "going to else brunch"	;
 					QApplicationSettings* settings=QApplicationSettings::getInstance();
 					QString exe = settings->valueString("DT","Executable");
 					if (exe.isEmpty())
@@ -199,7 +214,7 @@ void QTorrentDisplayModel::MountDT()
 					QStringList args;
 					/*args << "-mount";
 					args << command.arg(QString::number(driveNum)).arg(images.first());*/
-					//qDebug() << exe << command.arg(QString::number(driveNum)).arg(images->first());
+				/*	qDebug() << exe << command.arg(QString::number(driveNum)).arg(images->first());
 					dt->setNativeArguments(command.arg(QString::number(driveNum)).arg(images->first()));
 					dt->start(exe,args);
 					QApplicationSettings::FreeInstance();
@@ -211,7 +226,7 @@ void QTorrentDisplayModel::MountDT()
 					
 					dt->waitForFinished();
 					delete dt;
-				}
+				}*/
 			}
 		}
 
@@ -223,7 +238,7 @@ void QTorrentDisplayModel::updateVisibleTorrents()
 	for (int i=0;i<torrents_to_remove.count();i++)
 	{
 		int index=torrents.indexOf(torrents_to_remove.at(i));
-		//qDebug() << "removing " << index << "torrent of " << torrents.count();
+		qDebug() << "removing " << index << "torrent of " << torrents.count();
 		torrents.at( index )->RemoveTorrent(mgr);
 		torrents.erase(torrents.begin() + index);
 		int id=id_to_row[index];
@@ -401,8 +416,8 @@ Torrent* QTorrentDisplayModel::GetSelectedTorrent()
 	
 			return NULL;
 		}
-		//qDebug() << "giving " << selectedRow << " torrent";
-	
+		qDebug() << "giving " << selectedRow << " torrent";
+		qDebug() << "we have " << torrents.count() << " torrents";
 		return torrents.at(selectedRow);
 	}
 	catch (std::exception e)

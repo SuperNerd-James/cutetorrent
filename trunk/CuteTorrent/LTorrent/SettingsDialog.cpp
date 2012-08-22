@@ -78,7 +78,7 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 		
 	}
 	
-	//qDebug() <<"run on boot" << val;
+	qDebug() <<"run on boot" << val;
 	runOnbootCheckBox->setChecked(val.toString().isEmpty());	
 #endif
  

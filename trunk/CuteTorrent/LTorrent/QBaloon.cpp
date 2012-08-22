@@ -40,6 +40,7 @@ QBalloonTip::QBalloonTip(const QString& title, const QString& message,
 	setStyleSheet(StyleSheet);
 	//pixmap=QPixmap(":/images/transparent.png","png");
 	cuurentIcon=icon;
+	setMaximumWidth(300);
 	QLabel *titleLabel = new QLabel;
 	titleLabel->installEventFilter(this);
 	titleLabel->setText(title);

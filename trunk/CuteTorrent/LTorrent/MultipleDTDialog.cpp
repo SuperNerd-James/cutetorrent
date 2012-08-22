@@ -24,10 +24,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 #include <QAbstractItemView>
 #include "StaticHelpers.h"
-MultipleDTDialog::MultipleDTDialog(QStringList* _files,QWidget* parrent/* =0 */,int flags/* =0 */)
+MultipleDTDialog::MultipleDTDialog(QStringList& _files,QWidget* parrent/* =0 */,int flags/* =0 */)
 {
+	qDebug() << "files will be set now";
+	for (int i=0;i<_files.count();i++)
+	{
+		qDebug() << "appending " << _files.at(i);
+		files.append(_files.at(i));
+		qDebug() << "appended " << _files.at(i);
+	}
 	
-	files=*_files;
+	
+	qDebug() << "files set";
 	QStandardItemModel *model = new QStandardItemModel(files.count(),1);
 	listView->setModel(model);
 	listView->setSelectionMode(QAbstractItemView::SingleSelection);
@@ -66,7 +74,7 @@ void MultipleDTDialog::Mount( QString filename )
 	QStringList args;
 	/*args << "-mount";
 	args << command.arg(QString::number(driveNum)).arg(images.first());*/
-	//qDebug() << exe << " -mount " << command.arg(QString::number(driveNum)).arg(filename);
+	qDebug() << exe << " -mount " << command.arg(QString::number(driveNum)).arg(filename);
 	dt->setNativeArguments(command.arg(QString::number(driveNum)).arg(filename));
 	dt->start(exe,args);
 	QApplicationSettings::FreeInstance();

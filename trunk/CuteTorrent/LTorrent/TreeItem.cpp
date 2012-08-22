@@ -36,7 +36,7 @@ Qt::CheckState FileTreeItem::Checked()
 void FileTreeItem::setChecked(Qt::CheckState _checked)
 {
 	checkedState=_checked;
-	//qDebug() << "setCheced " << _checked << " for "  << itemData.first;
+	qDebug() << "setCheced " << _checked << " for "  << itemData.first;
 
 	if (_checked!=Qt::PartiallyChecked)
 	for (int i=0;i<childItems.count();i++)

@@ -48,7 +48,7 @@ private:
 	QString ErrorString;
 	bool mountable;
 	QString base_suffix;
-	QStringList* imageFiles;
+	QStringList imageFiles;
 	bool prevHaserror,prevIsCompleted;
 public :
 
@@ -57,7 +57,7 @@ public :
 	~Torrent() {};
 	void SetFilePriority(int index,int prioryty);
 	QString GetRemainingTime();
-	QStringList* GetImageFiles();
+	QStringList& GetImageFiles();
 	QString GetSuffix();
 	QString GetErrorMessage() const;
   	Torrent(torrent_handle torrentStatus);
@@ -101,7 +101,7 @@ public :
 
 };
 
-Q_DECLARE_METATYPE(Torrent)
+//Q_DECLARE_METATYPE(Torrent)
 Q_DECLARE_METATYPE(Torrent*)
 
 #endif

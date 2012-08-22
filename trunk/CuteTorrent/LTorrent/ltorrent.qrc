@@ -17,8 +17,8 @@
         <file alias="upload.ico">Resources/upload.ico</file>
     </qresource>
     <qresource prefix="/translations">
-        <file>cutetorrent_english.qm</file>
         <file>cutetorrent_russian.qm</file>
+        <file>cutetorrent_english.qm</file>
     </qresource>
     <qresource prefix="/treeview">
         <file alias="branch-closed.png">Resources/stylesheet-branch-closed.png</file>

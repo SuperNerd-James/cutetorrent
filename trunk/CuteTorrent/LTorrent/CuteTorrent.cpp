@@ -34,7 +34,7 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 {
 	setupUi(this);
 	model = new QTorrentDisplayModel(listView);
-	//qDebug() << "QMainWindow ascked TorrentManager::getInstance";
+	qDebug() << "QMainWindow ascked TorrentManager::getInstance";
 	mng = TorrentManager::getInstance();
 	notyfire = new UpdateNotifier();
 	mayShowNotifies = false;
@@ -80,6 +80,7 @@ void CuteTorrent::ShowUpdateNitify(const QString& newVersion)
 		).toAscii().data()), icon,
 		5* 1000);
 }
+/*
 void CuteTorrent::mousePressEvent(QMouseEvent* event)
 {      
 	m_nMouseClick_X_Coordinate = event->x();
@@ -91,7 +92,7 @@ void CuteTorrent::mouseMoveEvent(QMouseEvent* event)
 {
 	move(event->globalX()-m_nMouseClick_X_Coordinate,event->globalY()-m_nMouseClick_Y_Coordinate);
 	QMainWindow::mouseMoveEvent(event);
-};
+};*/
 void CuteTorrent::setupStatusBar()
 {
 	
@@ -154,8 +155,8 @@ void CuteTorrent::setupConnections()
 	
 	QObject::connect(listView,SIGNAL(clicked(const QModelIndex &)),model,SLOT(UpdateSelectedIndex(const QModelIndex &)));
 	QObject::connect(listView,SIGNAL(customContextMenuRequested(const QPoint &)),model,SLOT(contextualMenu(const QPoint &)));
-	QObject::connect(listView,SIGNAL(clicked(const QModelIndex &)),this,SLOT(UpdateInfoTab()));
-	QObject::connect(trayIcon, SIGNAL(messageClicked()), this, SLOT(messageClicked()));
+	//QObject::connect(listView,SIGNAL(clicked(const QModelIndex &)),this,SLOT(UpdateInfoTab()));
+	//QObject::connect(trayIcon, SIGNAL(messageClicked()), this, SLOT(messageClicked()));
     QObject::connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
              this, SLOT(iconActivated(QSystemTrayIcon::ActivationReason)));
 	QObject::connect(actionExit, SIGNAL(triggered()), qApp, SLOT(quit()));
@@ -252,17 +253,21 @@ void CuteTorrent::updateTabWidget(int tab)
 		switch(tab)
 		{
 		case 0:
+			qDebug() << "Updating InfoTab";
 			UpdateInfoTab();
 			break;
 		case 1:
+			qDebug() << "Updating PeerTab";
 			UpdatePeerTab();
 			break;
 		case 2:
+			qDebug() << "Updating TrackerTab";
 			UpadteTrackerTab();
 			break;
 		case 3:
+			qDebug() << "Updating FileTab";
 			UpdateFileTab();
-
+			break;
 		}
 		upLabelText->setText(QString("%1(%2)").arg(mng->GetSessionUploaded()).arg(mng->GetSessionUploadSpeed()));
 		downLabelText->setText(QString("%1(%2)").arg(mng->GetSessionDownloaded()).arg(mng->GetSessionDownloadSpeed()));
@@ -278,18 +283,26 @@ void CuteTorrent::UpdateFileTab()
 	Torrent* tor=model->GetSelectedTorrent();
 	if (tor!=NULL)
 	{
+		qDebug() << "Torrent is not null " << tor << " so begin updating tab";
 		file_infos=tor->GetFileDownloadInfo();
+		//fileTableWidget->setUpdatesEnabled(false);
 		fileTableWidget->setRowCount(file_infos.count());
-		
+		qDebug() << "file_infos.count() " <<file_infos.count();
 		
 		for (int i=0;i<file_infos.count();i++)
 		{
-			fileTableWidget->setItem(i,0,new QTableWidgetItem(file_infos.at(i).name));
-			fileTableWidget->setItem(i,1,new QTableWidgetItem(StaticHelpers::toKbMbGb(file_infos.at(i).size)));
-			fileTableWidget->setItem(i,2,new QTableWidgetItem(QString::number(file_infos.at(i).progrss,'f',2)+" %"));
-			fileTableWidget->setItem(i,3,new QTableWidgetItem(StaticHelpers::filePriorityToString(file_infos.at(i).prioiry)));
+			qDebug() << "updating  " << i;
+			file_info current=file_infos.at(i);
+			qDebug() << "updating  name" ;
+			fileTableWidget->setItem(i,0,new QTableWidgetItem(current.name));
+			qDebug() << "updating  size" ;
+			fileTableWidget->setItem(i,1,new QTableWidgetItem(StaticHelpers::toKbMbGb(current.size)));
+			qDebug() << "updating  progress " <<  current.progrss;
+			fileTableWidget->setItem(i,2,new QTableWidgetItem(QString::number(current.progrss,'f',0)+" %"));
+			qDebug() << "updating  priority" ;
+			fileTableWidget->setItem(i,3,new QTableWidgetItem(StaticHelpers::filePriorityToString(current.prioiry)));
 		}
-
+		//fileTableWidget->setUpdatesEnabled(true);
 		//file_infos.~QList();
 	}
 }
@@ -471,10 +484,11 @@ void CuteTorrent::UpdatePeerTab()
 	
 	if (tor!=NULL)
 	{
+		qDebug() << "Torrent is not null " << tor << " so begin updating tab";
 		std::vector<peer_info>	peerInfos=tor->GetPeerInfo();
-		peerTableWidget->clearContents();
+		
 		peerTableWidget->setRowCount(peerInfos.size());
-		peerTableWidget->update();	
+		
 		for(int i=0;i<peerInfos.size();i++)
 		{
 			peerTableWidget->setItem(i,0,new QTableWidgetItem(peerInfos[i].ip.address().to_string().c_str()));
@@ -484,10 +498,10 @@ void CuteTorrent::UpdatePeerTab()
 			peerTableWidget->setItem(i,4,new QTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].up_speed)+"/s"));
 			peerTableWidget->setItem(i,5,new QTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].total_download)));
 			peerTableWidget->setItem(i,6,new QTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].total_upload)));
-			peerTableWidget->update();	
+		
 		}
 		
-		peerInfos.~vector();
+	//	peerInfos.~vector();
 	}
 }
 void CuteTorrent::UpadteTrackerTab()
@@ -495,19 +509,20 @@ void CuteTorrent::UpadteTrackerTab()
 	Torrent* tor=model->GetSelectedTorrent();
 	if (tor!=NULL)
 	{
+		qDebug() << "Torrent is not null " << tor << " so begin updating tab";
 		std::vector<announce_entry> trackers=tor->GetTrackerInfo();
-		trackerTableWidget->clearContents();
+		
 		trackerTableWidget->setRowCount(trackers.size());
-		trackerTableWidget->update();
+		
 		for (int i=0;i<trackers.size();i++)
 		{
 			trackerTableWidget->setItem(i,0,new QTableWidgetItem(trackers[i].url.c_str()));
 			trackerTableWidget->setItem(i,1,new QTableWidgetItem(trackers[i].message.length() >0 ? QString::fromUtf8(trackers[i].message.c_str()) : "Ok" ));
 			trackerTableWidget->setItem(i,2,new QTableWidgetItem(StaticHelpers::toTimeString(trackers[i].next_announce_in())));
-			trackerTableWidget->update();
+		
 		}
 		
-		trackers.~vector();
+	//	trackers.~vector();
 	}
 }
 void CuteTorrent::PauseSelected()
@@ -540,11 +555,11 @@ void CuteTorrent::OpenSettingsDialog()
 void CuteTorrent::closeEvent(QCloseEvent* ce)
 {
 	QMainWindow::closeEvent(ce);
-	//qDebug() << "QMainWindow::~QMainWindow()";
+	qDebug() << "QMainWindow::~QMainWindow()";
 	trayIcon->hide();
-	//qDebug() << "TorrentManager::freeInstance()";
+	qDebug() << "TorrentManager::freeInstance()";
 	mng->freeInstance();
-	//qDebug() << "QTorrentDisplayModel::~QTorrentDisplayModel()";
+	qDebug() << "QTorrentDisplayModel::~QTorrentDisplayModel()";
 	model->~QTorrentDisplayModel();
 	QApplicationSettings::FreeInstance();
 	delete notyfire;
@@ -605,7 +620,7 @@ void CuteTorrent::OpenFileSelected()
 		int file_num=fileTableWidget->currentRow();
 		QDesktopServices desctopService;
 		QString path=combine_path(tor->GetSavePath().toAscii().data(),file_infos.at(file_num).name.toAscii().data()).c_str();
-		//qDebug() << "trying to open file " << path;
+		qDebug() << "trying to open file " << path;
 		desctopService.openUrl(QUrl("file:///"+path));
 	}
 }

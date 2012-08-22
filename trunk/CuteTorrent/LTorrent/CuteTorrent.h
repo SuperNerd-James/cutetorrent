@@ -52,10 +52,11 @@ public:
 protected:
 	
 	void changeEvent(QEvent *event);
-	void mouseMoveEvent(QMouseEvent* event);
+	
 	void closeEvent(QCloseEvent* ce);
+	/*void mouseMoveEvent(QMouseEvent* event);
 	void mousePressEvent(QMouseEvent* event); 
-	/*void dragEnterEvent(QDragEnterEvent *event);
+	void dragEnterEvent(QDragEnterEvent *event);
 	void dropEvent(QDropEvent *event);*/
 private:
 	int  m_nMouseClick_X_Coordinate;

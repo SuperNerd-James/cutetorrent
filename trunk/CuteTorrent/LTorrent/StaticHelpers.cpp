@@ -104,29 +104,29 @@ void StaticHelpers::dellDir(QString dirName)
 	
 	bool result = true;
 	QDir dir(dirName);
-	//qDebug() << "removing dirrectory" << dirName;
+	qDebug() << "removing dirrectory" << dirName;
 	if (dir.exists(dirName)) {
-		//qDebug() << "dir exists " << dirName;
+		qDebug() << "dir exists " << dirName;
 		Q_FOREACH(QFileInfo info, dir.entryInfoList(QDir::NoDotAndDotDot | QDir::System | QDir::Hidden  | QDir::AllDirs | QDir::Files, QDir::DirsFirst)) {
 			if (info.isDir()) {
-				//qDebug() << "removing dir " << info.absoluteFilePath();
+				qDebug() << "removing dir " << info.absoluteFilePath();
 				 dellDir(info.absoluteFilePath());
 			}
 			else {
-				//qDebug() << "removing file " << info.absoluteFilePath();
+				qDebug() << "removing file " << info.absoluteFilePath();
 				 QFile::remove(info.absoluteFilePath());
 			}
 
 			
 			}
 		}
-		//qDebug() << "removing prrent dirrectory " << dirName;
+		qDebug() << "removing prrent dirrectory " << dirName;
 		dir.rmdir(dirName);
 	
 	}
 	catch (...)
 	{
-		//qDebug() << " exception caught int deldir";
+		qDebug() << " exception caught int deldir";
 	}
 	
 	
@@ -134,7 +134,7 @@ void StaticHelpers::dellDir(QString dirName)
 QString StaticHelpers::filePriorityToString(int priority)
 {
 	static char* priority_str[] = {"Не загружать","Низкий","Средний","Высокий"};
-	if (!priority)
+	if (priority==0)
 		return QString::fromLocal8Bit(priority_str[0]);
 	if (priority < 3)
 		return QString::fromLocal8Bit(priority_str[1]);

@@ -56,11 +56,11 @@
        </sizepolicy>
       </property>
       <property name="currentIndex">
-       <number>0</number>
+       <number>3</number>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
-        <string>Информация</string>
+        <string>TAB_INFO</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_4">
         <item row="1" column="4">
@@ -80,14 +80,14 @@
         <item row="4" column="3">
          <widget class="QLabel" name="label_6">
           <property name="text">
-           <string>Описание</string>
+           <string>INFO_DESCRIBTION</string>
           </property>
          </widget>
         </item>
         <item row="5" column="0">
          <widget class="QLabel" name="label_10">
           <property name="text">
-           <string>Сидов</string>
+           <string>INFO_SEED_COUNT</string>
           </property>
          </widget>
         </item>
@@ -101,14 +101,14 @@
         <item row="2" column="3">
          <widget class="QLabel" name="label_9">
           <property name="text">
-           <string>Отдача</string>
+           <string>INFO_UPLOAD_SPEED</string>
           </property>
          </widget>
         </item>
         <item row="5" column="3">
          <widget class="QLabel" name="label_11">
           <property name="text">
-           <string>Пиров</string>
+           <string>INFO_PEER_COUNT</string>
           </property>
          </widget>
         </item>
@@ -122,14 +122,14 @@
         <item row="1" column="0">
          <widget class="QLabel" name="label_2">
           <property name="text">
-           <string>Принято</string>
+           <string>INFO_DOWNLOADED</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="label_3">
           <property name="text">
-           <string>Прием</string>
+           <string>INFO_DOWNLOAD_SPEED</string>
           </property>
          </widget>
         </item>
@@ -143,7 +143,7 @@
         <item row="0" column="3">
          <widget class="QLabel" name="label_7">
           <property name="text">
-           <string>Осталось</string>
+           <string>INFO_REMAININF_TIME</string>
           </property>
          </widget>
         </item>
@@ -157,28 +157,28 @@
         <item row="3" column="0">
          <widget class="QLabel" name="label_4">
           <property name="text">
-           <string>Расположение</string>
+           <string>INFO_PATH</string>
           </property>
          </widget>
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="label_5">
           <property name="text">
-           <string>Общий объем</string>
+           <string>INFO_TOTAL_SIZE</string>
           </property>
          </widget>
         </item>
         <item row="0" column="0">
          <widget class="QLabel" name="label">
           <property name="text">
-           <string>Прошло</string>
+           <string>INFO_ACTIVE_TIME</string>
           </property>
          </widget>
         </item>
         <item row="1" column="3">
          <widget class="QLabel" name="label_8">
           <property name="text">
-           <string>Отдано</string>
+           <string>INFO_UPLOADED</string>
           </property>
          </widget>
         </item>
@@ -221,7 +221,7 @@
       </widget>
       <widget class="QWidget" name="tab_3">
        <attribute name="title">
-        <string>Пиры</string>
+        <string>TAB_PEERS</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_2">
         <item row="0" column="0">
@@ -252,37 +252,37 @@
           </attribute>
           <column>
            <property name="text">
-            <string>IP</string>
+            <string>PEER_IP</string>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>Клиент</string>
+            <string>PEER_CLIENT_NAME</string>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>%</string>
+            <string>PEER_%</string>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>Загрузка</string>
+            <string>PEER_DOWNLOAD_SPEED</string>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>Отдача</string>
+            <string>PEER_UPLOAD_SPEED</string>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>Загружено</string>
+            <string>PEER_DOWNLOADED</string>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>Отдано</string>
+            <string>PEER_UPLOADED</string>
            </property>
           </column>
          </widget>
@@ -291,7 +291,7 @@
       </widget>
       <widget class="QWidget" name="tab_2">
        <attribute name="title">
-        <string>Трекеры</string>
+        <string>TAB_TRACKERS</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout">
         <item row="0" column="0">
@@ -322,17 +322,17 @@
           </attribute>
           <column>
            <property name="text">
-            <string>URL</string>
+            <string>TRACKER_URL</string>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>Статус</string>
+            <string>TRACKER_STATUS</string>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>Обновление через</string>
+            <string>TRACKER_NEXT_ANNOUNCE</string>
            </property>
           </column>
          </widget>
@@ -341,7 +341,7 @@
       </widget>
       <widget class="QWidget" name="tab_4">
        <attribute name="title">
-        <string>Файлы</string>
+        <string>TAB_FILES</string>
        </attribute>
        <layout class="QGridLayout" name="gridLayout_5">
         <item row="0" column="0">
@@ -372,22 +372,22 @@
           </attribute>
           <column>
            <property name="text">
-            <string>Путь</string>
+            <string>FILES_PATH</string>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>Размер</string>
+            <string>FILES_SIZE</string>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>Готово</string>
+            <string>FILES_READY</string>
            </property>
           </column>
           <column>
            <property name="text">
-            <string>Приоритет</string>
+            <string>FILES_PRIORITY</string>
            </property>
           </column>
          </widget>
@@ -424,7 +424,7 @@
    </property>
    <widget class="QMenu" name="menu">
     <property name="title">
-     <string>Файл</string>
+     <string>MENU_FILE</string>
     </property>
     <addaction name="actionOpenTorrent"/>
     <addaction name="action_magnet"/>
@@ -435,13 +435,13 @@
    </widget>
    <widget class="QMenu" name="menu_2">
     <property name="title">
-     <string>Настройки</string>
+     <string>MENU_SETTINGS</string>
     </property>
     <addaction name="actionSettings"/>
    </widget>
    <widget class="QMenu" name="menu_CuteTorrent">
     <property name="title">
-     <string>Справка</string>
+     <string>MENU_HELP</string>
     </property>
     <addaction name="actionAboutCuteTorrent"/>
     <addaction name="actionCheckUpdate"/>
@@ -477,27 +477,27 @@
   </widget>
   <action name="actionOpenTorrent">
    <property name="text">
-    <string>Открыть торрент</string>
+    <string>MENU_OPEN_TORRENT</string>
    </property>
   </action>
   <action name="action_magnet">
    <property name="text">
-    <string>Открыть magnet ссылку</string>
+    <string>MENU_OPEN_MAGNET</string>
    </property>
   </action>
   <action name="actionCreateTorrent">
    <property name="text">
-    <string>Создать торрент</string>
+    <string>MENU_CREATE_TORRENT</string>
    </property>
   </action>
   <action name="actionExit">
    <property name="text">
-    <string>Выход</string>
+    <string>MENU_EXIT</string>
    </property>
   </action>
   <action name="actionSettings">
    <property name="text">
-    <string>Конфигурация</string>
+    <string>MENU_CONFIGURATION</string>
    </property>
   </action>
   <action name="actionPause">
@@ -508,6 +508,9 @@
    <property name="text">
     <string>Приостановить</string>
    </property>
+   <property name="iconText">
+    <string>HINT_PAUSE</string>
+   </property>
   </action>
   <action name="actionStart">
    <property name="icon">
@@ -516,6 +519,9 @@
    </property>
    <property name="text">
     <string>Возобновить</string>
+   </property>
+   <property name="iconText">
+    <string>HINT_RESUME</string>
    </property>
   </action>
   <action name="actionRemove">
@@ -526,18 +532,21 @@
    <property name="text">
     <string>remove</string>
    </property>
+   <property name="iconText">
+    <string>HINT_REMOVE</string>
+   </property>
    <property name="toolTip">
     <string>Удалить торрент</string>
    </property>
   </action>
   <action name="actionAboutCuteTorrent">
    <property name="text">
-    <string>О CuteTorrent</string>
+    <string>MENU_ABAUT</string>
    </property>
   </action>
   <action name="actionCheckUpdate">
    <property name="text">
-    <string>Проверить обновления</string>
+    <string>MENU_CHECK_UPDATES</string>
    </property>
   </action>
  </widget>

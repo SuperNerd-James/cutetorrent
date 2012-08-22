@@ -11,7 +11,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Открыть новый торрент</string>
+   <string>DIALOG_OPEN_TORRENT</string>
   </property>
   <property name="windowIcon">
    <iconset resource="ltorrent.qrc">
@@ -24,7 +24,7 @@
    <item row="0" column="0" colspan="3">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Сохранить в</string>
+      <string>OPEN_TORRENT_SAVE_PATH</string>
      </property>
      <layout class="QGridLayout" name="gridLayout">
       <item row="0" column="0">
@@ -33,7 +33,7 @@
       <item row="0" column="1">
        <widget class="QPushButton" name="browseButton">
         <property name="text">
-         <string>Browse</string>
+         <string>OPEN_TORRENT_BROWSE_BUTTON</string>
         </property>
        </widget>
       </item>
@@ -43,13 +43,13 @@
    <item row="1" column="0" colspan="3">
     <widget class="QGroupBox" name="groupBox_2">
      <property name="title">
-      <string>Информация о торренте</string>
+      <string>OPEN_TORRENT_INFO</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
       <item row="0" column="0">
        <widget class="QLabel" name="labelNameTitile">
         <property name="text">
-         <string>Имя</string>
+         <string>OPEN_TORRENT_INFO_NAME</string>
         </property>
        </widget>
       </item>
@@ -89,7 +89,7 @@
       <item row="1" column="0" colspan="2">
        <widget class="QLabel" name="labelCommentTitle">
         <property name="text">
-         <string>Описание</string>
+         <string>OPEN_TORRENT_INFO_DESCRIBTION</string>
         </property>
        </widget>
       </item>
@@ -129,7 +129,7 @@
       <item row="2" column="0">
        <widget class="QLabel" name="labelSizeTitle">
         <property name="text">
-         <string>Размер</string>
+         <string>SIZE</string>
         </property>
        </widget>
       </item>
@@ -175,14 +175,14 @@
    <item row="2" column="2">
     <widget class="QPushButton" name="cancelButton">
      <property name="text">
-      <string>Отмена</string>
+      <string>OPEN_TORRENT_CANCEL_BUTTON</string>
      </property>
     </widget>
    </item>
    <item row="2" column="1">
     <widget class="QPushButton" name="yesButton">
      <property name="text">
-      <string>Add</string>
+      <string>OPEN_TORRENT_ADD_BUTTON</string>
      </property>
     </widget>
    </item>
