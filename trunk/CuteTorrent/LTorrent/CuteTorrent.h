@@ -37,6 +37,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QCloseEvent>
 #include "QTorrentListView.h"
 #include "UpdateNotyfier.h"
+#include <QMutex>
 class CuteTorrent : public QMainWindow , private Ui::CuteTorrentClass
 {
 	Q_OBJECT
@@ -61,6 +62,7 @@ protected:
 private:
 	int  m_nMouseClick_X_Coordinate;
 	int  m_nMouseClick_Y_Coordinate;
+	QMutex* fileinfosLocker;
 	QList<file_info> file_infos;
 	UpdateNotifier* notyfire;
 	bool mayShowNotifies;

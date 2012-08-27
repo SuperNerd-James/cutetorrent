@@ -38,6 +38,7 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	mng = TorrentManager::getInstance();
 	notyfire = new UpdateNotifier();
 	mayShowNotifies = false;
+	fileinfosLocker = new QMutex(QMutex::NonRecursive);
 	//setAcceptDrops(true);
 	setupStatusBar();
 	setupTray();
@@ -68,9 +69,7 @@ void CuteTorrent::checkForUpdates()
 }
 void CuteTorrent::ShowAbout()
 {
-	QMessageBox::about(this,QString::fromLocal8Bit(tr(QString::fromLocal8Bit("О CuteTorrent").toAscii().data()
-		).toAscii().data()),QString::fromLocal8Bit(tr((QString::fromLocal8Bit("CuteTorrent ")+CT_VERSION+"\nCuteTorrent - бесплатный BitTorrent клиент с поддержкой DHT,  фильрации торрентов, монтирования образов Daemon Tools\n\nЕсли вы заплатили за это програмное обспечение потребуйте возврата денег!").toAscii().data()
-		).toAscii().data()));
+	QMessageBox::about(this,tr("ABAUT_TITLE"),tr("ABAUT_TEXT").arg(CT_VERSION));
 }
 void CuteTorrent::ShowUpdateNitify(const QString& newVersion)
 {
@@ -175,7 +174,10 @@ void CuteTorrent::fileTabContextMenu(const QPoint & point)
 	QModelIndex qmi=fileTableWidget->indexAt(point);
 	if (qmi.isValid())
 	{
-		switch(file_infos.at(qmi.row()).prioiry)
+		fileinfosLocker->lock();
+		int currentPriority=file_infos.at(qmi.row()).prioiry;
+		fileinfosLocker->unlock();
+		switch(currentPriority)
 		{
 			case 1:
 			case 2:
@@ -239,8 +241,7 @@ void CuteTorrent::ShowTorrentError(const QString& name,const QString& error)
 void CuteTorrent::showTorrentCompletedNotyfy(const QString name)
 {
 	
-	QBalloonTip::showBalloon("CuteTorrent", QString::fromLocal8Bit(tr(("CuteTorrent завершил загрузку торрента "+name).toAscii().data()).toAscii().data())
-		,QSystemTrayIcon::Information,15000,false);
+	QBalloonTip::showBalloon("CuteTorrent", tr("CuteTorrent завершил загрузку торрента %1").arg(name),QSystemTrayIcon::Information,15000,false);
 	
 }
 
@@ -284,8 +285,8 @@ void CuteTorrent::UpdateFileTab()
 	if (tor!=NULL)
 	{
 		qDebug() << "Torrent is not null " << tor << " so begin updating tab";
+		fileinfosLocker->lock();
 		file_infos=tor->GetFileDownloadInfo();
-		//fileTableWidget->setUpdatesEnabled(false);
 		fileTableWidget->setRowCount(file_infos.count());
 		qDebug() << "file_infos.count() " <<file_infos.count();
 		
@@ -302,8 +303,7 @@ void CuteTorrent::UpdateFileTab()
 			qDebug() << "updating  priority" ;
 			fileTableWidget->setItem(i,3,new QTableWidgetItem(StaticHelpers::filePriorityToString(current.prioiry)));
 		}
-		//fileTableWidget->setUpdatesEnabled(true);
-		//file_infos.~QList();
+		fileinfosLocker->unlock();
 	}
 }
 void CuteTorrent::setupTray()
@@ -582,30 +582,30 @@ void CuteTorrent::setupFileTabel()
 void CuteTorrent::setupFileTabelContextMenu()
 {
 	fileTabMenu = new QMenu(fileTableWidget);
-	openFile = new QAction(QString::fromLocal8Bit(tr("Открыть").toAscii().data()), this);
+	openFile = new QAction(tr("FILETAB_OPEN_FILE"), this);
 	QObject::connect(openFile, SIGNAL(triggered()), this, SLOT(OpenFileSelected()));
 	fileTabMenu->addAction(openFile);
-	openDir = new QAction(QString::fromLocal8Bit(tr("Открыть папку").toAscii().data()), this);
+	openDir = new QAction(tr("FILETAB_OPEN_FOLDER"), this);
 	QObject::connect(openDir, SIGNAL(triggered()), this, SLOT(OpenDirSelected()));
 	fileTabMenu->addAction(openDir);
 	fileTabMenu->addSeparator();
 	priority = new QMenu(fileTabMenu);
-	priority->setTitle(QString::fromLocal8Bit(tr("Приоритет").toAscii().data()));
-	lowPriority = new QAction(QString::fromLocal8Bit(tr("Низкий").toAscii().data()), this);
+	priority->setTitle(tr("FILETAB_PRIORITY"));
+	lowPriority = new QAction(tr("FILETAB_PRIORITY_LOW"), this);
 	lowPriority->setCheckable(true);
 	QObject::connect(lowPriority, SIGNAL(triggered()), this, SLOT(setLowForCurrentFile()));
 	priority->addAction(lowPriority);
-	mediumPriority = new QAction(QString::fromLocal8Bit(tr("Средний").toAscii().data()), this);
+	mediumPriority = new QAction(tr("FILETAB_PRIORITY_MEDIUM"), this);
 	mediumPriority->setCheckable(true);
 	QObject::connect(mediumPriority, SIGNAL(triggered()), this, SLOT(setMediumForCurrentFile()));
 	priority->addAction(mediumPriority);
-	highPriority = new QAction(QString::fromLocal8Bit(tr("Высокий").toAscii().data()), this);
+	highPriority = new QAction(tr("FILETAB_PRIORITY_HIGH"), this);
 	highPriority->setCheckable(true);
 	QObject::connect(highPriority, SIGNAL(triggered()), this, SLOT(setHighForCurrentFile()));
 	priority->addAction(highPriority);
 	fileTabMenu->addMenu(priority);
 	fileTabMenu->addSeparator();
-	dontDownload = new QAction(QString::fromLocal8Bit(tr("Не загружать").toAscii().data()), this);
+	dontDownload = new QAction(tr("FILETAB_PRIORITY_ZERO"), this);
 	dontDownload->setCheckable(true);
 	QObject::connect(dontDownload, SIGNAL(triggered()), this, SLOT(setNotDownloadForCurrentFile()));
 	fileTabMenu->addAction(dontDownload);
@@ -619,7 +619,9 @@ void CuteTorrent::OpenFileSelected()
 	{
 		int file_num=fileTableWidget->currentRow();
 		QDesktopServices desctopService;
+		fileinfosLocker->lock();
 		QString path=combine_path(tor->GetSavePath().toAscii().data(),file_infos.at(file_num).name.toAscii().data()).c_str();
+		fileinfosLocker->unlock();
 		qDebug() << "trying to open file " << path;
 		desctopService.openUrl(QUrl("file:///"+path));
 	}
@@ -631,7 +633,9 @@ void CuteTorrent::OpenDirSelected()
 	if (tor!=NULL)
 	{
 		int file_num=fileTableWidget->currentRow();
+		fileinfosLocker->lock();
 		QString path = QFileInfo(QDir::toNativeSeparators(tor->GetSavePath()+file_infos.at(file_num).name)).absoluteFilePath();
+		fileinfosLocker->unlock();
 #ifdef Q_WS_MAC
 		QStringList args;
 		args << "-e";
@@ -664,7 +668,9 @@ void CuteTorrent::setLowForCurrentFile()
 		highPriority->setChecked(false);
 		dontDownload->setChecked(false);
 		int file_num=fileTableWidget->currentRow();
+		fileinfosLocker->lock();
 		file_info current=file_infos.at(file_num);
+		fileinfosLocker->unlock();
 		tor->SetFilePriority(current.index,2);
 	}
 }
@@ -678,7 +684,9 @@ void CuteTorrent::setMediumForCurrentFile()
 		highPriority->setChecked(false);
 		dontDownload->setChecked(false);
 		int file_num=fileTableWidget->currentRow();
+		fileinfosLocker->lock();
 		file_info current=file_infos.at(file_num);
+		fileinfosLocker->unlock();
 		tor->SetFilePriority(current.index,5);
 	}
 }
@@ -692,7 +700,9 @@ void CuteTorrent::setHighForCurrentFile()
 		mediumPriority->setChecked(false);
 		dontDownload->setChecked(false);
 		int file_num=fileTableWidget->currentRow();
+		fileinfosLocker->lock();
 		file_info current=file_infos.at(file_num);
+		fileinfosLocker->unlock();
 		tor->SetFilePriority(current.index,7);
 	}
 }
@@ -706,7 +716,9 @@ void CuteTorrent::setNotDownloadForCurrentFile()
 		mediumPriority->setChecked(false);
 		highPriority->setChecked(false);
 		int file_num=fileTableWidget->currentRow();
+		fileinfosLocker->lock();
 		file_info current=file_infos.at(file_num);
+		fileinfosLocker->unlock();
 		tor->SetFilePriority(current.index,0);
 	}
 }
