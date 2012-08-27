@@ -187,15 +187,15 @@ void QTorrentDisplayModel::MountDT()
 							tor->pause();
 				QStringList images = tor->GetImageFiles();
 				qDebug() << "receved imageFiles first item : " << images.at(0);
-				/*if (images->size() > 1)
-				{*/
+				if (images.size() > 1)
+				{
 					qDebug() << "images.count>1";
 					MountDialogThread thread;
 					thread.create(images);
 					qDebug() << "MultipleDTDialog created now will be executed";
 					
 					
-				/*}
+				}
 				else
 				{
 					qDebug() << "going to else brunch"	;
@@ -214,8 +214,8 @@ void QTorrentDisplayModel::MountDT()
 					QStringList args;
 					/*args << "-mount";
 					args << command.arg(QString::number(driveNum)).arg(images.first());*/
-				/*	qDebug() << exe << command.arg(QString::number(driveNum)).arg(images->first());
-					dt->setNativeArguments(command.arg(QString::number(driveNum)).arg(images->first()));
+					qDebug() << exe << command.arg(QString::number(driveNum)).arg(images.first());
+					dt->setNativeArguments(command.arg(QString::number(driveNum)).arg(images.first()));
 					dt->start(exe,args);
 					QApplicationSettings::FreeInstance();
 					if (!dt->waitForStarted(5000))
@@ -226,7 +226,7 @@ void QTorrentDisplayModel::MountDT()
 					
 					dt->waitForFinished();
 					delete dt;
-				}*/
+				}
 			}
 		}
 
@@ -246,6 +246,14 @@ void QTorrentDisplayModel::updateVisibleTorrents()
 		id_to_torrent.remove(id);
 	}
 	torrents_to_remove.clear();
+	for (int i=0;i<torrents_to_add.count();i++)
+	{
+		torrents.append(torrents_to_add.at(i));
+		id_to_torrent.insert(auto_id,torrents_to_add.at(i));
+		id_to_row.insert(torrents.count()-1,auto_id);
+		auto_id++;
+	}
+	torrents_to_add.clear();
 	locker->unlock();
 	torrents_to_remove.clear();
 	for (int i=0;i<torrents.count();i++)
@@ -341,10 +349,9 @@ void QTorrentDisplayModel::AddTorrent(Torrent* tr)
 	
 	if (tr!=NULL)
 	{
-		torrents.append(tr);
-		id_to_torrent.insert(auto_id,tr);
-		id_to_row.insert(torrents.count()-1,auto_id);
-		auto_id++;
+		locker->lock();
+		torrents_to_add.append(tr);
+		locker->unlock();
 	}
 }
 void QTorrentDisplayModel::TorrentErrorProxy(const QString& name)
