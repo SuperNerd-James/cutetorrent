@@ -204,28 +204,46 @@
 <context>
     <name>CuteTorrent</name>
     <message>
-        <location filename="CuteTorrent.cpp" line="227"/>
+        <location filename="CuteTorrent.cpp" line="229"/>
         <source>CuteTorrent %1 - ïîñëåäíÿÿ äîñòóïíàÿ âåðñèÿ</source>
         <translation></translation>
     </message>
     <message>
+        <location filename="CuteTorrent.cpp" line="102"/>
         <location filename="CuteTorrent.cpp" line="103"/>
-        <location filename="CuteTorrent.cpp" line="104"/>
         <source>Îòäàííî(Îòäà÷à)</source>
         <translation>Отданно(Отдача)</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="106"/>
-        <location filename="CuteTorrent.cpp" line="109"/>
+        <location filename="CuteTorrent.cpp" line="72"/>
+        <source>ABAUT_TITLE</source>
+        <translation>О CuteTorrent</translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.cpp" line="72"/>
+        <source>ABAUT_TEXT</source>
+        <translation>CuteTorrent %1
+CuteTorrent - бесплатный BitTorrent клиент с поддержкой DHT,  фильрации торрентов, монтирования образов Daemon Tools
+
+Если вы заплатили за это програмное обспечение потребуйте возврата денег!</translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.cpp" line="105"/>
+        <location filename="CuteTorrent.cpp" line="108"/>
         <source>Çàãðóæííî(Çàãðóçêà)</source>
         <translation>Загружено(Загрузка)</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="235"/>
+        <location filename="CuteTorrent.cpp" line="237"/>
         <source>Ïðè çàãðóçêå òîððåíòà %1 ïðîèçîøëà îøèáêà
 %2</source>
         <translation>При загрузке торрента %1 произошла ошибка
 %2</translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.cpp" line="244"/>
+        <source>CuteTorrent çàâåðøèë çàãðóçêó òîððåíòà %1</source>
+        <translation>CuteTorrent завершил загрузку торрента %1</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="324"/>
@@ -259,38 +277,38 @@
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="585"/>
-        <source>Îòêðûòü</source>
-        <translation></translation>
+        <source>FILETAB_OPEN_FILE</source>
+        <translation>Открыть</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="588"/>
-        <source>Îòêðûòü ïàïêó</source>
-        <translation></translation>
+        <source>FILETAB_OPEN_FOLDER</source>
+        <translation>Открыть папку</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="593"/>
-        <source>Ïðèîðèòåò</source>
-        <translation></translation>
+        <source>FILETAB_PRIORITY</source>
+        <translation>Приоритет</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="594"/>
-        <source>Íèçêèé</source>
-        <translation></translation>
+        <source>FILETAB_PRIORITY_LOW</source>
+        <translation>Низкий</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="598"/>
-        <source>Ñðåäíèé</source>
-        <translation></translation>
+        <source>FILETAB_PRIORITY_MEDIUM</source>
+        <translation>Средний</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="602"/>
-        <source>Âûñîêèé</source>
-        <translation></translation>
+        <source>FILETAB_PRIORITY_HIGH</source>
+        <translation>Высокий</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="608"/>
-        <source>Íå çàãðóæàòü</source>
-        <translation></translation>
+        <source>FILETAB_PRIORITY_ZERO</source>
+        <translation>Не загружать</translation>
     </message>
 </context>
 <context>
@@ -586,17 +604,17 @@
 <context>
     <name>LTorrentClass</name>
     <message>
-        <location filename="CuteTorrent.cpp" line="144"/>
+        <location filename="CuteTorrent.cpp" line="143"/>
         <source>rutracker.org</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="145"/>
+        <location filename="CuteTorrent.cpp" line="144"/>
         <source>thepiratebay.se</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="146"/>
+        <location filename="CuteTorrent.cpp" line="145"/>
         <source>rutor.org</source>
         <translation></translation>
     </message>
@@ -685,19 +703,28 @@
 <context>
     <name>QTorrentItemDelegat</name>
     <message>
-        <location filename="QTorrentItemDelegat.cpp" line="164"/>
         <source>%1 ????????? %2 ?? %3</source>
-        <translation></translation>
+        <translation type="obsolete">%1 Загружено %2 из %3</translation>
+    </message>
+    <message>
+        <location filename="QTorrentItemDelegat.cpp" line="164"/>
+        <source>%1 STR_DOWNLOADED %2 STR_FROM %3</source>
+        <translation>%1 Загружено %2 из %3</translation>
     </message>
     <message>
         <location filename="QTorrentItemDelegat.cpp" line="168"/>
-        <source>%1 - %3 ???????? %2</source>
-        <translation></translation>
+        <source>%1 - %3 STR_UPLOADED %2</source>
+        <oldsource>%1 - %3 ???????? %2</oldsource>
+        <translation>%1 - %3 Розданно %2</translation>
     </message>
     <message>
         <location filename="QTorrentItemDelegat.cpp" line="184"/>
+        <source>STR_PAUSED</source>
+        <translation>Приостановлен</translation>
+    </message>
+    <message>
         <source>?????????????</source>
-        <translation></translation>
+        <translation type="obsolete">Приостановлен</translation>
     </message>
 </context>
 <context>
@@ -1046,7 +1073,7 @@
     <message>
         <location filename="SettingsDialog.cpp" line="312"/>
         <source>Óêàçàòü ïàïêó ñ DaemonTools</source>
-        <translation></translation>
+        <translation>Укажите путь к DaemonTools</translation>
     </message>
 </context>
 <context>

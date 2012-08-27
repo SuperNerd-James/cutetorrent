@@ -273,7 +273,7 @@ Are you shure you want to continue?</translation>
 <context>
     <name>CuteTorrent</name>
     <message>
-        <location filename="CuteTorrent.cpp" line="227"/>
+        <location filename="CuteTorrent.cpp" line="229"/>
         <source>CuteTorrent %1 - ïîñëåäíÿÿ äîñòóïíàÿ âåðñèÿ</source>
         <translation>CuteTorrent %1 - Last Avaliable version</translation>
     </message>
@@ -282,23 +282,42 @@ Are you shure you want to continue?</translation>
         <translation type="obsolete">Error occured during downloading of torrent %1</translation>
     </message>
     <message>
+        <location filename="CuteTorrent.cpp" line="72"/>
+        <source>ABAUT_TITLE</source>
+        <translation>Abaut CuteTorrent</translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.cpp" line="72"/>
+        <source>ABAUT_TEXT</source>
+        <translation>CuteTorrent %1
+
+CuteTorrent - free BitTorrent clent with DHT,  torrent filtering, opportunity of mounting Daemon Tools
+
+If you have paid money for this software demand a refund</translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.cpp" line="102"/>
         <location filename="CuteTorrent.cpp" line="103"/>
-        <location filename="CuteTorrent.cpp" line="104"/>
         <source>Îòäàííî(Îòäà÷à)</source>
         <translation>Uploaded(Upload Speed)</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="106"/>
-        <location filename="CuteTorrent.cpp" line="109"/>
+        <location filename="CuteTorrent.cpp" line="105"/>
+        <location filename="CuteTorrent.cpp" line="108"/>
         <source>Çàãðóæííî(Çàãðóçêà)</source>
         <translation>Dwonloaded(Dwonload Speed)</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="235"/>
+        <location filename="CuteTorrent.cpp" line="237"/>
         <source>Ïðè çàãðóçêå òîððåíòà %1 ïðîèçîøëà îøèáêà
 %2</source>
         <translation>while downloading Torrent %1 occured error:
 %2</translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.cpp" line="244"/>
+        <source>CuteTorrent çàâåðøèë çàãðóçêó òîððåíòà %1</source>
+        <translation>CuteTorrent have completed downloading of torrent%1</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="324"/>
@@ -332,38 +351,42 @@ Are you shure you want to continue?</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="585"/>
-        <source>Îòêðûòü</source>
-        <translation></translation>
+        <source>FILETAB_OPEN_FILE</source>
+        <translation>Open</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="588"/>
-        <source>Îòêðûòü ïàïêó</source>
+        <source>FILETAB_OPEN_FOLDER</source>
         <translation>Open folder</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="593"/>
-        <source>Ïðèîðèòåò</source>
-        <translation></translation>
+        <source>FILETAB_PRIORITY</source>
+        <translation>Priority</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="594"/>
-        <source>Íèçêèé</source>
-        <translation></translation>
+        <source>FILETAB_PRIORITY_LOW</source>
+        <translation>Low</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="598"/>
-        <source>Ñðåäíèé</source>
-        <translation></translation>
+        <source>FILETAB_PRIORITY_MEDIUM</source>
+        <translation>Medium</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="602"/>
-        <source>Âûñîêèé</source>
-        <translation></translation>
+        <source>FILETAB_PRIORITY_HIGH</source>
+        <translation>High</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="608"/>
-        <source>Íå çàãðóæàòü</source>
-        <translation></translation>
+        <source>FILETAB_PRIORITY_ZERO</source>
+        <translation>Don&apos;t download</translation>
+    </message>
+    <message>
+        <source>Îòêðûòü ïàïêó</source>
+        <translation type="obsolete">Open folder</translation>
     </message>
 </context>
 <context>
@@ -629,7 +652,7 @@ Are you shure you want to continue?</translation>
     <message>
         <location filename="CuteTorrent.ui" line="344"/>
         <source>TAB_FILES</source>
-        <translation>Files</translation>
+        <translation>Files </translation>
     </message>
     <message>
         <location filename="CuteTorrent.ui" line="375"/>
@@ -758,17 +781,17 @@ Are you shure you want to continue?</translation>
 <context>
     <name>LTorrentClass</name>
     <message>
-        <location filename="CuteTorrent.cpp" line="144"/>
+        <location filename="CuteTorrent.cpp" line="143"/>
         <source>rutracker.org</source>
         <translation>rutracker.org</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="145"/>
+        <location filename="CuteTorrent.cpp" line="144"/>
         <source>thepiratebay.se</source>
         <translation>thepiratebay.se</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="146"/>
+        <location filename="CuteTorrent.cpp" line="145"/>
         <source>rutor.org</source>
         <translation>rutor.org</translation>
     </message>
@@ -889,19 +912,28 @@ Are you shure you want to continue?</translation>
 <context>
     <name>QTorrentItemDelegat</name>
     <message>
-        <location filename="QTorrentItemDelegat.cpp" line="164"/>
         <source>%1 ????????? %2 ?? %3</source>
+        <translation type="obsolete">%1 Downloaded %2 from %3</translation>
+    </message>
+    <message>
+        <location filename="QTorrentItemDelegat.cpp" line="164"/>
+        <source>%1 STR_DOWNLOADED %2 STR_FROM %3</source>
         <translation>%1 Downloaded %2 from %3</translation>
     </message>
     <message>
         <location filename="QTorrentItemDelegat.cpp" line="168"/>
-        <source>%1 - %3 ???????? %2</source>
+        <source>%1 - %3 STR_UPLOADED %2</source>
+        <oldsource>%1 - %3 ???????? %2</oldsource>
         <translation>%1 -%3 Uploaded %2</translation>
     </message>
     <message>
         <location filename="QTorrentItemDelegat.cpp" line="184"/>
-        <source>?????????????</source>
+        <source>STR_PAUSED</source>
         <translation>Paused</translation>
+    </message>
+    <message>
+        <source>?????????????</source>
+        <translation type="obsolete">Paused</translation>
     </message>
 </context>
 <context>
