@@ -872,7 +872,7 @@
     <message>
         <location filename="SettingsDialog.ui" line="235"/>
         <source>FILTERING_GROUP</source>
-        <translation></translation>
+        <translation type="unfinished">Группы фильтрации</translation>
     </message>
     <message>
         <location filename="SettingsDialog.ui" line="244"/>
