@@ -408,16 +408,16 @@ void CuteTorrent::createTrayIcon()
  void CuteTorrent::createActions()
  {
 	 minimizeAction = new QAction(tr("ACTION_HIDE"), this);
-     connect(minimizeAction, SIGNAL(triggered()), this, SLOT(hide()));
+	 connect(minimizeAction, SIGNAL(triggered()), this, SLOT(hide()));
 
-     maximizeAction = new QAction(tr("ACTION_MAXIMIZE_FULLSCREEN"), this);
-     connect(maximizeAction, SIGNAL(triggered()), this, SLOT(showMaximized()));
+	 maximizeAction = new QAction(tr("ACTION_MAXIMIZE_FULLSCREEN"), this);
+	 connect(maximizeAction, SIGNAL(triggered()), this, SLOT(showMaximized()));
 
-     restoreAction = new QAction(tr("ACTION_MAXIMIZE"), this);
-     connect(restoreAction, SIGNAL(triggered()), this, SLOT(showNormal()));
+	 restoreAction = new QAction(tr("ACTION_MAXIMIZE"), this);
+	 connect(restoreAction, SIGNAL(triggered()), this, SLOT(showNormal()));
 
-     quitAction = new QAction(tr("ACTION_EXIT"), this);
-     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
+	 quitAction = new QAction(tr("ACTION_EXIT"), this);
+	 connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
  }
 void CuteTorrent::ConnectMessageReceved(QtSingleApplication* a)
 {
