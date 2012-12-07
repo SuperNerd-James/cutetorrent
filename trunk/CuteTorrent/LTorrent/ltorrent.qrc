@@ -1,0 +1,48 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file alias="remove.ico">Resources/Actions-application-exit.ico</file>
+        <file alias="start.ico">Resources/Actions-arrow-right.ico</file>
+        <file alias="pause.ico">Resources/Actions-media-playback-pause.ico</file>
+        <file alias="my-archive.ico">Resources/archime.ico</file>
+        <file alias="my-audio.ico">Resources/audio.ico</file>
+        <file alias="my-default.ico">Resources/default.ico</file>
+        <file alias="my-doc.ico">Resources/doc.ico</file>
+        <file alias="my-movie.ico">Resources/movie.ico</file>
+        <file alias="my-picture.ico">Resources/picture.ico</file>
+        <file alias="my-folder.ico">Resources/folder.ico</file>
+        <file alias="app.ico">Resources/app.ico</file>
+        <file alias="BaseStyle.qss">Resources/CuteTorrentStyle.qss</file>
+        <file alias="my-iso.ico">Resources/File-iso-icon.ico</file>
+        <file alias="download.ico">Resources/download.ico</file>
+        <file alias="upload.ico">Resources/upload.ico</file>
+    </qresource>
+    <qresource prefix="/translations">
+        <file>cutetorrent_russian.qm</file>
+        <file>cutetorrent_english.qm</file>
+    </qresource>
+    <qresource prefix="/treeview">
+        <file alias="branch-closed.png">Resources/stylesheet-branch-closed.png</file>
+        <file alias="branch-end.png">Resources/stylesheet-branch-end.png</file>
+        <file alias="branch-more.png">Resources/stylesheet-branch-more.png</file>
+        <file alias="branch-open.png">Resources/stylesheet-branch-open.png</file>
+        <file alias="vline.png">Resources/stylesheet-vline.png</file>
+    </qresource>
+    <qresource prefix="/images">
+        <file alias="pushbutton.png">Resources/images/pushbutton.png</file>
+        <file alias="pushbutton_hover.png">Resources/images/pushbutton_hover.png</file>
+        <file alias="pushbutton_pressed.png">Resources/images/pushbutton_pressed.png</file>
+        <file alias="down_arrow.png">Resources/images/down_arrow.png</file>
+        <file alias="down_arrow_disabled.png">Resources/images/down_arrow_disabled.png</file>
+        <file alias="up_arrow.png">Resources/images/up_arrow.png</file>
+        <file alias="up_arrow_disabled.png">Resources/images/up_arrow_disabled.png</file>
+        <file alias="frame.png">Resources/images/frame.png</file>
+        <file>Resources/images/sizegrip.png</file>
+        <file alias="checkbox_checked.png">Resources/images/checkbox_checked.png</file>
+        <file alias="checkbox_checked_hover.png">Resources/images/checkbox_checked_hover.png</file>
+        <file alias="checkbox_checked_pressed.png">Resources/images/checkbox_checked_pressed.png</file>
+        <file alias="checkbox_unchecked.png">Resources/images/checkbox_unchecked.png</file>
+        <file alias="checkbox_unchecked_hover.png">Resources/images/checkbox_unchecked_hover.png</file>
+        <file alias="checkbox_unchecked_pressed.png">Resources/images/checkbox_unchecked_pressed.png</file>
+        <file alias="transparent.png">Resources/images/transparent.png</file>
+    </qresource>
+</RCC>
