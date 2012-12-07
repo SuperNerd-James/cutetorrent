@@ -5,6 +5,10 @@
 	Name="CuteTorrent"
 	ProjectGUID="{D441FCD6-9330-45D0-8C15-1144E99D11FD}"
 	RootNamespace="LTorrent"
+	SccProjectName="Svn"
+	SccAuxPath="Svn"
+	SccLocalPath="Svn"
+	SccProvider="RocketSvnScc"
 	Keyword="Qt4VSv1.0"
 	TargetFrameworkVersion="0"
 	>
