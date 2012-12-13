@@ -47,6 +47,7 @@ OpenTorrentDialog::~OpenTorrentDialog()
 
 void OpenTorrentDialog::SetData(QString filename)
 {
+	torrentFilename=filename;
 	if (filename.startsWith("magnet"))
 	{
 		QMovie *movie = new QMovie(":/images/loader.gif");
@@ -62,7 +63,6 @@ void OpenTorrentDialog::SetData(QString filename)
 	{
 		loaderGifLabel->hide();		
 		loaderTextLabel->hide();		
-		torrentFilename=filename;
 		opentorrent_info* info=mgr->GetTorrentInfo(torrentFilename);
 		if (info!=NULL)
 		{

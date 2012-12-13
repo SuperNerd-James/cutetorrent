@@ -52,14 +52,18 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 		proxyUsernameEdit->setText(settings->valueString("Torrent","proxy_username"));
 		proxyPwdEdit->setText(settings->valueString("Torrent","proxy_password"));
 	}
+	////////////////////////HDD_TAB//////////////////////////////////////////////////
 	lockFilesCheckBox->setCheckState(settings->valueBool("Torrent","lock_files") ?  Qt::Checked :Qt::Unchecked );
 	casheSizeLineEdit->setText(QString::number(settings->valueInt("Torrent","cache_size")*16*1024));
 	diskIOCasheModeComboBox->setCurrentIndex(settings->valueInt("Torrent","disk_io_write_mode"));
 	useDiskReadAheadCheckBox->setCheckState(settings->valueBool("Torrent","use_disk_read_ahead") ?  Qt::Checked :Qt::Unchecked );
-	
 	alowReorderedOpsCheckBox->setCheckState(settings->valueBool("Torrent","allow_reordered_disk_operations") ?  Qt::Checked :Qt::Unchecked );
 	lowPrioDiskCheckBox->setCheckState(settings->valueBool("Torrent","low_prio_disk") ?  Qt::Checked :Qt::Unchecked );
 	useReadCasheCheckBox->setCheckState(settings->valueBool("Torrent","use_read_cache") ?  Qt::Checked :Qt::Unchecked );
+	////////////////////////HDD_TAB//////////////////////////////////////////////////
+
+
+	////////////////////////DT_TAB//////////////////////////////////////////////////
 	DTPathEdit->setText(settings->valueString("DT","Executable"));
 	int driveNumber=settings->valueInt("DT","Drive");
 	driveNumberComboBox->setCurrentIndex(driveNumber < driveNumberComboBox->count() ? driveNumber : 0);
@@ -67,9 +71,13 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	bool useCustomCommand=settings->valueBool("DT","UseCustomCommand");
 	customMountCheckBox->setChecked(useCustomCommand);
 	customCommandEdit->setText( (useCustomCommand ? settings->valueString("DT","CustomtCommand") : settings->valueString("DT","DefaultCommand")));
-#ifdef _WIN32
+	////////////////////////DT_TAB//////////////////////////////////////////////////
+
+	////////////////////////OS_SPECIFICK//////////////////////////////////////////////////
+#ifdef Q_WS_WIN
 	QSettings assocSettings ("HKEY_CLASSES_ROOT", QSettings::NativeFormat);                                                                                   
-	QString torrentAssociation=assocSettings.value (".torrent/.").toString();                                                                                                   
+	QString torrentAssociation=assocSettings.value (".torrent/.").toString();  
+	magnetAssociationCheckBox->setChecked(assocSettings.value ("Magnet/shell/open/command/.").toString().toLower().contains("cutetorrent"));
 	asociationCheckBox->setChecked( torrentAssociation == "CuteTorrent.file");
 	QSettings bootUpSettings("Microsoft", "Windows");
 	QVariant val=bootUpSettings.value("/CurrentVersion/Run/CuteTorrent");
@@ -87,10 +95,10 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 		
 	}
 	
-	//qDebug() <<"run on boot" << val;
+	
 	runOnbootCheckBox->setChecked(val.toString().isEmpty());	
 #endif
- 
+	////////////////////////OS_SPECIFICK//////////////////////////////////////////////////
 	
 }
 void SettingsDialog::showSelectedGroup(int row)
@@ -162,7 +170,7 @@ void SettingsDialog::saveSettings()
 	settings->setValue("DT","UseCustomCommand",(customMountCheckBox->checkState()==Qt::Checked));
 	settings->setValue("DT","CustomtCommand",customCommandEdit->text());
 	settings->SaveFilterGropups(filterGroups);
-#ifdef _WIN32 //file association for windows
+#ifdef Q_WS_WIN //file association for windows
 	QSettings asocSettings ("HKEY_CLASSES_ROOT", QSettings::NativeFormat);   
 	QString base_dir=QDir::toNativeSeparators(settings->valueString("System","BaseDir"))+QDir::separator()+"CuteTorrent.exe";
 	if (base_dir.isEmpty())
@@ -178,6 +186,8 @@ void SettingsDialog::saveSettings()
 		
 		asocSettings.setValue ("CuteTorrent.file/shell/open/command/.",
 			"\"" + QDir::toNativeSeparators (base_dir) + "\"" + " \"%1\"");
+
+		
 	}
 	else
 	{
@@ -185,12 +195,26 @@ void SettingsDialog::saveSettings()
 			asocSettings.remove("CuteTorrent.file/.");
 			asocSettings.remove("CuteTorrent.file/shell/open/command/.");
 	}
-	
+	if (magnetAssociationCheckBox->isChecked())
+	{
+		asocSettings.setValue ("Magnet/.", "Magnet URI");                                                      
+		asocSettings.setValue ("Magnet/Content Type", "application/x-magnet");
+		asocSettings.setValue ("Magnet/URL Protocol", "");
+		asocSettings.setValue ("Magnet/shell/open/command/.",
+			"\"" + QDir::toNativeSeparators (base_dir) + "\"" + " \"%1\"");
+	} 
+	else
+	{
+		asocSettings.remove ("Magnet/.");                                                      
+		asocSettings.remove ("Magnet/Content Type");
+		asocSettings.remove ("Magnet/URL Protocol");
+		asocSettings.remove ("Magnet/shell/open/command/.");
+	}
 	QSettings bootUpSettings("Microsoft", "Windows");
 	
 	if (runOnbootCheckBox->checkState()==Qt::Checked)
 	{
-		bootUpSettings.setValue("/CurrentVersion/Run/CuteTorrent",base_dir);
+		bootUpSettings.setValue("/CurrentVersion/Run/CuteTorrent","\""+base_dir+"\"");
 	}
 	else
 		bootUpSettings.remove("/CurrentVersion/Run/CuteTorrent");

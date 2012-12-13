@@ -54,6 +54,9 @@
    </item>
    <item row="0" column="0" colspan="4">
     <widget class="QTabWidget" name="tabWidget">
+     <property name="whatsThis">
+      <string/>
+     </property>
      <property name="autoFillBackground">
       <bool>true</bool>
      </property>
@@ -61,41 +64,106 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>1</number>
+      <number>0</number>
      </property>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">
        <string>TAB_TORRENT</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_2">
-       <item row="0" column="0">
-        <widget class="QCheckBox" name="useProxyCheckBox">
-         <property name="text">
-          <string>USE_PROXY</string>
+       <item row="1" column="2" colspan="2">
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>RESTRICTIONS</string>
          </property>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_6">
+            <property name="whatsThis">
+             <string>UPLOAD_SPEED_LIMIT_WIT</string>
+            </property>
+            <property name="text">
+             <string>UPLOAD_SPEED_LIMIT(Kb/s)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="uploadLimitEdit">
+            <property name="whatsThis">
+             <string>UPLOAD_SPEED_LIMIT</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_15">
+            <property name="whatsThis">
+             <string>ACTIVE_TORRENTS_LIMIT_WIT</string>
+            </property>
+            <property name="text">
+             <string>ACTIVE_TORRENTS_LIMIT</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLineEdit" name="activeLimitEdit">
+            <property name="whatsThis">
+             <string>ACTIVE_TORRENTS_LIMIT</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_7">
+            <property name="whatsThis">
+             <string>DOWNLOAD_SPEED_LIMIT_WIT</string>
+            </property>
+            <property name="text">
+             <string>DOWNLOAD_SPEED_LIMIT(Kb/s)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="downloadLimitEdit">
+            <property name="whatsThis">
+             <string>DOWNLOAD_SPEED_LIMIT</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_16">
+            <property name="whatsThis">
+             <string>ACTIVE_SEEDS_LIMIT_WIT</string>
+            </property>
+            <property name="text">
+             <string>ACTIVE_SEEDS_LIMIT</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QLineEdit" name="activeSeedLimitEdit">
+            <property name="whatsThis">
+             <string>ACTIVE_SEEDS_LIMIT</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_17">
+            <property name="whatsThis">
+             <string>ACTIVE_DOWNLOADS_LIMIT_WIT</string>
+            </property>
+            <property name="text">
+             <string>ACTIVE_DOWNLOADS_LIMIT</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLineEdit" name="activeDownloadLimitEdit">
+            <property name="whatsThis">
+             <string>ACTIVE_DOWNLOADS_LIMIT</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QComboBox" name="localeComboBox"/>
-       </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="label">
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
-         </property>
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>LISTEN_PORT</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QLineEdit" name="portEdit"/>
        </item>
        <item row="1" column="0" colspan="2">
         <widget class="QGroupBox" name="proxyGroupBox">
@@ -108,19 +176,33 @@
          <layout class="QGridLayout" name="gridLayout">
           <item row="3" column="0">
            <widget class="QLabel" name="label_5">
+            <property name="whatsThis">
+             <string>PROXY_TYPE_WIT</string>
+            </property>
             <property name="text">
              <string>PROXY_TYPE</string>
             </property>
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QLineEdit" name="proxyUsernameEdit"/>
+           <widget class="QLineEdit" name="proxyUsernameEdit">
+            <property name="whatsThis">
+             <string>PROXY_USER_NAME_WIT</string>
+            </property>
+           </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QLineEdit" name="proxyHostEdit"/>
+           <widget class="QLineEdit" name="proxyHostEdit">
+            <property name="whatsThis">
+             <string>PROXY_HOST_WIT</string>
+            </property>
+           </widget>
           </item>
           <item row="1" column="0">
            <widget class="QLabel" name="label_3">
+            <property name="whatsThis">
+             <string>PROXY_USER_NAME_WIT</string>
+            </property>
             <property name="text">
              <string>PROXY_USER_NAME</string>
             </property>
@@ -128,16 +210,26 @@
           </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label_2">
+            <property name="whatsThis">
+             <string>PROXY_HOST_WIT</string>
+            </property>
             <property name="text">
              <string>PROXY_HOST (IP:port)</string>
             </property>
            </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QLineEdit" name="proxyPwdEdit"/>
+           <widget class="QLineEdit" name="proxyPwdEdit">
+            <property name="whatsThis">
+             <string>PROXY_PASSWORD</string>
+            </property>
+           </widget>
           </item>
           <item row="3" column="1">
            <widget class="QComboBox" name="proxyTypeComboBox">
+            <property name="whatsThis">
+             <string>PROXY_TYPE</string>
+            </property>
             <item>
              <property name="text">
               <string>Socks4</string>
@@ -172,6 +264,9 @@
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="label_4">
+            <property name="whatsThis">
+             <string>PROXY_PASSWORD_WIT</string>
+            </property>
             <property name="text">
              <string>PROXY_PASSWORD</string>
             </property>
@@ -180,76 +275,75 @@
          </layout>
         </widget>
        </item>
-       <item row="1" column="2" colspan="2">
-        <widget class="QGroupBox" name="groupBox_2">
-         <property name="title">
-          <string>RESTRICTIONS</string>
+       <item row="0" column="0">
+        <widget class="QCheckBox" name="useProxyCheckBox">
+         <property name="whatsThis">
+          <string>USE_PROXY</string>
          </property>
-         <layout class="QGridLayout" name="gridLayout_3">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_6">
-            <property name="text">
-             <string>UPLOAD_SPEED_LIMIT(Kb/s)</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLineEdit" name="uploadLimitEdit"/>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_15">
-            <property name="text">
-             <string>ACTIVE_TORRENTS_LIMIT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QLineEdit" name="activeLimitEdit"/>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_7">
-            <property name="text">
-             <string>DOWNLOAD_SPEED_LIMIT(Kb/s)</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="downloadLimitEdit"/>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_16">
-            <property name="text">
-             <string>ACTIVE_SEEDS_LIMIT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QLineEdit" name="activeSeedLimitEdit"/>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="label_17">
-            <property name="text">
-             <string>ACTIVE_DOWNLOADS_LIMIT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QLineEdit" name="activeDownloadLimitEdit"/>
-          </item>
-         </layout>
+         <property name="text">
+          <string>USE_PROXY</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="label">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>LISTEN_PORT</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QLineEdit" name="portEdit"/>
+       </item>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="localeComboBox"/>
+       </item>
+       <item row="2" column="2">
+        <widget class="QCheckBox" name="runOnbootCheckBox">
+         <property name="whatsThis">
+          <string>START_ON_BOOT_WIT</string>
+         </property>
+         <property name="text">
+          <string>START_ON_BOOT</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0" colspan="2">
+        <widget class="QCheckBox" name="magnetAssociationCheckBox">
+         <property name="whatsThis">
+          <string>MAGNET_ASSOCIATION_WIT</string>
+         </property>
+         <property name="text">
+          <string>MAGNET_ASSOCIATION</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QCheckBox" name="startMinimizedCheckBox">
+         <property name="whatsThis">
+          <string>START_MINIMIZED_WIT</string>
+         </property>
+         <property name="text">
+          <string>START_MINIMIZED</string>
+         </property>
         </widget>
        </item>
        <item row="2" column="0" colspan="2">
         <widget class="QCheckBox" name="asociationCheckBox">
+         <property name="whatsThis">
+          <string>TORRENT_FILES_ASSOCIATION_WIT</string>
+         </property>
          <property name="text">
           <string>TORRENT_FILES_ASSOCIATION</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QCheckBox" name="runOnbootCheckBox">
-         <property name="text">
-          <string>START_ON_BOOT</string>
          </property>
         </widget>
        </item>
