@@ -223,16 +223,16 @@
     <message>
         <location filename="CuteTorrent.cpp" line="106"/>
         <location filename="CuteTorrent.cpp" line="107"/>
-        <location filename="CuteTorrent.cpp" line="352"/>
-        <location filename="CuteTorrent.cpp" line="353"/>
+        <location filename="CuteTorrent.cpp" line="354"/>
+        <location filename="CuteTorrent.cpp" line="355"/>
         <source>STATUS_UPLOAD</source>
         <translation>Отдано(Отдача)</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="104"/>
         <location filename="CuteTorrent.cpp" line="105"/>
-        <location filename="CuteTorrent.cpp" line="350"/>
-        <location filename="CuteTorrent.cpp" line="351"/>
+        <location filename="CuteTorrent.cpp" line="352"/>
+        <location filename="CuteTorrent.cpp" line="353"/>
         <source>STATUS_DWONLOAD</source>
         <translation>Загруженно(Загрузка)</translation>
     </message>
@@ -249,42 +249,42 @@
         <translation>Завершилась загрузка торрента %1</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="321"/>
+        <location filename="CuteTorrent.cpp" line="324"/>
         <source>CT_HIDE_MSG</source>
         <translation>CuteTrrent Продолжает работать. Что бы выйти используйте контекстное меню в области уведомлений.</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="337"/>
-        <location filename="CuteTorrent.cpp" line="604"/>
+        <location filename="CuteTorrent.cpp" line="339"/>
+        <location filename="CuteTorrent.cpp" line="608"/>
         <source>FILETAB_OPEN_FILE</source>
         <translation>Открыть файл</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="345"/>
-        <location filename="CuteTorrent.cpp" line="404"/>
+        <location filename="CuteTorrent.cpp" line="347"/>
+        <location filename="CuteTorrent.cpp" line="408"/>
         <source>ACTION_HIDE</source>
         <translation>Свернуть</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="346"/>
-        <location filename="CuteTorrent.cpp" line="407"/>
+        <location filename="CuteTorrent.cpp" line="348"/>
+        <location filename="CuteTorrent.cpp" line="411"/>
         <source>ACTION_MAXIMIZE_FULLSCREEN</source>
         <translation>Развернуть на весь экран</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="347"/>
-        <location filename="CuteTorrent.cpp" line="410"/>
+        <location filename="CuteTorrent.cpp" line="349"/>
+        <location filename="CuteTorrent.cpp" line="414"/>
         <source>ACTION_MAXIMIZE</source>
         <translation>Развернуть</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="348"/>
-        <location filename="CuteTorrent.cpp" line="413"/>
+        <location filename="CuteTorrent.cpp" line="350"/>
+        <location filename="CuteTorrent.cpp" line="417"/>
         <source>ACTION_EXIT</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="437"/>
+        <location filename="CuteTorrent.cpp" line="441"/>
         <source>OPEN_TOORENT_DIALOG</source>
         <translation>Выбирите торрент файл</translation>
     </message>
@@ -294,38 +294,38 @@
         <translation type="obsolete">Открыть  файл</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="338"/>
-        <location filename="CuteTorrent.cpp" line="607"/>
+        <location filename="CuteTorrent.cpp" line="340"/>
+        <location filename="CuteTorrent.cpp" line="611"/>
         <source>FILETAB_OPEN_FOLDER</source>
         <translation>Открыть папку</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="339"/>
-        <location filename="CuteTorrent.cpp" line="612"/>
+        <location filename="CuteTorrent.cpp" line="341"/>
+        <location filename="CuteTorrent.cpp" line="616"/>
         <source>FILETAB_PRIORITY</source>
         <translation>Приоритет</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="340"/>
-        <location filename="CuteTorrent.cpp" line="613"/>
+        <location filename="CuteTorrent.cpp" line="342"/>
+        <location filename="CuteTorrent.cpp" line="617"/>
         <source>FILETAB_PRIORITY_LOW</source>
         <translation>Низкий</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="341"/>
-        <location filename="CuteTorrent.cpp" line="617"/>
+        <location filename="CuteTorrent.cpp" line="343"/>
+        <location filename="CuteTorrent.cpp" line="621"/>
         <source>FILETAB_PRIORITY_MEDIUM</source>
         <translation>Средний</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="342"/>
-        <location filename="CuteTorrent.cpp" line="621"/>
+        <location filename="CuteTorrent.cpp" line="344"/>
+        <location filename="CuteTorrent.cpp" line="625"/>
         <source>FILETAB_PRIORITY_HIGH</source>
         <translation>Высокий</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="343"/>
-        <location filename="CuteTorrent.cpp" line="627"/>
+        <location filename="CuteTorrent.cpp" line="345"/>
+        <location filename="CuteTorrent.cpp" line="631"/>
         <source>FILETAB_PRIORITY_ZERO</source>
         <translation>Не загружать</translation>
     </message>
@@ -677,7 +677,7 @@
         <translation>Открыть</translation>
     </message>
     <message>
-        <location filename="OpenTorrentDialog.cpp" line="118"/>
+        <location filename="OpenTorrentDialog.cpp" line="119"/>
         <source>DIALOF_OPEN_DIR</source>
         <oldsource>Open Directory</oldsource>
         <translation>Выбирите папку</translation>
@@ -700,31 +700,31 @@
     <name>QTorrentDisplayModel</name>
     <message>
         <location filename="QTorrentDisplayModel.cpp" line="37"/>
-        <location filename="QTorrentDisplayModel.cpp" line="543"/>
+        <location filename="QTorrentDisplayModel.cpp" line="549"/>
         <source>ACTION_OPEN_FOLDER</source>
         <translation>Открыть папку</translation>
     </message>
     <message>
         <location filename="QTorrentDisplayModel.cpp" line="40"/>
-        <location filename="QTorrentDisplayModel.cpp" line="544"/>
+        <location filename="QTorrentDisplayModel.cpp" line="550"/>
         <source>ACTION_DT_MOUNT</source>
         <translation>Смонтировать в Daemon Tools</translation>
     </message>
     <message>
         <location filename="QTorrentDisplayModel.cpp" line="43"/>
-        <location filename="QTorrentDisplayModel.cpp" line="545"/>
+        <location filename="QTorrentDisplayModel.cpp" line="551"/>
         <source>ACTION_DELETE_ALL</source>
         <translation>Удалить файлы и торрент</translation>
     </message>
     <message>
         <location filename="QTorrentDisplayModel.cpp" line="46"/>
-        <location filename="QTorrentDisplayModel.cpp" line="546"/>
+        <location filename="QTorrentDisplayModel.cpp" line="552"/>
         <source>ACTION_DELETE_TORRENT</source>
         <translation>Удалить торрент</translation>
     </message>
     <message>
         <location filename="QTorrentDisplayModel.cpp" line="49"/>
-        <location filename="QTorrentDisplayModel.cpp" line="547"/>
+        <location filename="QTorrentDisplayModel.cpp" line="553"/>
         <source>ACTION_REHASH</source>
         <translation>Обновить хеш</translation>
     </message>
@@ -755,320 +755,360 @@
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="31"/>
+        <location filename="SettingsDialog.ui" line="68"/>
         <source>TAB_TORRENT</source>
         <translation>Торрент</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="37"/>
+        <location filename="SettingsDialog.ui" line="74"/>
         <source>USE_PROXY</source>
         <translation>Использовать Прокси</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="53"/>
+        <location filename="SettingsDialog.ui" line="90"/>
         <source>LISTEN_PORT</source>
         <translation>Порт</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="69"/>
+        <location filename="SettingsDialog.ui" line="106"/>
         <source>PROXY_SETTINGS</source>
         <translation>Настройки Прокси</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="75"/>
+        <location filename="SettingsDialog.ui" line="112"/>
         <source>PROXY_TYPE</source>
         <translation>Тип</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="88"/>
+        <location filename="SettingsDialog.ui" line="125"/>
         <source>PROXY_USER_NAME</source>
         <translation>Имя польщователя</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="95"/>
+        <location filename="SettingsDialog.ui" line="132"/>
         <source>PROXY_HOST (IP:port)</source>
         <translation>Хост (IP:port)</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="106"/>
+        <location filename="SettingsDialog.ui" line="143"/>
         <source>Socks4</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="111"/>
+        <location filename="SettingsDialog.ui" line="148"/>
         <source>Socks5</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="116"/>
+        <location filename="SettingsDialog.ui" line="153"/>
         <source>Socks5 с паролем</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="121"/>
+        <location filename="SettingsDialog.ui" line="158"/>
         <source>http</source>
         <translation></translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="126"/>
+        <location filename="SettingsDialog.ui" line="163"/>
         <source>http с паролем</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="131"/>
+        <location filename="SettingsDialog.ui" line="168"/>
         <source>i2p</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="139"/>
+        <location filename="SettingsDialog.ui" line="176"/>
         <source>PROXY_PASSWORD</source>
         <translation>Пароль</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="149"/>
+        <location filename="SettingsDialog.ui" line="186"/>
         <source>RESTRICTIONS</source>
         <translation>Ограничения</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="155"/>
+        <location filename="SettingsDialog.ui" line="192"/>
         <source>UPLOAD_SPEED_LIMIT(Kb/s)</source>
         <translation>Отдача</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="165"/>
+        <location filename="SettingsDialog.ui" line="202"/>
         <source>ACTIVE_TORRENTS_LIMIT</source>
         <translation>Активных торрентов</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="175"/>
+        <location filename="SettingsDialog.ui" line="212"/>
         <source>DOWNLOAD_SPEED_LIMIT(Kb/s)</source>
         <translation>Загрузка</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="185"/>
+        <location filename="SettingsDialog.ui" line="222"/>
         <source>ACTIVE_SEEDS_LIMIT</source>
         <translation>Активных раздач</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="195"/>
+        <location filename="SettingsDialog.ui" line="232"/>
         <source>ACTIVE_DOWNLOADS_LIMIT</source>
         <translation>Активных загрузок</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="208"/>
+        <location filename="SettingsDialog.ui" line="245"/>
         <source>TORRENT_FILES_ASSOCIATION</source>
         <translation>Ассоцировать с *.torrent файлами</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="215"/>
+        <location filename="SettingsDialog.ui" line="252"/>
         <source>START_ON_BOOT</source>
         <translation>Запускать вместе с ОС</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="223"/>
+        <location filename="SettingsDialog.ui" line="260"/>
+        <source>TAB_HDD</source>
+        <translation>Жесткий Диск</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="266"/>
+        <source>LOCK_FILES</source>
+        <translation>Блокировать файлы</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="273"/>
+        <source>DISK_IO_CASH_MODE</source>
+        <translation>Режим кеширования</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="280"/>
+        <source>CASH_SIZE</source>
+        <translation>Размер Кеша</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="293"/>
+        <source>ALOW_REORDERED_OPERATIONS</source>
+        <translation>Разрешать неупордоченные операции</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="300"/>
+        <source>LOW_PORIO_DISK</source>
+        <translation>Низкий приоритет I/O</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="307"/>
+        <source>USE_READ_CASHE</source>
+        <translation>Использовать кеш</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="314"/>
+        <source>USE_DISK_READ_AHEAD</source>
+        <translation>Упреждающе чтение</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="322"/>
         <source>TAB_TORRENT_FILTERING</source>
         <translation>Фильтрация торрентов</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="235"/>
+        <location filename="SettingsDialog.ui" line="334"/>
         <source>FILTERING_GROUP</source>
-        <translation type="unfinished">Группы фильтрации</translation>
+        <translation>Группы фильтрации</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="244"/>
+        <location filename="SettingsDialog.ui" line="343"/>
         <source>FILTERING_GROUP_DELETE</source>
         <oldsource>fILTERING_GROUP_DELETE</oldsource>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="267"/>
+        <location filename="SettingsDialog.ui" line="366"/>
         <source>ADD_CHANGE_GROUP</source>
         <translation>Добавить\Изменить имя группы</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="286"/>
+        <location filename="SettingsDialog.ui" line="385"/>
         <source>ADD_GROUP_BUTON</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="299"/>
+        <location filename="SettingsDialog.ui" line="398"/>
         <source>fFILE_EXTENSIONS(FORMAT: jpg|png|bmp)</source>
         <translation>Расширения(формат: jpg|png|bmp)</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="324"/>
+        <location filename="SettingsDialog.ui" line="423"/>
         <source>GROUP_SAVE_PATH</source>
         <translation>Куда сохранять</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="333"/>
+        <location filename="SettingsDialog.ui" line="432"/>
         <source>GROUP_SAVE_PATH_CHOISE_BUTTON</source>
         <translation>j,pjh</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="357"/>
+        <location filename="SettingsDialog.ui" line="456"/>
         <source>TAB_DAEMONTOOLS</source>
         <translation>Daemon Tools</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="363"/>
+        <location filename="SettingsDialog.ui" line="462"/>
         <source>DAEMONTOOLS_PATH</source>
         <translation>Путь к Daemon Tools</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="372"/>
+        <location filename="SettingsDialog.ui" line="471"/>
         <source>DAEMONTOOLS_PATH_CHOISE_BUUTON</source>
         <translation>Обзор</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="382"/>
+        <location filename="SettingsDialog.ui" line="481"/>
         <source>DRIVE_NUMBER</source>
         <translation>Номер привода</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="389"/>
+        <location filename="SettingsDialog.ui" line="488"/>
         <source>1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="394"/>
+        <location filename="SettingsDialog.ui" line="493"/>
         <source>2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="399"/>
+        <location filename="SettingsDialog.ui" line="498"/>
         <source>3</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="404"/>
+        <location filename="SettingsDialog.ui" line="503"/>
         <source>4</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="409"/>
+        <location filename="SettingsDialog.ui" line="508"/>
         <source>5</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="414"/>
+        <location filename="SettingsDialog.ui" line="513"/>
         <source>6</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="419"/>
+        <location filename="SettingsDialog.ui" line="518"/>
         <source>7</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="424"/>
+        <location filename="SettingsDialog.ui" line="523"/>
         <source>8</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="429"/>
+        <location filename="SettingsDialog.ui" line="528"/>
         <source>9</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="434"/>
+        <location filename="SettingsDialog.ui" line="533"/>
         <source>10</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="445"/>
+        <location filename="SettingsDialog.ui" line="544"/>
         <source>DAEMONTOOLS_USE_CUSTOM_COMMAND</source>
         <translation>Использовать свою команду для монтирования</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="455"/>
+        <location filename="SettingsDialog.ui" line="554"/>
         <source>DAEMONTOOLS_COMMAND</source>
         <translation>Команда</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="468"/>
+        <location filename="SettingsDialog.ui" line="567"/>
         <source>TAB_TRACKER_SEARCH</source>
         <translation>Поиск по трекерам</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="474"/>
+        <location filename="SettingsDialog.ui" line="573"/>
         <source>TRACKER_CURRENT</source>
         <translation>Текущий трекер</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="484"/>
+        <location filename="SettingsDialog.ui" line="583"/>
         <source>SEARCH_ADD_TRACKER</source>
         <translation>Добавление трекера</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="490"/>
+        <location filename="SettingsDialog.ui" line="589"/>
         <source>SEARCH_METHOD</source>
         <translation>Метод</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="497"/>
+        <location filename="SettingsDialog.ui" line="596"/>
         <source>SEARCH_REQUEST</source>
         <translation>Запрос</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="523"/>
+        <location filename="SettingsDialog.ui" line="622"/>
         <source>SEARCH_ADD</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="531"/>
-        <location filename="SettingsDialog.ui" line="584"/>
+        <location filename="SettingsDialog.ui" line="630"/>
+        <location filename="SettingsDialog.ui" line="683"/>
         <source>GET</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="536"/>
-        <location filename="SettingsDialog.ui" line="589"/>
+        <location filename="SettingsDialog.ui" line="635"/>
+        <location filename="SettingsDialog.ui" line="688"/>
         <source>POST</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="544"/>
+        <location filename="SettingsDialog.ui" line="643"/>
         <source>SEARCH_USE_AUTH</source>
         <translation>Использовать авторизацию</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="570"/>
+        <location filename="SettingsDialog.ui" line="669"/>
         <source>AUTH_DATA</source>
         <translation>Данные для авторизации</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="576"/>
+        <location filename="SettingsDialog.ui" line="675"/>
         <source>AUTH_NAME</source>
         <translation>Имя пользователя</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="597"/>
+        <location filename="SettingsDialog.ui" line="696"/>
         <source>AUTH_METHOD</source>
         <translation>Метод</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="610"/>
+        <location filename="SettingsDialog.ui" line="709"/>
         <source>AUTH_PASSWORD</source>
         <translation>Пароль</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="620"/>
+        <location filename="SettingsDialog.ui" line="719"/>
         <source>AUTH_REQUEST</source>
         <translation>Запрос</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="660"/>
+        <location filename="SettingsDialog.ui" line="38"/>
         <source>SETTINGS_CANCEL_BUTTON</source>
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="667"/>
+        <location filename="SettingsDialog.ui" line="24"/>
         <source>SETTINGS_OK_BITTON</source>
         <translation>ОК</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="687"/>
+        <location filename="SettingsDialog.ui" line="31"/>
         <source>SETTINGS_ACCEPT_BUTTON</source>
         <translation>Применить</translation>
     </message>
@@ -1078,17 +1118,17 @@
         <translation>ТОррент файл</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="294"/>
+        <location filename="SettingsDialog.cpp" line="290"/>
         <source>Unable to find %1</source>
         <translation>Неудалось найти группу %1</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="302"/>
+        <location filename="SettingsDialog.cpp" line="298"/>
         <source>Open Directory</source>
         <translation>Выбирите папку</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="313"/>
+        <location filename="SettingsDialog.cpp" line="309"/>
         <source>Óêàçàòü ïàïêó ñ DaemonTools</source>
         <translation>Укажите путь к DaemonTools</translation>
     </message>

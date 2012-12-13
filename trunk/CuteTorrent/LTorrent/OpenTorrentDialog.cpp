@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "QApplicationSettings.h"
 #include <QDir>
 #include <QMap>
+#include <QMovie>
 OpenTorrentDialog::OpenTorrentDialog(QWidget *parent, Qt::WFlags flags)
 {
 	setupUi(this);
@@ -48,11 +49,19 @@ void OpenTorrentDialog::SetData(QString filename)
 {
 	if (filename.startsWith("magnet"))
 	{
-
-
+		QMovie *movie = new QMovie(":/images/loader.gif");
+		loaderGifLabel->setMovie(movie);
+		movie->start();
+		qRegisterMetaType<openmagnet_info>("openmagnet_info");
+		magnetWaiter = new MetaDataDownloadWaiter(filename);
+		if (!QObject::connect(magnetWaiter,SIGNAL(DownloadCompleted(openmagnet_info)),this,SLOT(DownloadMetadataCompleted(openmagnet_info))))
+			QMessageBox::critical(this,"ERROR","NOT_CONNECTID");
+		magnetWaiter->start(QThread::HighPriority);
 	}
 	else
 	{
+		loaderGifLabel->hide();		
+		loaderTextLabel->hide();		
 		torrentFilename=filename;
 		opentorrent_info* info=mgr->GetTorrentInfo(torrentFilename);
 		if (info!=NULL)
@@ -137,7 +146,12 @@ void OpenTorrentDialog::AccepTorrent()
 {
 	QFile file(torrentFilename);
 	QMap<QString,int> filePriorities=model->getFilePiorites();
-	mgr->AddTorrent(torrentFilename,pathEdit->displayText(),filePriorities);
+	if (!torrentFilename.startsWith("magnet"))
+		mgr->AddTorrent(torrentFilename,pathEdit->displayText(),filePriorities);
+	else
+	{
+		mgr->AddMagnet(_info.handle,pathEdit->displayText(),filePriorities);
+	}
 	close();
 }
 
@@ -145,4 +159,59 @@ void OpenTorrentDialog::ChangeGroup()
 {
 	if (GroupComboBox->currentIndex()>=0 && GroupComboBox->currentIndex()<filters.length())
 		pathEdit->setText(filters[GroupComboBox->currentIndex()].SavePath());
+}
+
+void OpenTorrentDialog::DownloadMetadataCompleted(openmagnet_info info)
+{
+	loaderGifLabel->hide();		
+	loaderTextLabel->hide();
+	_info=info;
+	setUpdatesEnabled( false );
+	labelNameData->setText(info.name);
+	labelComentData->setText(info.describtion);
+	labelSizeData->setText(StaticHelpers::toKbMbGb(info.size));
+	QStringList files;
+	for (libtorrent::file_storage::iterator i = info.files.begin(); 
+		i != info.files.end();
+		++i)
+	{
+		files << QString::fromUtf8(info.files.file_path(*i).c_str())+"|"+StaticHelpers::toKbMbGb(info.files.file_size(*i));
+	}
+	files.sort();
+
+	model = new FileTreeModel();
+	for (int i=0;i<files.count();i++)
+	{
+
+		QStringList parts= files.at(i).split('|');
+		model->addPath(parts.at(0),parts.at(1));
+
+	}
+
+	treeView->setModel(model);
+	treeView->setColumnWidth(0,300);
+
+
+	setUpdatesEnabled( true );
+	if (!info.base_suffix.isEmpty())
+	{
+		QApplicationSettings* instance= QApplicationSettings::getInstance();
+		filters=instance->GetFileFilterGroups();
+		int selected=-1;
+		for (int i=0;i<filters.count();i++)
+		{
+			GroupComboBox->addItem(filters[i].Name());
+
+			if (filters.at(i).Contains(info.base_suffix) && selected<0)
+			{
+				selected=i;
+				pathEdit->setText(filters.at(i).SavePath());
+			}
+		}
+		if (selected>=0)
+			GroupComboBox->setCurrentIndex(selected);
+		QApplicationSettings::FreeInstance();
+	} 
+	
+	
 }

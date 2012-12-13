@@ -88,6 +88,13 @@ struct opentorrent_info
 	libtorrent::file_storage files;
 	libtorrent::size_type size;
 };
+struct openmagnet_info
+{
+	QString name,describtion,base_suffix;
+	libtorrent::torrent_handle handle;
+	libtorrent::file_storage files;
+	libtorrent::size_type size;
+};
 using namespace libtorrent;
 
 #include "QApplicationSettings.h"
@@ -155,13 +162,15 @@ public:
 	static void freeInstance();
 	std::vector<torrent_status> GetTorrents();
 	opentorrent_info* GetTorrentInfo(QString filename);
+	openmagnet_info* GetTorrentInfo(torrent_handle handle);
 	void RemoveTorrent(QString InfoHash);
-	bool AddMagnet(QString link);
+	bool AddMagnet( torrent_handle h,QString SavePath,QMap<QString,int> filepriorities = QMap<QString,int>() );
 	bool AddTorrent(QString path, QString save_path,QMap<QString,int> filepriorities = QMap<QString,int>());
 	void PostTorrentUpdate();
 	void RemoveTorrent(torrent_handle h,bool dellfiles=false);
+	torrent_handle ProcessMagnetLink(QString link);
 protected:
 };
-
+Q_DECLARE_METATYPE(opentorrent_info);
 
 #endif

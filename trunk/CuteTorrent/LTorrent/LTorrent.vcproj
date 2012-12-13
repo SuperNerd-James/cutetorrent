@@ -212,6 +212,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\MetaDataDownloadWaiter.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\MultipleDTDialog.cpp"
 				>
 			</File>
@@ -406,6 +410,32 @@
 			<File
 				RelativePath=".\GroupForFileFiltering.h"
 				>
+			</File>
+			<File
+				RelativePath=".\MetaDataDownloadWaiter.h"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing MetaDataDownloadWaiter.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -D_UNICODE &quot;-I.\QTSingleApplication&quot; &quot;-IF:\src\boost_1_52_0&quot; &quot;-IF:\src\libtorrent\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Moc&apos;ing MetaDataDownloadWaiter.h..."
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\QTSingleApplication&quot; &quot;-IF:\src\boost_1_52_0&quot; &quot;-IF:\src\libtorrent\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\MultipleDTDialog.h"
@@ -1399,6 +1429,26 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Resources\images\loader.gif"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\ltorrent.qrc"
 				>
 				<FileConfiguration
@@ -1408,7 +1458,7 @@
 						Name="VCCustomBuildTool"
 						Description="Rcc&apos;ing $(InputFileName)..."
 						CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name &quot;$(InputName)&quot; -no-compress &quot;$(InputPath)&quot; -o .\GeneratedFiles\qrc_$(InputName).cpp&#x0D;&#x0A;"
-						AdditionalDependencies="$(InputPath);.\Resources\Actions-application-exit.ico;.\Resources\Actions-arrow-right.ico;.\Resources\Actions-media-playback-pause.ico;.\Resources\archime.ico;.\Resources\audio.ico;.\Resources\default.ico;.\Resources\doc.ico;.\Resources\movie.ico;.\Resources\picture.ico;.\Resources\folder.ico;.\Resources\app.ico;.\Resources\CuteTorrentStyle.qss;.\Resources\File-iso-icon.ico;.\Resources\download.ico;.\Resources\upload.ico;.\cutetorrent_russian.qm;.\cutetorrent_english.qm;.\Resources\stylesheet-branch-closed.png;.\Resources\stylesheet-branch-end.png;.\Resources\stylesheet-branch-more.png;.\Resources\stylesheet-branch-open.png;.\Resources\stylesheet-vline.png;.\Resources\images\pushbutton.png;.\Resources\images\pushbutton_hover.png;.\Resources\images\pushbutton_pressed.png;.\Resources\images\down_arrow.png;.\Resources\images\down_arrow_disabled.png;.\Resources\images\up_arrow.png;.\Resources\images\up_arrow_disabled.png;.\Resources\images\frame.png;.\Resources\images\sizegrip.png;.\Resources\images\checkbox_checked.png;.\Resources\images\checkbox_checked_hover.png;.\Resources\images\checkbox_checked_pressed.png;.\Resources\images\checkbox_unchecked.png;.\Resources\images\checkbox_unchecked_hover.png;.\Resources\images\checkbox_unchecked_pressed.png;.\Resources\images\transparent.png"
+						AdditionalDependencies="$(InputPath);.\Resources\Actions-application-exit.ico;.\Resources\Actions-arrow-right.ico;.\Resources\Actions-media-playback-pause.ico;.\Resources\archime.ico;.\Resources\audio.ico;.\Resources\default.ico;.\Resources\doc.ico;.\Resources\movie.ico;.\Resources\picture.ico;.\Resources\folder.ico;.\Resources\app.ico;.\Resources\CuteTorrentStyle.qss;.\Resources\File-iso-icon.ico;.\Resources\download.ico;.\Resources\upload.ico;.\cutetorrent_russian.qm;.\cutetorrent_english.qm;.\Resources\stylesheet-branch-closed.png;.\Resources\stylesheet-branch-end.png;.\Resources\stylesheet-branch-more.png;.\Resources\stylesheet-branch-open.png;.\Resources\stylesheet-vline.png;.\Resources\images\pushbutton.png;.\Resources\images\pushbutton_hover.png;.\Resources\images\pushbutton_pressed.png;.\Resources\images\down_arrow.png;.\Resources\images\down_arrow_disabled.png;.\Resources\images\up_arrow.png;.\Resources\images\up_arrow_disabled.png;.\Resources\images\frame.png;.\Resources\images\sizegrip.png;.\Resources\images\checkbox_checked.png;.\Resources\images\checkbox_checked_hover.png;.\Resources\images\checkbox_checked_pressed.png;.\Resources\images\checkbox_unchecked.png;.\Resources\images\checkbox_unchecked_hover.png;.\Resources\images\checkbox_unchecked_pressed.png;.\Resources\images\transparent.png;.\Resources\images\loader.gif"
 						Outputs=".\GeneratedFiles\qrc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
@@ -1419,7 +1469,7 @@
 						Name="VCCustomBuildTool"
 						Description="Rcc&apos;ing $(InputFileName)..."
 						CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name &quot;$(InputName)&quot; -no-compress &quot;$(InputPath)&quot; -o .\GeneratedFiles\qrc_$(InputName).cpp&#x0D;&#x0A;"
-						AdditionalDependencies="$(InputPath);.\Resources\Actions-application-exit.ico;.\Resources\Actions-arrow-right.ico;.\Resources\Actions-media-playback-pause.ico;.\Resources\archime.ico;.\Resources\audio.ico;.\Resources\default.ico;.\Resources\doc.ico;.\Resources\movie.ico;.\Resources\picture.ico;.\Resources\folder.ico;.\Resources\app.ico;.\Resources\CuteTorrentStyle.qss;.\Resources\File-iso-icon.ico;.\Resources\download.ico;.\Resources\upload.ico;.\cutetorrent_russian.qm;.\cutetorrent_english.qm;.\Resources\stylesheet-branch-closed.png;.\Resources\stylesheet-branch-end.png;.\Resources\stylesheet-branch-more.png;.\Resources\stylesheet-branch-open.png;.\Resources\stylesheet-vline.png;.\Resources\images\pushbutton.png;.\Resources\images\pushbutton_hover.png;.\Resources\images\pushbutton_pressed.png;.\Resources\images\down_arrow.png;.\Resources\images\down_arrow_disabled.png;.\Resources\images\up_arrow.png;.\Resources\images\up_arrow_disabled.png;.\Resources\images\frame.png;.\Resources\images\sizegrip.png;.\Resources\images\checkbox_checked.png;.\Resources\images\checkbox_checked_hover.png;.\Resources\images\checkbox_checked_pressed.png;.\Resources\images\checkbox_unchecked.png;.\Resources\images\checkbox_unchecked_hover.png;.\Resources\images\checkbox_unchecked_pressed.png;.\Resources\images\transparent.png"
+						AdditionalDependencies="$(InputPath);.\Resources\Actions-application-exit.ico;.\Resources\Actions-arrow-right.ico;.\Resources\Actions-media-playback-pause.ico;.\Resources\archime.ico;.\Resources\audio.ico;.\Resources\default.ico;.\Resources\doc.ico;.\Resources\movie.ico;.\Resources\picture.ico;.\Resources\folder.ico;.\Resources\app.ico;.\Resources\CuteTorrentStyle.qss;.\Resources\File-iso-icon.ico;.\Resources\download.ico;.\Resources\upload.ico;.\cutetorrent_russian.qm;.\cutetorrent_english.qm;.\Resources\stylesheet-branch-closed.png;.\Resources\stylesheet-branch-end.png;.\Resources\stylesheet-branch-more.png;.\Resources\stylesheet-branch-open.png;.\Resources\stylesheet-vline.png;.\Resources\images\pushbutton.png;.\Resources\images\pushbutton_hover.png;.\Resources\images\pushbutton_pressed.png;.\Resources\images\down_arrow.png;.\Resources\images\down_arrow_disabled.png;.\Resources\images\up_arrow.png;.\Resources\images\up_arrow_disabled.png;.\Resources\images\frame.png;.\Resources\images\sizegrip.png;.\Resources\images\checkbox_checked.png;.\Resources\images\checkbox_checked_hover.png;.\Resources\images\checkbox_checked_pressed.png;.\Resources\images\checkbox_unchecked.png;.\Resources\images\checkbox_unchecked_hover.png;.\Resources\images\checkbox_unchecked_pressed.png;.\Resources\images\transparent.png;.\Resources\images\loader.gif"
 						Outputs=".\GeneratedFiles\qrc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
@@ -1841,6 +1891,18 @@
 					</FileConfiguration>
 				</File>
 				<File
+					RelativePath=".\GeneratedFiles\Release\moc_MetaDataDownloadWaiter.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
 					RelativePath=".\GeneratedFiles\Release\moc_MultipleDTDialog.cpp"
 					>
 					<FileConfiguration
@@ -2028,6 +2090,18 @@
 				</File>
 				<File
 					RelativePath=".\GeneratedFiles\Debug\moc_FileTreeModel.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\GeneratedFiles\Debug\moc_MetaDataDownloadWaiter.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
