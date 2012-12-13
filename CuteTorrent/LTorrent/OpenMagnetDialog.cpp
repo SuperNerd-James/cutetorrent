@@ -18,11 +18,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "OpenMagnetDialog.h"
-
+#include <QUrl>
 void OpenMagnetDialog::accept()
 {
 	
-	link=magnetEdit->text();
+	link=QUrl::fromPercentEncoding(magnetEdit->text().toUtf8().data());
 	this->close();
 }
 

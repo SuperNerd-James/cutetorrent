@@ -482,25 +482,46 @@
    <property name="text">
     <string>MENU_OPEN_TORRENT</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+   <property name="shortcutContext">
+    <enum>Qt::WindowShortcut</enum>
+   </property>
+   <property name="softKeyRole">
+    <enum>QAction::NoSoftKey</enum>
+   </property>
   </action>
   <action name="action_magnet">
    <property name="text">
     <string>MENU_OPEN_MAGNET</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+M</string>
    </property>
   </action>
   <action name="actionCreateTorrent">
    <property name="text">
     <string>MENU_CREATE_TORRENT</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+C</string>
+   </property>
   </action>
   <action name="actionExit">
    <property name="text">
     <string>MENU_EXIT</string>
    </property>
+   <property name="shortcut">
+    <string>Alt+X</string>
+   </property>
   </action>
   <action name="actionSettings">
    <property name="text">
     <string>MENU_CONFIGURATION</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
    </property>
   </action>
   <action name="actionPause">
@@ -546,10 +567,19 @@
    <property name="text">
     <string>MENU_ABAUT</string>
    </property>
+   <property name="shortcut">
+    <string notr="true">Ctrl+A</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::AboutRole</enum>
+   </property>
   </action>
   <action name="actionCheckUpdate">
    <property name="text">
     <string>MENU_CHECK_UPDATES</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+U</string>
    </property>
   </action>
  </widget>

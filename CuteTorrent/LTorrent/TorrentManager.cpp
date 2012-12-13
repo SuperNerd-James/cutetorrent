@@ -227,7 +227,7 @@ bool TorrentManager::AddTorrent(QString path, QString save_path,QMap<QString,int
 		
 		if (ec)
 		{
-			QMessageBox::warning(0,"Добавление торрента",QString::fromUtf8(ec.message().c_str()));
+			QMessageBox::warning(0,"Adding a torrent",QString::fromStdString(ec.message()));
 			return false;
 		}
 	
@@ -775,16 +775,16 @@ torrent_handle TorrentManager::ProcessMagnetLink(QString link)
 		if (ec!=0)
 			return h;		
 
-	/*lazy_entry resume_data;
+	lazy_entry resume_data;
 	std::string filename = combine_path("CT_DATA", to_hex(add_info.info_hash.to_string()) + ".resume");
 	std::vector<char> buf;
 
 	if (load_file(filename.c_str(), buf, ec) == 0)
 	{
 		add_info.resume_data = &buf;
-	}*/
+	}
 	h=ses->add_torrent(add_info);
-	//h.auto_managed(false);
+	
 	h.pause();
 	while (!h.has_metadata())
 	{

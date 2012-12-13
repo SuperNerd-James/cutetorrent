@@ -225,16 +225,16 @@ If you have paid money for this software demand a refund</translation>
     <message>
         <location filename="CuteTorrent.cpp" line="106"/>
         <location filename="CuteTorrent.cpp" line="107"/>
+        <location filename="CuteTorrent.cpp" line="351"/>
         <location filename="CuteTorrent.cpp" line="352"/>
-        <location filename="CuteTorrent.cpp" line="353"/>
         <source>STATUS_UPLOAD</source>
         <translation>Uloaded(Upload speed)</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="104"/>
         <location filename="CuteTorrent.cpp" line="105"/>
+        <location filename="CuteTorrent.cpp" line="349"/>
         <location filename="CuteTorrent.cpp" line="350"/>
-        <location filename="CuteTorrent.cpp" line="351"/>
         <source>STATUS_DWONLOAD</source>
         <translation>Downloaded(Download speed)</translation>
     </message>
@@ -250,78 +250,78 @@ If you have paid money for this software demand a refund</translation>
         <translation>Complited downloading %1</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="321"/>
+        <location filename="CuteTorrent.cpp" line="579"/>
         <source>CT_HIDE_MSG</source>
         <translation>CuteTorrent continues working.To exit use system tray context menu.</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="337"/>
-        <location filename="CuteTorrent.cpp" line="604"/>
+        <location filename="CuteTorrent.cpp" line="336"/>
+        <location filename="CuteTorrent.cpp" line="609"/>
         <source>FILETAB_OPEN_FILE</source>
         <translation>Open</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="338"/>
-        <location filename="CuteTorrent.cpp" line="607"/>
+        <location filename="CuteTorrent.cpp" line="337"/>
+        <location filename="CuteTorrent.cpp" line="612"/>
         <source>FILETAB_OPEN_FOLDER</source>
         <translation>Open folder</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="339"/>
-        <location filename="CuteTorrent.cpp" line="612"/>
+        <location filename="CuteTorrent.cpp" line="338"/>
+        <location filename="CuteTorrent.cpp" line="617"/>
         <source>FILETAB_PRIORITY</source>
         <translation>Priority</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="340"/>
-        <location filename="CuteTorrent.cpp" line="613"/>
+        <location filename="CuteTorrent.cpp" line="339"/>
+        <location filename="CuteTorrent.cpp" line="618"/>
         <source>FILETAB_PRIORITY_LOW</source>
         <translation>Low</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="341"/>
-        <location filename="CuteTorrent.cpp" line="617"/>
+        <location filename="CuteTorrent.cpp" line="340"/>
+        <location filename="CuteTorrent.cpp" line="622"/>
         <source>FILETAB_PRIORITY_MEDIUM</source>
         <translation>Medium</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="342"/>
-        <location filename="CuteTorrent.cpp" line="621"/>
+        <location filename="CuteTorrent.cpp" line="341"/>
+        <location filename="CuteTorrent.cpp" line="626"/>
         <source>FILETAB_PRIORITY_HIGH</source>
         <translation>High</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="343"/>
-        <location filename="CuteTorrent.cpp" line="627"/>
+        <location filename="CuteTorrent.cpp" line="342"/>
+        <location filename="CuteTorrent.cpp" line="632"/>
         <source>FILETAB_PRIORITY_ZERO</source>
         <translation>Don&apos;t download</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="345"/>
-        <location filename="CuteTorrent.cpp" line="404"/>
+        <location filename="CuteTorrent.cpp" line="344"/>
+        <location filename="CuteTorrent.cpp" line="405"/>
         <source>ACTION_HIDE</source>
         <translation>Minimize</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="346"/>
-        <location filename="CuteTorrent.cpp" line="407"/>
+        <location filename="CuteTorrent.cpp" line="345"/>
+        <location filename="CuteTorrent.cpp" line="408"/>
         <source>ACTION_MAXIMIZE_FULLSCREEN</source>
         <translation>Maximze to full screen</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="347"/>
-        <location filename="CuteTorrent.cpp" line="410"/>
+        <location filename="CuteTorrent.cpp" line="346"/>
+        <location filename="CuteTorrent.cpp" line="411"/>
         <source>ACTION_MAXIMIZE</source>
         <translation>Maximize</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="348"/>
-        <location filename="CuteTorrent.cpp" line="413"/>
+        <location filename="CuteTorrent.cpp" line="347"/>
+        <location filename="CuteTorrent.cpp" line="414"/>
         <source>ACTION_EXIT</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="437"/>
+        <location filename="CuteTorrent.cpp" line="438"/>
         <source>OPEN_TOORENT_DIALOG</source>
         <translation>Choose a torrent file</translation>
     </message>
@@ -504,63 +504,93 @@ If you have paid money for this software demand a refund</translation>
         <translation>Open torrent</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="488"/>
+        <location filename="CuteTorrent.ui" line="486"/>
+        <source>Ctrl+O</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.ui" line="497"/>
         <source>MENU_OPEN_MAGNET</source>
         <translation>Open magnet link</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="493"/>
+        <location filename="CuteTorrent.ui" line="500"/>
+        <source>Ctrl+M</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.ui" line="505"/>
         <source>MENU_CREATE_TORRENT</source>
         <translation>Create torrent</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="498"/>
+        <location filename="CuteTorrent.ui" line="508"/>
+        <source>Ctrl+C</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.ui" line="513"/>
         <source>MENU_EXIT</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="503"/>
+        <location filename="CuteTorrent.ui" line="516"/>
+        <source>Alt+X</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.ui" line="521"/>
         <source>MENU_CONFIGURATION</source>
         <translation>Configuration</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="512"/>
+        <location filename="CuteTorrent.ui" line="524"/>
+        <source>Ctrl+S</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.ui" line="533"/>
         <source>STR_PAUSE</source>
         <translation>Pause</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="524"/>
+        <location filename="CuteTorrent.ui" line="545"/>
         <source>STR_START</source>
         <translation>Resume</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="536"/>
-        <location filename="CuteTorrent.ui" line="542"/>
+        <location filename="CuteTorrent.ui" line="557"/>
+        <location filename="CuteTorrent.ui" line="563"/>
         <source>STR_REMOVE</source>
         <translation>Remove</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="515"/>
+        <location filename="CuteTorrent.ui" line="582"/>
+        <source>Ctrl+U</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.ui" line="536"/>
         <source>HINT_PAUSE</source>
         <translation>Pause</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="527"/>
+        <location filename="CuteTorrent.ui" line="548"/>
         <source>HINT_RESUME</source>
         <translation>Resume</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="539"/>
+        <location filename="CuteTorrent.ui" line="560"/>
         <source>HINT_REMOVE</source>
         <translation>Remove</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="547"/>
+        <location filename="CuteTorrent.ui" line="568"/>
         <source>MENU_ABAUT</source>
         <translation>Abaut CuteTorrent</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="552"/>
+        <location filename="CuteTorrent.ui" line="579"/>
         <source>MENU_CHECK_UPDATES</source>
         <translation>Check for updates</translation>
     </message>
@@ -652,27 +682,32 @@ If you have paid money for this software demand a refund</translation>
         <translation>Name</translation>
     </message>
     <message>
-        <location filename="OpenTorrentDialog.ui" line="105"/>
+        <location filename="OpenTorrentDialog.ui" line="72"/>
         <source>OPEN_TORRENT_INFO_DESCRIBTION</source>
         <translation>Describtion</translation>
     </message>
     <message>
-        <location filename="OpenTorrentDialog.ui" line="145"/>
+        <location filename="OpenTorrentDialog.ui" line="79"/>
         <source>SIZE</source>
         <translation>Total Size</translation>
     </message>
     <message>
-        <location filename="OpenTorrentDialog.ui" line="191"/>
+        <location filename="OpenTorrentDialog.ui" line="86"/>
+        <source>RECIVING_METADATA</source>
+        <translation>Reciving metadata</translation>
+    </message>
+    <message>
+        <location filename="OpenTorrentDialog.ui" line="140"/>
         <source>OPEN_TORRENT_CANCEL_BUTTON</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="OpenTorrentDialog.ui" line="198"/>
+        <location filename="OpenTorrentDialog.ui" line="147"/>
         <source>OPEN_TORRENT_ADD_BUTTON</source>
         <translation>Add</translation>
     </message>
     <message>
-        <location filename="OpenTorrentDialog.cpp" line="118"/>
+        <location filename="OpenTorrentDialog.cpp" line="128"/>
         <source>DIALOF_OPEN_DIR</source>
         <translation>Choose save dirrectory</translation>
     </message>
@@ -689,36 +724,43 @@ If you have paid money for this software demand a refund</translation>
         <source>%1 DAY </source>
         <translation>%1 days</translation>
     </message>
+    <message>
+        <location filename="TorrentManager.cpp" line="592"/>
+        <source>ERROR_OPENING_FILE
+%1</source>
+        <translation>Error opening file
+%1</translation>
+    </message>
 </context>
 <context>
     <name>QTorrentDisplayModel</name>
     <message>
         <location filename="QTorrentDisplayModel.cpp" line="37"/>
-        <location filename="QTorrentDisplayModel.cpp" line="543"/>
+        <location filename="QTorrentDisplayModel.cpp" line="549"/>
         <source>ACTION_OPEN_FOLDER</source>
         <translation>Open folder</translation>
     </message>
     <message>
         <location filename="QTorrentDisplayModel.cpp" line="40"/>
-        <location filename="QTorrentDisplayModel.cpp" line="544"/>
+        <location filename="QTorrentDisplayModel.cpp" line="550"/>
         <source>ACTION_DT_MOUNT</source>
         <translation>Mont to Daemon Tools</translation>
     </message>
     <message>
         <location filename="QTorrentDisplayModel.cpp" line="43"/>
-        <location filename="QTorrentDisplayModel.cpp" line="545"/>
+        <location filename="QTorrentDisplayModel.cpp" line="551"/>
         <source>ACTION_DELETE_ALL</source>
         <translation>Delete torrent and files</translation>
     </message>
     <message>
         <location filename="QTorrentDisplayModel.cpp" line="46"/>
-        <location filename="QTorrentDisplayModel.cpp" line="546"/>
+        <location filename="QTorrentDisplayModel.cpp" line="552"/>
         <source>ACTION_DELETE_TORRENT</source>
         <translation>Delete torrent</translation>
     </message>
     <message>
         <location filename="QTorrentDisplayModel.cpp" line="49"/>
-        <location filename="QTorrentDisplayModel.cpp" line="547"/>
+        <location filename="QTorrentDisplayModel.cpp" line="553"/>
         <source>ACTION_REHASH</source>
         <translation>Rehash</translation>
     </message>
@@ -744,54 +786,54 @@ If you have paid money for this software demand a refund</translation>
 <context>
     <name>SettingsDialog</name>
     <message>
-        <location filename="SettingsDialog.ui" line="95"/>
+        <location filename="SettingsDialog.ui" line="162"/>
         <source>PROXY_HOST (IP:port)</source>
         <oldsource>Хост (IP:port)</oldsource>
         <translation>Host (IP:port)</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="106"/>
+        <location filename="SettingsDialog.ui" line="173"/>
         <source>Socks4</source>
         <translation>Socks4</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="111"/>
+        <location filename="SettingsDialog.ui" line="178"/>
         <source>Socks5</source>
         <translation>Socks5</translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="116"/>
+        <location filename="SettingsDialog.ui" line="183"/>
         <source>Socks5 с паролем</source>
         <translation>Socks5 with password</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="121"/>
+        <location filename="SettingsDialog.ui" line="188"/>
         <source>http</source>
         <translation>http</translation>
     </message>
     <message utf8="true">
-        <location filename="SettingsDialog.ui" line="126"/>
+        <location filename="SettingsDialog.ui" line="193"/>
         <source>http с паролем</source>
         <translation>https</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="131"/>
+        <location filename="SettingsDialog.ui" line="198"/>
         <source>i2p</source>
         <translation>i2p</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="299"/>
+        <location filename="SettingsDialog.ui" line="428"/>
         <source>fFILE_EXTENSIONS(FORMAT: jpg|png|bmp)</source>
         <translation>File extensions (format: jpg|png|bmp|)</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="357"/>
+        <location filename="SettingsDialog.ui" line="486"/>
         <source>TAB_DAEMONTOOLS</source>
         <oldsource>DaemonTools</oldsource>
         <translation>Daemon Tools</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="363"/>
+        <location filename="SettingsDialog.ui" line="492"/>
         <source>DAEMONTOOLS_PATH</source>
         <oldsource>Путь к DaemonTools</oldsource>
         <translation>Daemon Tools install path</translation>
@@ -802,290 +844,347 @@ If you have paid money for this software demand a refund</translation>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="31"/>
+        <location filename="SettingsDialog.ui" line="68"/>
         <source>TAB_TORRENT</source>
         <translation>Torrent</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="37"/>
+        <location filename="SettingsDialog.ui" line="216"/>
         <source>USE_PROXY</source>
         <translation>Use Proxy </translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="53"/>
+        <location filename="SettingsDialog.ui" line="229"/>
         <source>LISTEN_PORT</source>
         <translation>Port</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="69"/>
+        <location filename="SettingsDialog.ui" line="136"/>
         <source>PROXY_SETTINGS</source>
         <translation>Proxy settings</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="75"/>
+        <location filename="SettingsDialog.ui" line="142"/>
         <source>PROXY_TYPE</source>
         <translation>Type</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="88"/>
+        <location filename="SettingsDialog.ui" line="155"/>
         <source>PROXY_USER_NAME</source>
         <translation>Username</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="139"/>
+        <location filename="SettingsDialog.ui" line="206"/>
         <source>PROXY_PASSWORD</source>
         <translation>Password</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="149"/>
+        <location filename="SettingsDialog.ui" line="74"/>
         <source>RESTRICTIONS</source>
         <translation>Restrictions</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="155"/>
+        <location filename="SettingsDialog.ui" line="80"/>
         <source>UPLOAD_SPEED_LIMIT(Kb/s)</source>
         <translation>Upload speed limit</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="165"/>
+        <location filename="SettingsDialog.ui" line="90"/>
         <source>ACTIVE_TORRENTS_LIMIT</source>
         <translation>Active torrents</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="175"/>
+        <location filename="SettingsDialog.ui" line="100"/>
         <source>DOWNLOAD_SPEED_LIMIT(Kb/s)</source>
         <translation>Download speed limit</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="185"/>
+        <location filename="SettingsDialog.ui" line="110"/>
         <source>ACTIVE_SEEDS_LIMIT</source>
         <translation>Active seeds</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="195"/>
+        <location filename="SettingsDialog.ui" line="120"/>
         <source>ACTIVE_DOWNLOADS_LIMIT</source>
         <translation>Active downloads</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="208"/>
+        <location filename="SettingsDialog.ui" line="245"/>
         <source>TORRENT_FILES_ASSOCIATION</source>
         <translation>Associate *.torrent files with CuteTorrent</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="215"/>
+        <location filename="SettingsDialog.ui" line="252"/>
         <source>START_ON_BOOT</source>
         <translation>Start with Windows</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="223"/>
+        <location filename="SettingsDialog.ui" line="352"/>
         <source>TAB_TORRENT_FILTERING</source>
         <translation>Torrent Filtering</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="235"/>
+        <location filename="SettingsDialog.ui" line="364"/>
         <source>FILTERING_GROUP</source>
         <translation>Group</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="244"/>
+        <location filename="SettingsDialog.ui" line="373"/>
         <source>FILTERING_GROUP_DELETE</source>
         <oldsource>fILTERING_GROUP_DELETE</oldsource>
         <translation>Delete</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="267"/>
+        <location filename="SettingsDialog.ui" line="396"/>
         <source>ADD_CHANGE_GROUP</source>
         <translation>Add/Change group</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="286"/>
+        <location filename="SettingsDialog.ui" line="415"/>
         <source>ADD_GROUP_BUTON</source>
         <translation>Add</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="324"/>
+        <location filename="SettingsDialog.ui" line="453"/>
         <source>GROUP_SAVE_PATH</source>
         <translation>Save to...</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="333"/>
+        <location filename="SettingsDialog.ui" line="462"/>
         <source>GROUP_SAVE_PATH_CHOISE_BUTTON</source>
         <translation>Browse</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="372"/>
+        <location filename="SettingsDialog.ui" line="501"/>
         <source>DAEMONTOOLS_PATH_CHOISE_BUUTON</source>
         <translation>Browse</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="382"/>
+        <location filename="SettingsDialog.ui" line="511"/>
         <source>DRIVE_NUMBER</source>
         <translation>№ of drive</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="389"/>
+        <location filename="SettingsDialog.ui" line="310"/>
+        <location filename="SettingsDialog.ui" line="518"/>
         <source>1</source>
         <translation>1</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="394"/>
+        <location filename="SettingsDialog.ui" line="259"/>
+        <source>MAGNET_ASSOCIATION</source>
+        <translation>Associate Magnet-links with CuteTorrent</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="266"/>
+        <source>START_MINIMIZED</source>
+        <translation>Start minimized</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="274"/>
+        <source>TAB_HDD</source>
+        <translation>Hard Disk</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="280"/>
+        <source>LOCK_FILES</source>
+        <translation>Lock files</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="287"/>
+        <source>DISK_IO_CASH_MODE</source>
+        <translation>Chash Mode</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="294"/>
+        <source>CASH_SIZE</source>
+        <translation>Cash size</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="305"/>
+        <source>0</source>
+        <translation>0</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="315"/>
+        <location filename="SettingsDialog.ui" line="523"/>
         <source>2</source>
         <translation>2</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="399"/>
+        <location filename="SettingsDialog.ui" line="323"/>
+        <source>ALOW_REORDERED_OPERATIONS</source>
+        <translation>Reordered operations</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="330"/>
+        <source>LOW_PORIO_DISK</source>
+        <translation>Low priority for I/O</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="337"/>
+        <source>USE_READ_CASHE</source>
+        <translation>Use read cash</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="344"/>
+        <source>USE_DISK_READ_AHEAD</source>
+        <translation>Use disk Read-Ahead</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="528"/>
         <source>3</source>
         <translation>3</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="404"/>
+        <location filename="SettingsDialog.ui" line="533"/>
         <source>4</source>
         <translation>4</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="409"/>
+        <location filename="SettingsDialog.ui" line="538"/>
         <source>5</source>
         <translation>5</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="414"/>
+        <location filename="SettingsDialog.ui" line="543"/>
         <source>6</source>
         <translation>6</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="419"/>
+        <location filename="SettingsDialog.ui" line="548"/>
         <source>7</source>
         <translation>7</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="424"/>
+        <location filename="SettingsDialog.ui" line="553"/>
         <source>8</source>
         <translation>8</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="429"/>
+        <location filename="SettingsDialog.ui" line="558"/>
         <source>9</source>
         <translation>9</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="434"/>
+        <location filename="SettingsDialog.ui" line="563"/>
         <source>10</source>
         <translation>10</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="445"/>
+        <location filename="SettingsDialog.ui" line="574"/>
         <source>DAEMONTOOLS_USE_CUSTOM_COMMAND</source>
         <translation>Use custom command for mouting</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="455"/>
+        <location filename="SettingsDialog.ui" line="584"/>
         <source>DAEMONTOOLS_COMMAND</source>
         <translation>Command</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="468"/>
+        <location filename="SettingsDialog.ui" line="597"/>
         <source>TAB_TRACKER_SEARCH</source>
         <translation>Tracker search</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="474"/>
+        <location filename="SettingsDialog.ui" line="603"/>
         <source>TRACKER_CURRENT</source>
         <translation>Tracker</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="484"/>
+        <location filename="SettingsDialog.ui" line="613"/>
         <source>SEARCH_ADD_TRACKER</source>
         <translation>Add tracker</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="490"/>
+        <location filename="SettingsDialog.ui" line="619"/>
         <source>SEARCH_METHOD</source>
         <translation>Method</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="497"/>
+        <location filename="SettingsDialog.ui" line="626"/>
         <source>SEARCH_REQUEST</source>
         <translation>Request</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="523"/>
+        <location filename="SettingsDialog.ui" line="652"/>
         <source>SEARCH_ADD</source>
         <translation>Add</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="544"/>
+        <location filename="SettingsDialog.ui" line="673"/>
         <source>SEARCH_USE_AUTH</source>
         <translation>Use auntefication</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="570"/>
+        <location filename="SettingsDialog.ui" line="699"/>
         <source>AUTH_DATA</source>
         <translation>Autefication data</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="576"/>
+        <location filename="SettingsDialog.ui" line="705"/>
         <source>AUTH_NAME</source>
         <translation>Username</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="597"/>
+        <location filename="SettingsDialog.ui" line="726"/>
         <source>AUTH_METHOD</source>
         <translation>Method</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="610"/>
+        <location filename="SettingsDialog.ui" line="739"/>
         <source>AUTH_PASSWORD</source>
         <translation>Password</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="620"/>
+        <location filename="SettingsDialog.ui" line="749"/>
         <source>AUTH_REQUEST</source>
         <translation>Request</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="660"/>
+        <location filename="SettingsDialog.ui" line="38"/>
         <source>SETTINGS_CANCEL_BUTTON</source>
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="667"/>
+        <location filename="SettingsDialog.ui" line="24"/>
         <source>SETTINGS_OK_BITTON</source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="687"/>
+        <location filename="SettingsDialog.ui" line="31"/>
         <source>SETTINGS_ACCEPT_BUTTON</source>
         <translation>Apply</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="531"/>
-        <location filename="SettingsDialog.ui" line="584"/>
+        <location filename="SettingsDialog.ui" line="660"/>
+        <location filename="SettingsDialog.ui" line="713"/>
         <source>GET</source>
         <translation>GET</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="536"/>
-        <location filename="SettingsDialog.ui" line="589"/>
+        <location filename="SettingsDialog.ui" line="665"/>
+        <location filename="SettingsDialog.ui" line="718"/>
         <source>POST</source>
         <translation>POST</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="163"/>
+        <location filename="SettingsDialog.cpp" line="185"/>
         <source>Torrent file</source>
         <translation>Torrent file</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="294"/>
+        <location filename="SettingsDialog.cpp" line="335"/>
         <source>Unable to find %1</source>
         <translation>Unable to find %1</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="302"/>
+        <location filename="SettingsDialog.cpp" line="343"/>
         <source>Open Directory</source>
         <translation>Chose Dirrectory</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="313"/>
+        <location filename="SettingsDialog.cpp" line="354"/>
         <source>Óêàçàòü ïàïêó ñ DaemonTools</source>
         <translation>Chose DaemonTools install path</translation>
     </message>
