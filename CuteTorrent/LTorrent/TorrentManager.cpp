@@ -320,7 +320,7 @@ session_settings TorrentManager::readSettings()
 	s_settings.allow_multiple_connections_per_ip = torrentSettings->valueBool("Torrent","allow_multiple_connections_per_ip",true);
 	listen_port=torrentSettings->valueInt("Torrent","listen_port",6103);
 	s_settings.use_disk_read_ahead = torrentSettings->valueBool("Torrent","use_disk_read_ahead",true);
-	s_settings.disable_hash_checks = torrentSettings->valueBool("Torrent","disable_hash_checks",false);;
+	s_settings.disable_hash_checks = torrentSettings->valueBool("Torrent","disable_hash_checks",false);
 	s_settings.peer_timeout = torrentSettings->valueInt("Torrent","peer_timeout",120);
 	s_settings.announce_to_all_tiers = torrentSettings->valueBool("Torrent","announce_to_all_tiers",true);
 	s_settings.download_rate_limit = torrentSettings->valueInt("Torrent","download_rate_limit",0);
@@ -360,6 +360,10 @@ session_settings TorrentManager::readSettings()
 		ps.password = torrentSettings->valueString("Torrent","proxy_password").toUtf8().constData();
 		ses->set_proxy(ps);
 	}
+	s_settings.lock_files = torrentSettings->valueBool("Torrent","lock_files",false);
+	s_settings.disk_io_read_mode = torrentSettings->valueInt("Torrent","disk_io_read_mode",0);
+	s_settings.disk_io_write_mode = torrentSettings->valueInt("Torrent","disk_io_write_mode",0);
+	s_settings.low_prio_disk = torrentSettings->valueInt("Torrent","low_prio_disk",false);
 	s_settings.cache_size = torrentSettings->valueInt("Torrent","cache_size",2048);
 	s_settings.use_read_cache =  torrentSettings->valueInt("Torrent","use_read_cache",s_settings.cache_size > 0);
 	s_settings.cache_buffer_chunk_size = torrentSettings->valueInt("Torrent","cache_buffer_chunk_size",s_settings.cache_size /100);
@@ -371,10 +375,10 @@ session_settings TorrentManager::readSettings()
 	s_settings.active_seeds = torrentSettings->valueInt("Torrent","active_seeds",5);
 	s_settings.choking_algorithm = session_settings::auto_expand_choker;
 	s_settings.disk_cache_algorithm = session_settings::avoid_readback;
-	s_settings.volatile_read_cache = false;
-	s_settings.allow_reordered_disk_operations = false;
 	s_settings.user_agent = "CuteTorrent "CT_VERSION;
 	DTInstallPath = torrentSettings->valueString("DT","DTInstallPath");
+	s_settings.announce_double_nat=true;
+	
 	
 	return s_settings;
 }
@@ -405,23 +409,30 @@ void TorrentManager::writeSettings()
 
 	torrentSettings->setValue("Torrent","max_peerlist_size",s_settings.max_peerlist_size);
 	torrentSettings->setValue("Torrent","max_paused_peerlist_size",s_settings.max_paused_peerlist_size);
-	torrentSettings->setValue("Torrent","ip_filter_filename",ipFilterFileName);
 	torrentSettings->setValue("Torrent","max_connections_per_torrent",max_connections_per_torrent);
+	
+	torrentSettings->setValue("Torrent","ip_filter_filename",ipFilterFileName);
+	
 	torrentSettings->setValue("Torrent","useProxy",useProxy);
+	torrentSettings->setValue("Torrent","proxy_hostname",ps.hostname.c_str());
+	torrentSettings->setValue("Torrent","proxy_port",ps.port);
+	torrentSettings->setValue("Torrent","proxy_type",ps.type);
+	torrentSettings->setValue("Torrent","proxy_username",ps.username.c_str());
+	torrentSettings->setValue("Torrent","proxy_password",ps.password.c_str());
 	
-		torrentSettings->setValue("Torrent","proxy_hostname",ps.hostname.c_str());
-		torrentSettings->setValue("Torrent","proxy_port",ps.port);
-		torrentSettings->setValue("Torrent","proxy_type",ps.type);
-		torrentSettings->setValue("Torrent","proxy_username",ps.username.c_str());
-		torrentSettings->setValue("Torrent","proxy_password",ps.password.c_str());
-		
-	
+
+	torrentSettings->setValue("Torrent","lock_files",s_settings.lock_files);
+	torrentSettings->setValue("Torrent","disk_io_read_mode",s_settings.disk_io_read_mode);
+	torrentSettings->setValue("Torrent","disk_io_write_mode",s_settings.disk_io_write_mode);
+	torrentSettings->setValue("Torrent","low_prio_disk",s_settings.low_prio_disk );
 	torrentSettings->setValue("Torrent","cache_size",s_settings.cache_size);
 	torrentSettings->setValue("Torrent","use_read_cache",s_settings.use_read_cache);
+	torrentSettings->setValue("Torrent","allow_reordered_disk_operations",s_settings.allow_reordered_disk_operations);
+
 	torrentSettings->setValue("Torrent","cache_buffer_chunk_size",s_settings.cache_buffer_chunk_size);
 	torrentSettings->setValue("Torrent","allowed_fast_set_size",s_settings.allowed_fast_set_size);
 	torrentSettings->setValue("Torrent","read_cache_line_size",s_settings.read_cache_line_size);
-	torrentSettings->setValue("Torrent","allow_reordered_disk_operations",s_settings.allow_reordered_disk_operations);
+	
 	torrentSettings->setValue("Torrent","active_downloads",s_settings.active_downloads);
 	torrentSettings->setValue("Torrent","active_limit",s_settings.active_limit);
 	torrentSettings->setValue("Torrent","active_seeds",s_settings.active_seeds);
@@ -578,7 +589,7 @@ opentorrent_info* TorrentManager::GetTorrentInfo(QString filename)
 	torrent_info* ti=new torrent_info(filename.toUtf8().data(), ec);
 	if (ec)
 	{
-		QMessageBox::warning(NULL,"Warning",QString::fromLocal8Bit(("Не удалось открыть торрент файл\n"+filename).toAscii().data()));
+		QMessageBox::warning(NULL,"Warning",QObject::tr("ERROR_OPENING_FILE\n%1").arg(filename));
 		return NULL;
 	}
 
@@ -632,6 +643,65 @@ opentorrent_info* TorrentManager::GetTorrentInfo(QString filename)
 	info->base_suffix=base_suffix;
 	return info;
 }
+
+openmagnet_info* TorrentManager::GetTorrentInfo( torrent_handle handle )
+{
+	error_code ec;
+
+	torrent_info ti=handle.get_torrent_info();
+	
+	openmagnet_info* info=new openmagnet_info;
+	info->handle=handle;
+	info->size=ti.total_size();
+	info->name=QString::fromUtf8(ti.name().c_str());
+	info->describtion = QString::fromUtf8(ti.comment().c_str());
+	info->files = ti.files();
+	QMap<QString,int> suffixesCount;
+	QString base_suffix;
+	int maxSuffix=0;
+
+	for(libtorrent::file_storage::iterator i=info->files.begin();i!=info->files.end();i++)
+	{
+		QFileInfo curfile(QString::fromUtf8(info->files.file_path(*i).c_str()));
+		if (curfile.suffix()=="mds")
+		{
+			base_suffix="mdf";
+			break;
+		}
+		if (curfile.suffix()=="mdf")
+		{
+			base_suffix="mdf";
+			break;
+		}
+		if (curfile.suffix()=="m2ts")
+		{
+			base_suffix="m2ts";
+			break;
+		}
+		if (!suffixesCount.contains(curfile.suffix()))
+		{
+			suffixesCount.insert(curfile.suffix(),1);
+			if (suffixesCount[curfile.suffix()] > maxSuffix)
+			{
+				maxSuffix=suffixesCount[curfile.suffix()];
+				base_suffix=curfile.suffix();
+			}
+		}
+		else
+		{
+
+			suffixesCount[curfile.suffix()]++;
+			if (suffixesCount[curfile.suffix()] > maxSuffix)
+			{
+				maxSuffix=suffixesCount[curfile.suffix()];
+				base_suffix=curfile.suffix();
+			}
+		}
+	}
+	info->base_suffix=base_suffix;
+	return info;
+}
+
 void TorrentManager::RemoveTorrent(torrent_handle h,bool delFiles)
 {
 
@@ -696,22 +766,57 @@ QString TorrentManager::GetSessionUploaded()
 	}
 
 }
-
-bool TorrentManager::AddMagnet( QString link )
+torrent_handle TorrentManager::ProcessMagnetLink(QString link)
 {
 	add_torrent_params add_info;
 	error_code ec;
+	torrent_handle h;
 	parse_magnet_uri(link.toStdString(),add_info,ec);
-	if (ec!=0)
-		return ec;
-	add_info.save_path="F:\\video\\test\\";
-	QMessageBox::information(0,"","b");
-	torrent_handle h=ses->add_torrent(add_info);
+		if (ec!=0)
+			return h;		
+
+	/*lazy_entry resume_data;
+	std::string filename = combine_path("CT_DATA", to_hex(add_info.info_hash.to_string()) + ".resume");
+	std::vector<char> buf;
+
+	if (load_file(filename.c_str(), buf, ec) == 0)
+	{
+		add_info.resume_data = &buf;
+	}*/
+	h=ses->add_torrent(add_info);
+	//h.auto_managed(false);
 	h.pause();
 	while (!h.has_metadata())
 	{
 		sleep(1000);
 	}
+	h.pause();
+	return h;
+		
+}
+bool TorrentManager::AddMagnet( torrent_handle h,QString SavePath,QMap<QString,int> filePriorities )
+{
+	
+	if (!filePriorities.isEmpty())
+	{
+		std::vector<int> filepriorities;
+		file_storage storrage = h.get_torrent_info().files();
+		for (file_storage::iterator i=storrage.begin();i!=storrage.end();i++)
+		{
+
+			if (filePriorities.contains(QDir::toNativeSeparators(storrage.file_path(*i).c_str())))
+				filepriorities.push_back(filePriorities[storrage.file_path(*i).c_str()]);
+			else
+			{
+				//qDebug() << "not found " << storrage.file_path(*i).c_str();
+				filepriorities.push_back(7);
+			}
+		}
+		h.prioritize_files(filepriorities);
+		filePriorities.~QMap();
+
+	}
+	h.move_storage(SavePath.toStdString());
 	h.resume();
 	if (h.is_valid())
 	{

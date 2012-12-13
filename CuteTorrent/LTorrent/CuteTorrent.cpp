@@ -52,7 +52,7 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	
 	Application::setLanguage("cutetorrent_"+settings->valueString("System","Lang","RUSSIAN"));
 
-
+	
 	 
 	
 	mng->initSession();
@@ -320,23 +320,16 @@ void CuteTorrent::changeEvent(QEvent *event)
 	 {     
 		if(isVisible() && isMinimized()) 
 		{
-			event->ignore();
-			QBalloonTip::showBalloon("CuteTorrent", tr("CT_HIDE_MSG"),QSystemTrayIcon::Information,5000,false);
 			setUpdatesEnabled(false);
-			hide();
-			return;
 		}
 		else
 		{
-			showNormal();
-			raise();
-			activateWindow();
 			setUpdatesEnabled(true);
 		}
 
 	}
-	 if (event->type()==QEvent::LanguageChange)
-	 {
+	if (event->type()==QEvent::LanguageChange)
+	{
 		//QMessageBox::warning(this,"","retramslate event occured");
 		retranslateUi(this);
 
@@ -374,6 +367,8 @@ void CuteTorrent::iconActivated(QSystemTrayIcon::ActivationReason reason)
 		 else
 		 {
 			showNormal();
+			raise();
+			activateWindow();
 		}
          break;
      case QSystemTrayIcon::MiddleClick:
@@ -579,8 +574,16 @@ void CuteTorrent::OpenSettingsDialog()
 }
 void CuteTorrent::closeEvent(QCloseEvent* ce)
 {
-	QMainWindow::closeEvent(ce);
+	ce->ignore();
+	hide();
+	QBalloonTip::showBalloon("CuteTorrent", tr("CT_HIDE_MSG"),QSystemTrayIcon::Information,5000,false);
+	setUpdatesEnabled(false);
+	return;
 	//qDebug() << "QMainWindow::~QMainWindow()";
+	
+}
+CuteTorrent::~CuteTorrent()
+{
 	trayIcon->hide();
 	//qDebug() << "TorrentManager::freeInstance()";
 	mng->freeInstance();
@@ -588,10 +591,6 @@ void CuteTorrent::closeEvent(QCloseEvent* ce)
 	model->~QTorrentDisplayModel();
 	QApplicationSettings::FreeInstance();
 	delete notyfire;
-}
-CuteTorrent::~CuteTorrent()
-{
-
 }
 
 void CuteTorrent::setupFileTabel()
@@ -752,7 +751,12 @@ void CuteTorrent::ProcessMagnet()
 {
 	OpenMagnetDialog* dlg = new OpenMagnetDialog(this);
 	dlg->exec();
+	QString magnetLink=dlg->getLink();
 	delete dlg;
+	OpenTorrentDialog* dlg2 = new OpenTorrentDialog();
+	dlg2->SetData(magnetLink);
+	dlg2->exec();
+	delete dlg2;
 }
 
 /*

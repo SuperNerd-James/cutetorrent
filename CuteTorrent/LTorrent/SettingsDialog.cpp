@@ -52,6 +52,14 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 		proxyUsernameEdit->setText(settings->valueString("Torrent","proxy_username"));
 		proxyPwdEdit->setText(settings->valueString("Torrent","proxy_password"));
 	}
+	lockFilesCheckBox->setCheckState(settings->valueBool("Torrent","lock_files") ?  Qt::Checked :Qt::Unchecked );
+	casheSizeLineEdit->setText(QString::number(settings->valueInt("Torrent","cache_size")*16*1024));
+	diskIOCasheModeComboBox->setCurrentIndex(settings->valueInt("Torrent","disk_io_write_mode"));
+	useDiskReadAheadCheckBox->setCheckState(settings->valueBool("Torrent","use_disk_read_ahead") ?  Qt::Checked :Qt::Unchecked );
+	
+	alowReorderedOpsCheckBox->setCheckState(settings->valueBool("Torrent","allow_reordered_disk_operations") ?  Qt::Checked :Qt::Unchecked );
+	lowPrioDiskCheckBox->setCheckState(settings->valueBool("Torrent","low_prio_disk") ?  Qt::Checked :Qt::Unchecked );
+	useReadCasheCheckBox->setCheckState(settings->valueBool("Torrent","use_read_cache") ?  Qt::Checked :Qt::Unchecked );
 	DTPathEdit->setText(settings->valueString("DT","Executable"));
 	int driveNumber=settings->valueInt("DT","Drive");
 	driveNumberComboBox->setCurrentIndex(driveNumber < driveNumberComboBox->count() ? driveNumber : 0);
@@ -141,6 +149,12 @@ void SettingsDialog::saveSettings()
 		
 	}
 	
+	settings->setValue("Torrent","lock_files",lockFilesCheckBox->isChecked());
+	settings->setValue("Torrent","disk_io_read_mode",diskIOCasheModeComboBox->currentIndex());
+	settings->setValue("Torrent","disk_io_write_mode",diskIOCasheModeComboBox->currentIndex());
+	settings->setValue("Torrent","low_prio_disk",lowPrioDiskCheckBox->isChecked() );
+	settings->setValue("Torrent","allow_reordered_disk_operations",alowReorderedOpsCheckBox->isChecked() );
+	settings->setValue("Torrent","use_read_cache",useReadCasheCheckBox->isChecked() );
 	ApplySettingsToSession();
 	settings->setValue("DT","Executable",DTPathEdit->text());
 	settings->setValue("DT","Drive",driveNumberComboBox->currentIndex());
@@ -176,7 +190,7 @@ void SettingsDialog::saveSettings()
 	
 	if (runOnbootCheckBox->checkState()==Qt::Checked)
 	{
-		bootUpSettings. setValue("/CurrentVersion/Run/CuteTorrent",base_dir);
+		bootUpSettings.setValue("/CurrentVersion/Run/CuteTorrent",base_dir);
 	}
 	else
 		bootUpSettings.remove("/CurrentVersion/Run/CuteTorrent");
@@ -184,11 +198,7 @@ void SettingsDialog::saveSettings()
 	int curLocaleIndex=localeComboBox->currentIndex();
 	Application::setLanguage("cutetorrent_"+localeComboBox->currentText().toUpper());
 	settings->setValue("System","Lang",localeComboBox->currentText().toUpper());
-	/*if (curLocaleIndex==0)
-		translator->load(":/translations/cutetorrent_ru.ts");
-	else*/
-		
-//	emit needRetranslate();
+
 	close();
 }
 void SettingsDialog::ApplySettingsToSession()
@@ -200,8 +210,15 @@ void SettingsDialog::ApplySettingsToSession()
 	current.active_limit		= activeLimitEdit->text().toInt();
 	current.active_downloads	= activeDownloadLimitEdit->text().toInt();
 	current.active_seeds		= activeSeedLimitEdit->text().toInt();
-
 	
+	current.use_read_cache		= useReadCasheCheckBox->isChecked();
+	current.lock_files			= lockFilesCheckBox->isChecked();
+	current.disk_io_write_mode  = diskIOCasheModeComboBox->currentIndex();
+	current.disk_io_read_mode   = diskIOCasheModeComboBox->currentIndex();
+	current.low_prio_disk		= lowPrioDiskCheckBox->isChecked();
+
+	current.allow_reordered_disk_operations = alowReorderedOpsCheckBox->isChecked();
+
 	current.upload_rate_limit	= uploadLimitEdit->text().split(' ').at(0).toInt()*1024;
 	
 	current.download_rate_limit = downloadLimitEdit->text().split(' ').at(0).toInt()*1024;

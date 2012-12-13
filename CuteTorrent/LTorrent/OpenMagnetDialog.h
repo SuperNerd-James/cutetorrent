@@ -29,7 +29,9 @@ class OpenMagnetDialog : public QDialog , private Ui::OpenMagnetDialog
 	Q_OBJECT
 public:
 	OpenMagnetDialog(QWidget *parent = 0, Qt::WFlags flags = 0);
+	QString getLink(){return link;}
 private:
+	QString link;
 protected:
 private slots:
 	void accept();

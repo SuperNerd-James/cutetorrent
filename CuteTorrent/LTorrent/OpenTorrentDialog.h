@@ -29,6 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "TorrentManager.h"
 #include "StaticHelpers.h"
 #include "FileTreeModel.h"
+#include "MetaDataDownloadWaiter.h"
+
 class OpenTorrentDialog : public QDialog , private Ui::OpenTorrentDialog
 {
 	Q_OBJECT
@@ -40,16 +42,18 @@ public:
 	
 	int execConditional();
 private:
+	MetaDataDownloadWaiter* magnetWaiter;
 	QList<GroupForFileFiltering> filters;
 	bool validTorrent;
 	TorrentManager* mgr;
 	QString torrentFilename;
+	openmagnet_info _info;
 	FileTreeModel* model;
 	void setupGroupComboBox();
 private slots:
 	void BrowseButton();
 	void AccepTorrent();
 	void ChangeGroup();
-	
+	void DownloadMetadataCompleted(openmagnet_info);
 };
 #endif

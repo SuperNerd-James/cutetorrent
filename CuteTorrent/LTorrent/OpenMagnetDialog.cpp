@@ -21,8 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void OpenMagnetDialog::accept()
 {
-	TorrentManager::getInstance()->AddMagnet(magnetEdit->text());
-	TorrentManager::freeInstance();
+	
+	link=magnetEdit->text();
 	this->close();
 }
 
