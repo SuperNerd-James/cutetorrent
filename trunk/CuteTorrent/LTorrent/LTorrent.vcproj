@@ -81,6 +81,7 @@
 				GenerateDebugInformation="false"
 				SubSystem="2"
 				LinkTimeCodeGeneration="0"
+				Profile="true"
 			/>
 			<Tool
 				Name="VCALinkTool"

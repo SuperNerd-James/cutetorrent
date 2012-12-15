@@ -261,13 +261,9 @@ void QTorrentDisplayModel::updateVisibleTorrents()
 	}
 	torrents_to_add.clear();
 	locker->unlock();
-	torrents_to_remove.clear();
-	for (int i=0;i<torrents.count();i++)
-	{
-		QModelIndex qmi( index( i, 0 ) );
-		emit dataChanged( qmi, qmi );
-		emit updateTabSender(-1);
-	}
+	QModelIndex top(index(0,0)),bot(index(0,torrents.count()));
+	emit dataChanged( top,bot );
+	emit updateTabSender(-1);
 }
 void QTorrentDisplayModel::OpenDirSelected()
 {
@@ -443,22 +439,22 @@ Torrent* QTorrentDisplayModel::GetSelectedTorrent()
 }
 bool QTorrentDisplayModel::updateTorrent(QString InfoHash,torrent_status status)
 {
-	try
-	{
-		for (QVector<Torrent*>::const_iterator tor=torrents.begin();
-				tor!=torrents.end();
-				tor++
-				)
-					if( (*tor)->GetHashString() == InfoHash )
-					{
-						(*tor)->updateTorrent(status);
-						return true;
-					}
-	}
-	catch (std::exception e)
-	{
-		QMessageBox::warning(0,"emit updateTorrent",e.what());
-	}
+// 	try
+// 	{
+// 		for (QVector<Torrent*>::const_iterator tor=torrents.begin();
+// 				tor!=torrents.end();
+// 				tor++
+// 				)
+// 					if( (*tor)->GetHashString() == InfoHash )
+// 					{
+// 						(*tor)->updateTorrent(status);
+// 						return true;
+// 					}
+// 	}
+// 	catch (std::exception e)
+// 	{
+// 		QMessageBox::warning(0,"emit updateTorrent",e.what());
+// 	}
 
 	return false;
 }

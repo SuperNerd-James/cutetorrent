@@ -276,7 +276,7 @@ void CuteTorrent::updateTabWidget(int tab)
 	{
 		QMessageBox::warning(this,"Error",QString("CuteTorrent::updateTabWidget()\n")+e.what());
 	}
-	update();
+	
 }
 void CuteTorrent::UpdateFileTab()
 {

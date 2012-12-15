@@ -48,7 +48,7 @@ MultipleDTDialog::MultipleDTDialog(QStringList& _files,QWidget* parrent/* =0 */,
 	for (int i=0;i<files.count();i++)
 	{
 		QStandardItem * item = new QStandardItem(iso,files.at(i));
-		model->setItem(0,i,item);
+		model->setItem(i,item);
 	}
 }
 

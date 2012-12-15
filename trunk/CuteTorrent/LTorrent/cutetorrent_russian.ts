@@ -737,36 +737,43 @@
         <translation>Не удалось открыть файл
 %1</translation>
     </message>
+    <message>
+        <location filename="Torrent.cpp" line="319"/>
+        <location filename="Torrent.cpp" line="323"/>
+        <source>CT_CONNECTED %1 CT_FROM %2</source>
+        <oldsource>CT_CONNECTED %1 ?? %2</oldsource>
+        <translation>Подключено %1 из %2</translation>
+    </message>
 </context>
 <context>
     <name>QTorrentDisplayModel</name>
     <message>
         <location filename="QTorrentDisplayModel.cpp" line="37"/>
-        <location filename="QTorrentDisplayModel.cpp" line="549"/>
+        <location filename="QTorrentDisplayModel.cpp" line="545"/>
         <source>ACTION_OPEN_FOLDER</source>
         <translation>Открыть папку</translation>
     </message>
     <message>
         <location filename="QTorrentDisplayModel.cpp" line="40"/>
-        <location filename="QTorrentDisplayModel.cpp" line="550"/>
+        <location filename="QTorrentDisplayModel.cpp" line="546"/>
         <source>ACTION_DT_MOUNT</source>
         <translation>Смонтировать в Daemon Tools</translation>
     </message>
     <message>
         <location filename="QTorrentDisplayModel.cpp" line="43"/>
-        <location filename="QTorrentDisplayModel.cpp" line="551"/>
+        <location filename="QTorrentDisplayModel.cpp" line="547"/>
         <source>ACTION_DELETE_ALL</source>
         <translation>Удалить файлы и торрент</translation>
     </message>
     <message>
         <location filename="QTorrentDisplayModel.cpp" line="46"/>
-        <location filename="QTorrentDisplayModel.cpp" line="552"/>
+        <location filename="QTorrentDisplayModel.cpp" line="548"/>
         <source>ACTION_DELETE_TORRENT</source>
         <translation>Удалить торрент</translation>
     </message>
     <message>
         <location filename="QTorrentDisplayModel.cpp" line="49"/>
-        <location filename="QTorrentDisplayModel.cpp" line="553"/>
+        <location filename="QTorrentDisplayModel.cpp" line="549"/>
         <source>ACTION_REHASH</source>
         <translation>Обновить хеш</translation>
     </message>
@@ -928,109 +935,108 @@
         <translation>Жесткий Диск</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="360"/>
+        <location filename="SettingsDialog.ui" line="363"/>
         <source>LOCK_FILES</source>
         <translation>Блокировать файлы</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="367"/>
+        <location filename="SettingsDialog.ui" line="373"/>
         <source>DISK_IO_CASH_MODE</source>
         <translation>Режим кеширования</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="374"/>
+        <location filename="SettingsDialog.ui" line="383"/>
         <source>CASH_SIZE</source>
         <translation>Размер Кеша</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="385"/>
+        <location filename="SettingsDialog.ui" line="394"/>
         <source>0</source>
         <translation>0</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="403"/>
+        <location filename="SettingsDialog.ui" line="415"/>
         <source>ALOW_REORDERED_OPERATIONS</source>
         <translation>Разрешать неупордоченные операции</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="410"/>
+        <location filename="SettingsDialog.ui" line="425"/>
         <source>LOW_PORIO_DISK</source>
         <translation>Низкий приоритет I/O</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="417"/>
+        <location filename="SettingsDialog.ui" line="435"/>
         <source>USE_READ_CASHE</source>
         <translation>Использовать кеш чтения</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="424"/>
+        <location filename="SettingsDialog.ui" line="445"/>
         <source>USE_DISK_READ_AHEAD</source>
         <translation>Упреждающе чтение</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="432"/>
+        <location filename="SettingsDialog.ui" line="453"/>
         <source>TAB_TORRENT_FILTERING</source>
         <translation>Фильтрация торрентов</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="444"/>
+        <location filename="SettingsDialog.ui" line="465"/>
         <source>FILTERING_GROUP</source>
         <translation>Группы фильтрации</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="453"/>
+        <location filename="SettingsDialog.ui" line="481"/>
         <source>FILTERING_GROUP_DELETE</source>
         <oldsource>fILTERING_GROUP_DELETE</oldsource>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="476"/>
+        <location filename="SettingsDialog.ui" line="504"/>
         <source>ADD_CHANGE_GROUP</source>
         <translation>Добавить\Изменить имя группы</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="495"/>
+        <location filename="SettingsDialog.ui" line="520"/>
         <source>ADD_GROUP_BUTON</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="508"/>
         <source>fFILE_EXTENSIONS(FORMAT: jpg|png|bmp)</source>
-        <translation>Расширения(формат: jpg|png|bmp)</translation>
+        <translation type="obsolete">Расширения(формат: jpg|png|bmp)</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="533"/>
+        <location filename="SettingsDialog.ui" line="559"/>
         <source>GROUP_SAVE_PATH</source>
         <translation>Куда сохранять</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="542"/>
+        <location filename="SettingsDialog.ui" line="575"/>
         <source>GROUP_SAVE_PATH_CHOISE_BUTTON</source>
-        <translation>j,pjh</translation>
+        <translation>Обзор</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="566"/>
+        <location filename="SettingsDialog.ui" line="599"/>
         <source>TAB_DAEMONTOOLS</source>
         <translation>Daemon Tools</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="572"/>
+        <location filename="SettingsDialog.ui" line="690"/>
         <source>DAEMONTOOLS_PATH</source>
         <translation>Путь к Daemon Tools</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="581"/>
+        <location filename="SettingsDialog.ui" line="706"/>
         <source>DAEMONTOOLS_PATH_CHOISE_BUUTON</source>
         <translation>Обзор</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="591"/>
+        <location filename="SettingsDialog.ui" line="624"/>
         <source>DRIVE_NUMBER</source>
         <translation>Номер привода</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="390"/>
-        <location filename="SettingsDialog.ui" line="598"/>
+        <location filename="SettingsDialog.ui" line="399"/>
+        <location filename="SettingsDialog.ui" line="634"/>
         <source>1</source>
         <translation></translation>
     </message>
@@ -1099,7 +1105,7 @@
     <message>
         <location filename="SettingsDialog.ui" line="323"/>
         <source>MAGNET_ASSOCIATION_WIT</source>
-        <translation>Для открытия Magnet ссылок испольщовать CuteTorrent</translation>
+        <translation>Для открытия Magnet ссылок использовать CuteTorrent</translation>
     </message>
     <message>
         <location filename="SettingsDialog.ui" line="333"/>
@@ -1112,130 +1118,234 @@
         <translation>Открывать *.torrent файлы с помощью CuteTorrent</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="395"/>
-        <location filename="SettingsDialog.ui" line="603"/>
+        <location filename="SettingsDialog.ui" line="360"/>
+        <source>LOCK_FILES_WIT</source>
+        <translation>Блоировать файлы когда запущен CuteTorrent для запрета изменения этих фалов.</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="370"/>
+        <source>DISK_IO_CASH_MODE_WIT</source>
+        <translation>Использовать ли кеш операционной системы.</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="380"/>
+        <source>CASH_SIZE_WIT</source>
+        <translation>Размер кеша для записи на жесткий диск. -1 - означает автоматический выбор в зависимости от общего колличества оперативной памяти.</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="404"/>
+        <location filename="SettingsDialog.ui" line="639"/>
         <source>2</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="608"/>
+        <location filename="SettingsDialog.ui" line="412"/>
+        <source>ALOW_REORDERED_OPERATIONS_WIT</source>
+        <translation>Дисковые операции могут быть переупорядоченны в зависимости от расположения файлов на жестком диске. Значительно увеличивает производительность при отдаче большому колличеству пиров. Не имеет никакого эффекта на SSD-Жестких дисках.</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="422"/>
+        <source>LOW_PORIO_DISK_WIT</source>
+        <translation>Меньший приоритет для операций с жестким диском. Улучшает производитьльность, но при этом страдает скорость загрузки.</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="432"/>
+        <source>USE_READ_CASHE_WIT</source>
+        <translation>Использовать кеширование и при чтинии с жесткого диска.</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="442"/>
+        <source>USE_DISK_READ_AHEAD_WIT</source>
+        <translation>При выполнении чтения с диска, шпиндель перемещает головки чтения / записи на (или вблизи) определлнный трек, и через некоторое время считывающая головка начинает подобрать биты. Как правило, первые сектора, которые будут считанны не те, что были запрошены операционной системой. Чаще всего эти &quot;непрошенные&quot; соктора можно кешировать для будущих операций.</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="471"/>
+        <source>GROUP_LISTBOX_WIT</source>
+        <translation>Группы фильтрации торрентов созданные пользователем.</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="478"/>
+        <source>FILTERING_GROUP_DELETE_WIT</source>
+        <translation>Удалить выбранную группу фильтрации.</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="510"/>
+        <source>newGroupNameEdit_WIT</source>
+        <translation>Имя нвой или измененное имя существующей группы фильтрации</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="517"/>
+        <source>ADD_GROUP_BUTON_WIT</source>
+        <translation>Добавить группу фильтрации с заданным именем, расширеними файлов и путем сохранения.</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="530"/>
+        <source>FILE_EXTENSIONS(FORMAT: jpg|png|bmp)</source>
+        <translation>Расширения файлов(Формат:jpg|png|bmp|)</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="549"/>
+        <source>extensionsEdit_WIT</source>
+        <translation>Расширения по которым будет определятс группа фильтрации.</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="565"/>
+        <source>groupSavePathEdit_WIT</source>
+        <translation>Путь куда будет сохранены по умолчанию выбранные торренты.</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="572"/>
+        <source>GROUP_SAVE_PATH_CHOISE_BUTTON_WIT</source>
+        <translation> </translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="614"/>
+        <source>DAEMONTOOLS_COMMAND_WIT</source>
+        <translation>Комнда которая будет использованна для монтирования в Daemon Tools.
+%1   номер привода.
+%2 - путь к образу.</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="630"/>
+        <source>driveNumberComboBox_WIT</source>
+        <translation>Номер привода который будет использован для монтирования.Убедитесь что привод с заданным номером существует.</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="644"/>
         <source>3</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="613"/>
+        <location filename="SettingsDialog.ui" line="649"/>
         <source>4</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="618"/>
+        <location filename="SettingsDialog.ui" line="654"/>
         <source>5</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="623"/>
+        <location filename="SettingsDialog.ui" line="659"/>
         <source>6</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="628"/>
+        <location filename="SettingsDialog.ui" line="664"/>
         <source>7</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="633"/>
+        <location filename="SettingsDialog.ui" line="669"/>
         <source>8</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="638"/>
+        <location filename="SettingsDialog.ui" line="674"/>
         <source>9</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="643"/>
+        <location filename="SettingsDialog.ui" line="679"/>
         <source>10</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="654"/>
+        <location filename="SettingsDialog.ui" line="696"/>
+        <source>DTPathEdit_WIT</source>
+        <translation>Путь к Daemon Tools Lite или Pro.</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="703"/>
+        <source>DAEMONTOOLS_PATH_CHOISE_BUUTON_WIT</source>
+        <translation> </translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="716"/>
+        <source>DAEMONTOOLS_USE_CUSTOM_COMMAND_WIT</source>
+        <translation>Возможность изменить команду для монтирования.
+%1   номер привода.
+%2 - путь к образу.</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="719"/>
         <source>DAEMONTOOLS_USE_CUSTOM_COMMAND</source>
         <translation>Использовать свою команду для монтирования</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="664"/>
+        <location filename="SettingsDialog.ui" line="608"/>
         <source>DAEMONTOOLS_COMMAND</source>
         <translation>Команда</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="677"/>
+        <location filename="SettingsDialog.ui" line="740"/>
         <source>TAB_TRACKER_SEARCH</source>
         <translation>Поиск по трекерам</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="683"/>
+        <location filename="SettingsDialog.ui" line="746"/>
         <source>TRACKER_CURRENT</source>
         <translation>Текущий трекер</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="693"/>
+        <location filename="SettingsDialog.ui" line="756"/>
         <source>SEARCH_ADD_TRACKER</source>
         <translation>Добавление трекера</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="699"/>
+        <location filename="SettingsDialog.ui" line="762"/>
         <source>SEARCH_METHOD</source>
         <translation>Метод</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="706"/>
+        <location filename="SettingsDialog.ui" line="769"/>
         <source>SEARCH_REQUEST</source>
         <translation>Запрос</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="732"/>
+        <location filename="SettingsDialog.ui" line="795"/>
         <source>SEARCH_ADD</source>
         <translation>Добавить</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="740"/>
-        <location filename="SettingsDialog.ui" line="793"/>
+        <location filename="SettingsDialog.ui" line="803"/>
+        <location filename="SettingsDialog.ui" line="856"/>
         <source>GET</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="745"/>
-        <location filename="SettingsDialog.ui" line="798"/>
+        <location filename="SettingsDialog.ui" line="808"/>
+        <location filename="SettingsDialog.ui" line="861"/>
         <source>POST</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="753"/>
+        <location filename="SettingsDialog.ui" line="816"/>
         <source>SEARCH_USE_AUTH</source>
         <translation>Использовать авторизацию</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="779"/>
+        <location filename="SettingsDialog.ui" line="842"/>
         <source>AUTH_DATA</source>
         <translation>Данные для авторизации</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="785"/>
+        <location filename="SettingsDialog.ui" line="848"/>
         <source>AUTH_NAME</source>
         <translation>Имя пользователя</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="806"/>
+        <location filename="SettingsDialog.ui" line="869"/>
         <source>AUTH_METHOD</source>
         <translation>Метод</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="819"/>
+        <location filename="SettingsDialog.ui" line="882"/>
         <source>AUTH_PASSWORD</source>
         <translation>Пароль</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.ui" line="829"/>
+        <location filename="SettingsDialog.ui" line="892"/>
         <source>AUTH_REQUEST</source>
         <translation>Запрос</translation>
     </message>
