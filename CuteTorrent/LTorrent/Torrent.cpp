@@ -316,11 +316,11 @@ QString Torrent::GetTotalSize() const
 }
 QString Torrent::GetSeedString()
 {
-	return QString::fromLocal8Bit("Подключено %1 из %2").arg(cur_torrent.status().num_seeds).arg(cur_torrent.status().list_seeds);
+	return QObject::tr("CT_CONNECTED %1 CT_FROM %2").arg(cur_torrent.status().num_seeds).arg(cur_torrent.status().list_seeds);
 }
 QString Torrent::GetPeerString()
 {
-	return QString::fromLocal8Bit("Подключено %1 из %2").arg(cur_torrent.status().num_peers).arg(cur_torrent.status().list_peers);
+	return QObject::tr("CT_CONNECTED %1 CT_FROM %2").arg(cur_torrent.status().num_peers).arg(cur_torrent.status().list_peers);
 }
 
 QString Torrent::GetRemainingTime()

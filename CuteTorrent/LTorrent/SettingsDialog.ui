@@ -356,6 +356,9 @@
       <layout class="QGridLayout" name="gridLayout_17">
        <item row="0" column="0">
         <widget class="QCheckBox" name="lockFilesCheckBox">
+         <property name="whatsThis">
+          <string>LOCK_FILES_WIT</string>
+         </property>
          <property name="text">
           <string>LOCK_FILES</string>
          </property>
@@ -363,6 +366,9 @@
        </item>
        <item row="1" column="0">
         <widget class="QLabel" name="label_19">
+         <property name="whatsThis">
+          <string>DISK_IO_CASH_MODE_WIT</string>
+         </property>
          <property name="text">
           <string>DISK_IO_CASH_MODE</string>
          </property>
@@ -370,6 +376,9 @@
        </item>
        <item row="2" column="0">
         <widget class="QLabel" name="label_20">
+         <property name="whatsThis">
+          <string>CASH_SIZE_WIT</string>
+         </property>
          <property name="text">
           <string>CASH_SIZE</string>
          </property>
@@ -399,6 +408,9 @@
        </item>
        <item row="3" column="1">
         <widget class="QCheckBox" name="alowReorderedOpsCheckBox">
+         <property name="whatsThis">
+          <string>ALOW_REORDERED_OPERATIONS_WIT</string>
+         </property>
          <property name="text">
           <string>ALOW_REORDERED_OPERATIONS</string>
          </property>
@@ -406,6 +418,9 @@
        </item>
        <item row="4" column="0">
         <widget class="QCheckBox" name="lowPrioDiskCheckBox">
+         <property name="whatsThis">
+          <string>LOW_PORIO_DISK_WIT</string>
+         </property>
          <property name="text">
           <string>LOW_PORIO_DISK</string>
          </property>
@@ -413,6 +428,9 @@
        </item>
        <item row="4" column="1">
         <widget class="QCheckBox" name="useReadCasheCheckBox">
+         <property name="whatsThis">
+          <string>USE_READ_CASHE_WIT</string>
+         </property>
          <property name="text">
           <string>USE_READ_CASHE</string>
          </property>
@@ -420,6 +438,9 @@
        </item>
        <item row="3" column="0">
         <widget class="QCheckBox" name="useDiskReadAheadCheckBox">
+         <property name="whatsThis">
+          <string>USE_DISK_READ_AHEAD_WIT</string>
+         </property>
          <property name="text">
           <string>USE_DISK_READ_AHEAD</string>
          </property>
@@ -445,10 +466,17 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_5">
           <item row="1" column="1">
-           <widget class="QListWidget" name="GroupsListWidget"/>
+           <widget class="QListWidget" name="GroupsListWidget">
+            <property name="whatsThis">
+             <string>GROUP_LISTBOX_WIT</string>
+            </property>
+           </widget>
           </item>
           <item row="2" column="1">
            <widget class="QPushButton" name="removeGroupButton">
+            <property name="whatsThis">
+             <string>FILTERING_GROUP_DELETE_WIT</string>
+            </property>
             <property name="text">
              <string>FILTERING_GROUP_DELETE</string>
             </property>
@@ -476,28 +504,22 @@
           <string>ADD_CHANGE_GROUP</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_8">
-          <item row="0" column="0" rowspan="2" colspan="2">
-           <spacer name="verticalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
+          <item row="0" column="0">
+           <widget class="QLineEdit" name="newGroupNameEdit">
+            <property name="whatsThis">
+             <string>newGroupNameEdit_WIT</string>
             </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
+           </widget>
           </item>
-          <item row="1" column="1" rowspan="2">
+          <item row="0" column="1">
            <widget class="QPushButton" name="addNewGroupButton">
+            <property name="whatsThis">
+             <string>ADD_GROUP_BUTON_WIT</string>
+            </property>
             <property name="text">
              <string>ADD_GROUP_BUTON</string>
             </property>
            </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLineEdit" name="newGroupNameEdit"/>
           </item>
          </layout>
         </widget>
@@ -505,7 +527,7 @@
        <item row="1" column="1">
         <widget class="QGroupBox" name="groupBox_4">
          <property name="title">
-          <string>fFILE_EXTENSIONS(FORMAT: jpg|png|bmp)</string>
+          <string>FILE_EXTENSIONS(FORMAT: jpg|png|bmp)</string>
          </property>
          <layout class="QGridLayout" name="gridLayout_6">
           <item row="0" column="0">
@@ -522,7 +544,11 @@
            </spacer>
           </item>
           <item row="1" column="0">
-           <widget class="QTextEdit" name="extensionsEdit"/>
+           <widget class="QTextEdit" name="extensionsEdit">
+            <property name="whatsThis">
+             <string>extensionsEdit_WIT</string>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -534,10 +560,17 @@
          </property>
          <layout class="QGridLayout" name="gridLayout_7">
           <item row="1" column="0">
-           <widget class="QLineEdit" name="groupSavePathEdit"/>
+           <widget class="QLineEdit" name="groupSavePathEdit">
+            <property name="whatsThis">
+             <string>groupSavePathEdit_WIT</string>
+            </property>
+           </widget>
           </item>
           <item row="1" column="1">
            <widget class="QPushButton" name="BrowseGroupSavePathButton">
+            <property name="whatsThis">
+             <string>GROUP_SAVE_PATH_CHOISE_BUTTON_WIT</string>
+            </property>
             <property name="text">
              <string>GROUP_SAVE_PATH_CHOISE_BUTTON</string>
             </property>
@@ -566,19 +599,19 @@
        <string>TAB_DAEMONTOOLS</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_12">
-       <item row="0" column="0">
-        <widget class="QGroupBox" name="groupBox_6">
-         <property name="title">
-          <string>DAEMONTOOLS_PATH</string>
+       <item row="2" column="0" colspan="2">
+        <widget class="QGroupBox" name="customMoutGroupBox">
+         <property name="enabled">
+          <bool>false</bool>
          </property>
-         <layout class="QGridLayout" name="gridLayout_9">
+         <property name="title">
+          <string>DAEMONTOOLS_COMMAND</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_10">
           <item row="0" column="0">
-           <widget class="QLineEdit" name="DTPathEdit"/>
-          </item>
-          <item row="0" column="1">
-           <widget class="QPushButton" name="browseDTPathButton">
-            <property name="text">
-             <string>DAEMONTOOLS_PATH_CHOISE_BUUTON</string>
+           <widget class="QLineEdit" name="customCommandEdit">
+            <property name="whatsThis">
+             <string>DAEMONTOOLS_COMMAND_WIT</string>
             </property>
            </widget>
           </item>
@@ -593,6 +626,9 @@
          <layout class="QGridLayout" name="gridLayout_11">
           <item row="0" column="0">
            <widget class="QComboBox" name="driveNumberComboBox">
+            <property name="whatsThis">
+             <string>driveNumberComboBox_WIT</string>
+            </property>
             <item>
              <property name="text">
               <string>1</string>
@@ -648,27 +684,54 @@
          </layout>
         </widget>
        </item>
+       <item row="0" column="0">
+        <widget class="QGroupBox" name="groupBox_6">
+         <property name="title">
+          <string>DAEMONTOOLS_PATH</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_9">
+          <item row="0" column="0">
+           <widget class="QLineEdit" name="DTPathEdit">
+            <property name="whatsThis">
+             <string>DTPathEdit_WIT</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QPushButton" name="browseDTPathButton">
+            <property name="accessibleName">
+             <string>DAEMONTOOLS_PATH_CHOISE_BUUTON_WIT</string>
+            </property>
+            <property name="text">
+             <string>DAEMONTOOLS_PATH_CHOISE_BUUTON</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
        <item row="1" column="0">
         <widget class="QCheckBox" name="customMountCheckBox">
+         <property name="whatsThis">
+          <string>DAEMONTOOLS_USE_CUSTOM_COMMAND_WIT</string>
+         </property>
          <property name="text">
           <string>DAEMONTOOLS_USE_CUSTOM_COMMAND</string>
          </property>
         </widget>
        </item>
-       <item row="2" column="0" colspan="2">
-        <widget class="QGroupBox" name="customMoutGroupBox">
-         <property name="enabled">
-          <bool>false</bool>
+       <item row="3" column="0">
+        <spacer name="verticalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
          </property>
-         <property name="title">
-          <string>DAEMONTOOLS_COMMAND</string>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
          </property>
-         <layout class="QGridLayout" name="gridLayout_10">
-          <item row="0" column="0">
-           <widget class="QLineEdit" name="customCommandEdit"/>
-          </item>
-         </layout>
-        </widget>
+        </spacer>
        </item>
       </layout>
      </widget>
