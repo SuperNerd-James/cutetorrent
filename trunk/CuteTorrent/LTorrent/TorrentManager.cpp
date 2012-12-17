@@ -164,7 +164,7 @@ void TorrentManager::handle_alert(alert* a)
 	{
 		
 		torrent_handle h = p->handle;
-		TORRENT_ASSERT(p->resume_data);
+	//	TORRENT_ASSERT(p->resume_data);
 		if (p->resume_data)
 		{
 			std::vector<char> out;
@@ -176,14 +176,15 @@ void TorrentManager::handle_alert(alert* a)
 	else if (save_resume_data_failed_alert* p = alert_cast<save_resume_data_failed_alert>(a))
 	{
 		torrent_handle h = p->handle;
-		emit TorrentError(h.name().c_str(),QString::fromLocal8Bit("Не удалос сохранить fast_resume данные"));
+		emit TorrentError(h.name().c_str(),tr("ERROR_UNABLE_SAVE_DAT_RESUME"));
 		
 		
 	}else if (tracker_error_alert* p = alert_cast<tracker_error_alert>(a))
 	{
 		torrent_handle h = p->handle;
 		if (strstr(p->message().c_str(),"(200)")==NULL)
-			emit TorrentError(h.name().c_str(),p->message().c_str());
+			if (strstr(p->message().c_str(),"(-")==NULL)
+				emit TorrentError(h.name().c_str(),p->message().c_str());
 	}
 	else if (torrent_error_alert *p = alert_cast<torrent_error_alert>(a))
 	{
