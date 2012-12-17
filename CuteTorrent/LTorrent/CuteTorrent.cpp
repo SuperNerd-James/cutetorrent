@@ -244,6 +244,7 @@ void CuteTorrent::showTorrentCompletedNotyfy(const QString name)
 
 void CuteTorrent::updateTabWidget(int tab)
 {
+	mng->PostTorrentUpdate();
 	if (this->isMinimized())
 		return;
 	if (tab==-1)
@@ -271,6 +272,7 @@ void CuteTorrent::updateTabWidget(int tab)
 		}
 		upLabelText->setText(QString("%1(%2)").arg(mng->GetSessionUploaded()).arg(mng->GetSessionUploadSpeed()));
 		downLabelText->setText(QString("%1(%2)").arg(mng->GetSessionDownloaded()).arg(mng->GetSessionDownloadSpeed()));
+		trayIcon->setToolTip("CuteTorrent "CT_VERSION"\nUpload: "+mng->GetSessionUploadSpeed()+"\nDownload:"+mng->GetSessionDownloadSpeed());
 	}
 	catch (std::exception e)
 	{
@@ -303,6 +305,10 @@ void CuteTorrent::UpdateFileTab()
 			fileTableWidget->setItem(i,3,new QTableWidgetItem(StaticHelpers::filePriorityToString(current.prioiry)));
 		}
 		fileinfosLocker->unlock();
+	}
+	else
+	{
+		fileTableWidget->setRowCount(0);
 	}
 }
 void CuteTorrent::setupTray()
@@ -457,29 +463,29 @@ void CuteTorrent::UpdateInfoTab()
 	Torrent* tor=model->GetSelectedTorrent();
 	if (tor!=NULL)
 	{
-		if (tor==NULL) return;
+		
 		downloadedBytesLabel->setText(tor->GetTotalDownloaded());
-		if (tor==NULL) return;
+		
 		uploadedBytesLabel->setText(tor->GetTotalUploaded());
-		if (tor==NULL) return;
+		
 		downloadSpeedLabel->setText(tor->GetDwonloadSpeed());
-		if (tor==NULL) return;
+		
 		activetimeLabel->setText(tor->GetActiveTime());
-		if (tor==NULL) return;
+		
 		uploadSpeedLabel->setText(tor->GetUploadSpeed());
-		if (tor==NULL) return;
+		
 		pathLabel->setText(tor->GetSavePath());
-		if (tor==NULL) return;
+		
 		totalSizeLabel->setText(tor->GetTotalSize());
-		if (tor==NULL) return;
+		
 		seedCoutLabel->setText(tor->GetSeedString());
-		if (tor==NULL) return;
+		
 		peerCoutLabel->setText(tor->GetPeerString());
-		if (tor==NULL) return;
+		
 		describtionLabel->setText("");
-		if (tor==NULL) return;
+		
 		timeleftLabel->setText(tor->GetRemainingTime());
-		if (tor==NULL) return;
+		
 	}
 	else
 	{
@@ -495,7 +501,7 @@ void CuteTorrent::UpdateInfoTab()
 		peerCoutLabel->setText("");
 		describtionLabel->setText("");
 	}
-	mng->PostTorrentUpdate();
+	
 }
 void CuteTorrent::UpdatePeerTab()
 {
@@ -523,6 +529,10 @@ void CuteTorrent::UpdatePeerTab()
 		
 	//	peerInfos.~vector();
 	}
+	else
+	{
+		peerTableWidget->setRowCount(0);
+	}
 }
 void CuteTorrent::UpadteTrackerTab()
 {
@@ -544,21 +554,25 @@ void CuteTorrent::UpadteTrackerTab()
 		
 	//	trackers.~vector();
 	}
+	else
+	{
+		trackerTableWidget->setRowCount(0);
+	}
 }
 void CuteTorrent::PauseSelected()
 {
 	model->ActionOnSelectedItem(QTorrentDisplayModel::pause);
-	mng->PostTorrentUpdate();
+	
 }
 void CuteTorrent::ResumeSelected()
 {
 	model->ActionOnSelectedItem(QTorrentDisplayModel::resume);
-	mng->PostTorrentUpdate();
+	
 }
 void CuteTorrent::DeleteSelected()
 {
 	model->ActionOnSelectedItem(QTorrentDisplayModel::remove);
-	mng->PostTorrentUpdate();
+	
 }
 void CuteTorrent::retranslate()
 {

@@ -88,7 +88,6 @@ void QTorrentDisplayModel::DellTorrentOnly()
 		locker->lock();
 		torrents_to_remove.append(tor);
 		locker->unlock();
-		mgr->PostTorrentUpdate();
 		parrent->selectionModel()->reset();
 	}
 }
@@ -148,7 +147,6 @@ void QTorrentDisplayModel::DellAll()
 		locker->lock();
 		torrents_to_remove.append(tor);
 		locker->unlock();
-		mgr->PostTorrentUpdate();
 		deleterThread* thread = new deleterThread();
 		thread->create(path);
 		parrent->selectionModel()->reset();
