@@ -66,6 +66,15 @@
      <property name="currentIndex">
       <number>0</number>
      </property>
+     <property name="documentMode">
+      <bool>true</bool>
+     </property>
+     <property name="tabsClosable">
+      <bool>false</bool>
+     </property>
+     <property name="movable">
+      <bool>true</bool>
+     </property>
      <widget class="QWidget" name="tab_3">
       <attribute name="title">
        <string>TAB_TORRENT</string>
@@ -735,195 +744,6 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_5">
-      <attribute name="title">
-       <string>TAB_TRACKER_SEARCH</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_16">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_8">
-         <property name="text">
-          <string>TRACKER_CURRENT</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QComboBox" name="trackerComboBox"/>
-       </item>
-       <item row="0" column="2" rowspan="2">
-        <widget class="QGroupBox" name="groupBox_11">
-         <property name="title">
-          <string>SEARCH_ADD_TRACKER</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_15">
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_13">
-            <property name="text">
-             <string>SEARCH_METHOD</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_14">
-            <property name="text">
-             <string>SEARCH_REQUEST</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLineEdit" name="lineEdit_14"/>
-          </item>
-          <item row="3" column="1">
-           <widget class="QLineEdit" name="searchRequestEdit"/>
-          </item>
-          <item row="5" column="0" colspan="2">
-           <spacer name="verticalSpacer">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>208</width>
-              <height>89</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="1" column="1">
-           <widget class="QPushButton" name="addTrackerButton">
-            <property name="text">
-             <string>SEARCH_ADD</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QComboBox" name="searchMethodComboBox">
-            <item>
-             <property name="text">
-              <string>GET</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>POST</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item row="4" column="0" colspan="2">
-           <widget class="QCheckBox" name="useAuthCheckBox">
-            <property name="text">
-             <string>SEARCH_USE_AUTH</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0" colspan="2">
-           <spacer name="verticalSpacer_8">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="1" column="0" colspan="2">
-        <widget class="QGroupBox" name="authGroupBox">
-         <property name="enabled">
-          <bool>false</bool>
-         </property>
-         <property name="title">
-          <string>AUTH_DATA</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_14">
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_10">
-            <property name="text">
-             <string>AUTH_NAME</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="2">
-           <widget class="QComboBox" name="authMethodComboBox">
-            <item>
-             <property name="text">
-              <string>GET</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>POST</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_9">
-            <property name="text">
-             <string>AUTH_METHOD</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="2">
-           <widget class="QLineEdit" name="AuthUsernameEdit"/>
-          </item>
-          <item row="3" column="2">
-           <widget class="QLineEdit" name="authPassEdit"/>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_11">
-            <property name="text">
-             <string>AUTH_PASSWORD</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="2">
-           <widget class="QLineEdit" name="authRequestEdit"/>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="label_12">
-            <property name="text">
-             <string>AUTH_REQUEST</string>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="0" colspan="3">
-           <spacer name="verticalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>174</width>
-              <height>63</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="0" column="0" colspan="3">
-           <spacer name="verticalSpacer_7">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </widget>
-       </item>
-      </layout>
-     </widget>
     </widget>
    </item>
   </layout>
@@ -1069,54 +889,6 @@
     <hint type="sourcelabel">
      <x>213</x>
      <y>154</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>256</x>
-     <y>159</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>trackerComboBox</sender>
-   <signal>currentIndexChanged(int)</signal>
-   <receiver>SettingsDialog</receiver>
-   <slot>showCurrenttrackerSettings()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>164</x>
-     <y>49</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>256</x>
-     <y>159</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>addTrackerButton</sender>
-   <signal>clicked()</signal>
-   <receiver>SettingsDialog</receiver>
-   <slot>addTracker()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>417</x>
-     <y>93</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>256</x>
-     <y>159</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>useAuthCheckBox</sender>
-   <signal>stateChanged(int)</signal>
-   <receiver>SettingsDialog</receiver>
-   <slot>trackerAuthSwitcher()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>353</x>
-     <y>228</y>
     </hint>
     <hint type="destinationlabel">
      <x>256</x>

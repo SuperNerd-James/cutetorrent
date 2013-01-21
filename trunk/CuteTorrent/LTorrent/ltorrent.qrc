@@ -15,6 +15,7 @@
         <file alias="my-iso.ico">Resources/File-iso-icon.ico</file>
         <file alias="download.ico">Resources/download.ico</file>
         <file alias="upload.ico">Resources/upload.ico</file>
+        <file alias="settings.ico">Resources/gtk_preferences.ico</file>
     </qresource>
     <qresource prefix="/translations">
         <file>cutetorrent_russian.qm</file>

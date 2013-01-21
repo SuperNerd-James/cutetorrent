@@ -128,10 +128,7 @@ void SettingsDialog::proxySwitcher()
 	proxyGroupBox->setEnabled(useProxyCheckBox->checkState()==Qt::Checked);
 }
 
-void SettingsDialog::trackerAuthSwitcher()
-{
-	authGroupBox->setEnabled(useAuthCheckBox->checkState()==Qt::Checked);
-}
+
 void SettingsDialog::saveSettings()
 {
 	settings->setValue("Torrent","listen_port",qVariantFromValue(portEdit->text().toInt()));
@@ -214,7 +211,7 @@ void SettingsDialog::saveSettings()
 	
 	if (runOnbootCheckBox->checkState()==Qt::Checked)
 	{
-		bootUpSettings.setValue("/CurrentVersion/Run/CuteTorrent","\""+base_dir+"\"");
+		bootUpSettings.setValue("/CurrentVersion/Run/CuteTorrent","\""+base_dir+"\""+ (startMinimizedCheckBox->isChecked() ? " -m" : ""));
 	}
 	else
 		bootUpSettings.remove("/CurrentVersion/Run/CuteTorrent");
@@ -259,28 +256,28 @@ void SettingsDialog::addGroup()
 	QString name=newGroupNameEdit->text();
 	if (name.isEmpty())
 	{
-		QMessageBox::warning(this,QString::fromLocal8Bit("Настройки"),
-			QString::fromLocal8Bit("Вы не можете создать группу с пустым именем"));
+		QMessageBox::warning(this,tr("STR_SETTINGS"),
+			tr("ERROR_GROUP_NAME_NOT_SET"));
 		return;
 	}
 	QString extensions=extensionsEdit->toPlainText();
 	if (extensions.isEmpty())
 	{
-		QMessageBox::warning(this,QString::fromLocal8Bit("Настройки"),
-			QString::fromLocal8Bit("Вы не можете создать группу которая не содержит ни одного расширения файла"));
+		QMessageBox::warning(this,tr("STR_SETTINGS"),
+			tr("ERROR_NO_EXTENSIONS"));
 		return;
 	}
 	QString dir=groupSavePathEdit->text();
 	if (dir.isEmpty())
 	{
-		QMessageBox::warning(this,QString::fromLocal8Bit("Настройки"),
-			QString::fromLocal8Bit("Вы должны указать путь куда сохранть файлы для данной группы"));
+		QMessageBox::warning(this,tr("STR_SETTINGS"),
+			tr("ERROR_NO_PATH"));
 		return;
 	}
 	if (!QDir(dir).exists())
 	{
-		QMessageBox::warning(this,QString::fromLocal8Bit("Настройки"),
-			QString::fromLocal8Bit("Указанный путь сохранения не существует!"));
+		QMessageBox::warning(this,tr("STR_SETTINGS"),
+			tr("ERROR_PATH_NOT_EXISTS"));
 		return;
 	}
 	
@@ -295,8 +292,8 @@ void SettingsDialog::addGroup()
 	}
 	if (foundRow >= 0)
 	{
-		if (QMessageBox::No==QMessageBox::warning(this,QString::fromLocal8Bit("Настройки"),
-			QString::fromLocal8Bit("Вы действительно хотите изменить группу %1").arg(name),
+		if (QMessageBox::No==QMessageBox::warning(this,tr("STR_SETTINGS"),
+			tr("SHURE_IN_CHANGING_GROUP %1").arg(name),
 			QMessageBox::No | QMessageBox::Yes))
 		return;
 	}
@@ -351,12 +348,8 @@ void SettingsDialog::browseDTPath()
 {
 	QString lastDir=settings->valueString("System","LastSaveTorrentDir");
 	QString DTPath = QFileDialog::getOpenFileName(this,
-		QString::fromUtf8(tr("Указать папку с DaemonTools").toAscii().data()), lastDir , QString::fromUtf8("DaemonTools Lite (DTLite.exe);;DaemonTools PRO (DTAgent.exe);;Any File (*.*)"));
+		tr("WHERE_DT"), lastDir , tr("DaemonTools Lite (DTLite.exe);;DaemonTools PRO (DTAgent.exe);;Any File (*.*)"));
 	
 	DTPathEdit->setText(QDir::toNativeSeparators(DTPath));
 }
 
-void SettingsDialog::showCurrenttrackerSettings(){}
-void SettingsDialog::addTracker(){}
-
-void SettingsDialog::showHint(){}

@@ -32,8 +32,7 @@ FileTreeModel::~FileTreeModel()
 FileTreeModel::FileTreeModel(QObject *parent)
 : QAbstractItemModel(parent)
 {
-	QPair<QString,QString> rootData=qMakePair(QString::fromLocal8Bit(tr(QString::fromLocal8Bit("Имя").toLocal8Bit().data()).toAscii().data()) ,
-		QString::fromLocal8Bit(tr(QString::fromLocal8Bit("Размер").toLocal8Bit().data()).toAscii().data()));
+	QPair<QString,QString> rootData=qMakePair(tr("Имя") ,tr("Размер"));
 	rootItem = new FileTreeItem(rootData);
 	
 	//setupModelData(data.split(QString("\n")), rootItem);
@@ -121,42 +120,35 @@ bool FileTreeModel::setData ( const QModelIndex & _index, const QVariant &value,
 		
 		Qt::CheckState state=static_cast<Qt::CheckState>(value.toInt());
 		item->setChecked(state);
-		for (int i=0;i<item->childCount();i++)
+	
+		FileTreeItem* parent= item->parent();
+		bool allUnchecked=true,allChecked=true;
+
+		for (int i=0;i<parent->childCount();i++)
 		{
-			QModelIndex qmi(index(item->child(i)->row(),0));
-			emit dataChanged(qmi,qmi);
+			allUnchecked = allUnchecked && (parent->child(i)->Checked()==Qt::Unchecked);
+			allChecked = allChecked && (parent->child(i)->Checked()==Qt::Checked);
 		}
-		
-
-			FileTreeItem* parent= item->parent();
-			bool allUnchecked=true,allChecked=true;
-
-			for (int i=0;i<parent->childCount();i++)
+		if (allUnchecked)
+		{
+			parent->setChecked(Qt::Unchecked);
+			QModelIndex qmi(index(parent->row(),0));
+			emit dataChanged(qmi,qmi);
+			parent=parent->parent();
+		}
+		else if (allChecked)
+		{
+			parent->setChecked(Qt::Checked);
+			QModelIndex qmi(index(parent->row(),0));
+			emit dataChanged(qmi,qmi);
+			parent=parent->parent();
+			if (parent!=NULL)
 			{
-				allUnchecked = allUnchecked && (parent->child(i)->Checked()==Qt::Unchecked);
-				allChecked = allChecked && (parent->child(i)->Checked()==Qt::Checked);
+				parent->setChecked(Qt::Checked);
 			}
-			if (allUnchecked)
-			{
-				parent->setChecked(Qt::Unchecked);
-				QModelIndex qmi(index(parent->row(),0));
-				emit dataChanged(qmi,qmi);
-				parent=parent->parent();
-			}
-			else
-				if (allChecked)
-				{
-					parent->setChecked(Qt::Checked);
-					QModelIndex qmi(index(parent->row(),0));
-					emit dataChanged(qmi,qmi);
-					parent=parent->parent();
-					if (parent!=NULL)
-					{
-						parent->setChecked(Qt::Checked);
-					}
-
-				}
-				else	
+		}
+		else	
+		{
 			while (parent!=rootItem)
 			{
 				parent->setChecked(Qt::PartiallyChecked);
@@ -164,7 +156,7 @@ bool FileTreeModel::setData ( const QModelIndex & _index, const QVariant &value,
 				emit dataChanged(qmi,qmi);
 				parent=parent->parent();
 			}
-		
+		}
 		return true;
 	}
 	

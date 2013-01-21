@@ -86,6 +86,7 @@ private:
 	QAction* mediumPriority;
 	QAction* highPriority;
 	QAction* dontDownload;
+	QLineEdit* searchEdit;
 	void createTrayIcon();
 	void createActions();
 	void showMessage();
@@ -114,7 +115,7 @@ private slots:
 	void retranslate();
 	void ShowTorrentError(const QString&,const QString&);
 	void enableNitifyShow();
-	void showTorrentCompletedNotyfy(const QString);
+	void showTorrentCompletedNotyfy(const QString,const QString);
 	void ShowCreateTorrentDialog();
 	void ShowOpenTorrentDialog();
 	void PauseSelected();
@@ -129,6 +130,7 @@ private slots:
 	void messageClicked();
 	void updateTabWidget(int);
 	void ProcessMagnet();
+	void peformSearch();
 	
 };
 

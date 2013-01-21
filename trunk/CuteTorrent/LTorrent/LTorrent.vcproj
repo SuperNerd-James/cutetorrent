@@ -1431,6 +1431,26 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Resources\gtk_preferences.ico"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\Resources\images\loader.gif"
 				>
 				<FileConfiguration
@@ -1460,7 +1480,7 @@
 						Name="VCCustomBuildTool"
 						Description="Rcc&apos;ing $(InputFileName)..."
 						CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name &quot;$(InputName)&quot; -no-compress &quot;$(InputPath)&quot; -o .\GeneratedFiles\qrc_$(InputName).cpp&#x0D;&#x0A;"
-						AdditionalDependencies="$(InputPath);.\Resources\Actions-application-exit.ico;.\Resources\Actions-arrow-right.ico;.\Resources\Actions-media-playback-pause.ico;.\Resources\archime.ico;.\Resources\audio.ico;.\Resources\default.ico;.\Resources\doc.ico;.\Resources\movie.ico;.\Resources\picture.ico;.\Resources\folder.ico;.\Resources\app.ico;.\Resources\CuteTorrentStyle.qss;.\Resources\File-iso-icon.ico;.\Resources\download.ico;.\Resources\upload.ico;.\cutetorrent_russian.qm;.\cutetorrent_english.qm;.\Resources\stylesheet-branch-closed.png;.\Resources\stylesheet-branch-end.png;.\Resources\stylesheet-branch-more.png;.\Resources\stylesheet-branch-open.png;.\Resources\stylesheet-vline.png;.\Resources\images\pushbutton.png;.\Resources\images\pushbutton_hover.png;.\Resources\images\pushbutton_pressed.png;.\Resources\images\down_arrow.png;.\Resources\images\down_arrow_disabled.png;.\Resources\images\up_arrow.png;.\Resources\images\up_arrow_disabled.png;.\Resources\images\frame.png;.\Resources\images\sizegrip.png;.\Resources\images\checkbox_checked.png;.\Resources\images\checkbox_checked_hover.png;.\Resources\images\checkbox_checked_pressed.png;.\Resources\images\checkbox_unchecked.png;.\Resources\images\checkbox_unchecked_hover.png;.\Resources\images\checkbox_unchecked_pressed.png;.\Resources\images\transparent.png;.\Resources\images\loader.gif"
+						AdditionalDependencies="$(InputPath);.\Resources\Actions-application-exit.ico;.\Resources\Actions-arrow-right.ico;.\Resources\Actions-media-playback-pause.ico;.\Resources\archime.ico;.\Resources\audio.ico;.\Resources\default.ico;.\Resources\doc.ico;.\Resources\movie.ico;.\Resources\picture.ico;.\Resources\folder.ico;.\Resources\app.ico;.\Resources\CuteTorrentStyle.qss;.\Resources\File-iso-icon.ico;.\Resources\download.ico;.\Resources\upload.ico;.\Resources\gtk_preferences.ico;.\cutetorrent_russian.qm;.\cutetorrent_english.qm;.\Resources\stylesheet-branch-closed.png;.\Resources\stylesheet-branch-end.png;.\Resources\stylesheet-branch-more.png;.\Resources\stylesheet-branch-open.png;.\Resources\stylesheet-vline.png;.\Resources\images\pushbutton.png;.\Resources\images\pushbutton_hover.png;.\Resources\images\pushbutton_pressed.png;.\Resources\images\down_arrow.png;.\Resources\images\down_arrow_disabled.png;.\Resources\images\up_arrow.png;.\Resources\images\up_arrow_disabled.png;.\Resources\images\frame.png;.\Resources\images\sizegrip.png;.\Resources\images\checkbox_checked.png;.\Resources\images\checkbox_checked_hover.png;.\Resources\images\checkbox_checked_pressed.png;.\Resources\images\checkbox_unchecked.png;.\Resources\images\checkbox_unchecked_hover.png;.\Resources\images\checkbox_unchecked_pressed.png;.\Resources\images\transparent.png;.\Resources\images\loader.gif"
 						Outputs=".\GeneratedFiles\qrc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
@@ -1471,7 +1491,7 @@
 						Name="VCCustomBuildTool"
 						Description="Rcc&apos;ing $(InputFileName)..."
 						CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name &quot;$(InputName)&quot; -no-compress &quot;$(InputPath)&quot; -o .\GeneratedFiles\qrc_$(InputName).cpp&#x0D;&#x0A;"
-						AdditionalDependencies="$(InputPath);.\Resources\Actions-application-exit.ico;.\Resources\Actions-arrow-right.ico;.\Resources\Actions-media-playback-pause.ico;.\Resources\archime.ico;.\Resources\audio.ico;.\Resources\default.ico;.\Resources\doc.ico;.\Resources\movie.ico;.\Resources\picture.ico;.\Resources\folder.ico;.\Resources\app.ico;.\Resources\CuteTorrentStyle.qss;.\Resources\File-iso-icon.ico;.\Resources\download.ico;.\Resources\upload.ico;.\cutetorrent_russian.qm;.\cutetorrent_english.qm;.\Resources\stylesheet-branch-closed.png;.\Resources\stylesheet-branch-end.png;.\Resources\stylesheet-branch-more.png;.\Resources\stylesheet-branch-open.png;.\Resources\stylesheet-vline.png;.\Resources\images\pushbutton.png;.\Resources\images\pushbutton_hover.png;.\Resources\images\pushbutton_pressed.png;.\Resources\images\down_arrow.png;.\Resources\images\down_arrow_disabled.png;.\Resources\images\up_arrow.png;.\Resources\images\up_arrow_disabled.png;.\Resources\images\frame.png;.\Resources\images\sizegrip.png;.\Resources\images\checkbox_checked.png;.\Resources\images\checkbox_checked_hover.png;.\Resources\images\checkbox_checked_pressed.png;.\Resources\images\checkbox_unchecked.png;.\Resources\images\checkbox_unchecked_hover.png;.\Resources\images\checkbox_unchecked_pressed.png;.\Resources\images\transparent.png;.\Resources\images\loader.gif"
+						AdditionalDependencies="$(InputPath);.\Resources\Actions-application-exit.ico;.\Resources\Actions-arrow-right.ico;.\Resources\Actions-media-playback-pause.ico;.\Resources\archime.ico;.\Resources\audio.ico;.\Resources\default.ico;.\Resources\doc.ico;.\Resources\movie.ico;.\Resources\picture.ico;.\Resources\folder.ico;.\Resources\app.ico;.\Resources\CuteTorrentStyle.qss;.\Resources\File-iso-icon.ico;.\Resources\download.ico;.\Resources\upload.ico;.\Resources\gtk_preferences.ico;.\cutetorrent_russian.qm;.\cutetorrent_english.qm;.\Resources\stylesheet-branch-closed.png;.\Resources\stylesheet-branch-end.png;.\Resources\stylesheet-branch-more.png;.\Resources\stylesheet-branch-open.png;.\Resources\stylesheet-vline.png;.\Resources\images\pushbutton.png;.\Resources\images\pushbutton_hover.png;.\Resources\images\pushbutton_pressed.png;.\Resources\images\down_arrow.png;.\Resources\images\down_arrow_disabled.png;.\Resources\images\up_arrow.png;.\Resources\images\up_arrow_disabled.png;.\Resources\images\frame.png;.\Resources\images\sizegrip.png;.\Resources\images\checkbox_checked.png;.\Resources\images\checkbox_checked_hover.png;.\Resources\images\checkbox_checked_pressed.png;.\Resources\images\checkbox_unchecked.png;.\Resources\images\checkbox_unchecked_hover.png;.\Resources\images\checkbox_unchecked_pressed.png;.\Resources\images\transparent.png;.\Resources\images\loader.gif"
 						Outputs=".\GeneratedFiles\qrc_$(InputName).cpp"
 					/>
 				</FileConfiguration>

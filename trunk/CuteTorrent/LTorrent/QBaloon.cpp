@@ -5,12 +5,12 @@
 static QBalloonTip *theSolitaryBalloonTip = 0;
 
 QWidget *QBalloonTip::showBalloon(const QString& title,
-								  const QString& message,const QSystemTrayIcon::MessageIcon& icon,
+								  const QString& message,QBaloonType type, QVariant data,const QSystemTrayIcon::MessageIcon& icon,
 								  int timeout, bool showArrow,QWidget* parent)
 {
 	
 	hideBalloon();
-	theSolitaryBalloonTip = new QBalloonTip(title, message,icon,parent);
+	theSolitaryBalloonTip = new QBalloonTip(title, message,type,data,icon,parent);
 	if (timeout < 0)
 		timeout = 10000; // по умолчанию исчезнет через 10 секунд
 	theSolitaryBalloonTip->balloon(timeout, showArrow);
@@ -27,10 +27,12 @@ void QBalloonTip::hideBalloon()
 }
 
 
-QBalloonTip::QBalloonTip(const QString& title, const QString& message,
+QBalloonTip::QBalloonTip(const QString& title, const QString& message,QBaloonType type, QVariant data,
 						 const QSystemTrayIcon::MessageIcon& icon,QWidget* parent)
 						 : QWidget(parent, Qt::ToolTip), timerId(-1)
 {
+	currentType=type;
+	currentData=data;
 	setAttribute(Qt::WA_DeleteOnClose); // при закрытии окна уничтожить объект
 	setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
 	setObjectName("QBalloonTip" );
@@ -39,7 +41,7 @@ QBalloonTip::QBalloonTip(const QString& title, const QString& message,
 	QString StyleSheet = QString::fromUtf8(File.readAll().data());
 	File.close();
 	setStyleSheet(StyleSheet);
-	//pixmap=QPixmap(":/images/transparent.png","png");
+	
 	cuurentIcon=icon;
 	
 	QLabel *titleLabel = new QLabel;
@@ -111,11 +113,7 @@ QBalloonTip::~QBalloonTip()
 
 void QBalloonTip::paintEvent(QPaintEvent *)
 {
-	QPainter painter(this);
 	
-	painter.fillRect(0, 0, width(), height(), QBrush(pixmap));
-	
-
 }
 
 void QBalloonTip::resizeEvent(QResizeEvent *ev)
@@ -207,7 +205,41 @@ void QBalloonTip::balloon(int msecs, bool showArrow)
 
 void QBalloonTip::mousePressEvent(QMouseEvent *e)
 {
-	close(); // по нажатию на подсказке закрываем ее
+	switch(currentType)
+	{
+		case TorrentCompleted :
+			{
+				QString path = QFileInfo(QDir::toNativeSeparators(currentData.toString())).absoluteFilePath();
+				#ifdef Q_WS_MAC
+						QStringList args;
+						args << "-e";
+						args << "tell application \"Finder\"";
+						args << "-e";
+						args << "activate";
+						args << "-e";
+						args << "select POSIX file \""+path+"\"";
+						args << "-e";
+						args << "end tell";
+						QProcess::startDetached("osascript", args);
+				#endif
+
+				#ifdef Q_WS_WIN
+						QStringList args;
+						args << "/select," << QDir::toNativeSeparators(path);
+						QProcess::startDetached("explorer", args);
+				#endif
+				
+				break;
+			}
+		case UpdateNotyfy :
+			{
+				QDesktopServices desctopService;
+				desctopService.openUrl(QUrl("https://code.google.com/p/cutetorrent/downloads/list"));
+				break;
+			}
+	}
+	close(); 
+	return;
 }
 
 void QBalloonTip::timerEvent(QTimerEvent *e)

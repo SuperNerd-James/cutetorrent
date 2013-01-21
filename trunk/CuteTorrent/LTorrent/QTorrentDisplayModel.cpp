@@ -37,18 +37,25 @@ QTorrentDisplayModel::QTorrentDisplayModel(QListView* _parrent,QObject* __parren
 	openDir = new QAction(tr("ACTION_OPEN_FOLDER"), this);
 	QObject::connect(openDir, SIGNAL(triggered()), this, SLOT(OpenDirSelected()));
 	menu->addAction(openDir);
+	menu->addSeparator();
 	DTmount = new QAction(tr("ACTION_DT_MOUNT"), this);
 	QObject::connect(DTmount, SIGNAL(triggered()), this, SLOT(MountDT()));
 	menu->addAction(DTmount);
+	HashRecheck = new QAction(tr("ACTION_REHASH"), this);
+	QObject::connect(HashRecheck, SIGNAL(triggered()), this, SLOT(Rehash()));
+	menu->addAction(HashRecheck);
+	setSequentual = new QAction(tr("ACTION_SET_SEQUENTIAL"), this);
+	setSequentual->setCheckable(true);
+	QObject::connect(setSequentual, SIGNAL(triggered()), this, SLOT(setSequentualDL()));
+	menu->addAction(setSequentual);
+	menu->addSeparator();
 	DelAll = new QAction(tr("ACTION_DELETE_ALL"), this);
 	QObject::connect(DelAll, SIGNAL(triggered()), this, SLOT(DellAll()));
 	menu->addAction(DelAll);
 	DelTorrentOnly = new QAction(tr("ACTION_DELETE_TORRENT"), this);
 	QObject::connect(DelTorrentOnly, SIGNAL(triggered()), this, SLOT(DellTorrentOnly()));
 	menu->addAction(DelTorrentOnly);
-	HashRecheck = new QAction(tr("ACTION_REHASH"), this);
-	QObject::connect(HashRecheck, SIGNAL(triggered()), this, SLOT(Rehash()));
-	menu->addAction(HashRecheck);
+	
 	locker = new QMutex(QMutex::NonRecursive);
 
 	timer = new QTimer(this);
@@ -203,7 +210,7 @@ void QTorrentDisplayModel::MountDT()
 					if (exe.isEmpty())
 					{
 						QApplicationSettings::FreeInstance();
-						QMessageBox::warning(parrent,"DT Mounter",QString::fromLocal8Bit("Укажите в настройках путь к Daemon Tools!"));
+						QMessageBox::warning(parrent,"DT Mounter",tr("DT_PATH_NOT_SET"));
 						return;
 					}
 					bool useCustomCmd = settings->valueBool("DT","UseCustomCommand");
@@ -219,7 +226,7 @@ void QTorrentDisplayModel::MountDT()
 					QApplicationSettings::FreeInstance();
 					if (!dt->waitForStarted(5000))
 					{
-						QMessageBox::warning(parrent,"DT Mounter",QString::fromLocal8Bit("Не удалось запустить ")+exe);
+						QMessageBox::warning(parrent,"DT Mounter",tr("LAUNCH_ERROR")+exe);
 						return;
 					}
 					
@@ -545,4 +552,14 @@ void QTorrentDisplayModel::retranslate()
 	DelAll->setText(tr("ACTION_DELETE_ALL"));
 	DelTorrentOnly->setText(tr("ACTION_DELETE_TORRENT"));
 	HashRecheck->setText(tr("ACTION_REHASH"));
+	setSequentual->setText(tr("ACTION_SET_SEQUENTIAL"));
+}
+
+void QTorrentDisplayModel::setSequentualDL()
+{
+	Torrent *cur = GetSelectedTorrent();
+	if (cur!=NULL)
+	{
+		cur->seqensialDownload();
+	}
 }

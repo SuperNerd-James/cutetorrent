@@ -84,6 +84,7 @@ public slots:
 	void Rehash();
 	void DellAll();
 	void MountDT();
+	void setSequentualDL();
 	void updateVisibleTorrents();
 	
 };
