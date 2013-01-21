@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define DEBUG
+//#define DEBUG
 #include "CuteTorrent.h"
 #include <QDir>
 #include <qtsingleapplication.h>
@@ -59,12 +59,50 @@ int main(int argc, char *argv[])
 #endif // DEBUG
 
 	Application a(argc, argv);
+	bool minimize=false;
+	QString file2open;
 	if (a.isRunning())
 	{
-		if (argc==2)
-			a.sendMessage(argv[1]);
+		if (argc>=2)
+		for (int i=1;i<argc;i++)
+		{
+			if (argv[i][0]!='-')
+			{
+				a.sendMessage(argv[i]);
+				
+			}
+			
+		}
 		return -1;
 	}
+	else
+	{
+		if (argc>=2)
+		{
+			for (int i=1;i<argc;i++)
+			{
+				if (argv[i][0]=='-')
+				{
+					switch (argv[i][1])
+					{
+						case 'm' :
+							minimize=true;
+							break;
+						default	 :
+							break;
+					}
+					
+
+				}
+				else
+				{
+					file2open=argv[i];
+				}
+			
+			}
+		}
+	}
+	
 	a.loadTranslations(":/translations");
 	a.addLibraryPath(QCoreApplication::applicationDirPath ()+"/plugins");
 	
@@ -78,10 +116,18 @@ int main(int argc, char *argv[])
 	a.setStyleSheet(StyleSheet);
 	a.setActivationWindow(&w);
 	w.ConnectMessageReceved(&a);
-	w.show();
-	if (argc==2)
+	
+	if (minimize)
 	{
-		w.HandleNewTorrent(argv[1]);
+		w.showMinimized();
+	}
+	else
+	{
+		w.showNormal();
+	}
+	if (!file2open.isEmpty())
+	{
+		w.HandleNewTorrent(file2open);
 	}
 	int res=a.exec();
 	//qDebug() << "==Application exited:" << QDateTime::currentDateTime();

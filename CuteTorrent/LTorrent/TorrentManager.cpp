@@ -32,7 +32,7 @@ TorrentManager::TorrentManager()
 	
 	torrentSettings = QApplicationSettings::getInstance();
 	
-	ses = new session(fingerprint("CuteTorrent", VERSION_1 ,VERSION_2,VERSION_3 ,VERSION_4)
+	ses = new session(fingerprint("CT", VERSION_MAJOR ,VERSION_MINOR,VERSION_REVISION ,VERSION_TAG)
 		, session::add_default_plugins
 		, alert::all_categories);
 	error_code ec;
@@ -75,7 +75,8 @@ TorrentManager::TorrentManager()
 			std::string("router.utorrent.com"), 6881));
 		ses->add_dht_router(std::make_pair(
 			std::string("router.bitcomet.com"), 6881));
-
+		ses->add_dht_router(std::make_pair(
+			std::string("dht.transmissionbt.com"), 6881));
 		ses->start_dht();
 
 	ses->set_settings(s_settings);
@@ -117,11 +118,10 @@ void TorrentManager::initSession()
 	}
 	else
 	{
-		QMessageBox::warning(NULL,"Warning",QString::fromLocal8Bit("Не удалось открыть файл CT_DATA/path.resume!\nЕсли вы запускаете приложенеие первый раз просто нажмите Ok."));
+		QMessageBox::warning(NULL,"Warning",tr("ERR_NO_FILE_PATH_RESUME_IF_FIRST_TIME_THEN_OK"));
 		return;	
 			
 	}
-	//qDebug() << "TorrentManager::initSession: found " <<torrentFiles.count();
 	error_code ec;
 	for (QStringList::iterator i=torrentFiles.begin();i!=torrentFiles.end();i++)
 	{
@@ -157,7 +157,7 @@ void TorrentManager::handle_alert(alert* a)
 
 		
 		torrent_handle h = p->handle;
-		emit TorrentCompleted(h.name().c_str());
+		emit TorrentCompleted(h.name().c_str(),h.save_path().c_str());
 		h.save_resume_data();
 		
 	}else if (save_resume_data_alert* p = alert_cast<save_resume_data_alert>(a))

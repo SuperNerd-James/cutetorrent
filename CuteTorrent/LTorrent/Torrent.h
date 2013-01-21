@@ -87,7 +87,6 @@ public :
 	bool hasError() const;	
 	QString GetStatusString() const;
 	QString GetProgresString() const;
-	void updateTorrent(torrent_status status);
 	QString GetDwonloadSpeed() const;
 	QString GetUploadSpeed() const;
 	void RemoveTorrent(TorrentManager* mgr,bool delfiles=false);

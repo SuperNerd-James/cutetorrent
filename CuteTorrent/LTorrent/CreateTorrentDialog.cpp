@@ -121,7 +121,7 @@ quint64 CreateTorrentDialog::getPiceSize()
 }
 void CreateTorrentDialog::BrowseDir()
 {
-	path = QFileDialog::getExistingDirectory(this, QString::fromLocal8Bit(tr("DIALOG_OPEN_FOLDER").toAscii().data()),
+	path = QFileDialog::getExistingDirectory(this, tr("DIALOG_OPEN_FOLDER"),
                                              "",
                                              QFileDialog::ShowDirsOnly
                                              | QFileDialog::DontResolveSymlinks);
@@ -130,7 +130,7 @@ void CreateTorrentDialog::BrowseDir()
 void CreateTorrentDialog::BrowseFile()
 {
 	path =  QFileDialog::getOpenFileName(this,
-		QString::fromLocal8Bit(tr("DIALOG_OPEN_FILE").toAscii().data()), "", QString::fromLocal8Bit("Any File (*.*)"));
+		tr("DIALOG_OPEN_FILE"), "", tr("Any File (*.*)"));
 	pathEdit->setText(path);
 }
 void CreateTorrentDialog::BeginCreate()
@@ -169,8 +169,8 @@ void CreateTorrentDialog::BeginCreate()
 	QStringList webseeds=webSeedEdit->toPlainText().split('\n');
 	
 	if (path.length()==0)
-	{	QMessageBox::information(this, QString::fromLocal8Bit(tr("ERROR_STR").toAscii().data()),
-		QString::fromLocal8Bit(tr("ERROR_NO_FILE_OR_FOLDER_NAME").toAscii().data()));
+	{	QMessageBox::information(this, tr("ERROR_STR"),
+		tr("ERROR_NO_FILE_OR_FOLDER_NAME"));
 		delete creator;
 		createButton->setEnabled(true);
 		return;
@@ -184,8 +184,8 @@ void CreateTorrentDialog::BeginCreate()
 			trackers.removeAt(i);
 	}
 	if (trackers.count()==0)
-	{	if (QMessageBox::No == QMessageBox::information(this, QString::fromLocal8Bit(tr("ERROR_STR").toAscii().data()),
-		QString::fromLocal8Bit(tr("ERROR_NO_TRACKERS").toAscii().data()),
+	{	if (QMessageBox::No == QMessageBox::information(this, tr("ERROR_STR"),
+		tr("ERROR_NO_TRACKERS"),
 		QMessageBox::Yes | QMessageBox::No))
 		{
 			delete creator;
@@ -203,8 +203,8 @@ void CreateTorrentDialog::BeginCreate()
 	
 	
 	QString save_path = QFileDialog::getSaveFileName(this,
-		QString::fromLocal8Bit(tr("CREATE_TORRENT_DIALOG").toAscii().data()),"",
-		QString::fromLocal8Bit(tr("Торрент файлы (*.torrent)").toAscii().data()));
+		tr("CREATE_TORRENT_DIALOG"),"",
+		tr("Торрент файлы (*.torrent)"));
 	
 	creator->create(pathEdit->text(),save_path,filterEdit->text(),trackers,webseeds,discribtionEdit->text(),(privateCheckBox->checkState() == Qt::Checked),getPiceSize()*1024);
 	
@@ -220,8 +220,8 @@ void CreateTorrentDialog::ShowCreationSucces(QString filename)
 {
 	if (!filename.isNull())
 	{
-		QMessageBox::information(this,QString::fromLocal8Bit(tr("CREATE_TORRENT_DIALOG").toAscii().data()),
-			QString::fromLocal8Bit(tr("CREATE_TORRENT_SUCCES_SAVED %1").arg(filename).toAscii().data()));
+		QMessageBox::information(this,tr("CREATE_TORRENT_DIALOG"),
+			tr("CREATE_TORRENT_SUCCES_SAVED %1").arg(filename));
 	}
 	progressBar->setValue(0);
 	createButton->setEnabled(true);
@@ -230,8 +230,8 @@ void CreateTorrentDialog::ShowCreationSucces(QString filename)
 }
 void CreateTorrentDialog::ShowCreationFailture(QString msg)
 {
-	QMessageBox::information(this, QString::fromLocal8Bit(tr("CREATE_TORRENT_DIALOG").toAscii().data()),
-		QString::fromLocal8Bit(tr("CREATE_TORRENT_FILE_ERROR\n %1").arg(msg).toAscii().data()));
+	QMessageBox::information(this, tr("CREATE_TORRENT_DIALOG"),
+		tr("CREATE_TORRENT_FILE_ERROR\n %1").arg(msg));
 	progressBar->setValue(0);
 	createButton->setEnabled(true);
 	delete creator;

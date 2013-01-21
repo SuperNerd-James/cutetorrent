@@ -127,7 +127,7 @@ class TorrentManager : public QObject
 signals:
 	void AddTorrentGui(Torrent*);
 	void TorrentError(const QString&,const QString&);
-	void TorrentCompleted(const QString&);
+	void TorrentCompleted(const QString&,const QString&);
 protected:
 	TorrentManager();
 	~TorrentManager();

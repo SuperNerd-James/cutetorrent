@@ -74,7 +74,7 @@ void CuteTorrent::ShowAbout()
 void CuteTorrent::ShowUpdateNitify(const QString& newVersion)
 {
 	QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information;
-	QBalloonTip::showBalloon("CuteTorrent", tr("CT_NEW_VERSION %1").arg(newVersion), icon,
+	QBalloonTip::showBalloon("CuteTorrent", tr("CT_NEW_VERSION %1").arg(newVersion),UpdateNotyfy,qVariantFromValue(0), icon,
 		5* 1000);
 }
 /*
@@ -133,20 +133,12 @@ void CuteTorrent::setupToolBar()
 {
 	QWidget* spacer=new QWidget(this);
 	listView->setItemDelegate(new QTorrentItemDelegat(this));
-	QLineEdit* lEdit=new QLineEdit(this);
-	QComboBox *comboBox;
-	comboBox = new QComboBox(this);
-    comboBox->setObjectName(QString::fromUtf8("searchEngineCombobox"));
-	comboBox->clear();
-    comboBox->insertItems(0, QStringList()
-         << QApplication::translate("LTorrentClass", "rutracker.org", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("LTorrentClass", "thepiratebay.se", 0, QApplication::UnicodeUTF8)
-         << QApplication::translate("LTorrentClass", "rutor.org", 0, QApplication::UnicodeUTF8));
+	searchEdit=new QLineEdit(this);
+	QObject::connect(searchEdit,SIGNAL(returnPressed()),this,SLOT(peformSearch()));
 	spacer->setMinimumWidth(200);
-	lEdit->setMinimumWidth(100);
+	searchEdit->setMinimumWidth(100);
 	toolBar->addWidget(spacer);
-	toolBar->addWidget(comboBox);
-	toolBar->addWidget(lEdit);
+	toolBar->addWidget(searchEdit);
 }
 void CuteTorrent::setupConnections()
 {
@@ -231,20 +223,22 @@ void CuteTorrent::ShowNoUpdateNitify(const QString & ver)
 void CuteTorrent::ShowTorrentError(const QString& name,const QString& error)
 {
 	
-	QBalloonTip::showBalloon("CuteTorrent", tr("CT_ERROR %1\n%2").arg(name).arg(error)
-		,QSystemTrayIcon::Critical,15000,false);
+	QBalloonTip::showBalloon("CuteTorrent", tr("CT_ERROR %1\n%2").arg(name).arg(error), Error,qVariantFromValue(0),
+		QSystemTrayIcon::Critical,15000,false);
 	
 }
-void CuteTorrent::showTorrentCompletedNotyfy(const QString name)
+void CuteTorrent::showTorrentCompletedNotyfy(const QString name,QString path)
 {
 	
-	QBalloonTip::showBalloon("CuteTorrent", tr("CT_DOWNLOAD_COMPLETE %1").arg(name),QSystemTrayIcon::Information,15000,false);
+	QBalloonTip::showBalloon("CuteTorrent", tr("CT_DOWNLOAD_COMPLETE %1").arg(name),TorrentCompleted,qVariantFromValue(path+name),
+		QSystemTrayIcon::Information,15000,false);
 	
 }
 
 void CuteTorrent::updateTabWidget(int tab)
 {
 	mng->PostTorrentUpdate();
+	trayIcon->setToolTip("CuteTorrent "CT_VERSION"\nUpload: "+mng->GetSessionUploadSpeed()+"\nDownload:"+mng->GetSessionDownloadSpeed());
 	if (this->isMinimized())
 		return;
 	if (tab==-1)
@@ -272,7 +266,7 @@ void CuteTorrent::updateTabWidget(int tab)
 		}
 		upLabelText->setText(QString("%1(%2)").arg(mng->GetSessionUploaded()).arg(mng->GetSessionUploadSpeed()));
 		downLabelText->setText(QString("%1(%2)").arg(mng->GetSessionDownloaded()).arg(mng->GetSessionDownloadSpeed()));
-		trayIcon->setToolTip("CuteTorrent "CT_VERSION"\nUpload: "+mng->GetSessionUploadSpeed()+"\nDownload:"+mng->GetSessionDownloadSpeed());
+		
 	}
 	catch (std::exception e)
 	{
@@ -442,7 +436,7 @@ void CuteTorrent::ShowOpenTorrentDialog()
 	QApplicationSettings* settings=QApplicationSettings::getInstance();
 	QString lastDir=settings->valueString("System","LastOpenTorrentDir","");
 	QString filename =  QFileDialog::getOpenFileName(this,tr("OPEN_TOORENT_DIALOG"),
-		lastDir , QString::fromLocal8Bit("Торрент файлы (*.torrent);;Any File (*.*)"));
+		lastDir , tr("Торрент файлы (*.torrent);;Any File (*.*)"));
 	if (!filename.isEmpty())
 	{
 		OpenTorrentDialog dlg(this);
@@ -590,7 +584,8 @@ void CuteTorrent::closeEvent(QCloseEvent* ce)
 {
 	ce->ignore();
 	hide();
-	QBalloonTip::showBalloon("CuteTorrent", tr("CT_HIDE_MSG"),QSystemTrayIcon::Information,5000,false);
+	QBalloonTip::showBalloon("CuteTorrent", tr("CT_HIDE_MSG"),Info,qVariantFromValue(0),
+		QSystemTrayIcon::Information,5000,false);
 	setUpdatesEnabled(false);
 	return;
 	//qDebug() << "QMainWindow::~QMainWindow()";
@@ -773,16 +768,10 @@ void CuteTorrent::ProcessMagnet()
 	delete dlg2;
 }
 
-/*
-void CuteTorrent::dropEvent( QDropEvent *event )
+void CuteTorrent::peformSearch()
 {
-//	QMessageBox::warning(this,"",event->mimeData()->text());
+	QString searchText=searchEdit->text();
+	QDesktopServices desctopService;
+	desctopService.openUrl(QUrl("http://btdigg.org/search?q="+QUrl::toPercentEncoding(searchText)));
 }
 
-void CuteTorrent::dragEnterEvent( QDragEnterEvent *event )
-{
-	QMessageBox::warning(this,"",event->mimeData()->text());
-	if (event->mimeData()->hasFormat("application/x-bittorrent"))
-		event->acceptProposedAction();
-}
-*/

@@ -477,6 +477,7 @@
    <addaction name="actionPause"/>
    <addaction name="actionRemove"/>
    <addaction name="separator"/>
+   <addaction name="actionSettings_2"/>
   </widget>
   <action name="actionOpenTorrent">
    <property name="text">
@@ -580,6 +581,15 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+U</string>
+   </property>
+  </action>
+  <action name="actionSettings_2">
+   <property name="icon">
+    <iconset resource="ltorrent.qrc">
+     <normaloff>:/icons/settings.ico</normaloff>:/icons/settings.ico</iconset>
+   </property>
+   <property name="text">
+    <string>STR_SETTINGS</string>
    </property>
   </action>
  </widget>
@@ -725,6 +735,22 @@
    <signal>triggered()</signal>
    <receiver>CuteTorrentClass</receiver>
    <slot>ProcessMagnet()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>282</x>
+     <y>329</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>actionSettings_2</sender>
+   <signal>triggered()</signal>
+   <receiver>CuteTorrentClass</receiver>
+   <slot>OpenSettingsDialog()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>

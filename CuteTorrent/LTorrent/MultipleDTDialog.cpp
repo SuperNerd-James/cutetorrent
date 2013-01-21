@@ -69,7 +69,7 @@ void MultipleDTDialog::Mount( QString filename )
 	QString exe = settings->valueString("DT","Executable");
 	if (exe.isEmpty())
 	{
-		QMessageBox::warning(this,"DT Mounter",QString::fromLocal8Bit("Укажите в настройках путь к Daemon Tools!"));
+		QMessageBox::warning(this,"DT Mounter",tr("ERROR_DT_PATH_NOT_SET"));
 		return;
 	}
 	bool useCustomCmd = settings->valueBool("DT","UseCustomCommand");
@@ -85,7 +85,7 @@ void MultipleDTDialog::Mount( QString filename )
 	QApplicationSettings::FreeInstance();
 	if (!dt->waitForStarted(5000))
 	{
-		QMessageBox::warning(this,"DT Mounter",QString::fromLocal8Bit("Не удалось запустить ")+exe);
+		QMessageBox::warning(this,"DT Mounter",tr("LAUNCH_ERROR")+exe);
 		return;
 	}
 			

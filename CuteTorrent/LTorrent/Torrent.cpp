@@ -192,16 +192,16 @@ QString Torrent::GetStatusString() const
 {
 	QStringList state_str;
 	
-	state_str << QString::fromLocal8Bit(QT_TR_NOOP("STATE_FILE_CHEACKING (q)")) 
-			  << QString::fromLocal8Bit(QT_TR_NOOP("STATE_FILE_CHEACKING")) 
-			  << QString::fromLocal8Bit(QT_TR_NOOP("STATE_DOWNLOADING")) 
-			  << QString::fromLocal8Bit(QT_TR_NOOP("STATE_DOWNLOADING")) 
-			  << QString::fromLocal8Bit(QT_TR_NOOP("STATE_SEEDING")) 
-			  << QString::fromLocal8Bit(QT_TR_NOOP("STATE_SEEDING"))
-			  << QString::fromLocal8Bit(QT_TR_NOOP("STATE_PREPARING")) 
-			  << QString::fromLocal8Bit(QT_TR_NOOP("STATE_FILE_CHEACKING (r)"));
+	state_str << (QT_TR_NOOP("STATE_FILE_CHEACKING (q)")) 
+			  << (QT_TR_NOOP("STATE_FILE_CHEACKING")) 
+			  << (QT_TR_NOOP("STATE_DOWNLOADING")) 
+			  << (QT_TR_NOOP("STATE_DOWNLOADING")) 
+			  << (QT_TR_NOOP("STATE_SEEDING")) 
+			  << (QT_TR_NOOP("STATE_SEEDING"))
+			  << (QT_TR_NOOP("STATE_PREPARING")) 
+			  << (QT_TR_NOOP("STATE_FILE_CHEACKING (r)"));
 
-	return tr(state_str.at(cur_torrent.status().state).toAscii().data());
+	return tr(state_str.at(cur_torrent.status().state).toAscii().data()) + (cur_torrent.is_sequential_download() ? (" [S]"):"");
 
 }
 QString Torrent::GetHashString() const
@@ -252,20 +252,7 @@ QIcon Torrent::GetMimeTypeIcon()
 
 	return icon;
 }
-void Torrent::updateTorrent(torrent_status data)
-{
-	/*ErrorString="";
-	if (cur_torrent.is_finished()!=data.is_finished())
-		emit TorrentCompleted(GetName());
-	cur_torrent=data;
-	if (hasError())
-	{
-		emit TorrentError(GetName());
-	}*/
 
-
-
-}
 void Torrent::announceRehash()
 {
 	cur_torrent.force_recheck();
@@ -277,6 +264,7 @@ bool Torrent::isSquential() const
 void Torrent::seqensialDownload()
 {
 	cur_torrent.set_sequential_download(!cur_torrent.is_sequential_download());
+
 }
 
 void Torrent::RemoveTorrent(TorrentManager *mgr,bool delfiles)
