@@ -49,7 +49,8 @@ TorrentManager::TorrentManager()
 	// upnp
 	ses->start_upnp();
 	ses->start_natpmp();
-
+	ses->add_extension(&libtorrent::create_ut_metadata_plugin);
+	ses->add_extension(&libtorrent::create_ut_pex_plugin);
 	create_directory("CT_DATA",ec);
 	
 	std::string bind_to_interface = "";
@@ -69,14 +70,23 @@ TorrentManager::TorrentManager()
 
 	s_settings.use_dht_as_fallback = false;
 
-		ses->add_dht_router(std::make_pair(
-			std::string("router.bittorrent.com"), 6881));
-		ses->add_dht_router(std::make_pair(
-			std::string("router.utorrent.com"), 6881));
-		ses->add_dht_router(std::make_pair(
-			std::string("router.bitcomet.com"), 6881));
-		ses->add_dht_router(std::make_pair(
-			std::string("dht.transmissionbt.com"), 6881));
+	ses->add_dht_router(std::make_pair(
+		std::string("router.bittorrent.com"), 6881));
+	ses->add_dht_router(std::make_pair(
+		std::string("router.utorrent.com"), 6881));
+	ses->add_dht_router(std::make_pair(
+		std::string("router.bitcomet.com"), 6881));
+	ses->add_dht_router(std::make_pair(
+		std::string("dht.transmissionbt.com"), 6881));
+	in.clear();
+	if (load_file("CT_DATA/dht.state", in, ec) == 0)
+	{
+		entry e;
+		
+		e=bdecode(&in[0], &in[0] + in.size());
+		ses->start_dht(e);
+	}
+	else
 		ses->start_dht();
 
 	ses->set_settings(s_settings);
@@ -122,6 +132,19 @@ void TorrentManager::initSession()
 		return;	
 			
 	}
+	QFile magnetlinks("CT_DATA/links.list");
+	if (magnetlinks.open(QFile::ReadOnly))
+	{
+		QTextStream strm(&magnetlinks);
+		strm.setCodec("UTF-8");
+		QString line;
+		while(!strm.atEnd())
+		{
+			line=strm.readLine();
+			magnet_links.insert(line);
+		}
+		magnetlinks.close();
+	}
 	error_code ec;
 	for (QStringList::iterator i=torrentFiles.begin();i!=torrentFiles.end();i++)
 	{
@@ -135,6 +158,21 @@ void TorrentManager::initSession()
 		}
 
 	}
+	
+	for (QSet<QString>::Iterator i = magnet_links.begin();i!=magnet_links.end();i++)
+	{
+		torrent_handle h=ProcessMagnetLink(*i);
+		if (save_path_data.contains(to_hex(h.info_hash().to_string()).c_str()))
+		{
+			AddMagnet(h,save_path_data[to_hex(h.info_hash().to_string()).c_str()]);
+		}
+		else
+		{
+			QMessageBox::warning(0,"",to_hex(h.info_hash().to_string()).c_str());
+		}
+	}
+	
+	
 }
 bool yes2(libtorrent::torrent_status const&)
 {return true;}
@@ -534,6 +572,21 @@ void TorrentManager::onClose()
 		}
 		pathDataFile.close();
 	}
+	QFile magnetlinks("CT_DATA/links.list");
+	if (magnetlinks.open(QFile::WriteOnly))
+	{
+		for (QSet<QString>::Iterator i = magnet_links.begin();i!=magnet_links.end();i++)
+		{
+			magnetlinks.write(i->toUtf8()+"\n");
+		}
+		magnetlinks.close();
+	}
+	entry dht_state=ses->dht_state();
+	
+
+	std::vector<char> out;
+	bencode(std::back_inserter(out), dht_state);
+	save_file("CT_DATA/dht.state", out);
 	ses->abort();
 
 }
@@ -707,8 +760,8 @@ void TorrentManager::RemoveTorrent(torrent_handle h,bool delFiles)
 {
 
  	//qDebug() << " removing file " << combine_path("CT_DATA",h.get_torrent_info().name()+".torrent").c_str();
- 	if (QFile::exists(combine_path("CT_DATA",h.get_torrent_info().name()+".torrent").c_str()))
- 	QFile::remove(combine_path("CT_DATA",h.get_torrent_info().name()+".torrent").c_str());
+ 	if (QFile::exists(combine_path("CT_DATA",h.name()+".torrent").c_str()))
+ 	QFile::remove(combine_path("CT_DATA",h.name()+".torrent").c_str());
  	//qDebug() << " removing file " << combine_path("CT_DATA",to_hex(h.info_hash().to_string())+".resume").c_str();
  	if (QFile::exists(combine_path("CT_DATA",to_hex(h.info_hash().to_string())+".resume").c_str()))
  	QFile::remove(combine_path("CT_DATA",to_hex(h.info_hash().to_string())+".resume").c_str());
@@ -773,9 +826,12 @@ torrent_handle TorrentManager::ProcessMagnetLink(QString link)
 	error_code ec;
 	torrent_handle h;
 	parse_magnet_uri(link.toStdString(),add_info,ec);
-		if (ec!=0)
-			return h;		
-
+	if (ec!=0)
+	{
+		QMessageBox::critical(0,"Error",QString::fromStdString(ec.message()));
+		return h;		
+	}	
+	QString infohash=to_hex(h.info_hash().to_string()).c_str();
 	lazy_entry resume_data;
 	std::string filename = combine_path("CT_DATA", to_hex(add_info.info_hash.to_string()) + ".resume");
 	std::vector<char> buf;
@@ -783,18 +839,26 @@ torrent_handle TorrentManager::ProcessMagnetLink(QString link)
 	if (load_file(filename.c_str(), buf, ec) == 0)
 	{
 		add_info.resume_data = &buf;
+		if (save_path_data.contains(to_hex(add_info.info_hash.to_string()).c_str()))
+		{
+			add_info.save_path = save_path_data[to_hex(add_info.info_hash.to_string()).c_str()].toStdString();
+		}
 	}
 	h=ses->add_torrent(add_info);
-	
+	magnet_links.insert(link);
 	h.pause();
 	while (!h.has_metadata())
 	{
 		sleep(1000);
 	}
+
 	h.pause();
+	
+
 	return h;
 		
 }
+
 bool TorrentManager::AddMagnet( torrent_handle h,QString SavePath,QMap<QString,int> filePriorities )
 {
 	
@@ -821,7 +885,39 @@ bool TorrentManager::AddMagnet( torrent_handle h,QString SavePath,QMap<QString,i
 	h.resume();
 	if (h.is_valid())
 	{
+		
 		emit AddTorrentGui(new Torrent(h));
+	}
+	if (save_path_data.contains(to_hex(h.info_hash().to_string()).c_str()))
+	{
+		save_path_data[to_hex(h.info_hash().to_string()).c_str()]=SavePath;
+	}
+	else
+	{
+		save_path_data.insert(to_hex(h.info_hash().to_string()).c_str(),SavePath);
+	}
+	
+	QFile pathDataFile("CT_DATA/path.resume");
+	if (pathDataFile.open(QFile::WriteOnly))
+	{
+		for (QMap<QString,QString>::iterator i=save_path_data.begin();i!=save_path_data.end();i++)
+		{
+			pathDataFile.write((i.key()+"|"+i.value()+"\n").toUtf8());
+		}
+		pathDataFile.close();
+	}
+	QFile magnetlinks("CT_DATA/links.list");
+	if (magnetlinks.open(QFile::WriteOnly))
+	{
+		for (QSet<QString>::Iterator i = magnet_links.begin();i!=magnet_links.end();i++)
+		{
+			magnetlinks.write(i->toUtf8()+"\n");
+		}
+		magnetlinks.close();
+	}
+	else
+	{
+		QMessageBox::critical(0,"Error","CT_DATA/links.list couldn't be opened");
 	}
 	return true;
 	

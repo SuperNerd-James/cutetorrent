@@ -137,6 +137,7 @@ private:
 	void handle_alert(alert*);
 	void writeSettings();
 	QMap<QString,QString> save_path_data;
+	QSet<QString> magnet_links;
 	libtorrent::session* ses;
 	QApplicationSettings* torrentSettings;
 	int save_file(std::string const& filename, std::vector<char>& v);
