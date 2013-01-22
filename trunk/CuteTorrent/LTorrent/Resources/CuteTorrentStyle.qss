@@ -291,12 +291,20 @@ QTreeView {
          border-image: none;
          image: url(:treeview/branch-open.png);
  }
-
-QToolTip {
-	border-width: 3;
-	border-radius 4px;
-    border-image: url(:/images/frame.png) 4;
-}
+  QToolTip {
+     border: 2px solid darkkhaki;
+     padding: 5px;
+     border-radius: 3px;
+     opacity: 200;
+ }
+/*
+//   QLineEdit {
+//      border: 2px solid gray;
+//      border-radius: 6px;
+//      padding: 0 8px;
+//      selection-background-color: darkgray;
+//  }
+*/
 QTextEdit
 {
      border: 2px solid gray;
