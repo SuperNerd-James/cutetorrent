@@ -79,8 +79,8 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	QString torrentAssociation=assocSettings.value (".torrent/.").toString();  
 	magnetAssociationCheckBox->setChecked(assocSettings.value ("Magnet/shell/open/command/.").toString().toLower().contains("cutetorrent"));
 	asociationCheckBox->setChecked( torrentAssociation == "CuteTorrent.file");
-	QSettings bootUpSettings("Microsoft", "Windows");
-	QVariant val=bootUpSettings.value("/CurrentVersion/Run/CuteTorrent");
+	QSettings bootUpSettings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
+	QString val=bootUpSettings.value("CuteTorrent").toString();
 	int current=0;
 	QString curLoc=Application::currentLocale().split('_')[1];
 	foreach (QString avail, Application::availableLanguages())
@@ -94,9 +94,9 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 		current++;
 		
 	}
-	
-	
-	runOnbootCheckBox->setChecked(val.toString().isEmpty());	
+
+	runOnbootCheckBox->setChecked(val.length()>0);	
+	startMinimizedCheckBox->setChecked(val.contains("-m"));
 #endif
 	////////////////////////OS_SPECIFICK//////////////////////////////////////////////////
 	
@@ -207,14 +207,14 @@ void SettingsDialog::saveSettings()
 		asocSettings.remove ("Magnet/URL Protocol");
 		asocSettings.remove ("Magnet/shell/open/command/.");
 	}
-	QSettings bootUpSettings("Microsoft", "Windows");
+	QSettings bootUpSettings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
 	
 	if (runOnbootCheckBox->checkState()==Qt::Checked)
 	{
-		bootUpSettings.setValue("/CurrentVersion/Run/CuteTorrent","\""+base_dir+"\""+ (startMinimizedCheckBox->isChecked() ? " -m" : ""));
+		bootUpSettings.setValue("CuteTorrent","\""+base_dir+"\""+ (startMinimizedCheckBox->isChecked() ? " -m" : ""));
 	}
 	else
-		bootUpSettings.remove("/CurrentVersion/Run/CuteTorrent");
+		bootUpSettings.remove("CuteTorrent");
 #endif
 	int curLocaleIndex=localeComboBox->currentIndex();
 	Application::setLanguage("cutetorrent_"+localeComboBox->currentText().toUpper());

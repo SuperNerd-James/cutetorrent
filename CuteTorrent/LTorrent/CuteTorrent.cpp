@@ -134,6 +134,7 @@ void CuteTorrent::setupTabelWidgets()
 void CuteTorrent::setupToolBar()
 {
 	QWidget* spacer=new QWidget(this);
+	QTorrentItemDelegat::max_width=width()-110;
 	listView->setItemDelegate(new QTorrentItemDelegat(this));
 	searchEdit=new QLineEdit(this);
 	QObject::connect(searchEdit,SIGNAL(returnPressed()),this,SLOT(peformSearch()));
@@ -499,23 +500,7 @@ void CuteTorrent::UpdateInfoTab()
 	}
 	
 }
-class MyTableWidgetItem : public QTableWidgetItem {
-public:
-	MyTableWidgetItem(QString text)
-	{
-		setText(text);
-	}
-	bool operator<(const QTableWidgetItem &other) const
-	{
-		QHostAddress adr(text());
-		if (!adr.isNull())
-		{
-			QHostAddress adr1(other.text());
-			return adr.toIPv4Address() < adr1.toIPv4Address();
-		}
-		return QTableWidgetItem::operator <(other);
-	}
-};
+
 void CuteTorrent::UpdatePeerTab()
 {
 	
@@ -529,8 +514,8 @@ void CuteTorrent::UpdatePeerTab()
 		peerTableWidget->setRowCount(peerInfos.size());
 		for(int i=0;i<peerInfos.size();i++)
 		{
-			peerTableWidget->setItem(i,0,new MyTableWidgetItem(QString::fromStdString(peerInfos[i].ip.address().to_string())));
-			peerTableWidget->setItem(i,1,new QTableWidgetItem(QString::fromStdString(peerInfos[i].client)));
+			peerTableWidget->setItem(i,0,new QTableWidgetItem(QString::fromStdString(peerInfos[i].ip.address().to_string())));
+			peerTableWidget->setItem(i,1,new QTableWidgetItem(QString::fromUtf8(peerInfos[i].client.c_str())));
 			peerTableWidget->setItem(i,2,new QTableWidgetItem(QString::number(peerInfos[i].progress_ppm/10000.f,'f',1) + "%"));
 			peerTableWidget->setItem(i,3,new QTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].down_speed)+"/s"));
 			peerTableWidget->setItem(i,4,new QTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].up_speed)+"/s"));
@@ -790,5 +775,10 @@ void CuteTorrent::peformSearch()
 	QString searchText=searchEdit->text();
 	QDesktopServices desctopService;
 	desctopService.openUrl(QUrl("http://btdigg.org/search?q="+QUrl::toPercentEncoding(searchText)));
+}
+
+void CuteTorrent::resizeEvent( QResizeEvent * event )
+{
+	QTorrentItemDelegat::max_width=width()-110;
 }
 

@@ -52,6 +52,7 @@ public:
 	QTorrentItemDelegat::QTorrentItemDelegat(const QTorrentItemDelegat &);
 	static  QColor blueBrush, greenBrush;
      static QColor blueBack,  greenBack;
+	 static int max_width;
 	 explicit QTorrentItemDelegat( QObject * parent );
 	 virtual ~QTorrentItemDelegat( );
 	
