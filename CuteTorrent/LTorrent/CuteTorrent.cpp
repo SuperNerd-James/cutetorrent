@@ -29,6 +29,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QIcon>
 #include "QBaloon.h"
 #include <QProcess>
+#include <QtNetwork/QHostAddress>
+#include <QSortFilterProxyModel>
 CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent, flags)
 {
@@ -497,6 +499,23 @@ void CuteTorrent::UpdateInfoTab()
 	}
 	
 }
+class MyTableWidgetItem : public QTableWidgetItem {
+public:
+	MyTableWidgetItem(QString text)
+	{
+		setText(text);
+	}
+	bool operator<(const QTableWidgetItem &other) const
+	{
+		QHostAddress adr(text());
+		if (!adr.isNull())
+		{
+			QHostAddress adr1(other.text());
+			return adr.toIPv4Address() < adr1.toIPv4Address();
+		}
+		return QTableWidgetItem::operator <(other);
+	}
+};
 void CuteTorrent::UpdatePeerTab()
 {
 	
@@ -505,22 +524,19 @@ void CuteTorrent::UpdatePeerTab()
 	if (tor!=NULL)
 	{
 		//qDebug() << "Torrent is not null " << tor << " so begin updating tab";
-		std::vector<peer_info>	peerInfos=tor->GetPeerInfo();
 		
+		QVector<peer_info> peerInfos=QVector<peer_info>::fromStdVector(tor->GetPeerInfo());
 		peerTableWidget->setRowCount(peerInfos.size());
-		
 		for(int i=0;i<peerInfos.size();i++)
 		{
-			peerTableWidget->setItem(i,0,new QTableWidgetItem(peerInfos[i].ip.address().to_string().c_str()));
-			peerTableWidget->setItem(i,1,new QTableWidgetItem(QString::fromUtf8(peerInfos[i].client.c_str())));
+			peerTableWidget->setItem(i,0,new MyTableWidgetItem(QString::fromStdString(peerInfos[i].ip.address().to_string())));
+			peerTableWidget->setItem(i,1,new QTableWidgetItem(QString::fromStdString(peerInfos[i].client)));
 			peerTableWidget->setItem(i,2,new QTableWidgetItem(QString::number(peerInfos[i].progress_ppm/10000.f,'f',1) + "%"));
 			peerTableWidget->setItem(i,3,new QTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].down_speed)+"/s"));
 			peerTableWidget->setItem(i,4,new QTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].up_speed)+"/s"));
 			peerTableWidget->setItem(i,5,new QTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].total_download)));
 			peerTableWidget->setItem(i,6,new QTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].total_upload)));
-		
 		}
-		
 	//	peerInfos.~vector();
 	}
 	else
@@ -570,7 +586,7 @@ void CuteTorrent::DeleteSelected()
 }
 void CuteTorrent::retranslate()
 {
-	QMessageBox::warning(this,"","retranslateUi(this);");
+//	QMessageBox::warning(this,"","retranslateUi(this);");
 	retranslateUi(this);
 }
 void CuteTorrent::OpenSettingsDialog()
@@ -600,6 +616,7 @@ CuteTorrent::~CuteTorrent()
 	model->~QTorrentDisplayModel();
 	QApplicationSettings::FreeInstance();
 	delete notyfire;
+	delete trayIcon;
 }
 
 void CuteTorrent::setupFileTabel()

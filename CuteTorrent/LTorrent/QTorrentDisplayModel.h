@@ -49,6 +49,7 @@ private:
 	QAction* DelAll;
 	QAction* DelTorrentOnly;
 	QAction* setSequentual;
+	QAction* updateTrackers;
 	TorrentManager* mgr;
 	QTimer* timer;
 	QMutex* locker;
@@ -82,6 +83,7 @@ public slots:
 	void OpenDirSelected();
 	void DellTorrentOnly();
 	void Rehash();
+	void UpdateTrackers();
 	void DellAll();
 	void MountDT();
 	void setSequentualDL();
