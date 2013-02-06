@@ -39,6 +39,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "QTorrentListView.h"
 #include "UpdateNotyfier.h"
 #include <QMutex>
+#include <QtNetwork/QHostAddress>
+Q_DECLARE_METATYPE(QHostAddress)
 class CuteTorrent : public QMainWindow , private Ui::CuteTorrentClass
 {
 	Q_OBJECT

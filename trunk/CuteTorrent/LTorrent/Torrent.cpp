@@ -27,73 +27,146 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 bool Torrent::hasError() const
 {
-	QString errorString="";
-	bool hasErr=false;
-	if (cur_torrent.status().error.length()>0)
+	try
 	{
-		hasErr=true;
-	}
-	const std::vector<announce_entry> trackers=cur_torrent.trackers();
-	for (int i=0;i<trackers.size();i++)
-		if (trackers[i].message.length()>0)
-		{	
+		QString errorString="";
+		bool hasErr=false;
+		if (cur_torrent.status().error.length()>0)
+		{
 			hasErr=true;
 		}
+		const std::vector<announce_entry> trackers=cur_torrent.trackers();
+		for (int i=0;i<trackers.size();i++)
+		{
+			if (trackers[i].message.length()>0)
+			{	
+				hasErr=true;
+			}
+		}
 		return hasErr;
+	}
+	catch (...)
+	{
+		
+	}
+	return false;
 }
 std::vector<peer_info> Torrent::GetPeerInfo()
 {
 	std::vector<peer_info> pInfo;
-	if (cur_torrent.is_valid())
-		cur_torrent.get_peer_info(pInfo);
+	try
+	{
+		if (cur_torrent.is_valid())
+				cur_torrent.get_peer_info(pInfo);
+	}
+	catch (...)
+	{
+
+	}	
 	return pInfo;
 }
 std::vector<announce_entry> Torrent::GetTrackerInfo()
 {
-	return cur_torrent.trackers();
+	std::vector<announce_entry> trackers;
+	try
+	{
+		trackers=cur_torrent.trackers();
+	}
+	catch (...)
+	{
+
+	}
+	return trackers;
 }
 QString Torrent::GetErrorMessage() const
 {
 
-	QString errorString="";
-	if (cur_torrent.status().error.length()>0)
+	try
 	{
-
-		errorString.append(QString::fromLocal8Bit(cur_torrent.status().error.c_str())); 
-		errorString.append("\n"); 
-	}
-	const std::vector<announce_entry> trackers=cur_torrent.trackers();
-	for (int i=0;i<trackers.size();i++)
-		if (trackers[i].message.length()>0)
+		QString errorString="";
+		if (cur_torrent.status().error.length()>0)
 		{
-			errorString.append(QString::fromLocal8Bit(trackers[i].message.c_str())); 
+			errorString.append(QString::fromLocal8Bit(cur_torrent.status().error.c_str())); 
 			errorString.append("\n"); 
 		}
-
+		const std::vector<announce_entry> trackers=cur_torrent.trackers();
+		for (int i=0;i<trackers.size();i++)
+		{
+			if (trackers[i].message.length()>0)
+			{
+				errorString.append(QString::fromLocal8Bit(trackers[i].message.c_str())); 
+				errorString.append("\n"); 
+			}
+		}		
 		return errorString;
+	}
+	catch (...)
+	{
+
+	}
+	return "";
 }
 bool Torrent::hasMetadata() const
 {
-	return cur_torrent.has_metadata();
+	try
+	{
+		return cur_torrent.has_metadata();
+	}
+	catch (...)
+	{
+
+	}
+	return false;
 }
 bool Torrent::isDownloading() const
 {
-	return cur_torrent.status().state>=2 && cur_torrent.status().state<=3;
+	try
+	{
+		return cur_torrent.status().state>=2 && cur_torrent.status().state<=3;
+	}
+	catch (...)
+	{
+
+	}
+	return false;
 }
 bool Torrent::isPaused() const
 {
-	return cur_torrent.is_paused();
+	try
+	{
+		return cur_torrent.is_paused();
+	}
+	catch (...)
+	{
+
+	}
+	return false;
 }
 bool Torrent::isSeeding() const
 {
+	try
+{
 	if (cur_torrent.status().state==4) return true;
-	return cur_torrent.is_seed();
+		return cur_torrent.is_seed();
+	}	catch (...)
+	{
+
+	}
+	return false;
 }
 int Torrent::GetProgress() const
 {
 
 
-	return cur_torrent.status().progress_ppm / 10000.f;
+	try
+	{
+		return cur_torrent.status().progress_ppm / 10000.f;
+	}
+	catch (...)
+	{
+
+	}
+	return 0;
 
 }
 QString Torrent::GetSuffix()
@@ -186,7 +259,15 @@ bool Torrent::isDaemonToolsMountable()
 }
 QString Torrent::GetProgresString() const
 {
-	return QString::number(cur_torrent.status().progress_ppm / 10000.f ,'f',2)+"%";
+	try
+	{
+		return QString::number(cur_torrent.status().progress_ppm / 10000.f ,'f',2)+"%";
+	}
+	catch (...)
+	{
+
+	}
+	return "";
 }
 QString Torrent::GetStatusString() const
 {
@@ -201,46 +282,117 @@ QString Torrent::GetStatusString() const
 			  << (QT_TR_NOOP("STATE_PREPARING")) 
 			  << (QT_TR_NOOP("STATE_FILE_CHEACKING (r)"));
 
-	return tr(state_str.at(cur_torrent.status().state).toAscii().data()) + (cur_torrent.is_sequential_download() ? (" [S]"):"");
+	try
+	{
+		return tr(state_str.at(cur_torrent.status().state).toAscii().data()) + (cur_torrent.is_sequential_download() ? (" [S]"):"");
+	}
+	catch (...)
+	{
+
+	}
+	return "";
 
 }
 QString Torrent::GetHashString() const
 {
 
 	
-	return to_hex(cur_torrent.info_hash().to_string()).c_str();
+	try
+	{
+		return to_hex(cur_torrent.info_hash().to_string()).c_str();
+	}
+	catch (...)
+	{
+
+	}
+	return "";
 }
 
 QString Torrent::GetName() const
 {
-	if (cur_torrent.is_valid())
-		return QString::fromUtf8(cur_torrent.name().c_str());
+	try
+	{
+		if (cur_torrent.is_valid())
+				return QString::fromUtf8(cur_torrent.name().c_str());
+	}
+	catch (...)
+	{
+
+	}
 	return "";
 }
 QString Torrent::GetDwonloadSpeed()
 {
-	return (cur_torrent.status().download_rate != 0 ) ? StaticHelpers::toKbMbGb(cur_torrent.status().download_rate)+"\\s" : "";
+	try
+	{
+		return (cur_torrent.status().download_rate > 2*1024 ) ? StaticHelpers::toKbMbGb(cur_torrent.status().download_rate)+"\\s" : "";
+	}
+	catch (...)
+	{
+
+	}
+	return "";
 }
 QString Torrent::GetDwonloadSpeed() const
 {
-	return (cur_torrent.status().download_rate != 0 ) ? StaticHelpers::toKbMbGb(cur_torrent.status().download_rate)+"\\s" : "";
+	try
+	{
+		return (cur_torrent.status().download_rate > 2*1024 ) ? StaticHelpers::toKbMbGb(cur_torrent.status().download_rate)+"\\s" : "";
+	}
+	catch (...)
+	{
+
+	}
+	return "";
 }
 QString Torrent::GetUploadSpeed()
 {
-	return (cur_torrent.status().upload_rate != 0) ? StaticHelpers::toKbMbGb(cur_torrent.status().upload_rate)+"\\s" : "";
+	try
+	{
+		return (cur_torrent.status().upload_rate > 2*1024) ? StaticHelpers::toKbMbGb(cur_torrent.status().upload_rate)+"\\s" : "";
+	}
+	catch (...)
+	{
+
+	}
+	return "";
 }
 
 QString Torrent::GetUploadSpeed() const
 {
-	return (cur_torrent.status().upload_rate != 0) ? StaticHelpers::toKbMbGb(cur_torrent.status().upload_rate)+"\\s" : "";
+	try
+	{
+		return (cur_torrent.status().upload_rate > 2*1024) ? StaticHelpers::toKbMbGb(cur_torrent.status().upload_rate)+"\\s" : "";
+	}
+	catch (...)
+	{
+
+	}
+	return "";
 }
 int Torrent::GetPeerCount()
 {
-	return cur_torrent.status().num_peers;
+	try
+	{
+		return cur_torrent.status().num_peers;
+	}
+	catch (...)
+	{
+
+	}
+	return 0;
 }
 int Torrent::GetActivePeerCount()
 {
-	return cur_torrent.status().num_seeds;
+	try
+	{
+		return cur_torrent.status().num_seeds;
+	}
+	catch (...)
+	{
+
+	}
+	return 0;
 }
 QIcon Torrent::GetMimeTypeIcon() const
 {
@@ -255,15 +407,37 @@ QIcon Torrent::GetMimeTypeIcon()
 
 void Torrent::announceRehash()
 {
-	cur_torrent.force_recheck();
+	try
+	{
+		cur_torrent.force_recheck();
+	}
+	catch (...)
+	{
+
+	}
 }
 bool Torrent::isSquential() const
 {
-	return cur_torrent.is_sequential_download();
+	try
+	{
+		return cur_torrent.is_sequential_download();
+	}
+	catch (...)
+	{
+
+	}
+	return false;
 }
 void Torrent::seqensialDownload()
 {
-	cur_torrent.set_sequential_download(!cur_torrent.is_sequential_download());
+	try
+	{
+		cur_torrent.set_sequential_download(!cur_torrent.is_sequential_download());
+	}
+	catch (...)
+	{
+
+	}
 
 }
 
@@ -273,58 +447,135 @@ void Torrent::RemoveTorrent(TorrentManager *mgr,bool delfiles)
 }
 void Torrent::pause()
 {
-	cur_torrent.auto_managed(false);
-	cur_torrent.pause();
+	try
+	{
+		cur_torrent.auto_managed(false);
+		cur_torrent.pause();
+	}
+	catch (...)
+	{
+
+	}
 }
 void Torrent::resume()
 {
 	
-	cur_torrent.resume();
+	try
+	{
+		cur_torrent.resume();
+	}
+	catch (...)
+	{
+
+	}
 }
 QString Torrent::GetSavePath()
 {
-	return QString::fromUtf8(cur_torrent.save_path().c_str())/*+GetName()*/;
+	try
+	{
+		return QString::fromUtf8(cur_torrent.save_path().c_str())/*+GetName()*/;
+	}
+	catch (...)
+	{
+
+	}
+	return "";
 }
 QString Torrent::GetTotalUploaded() const
 {
-	return StaticHelpers::toKbMbGb(cur_torrent.status().all_time_upload);
+	try
+	{
+		return StaticHelpers::toKbMbGb(cur_torrent.status().all_time_upload);
+	}
+	catch (...)
+	{
+
+	}
+	return "";
 }
 QString Torrent::GetTotalDownloaded() const
 {
-	return StaticHelpers::toKbMbGb(cur_torrent.status().all_time_download);
+	try
+	{
+		return StaticHelpers::toKbMbGb(cur_torrent.status().all_time_download);
+	}
+	catch (...)
+	{
+
+	}
+	return "";
 }
 QString Torrent::GetActiveTime()
 {
-	return StaticHelpers::toTimeString(cur_torrent.status().active_time);
+	try
+	{
+		return StaticHelpers::toTimeString(cur_torrent.status().active_time);
+	}
+	catch (...)
+	{
+
+	}
+	return "";
 }
 
 QString Torrent::GetTotalSize() const
 {
-	return StaticHelpers::toKbMbGb(cur_torrent.get_torrent_info().total_size());
+	try
+	{
+		return StaticHelpers::toKbMbGb(cur_torrent.get_torrent_info().total_size());
+	}
+	catch (...)
+	{
+
+	}
+	return "";
 }
 QString Torrent::GetSeedString()
 {
-	return QObject::tr("CT_CONNECTED %1 CT_FROM %2").arg(cur_torrent.status().num_seeds).arg(cur_torrent.status().list_seeds);
+	try
+	{
+		return QObject::tr("CT_CONNECTED %1 CT_FROM %2").arg(cur_torrent.status().num_seeds).arg(cur_torrent.status().list_seeds);
+	}
+	catch (...)
+	{
+
+	}
+	return "";
 }
 QString Torrent::GetPeerString()
 {
-	return QObject::tr("CT_CONNECTED %1 CT_FROM %2").arg(cur_torrent.status().num_peers).arg(cur_torrent.status().list_peers);
+	try
+	{
+		return QObject::tr("CT_CONNECTED %1 CT_FROM %2").arg(cur_torrent.status().num_peers).arg(cur_torrent.status().list_peers);
+	}
+	catch (...)
+	{
+
+	}
+	return "";
 }
 
 QString Torrent::GetRemainingTime()
 {
 	QString res;
-	if (isSeeding() || isPaused())
+	try
 	{
-		res.append(QChar(8734));
-		return res;
-	}
-	if (cur_torrent.status().download_rate < 1024*10)
-		res.append(QChar(8734));
-	else
+		if (isSeeding() || isPaused())
+			{
+				res.append(QChar(8734));
+				return res;
+			}
+			if (cur_torrent.status().download_rate < 1024*10)
+				res.append(QChar(8734));
+			else
+			{
+				int time=(cur_torrent.get_torrent_info().total_size()-cur_torrent.status().all_time_download) / cur_torrent.status().download_rate;
+				res = StaticHelpers::toTimeString(time);
+			}
+	}	
+	catch (...)
 	{
-		int time=(cur_torrent.get_torrent_info().total_size()-cur_torrent.status().all_time_download) / cur_torrent.status().download_rate;
-		res = StaticHelpers::toTimeString(time);
+
 	}
 	return res;
 }
@@ -332,29 +583,49 @@ QString Torrent::GetRemainingTime()
 QList<file_info> Torrent::GetFileDownloadInfo()
 {
 	QList<file_info> res;
-	torrent_info ti=cur_torrent.get_torrent_info();
-	file_storage storage=ti.files();
-	std::vector<float> progresses;
-	cur_torrent.file_progress(progresses);
-	int counter=0;
-	for (file_storage::iterator i=storage.begin();i!=storage.end();i++)
+	try
 	{
-		file_info current;
-		current.name=storage.file_path(*i).c_str();
-		current.index=storage.file_index(*i);
-		current.prioiry = cur_torrent.file_priority(current.index);
-		current.progrss =progresses[counter]*100.f;
-		current.size = storage.file_size(*i);
-		res.append(current);
-		counter++;
+		torrent_info ti=cur_torrent.get_torrent_info();
+		file_storage storage=ti.files();
+		std::vector<float> progresses;
+		cur_torrent.file_progress(progresses);
+		int counter=0;
+		for (file_storage::iterator i=storage.begin();i!=storage.end();i++)
+		{
+			file_info current;
+			current.name=storage.file_path(*i).c_str();
+			current.index=storage.file_index(*i);
+			current.prioiry = cur_torrent.file_priority(current.index);
+			current.progrss =progresses[counter]*100.f;
+			current.size = storage.file_size(*i);
+			res.append(current);
+			counter++;
+		}
+		progresses.~vector();
 	}
-	progresses.~vector();
+	catch (...)
+	{
+
+	}
 	return res;
 }
 void Torrent::SetFilePriority(int index,int prioryty)
 {
-	std::vector<int> priorities=cur_torrent.file_priorities();
-	priorities[index]=prioryty;
-	cur_torrent.prioritize_files(priorities);
+	try
+	{
+		std::vector<int> priorities=cur_torrent.file_priorities();
+		priorities[index]=prioryty;
+		cur_torrent.prioritize_files(priorities);
+	}
+	catch (...)
+	{
+		
+	}
 	
+	
+}
+
+void Torrent::updateTrackers()
+{
+	cur_torrent.force_reannounce();
 }

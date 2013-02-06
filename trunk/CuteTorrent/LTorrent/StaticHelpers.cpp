@@ -148,6 +148,8 @@ QString StaticHelpers::filePriorityToString(int priority)
 
 QString StaticHelpers::toTimeString( int seconds )
 {
+	if (seconds<0)
+		return "";
 	int min=0,hour=0,day=0,Week=0;
 	Week = seconds/(7*24*60*60);
 	seconds -=Week*(7*24*60*60);

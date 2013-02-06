@@ -93,7 +93,7 @@ public :
 	std::vector<peer_info> GetPeerInfo();
 	std::vector<announce_entry> GetTrackerInfo();
 	void announceRehash();
-	
+	void updateTrackers();
 	void seqensialDownload();
 	void pause();
 	void resume();

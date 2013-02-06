@@ -20,6 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "QApplicationSettings.h"
 #include <QDir>
 #include <QMap>
+#include <QTextCodec>
 #include <QMovie>
 OpenTorrentDialog::OpenTorrentDialog(QWidget *parent, Qt::WFlags flags)
 {
@@ -27,6 +28,10 @@ OpenTorrentDialog::OpenTorrentDialog(QWidget *parent, Qt::WFlags flags)
 	setupGroupComboBox();
 	mgr=TorrentManager::getInstance();
 	validTorrent=true;
+	QTextCodec *wantUnicode = QTextCodec::codecForName("UTF-8");
+/*	QTextCodec::setCodecForTr(wantUnicode);
+	QTextCodec::setCodecForLocale(wantUnicode);*/
+	QTextCodec::setCodecForCStrings(wantUnicode);
 }
 void OpenTorrentDialog::setupGroupComboBox()
 {
@@ -58,6 +63,7 @@ void OpenTorrentDialog::SetData(QString filename)
 		if (!QObject::connect(magnetWaiter,SIGNAL(DownloadCompleted(openmagnet_info)),this,SLOT(DownloadMetadataCompleted(openmagnet_info))))
 			QMessageBox::critical(this,"ERROR","NOT_CONNECTID");
 		magnetWaiter->start(QThread::HighPriority);
+		yesButton->setEnabled(false);
 	}
 	else
 	{
@@ -144,13 +150,16 @@ void OpenTorrentDialog::BrowseButton()
 
 void OpenTorrentDialog::AccepTorrent()
 {
-	QFile file(torrentFilename);
-	QMap<QString,int> filePriorities=model->getFilePiorites();
-	if (!torrentFilename.startsWith("magnet"))
-		mgr->AddTorrent(torrentFilename,pathEdit->displayText(),filePriorities);
-	else
+	if (validTorrent)
 	{
-		mgr->AddMagnet(_info.handle,pathEdit->displayText(),filePriorities);
+		QFile file(torrentFilename);
+		QMap<QString,int> filePriorities=model->getFilePiorites();
+		if (!torrentFilename.startsWith("magnet"))
+			mgr->AddTorrent(torrentFilename,pathEdit->displayText(),filePriorities);
+		else
+		{
+			mgr->AddMagnet(_info.handle,pathEdit->displayText(),filePriorities);
+		}
 	}
 	close();
 }
@@ -165,6 +174,7 @@ void OpenTorrentDialog::DownloadMetadataCompleted(openmagnet_info info)
 {
 	loaderGifLabel->hide();		
 	loaderTextLabel->hide();
+	yesButton->setEnabled(true);
 	_info=info;
 	setUpdatesEnabled( false );
 	labelNameData->setText(info.name);

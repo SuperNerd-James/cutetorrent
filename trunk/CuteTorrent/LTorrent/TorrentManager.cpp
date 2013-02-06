@@ -640,10 +640,10 @@ opentorrent_info* TorrentManager::GetTorrentInfo(QString filename)
 {
 	error_code ec;
 
-	torrent_info* ti=new torrent_info(filename.toUtf8().data(), ec);
+	torrent_info* ti=new torrent_info(filename.toStdString(), ec);
 	if (ec)
 	{
-		QMessageBox::warning(NULL,"Warning",QObject::tr("ERROR_OPENING_FILE\n%1").arg(filename));
+		QMessageBox::warning(NULL,"Warning",QObject::tr("ERROR_OPENING_FILE\n%1").arg(filename+QString::fromStdString(ec.message())));
 		return NULL;
 	}
 
@@ -758,18 +758,29 @@ openmagnet_info* TorrentManager::GetTorrentInfo( torrent_handle handle )
 
 void TorrentManager::RemoveTorrent(torrent_handle h,bool delFiles)
 {
-
+	std::string info_hash=h.info_hash().to_string();
+	QString infoHash=QString::fromStdString(info_hash);
+	QString resume_path=QString::fromStdString(combine_path("CT_DATA",to_hex(info_hash)+".resume"));
+	QString torrent_path=QString::fromStdString(combine_path("CT_DATA",h.name()+".torrent"));
  	//qDebug() << " removing file " << combine_path("CT_DATA",h.get_torrent_info().name()+".torrent").c_str();
- 	if (QFile::exists(combine_path("CT_DATA",h.name()+".torrent").c_str()))
- 	QFile::remove(combine_path("CT_DATA",h.name()+".torrent").c_str());
- 	//qDebug() << " removing file " << combine_path("CT_DATA",to_hex(h.info_hash().to_string())+".resume").c_str();
- 	if (QFile::exists(combine_path("CT_DATA",to_hex(h.info_hash().to_string())+".resume").c_str()))
- 	QFile::remove(combine_path("CT_DATA",to_hex(h.info_hash().to_string())+".resume").c_str());
+ 	
+	if (QFile::exists(torrent_path))
+ 		QFile::remove(torrent_path);
+ 	
+	//qDebug() << " removing file " << combine_path("CT_DATA",to_hex(info_hash)+".resume").c_str();
+ 		if (QFile::exists(resume_path))
+ 		QFile::remove(resume_path);
 
-	if (save_path_data.contains(to_hex(h.info_hash().to_string()).c_str()))
-		save_path_data.remove(to_hex(h.info_hash().to_string()).c_str());
-	ses->remove_torrent(h);
-	
+	if (save_path_data.contains(to_hex(info_hash).c_str()))
+		save_path_data.remove(to_hex(info_hash).c_str());
+	for (QSet<QString>::Iterator i = magnet_links.begin();i!=magnet_links.end();i++)
+	{
+		if ((*i).contains(infoHash))
+		{
+			magnet_links.remove(*i);
+		}
+	}
+	ses->remove_torrent(h); 
 }
 QString TorrentManager::GetSessionDownloadSpeed()
 {

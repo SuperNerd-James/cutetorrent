@@ -44,6 +44,9 @@ QTorrentDisplayModel::QTorrentDisplayModel(QListView* _parrent,QObject* __parren
 	HashRecheck = new QAction(tr("ACTION_REHASH"), this);
 	QObject::connect(HashRecheck, SIGNAL(triggered()), this, SLOT(Rehash()));
 	menu->addAction(HashRecheck);
+	updateTrackers = new QAction(tr("ACTION_UPDATE_TRACKERS"), this);
+	QObject::connect(updateTrackers, SIGNAL(triggered()), this, SLOT(UpdateTrackers()));
+	menu->addAction(updateTrackers);
 	setSequentual = new QAction(tr("ACTION_SET_SEQUENTIAL"), this);
 	setSequentual->setCheckable(true);
 	QObject::connect(setSequentual, SIGNAL(triggered()), this, SLOT(setSequentualDL()));
@@ -318,12 +321,12 @@ void QTorrentDisplayModel::contextualMenu(const QPoint & point)
 					DTmount->setEnabled(true);
 				}
 			}
+			setSequentual->setChecked(torrent->isSquential());
 			menu->exec(parrent->mapToGlobal(point));
 		}
 	}
 	else
 	{
-		
 		parrent->selectionModel()->reset();
 		selectedRow=-1;
 	}
@@ -534,7 +537,7 @@ QVariant QTorrentDisplayModel::data( const QModelIndex& index, int role ) const
 	
         default:
             break;
-	    }
+	}
 	
 	    return var;
 }
@@ -553,6 +556,7 @@ void QTorrentDisplayModel::retranslate()
 	DelTorrentOnly->setText(tr("ACTION_DELETE_TORRENT"));
 	HashRecheck->setText(tr("ACTION_REHASH"));
 	setSequentual->setText(tr("ACTION_SET_SEQUENTIAL"));
+	updateTrackers->setText(tr("ACTION_UPDATE_TRACKERS"));
 }
 
 void QTorrentDisplayModel::setSequentualDL()
@@ -561,5 +565,14 @@ void QTorrentDisplayModel::setSequentualDL()
 	if (cur!=NULL)
 	{
 		cur->seqensialDownload();
+	}
+}
+
+void QTorrentDisplayModel::UpdateTrackers()
+{
+	Torrent *cur = GetSelectedTorrent();
+	if (cur!=NULL)
+	{
+		cur->updateTrackers();
 	}
 }
