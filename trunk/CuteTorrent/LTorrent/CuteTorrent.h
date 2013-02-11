@@ -62,6 +62,7 @@ protected:
 	void mousePressEvent(QMouseEvent* event); 
 	void dragEnterEvent(QDragEnterEvent *event);
 	void dropEvent(QDropEvent *event);*/
+	void keyPressEvent ( QKeyEvent * event );
 private:
 	int  m_nMouseClick_X_Coordinate;
 	int  m_nMouseClick_Y_Coordinate;
@@ -118,6 +119,7 @@ private slots:
 	void ShowTorrentError(const QString&,const QString&);
 	void enableNitifyShow();
 	void showTorrentCompletedNotyfy(const QString,const QString);
+	void showTorrentInfoNotyfy(const QString,const QString);
 	void ShowCreateTorrentDialog();
 	void ShowOpenTorrentDialog();
 	void PauseSelected();

@@ -2,9 +2,10 @@
 
 
 
-MetaDataDownloadWaiter::MetaDataDownloadWaiter( QString metaLink,QObject* parrent/*=NULL*/ ) : QThread(parrent)
+MetaDataDownloadWaiter::MetaDataDownloadWaiter( QString metaLink,QObject* parrent/*=NULL*/, bool autoAdd/*=false*/ ) : QThread(parrent)
 {
 	MetaLink=metaLink;
+	_autoAdd=autoAdd;
 	_tManager = TorrentManager::getInstance();
 }
 
@@ -17,8 +18,14 @@ void MetaDataDownloadWaiter::run()
 {
 	torrent_handle h=_tManager->ProcessMagnetLink(MetaLink);
 
-	openmagnet_info ti =*_tManager->GetTorrentInfo(h);
-	emit DownloadCompleted(ti);
-
-	
+	if (!_autoAdd)
+	{
+		openmagnet_info ti =*_tManager->GetTorrentInfo(h);
+		emit DownloadCompleted(ti);
+	}
+	else
+	{
+		_tManager->AddMagnet(h,"");
+	}
+	this->deleteLater();
 }

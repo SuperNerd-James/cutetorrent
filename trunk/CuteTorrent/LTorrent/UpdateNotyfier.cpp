@@ -20,6 +20,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 #include "versionInfo.h"
 #include <QUrl>
+#include <QStringList>
+#include "QBaloon.h"
 UpdateNotifier::UpdateNotifier()
 {
 	m_manager = new QNetworkAccessManager(this);
@@ -39,10 +41,23 @@ void UpdateNotifier::replyFinished(QNetworkReply* pReply)
 
 	QByteArray data=pReply->readAll();
 	QString str(data);
-	//qDebug() << str;
-	if (str.compare(CT_VERSION)!=0)
-		emit showUpdateNitify(str);
-	
+	int currentVersion=1000*VERSION_MAJOR+100*VERSION_MINOR+10*VERSION_REVISION+VERSION_TAG;
+	int recevedVersion=0;
+	QStringList parts=str.split('.');
+	if (parts.count()!=4)
+	{
+		QBalloonTip::showBalloon(tr("ERROR_STR"),tr("ERROR_GETTING_VERSION_STR"),QBalloonTip::Error,QVariant(0),QSystemTrayIcon::Critical);
+	}
+	if (!pReply->isFinished())
+		QBalloonTip::showBalloon(tr("ERROR_STR"),pReply->errorString(),QBalloonTip::Error,QVariant(0),QSystemTrayIcon::Critical);
+	int mul=1000;
+	for (int i=0;i<parts.count();i++)
+	{
+		recevedVersion+=mul*parts[i].toInt();
+		mul/=10;
+	}
+	if (recevedVersion > currentVersion)
+		emit showUpdateNitify(str);	
 }
 
 UpdateNotifier::~UpdateNotifier()

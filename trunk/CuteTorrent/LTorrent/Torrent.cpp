@@ -629,3 +629,8 @@ void Torrent::updateTrackers()
 {
 	cur_torrent.force_reannounce();
 }
+
+void Torrent::MoveStorrage( QString path )
+{
+	cur_torrent.move_storage(path.toStdString());
+}

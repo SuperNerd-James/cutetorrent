@@ -101,29 +101,8 @@ void StaticHelpers::dellDir(QString dirName)
 {
 	try
 	{
-	
-	
-	bool result = true;
-	QDir dir(dirName);
-	//qDebug() << "removing dirrectory" << dirName;
-	if (dir.exists(dirName)) {
-		//qDebug() << "dir exists " << dirName;
-		Q_FOREACH(QFileInfo info, dir.entryInfoList(QDir::NoDotAndDotDot | QDir::System | QDir::Hidden  | QDir::AllDirs | QDir::Files, QDir::DirsFirst)) {
-			if (info.isDir()) {
-				//qDebug() << "removing dir " << info.absoluteFilePath();
-				 dellDir(info.absoluteFilePath());
-			}
-			else {
-				//qDebug() << "removing file " << info.absoluteFilePath();
-				 QFile::remove(info.absoluteFilePath());
-			}
-
-			
-			}
-		}
-		//qDebug() << "removing prrent dirrectory " << dirName;
-		dir.rmdir(dirName);
-	
+		error_code ec;
+		remove_all(dirName.toStdString(),ec);
 	}
 	catch (...)
 	{

@@ -6,9 +6,10 @@ class MetaDataDownloadWaiter : public QThread
 signals:
 	void DownloadCompleted(openmagnet_info ti);
 public:
-	MetaDataDownloadWaiter(QString metaLink,QObject* parrent=NULL);
+	MetaDataDownloadWaiter(QString metaLink,QObject* parrent=NULL, bool autoAdd=false);
 	~MetaDataDownloadWaiter();
 private:
+	bool _autoAdd;
 	QString MetaLink;
 	TorrentManager * _tManager;
 protected:

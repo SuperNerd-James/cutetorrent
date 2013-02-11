@@ -28,10 +28,12 @@ OpenTorrentDialog::OpenTorrentDialog(QWidget *parent, Qt::WFlags flags)
 	setupGroupComboBox();
 	mgr=TorrentManager::getInstance();
 	validTorrent=true;
+	model=NULL;
 	QTextCodec *wantUnicode = QTextCodec::codecForName("UTF-8");
-/*	QTextCodec::setCodecForTr(wantUnicode);
+	/*QTextCodec::setCodecForTr(wantUnicode);
 	QTextCodec::setCodecForLocale(wantUnicode);*/
 	QTextCodec::setCodecForCStrings(wantUnicode);
+	
 }
 void OpenTorrentDialog::setupGroupComboBox()
 {
@@ -40,12 +42,13 @@ void OpenTorrentDialog::setupGroupComboBox()
 }
 int OpenTorrentDialog::execConditional()
 {
-	return validTorrent ? exec() : 1;
+	return validTorrent ? exec() : QDialog::Rejected;
 }
 OpenTorrentDialog::~OpenTorrentDialog()
 {
 	TorrentManager::freeInstance();
-	delete model;
+	if (model!=NULL)
+		delete model;
 }
 
 
@@ -121,7 +124,9 @@ void OpenTorrentDialog::SetData(QString filename)
 			delete info;
 		}
 		else
+		{
 			validTorrent=false;
+		}
 	}
 }
 
