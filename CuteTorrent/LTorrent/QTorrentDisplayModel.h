@@ -28,13 +28,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMenu>
 #include <QTimer>
 #include <QMutex>
+#include <QThread>
 class Torrent;
 class TorrentManager;
-
+class DeleterThread : private QThread
+{private:
+QString path;
+public:
+	void create(QString _path)
+	{
+		path=_path;
+		start();
+	}
+	void run()
+	{
+		try
+		{
+			StaticHelpers::dellDir(path);
+		}
+		catch (...)
+		{
+			
+		}
+		
+		
+	}
+};
 class QTorrentDisplayModel : public QAbstractListModel
 {
 	Q_OBJECT
 private:
+	DeleterThread* thread;
 	QMap<int,int> id_to_row;
 	QMap<int,Torrent*> id_to_torrent;
 	QVector<Torrent*> torrents;
@@ -50,6 +74,7 @@ private:
 	QAction* DelTorrentOnly;
 	QAction* setSequentual;
 	QAction* updateTrackers;
+	QAction* MoveStorrage;
 	TorrentManager* mgr;
 	QTimer* timer;
 	QMutex* locker;
@@ -57,7 +82,7 @@ private:
 public:
 	QTorrentDisplayModel(QListView* parrent,QObject* __parrent);
 	~QTorrentDisplayModel();
-	enum action{pause,resume,remove};
+	enum action{pause,resume,remove,removeAll};
 	void ActionOnSelectedItem(action wtf);
 	void ChangeData(int row);
 	QTorrentDisplayModel(QObject* parrent=NULL);
@@ -87,6 +112,7 @@ public slots:
 	void DellAll();
 	void MountDT();
 	void setSequentualDL();
+	void moveStorrage();
 	void updateVisibleTorrents();
 	
 };

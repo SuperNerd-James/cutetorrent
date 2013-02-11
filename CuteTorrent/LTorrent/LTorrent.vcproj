@@ -133,7 +133,7 @@
 				Optimization="0"
 				AdditionalIncludeDirectories=".\QTSingleApplication;F:\src\boost_1_52_0;F:\src\libtorrent\include;.\GeneratedFiles;.;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;"
 				PreprocessorDefinitions=",UNICODE,WIN32,QT_LARGEFILE_SUPPORT;QT_DLL;QT_CORE_LIB;QT_GUI_LIB"
-				RuntimeLibrary="1"
+				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="false"
 				DebugInformationFormat="3"
 			/>
@@ -151,7 +151,7 @@
 				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib QtNetworkd4.lib libtorrentd.lib QtSolutions_SingleApplication-headd4.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				AdditionalLibraryDirectories="F:\src\CuteTorrent\LTorrent\QTSingleApplication\lib;F:\src\libtorrent\lib;F:\src\boost_1_52_0\lib;&quot;$(QTDIR)\lib&quot;"
-				IgnoreDefaultLibraryNames="LIBCMT.lib;msvcrtd.lib"
+				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="true"
 				SubSystem="2"
 			/>

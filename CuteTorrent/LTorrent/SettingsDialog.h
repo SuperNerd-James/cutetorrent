@@ -26,6 +26,10 @@ class SettingsDialog : public QDialog , private Ui::SettingsDialog
 private:
 	QApplicationSettings* settings;
 	QList<GroupForFileFiltering> filterGroups;
+	void FillFilteringGroups();
+	void FillTorrentTab();
+	void FillHDDTab();
+	void FillDTTab();
 public:
  	SettingsDialog(QWidget* parent=0,int flags=0);
 	~SettingsDialog();

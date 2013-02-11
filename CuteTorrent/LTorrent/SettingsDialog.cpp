@@ -31,48 +31,10 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	setupUi(this);
 
 	settings = QApplicationSettings::getInstance();
-	filterGroups = settings->GetFileFilterGroups();
-	for (int i=0;i<filterGroups.count();i++)
-	{
-		GroupsListWidget->addItem(filterGroups.at(i).Name());
-	}
-	GroupsListWidget->setSelectionMode(QAbstractItemView::ContiguousSelection);
-	portEdit->setText(settings->valueString("Torrent","listen_port"));
-	uploadLimitEdit->setText(QString::number(settings->valueInt("Torrent","upload_rate_limit")/1024)+" Kb/s" );
-	downloadLimitEdit->setText(QString::number(settings->valueInt("Torrent","download_rate_limit")/1024)+" Kb/s" );
-	activeLimitEdit->setText(settings->valueString("Torrent","active_limit"));
-	activeSeedLimitEdit->setText(settings->valueString("Torrent","active_seeds"));
-	activeDownloadLimitEdit->setText(settings->valueString("Torrent","active_downloads"));
-	bool useProxy=settings->valueBool("Torrent","useProxy");
-	useProxyCheckBox->setCheckState(useProxy ? Qt::Checked :Qt::Unchecked);
-	if (useProxy)
-	{
-		proxyHostEdit->setText(QString("%1:%2").arg(settings->valueString("Torrent",
-				"proxy_hostname").arg(settings->valueString("Torrent","proxy_port"))));
-		proxyUsernameEdit->setText(settings->valueString("Torrent","proxy_username"));
-		proxyPwdEdit->setText(settings->valueString("Torrent","proxy_password"));
-	}
-	////////////////////////HDD_TAB//////////////////////////////////////////////////
-	lockFilesCheckBox->setCheckState(settings->valueBool("Torrent","lock_files") ?  Qt::Checked :Qt::Unchecked );
-	casheSizeLineEdit->setText(QString::number(settings->valueInt("Torrent","cache_size")*16*1024));
-	diskIOCasheModeComboBox->setCurrentIndex(settings->valueInt("Torrent","disk_io_write_mode"));
-	useDiskReadAheadCheckBox->setCheckState(settings->valueBool("Torrent","use_disk_read_ahead") ?  Qt::Checked :Qt::Unchecked );
-	alowReorderedOpsCheckBox->setCheckState(settings->valueBool("Torrent","allow_reordered_disk_operations") ?  Qt::Checked :Qt::Unchecked );
-	lowPrioDiskCheckBox->setCheckState(settings->valueBool("Torrent","low_prio_disk") ?  Qt::Checked :Qt::Unchecked );
-	useReadCasheCheckBox->setCheckState(settings->valueBool("Torrent","use_read_cache") ?  Qt::Checked :Qt::Unchecked );
-	////////////////////////HDD_TAB//////////////////////////////////////////////////
-
-
-	////////////////////////DT_TAB//////////////////////////////////////////////////
-	DTPathEdit->setText(settings->valueString("DT","Executable"));
-	int driveNumber=settings->valueInt("DT","Drive");
-	driveNumberComboBox->setCurrentIndex(driveNumber < driveNumberComboBox->count() ? driveNumber : 0);
-	settings->setValue("DT","DefaultCommand","-mount dt,%1,\"%2\"");
-	bool useCustomCommand=settings->valueBool("DT","UseCustomCommand");
-	customMountCheckBox->setChecked(useCustomCommand);
-	customCommandEdit->setText( (useCustomCommand ? settings->valueString("DT","CustomtCommand") : settings->valueString("DT","DefaultCommand")));
-	////////////////////////DT_TAB//////////////////////////////////////////////////
-
+	FillDTTab();
+	FillFilteringGroups();
+	FillTorrentTab();
+	FillHDDTab();
 	////////////////////////OS_SPECIFICK//////////////////////////////////////////////////
 #ifdef Q_WS_WIN
 	QSettings assocSettings ("HKEY_CLASSES_ROOT", QSettings::NativeFormat);                                                                                   
@@ -101,6 +63,59 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	////////////////////////OS_SPECIFICK//////////////////////////////////////////////////
 	
 }
+
+
+void SettingsDialog::FillHDDTab()
+{
+	lockFilesCheckBox->setCheckState(settings->valueBool("Torrent","lock_files") ?  Qt::Checked :Qt::Unchecked );
+	casheSizeLineEdit->setText(QString::number(settings->valueInt("Torrent","cache_size")*16*1024));
+	diskIOCasheModeComboBox->setCurrentIndex(settings->valueInt("Torrent","disk_io_write_mode"));
+	useDiskReadAheadCheckBox->setCheckState(settings->valueBool("Torrent","use_disk_read_ahead") ?  Qt::Checked :Qt::Unchecked );
+	alowReorderedOpsCheckBox->setCheckState(settings->valueBool("Torrent","allow_reordered_disk_operations") ?  Qt::Checked :Qt::Unchecked );
+	lowPrioDiskCheckBox->setCheckState(settings->valueBool("Torrent","low_prio_disk") ?  Qt::Checked :Qt::Unchecked );
+	useReadCasheCheckBox->setCheckState(settings->valueBool("Torrent","use_read_cache") ?  Qt::Checked :Qt::Unchecked );
+}
+
+void SettingsDialog::FillTorrentTab()
+{
+	portEdit->setText(settings->valueString("Torrent","listen_port"));
+	uploadLimitEdit->setText(QString::number(settings->valueInt("Torrent","upload_rate_limit")/1024)+" Kb/s" );
+	downloadLimitEdit->setText(QString::number(settings->valueInt("Torrent","download_rate_limit")/1024)+" Kb/s" );
+	activeLimitEdit->setText(settings->valueString("Torrent","active_limit"));
+	activeSeedLimitEdit->setText(settings->valueString("Torrent","active_seeds"));
+	activeDownloadLimitEdit->setText(settings->valueString("Torrent","active_downloads"));
+	bool useProxy=settings->valueBool("Torrent","useProxy");
+	useProxyCheckBox->setCheckState(useProxy ? Qt::Checked :Qt::Unchecked);
+	if (useProxy)
+	{
+		proxyHostEdit->setText(QString("%1:%2").arg(settings->valueString("Torrent",
+			"proxy_hostname").arg(settings->valueString("Torrent","proxy_port"))));
+		proxyUsernameEdit->setText(settings->valueString("Torrent","proxy_username"));
+		proxyPwdEdit->setText(settings->valueString("Torrent","proxy_password"));
+	}
+}
+
+void SettingsDialog::FillFilteringGroups()
+{
+	filterGroups = settings->GetFileFilterGroups();
+	for (int i=0;i<filterGroups.count();i++)
+	{
+		GroupsListWidget->addItem(filterGroups.at(i).Name());
+	}
+	GroupsListWidget->setSelectionMode(QAbstractItemView::ContiguousSelection);
+}
+
+void SettingsDialog::FillDTTab()
+{
+	DTPathEdit->setText(settings->valueString("DT","Executable"));
+	int driveNumber=settings->valueInt("DT","Drive");
+	driveNumberComboBox->setCurrentIndex(driveNumber < driveNumberComboBox->count() ? driveNumber : 0);
+	settings->setValue("DT","DefaultCommand","-mount dt,%1,\"%2\"");
+	bool useCustomCommand=settings->valueBool("DT","UseCustomCommand");
+	customMountCheckBox->setChecked(useCustomCommand);
+	customCommandEdit->setText( (useCustomCommand ? settings->valueString("DT","CustomtCommand") : settings->valueString("DT","DefaultCommand")));
+}
+
 void SettingsDialog::showSelectedGroup(int row)
 {
 	if (row > filterGroups.count())
@@ -352,4 +367,6 @@ void SettingsDialog::browseDTPath()
 	
 	DTPathEdit->setText(QDir::toNativeSeparators(DTPath));
 }
+
+
 

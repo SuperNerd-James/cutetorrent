@@ -97,6 +97,7 @@ public :
 	void seqensialDownload();
 	void pause();
 	void resume();
+	void MoveStorrage(QString path);
 
 };
 

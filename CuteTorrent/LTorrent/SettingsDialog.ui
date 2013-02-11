@@ -400,17 +400,17 @@
         <widget class="QComboBox" name="diskIOCasheModeComboBox">
          <item>
           <property name="text">
-           <string>0</string>
+           <string>ENABLE_OS_CACHE</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>1</string>
+           <string>DISABLE_OS_CACHE_FOR_ALIGNED_FILES</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>2</string>
+           <string>DISABLE_OS_CACHE</string>
           </property>
          </item>
         </widget>

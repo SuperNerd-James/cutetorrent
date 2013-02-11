@@ -26,9 +26,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDateTime>
 #include "application.h"
 #include <QMessageBox>
-#include <QMacStyle>
-#include "CustomStyle.h"
+#include <QTextCodec>
+
 #ifdef DEBUG
+
 void myMessageOutput(QtMsgType type, const char *msg)
 {
 	fflush(stderr);
@@ -59,6 +60,10 @@ int main(int argc, char *argv[])
 #endif // DEBUG
 
 	Application a(argc, argv);
+	QTextCodec *wantUnicode = QTextCodec::codecForName("UTF-8");
+	/*QTextCodec::setCodecForTr(wantUnicode);
+	QTextCodec::setCodecForLocale(wantUnicode);*/
+	QTextCodec::setCodecForCStrings(wantUnicode);
 	bool minimize=false;
 	QString file2open;
 	if (a.isRunning())
@@ -68,7 +73,7 @@ int main(int argc, char *argv[])
 		{
 			if (argv[i][0]!='-')
 			{
-				a.sendMessage(argv[i]);
+				a.sendMessage(QString::fromLocal8Bit(argv[i]));
 				
 			}
 			
@@ -96,7 +101,7 @@ int main(int argc, char *argv[])
 				}
 				else
 				{
-					file2open=argv[i];
+					file2open=QString::fromLocal8Bit(argv[i]);
 				}
 			
 			}
@@ -106,8 +111,7 @@ int main(int argc, char *argv[])
 	a.loadTranslations(":/translations");
 	a.addLibraryPath(QCoreApplication::applicationDirPath ()+"/plugins");
 	
-	//qDebug() << "=======================================================================================";
-	//qDebug() << "==Application started:" << QDateTime::currentDateTime();
+	
 	CuteTorrent w;
 	QFile File(":/icons/BaseStyle.qss");
 	File.open(QFile::ReadOnly);
@@ -130,8 +134,6 @@ int main(int argc, char *argv[])
 		w.HandleNewTorrent(file2open);
 	}
 	int res=a.exec();
-	//qDebug() << "==Application exited:" << QDateTime::currentDateTime();
-	//qDebug() << "=======================================================================================";
 #ifdef DEBUG
 	fclose(fp);
 #endif // DEBUG
