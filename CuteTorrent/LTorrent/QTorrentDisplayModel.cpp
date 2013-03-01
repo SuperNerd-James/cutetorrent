@@ -245,6 +245,7 @@ void QTorrentDisplayModel::updateVisibleTorrents()
 		QModelIndex top(index(0,0)),bot(index(0,torrents.count()));
 		emit dataChanged( top,bot );
 		emit updateTabSender(-1);
+		
 	}
 	catch (...)
 	{
