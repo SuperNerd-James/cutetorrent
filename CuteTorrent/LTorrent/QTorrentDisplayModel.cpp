@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 #include <QThread>
 #include "MultipleDTDialog.h"
+#include "DT_mounter.h"
 
 QTorrentDisplayModel::QTorrentDisplayModel(QListView* _parrent,QObject* __parrent):QAbstractListModel(__parrent)
 {
@@ -100,10 +101,9 @@ void QTorrentDisplayModel::DellTorrentOnly()
 	Torrent* tor=torrents.at(selectedRow);
 	if (tor!=NULL)
 	{
-		tor->pause();	
-		locker->lock();
-		torrents_to_remove.append(tor);
-		locker->unlock();
+		int index=torrents.indexOf(tor);
+		torrents.erase(torrents.begin() + index);
+		tor->RemoveTorrent(mgr);
 		parrent->selectionModel()->reset();
 	}
 }
@@ -113,17 +113,14 @@ void QTorrentDisplayModel::DellAll()
 	
 	if (rowCount() == 0)
 	{
-	
 		return ;
 	}
 	if (selectedRow >= rowCount())
 	{
-	
 		return ;
 	}
 	if (selectedRow < 0)
 	{
-	
 		return ;
 	}
 	try
@@ -131,14 +128,9 @@ void QTorrentDisplayModel::DellAll()
 		Torrent* tor=torrents.at(selectedRow);
 		if (tor!=NULL)
 		{
-			tor->pause();	
-			QString path=tor->GetSavePath()+tor->GetName();
-			locker->lock();
-			torrents_to_remove.append(tor);
-			locker->unlock();
-			thread = new DeleterThread();
-			thread->create(path);
-			parrent->selectionModel()->reset();
+			int index=torrents.indexOf(tor);
+			tor->RemoveTorrent(mgr,true);
+			torrents.erase(torrents.begin() + index);
 		}
 	}
 	catch (...)
@@ -181,31 +173,7 @@ void QTorrentDisplayModel::MountDT()
 				else
 				{
 					
-					QApplicationSettings* settings=QApplicationSettings::getInstance();
-					QString exe = settings->valueString("DT","Executable");
-					if (exe.isEmpty())
-					{
-						QApplicationSettings::FreeInstance();
-						QMessageBox::warning(parrent,"DT Mounter",tr("DT_PATH_NOT_SET"));
-						return;
-					}
-					bool useCustomCmd = settings->valueBool("DT","UseCustomCommand");
-					int driveNum = settings->valueInt("DT","Drive");
-					QString command = useCustomCmd ?  settings->valueString("DT","CustomtCommand"): settings->valueString("DT","DefaultCommand"); 
-					QProcess *dt = new QProcess(this);
-					QStringList args;
-					
-					dt->setNativeArguments(command.arg(QString::number(driveNum)).arg(images.first()));
-					dt->start(exe,args);
-					QApplicationSettings::FreeInstance();
-					if (!dt->waitForStarted(5000))
-					{
-						QMessageBox::warning(parrent,"DT Mounter",tr("LAUNCH_ERROR")+exe);
-						return;
-					}
-					
-					dt->waitForFinished();
-					delete dt;
+					DT_mounter::mountImage(images.first());
 				}
 			}
 		}
@@ -217,23 +185,10 @@ void QTorrentDisplayModel::updateVisibleTorrents()
 	locker->lock();
 	try
 	{
-		for (int i=0;i<torrents_to_remove.count();i++)
-		{
-			Torrent* tor=torrents_to_remove.at(i);
-			int index=torrents.indexOf(torrents_to_remove.at(i));
-			torrents.at( index )->RemoveTorrent(mgr);
-			torrents.erase(torrents.begin() + index);
-			int id=id_to_row[index];
-			id_to_row.remove(index);
-			id_to_torrent.remove(id);
-		}
-		torrents_to_remove.clear();
+		
 		for (int i=0;i<torrents_to_add.count();i++)
 		{
 			torrents.append(torrents_to_add.at(i));
-			id_to_torrent.insert(auto_id,torrents_to_add.at(i));
-			id_to_row.insert(torrents.count()-1,auto_id);
-			auto_id++;
 		}
 		torrents_to_add.clear();
 		mgr->PostTorrentUpdate();
@@ -242,7 +197,7 @@ void QTorrentDisplayModel::updateVisibleTorrents()
 			locker->unlock();
 			return;
 		}
-		QModelIndex top(index(0,0)),bot(index(0,torrents.count()));
+		QModelIndex top(index(0,0)),bot(index(torrents.count(),0));
 		emit dataChanged( top,bot );
 		emit updateTabSender(-1);
 		
@@ -372,10 +327,7 @@ bool QTorrentDisplayModel::hasTorrent(const QString& InfoHash) const
 }
 void QTorrentDisplayModel::clear()
 {
-	auto_id=0;
 	torrents.clear();
-	id_to_torrent.clear();
-	id_to_row.clear();
 	reset( );
 }
 int QTorrentDisplayModel::rowCount( const QModelIndex& parent ) const
@@ -450,31 +402,18 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 				selectedRow=-1;
 				torrents.at( oldSelection )->RemoveTorrent(mgr);
 				torrents.erase(torrents.begin() + oldSelection);
-				int id=id_to_row[oldSelection];
-				id_to_row.remove(oldSelection);
-				
-				id_to_torrent.remove(id);
-				
 				parrent->selectionModel()->reset();
-				
 			}
 			break;
 		case removeAll:
 			{
-				
 				int oldSelection=selectedRow;
 				Torrent* tor=torrents.at( oldSelection );
 				selectedRow=-1;
 				QString path=tor->GetSavePath()+tor->GetName();
-				tor->RemoveTorrent(mgr);
+				tor->RemoveTorrent(mgr,true);
 				torrents.erase(torrents.begin() + oldSelection);
-				int id=id_to_row[oldSelection];
-				id_to_row.remove(oldSelection);
-
-				id_to_torrent.remove(id);
-
 				parrent->selectionModel()->reset();
-				
 				thread = new DeleterThread();
 				thread->create(path);
 			}

@@ -106,7 +106,7 @@ void StaticHelpers::dellDir(QString dirName)
 	}
 	catch (...)
 	{
-		//qDebug() << " exception caught int deldir";
+		qDebug() << " exception caught int deldir";
 	}
 	
 	

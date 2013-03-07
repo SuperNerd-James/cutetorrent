@@ -43,7 +43,7 @@ class Torrent : public QObject
 private:
 	StaticHelpers* helper;
 	torrent_handle cur_torrent;
-	//QStringList files;
+	qint64 size;
 	QIcon icon;
 	QString ErrorString;
 	bool mountable;

@@ -59,8 +59,6 @@ class QTorrentDisplayModel : public QAbstractListModel
 	Q_OBJECT
 private:
 	DeleterThread* thread;
-	QMap<int,int> id_to_row;
-	QMap<int,Torrent*> id_to_torrent;
 	QVector<Torrent*> torrents;
 	QVector<Torrent*> torrents_to_remove,torrents_to_add;
 	int auto_id;

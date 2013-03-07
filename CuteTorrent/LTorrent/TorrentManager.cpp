@@ -34,7 +34,8 @@ TorrentManager::TorrentManager()
 	torrentSettings = QApplicationSettings::getInstance();
 	
 	ses = new session(fingerprint("CT", VERSION_MAJOR ,VERSION_MINOR,VERSION_REVISION ,VERSION_TAG)
-		, session::add_default_plugins
+		, session::start_default_features
+		| session::add_default_plugins
 		, alert::all_categories);
 	error_code ec;
 	std::vector<char> in;
@@ -511,14 +512,14 @@ void TorrentManager::onClose()
 		{
 			continue;
 		}
-
-		st.handle.save_resume_data();
 		
+		st.handle.save_resume_data();
 		++num_outstanding_resume_data;
 		printf("\r%d  ", num_outstanding_resume_data);
+		
 	}
-	qDebug("waiting for resume data %1\n", num_outstanding_resume_data);
-
+	qDebug() << "waiting for resume data " << num_outstanding_resume_data << "\n";
+	
 	while (num_outstanding_resume_data > 0)
 	{
 		alert const* a = ses->wait_for_alert(seconds(10));
@@ -554,6 +555,7 @@ void TorrentManager::onClose()
 			torrent_handle h = rd->handle;
 			std::vector<char> out;
 			bencode(std::back_inserter(out), *rd->resume_data);
+			qDebug() << "Saving fast resume for "+QString::fromStdString(h.name());
 			save_file( combine_path("CT_DATA", to_hex(h.info_hash().to_string()) + ".resume"), out);
 		}
 	}
@@ -611,6 +613,7 @@ int TorrentManager::save_file(std::string const& filename, std::vector<char>& v)
 
 TorrentManager::~TorrentManager()
 {
+
 	onClose();
 	QApplicationSettings::FreeInstance();
 }
@@ -621,13 +624,12 @@ TorrentManager* TorrentManager::getInstance()
 {
 	if (_instance==NULL)
 		_instance = new TorrentManager();
-	
-	
 	_instanceCount++;
 	return _instance;
 }
 void TorrentManager::freeInstance()
 {
+	
 	
 	_instanceCount--;
 	if (!_instanceCount)
@@ -759,7 +761,7 @@ openmagnet_info* TorrentManager::GetTorrentInfo( torrent_handle handle )
 void TorrentManager::RemoveTorrent(torrent_handle h,bool delFiles)
 {
 	std::string info_hash=h.info_hash().to_string();
-	QString infoHash=QString::fromStdString(info_hash);
+	QString infoHash=QString::fromStdString(to_hex(info_hash));
 	QString resume_path=QString::fromStdString(combine_path("CT_DATA",to_hex(info_hash)+".resume"));
 	QString torrent_path=QString::fromStdString(combine_path("CT_DATA",h.name()+".torrent"));
  	
@@ -774,12 +776,48 @@ void TorrentManager::RemoveTorrent(torrent_handle h,bool delFiles)
 		save_path_data.remove(to_hex(info_hash).c_str());
 	for (QSet<QString>::Iterator i = magnet_links.begin();i!=magnet_links.end();i++)
 	{
-		if ((*i).contains(infoHash))
+		qDebug() << *i;
+		qDebug() << infoHash;
+		if ((*i).contains(infoHash.toLower(),Qt::CaseInsensitive))
 		{
+			QMessageBox::warning(NULL,"",h.name().c_str());
 			magnet_links.remove(*i);
 		}
 	}
-	ses->remove_torrent(h); 
+	QFile pathDataFile("CT_DATA/path.resume");
+	if (pathDataFile.open(QFile::WriteOnly))
+	{
+		for (QMap<QString,QString>::iterator i=save_path_data.begin();i!=save_path_data.end();i++)
+		{
+			pathDataFile.write((i.key()+"|"+i.value()+"\n").toUtf8());
+		}
+		pathDataFile.close();
+	}
+	QFile magnetlinks("CT_DATA/links.list");
+	if (magnetlinks.open(QFile::WriteOnly))
+	{
+		for (QSet<QString>::Iterator i = magnet_links.begin();i!=magnet_links.end();i++)
+		{
+			magnetlinks.write(i->toUtf8()+"\n");
+		}
+		magnetlinks.close();
+	}
+	qDebug() << "before ses->remove_torrent(h); h.is_valid()=" << h.is_valid();
+	try
+	{
+		ses->remove_torrent(h,delFiles ? session::delete_files : session::none); 
+	}
+	catch (libtorrent::libtorrent_exception e)
+	{
+		qDebug() << e.what();
+	}
+	catch(...)
+	{
+		qDebug() << "Not a libtorrent exception caught";
+	}
+	
+
+	qDebug() << "after ses->remove_torrent(h)";
 }
 QString TorrentManager::GetSessionDownloadSpeed()
 {
@@ -914,6 +952,10 @@ bool TorrentManager::AddMagnet( torrent_handle h,QString SavePath,QMap<QString,i
 			pathDataFile.write((i.key()+"|"+i.value()+"\n").toUtf8());
 		}
 		pathDataFile.close();
+	}
+	else
+	{
+		QMessageBox::critical(0,"Error","CT_DATA/path.resume couldn't be opened");
 	}
 	QFile magnetlinks("CT_DATA/links.list");
 	if (magnetlinks.open(QFile::WriteOnly))

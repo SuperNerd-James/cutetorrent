@@ -203,6 +203,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\DT_mounter.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\FileTreeModel.cpp"
 				>
 			</File>
@@ -387,6 +391,10 @@
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\DT_mounter.h"
+				>
 			</File>
 			<File
 				RelativePath=".\FileTreeModel.h"
