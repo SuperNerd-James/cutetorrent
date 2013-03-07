@@ -25,19 +25,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 #include <QAbstractItemView>
 #include "StaticHelpers.h"
-
+#include "DT_mounter.h"
 
 MultipleDTDialog::MultipleDTDialog(QStringList& _files,QWidget* parrent/* =0 */,int flags/* =0 */)
 {
 	setupUi(this);
 	QObject::connect(okButton, SIGNAL(clicked()), this, SLOT(MountSelectedFILE()));
-	//qDebug() << "files will be set now";
-	for (int i=0;i<_files.count();i++)
-	{
+	files.append(_files);
 	
-		files.append(_files.at(i));
 	
-	}
 	
 	
 	//qDebug() << "files set";
@@ -54,42 +50,12 @@ MultipleDTDialog::MultipleDTDialog(QStringList& _files,QWidget* parrent/* =0 */,
 
 void MultipleDTDialog::MountSelectedFILE()
 {
-	
 	int selectedRow=listView->selectionModel()->selectedIndexes().first().row();
 	Mount(files.at(selectedRow));
-	
 }
 
 
 void MultipleDTDialog::Mount( QString filename )
 {
-
-	QApplicationSettings* settings=QApplicationSettings::getInstance();
-	
-	QString exe = settings->valueString("DT","Executable");
-	if (exe.isEmpty())
-	{
-		QMessageBox::warning(this,"DT Mounter",tr("ERROR_DT_PATH_NOT_SET"));
-		return;
-	}
-	bool useCustomCmd = settings->valueBool("DT","UseCustomCommand");
-	int driveNum = settings->valueInt("DT","Drive");
-	QString command = useCustomCmd ?  settings->valueString("DT","CustomtCommand"): settings->valueString("DT","DefaultCommand"); 
-	QProcess *dt = new QProcess(this);
-	QStringList args;
-	/*args << "-mount";
-	args << command.arg(QString::number(driveNum)).arg(images.first());*/
-	//qDebug() << exe << command.arg(QString::number(driveNum)).arg(filename);
-	dt->setNativeArguments(command.arg(QString::number(driveNum)).arg(filename));
-	dt->start(exe,args);
-	QApplicationSettings::FreeInstance();
-	if (!dt->waitForStarted(5000))
-	{
-		QMessageBox::warning(this,"DT Mounter",tr("LAUNCH_ERROR")+exe);
-		return;
-	}
-			
-	dt->waitForFinished();
-	delete dt;
-	
+	DT_mounter::mountImage(filename);
 }

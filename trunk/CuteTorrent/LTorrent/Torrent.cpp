@@ -175,7 +175,22 @@ QString Torrent::GetSuffix()
 }
 QStringList& Torrent::GetImageFiles()
 {
-	
+	imageFiles.clear();
+	file_storage storrgae=cur_torrent.get_torrent_info().files();
+	libtorrent::file_storage::iterator bg=storrgae.begin(),
+		end=storrgae.end();
+	QSet<QString> mauntableTypes;
+	mauntableTypes << QString::fromAscii("iso");
+	mauntableTypes << QString::fromAscii("mdf");
+	mauntableTypes << QString::fromAscii("mds");
+	for (libtorrent::file_storage::iterator i=bg;i!=end;i++)
+	{
+		QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));
+		if (mauntableTypes.contains(curfile.suffix()) && cur_torrent.file_priority(storrgae.file_index(*i)) > 0)
+		{
+			imageFiles << QString::fromUtf8(cur_torrent.save_path().c_str())+QString::fromUtf8(storrgae.file_path(*i).c_str());
+		}
+	}
 	return imageFiles;
 }
 Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
@@ -196,9 +211,13 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
 	for (libtorrent::file_storage::iterator i=bg;i!=end;i++)
 	{
 		QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));
-		if (mauntableTypes.contains(curfile.suffix()))
+		if (mauntableTypes.contains(curfile.suffix()) && cur_torrent.file_priority(storrgae.file_index(*i)) > 0)
 		{
 			imageFiles << QString::fromUtf8(cur_torrent.save_path().c_str())+QString::fromUtf8(storrgae.file_path(*i).c_str());
+		}
+		if (cur_torrent.file_priority(storrgae.file_index(*i)) > 0)
+		{
+			size+=storrgae.file_size(*i);
 		}
 	}
 	//qDebug()<< "found " << imageFiles.count() << " imagefiles for torrent " << QString(torrentStatus.name().c_str());
@@ -443,6 +462,7 @@ void Torrent::seqensialDownload()
 
 void Torrent::RemoveTorrent(TorrentManager *mgr,bool delfiles)
 {
+	qDebug() << "Torrent::RemoveTorrent " << cur_torrent.name().c_str();
 	mgr->RemoveTorrent(cur_torrent,delfiles);
 }
 void Torrent::pause()
@@ -613,9 +633,8 @@ void Torrent::SetFilePriority(int index,int prioryty)
 {
 	try
 	{
-		std::vector<int> priorities=cur_torrent.file_priorities();
-		priorities[index]=prioryty;
-		cur_torrent.prioritize_files(priorities);
+		
+		cur_torrent.file_priority(index,prioryty);
 	}
 	catch (...)
 	{
@@ -627,10 +646,26 @@ void Torrent::SetFilePriority(int index,int prioryty)
 
 void Torrent::updateTrackers()
 {
-	cur_torrent.force_reannounce();
+	try
+	{
+		cur_torrent.force_reannounce();
+	}
+	catch (...)
+	{
+		
+	}
+	
 }
 
 void Torrent::MoveStorrage( QString path )
 {
-	cur_torrent.move_storage(path.toStdString());
+	try
+	{
+		cur_torrent.move_storage(path.toStdString());
+	}
+	catch (...)
+	{
+		
+	}
+	
 }
