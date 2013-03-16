@@ -51,14 +51,13 @@ public:
 	void create(QString _input_path, QString _save_path,QString _filter, QStringList _trackers, QStringList _url_seeds, QString _comment, bool _is_private, qint64 _piece_size);
 	void sendProgressSignal(int progress);
 
+	
 protected:
 	void run();
 
 signals:
 	void ShowCreationFailture(QString msg);
 	void ShowCreationSucces(QString path);
-
-signals:
 	void updateProgress(int progress);
 };
 

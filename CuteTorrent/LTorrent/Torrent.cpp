@@ -669,3 +669,74 @@ void Torrent::MoveStorrage( QString path )
 	}
 	
 }
+
+int Torrent::GetPieceCount()
+{
+	try
+	{
+		return cur_torrent.get_torrent_info().num_pieces();
+	}
+	catch (...)
+	{
+	}
+	return 0;
+}
+
+QVector<int> Torrent::GetDownloadedPieces()
+{
+	QVector<int> res;
+	try
+	{
+		int max_num=cur_torrent.get_torrent_info().num_pieces();
+		for (int i=0;i<max_num;i++)
+		{
+			if (cur_torrent.have_piece(i))
+				res.append(i);
+		}
+		
+		
+	}
+	catch (...)
+	{
+
+	}
+	return res;
+	
+}
+
+QVector<int> Torrent::GetDownloadingPieces()
+{
+	QVector<int> res;
+	try
+	{
+		
+		std::vector<partial_piece_info> pieces;
+		cur_torrent.get_download_queue(pieces);
+		for (std::vector<partial_piece_info>::iterator i=pieces.begin();i!=pieces.end();i++)
+		{
+			if (i->finished+i->writing > 0)
+			{
+				res.append(i->piece_index);
+			}
+		}
+
+	}
+	catch (...)
+	{
+
+	}
+	return res;
+}
+
+QString Torrent::GetDiscribtion()
+{
+	try
+	{
+		return QString::fromStdString(cur_torrent.get_torrent_info().comment());
+	}
+	catch (...)
+	{
+		
+	}
+	return "";
+}

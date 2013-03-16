@@ -101,6 +101,7 @@ void QTorrentDisplayModel::DellTorrentOnly()
 	Torrent* tor=torrents.at(selectedRow);
 	if (tor!=NULL)
 	{
+		removeRow(selectedRow);
 		int index=torrents.indexOf(tor);
 		torrents.erase(torrents.begin() + index);
 		tor->RemoveTorrent(mgr);
@@ -128,6 +129,7 @@ void QTorrentDisplayModel::DellAll()
 		Torrent* tor=torrents.at(selectedRow);
 		if (tor!=NULL)
 		{
+			removeRow(selectedRow);
 			int index=torrents.indexOf(tor);
 			tor->RemoveTorrent(mgr,true);
 			torrents.erase(torrents.begin() + index);
@@ -398,6 +400,7 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 			break;
 		case remove:
 			{
+				removeRow(selectedRow);
 				int oldSelection=selectedRow;
 				selectedRow=-1;
 				torrents.at( oldSelection )->RemoveTorrent(mgr);
@@ -407,15 +410,14 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 			break;
 		case removeAll:
 			{
+				removeRow(selectedRow);
 				int oldSelection=selectedRow;
 				Torrent* tor=torrents.at( oldSelection );
 				selectedRow=-1;
 				QString path=tor->GetSavePath()+tor->GetName();
 				tor->RemoveTorrent(mgr,true);
 				torrents.erase(torrents.begin() + oldSelection);
-				parrent->selectionModel()->reset();
-				thread = new DeleterThread();
-				thread->create(path);
+				//parrent->selectionModel()->reset();*/
 			}
 		case resume:
 			torrents.at( selectedRow )->resume();

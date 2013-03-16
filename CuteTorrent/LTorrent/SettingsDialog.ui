@@ -756,7 +756,7 @@
    <sender>applyButton</sender>
    <signal>clicked()</signal>
    <receiver>SettingsDialog</receiver>
-   <slot>saveSettings()</slot>
+   <slot>ApplySettings()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>466</x>
@@ -772,7 +772,7 @@
    <sender>OKButton</sender>
    <signal>clicked()</signal>
    <receiver>SettingsDialog</receiver>
-   <slot>saveSettings()</slot>
+   <slot>ApplyAndClose()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>304</x>
@@ -914,7 +914,7 @@
   </connection>
  </connections>
  <slots>
-  <slot>saveSettings()</slot>
+  <slot>ApplySettings()</slot>
   <slot>proxySwitcher()</slot>
   <slot>addGroup()</slot>
   <slot>browseSavepathGroup()</slot>
@@ -927,5 +927,6 @@
   <slot>showHint()</slot>
   <slot>showSelectedGroup(int)</slot>
   <slot>ApplyHandler()</slot>
+  <slot>ApplyAndClose()</slot>
  </slots>
 </ui>

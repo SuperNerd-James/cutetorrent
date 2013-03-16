@@ -138,34 +138,13 @@ void CreateTorrentDialog::BeginCreate()
 	createButton->setEnabled(false);
 	
 	creator  = new torrentCreatorThread(this);
-	
-	
-	
-	
-	
+
 	QObject::connect(creator,SIGNAL(updateProgress(int)),this,SLOT(UpdateProgressBar(int)));
-
-	
 	QObject::connect(creator,SIGNAL(ShowCreationSucces(QString)),this,SLOT(ShowCreationSucces(QString)));
-
-	
 	QObject::connect(creator,SIGNAL(ShowCreationFailture(QString)),this,SLOT(ShowCreationFailture(QString)));
+	QObject::connect(this,SIGNAL(AbortCreation()),creator,SLOT(terminate()));
 
-	
-	QObject::connect(this,SIGNAL(AbortCreation()),creator,SLOT(Abort()));
-/*	info->describtion	= discribtionEdit->text().toStdString();
-	info->filter		= filterEdit->text().toStdString();
-	
-	
-	
-	info->startSeed		= (startSeedCheckBox->checkState() == Qt::Checked);
-	
-	info->saveFileOrder	= (saveOrderCheckBox->checkState() == Qt::Checked);
-	
-	info->_private		= (privateCheckBox->checkState() == Qt::Checked);*/
-	
 	QStringList trackers=trackerEdit->toPlainText().split('\n');
-	
 	QStringList webseeds=webSeedEdit->toPlainText().split('\n');
 	
 	if (path.length()==0)

@@ -211,7 +211,7 @@
     <message>
         <location filename="CuteTorrent.cpp" line="74"/>
         <source>ABAUT_TEXT</source>
-        <translation>CuteTorrent-бесплатный торрент клиент с поддержкой DHT, возможностью монтировани образов в DaemonTools.
+        <translation>CuteTorrent %1 -бесплатный торрент клиент с поддержкой DHT, возможностью монтировани образов в DaemonTools.
 
 Если вы заплатили деньги за это програмное обеспечение потребуйте возврата денег.</translation>
     </message>

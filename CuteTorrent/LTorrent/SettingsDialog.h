@@ -37,7 +37,8 @@ public:
 signals:
 	void needRetranslate();
 private slots:
-	void saveSettings();
+	void ApplyAndClose();
+	void ApplySettings();
 	void proxySwitcher();
 	void addGroup();
 	void removeGroup();

@@ -144,7 +144,7 @@ void SettingsDialog::proxySwitcher()
 }
 
 
-void SettingsDialog::saveSettings()
+void SettingsDialog::ApplySettings()
 {
 	settings->setValue("Torrent","listen_port",qVariantFromValue(portEdit->text().toInt()));
 	settings->setValue("Torrent","active_limit",qVariantFromValue(activeLimitEdit->text().toInt()));
@@ -234,8 +234,6 @@ void SettingsDialog::saveSettings()
 	int curLocaleIndex=localeComboBox->currentIndex();
 	Application::setLanguage("cutetorrent_"+localeComboBox->currentText().toUpper());
 	settings->setValue("System","Lang",localeComboBox->currentText().toUpper());
-
-	close();
 }
 void SettingsDialog::ApplySettingsToSession()
 {
@@ -366,6 +364,12 @@ void SettingsDialog::browseDTPath()
 		tr("WHERE_DT"), lastDir , tr("DaemonTools Lite (DTLite.exe);;DaemonTools PRO (DTAgent.exe);;Any File (*.*)"));
 	
 	DTPathEdit->setText(QDir::toNativeSeparators(DTPath));
+}
+
+void SettingsDialog::ApplyAndClose()
+{
+	ApplySettings();
+	close();
 }
 
 
