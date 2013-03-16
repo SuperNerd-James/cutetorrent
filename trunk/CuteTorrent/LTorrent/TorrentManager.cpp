@@ -141,7 +141,7 @@ void TorrentManager::initSession()
 		while(!strm.atEnd())
 		{
 			line=strm.readLine();
-			magnet_links.insert(line);
+			magnet_links.insert(line );
 		}
 		magnetlinks.close();
 	}
@@ -169,9 +169,13 @@ void TorrentManager::initSession()
 	
 }
 bool yes2(libtorrent::torrent_status const&)
-{return true;}
+{
+	return true;
+}
 bool yes(libtorrent::torrent_status const&)
-{ return true; }
+{
+	return true; 
+}
 std::vector<torrent_status> TorrentManager::GetTorrents()
 {
 	std::vector<torrent_status> result;

@@ -32,8 +32,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTextCodec>
 #include <QtNetwork/QHostAddress>
 #include <QSortFilterProxyModel>
+#include <QClipboard>
 CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
-	: QMainWindow(parent, flags)
+	: QMainWindow(parent,flags)
 {
 	setupUi(this);
 	model = new QTorrentDisplayModel(listView,this);
@@ -418,6 +419,11 @@ void CuteTorrent::createTrayIcon()
 
 	 quitAction = new QAction(tr("ACTION_EXIT"), this);
 	 connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
+
+	 QAction* copyContext = new QAction(tr("ACTION_COPY"),describtionLabel);
+	 connect(copyContext, SIGNAL(triggered()), this, SLOT(copyDiscribtion()));
+	 describtionLabel->addAction(copyContext);
+
  }
 void CuteTorrent::ConnectMessageReceved(QtSingleApplication* a)
 {
@@ -463,7 +469,7 @@ void CuteTorrent::UpdateInfoTab()
 	Torrent* tor=model->GetSelectedTorrent();
 	if (tor!=NULL)
 	{
-		
+		fillPieceDisplay();	
 		downloadedBytesLabel->setText(tor->GetTotalDownloaded());
 		
 		uploadedBytesLabel->setText(tor->GetTotalUploaded());
@@ -482,13 +488,14 @@ void CuteTorrent::UpdateInfoTab()
 		
 		peerCoutLabel->setText(tor->GetPeerString());
 		
-		describtionLabel->setText("");
+		describtionLabel->setText(tor->GetDiscribtion());
 		
 		timeleftLabel->setText(tor->GetRemainingTime());
 		
 	}
 	else
 	{
+		clearPiecedisplay();
 		downloadedBytesLabel->setText("");
 		downloadSpeedLabel->setText("");
 		uploadedBytesLabel->setText("");
@@ -795,6 +802,8 @@ void CuteTorrent::keyPressEvent( QKeyEvent * event )
 			{
 				if(event->modifiers()==Qt::ShiftModifier)
 				{
+					
+
 					model->ActionOnSelectedItem(QTorrentDisplayModel::removeAll);
 				}
 				else
@@ -815,5 +824,51 @@ void CuteTorrent::keyPressEvent( QKeyEvent * event )
 			QMainWindow::keyPressEvent(event);
 			break;
 	}
+}
+
+void CuteTorrent::fillPieceDisplay()
+{
+	Torrent* tor=model->GetSelectedTorrent();
+	if (tor!=NULL)
+	{
+		int piece_count=tor->GetPieceCount();
+		QVector<int> avaliablePieces = tor->GetDownloadedPieces();
+		QVector<int> dwonloadingPieces = tor->GetDownloadingPieces();
+		QGraphicsScene *scene = new QGraphicsScene(this);
+		qreal pieceItemWidth  = (piceDwonloadedView->width())*1.0/piece_count;
+		qreal pieceItemHeight = piceDwonloadedView->height()*0.8;
+		for (int i=0;i<avaliablePieces.count();i++)
+		{
+			scene->addRect(avaliablePieces[i]*pieceItemWidth,0,pieceItemWidth,pieceItemHeight,QPen(Qt::darkBlue),QBrush(Qt::darkBlue));
+		}
+		for (int i=0;i<dwonloadingPieces.count();i++)
+		{
+			scene->addRect(dwonloadingPieces[i]*pieceItemWidth,0,pieceItemWidth,pieceItemHeight,QPen(Qt::green),QBrush(Qt::green));
+		}
+		piceDwonloadedView->scene()->deleteLater();
+		piceDwonloadedView->setScene(scene);
+		piceDwonloadedView->show();
+	}
+	
+}
+
+void CuteTorrent::copyDiscribtion()
+{
+	QClipboard *clipboard = QApplication::clipboard();
+	Torrent* tor=model->GetSelectedTorrent();
+	if (tor!=NULL)
+	{
+		clipboard->setText(tor->GetDiscribtion());
+	}
+	
+}
+
+void CuteTorrent::clearPiecedisplay()
+{
+	QGraphicsScene *scene = new QGraphicsScene(this);
+	scene->clear();
+	piceDwonloadedView->scene()->deleteLater();
+	piceDwonloadedView->setScene(scene);
+	piceDwonloadedView->show();
 }
 

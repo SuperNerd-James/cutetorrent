@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QStringList>
 #include <QIcon>
 #include <QList>
+#include <QVector>
 #include <QFileIconProvider>
 #include <QMessageBox>
 class TorrentManager;
@@ -71,6 +72,7 @@ public :
 	QString GetSeedString();
 	QString GetPeerString();
 	QString GetName() const;
+	QString GetDiscribtion();
 	QString GetHashString() const;
 	int GetProgress() const;
 	int GetPeerCount();
@@ -85,6 +87,9 @@ public :
 	bool isDaemonToolsMountable();
 	bool isSquential() const;
 	bool hasError() const;	
+	int GetPieceCount();
+	QVector<int> GetDownloadedPieces();
+	QVector<int> GetDownloadingPieces();
 	QString GetStatusString() const;
 	QString GetProgresString() const;
 	QString GetDwonloadSpeed() const;
