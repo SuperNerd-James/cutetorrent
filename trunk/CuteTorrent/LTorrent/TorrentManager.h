@@ -138,11 +138,11 @@ private:
 	void handle_alert(alert*);
 	void writeSettings();
 	QMap<QString,QString> save_path_data;
-	QSet<QString> magnet_links;
+    QMap<QString,QString> magnet_links;
 	libtorrent::session* ses;
 	QApplicationSettings* torrentSettings;
 	int save_file(std::string const& filename, std::vector<char>& v);
-	
+    void UpdatePathResumeAndLinks();
 //settingsData TODO implement a container
 	QString DTInstallPath;
 	int max_connections_per_torrent;
@@ -171,6 +171,7 @@ public:
 	void PostTorrentUpdate();
 	void RemoveTorrent(torrent_handle h,bool dellfiles=false);
 	torrent_handle ProcessMagnetLink(QString link);
+    void CancelMagnetLink(QString link);
 protected:
 };
 Q_DECLARE_METATYPE(opentorrent_info);

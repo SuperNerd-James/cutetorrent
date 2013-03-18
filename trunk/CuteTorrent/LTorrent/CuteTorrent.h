@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "UpdateNotyfier.h"
 #include <QMutex>
 #include <QtNetwork/QHostAddress>
-#include "CustomWindow.h"
+#include "CustomStyling/customwindow.h"
 Q_DECLARE_METATYPE(QHostAddress)
 class CuteTorrent : public QMainWindow , private Ui::CuteTorrentClass
 {
@@ -53,16 +53,16 @@ public:
 
 	void ConnectMessageReceved(QtSingleApplication* a);
 	
-	~CuteTorrent();
+    ~CuteTorrent();
 protected:
 	
 	void changeEvent(QEvent *event);
 	void resizeEvent ( QResizeEvent * event );
 	void closeEvent(QCloseEvent* ce);
 	/*void mouseMoveEvent(QMouseEvent* event);
-	void mousePressEvent(QMouseEvent* event); 
+    void mousePressEvent(QMouseEvent* event); */
 	void dragEnterEvent(QDragEnterEvent *event);
-	void dropEvent(QDropEvent *event);*/
+    void dropEvent(QDropEvent *event);
 	void keyPressEvent ( QKeyEvent * event );
 private:
 	int  m_nMouseClick_X_Coordinate;
@@ -73,10 +73,11 @@ private:
 	bool mayShowNotifies;
 	QSystemTrayIcon *trayIcon;
 	QMenu *trayIconMenu;
-	QAction *minimizeAction;
-    QAction *maximizeAction;
-    QAction *restoreAction;
-    QAction *quitAction;
+	QAction* minimizeAction;
+    QAction* maximizeAction;
+    QAction* restoreAction;
+    QAction* quitAction;
+	QAction* copyContext;
 	QLabel* upLabelText, *upLabel;
 	QLabel* downLabelText, *downLabel;
 	QTorrentDisplayModel* model;
@@ -138,7 +139,7 @@ private slots:
 	void ProcessMagnet();
 	void peformSearch();
 	void copyDiscribtion();
-	void clearPiecedisplay();
+	void clearPieceDisplay();
 };
 
 #endif // LTORRENT_H

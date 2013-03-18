@@ -51,6 +51,7 @@ private:
 	FileTreeModel* model;
 	void setupGroupComboBox();
 private slots:
+    virtual void reject();
 	void BrowseButton();
 	void AccepTorrent();
 	void ChangeGroup();

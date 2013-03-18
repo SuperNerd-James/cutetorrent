@@ -36,14 +36,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent,flags)
 {
-	setupUi(this);
-	model = new QTorrentDisplayModel(listView,this);
-	
+    setupUi(this);
+    model = new QTorrentDisplayModel(listView,this);
+
 	mng = TorrentManager::getInstance();
 	notyfire = new UpdateNotifier();
 	mayShowNotifies = false;
 	fileinfosLocker = new QMutex(QMutex::NonRecursive);
-	
+    setAcceptDrops(true);
 	setupStatusBar();
 	setupTray();
 	setupToolBar();
@@ -129,6 +129,7 @@ void CuteTorrent::setupTabelWidgets()
 	trackerTableWidget->verticalHeader()->hide();
 	trackerTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
 	trackerTableWidget->setColumnWidth(2,120);
+    fileTableWidget->setSortingEnabled(true);
 	peerTableWidget->verticalHeader()->hide();
 	peerTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
 	peerTableWidget->setSortingEnabled(true);
@@ -305,6 +306,7 @@ void CuteTorrent::UpdateFileTab()
 			
 			fileTableWidget->setItem(i,3,new QTableWidgetItem(StaticHelpers::filePriorityToString(current.prioiry)));
 		}
+        fileTableWidget->resizeColumnsToContents();
 		fileinfosLocker->unlock();
 	}
 	else
@@ -351,6 +353,7 @@ void CuteTorrent::changeEvent(QEvent *event)
 		maximizeAction->setText(tr("ACTION_MAXIMIZE_FULLSCREEN"));
 		restoreAction->setText(tr("ACTION_MAXIMIZE"));
 		quitAction->setText(tr("ACTION_EXIT"));
+		copyContext->setText(tr("ACTION_COPY"));
 
 		downLabel->setToolTip(tr("STATUS_DWONLOAD"));
 		downLabelText->setToolTip(tr("STATUS_DWONLOAD"));
@@ -420,7 +423,7 @@ void CuteTorrent::createTrayIcon()
 	 quitAction = new QAction(tr("ACTION_EXIT"), this);
 	 connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
 
-	 QAction* copyContext = new QAction(tr("ACTION_COPY"),describtionLabel);
+	 copyContext = new QAction(tr("ACTION_COPY"),describtionLabel);
 	 connect(copyContext, SIGNAL(triggered()), this, SLOT(copyDiscribtion()));
 	 describtionLabel->addAction(copyContext);
 
@@ -471,31 +474,20 @@ void CuteTorrent::UpdateInfoTab()
 	{
 		fillPieceDisplay();	
 		downloadedBytesLabel->setText(tor->GetTotalDownloaded());
-		
 		uploadedBytesLabel->setText(tor->GetTotalUploaded());
-		
 		downloadSpeedLabel->setText(tor->GetDwonloadSpeed());
-		
 		activetimeLabel->setText(tor->GetActiveTime());
-		
 		uploadSpeedLabel->setText(tor->GetUploadSpeed());
-		
 		pathLabel->setText(tor->GetSavePath());
-		
 		totalSizeLabel->setText(tor->GetTotalSize());
-		
 		seedCoutLabel->setText(tor->GetSeedString());
-		
 		peerCoutLabel->setText(tor->GetPeerString());
-		
 		describtionLabel->setText(tor->GetDiscribtion());
-		
 		timeleftLabel->setText(tor->GetRemainingTime());
-		
 	}
 	else
 	{
-		clearPiecedisplay();
+		clearPieceDisplay();
 		downloadedBytesLabel->setText("");
 		downloadSpeedLabel->setText("");
 		uploadedBytesLabel->setText("");
@@ -532,6 +524,7 @@ void CuteTorrent::UpdatePeerTab()
 			peerTableWidget->setItem(i,5,new QTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].total_download)));
 			peerTableWidget->setItem(i,6,new QTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].total_upload)));
 		}
+        peerTableWidget->resizeColumnsToContents();
 	
 	}
 	else
@@ -548,13 +541,14 @@ void CuteTorrent::UpadteTrackerTab()
 		
 		trackerTableWidget->setRowCount(trackers.size());
 		
-		for (int i=0;i<trackers.size();i++)
+        for (size_type i=0;i<trackers.size();i++)
 		{
 			trackerTableWidget->setItem(i,0,new QTableWidgetItem(trackers[i].url.c_str()));
 			trackerTableWidget->setItem(i,1,new QTableWidgetItem(trackers[i].message.length() >0 ? QString::fromUtf8(trackers[i].message.c_str()) : "Ok" ));
 			trackerTableWidget->setItem(i,2,new QTableWidgetItem(StaticHelpers::toTimeString(trackers[i].next_announce_in())));
 		
 		}
+        trackerTableWidget->resizeColumnsToContents();
 		
 	
 	}
@@ -598,7 +592,59 @@ void CuteTorrent::closeEvent(QCloseEvent* ce)
 	setUpdatesEnabled(false);
 	return;
 	
-	
+
+}
+
+void CuteTorrent::dragEnterEvent(QDragEnterEvent *event)
+{
+    foreach (const QString &mime, event->mimeData()->formats())
+    {
+       qDebug("mimeData: %s", mime.toLocal8Bit().data());
+    }
+    if (event->mimeData()->hasFormat(QString("text/plain")) || event->mimeData()->hasFormat(QString("text/uri-list")))
+    {
+        event->acceptProposedAction();
+    }
+}
+
+void CuteTorrent::dropEvent(QDropEvent *event)
+{
+    QStringList files;
+    if (event->mimeData()->hasUrls())
+    {
+        const QList<QUrl> urls = event->mimeData()->urls();
+        foreach (const QUrl &url, urls)
+        {
+            if (!url.isEmpty())
+            {
+                if (url.scheme().compare("file", Qt::CaseInsensitive) == 0)
+                    files << url.toLocalFile();
+                else
+                    files << url.toString();
+            }
+        }
+     }
+    else
+    {
+        files = event->mimeData()->text().split(QString::fromUtf8("\n"));
+    }
+    foreach(QString file,files)
+    {
+        if (file.startsWith("magnet:", Qt::CaseInsensitive) || file.endsWith(".torrent",Qt::CaseInsensitive))
+        {
+            OpenTorrentDialog* dlg2 = new OpenTorrentDialog();
+            dlg2->SetData(file);
+            dlg2->exec();
+            delete dlg2;
+            event->acceptProposedAction();
+        }
+        else
+        {
+            qDebug() << file;
+        }
+    }
+
+
 }
 CuteTorrent::~CuteTorrent()
 {
@@ -784,7 +830,8 @@ void CuteTorrent::peformSearch()
 
 void CuteTorrent::resizeEvent( QResizeEvent * event )
 {
-	QTorrentItemDelegat::max_width=width()-110;
+    Q_UNUSED(event);
+    QTorrentItemDelegat::max_width=width()-QApplication::style( )->pixelMetric( QStyle::PM_MessageBoxIconSize )-54;
 }
 
 void CuteTorrent::showTorrentInfoNotyfy( const QString name,const QString info)
@@ -863,7 +910,7 @@ void CuteTorrent::copyDiscribtion()
 	
 }
 
-void CuteTorrent::clearPiecedisplay()
+void CuteTorrent::clearPieceDisplay()
 {
 	QGraphicsScene *scene = new QGraphicsScene(this);
 	scene->clear();

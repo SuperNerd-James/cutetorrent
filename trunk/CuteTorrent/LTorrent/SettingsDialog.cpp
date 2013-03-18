@@ -85,7 +85,7 @@ void SettingsDialog::FillTorrentTab()
 	activeSeedLimitEdit->setText(settings->valueString("Torrent","active_seeds"));
 	activeDownloadLimitEdit->setText(settings->valueString("Torrent","active_downloads"));
 	bool useProxy=settings->valueBool("Torrent","useProxy");
-	useProxyCheckBox->setCheckState(useProxy ? Qt::Checked :Qt::Unchecked);
+	proxyGroupBox->setChecked(useProxy);
 	if (useProxy)
 	{
 		proxyHostEdit->setText(QString("%1:%2").arg(settings->valueString("Torrent",
@@ -112,7 +112,7 @@ void SettingsDialog::FillDTTab()
 	driveNumberComboBox->setCurrentIndex(driveNumber < driveNumberComboBox->count() ? driveNumber : 0);
 	settings->setValue("DT","DefaultCommand","-mount dt,%1,\"%2\"");
 	bool useCustomCommand=settings->valueBool("DT","UseCustomCommand");
-	customMountCheckBox->setChecked(useCustomCommand);
+	customMoutGroupBox->setChecked(useCustomCommand);
 	customCommandEdit->setText( (useCustomCommand ? settings->valueString("DT","CustomtCommand") : settings->valueString("DT","DefaultCommand")));
 }
 
@@ -136,11 +136,11 @@ SettingsDialog::~SettingsDialog()
 }
 void SettingsDialog::customCommandSwitcher()
 {
-	customMoutGroupBox->setEnabled(customMountCheckBox->checkState()==Qt::Checked);
+
 }
 void SettingsDialog::proxySwitcher()
 {
-	proxyGroupBox->setEnabled(useProxyCheckBox->checkState()==Qt::Checked);
+
 }
 
 
@@ -154,8 +154,8 @@ void SettingsDialog::ApplySettings()
 
 	settings->setValue("Torrent","upload_rate_limit",qVariantFromValue(uploadLimitEdit->text().split(' ').at(0).toInt()*1024));
 	settings->setValue("Torrent","download_rate_limit",qVariantFromValue(downloadLimitEdit->text().split(' ').at(0).toInt()*1024));
-	settings->setValue("Torrent","useProxy",qVariantFromValue(useProxyCheckBox->checkState()==Qt::Checked));
-	if (useProxyCheckBox->checkState()==Qt::Checked)
+	settings->setValue("Torrent","useProxy",qVariantFromValue(proxyGroupBox->isChecked()));
+	if (proxyGroupBox->isChecked())
 	{
 		QStringList iport= proxyHostEdit->text().split(':');
 		if (iport.count()==2)
@@ -179,7 +179,7 @@ void SettingsDialog::ApplySettings()
 	settings->setValue("DT","Executable",DTPathEdit->text());
 	settings->setValue("DT","Drive",driveNumberComboBox->currentIndex());
 	settings->setValue("DT","DefaultCommand","-mount dt,%1,\"%2\"");
-	settings->setValue("DT","UseCustomCommand",(customMountCheckBox->checkState()==Qt::Checked));
+	settings->setValue("DT","UseCustomCommand",(customMoutGroupBox->isChecked()));
 	settings->setValue("DT","CustomtCommand",customCommandEdit->text());
 	settings->SaveFilterGropups(filterGroups);
 #ifdef Q_WS_WIN //file association for windows
