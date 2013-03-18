@@ -68,7 +68,7 @@ void OpenTorrentDialog::SetData(QString filename)
 		loaderGifLabel->setMovie(movie);
 		movie->start();
 		qRegisterMetaType<openmagnet_info>("openmagnet_info");
-		magnetWaiter = new MetaDataDownloadWaiter(filename);
+		MetaDataDownloadWaiter* magnetWaiter = new MetaDataDownloadWaiter(filename);
 		if (!QObject::connect(magnetWaiter,SIGNAL(DownloadCompleted(openmagnet_info)),this,SLOT(DownloadMetadataCompleted(openmagnet_info))))
 			QMessageBox::critical(this,"ERROR","NOT_CONNECTID");
 		magnetWaiter->start(QThread::HighPriority);

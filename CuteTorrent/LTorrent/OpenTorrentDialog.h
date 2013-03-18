@@ -42,7 +42,6 @@ public:
 	
 	int execConditional();
 private:
-	MetaDataDownloadWaiter* magnetWaiter;
 	QList<GroupForFileFiltering> filters;
 	bool validTorrent;
 	TorrentManager* mgr;
