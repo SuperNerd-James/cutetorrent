@@ -38,7 +38,13 @@ OpenTorrentDialog::OpenTorrentDialog(QWidget *parent, Qt::WFlags flags)
 void OpenTorrentDialog::setupGroupComboBox()
 {
 
-	
+
+}
+
+void OpenTorrentDialog::reject()
+{
+    mgr->CancelMagnetLink(torrentFilename);
+    QDialog::reject();
 }
 int OpenTorrentDialog::execConditional()
 {

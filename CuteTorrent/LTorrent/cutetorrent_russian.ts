@@ -159,44 +159,44 @@
         <translation>Выбирите файл</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.cpp" line="172"/>
-        <location filename="CreateTorrentDialog.cpp" line="187"/>
+        <location filename="CreateTorrentDialog.cpp" line="151"/>
+        <location filename="CreateTorrentDialog.cpp" line="166"/>
         <source>ERROR_STR</source>
         <translation>Ошибка</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.cpp" line="173"/>
+        <location filename="CreateTorrentDialog.cpp" line="152"/>
         <source>ERROR_NO_FILE_OR_FOLDER_NAME</source>
         <translation>Вы не указали файл или папку</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.cpp" line="188"/>
+        <location filename="CreateTorrentDialog.cpp" line="167"/>
         <source>ERROR_NO_TRACKERS</source>
         <translation>Вы не ввели ни одного трекера.
 Вы уверенны что хотите продолжить?</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.cpp" line="206"/>
-        <location filename="CreateTorrentDialog.cpp" line="223"/>
-        <location filename="CreateTorrentDialog.cpp" line="233"/>
+        <location filename="CreateTorrentDialog.cpp" line="185"/>
+        <location filename="CreateTorrentDialog.cpp" line="202"/>
+        <location filename="CreateTorrentDialog.cpp" line="212"/>
         <source>CREATE_TORRENT_DIALOG</source>
         <translation>Создание торрента</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.cpp" line="224"/>
+        <location filename="CreateTorrentDialog.cpp" line="203"/>
         <source>CREATE_TORRENT_SUCCES_SAVED %1</source>
         <translation>Создание торрента прошло успешно.
 %1</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.cpp" line="234"/>
+        <location filename="CreateTorrentDialog.cpp" line="213"/>
         <source>CREATE_TORRENT_FILE_ERROR
  %1</source>
         <translation>Произошла ошибка при создании торрента:
 %1</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.cpp" line="207"/>
+        <location filename="CreateTorrentDialog.cpp" line="186"/>
         <source>Òîððåíò ôàéëû (*.torrent)</source>
         <translation>Торрент файл (*.torrent)</translation>
     </message>
@@ -204,92 +204,97 @@
 <context>
     <name>CuteTorrent</name>
     <message>
-        <location filename="CuteTorrent.cpp" line="74"/>
+        <location filename="CuteTorrent.cpp" line="77"/>
         <source>ABAUT_TITLE</source>
         <translation>О CuteTorrent</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="74"/>
+        <location filename="CuteTorrent.cpp" line="77"/>
         <source>ABAUT_TEXT</source>
         <translation>CuteTorrent %1 -бесплатный торрент клиент с поддержкой DHT, возможностью монтировани образов в DaemonTools.
 
 Если вы заплатили деньги за это програмное обеспечение потребуйте возврата денег.</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="79"/>
+        <location filename="CuteTorrent.cpp" line="82"/>
         <source>CT_NEW_VERSION %1</source>
         <translation>Вышла новая версия %1</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="108"/>
-        <location filename="CuteTorrent.cpp" line="109"/>
-        <location filename="CuteTorrent.cpp" line="356"/>
+        <location filename="CuteTorrent.cpp" line="111"/>
+        <location filename="CuteTorrent.cpp" line="112"/>
         <location filename="CuteTorrent.cpp" line="357"/>
+        <location filename="CuteTorrent.cpp" line="358"/>
         <source>STATUS_UPLOAD</source>
         <translation>Отдано(Отдача)</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="106"/>
-        <location filename="CuteTorrent.cpp" line="107"/>
-        <location filename="CuteTorrent.cpp" line="354"/>
+        <location filename="CuteTorrent.cpp" line="109"/>
+        <location filename="CuteTorrent.cpp" line="110"/>
         <location filename="CuteTorrent.cpp" line="355"/>
+        <location filename="CuteTorrent.cpp" line="356"/>
         <source>STATUS_DWONLOAD</source>
         <translation>Загруженно(Загрузка)</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="231"/>
+        <location filename="CuteTorrent.cpp" line="233"/>
         <source>CT_ERROR %1
 %2</source>
         <translation>Произошла ошибка при загрузке торрента %1:
 %2</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="238"/>
+        <location filename="CuteTorrent.cpp" line="240"/>
         <source>CT_DOWNLOAD_COMPLETE %1</source>
         <translation>Завершилась загрузка торрента %1</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="444"/>
+        <location filename="CuteTorrent.cpp" line="450"/>
         <source>Òîððåíò ôàéëû (*.torrent);;Any File (*.*)</source>
         <translation>Торент файл (*.torrent);;Any File (*.*)</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="590"/>
+        <location filename="CuteTorrent.cpp" line="596"/>
         <source>CT_HIDE_MSG</source>
         <translation>CuteTrrent Продолжает работать. Что бы выйти используйте контекстное меню в области уведомлений.</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="341"/>
-        <location filename="CuteTorrent.cpp" line="622"/>
+        <location filename="CuteTorrent.cpp" line="342"/>
+        <location filename="CuteTorrent.cpp" line="626"/>
         <source>FILETAB_OPEN_FILE</source>
         <translation>Открыть файл</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="349"/>
-        <location filename="CuteTorrent.cpp" line="410"/>
+        <location filename="CuteTorrent.cpp" line="350"/>
+        <location filename="CuteTorrent.cpp" line="411"/>
         <source>ACTION_HIDE</source>
         <translation>Свернуть</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="350"/>
-        <location filename="CuteTorrent.cpp" line="413"/>
+        <location filename="CuteTorrent.cpp" line="351"/>
+        <location filename="CuteTorrent.cpp" line="414"/>
         <source>ACTION_MAXIMIZE_FULLSCREEN</source>
         <translation>Развернуть на весь экран</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="351"/>
-        <location filename="CuteTorrent.cpp" line="416"/>
+        <location filename="CuteTorrent.cpp" line="352"/>
+        <location filename="CuteTorrent.cpp" line="417"/>
         <source>ACTION_MAXIMIZE</source>
         <translation>Развернуть</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="352"/>
-        <location filename="CuteTorrent.cpp" line="419"/>
+        <location filename="CuteTorrent.cpp" line="353"/>
+        <location filename="CuteTorrent.cpp" line="420"/>
         <source>ACTION_EXIT</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="443"/>
+        <location filename="CuteTorrent.cpp" line="423"/>
+        <source>ACTION_COPY</source>
+        <translation>Копировать</translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.cpp" line="449"/>
         <source>OPEN_TOORENT_DIALOG</source>
         <translation>Выбирите торрент файл</translation>
     </message>
@@ -299,38 +304,38 @@
         <translation type="obsolete">Открыть  файл</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="342"/>
-        <location filename="CuteTorrent.cpp" line="625"/>
+        <location filename="CuteTorrent.cpp" line="343"/>
+        <location filename="CuteTorrent.cpp" line="629"/>
         <source>FILETAB_OPEN_FOLDER</source>
         <translation>Открыть папку</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="343"/>
-        <location filename="CuteTorrent.cpp" line="630"/>
+        <location filename="CuteTorrent.cpp" line="344"/>
+        <location filename="CuteTorrent.cpp" line="634"/>
         <source>FILETAB_PRIORITY</source>
         <translation>Приоритет</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="344"/>
-        <location filename="CuteTorrent.cpp" line="631"/>
+        <location filename="CuteTorrent.cpp" line="345"/>
+        <location filename="CuteTorrent.cpp" line="635"/>
         <source>FILETAB_PRIORITY_LOW</source>
         <translation>Низкий</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="345"/>
-        <location filename="CuteTorrent.cpp" line="635"/>
+        <location filename="CuteTorrent.cpp" line="346"/>
+        <location filename="CuteTorrent.cpp" line="639"/>
         <source>FILETAB_PRIORITY_MEDIUM</source>
         <translation>Средний</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="346"/>
-        <location filename="CuteTorrent.cpp" line="639"/>
+        <location filename="CuteTorrent.cpp" line="347"/>
+        <location filename="CuteTorrent.cpp" line="643"/>
         <source>FILETAB_PRIORITY_HIGH</source>
         <translation>Высокий</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="347"/>
-        <location filename="CuteTorrent.cpp" line="645"/>
+        <location filename="CuteTorrent.cpp" line="348"/>
+        <location filename="CuteTorrent.cpp" line="649"/>
         <source>FILETAB_PRIORITY_ZERO</source>
         <translation>Не загружать</translation>
     </message>
@@ -348,264 +353,264 @@
         <translation>Информация</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="83"/>
+        <location filename="CuteTorrent.ui" line="93"/>
         <source>INFO_DESCRIBTION</source>
         <translation>Описание</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="90"/>
+        <location filename="CuteTorrent.ui" line="107"/>
         <source>INFO_SEED_COUNT</source>
         <translation>Сидов:</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="104"/>
+        <location filename="CuteTorrent.ui" line="121"/>
         <source>INFO_UPLOAD_SPEED</source>
         <translation>Отдача</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="111"/>
+        <location filename="CuteTorrent.ui" line="135"/>
         <source>INFO_PEER_COUNT</source>
         <translation>Пиров:</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="125"/>
+        <location filename="CuteTorrent.ui" line="128"/>
         <source>INFO_DOWNLOADED</source>
         <translation>Загружено</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="132"/>
+        <location filename="CuteTorrent.ui" line="149"/>
         <source>INFO_DOWNLOAD_SPEED</source>
         <translation>Загрузка</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="146"/>
+        <location filename="CuteTorrent.ui" line="156"/>
         <source>INFO_REMAININF_TIME</source>
         <translation>Осталось</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="160"/>
+        <location filename="CuteTorrent.ui" line="191"/>
         <source>INFO_PATH</source>
         <translation>Путь</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="167"/>
+        <location filename="CuteTorrent.ui" line="170"/>
         <source>INFO_TOTAL_SIZE</source>
         <translation>Размер</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="174"/>
+        <location filename="CuteTorrent.ui" line="219"/>
         <source>INFO_ACTIVE_TIME</source>
         <translation>Прошло</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="181"/>
+        <location filename="CuteTorrent.ui" line="177"/>
         <source>INFO_UPLOADED</source>
         <translation>Отданно</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="224"/>
+        <location filename="CuteTorrent.ui" line="249"/>
         <source>TAB_PEERS</source>
         <translation>Пиры</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="255"/>
+        <location filename="CuteTorrent.ui" line="280"/>
         <source>PEER_IP</source>
         <translation>IP</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="260"/>
+        <location filename="CuteTorrent.ui" line="285"/>
         <source>PEER_CLIENT_NAME</source>
         <translation>Клиент</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="265"/>
+        <location filename="CuteTorrent.ui" line="290"/>
         <source>PEER_%</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="270"/>
+        <location filename="CuteTorrent.ui" line="295"/>
         <source>PEER_DOWNLOAD_SPEED</source>
         <translation>Загрузка</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="275"/>
+        <location filename="CuteTorrent.ui" line="300"/>
         <source>PEER_UPLOAD_SPEED</source>
         <translation>Отдача</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="280"/>
+        <location filename="CuteTorrent.ui" line="305"/>
         <source>PEER_DOWNLOADED</source>
         <translation>Загружено</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="285"/>
+        <location filename="CuteTorrent.ui" line="310"/>
         <source>PEER_UPLOADED</source>
         <translation>Отдано</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="294"/>
+        <location filename="CuteTorrent.ui" line="319"/>
         <source>TAB_TRACKERS</source>
         <translation>Трекеры</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="325"/>
+        <location filename="CuteTorrent.ui" line="350"/>
         <source>TRACKER_URL</source>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="330"/>
+        <location filename="CuteTorrent.ui" line="355"/>
         <source>TRACKER_STATUS</source>
         <translation>Состояние</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="335"/>
+        <location filename="CuteTorrent.ui" line="360"/>
         <source>TRACKER_NEXT_ANNOUNCE</source>
         <translation>Обновление через</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="344"/>
+        <location filename="CuteTorrent.ui" line="369"/>
         <source>TAB_FILES</source>
         <translation>Файлы</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="378"/>
+        <location filename="CuteTorrent.ui" line="403"/>
         <source>FILES_PATH</source>
         <translation>Путь</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="383"/>
+        <location filename="CuteTorrent.ui" line="408"/>
         <source>FILES_SIZE</source>
         <translation>Размер</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="388"/>
+        <location filename="CuteTorrent.ui" line="413"/>
         <source>FILES_READY</source>
         <translation>Готово</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="393"/>
+        <location filename="CuteTorrent.ui" line="418"/>
         <source>FILES_PRIORITY</source>
         <translation>Приоритет</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="430"/>
+        <location filename="CuteTorrent.ui" line="446"/>
         <source>MENU_FILE</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="441"/>
+        <location filename="CuteTorrent.ui" line="457"/>
         <source>MENU_SETTINGS</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="447"/>
+        <location filename="CuteTorrent.ui" line="463"/>
         <source>MENU_HELP</source>
         <translation>Справка</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="462"/>
+        <location filename="CuteTorrent.ui" line="478"/>
         <source>toolBar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="484"/>
+        <location filename="CuteTorrent.ui" line="500"/>
         <source>MENU_OPEN_TORRENT</source>
         <translation>Открыть торрент</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="487"/>
+        <location filename="CuteTorrent.ui" line="503"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="498"/>
+        <location filename="CuteTorrent.ui" line="514"/>
         <source>MENU_OPEN_MAGNET</source>
         <translation>Открыть magnet сслыку</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="501"/>
+        <location filename="CuteTorrent.ui" line="517"/>
         <source>Ctrl+M</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="506"/>
+        <location filename="CuteTorrent.ui" line="522"/>
         <source>MENU_CREATE_TORRENT</source>
         <translation>Создать  торрент</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="509"/>
+        <location filename="CuteTorrent.ui" line="525"/>
         <source>Ctrl+C</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="514"/>
+        <location filename="CuteTorrent.ui" line="530"/>
         <source>MENU_EXIT</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="517"/>
+        <location filename="CuteTorrent.ui" line="533"/>
         <source>Alt+X</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="522"/>
+        <location filename="CuteTorrent.ui" line="538"/>
         <source>MENU_CONFIGURATION</source>
         <translation>Конфигурация</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="525"/>
+        <location filename="CuteTorrent.ui" line="541"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="534"/>
+        <location filename="CuteTorrent.ui" line="550"/>
         <source>STR_PAUSE</source>
         <translation>Пауза</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="546"/>
+        <location filename="CuteTorrent.ui" line="562"/>
         <source>STR_START</source>
         <translation>Возобновить</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="583"/>
+        <location filename="CuteTorrent.ui" line="599"/>
         <source>Ctrl+U</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="592"/>
+        <location filename="CuteTorrent.ui" line="608"/>
         <source>STR_SETTINGS</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="537"/>
+        <location filename="CuteTorrent.ui" line="553"/>
         <source>HINT_PAUSE</source>
         <translation>Пауза</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="549"/>
+        <location filename="CuteTorrent.ui" line="565"/>
         <source>HINT_RESUME</source>
         <translation>Возобновить</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="558"/>
-        <location filename="CuteTorrent.ui" line="564"/>
+        <location filename="CuteTorrent.ui" line="574"/>
+        <location filename="CuteTorrent.ui" line="580"/>
         <source>STR_REMOVE</source>
         <oldsource>remove</oldsource>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="561"/>
+        <location filename="CuteTorrent.ui" line="577"/>
         <source>HINT_REMOVE</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="569"/>
+        <location filename="CuteTorrent.ui" line="585"/>
         <source>MENU_ABAUT</source>
         <translation>O CuteTorrent</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="580"/>
+        <location filename="CuteTorrent.ui" line="596"/>
         <source>MENU_CHECK_UPDATES</source>
         <translation>Проверить обновления</translation>
     </message>
@@ -644,14 +649,12 @@
 <context>
     <name>MultipleDTDialog</name>
     <message>
-        <location filename="MultipleDTDialog.cpp" line="72"/>
         <source>ERROR_DT_PATH_NOT_SET</source>
-        <translation>Не указан путь к DaemonTools</translation>
+        <translation type="obsolete">Не указан путь к DaemonTools</translation>
     </message>
     <message>
-        <location filename="MultipleDTDialog.cpp" line="88"/>
         <source>LAUNCH_ERROR</source>
-        <translation>Не удалось запустить </translation>
+        <translation type="obsolete">Не удалось запустить </translation>
     </message>
 </context>
 <context>
@@ -730,7 +733,7 @@
         <translation>Открыть</translation>
     </message>
     <message>
-        <location filename="OpenTorrentDialog.cpp" line="134"/>
+        <location filename="OpenTorrentDialog.cpp" line="139"/>
         <source>DIALOF_OPEN_DIR</source>
         <oldsource>Open Directory</oldsource>
         <translation>Выбирите папку</translation>
@@ -749,15 +752,15 @@
         <translation>%1 дней </translation>
     </message>
     <message>
-        <location filename="TorrentManager.cpp" line="662"/>
+        <location filename="TorrentManager.cpp" line="652"/>
         <source>ERROR_OPENING_FILE
 %1</source>
         <translation>Не удалось открыть файл
 %1</translation>
     </message>
     <message>
-        <location filename="Torrent.cpp" line="537"/>
-        <location filename="Torrent.cpp" line="549"/>
+        <location filename="Torrent.cpp" line="557"/>
+        <location filename="Torrent.cpp" line="569"/>
         <source>CT_CONNECTED %1 CT_FROM %2</source>
         <oldsource>CT_CONNECTED %1 ?? %2</oldsource>
         <translation>Подключено %1 из %2</translation>
@@ -766,65 +769,65 @@
 <context>
     <name>QTorrentDisplayModel</name>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="37"/>
-        <location filename="QTorrentDisplayModel.cpp" line="513"/>
+        <location filename="QTorrentDisplayModel.cpp" line="38"/>
+        <location filename="QTorrentDisplayModel.cpp" line="474"/>
         <source>ACTION_OPEN_FOLDER</source>
         <translation>Открыть папку</translation>
     </message>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="41"/>
-        <location filename="QTorrentDisplayModel.cpp" line="514"/>
+        <location filename="QTorrentDisplayModel.cpp" line="42"/>
+        <location filename="QTorrentDisplayModel.cpp" line="475"/>
         <source>ACTION_DT_MOUNT</source>
         <translation>Смонтировать в Daemon Tools</translation>
     </message>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="47"/>
-        <location filename="QTorrentDisplayModel.cpp" line="519"/>
+        <location filename="QTorrentDisplayModel.cpp" line="48"/>
+        <location filename="QTorrentDisplayModel.cpp" line="480"/>
         <source>ACTION_UPDATE_TRACKERS</source>
         <translation>Обновить трекеры</translation>
     </message>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="50"/>
-        <location filename="QTorrentDisplayModel.cpp" line="518"/>
+        <location filename="QTorrentDisplayModel.cpp" line="51"/>
+        <location filename="QTorrentDisplayModel.cpp" line="479"/>
         <source>ACTION_SET_SEQUENTIAL</source>
         <translation>Последовательная загрузка</translation>
     </message>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="56"/>
-        <location filename="QTorrentDisplayModel.cpp" line="520"/>
+        <location filename="QTorrentDisplayModel.cpp" line="57"/>
+        <location filename="QTorrentDisplayModel.cpp" line="481"/>
         <source>ACTION_MOVE_STORRAGE</source>
         <translation>Переместить в...</translation>
     </message>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="61"/>
-        <location filename="QTorrentDisplayModel.cpp" line="515"/>
+        <location filename="QTorrentDisplayModel.cpp" line="62"/>
+        <location filename="QTorrentDisplayModel.cpp" line="476"/>
         <source>ACTION_DELETE_ALL</source>
         <translation>Удалить файлы и торрент</translation>
     </message>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="64"/>
-        <location filename="QTorrentDisplayModel.cpp" line="516"/>
+        <location filename="QTorrentDisplayModel.cpp" line="65"/>
+        <location filename="QTorrentDisplayModel.cpp" line="477"/>
         <source>ACTION_DELETE_TORRENT</source>
         <translation>Удалить торрент</translation>
     </message>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="189"/>
+        <location filename="DT_mounter.cpp" line="13"/>
         <source>DT_PATH_NOT_SET</source>
         <translation>Не указан путь к DaemonTools.</translation>
     </message>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="203"/>
+        <location filename="DT_mounter.cpp" line="27"/>
         <source>LAUNCH_ERROR</source>
         <translation>Неудалось запустить.</translation>
     </message>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="547"/>
+        <location filename="QTorrentDisplayModel.cpp" line="508"/>
         <source>DIALOG_OPEN_FOLDER</source>
         <translation>Выбирите папку</translation>
     </message>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="44"/>
-        <location filename="QTorrentDisplayModel.cpp" line="517"/>
+        <location filename="QTorrentDisplayModel.cpp" line="45"/>
+        <location filename="QTorrentDisplayModel.cpp" line="478"/>
         <source>ACTION_REHASH</source>
         <translation>Обновить хеш</translation>
     </message>
@@ -832,17 +835,17 @@
 <context>
     <name>QTorrentItemDelegat</name>
     <message>
-        <location filename="QTorrentItemDelegat.cpp" line="182"/>
+        <location filename="QTorrentItemDelegat.cpp" line="200"/>
         <source>%1 STR_DOWNLOADED %2 STR_FROM %3</source>
         <translation>%1 загружено %2 из %3</translation>
     </message>
     <message>
-        <location filename="QTorrentItemDelegat.cpp" line="186"/>
+        <location filename="QTorrentItemDelegat.cpp" line="204"/>
         <source>%1 - %3 STR_UPLOADED %2</source>
         <translation>%1 - %3 Отдано %2</translation>
     </message>
     <message>
-        <location filename="QTorrentItemDelegat.cpp" line="202"/>
+        <location filename="QTorrentItemDelegat.cpp" line="220"/>
         <source>STR_PAUSED</source>
         <translation>Приостановлен</translation>
     </message>
@@ -1409,56 +1412,56 @@
         <translation>ТОррент файл</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="274"/>
-        <location filename="SettingsDialog.cpp" line="281"/>
-        <location filename="SettingsDialog.cpp" line="288"/>
-        <location filename="SettingsDialog.cpp" line="294"/>
-        <location filename="SettingsDialog.cpp" line="310"/>
+        <location filename="SettingsDialog.cpp" line="272"/>
+        <location filename="SettingsDialog.cpp" line="279"/>
+        <location filename="SettingsDialog.cpp" line="286"/>
+        <location filename="SettingsDialog.cpp" line="292"/>
+        <location filename="SettingsDialog.cpp" line="308"/>
         <source>STR_SETTINGS</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="275"/>
+        <location filename="SettingsDialog.cpp" line="273"/>
         <source>ERROR_GROUP_NAME_NOT_SET</source>
         <translation>Имя группы должно состоять более чем из одного символа.</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="282"/>
+        <location filename="SettingsDialog.cpp" line="280"/>
         <source>ERROR_NO_EXTENSIONS</source>
         <translation>Должна быть указанно хотбы одно расширение файла.</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="289"/>
+        <location filename="SettingsDialog.cpp" line="287"/>
         <source>ERROR_NO_PATH</source>
         <translation>Не указан путь сохранения.</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="295"/>
+        <location filename="SettingsDialog.cpp" line="293"/>
         <source>ERROR_PATH_NOT_EXISTS</source>
         <translation>Указанный путь не существует.</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="311"/>
+        <location filename="SettingsDialog.cpp" line="309"/>
         <source>SHURE_IN_CHANGING_GROUP %1</source>
         <translation>Вы уверенны что хотите изменить группу %1</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="347"/>
+        <location filename="SettingsDialog.cpp" line="345"/>
         <source>Unable to find %1</source>
         <translation>Неудалось найти группу %1</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="355"/>
+        <location filename="SettingsDialog.cpp" line="353"/>
         <source>Open Directory</source>
         <translation>Выбирите папку</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="366"/>
+        <location filename="SettingsDialog.cpp" line="364"/>
         <source>WHERE_DT</source>
         <translation>Путь к DaemonTools</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="366"/>
+        <location filename="SettingsDialog.cpp" line="364"/>
         <source>DaemonTools Lite (DTLite.exe);;DaemonTools PRO (DTAgent.exe);;Any File (*.*)</source>
         <translation></translation>
     </message>
@@ -1470,34 +1473,34 @@
 <context>
     <name>Torrent</name>
     <message>
-        <location filename="Torrent.cpp" line="276"/>
+        <location filename="Torrent.cpp" line="295"/>
         <source>STATE_FILE_CHEACKING (q)</source>
         <translation>Проверка файлов (q)</translation>
     </message>
     <message>
-        <location filename="Torrent.cpp" line="277"/>
+        <location filename="Torrent.cpp" line="296"/>
         <source>STATE_FILE_CHEACKING</source>
         <translation>Проверка файлов</translation>
     </message>
     <message>
-        <location filename="Torrent.cpp" line="278"/>
-        <location filename="Torrent.cpp" line="279"/>
+        <location filename="Torrent.cpp" line="297"/>
+        <location filename="Torrent.cpp" line="298"/>
         <source>STATE_DOWNLOADING</source>
         <translation>Загрузка</translation>
     </message>
     <message>
-        <location filename="Torrent.cpp" line="280"/>
-        <location filename="Torrent.cpp" line="281"/>
+        <location filename="Torrent.cpp" line="299"/>
+        <location filename="Torrent.cpp" line="300"/>
         <source>STATE_SEEDING</source>
         <translation>Раздача</translation>
     </message>
     <message>
-        <location filename="Torrent.cpp" line="282"/>
+        <location filename="Torrent.cpp" line="301"/>
         <source>STATE_PREPARING</source>
         <translation>Подготовка</translation>
     </message>
     <message>
-        <location filename="Torrent.cpp" line="283"/>
+        <location filename="Torrent.cpp" line="302"/>
         <source>STATE_FILE_CHEACKING (r)</source>
         <translation>Проверка файлов (r)</translation>
     </message>
@@ -1505,17 +1508,17 @@
 <context>
     <name>TorrentManager</name>
     <message>
-        <location filename="TorrentManager.cpp" line="132"/>
+        <location filename="TorrentManager.cpp" line="131"/>
         <source>ERR_NO_FILE_PATH_RESUME_IF_FIRST_TIME_THEN_OK</source>
         <translation>Не найден файл path.resume. Если это первый запуск просто нажмите OK.</translation>
     </message>
     <message>
-        <location filename="TorrentManager.cpp" line="212"/>
+        <location filename="TorrentManager.cpp" line="215"/>
         <source>ERROR_UNABLE_SAVE_DAT_RESUME</source>
         <translation>Не удалось сохранить информация дл быстрого возобновлени торрента.</translation>
     </message>
     <message>
-        <location filename="TorrentManager.cpp" line="251"/>
+        <location filename="TorrentManager.cpp" line="254"/>
         <source>MOVE_STORRAGE_COMPLETED_TO:
 %1</source>
         <translation>Торрент успешно перемещен в:

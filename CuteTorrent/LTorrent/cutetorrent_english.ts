@@ -159,42 +159,42 @@
         <translation>Select a file</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.cpp" line="172"/>
-        <location filename="CreateTorrentDialog.cpp" line="187"/>
+        <location filename="CreateTorrentDialog.cpp" line="151"/>
+        <location filename="CreateTorrentDialog.cpp" line="166"/>
         <source>ERROR_STR</source>
         <translation>Error</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.cpp" line="173"/>
+        <location filename="CreateTorrentDialog.cpp" line="152"/>
         <source>ERROR_NO_FILE_OR_FOLDER_NAME</source>
         <translation>No Folder or file selected</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.cpp" line="188"/>
+        <location filename="CreateTorrentDialog.cpp" line="167"/>
         <source>ERROR_NO_TRACKERS</source>
         <translation>No trackers found!
 Are you shure?</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.cpp" line="206"/>
-        <location filename="CreateTorrentDialog.cpp" line="223"/>
-        <location filename="CreateTorrentDialog.cpp" line="233"/>
+        <location filename="CreateTorrentDialog.cpp" line="185"/>
+        <location filename="CreateTorrentDialog.cpp" line="202"/>
+        <location filename="CreateTorrentDialog.cpp" line="212"/>
         <source>CREATE_TORRENT_DIALOG</source>
         <translation>Creating a torrent</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.cpp" line="207"/>
+        <location filename="CreateTorrentDialog.cpp" line="186"/>
         <source>Òîððåíò ôàéëû (*.torrent)</source>
         <translation>Torrent File (*.torrent)</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.cpp" line="224"/>
+        <location filename="CreateTorrentDialog.cpp" line="203"/>
         <source>CREATE_TORRENT_SUCCES_SAVED %1</source>
         <translation>Torrent created successfully
 %1</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.cpp" line="234"/>
+        <location filename="CreateTorrentDialog.cpp" line="213"/>
         <source>CREATE_TORRENT_FILE_ERROR
  %1</source>
         <translation>Torrent couldn&apos;t be created
@@ -204,12 +204,12 @@ Are you shure?</translation>
 <context>
     <name>CuteTorrent</name>
     <message>
-        <location filename="CuteTorrent.cpp" line="74"/>
+        <location filename="CuteTorrent.cpp" line="77"/>
         <source>ABAUT_TITLE</source>
         <translation>Abaut CuteTorrent</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="74"/>
+        <location filename="CuteTorrent.cpp" line="77"/>
         <source>ABAUT_TEXT</source>
         <translation>CuteTorrent %1
 
@@ -218,115 +218,120 @@ CuteTorrent - free BitTorrent clent with DHT,  torrent filtering, opportunity of
 If you have paid money for this software demand a refund</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="79"/>
+        <location filename="CuteTorrent.cpp" line="82"/>
         <source>CT_NEW_VERSION %1</source>
         <translation>New version released %1</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="108"/>
-        <location filename="CuteTorrent.cpp" line="109"/>
-        <location filename="CuteTorrent.cpp" line="356"/>
+        <location filename="CuteTorrent.cpp" line="111"/>
+        <location filename="CuteTorrent.cpp" line="112"/>
         <location filename="CuteTorrent.cpp" line="357"/>
+        <location filename="CuteTorrent.cpp" line="358"/>
         <source>STATUS_UPLOAD</source>
         <translation>Uloaded(Upload speed)</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="106"/>
-        <location filename="CuteTorrent.cpp" line="107"/>
-        <location filename="CuteTorrent.cpp" line="354"/>
+        <location filename="CuteTorrent.cpp" line="109"/>
+        <location filename="CuteTorrent.cpp" line="110"/>
         <location filename="CuteTorrent.cpp" line="355"/>
+        <location filename="CuteTorrent.cpp" line="356"/>
         <source>STATUS_DWONLOAD</source>
         <translation>Downloaded(Download speed)</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="231"/>
+        <location filename="CuteTorrent.cpp" line="233"/>
         <source>CT_ERROR %1
 %2</source>
         <translation>Occured error %2 with torrent %1</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="238"/>
+        <location filename="CuteTorrent.cpp" line="240"/>
         <source>CT_DOWNLOAD_COMPLETE %1</source>
         <translation>Complited downloading %1</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="444"/>
+        <location filename="CuteTorrent.cpp" line="450"/>
         <source>Òîððåíò ôàéëû (*.torrent);;Any File (*.*)</source>
         <translation>Torrent File (*.torrent);;Any File (*.*)</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="590"/>
+        <location filename="CuteTorrent.cpp" line="596"/>
         <source>CT_HIDE_MSG</source>
         <translation>CuteTorrent continues working.To exit use system tray context menu.</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="341"/>
-        <location filename="CuteTorrent.cpp" line="622"/>
+        <location filename="CuteTorrent.cpp" line="342"/>
+        <location filename="CuteTorrent.cpp" line="626"/>
         <source>FILETAB_OPEN_FILE</source>
         <translation>Open</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="342"/>
-        <location filename="CuteTorrent.cpp" line="625"/>
+        <location filename="CuteTorrent.cpp" line="343"/>
+        <location filename="CuteTorrent.cpp" line="629"/>
         <source>FILETAB_OPEN_FOLDER</source>
         <translation>Open folder</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="343"/>
-        <location filename="CuteTorrent.cpp" line="630"/>
+        <location filename="CuteTorrent.cpp" line="344"/>
+        <location filename="CuteTorrent.cpp" line="634"/>
         <source>FILETAB_PRIORITY</source>
         <translation>Priority</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="344"/>
-        <location filename="CuteTorrent.cpp" line="631"/>
+        <location filename="CuteTorrent.cpp" line="345"/>
+        <location filename="CuteTorrent.cpp" line="635"/>
         <source>FILETAB_PRIORITY_LOW</source>
         <translation>Low</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="345"/>
-        <location filename="CuteTorrent.cpp" line="635"/>
+        <location filename="CuteTorrent.cpp" line="346"/>
+        <location filename="CuteTorrent.cpp" line="639"/>
         <source>FILETAB_PRIORITY_MEDIUM</source>
         <translation>Medium</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="346"/>
-        <location filename="CuteTorrent.cpp" line="639"/>
+        <location filename="CuteTorrent.cpp" line="347"/>
+        <location filename="CuteTorrent.cpp" line="643"/>
         <source>FILETAB_PRIORITY_HIGH</source>
         <translation>High</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="347"/>
-        <location filename="CuteTorrent.cpp" line="645"/>
+        <location filename="CuteTorrent.cpp" line="348"/>
+        <location filename="CuteTorrent.cpp" line="649"/>
         <source>FILETAB_PRIORITY_ZERO</source>
         <translation>Don&apos;t download</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="349"/>
-        <location filename="CuteTorrent.cpp" line="410"/>
+        <location filename="CuteTorrent.cpp" line="350"/>
+        <location filename="CuteTorrent.cpp" line="411"/>
         <source>ACTION_HIDE</source>
         <translation>Minimize</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="350"/>
-        <location filename="CuteTorrent.cpp" line="413"/>
+        <location filename="CuteTorrent.cpp" line="351"/>
+        <location filename="CuteTorrent.cpp" line="414"/>
         <source>ACTION_MAXIMIZE_FULLSCREEN</source>
         <translation>Maximze to full screen</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="351"/>
-        <location filename="CuteTorrent.cpp" line="416"/>
+        <location filename="CuteTorrent.cpp" line="352"/>
+        <location filename="CuteTorrent.cpp" line="417"/>
         <source>ACTION_MAXIMIZE</source>
         <translation>Maximize</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="352"/>
-        <location filename="CuteTorrent.cpp" line="419"/>
+        <location filename="CuteTorrent.cpp" line="353"/>
+        <location filename="CuteTorrent.cpp" line="420"/>
         <source>ACTION_EXIT</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="443"/>
+        <location filename="CuteTorrent.cpp" line="423"/>
+        <source>ACTION_COPY</source>
+        <translation>Copy</translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.cpp" line="449"/>
         <source>OPEN_TOORENT_DIALOG</source>
         <translation>Choose a torrent file</translation>
     </message>
@@ -339,7 +344,7 @@ If you have paid money for this software demand a refund</translation>
         <translation>CuteTorrent</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="462"/>
+        <location filename="CuteTorrent.ui" line="478"/>
         <source>toolBar</source>
         <translation></translation>
     </message>
@@ -349,258 +354,258 @@ If you have paid money for this software demand a refund</translation>
         <translation>Information</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="83"/>
+        <location filename="CuteTorrent.ui" line="93"/>
         <source>INFO_DESCRIBTION</source>
         <translation>Describtion</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="90"/>
+        <location filename="CuteTorrent.ui" line="107"/>
         <source>INFO_SEED_COUNT</source>
         <translation>Seeds</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="104"/>
+        <location filename="CuteTorrent.ui" line="121"/>
         <source>INFO_UPLOAD_SPEED</source>
         <translation>Upload Speed</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="111"/>
+        <location filename="CuteTorrent.ui" line="135"/>
         <source>INFO_PEER_COUNT</source>
         <translation>Peers</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="125"/>
+        <location filename="CuteTorrent.ui" line="128"/>
         <source>INFO_DOWNLOADED</source>
         <translation>Downladed</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="132"/>
+        <location filename="CuteTorrent.ui" line="149"/>
         <source>INFO_DOWNLOAD_SPEED</source>
         <translation>Download Speed</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="146"/>
+        <location filename="CuteTorrent.ui" line="156"/>
         <source>INFO_REMAININF_TIME</source>
         <translation>Time Left</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="160"/>
+        <location filename="CuteTorrent.ui" line="191"/>
         <source>INFO_PATH</source>
         <translation>Save Path</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="167"/>
+        <location filename="CuteTorrent.ui" line="170"/>
         <source>INFO_TOTAL_SIZE</source>
         <translation>Total Size</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="174"/>
+        <location filename="CuteTorrent.ui" line="219"/>
         <source>INFO_ACTIVE_TIME</source>
         <translation>Active Time</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="181"/>
+        <location filename="CuteTorrent.ui" line="177"/>
         <source>INFO_UPLOADED</source>
         <translation>Uploaded</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="224"/>
+        <location filename="CuteTorrent.ui" line="249"/>
         <source>TAB_PEERS</source>
         <translation>Peers</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="255"/>
+        <location filename="CuteTorrent.ui" line="280"/>
         <source>PEER_IP</source>
         <translation>IP</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="260"/>
+        <location filename="CuteTorrent.ui" line="285"/>
         <source>PEER_CLIENT_NAME</source>
         <translation>Client</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="265"/>
+        <location filename="CuteTorrent.ui" line="290"/>
         <source>PEER_%</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="270"/>
+        <location filename="CuteTorrent.ui" line="295"/>
         <source>PEER_DOWNLOAD_SPEED</source>
         <translation>Download speed</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="275"/>
+        <location filename="CuteTorrent.ui" line="300"/>
         <source>PEER_UPLOAD_SPEED</source>
         <translation>Upload speed</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="280"/>
+        <location filename="CuteTorrent.ui" line="305"/>
         <source>PEER_DOWNLOADED</source>
         <translation>Downloaded</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="285"/>
+        <location filename="CuteTorrent.ui" line="310"/>
         <source>PEER_UPLOADED</source>
         <translation>Uploaded</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="294"/>
+        <location filename="CuteTorrent.ui" line="319"/>
         <source>TAB_TRACKERS</source>
         <translation>Trackers</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="325"/>
+        <location filename="CuteTorrent.ui" line="350"/>
         <source>TRACKER_URL</source>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="330"/>
+        <location filename="CuteTorrent.ui" line="355"/>
         <source>TRACKER_STATUS</source>
         <translation>State</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="335"/>
+        <location filename="CuteTorrent.ui" line="360"/>
         <source>TRACKER_NEXT_ANNOUNCE</source>
         <translation>Next Announce in</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="344"/>
+        <location filename="CuteTorrent.ui" line="369"/>
         <source>TAB_FILES</source>
         <translation>Files </translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="378"/>
+        <location filename="CuteTorrent.ui" line="403"/>
         <source>FILES_PATH</source>
         <translation>Path</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="383"/>
+        <location filename="CuteTorrent.ui" line="408"/>
         <source>FILES_SIZE</source>
         <translation>Size</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="388"/>
+        <location filename="CuteTorrent.ui" line="413"/>
         <source>FILES_READY</source>
         <translation>Ready</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="393"/>
+        <location filename="CuteTorrent.ui" line="418"/>
         <source>FILES_PRIORITY</source>
         <translation>Priority</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="430"/>
+        <location filename="CuteTorrent.ui" line="446"/>
         <source>MENU_FILE</source>
         <translation>File</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="441"/>
+        <location filename="CuteTorrent.ui" line="457"/>
         <source>MENU_SETTINGS</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="447"/>
+        <location filename="CuteTorrent.ui" line="463"/>
         <source>MENU_HELP</source>
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="484"/>
+        <location filename="CuteTorrent.ui" line="500"/>
         <source>MENU_OPEN_TORRENT</source>
         <translation>Open torrent</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="487"/>
+        <location filename="CuteTorrent.ui" line="503"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="498"/>
+        <location filename="CuteTorrent.ui" line="514"/>
         <source>MENU_OPEN_MAGNET</source>
         <translation>Open magnet link</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="501"/>
+        <location filename="CuteTorrent.ui" line="517"/>
         <source>Ctrl+M</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="506"/>
+        <location filename="CuteTorrent.ui" line="522"/>
         <source>MENU_CREATE_TORRENT</source>
         <translation>Create torrent</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="509"/>
+        <location filename="CuteTorrent.ui" line="525"/>
         <source>Ctrl+C</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="514"/>
+        <location filename="CuteTorrent.ui" line="530"/>
         <source>MENU_EXIT</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="517"/>
+        <location filename="CuteTorrent.ui" line="533"/>
         <source>Alt+X</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="522"/>
+        <location filename="CuteTorrent.ui" line="538"/>
         <source>MENU_CONFIGURATION</source>
         <translation>Configuration</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="525"/>
+        <location filename="CuteTorrent.ui" line="541"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="534"/>
+        <location filename="CuteTorrent.ui" line="550"/>
         <source>STR_PAUSE</source>
         <translation>Pause</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="546"/>
+        <location filename="CuteTorrent.ui" line="562"/>
         <source>STR_START</source>
         <translation>Resume</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="558"/>
-        <location filename="CuteTorrent.ui" line="564"/>
+        <location filename="CuteTorrent.ui" line="574"/>
+        <location filename="CuteTorrent.ui" line="580"/>
         <source>STR_REMOVE</source>
         <translation>Remove</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="583"/>
+        <location filename="CuteTorrent.ui" line="599"/>
         <source>Ctrl+U</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="592"/>
+        <location filename="CuteTorrent.ui" line="608"/>
         <source>STR_SETTINGS</source>
         <translation>Preferencies</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="537"/>
+        <location filename="CuteTorrent.ui" line="553"/>
         <source>HINT_PAUSE</source>
         <translation>Pause</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="549"/>
+        <location filename="CuteTorrent.ui" line="565"/>
         <source>HINT_RESUME</source>
         <translation>Resume</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="561"/>
+        <location filename="CuteTorrent.ui" line="577"/>
         <source>HINT_REMOVE</source>
         <translation>Remove</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="569"/>
+        <location filename="CuteTorrent.ui" line="585"/>
         <source>MENU_ABAUT</source>
         <translation>Abaut CuteTorrent</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.ui" line="580"/>
+        <location filename="CuteTorrent.ui" line="596"/>
         <source>MENU_CHECK_UPDATES</source>
         <translation>Check for updates</translation>
     </message>
@@ -654,14 +659,12 @@ If you have paid money for this software demand a refund</translation>
 <context>
     <name>MultipleDTDialog</name>
     <message>
-        <location filename="MultipleDTDialog.cpp" line="72"/>
         <source>ERROR_DT_PATH_NOT_SET</source>
-        <translation>Path to DaemonTools not set.</translation>
+        <translation type="obsolete">Path to DaemonTools not set.</translation>
     </message>
     <message>
-        <location filename="MultipleDTDialog.cpp" line="88"/>
         <source>LAUNCH_ERROR</source>
-        <translation>Unable to launch </translation>
+        <translation type="obsolete">Unable to launch </translation>
     </message>
 </context>
 <context>
@@ -740,7 +743,7 @@ If you have paid money for this software demand a refund</translation>
         <translation>Add</translation>
     </message>
     <message>
-        <location filename="OpenTorrentDialog.cpp" line="134"/>
+        <location filename="OpenTorrentDialog.cpp" line="139"/>
         <source>DIALOF_OPEN_DIR</source>
         <translation>Choose save dirrectory</translation>
     </message>
@@ -758,15 +761,15 @@ If you have paid money for this software demand a refund</translation>
         <translation>%1 days</translation>
     </message>
     <message>
-        <location filename="TorrentManager.cpp" line="662"/>
+        <location filename="TorrentManager.cpp" line="652"/>
         <source>ERROR_OPENING_FILE
 %1</source>
         <translation>Error opening file
 %1</translation>
     </message>
     <message>
-        <location filename="Torrent.cpp" line="537"/>
-        <location filename="Torrent.cpp" line="549"/>
+        <location filename="Torrent.cpp" line="557"/>
+        <location filename="Torrent.cpp" line="569"/>
         <source>CT_CONNECTED %1 CT_FROM %2</source>
         <oldsource>CT_CONNECTED %1 ?? %2</oldsource>
         <translation>Connected %1 from 52</translation>
@@ -775,65 +778,65 @@ If you have paid money for this software demand a refund</translation>
 <context>
     <name>QTorrentDisplayModel</name>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="37"/>
-        <location filename="QTorrentDisplayModel.cpp" line="513"/>
+        <location filename="QTorrentDisplayModel.cpp" line="38"/>
+        <location filename="QTorrentDisplayModel.cpp" line="474"/>
         <source>ACTION_OPEN_FOLDER</source>
         <translation>Open folder</translation>
     </message>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="41"/>
-        <location filename="QTorrentDisplayModel.cpp" line="514"/>
+        <location filename="QTorrentDisplayModel.cpp" line="42"/>
+        <location filename="QTorrentDisplayModel.cpp" line="475"/>
         <source>ACTION_DT_MOUNT</source>
         <translation>Mont to Daemon Tools</translation>
     </message>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="47"/>
-        <location filename="QTorrentDisplayModel.cpp" line="519"/>
+        <location filename="QTorrentDisplayModel.cpp" line="48"/>
+        <location filename="QTorrentDisplayModel.cpp" line="480"/>
         <source>ACTION_UPDATE_TRACKERS</source>
         <translation>Update Traclers</translation>
     </message>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="50"/>
-        <location filename="QTorrentDisplayModel.cpp" line="518"/>
+        <location filename="QTorrentDisplayModel.cpp" line="51"/>
+        <location filename="QTorrentDisplayModel.cpp" line="479"/>
         <source>ACTION_SET_SEQUENTIAL</source>
         <translation>Sequential download</translation>
     </message>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="56"/>
-        <location filename="QTorrentDisplayModel.cpp" line="520"/>
+        <location filename="QTorrentDisplayModel.cpp" line="57"/>
+        <location filename="QTorrentDisplayModel.cpp" line="481"/>
         <source>ACTION_MOVE_STORRAGE</source>
         <translation>Move to...</translation>
     </message>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="61"/>
-        <location filename="QTorrentDisplayModel.cpp" line="515"/>
+        <location filename="QTorrentDisplayModel.cpp" line="62"/>
+        <location filename="QTorrentDisplayModel.cpp" line="476"/>
         <source>ACTION_DELETE_ALL</source>
         <translation>Delete torrent and files</translation>
     </message>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="64"/>
-        <location filename="QTorrentDisplayModel.cpp" line="516"/>
+        <location filename="QTorrentDisplayModel.cpp" line="65"/>
+        <location filename="QTorrentDisplayModel.cpp" line="477"/>
         <source>ACTION_DELETE_TORRENT</source>
         <translation>Delete torrent</translation>
     </message>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="189"/>
+        <location filename="DT_mounter.cpp" line="13"/>
         <source>DT_PATH_NOT_SET</source>
         <translation>Path to DaemonTools not set.</translation>
     </message>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="203"/>
+        <location filename="DT_mounter.cpp" line="27"/>
         <source>LAUNCH_ERROR</source>
         <translation>Unable to launch </translation>
     </message>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="547"/>
+        <location filename="QTorrentDisplayModel.cpp" line="508"/>
         <source>DIALOG_OPEN_FOLDER</source>
         <translation>Select a folder</translation>
     </message>
     <message>
-        <location filename="QTorrentDisplayModel.cpp" line="44"/>
-        <location filename="QTorrentDisplayModel.cpp" line="517"/>
+        <location filename="QTorrentDisplayModel.cpp" line="45"/>
+        <location filename="QTorrentDisplayModel.cpp" line="478"/>
         <source>ACTION_REHASH</source>
         <translation>Rehash</translation>
     </message>
@@ -841,17 +844,17 @@ If you have paid money for this software demand a refund</translation>
 <context>
     <name>QTorrentItemDelegat</name>
     <message>
-        <location filename="QTorrentItemDelegat.cpp" line="182"/>
+        <location filename="QTorrentItemDelegat.cpp" line="200"/>
         <source>%1 STR_DOWNLOADED %2 STR_FROM %3</source>
         <translation>%1 Downloaded %2 from %3</translation>
     </message>
     <message>
-        <location filename="QTorrentItemDelegat.cpp" line="186"/>
+        <location filename="QTorrentItemDelegat.cpp" line="204"/>
         <source>%1 - %3 STR_UPLOADED %2</source>
         <translation>%1 -%3 Uploaded %2</translation>
     </message>
     <message>
-        <location filename="QTorrentItemDelegat.cpp" line="202"/>
+        <location filename="QTorrentItemDelegat.cpp" line="220"/>
         <source>STR_PAUSED</source>
         <translation>Paused</translation>
     </message>
@@ -1430,56 +1433,56 @@ If you have paid money for this software demand a refund</translation>
         <translation>Torrent file</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="274"/>
-        <location filename="SettingsDialog.cpp" line="281"/>
-        <location filename="SettingsDialog.cpp" line="288"/>
-        <location filename="SettingsDialog.cpp" line="294"/>
-        <location filename="SettingsDialog.cpp" line="310"/>
+        <location filename="SettingsDialog.cpp" line="272"/>
+        <location filename="SettingsDialog.cpp" line="279"/>
+        <location filename="SettingsDialog.cpp" line="286"/>
+        <location filename="SettingsDialog.cpp" line="292"/>
+        <location filename="SettingsDialog.cpp" line="308"/>
         <source>STR_SETTINGS</source>
         <translation>Preferencies</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="275"/>
+        <location filename="SettingsDialog.cpp" line="273"/>
         <source>ERROR_GROUP_NAME_NOT_SET</source>
         <translation>Grooup name not set.</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="282"/>
+        <location filename="SettingsDialog.cpp" line="280"/>
         <source>ERROR_NO_EXTENSIONS</source>
         <translation>No extensions entered</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="289"/>
+        <location filename="SettingsDialog.cpp" line="287"/>
         <source>ERROR_NO_PATH</source>
         <translation>No path choosen for saving.</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="295"/>
+        <location filename="SettingsDialog.cpp" line="293"/>
         <source>ERROR_PATH_NOT_EXISTS</source>
         <translation>Chousen path not exists.</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="311"/>
+        <location filename="SettingsDialog.cpp" line="309"/>
         <source>SHURE_IN_CHANGING_GROUP %1</source>
         <translation>Are you shure changing group %1</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="347"/>
+        <location filename="SettingsDialog.cpp" line="345"/>
         <source>Unable to find %1</source>
         <translation>Unable to find %1</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="355"/>
+        <location filename="SettingsDialog.cpp" line="353"/>
         <source>Open Directory</source>
         <translation>Chose Dirrectory</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="366"/>
+        <location filename="SettingsDialog.cpp" line="364"/>
         <source>WHERE_DT</source>
         <translation>Path to DaemonTools</translation>
     </message>
     <message>
-        <location filename="SettingsDialog.cpp" line="366"/>
+        <location filename="SettingsDialog.cpp" line="364"/>
         <source>DaemonTools Lite (DTLite.exe);;DaemonTools PRO (DTAgent.exe);;Any File (*.*)</source>
         <translation></translation>
     </message>
@@ -1491,34 +1494,34 @@ If you have paid money for this software demand a refund</translation>
 <context>
     <name>Torrent</name>
     <message>
-        <location filename="Torrent.cpp" line="276"/>
+        <location filename="Torrent.cpp" line="295"/>
         <source>STATE_FILE_CHEACKING (q)</source>
         <translation>File cheacking (q)</translation>
     </message>
     <message>
-        <location filename="Torrent.cpp" line="277"/>
+        <location filename="Torrent.cpp" line="296"/>
         <source>STATE_FILE_CHEACKING</source>
         <translation>File cheacking</translation>
     </message>
     <message>
-        <location filename="Torrent.cpp" line="278"/>
-        <location filename="Torrent.cpp" line="279"/>
+        <location filename="Torrent.cpp" line="297"/>
+        <location filename="Torrent.cpp" line="298"/>
         <source>STATE_DOWNLOADING</source>
         <translation>Downloading</translation>
     </message>
     <message>
-        <location filename="Torrent.cpp" line="280"/>
-        <location filename="Torrent.cpp" line="281"/>
+        <location filename="Torrent.cpp" line="299"/>
+        <location filename="Torrent.cpp" line="300"/>
         <source>STATE_SEEDING</source>
         <translation>Seeding</translation>
     </message>
     <message>
-        <location filename="Torrent.cpp" line="282"/>
+        <location filename="Torrent.cpp" line="301"/>
         <source>STATE_PREPARING</source>
         <translation>Prepearing</translation>
     </message>
     <message>
-        <location filename="Torrent.cpp" line="283"/>
+        <location filename="Torrent.cpp" line="302"/>
         <source>STATE_FILE_CHEACKING (r)</source>
         <translation>File cheacking (r)</translation>
     </message>
@@ -1526,17 +1529,17 @@ If you have paid money for this software demand a refund</translation>
 <context>
     <name>TorrentManager</name>
     <message>
-        <location filename="TorrentManager.cpp" line="132"/>
+        <location filename="TorrentManager.cpp" line="131"/>
         <source>ERR_NO_FILE_PATH_RESUME_IF_FIRST_TIME_THEN_OK</source>
         <translation>Couldn&apos;t find file path.resume. If it is first lunch than just press OK button.</translation>
     </message>
     <message>
-        <location filename="TorrentManager.cpp" line="212"/>
+        <location filename="TorrentManager.cpp" line="215"/>
         <source>ERROR_UNABLE_SAVE_DAT_RESUME</source>
         <translation>Unable to save resume data for torrent.</translation>
     </message>
     <message>
-        <location filename="TorrentManager.cpp" line="251"/>
+        <location filename="TorrentManager.cpp" line="254"/>
         <source>MOVE_STORRAGE_COMPLETED_TO:
 %1</source>
         <translation>Moving to %1 completed.</translation>

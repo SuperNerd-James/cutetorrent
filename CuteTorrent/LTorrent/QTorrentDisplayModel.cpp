@@ -101,11 +101,11 @@ void QTorrentDisplayModel::DellTorrentOnly()
 	Torrent* tor=torrents.at(selectedRow);
 	if (tor!=NULL)
 	{
-		removeRow(selectedRow);
-		int index=torrents.indexOf(tor);
+        removeRows(selectedRow,1);
+        /*int index=torrents.indexOf(tor);
 		torrents.erase(torrents.begin() + index);
 		tor->RemoveTorrent(mgr);
-		parrent->selectionModel()->reset();
+        parrent->selectionModel()->reset();*/
 	}
 }
 
@@ -129,10 +129,8 @@ void QTorrentDisplayModel::DellAll()
 		Torrent* tor=torrents.at(selectedRow);
 		if (tor!=NULL)
 		{
-			removeRow(selectedRow);
-			int index=torrents.indexOf(tor);
-			tor->RemoveTorrent(mgr,true);
-			torrents.erase(torrents.begin() + index);
+            removeRow(selectedRow,true);
+
 		}
 	}
 	catch (...)
@@ -276,6 +274,8 @@ void QTorrentDisplayModel::UpdateSelectedIndex(const QModelIndex & index)
 	try
 	{
 		selectedRow= index.row();
+        CurrentTorrent=torrents.at(selectedRow);
+        emit updateTabSender(-1);
 	}
 	catch (std::exception e)
 	{
@@ -366,7 +366,7 @@ Torrent* QTorrentDisplayModel::GetSelectedTorrent()
 	
 			return NULL;
 		}
-		return torrents.at(selectedRow);
+        return CurrentTorrent;
 	}
 	catch (std::exception e)
 	{
@@ -396,26 +396,25 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 		switch(wtf)
 		{
 		case pause:
-			torrents.at( selectedRow )->pause();
+            CurrentTorrent->pause();
 			break;
 		case remove:
 			{
-				removeRow(selectedRow);
-				int oldSelection=selectedRow;
+                removeRows(selectedRow,1);
+                /*int oldSelection=selectedRow;
 				selectedRow=-1;
 				torrents.at( oldSelection )->RemoveTorrent(mgr);
-				torrents.erase(torrents.begin() + oldSelection);
-				parrent->selectionModel()->reset();
+                torrents.erase(torrents.begin() + oldSelection);*/
+
 			}
 			break;
 		case removeAll:
 			{
-				removeRow(selectedRow);
-				int oldSelection=selectedRow;
-				Torrent* tor=torrents.at( oldSelection );
+                removeRow(selectedRow,true);
+                /*int oldSelection=selectedRow;
+                Torrent* tor=torrents.at( oldSelection );
 				selectedRow=-1;
-				QString path=tor->GetSavePath()+tor->GetName();
-				tor->RemoveTorrent(mgr,true);
+                tor->RemoveTorrent(mgr,true);
 				torrents.erase(torrents.begin() + oldSelection);
 				//parrent->selectionModel()->reset();*/
 			}
@@ -460,7 +459,36 @@ QVariant QTorrentDisplayModel::data( const QModelIndex& index, int role ) const
             break;
 	}
 	
-	    return var;
+    return var;
+}
+
+bool QTorrentDisplayModel::removeRow(int row, bool delFiles)
+{
+    if ((row > torrents.count()) || (row < 0))
+        return false;
+    if (rowCount()==0)
+        return false;
+    parrent->selectionModel()->reset();
+    torrents.at( row )->RemoveTorrent(mgr,delFiles);
+    torrents.erase(torrents.begin() + row);
+    return true;
+}
+
+bool QTorrentDisplayModel::removeRows(int row, int count, const QModelIndex &parent)
+{
+    Q_UNUSED(parent);
+    if ((row+count > torrents.count()) || (row < 0))
+        return false;
+    if (rowCount()==0)
+        return false;
+    selectedRow=-1;
+    parrent->selectionModel()->reset();
+    for  (int i=row;i<row+count;i++)
+    {
+        torrents.at( i )->RemoveTorrent(mgr);
+        torrents.erase(torrents.begin() + i);
+    }
+    return true;
 }
 
 QTorrentDisplayModel::~QTorrentDisplayModel()
@@ -509,6 +537,7 @@ void QTorrentDisplayModel::moveStorrage()
 			current->GetSavePath(),
 			QFileDialog::ShowDirsOnly
 			| QFileDialog::DontResolveSymlinks);
+
 		current->MoveStorrage(path+QDir::separator());
 	}
 }

@@ -317,6 +317,7 @@ QTextEdit
   QMenu {
      background-color: white;
      margin: 2px; /* some spacing around the menu */
+     border: 2px solid lightblue;
  }
 
  QMenu::item {
