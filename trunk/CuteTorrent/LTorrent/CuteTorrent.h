@@ -40,7 +40,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "UpdateNotyfier.h"
 #include <QMutex>
 #include <QtNetwork/QHostAddress>
-#include "CustomStyling/customwindow.h"
 Q_DECLARE_METATYPE(QHostAddress)
 class CuteTorrent : public QMainWindow , private Ui::CuteTorrentClass
 {

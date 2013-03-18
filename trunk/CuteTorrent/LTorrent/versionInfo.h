@@ -22,10 +22,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
-#define CT_VERSION	"0.8.8.7"
+
 #define VERSION_MAJOR		0
 #define VERSION_MINOR		8
 #define VERSION_REVISION	8
 #define VERSION_TAG			7
 
+#define QU(x) #x
+#define QUH(x) QU(x)
+#define CT_VERSION	QUH(VERSION_MAJOR)"."QUH(VERSION_MINOR)"."QUH(VERSION_REVISION)"."QUH(VERSION_TAG)
 #endif
