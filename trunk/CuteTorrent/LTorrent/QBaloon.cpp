@@ -33,8 +33,9 @@ QBalloonTip::QBalloonTip(const QString& title, const QString& message,QBaloonTyp
 {
 	currentType=type;
 	currentData=data;
-	setAttribute(Qt::WA_DeleteOnClose); // при закрытии окна уничтожить объект
 	setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
+	setAttribute(Qt::WA_DeleteOnClose); 
+	setAttribute(Qt::WA_TranslucentBackground);
 	setObjectName("QBalloonTip" );
 	QFile File(":/icons/BallonStyle.qss");
 	File.open(QFile::ReadOnly);
@@ -43,7 +44,7 @@ QBalloonTip::QBalloonTip(const QString& title, const QString& message,QBaloonTyp
 	setStyleSheet(StyleSheet);
 	
 	cuurentIcon=icon;
-	
+    pixmap=QPixmap(":/images/ToolTipFrame.png");
 	QLabel *titleLabel = new QLabel;
 	titleLabel->installEventFilter(this);
 	titleLabel->setText(title);
@@ -113,7 +114,8 @@ QBalloonTip::~QBalloonTip()
 
 void QBalloonTip::paintEvent(QPaintEvent *)
 {
-	
+	QPainter painter(this);
+	painter.drawPixmap(rect(), pixmap);
 }
 
 void QBalloonTip::resizeEvent(QResizeEvent *ev)

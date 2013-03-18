@@ -45,5 +45,6 @@
         <file alias="checkbox_unchecked_hover.png">Resources/images/checkbox_unchecked_hover.png</file>
         <file alias="checkbox_unchecked_pressed.png">Resources/images/checkbox_unchecked_pressed.png</file>
         <file alias="loader.gif">Resources/images/loader.gif</file>
+        <file alias="ToolTipFrame.png">Resources/images/ToolTipFrame.png</file>
     </qresource>
 </RCC>
