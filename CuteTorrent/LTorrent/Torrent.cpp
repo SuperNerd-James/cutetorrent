@@ -31,7 +31,7 @@ bool Torrent::hasError() const
 	{
 		QString errorString="";
 		bool hasErr=false;
-		if (cur_torrent.status().error.length()>0)
+		if (cur_torrent.status(torrent_handle::query_accurate_download_counters).error.length()>0)
 		{
 			hasErr=true;
 		}
@@ -517,7 +517,7 @@ QString Torrent::GetTotalDownloaded() const
 {
 	try
 	{
-		return StaticHelpers::toKbMbGb(cur_torrent.status().all_time_download);
+		return StaticHelpers::toKbMbGb(cur_torrent.status(torrent_handle::query_accurate_download_counters).all_time_download);
 	}
 	catch (...)
 	{
@@ -529,7 +529,7 @@ QString Torrent::GetActiveTime()
 {
 	try
 	{
-		return StaticHelpers::toTimeString(cur_torrent.status().active_time);
+		return StaticHelpers::toTimeString(cur_torrent.status(torrent_handle::query_accurate_download_counters).active_time);
 	}
 	catch (...)
 	{
@@ -554,7 +554,7 @@ QString Torrent::GetSeedString()
 {
 	try
 	{
-		return QObject::tr("CT_CONNECTED %1 CT_FROM %2").arg(cur_torrent.status().num_seeds).arg(cur_torrent.status().list_seeds);
+		return QObject::tr("CT_CONNECTED %1 CT_FROM %2").arg(cur_torrent.status(torrent_handle::query_accurate_download_counters).num_seeds).arg(cur_torrent.status(torrent_handle::query_accurate_download_counters).list_seeds);
 	}
 	catch (...)
 	{
@@ -566,7 +566,7 @@ QString Torrent::GetPeerString()
 {
 	try
 	{
-		return QObject::tr("CT_CONNECTED %1 CT_FROM %2").arg(cur_torrent.status().num_peers).arg(cur_torrent.status().list_peers);
+		return QObject::tr("CT_CONNECTED %1 CT_FROM %2").arg(cur_torrent.status(torrent_handle::query_accurate_download_counters).num_peers).arg(cur_torrent.status(torrent_handle::query_accurate_download_counters).list_peers);
 	}
 	catch (...)
 	{
@@ -585,11 +585,11 @@ QString Torrent::GetRemainingTime()
 				res.append(QChar(8734));
 				return res;
 			}
-			if (cur_torrent.status().download_rate < 1024*10)
+			if (cur_torrent.status(torrent_handle::query_accurate_download_counters).download_rate < 1024*10)
 				res.append(QChar(8734));
 			else
 			{
-				int time=(cur_torrent.get_torrent_info().total_size()-cur_torrent.status().all_time_download) / cur_torrent.status().download_rate;
+				int time=(cur_torrent.get_torrent_info().total_size()-cur_torrent.status(torrent_handle::query_accurate_download_counters).all_time_download) / cur_torrent.status(torrent_handle::query_accurate_download_counters).download_rate;
 				res = StaticHelpers::toTimeString(time);
 			}
 	}	

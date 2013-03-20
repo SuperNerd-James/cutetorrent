@@ -43,7 +43,7 @@ void OpenTorrentDialog::setupGroupComboBox()
 
 void OpenTorrentDialog::reject()
 {
-    mgr->CancelMagnetLink(torrentFilename);
+	mgr->CancelMagnetLink(torrentFilename);
     QDialog::reject();
 }
 int OpenTorrentDialog::execConditional()
@@ -172,7 +172,7 @@ void OpenTorrentDialog::AccepTorrent()
 			mgr->AddMagnet(_info.handle,pathEdit->displayText(),filePriorities);
 		}
 	}
-	close();
+	accept ();
 }
 
 void OpenTorrentDialog::ChangeGroup()
@@ -233,6 +233,4 @@ void OpenTorrentDialog::DownloadMetadataCompleted(openmagnet_info info)
 			GroupComboBox->setCurrentIndex(selected);
 		QApplicationSettings::FreeInstance();
 	} 
-	
-	
 }
