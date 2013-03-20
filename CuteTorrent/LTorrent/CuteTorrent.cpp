@@ -282,6 +282,83 @@ void CuteTorrent::updateTabWidget(int tab)
 	}
 	
 }
+
+class MyTableWidgetItem : public QTableWidgetItem {
+public:
+	MyTableWidgetItem(QString text) : QTableWidgetItem(text)
+	{
+
+	}
+	bool operator <(const QTableWidgetItem &other) const
+	{
+		QHostAddress thisadr(text());
+		if (!thisadr.isNull())
+		{
+			//qDebug() << "Ip Addresses" << text() << other.text();
+			QHostAddress otheradr(other.text());
+			return thisadr.toIPv4Address() < otheradr.toIPv4Address();
+		}
+		else
+		if (text().contains(" kb",Qt::CaseInsensitive) || text().contains(" mb",Qt::CaseInsensitive) || text().contains(" b",Qt::CaseInsensitive))
+		{
+			QStringList parts1 = text().split(' ');
+			bool ok;
+			double speed1=parts1[0].toDouble(&ok);
+			if (ok)
+			{
+				QStringList parts2=other.text().split(' ');
+				double speed2=parts2[0].toDouble();
+
+				switch(parts1[1][0].toLower().toAscii())
+				{
+				case 'k':
+					speed1*=1024;
+					break;
+				case 'm':
+					speed1*=1024*1024;
+					break;
+				case 'g':
+					speed1*=1024*1024*1024;
+					break;
+				case 't':
+					speed1*=1024*1024*1024*1024;
+					break;
+				case 'b':
+					break;
+
+				}
+				switch(parts2[1][0].toLower().toAscii())
+				{
+				case 'k':
+					speed2*=1024;
+					break;
+				case 'm':
+					speed2*=1024*1024;
+					break;
+				case 'g':
+					speed2*=1024*1024*1024;
+					break;
+				case 't':
+					speed2*=1024*1024*1024*1024;
+					break;
+				case 'b':
+					break;
+
+				}
+				//qDebug() << "Speed or size" << text() << other.text() << speed1 << speed2;
+				return speed1 < speed2;
+			}
+
+		}else
+		if (text().endsWith('%'))
+		{
+			//qDebug() << "Percentage" << text() << other.text() ;
+			QString perc1=text().remove('%'),perc2=other.text().remove('%');
+			return perc1.toDouble() < perc2.toDouble();
+		}
+		return QTableWidgetItem::operator <(other);
+	}
+};
 void CuteTorrent::UpdateFileTab()
 {
 	Torrent* tor=model->GetSelectedTorrent();
@@ -298,15 +375,15 @@ void CuteTorrent::UpdateFileTab()
 			
 			file_info current=file_infos.at(i);
 			
-			fileTableWidget->setItem(i,0,new QTableWidgetItem(current.name));
+			fileTableWidget->setItem(i,0,new MyTableWidgetItem(current.name));
 			
-			fileTableWidget->setItem(i,1,new QTableWidgetItem(StaticHelpers::toKbMbGb(current.size)));
+			fileTableWidget->setItem(i,1,new MyTableWidgetItem(StaticHelpers::toKbMbGb(current.size)));
 			
-			fileTableWidget->setItem(i,2,new QTableWidgetItem(QString::number(current.progrss,'f',0)+" %"));
+			fileTableWidget->setItem(i,2,new MyTableWidgetItem(QString::number(current.progrss,'f',0)+" %"));
 			
-			fileTableWidget->setItem(i,3,new QTableWidgetItem(StaticHelpers::filePriorityToString(current.prioiry)));
+			fileTableWidget->setItem(i,3,new MyTableWidgetItem(StaticHelpers::filePriorityToString(current.prioiry)));
 		}
-        fileTableWidget->resizeColumnsToContents();
+        //fileTableWidget->resizeColumnsToContents();
 		fileinfosLocker->unlock();
 	}
 	else
@@ -502,7 +579,6 @@ void CuteTorrent::UpdateInfoTab()
 	}
 	
 }
-
 void CuteTorrent::UpdatePeerTab()
 {
 	
@@ -516,15 +592,15 @@ void CuteTorrent::UpdatePeerTab()
 		peerTableWidget->setRowCount(peerInfos.size());
 		for(int i=0;i<peerInfos.size();i++)
 		{
-			peerTableWidget->setItem(i,0,new QTableWidgetItem(QString::fromStdString(peerInfos[i].ip.address().to_string())));
-			peerTableWidget->setItem(i,1,new QTableWidgetItem(QString::fromUtf8(peerInfos[i].client.c_str())));
-			peerTableWidget->setItem(i,2,new QTableWidgetItem(QString::number(peerInfos[i].progress_ppm/10000.f,'f',1) + "%"));
-			peerTableWidget->setItem(i,3,new QTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].down_speed)+"/s"));
-			peerTableWidget->setItem(i,4,new QTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].up_speed)+"/s"));
-			peerTableWidget->setItem(i,5,new QTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].total_download)));
-			peerTableWidget->setItem(i,6,new QTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].total_upload)));
+			peerTableWidget->setItem(i,0,new MyTableWidgetItem(QString::fromStdString(peerInfos[i].ip.address().to_string())));
+			peerTableWidget->setItem(i,1,new MyTableWidgetItem(QString::fromUtf8(peerInfos[i].client.c_str())));
+			peerTableWidget->setItem(i,2,new MyTableWidgetItem(QString::number(peerInfos[i].progress_ppm/10000.f,'f',1) + "%"));
+			peerTableWidget->setItem(i,3,new MyTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].down_speed)+"/s"));
+			peerTableWidget->setItem(i,4,new MyTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].up_speed)+"/s"));
+			peerTableWidget->setItem(i,5,new MyTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].total_download)));
+			peerTableWidget->setItem(i,6,new MyTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].total_upload)));
 		}
-        peerTableWidget->resizeColumnsToContents();
+        //peerTableWidget->resizeColumnsToContents();
 	
 	}
 	else
@@ -548,7 +624,7 @@ void CuteTorrent::UpadteTrackerTab()
 			trackerTableWidget->setItem(i,2,new QTableWidgetItem(StaticHelpers::toTimeString(trackers[i].next_announce_in())));
 		
 		}
-        trackerTableWidget->resizeColumnsToContents();
+        //trackerTableWidget->resizeColumnsToContents();
 		
 	
 	}
@@ -640,7 +716,7 @@ void CuteTorrent::dropEvent(QDropEvent *event)
         }
         else
         {
-            qDebug() << file;
+            //qDebug() << file;
         }
     }
 
