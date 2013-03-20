@@ -142,11 +142,11 @@ QString StaticHelpers::toTimeString( int seconds )
 
 	if (Week>0)
 	{
-		result.append(QObject::tr("%1 WEEK ").arg(QString::number(Week)));
+		result.append(QObject::tr("%1 WEEK ").arg(Week));
 	}
 	if (day>0)
 	{
-		result.append(QObject::tr("%1 DAY ").arg(QString::number(day)));
+		result.append(QObject::tr("%1 DAY ").arg(day));
 	}
 	if (hour>=0)
 	{

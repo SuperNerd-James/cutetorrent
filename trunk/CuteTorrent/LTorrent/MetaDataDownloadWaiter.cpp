@@ -25,7 +25,7 @@ void MetaDataDownloadWaiter::run()
 	}
 	else
 	{
-		_tManager->AddMagnet(h,"");
+		_tManager->AddMagnet(h,QString::fromStdString(h.save_path()));
 	}
 	this->deleteLater();
 }
