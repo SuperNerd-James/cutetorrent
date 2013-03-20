@@ -890,7 +890,7 @@ torrent_handle TorrentManager::ProcessMagnetLink(QString link)
 	add_info.flags |= add_torrent_params::flag_paused;
 	add_info.flags |= add_torrent_params::flag_duplicate_is_error;
 	h=ses->add_torrent(add_info);
-    h.pause();
+    
 	while (!h.has_metadata())
 	{
 		sleep(1000);
