@@ -386,43 +386,54 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 {
 	
 	try
-{
-	if (rowCount()==0)
-			return;
-		if (selectedRow < 0)
-			return;
-		if (selectedRow >= rowCount())
-			return;
-		switch(wtf)
+	{
+		QList<Torrent*> selectedTorrents;
+		QList<int> rows;
+		QModelIndexList indexes = parrent->selectionModel()->selectedIndexes();
+		
+		foreach(QModelIndex index,indexes)
 		{
-		case pause:
-            CurrentTorrent->pause();
-			break;
-		case remove:
-			{
-                removeRows(selectedRow,1);
-                /*int oldSelection=selectedRow;
-				selectedRow=-1;
-				torrents.at( oldSelection )->RemoveTorrent(mgr);
-                torrents.erase(torrents.begin() + oldSelection);*/
-
-			}
-			break;
-		case removeAll:
-			{
-                removeRow(selectedRow,true);
-                /*int oldSelection=selectedRow;
-                Torrent* tor=torrents.at( oldSelection );
-				selectedRow=-1;
-                tor->RemoveTorrent(mgr,true);
-				torrents.erase(torrents.begin() + oldSelection);
-				//parrent->selectionModel()->reset();*/
-			}
-		case resume:
-			torrents.at( selectedRow )->resume();
-			break;
+			rows.append(index.row());
+			selectedTorrents.append(index.data(TorrentRole).value<Torrent*>());
 		}
-}
+		qSort(rows);
+		rows=StaticHelpers::reversed(rows);
+		if (rowCount()==0)
+				return;
+			if (selectedRow < 0)
+				return;
+			if (selectedRow >= rowCount())
+				return;
+			switch(wtf)
+			{
+			case pause:
+				foreach(Torrent* torrent,selectedTorrents)
+					torrent->pause();
+				break;
+			case remove:
+				{
+					foreach(int row,rows)
+					{
+						qDebug() << "removing row " << row;
+						removeRow(row,false);
+					}
+				}
+				break;
+			case removeAll:
+				{
+					
+					foreach(int row,rows)
+					{
+						qDebug() << "removing row " << row;
+						removeRow(row,true);
+					}
+				}
+			case resume:
+				foreach(Torrent* torrent,selectedTorrents)
+					torrent->resume();
+				break;
+			}
+	}
 	catch (std::exception e)
 	{
 		QMessageBox::warning(0,"ActionOnSelectedItem",e.what());

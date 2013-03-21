@@ -178,7 +178,7 @@ QVariant FileTreeModel::data(const QModelIndex &index, int role) const
 		QIcon icon;
 		QFileInfo info(pathCur);
 		QFileIconProvider iPorv;
-		if (!info.suffix().isEmpty())
+		if (!info.suffix().isEmpty() && item->childCount()==0)
 		{
 			
 			//qDebug() << info.suffix();
