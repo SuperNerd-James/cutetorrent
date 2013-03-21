@@ -121,7 +121,7 @@ void CuteTorrent::setupListView()
 {
 	
 	listView->setModel(model);
-	listView->setSelectionMode(QAbstractItemView::SingleSelection );
+	listView->setSelectionMode(QAbstractItemView::ExtendedSelection );
 	listView->setContextMenuPolicy(Qt::CustomContextMenu);
 }
 void CuteTorrent::setupTabelWidgets()
@@ -299,7 +299,7 @@ public:
 			return thisadr.toIPv4Address() < otheradr.toIPv4Address();
 		}
 		else
-		if (text().contains(" kb",Qt::CaseInsensitive) || text().contains(" mb",Qt::CaseInsensitive) || text().contains(" b",Qt::CaseInsensitive))
+		if (text().contains(" tb",Qt::CaseInsensitive) || text().contains(" gb",Qt::CaseInsensitive) ||text().contains(" kb",Qt::CaseInsensitive) || text().contains(" mb",Qt::CaseInsensitive) || text().contains(" b",Qt::CaseInsensitive))
 		{
 			QStringList parts1 = text().split(' ');
 			bool ok;
@@ -308,25 +308,26 @@ public:
 			{
 				QStringList parts2=other.text().split(' ');
 				double speed2=parts2[0].toDouble();
-
+				
 				switch(parts1[1][0].toLower().toAscii())
 				{
 				case 'k':
-					speed1*=1024;
+					speed1*=1024.0;
 					break;
 				case 'm':
-					speed1*=1024*1024;
+					speed1*=1024*1024.0;
 					break;
 				case 'g':
-					speed1*=1024*1024*1024;
+					speed1*=1024*1024*1024.0;
 					break;
 				case 't':
-					speed1*=1024*1024*1024*1024;
+					speed1*=1024*1024*1024*1024.0;
 					break;
 				case 'b':
 					break;
 
 				}
+				//qDebug() << parts1 << speed1;
 				switch(parts2[1][0].toLower().toAscii())
 				{
 				case 'k':
@@ -908,6 +909,7 @@ void CuteTorrent::resizeEvent( QResizeEvent * event )
 {
     Q_UNUSED(event);
     QTorrentItemDelegat::max_width=width()-QApplication::style( )->pixelMetric( QStyle::PM_MessageBoxIconSize )-54;
+	fillPieceDisplay();
 }
 
 void CuteTorrent::showTorrentInfoNotyfy( const QString name,const QString info)
