@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QStyle>
 #include "TorrentManager.h"
-
+#include "SchedulerTask.h"
 class StaticHelpers
 {
 public:
@@ -41,6 +41,7 @@ public:
 	 static void dellDir(QString path);
 	 static QString toTimeString(int seconds);
 	 static QString filePriorityToString(int priority);
+	 static QString SchedulerTypeToString(SchedulerTask::TaskType type);
 	 template <typename T> static QList<T> reversed( const QList<T> & in );
 };
 

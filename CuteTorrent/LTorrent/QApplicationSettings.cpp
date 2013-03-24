@@ -19,8 +19,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "QApplicationSettings.h"
 #include <QMessageBox>
 #include <QDebug>
-
-
+#include <QXmlStreamReader>
+#include <QXmlStreamWriter>
+#include <QFile>
+#include "StaticHelpers.h"
 QApplicationSettings* QApplicationSettings::_instance=NULL;
 int QApplicationSettings::_instanceCount = 0;
 
@@ -193,4 +195,116 @@ void  QApplicationSettings::WriteSettings()
 		++i;
 	}
 	
+}
+
+QList<SchedulerTask> QApplicationSettings::GetSchedullerQueue()
+{
+	QList<SchedulerTask> res;
+	res.clear();
+	QFile file("CT_DATA/schedulertasks.xml");
+	if (!file.open(QFile::ReadOnly))
+	{
+		return res;
+	}
+	QXmlStreamReader xml(&file);
+	while (!xml.atEnd())
+	{
+		QXmlStreamReader::TokenType tType=xml.readNext();
+		if(xml.name()=="tasks")
+			continue;
+		if(xml.name()!="task")
+			continue;
+		if (tType!=QXmlStreamReader::StartElement)
+			continue;
+		QXmlStreamAttributes atribbutes=xml.attributes();
+		SchedulerTask::TaskType type=SchedulerTask::UNKNOWN;
+		int limit;
+		QDateTime begin,end;
+		QString name;
+		if (atribbutes.hasAttribute("TYPE"))
+		{
+			QString val=atribbutes.value("TYPE").toString();
+			if (val=="PAUSE_ALL")
+			{
+				type=SchedulerTask::PAUSE_ALL;
+			}
+			else if (val=="START_ALL")
+			{
+				type=SchedulerTask::START_ALL;
+			}
+			else if (val=="LIMIT_DL")
+			{
+				type=SchedulerTask::LIMIT_DOWNLOAD;
+			}
+			else if (val=="LIMIT_UL")
+			{
+				type=SchedulerTask::LIMIT_UPLOAD;
+			}
+			else 
+			{
+				qDebug() << "Unknown type " << val;
+			}
+		}
+		if (atribbutes.hasAttribute("NAME"))
+		{
+			name=atribbutes.value("NAME").toString();
+			
+		}
+		if (atribbutes.hasAttribute("LIMIT"))
+		{
+			QString val=atribbutes.value("LIMIT").toString();
+			limit=val.toInt();
+			
+		}
+		if (atribbutes.hasAttribute("TBEGIN"))
+		{
+			QString val=atribbutes.value("TBEGIN").toString();
+			begin = QDateTime::fromString(val,"dd:MM:yyyy hh:mm:ss");
+			
+		}
+		if (atribbutes.hasAttribute("TEND"))
+		{
+			QString val=atribbutes.value("TEND").toString();
+			end = QDateTime::fromString(val,"dd:MM:yyyy hh:mm:ss");
+		
+		}
+
+		SchedulerTask task(name,type,qVariantFromValue(limit),begin);
+		res.push_back(task);
+	}
+	if (xml.hasError()) 
+	{
+		qDebug() << xml.errorString();	
+	}
+	file.close();
+	return res;
+}
+
+void QApplicationSettings::SaveSchedullerQueue( QList<SchedulerTask> &tasks)
+{
+	QFile file("CT_DATA/schedulertasks.xml");
+	if (!file.open(QFile::WriteOnly))
+	{
+		QMessageBox::warning(NULL,"","Error open fro writing CT_DATA/schedulertasks.xml");
+		return;
+	}
+	QXmlStreamWriter xml(&file);
+	xml.setAutoFormatting(true);
+	xml.writeStartDocument();
+	qDebug() << tasks.count();
+	qSort(tasks);
+	xml.writeStartElement("tasks");
+	for (QQueue<SchedulerTask>::iterator i = tasks.begin();i!=tasks.end();i++)
+	{
+		xml.writeStartElement("task");
+		qDebug() << i->startTime().toString("dd:MM:yyyy hh:mm:ss");
+		xml.writeAttribute("TYPE", StaticHelpers::SchedulerTypeToString(i->type()));
+		xml.writeAttribute("NAME", i->name());
+		xml.writeAttribute("LIMIT", QString::number(i->limit()));
+		xml.writeAttribute("TBEGIN", i->startTime().toString("dd:MM:yyyy hh:mm:ss"));
+		xml.writeEndElement(); // bookmark
+	}
+	xml.writeEndElement(); 
+	xml.writeEndDocument();
+	file.close();
 }

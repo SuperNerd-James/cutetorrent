@@ -172,6 +172,8 @@ public:
 	void RemoveTorrent(torrent_handle h,bool dellfiles=false);
 	torrent_handle ProcessMagnetLink(QString link);
     void CancelMagnetLink(QString link);
+	void StartAllTorrents();
+	void PauseAllTorrents();
 protected:
 };
 Q_DECLARE_METATYPE(opentorrent_info);

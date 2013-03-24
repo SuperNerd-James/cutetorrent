@@ -265,6 +265,7 @@ void QTorrentDisplayModel::contextualMenu(const QPoint & point)
 		parrent->selectionModel()->reset();
 		selectedRow=-1;
 	}
+	emit updateTabSender(-1);
 }
 
 

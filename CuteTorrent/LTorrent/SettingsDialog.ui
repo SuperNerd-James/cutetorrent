@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>535</width>
-    <height>341</height>
+    <width>627</width>
+    <height>353</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,13 +18,6 @@
     <normaloff>:/icons/app.ico</normaloff>:/icons/app.ico</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
-   <item row="1" column="1">
-    <widget class="QPushButton" name="OKButton">
-     <property name="text">
-      <string>SETTINGS_OK_BITTON</string>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="3">
     <widget class="QPushButton" name="applyButton">
      <property name="text">
@@ -36,6 +29,13 @@
     <widget class="QPushButton" name="cancelButton">
      <property name="text">
       <string>SETTINGS_CANCEL_BUTTON</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1">
+    <widget class="QPushButton" name="OKButton">
+     <property name="text">
+      <string>SETTINGS_OK_BITTON</string>
      </property>
     </widget>
    </item>
@@ -64,7 +64,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>4</number>
      </property>
      <property name="documentMode">
       <bool>true</bool>
@@ -75,7 +75,7 @@
      <property name="movable">
       <bool>true</bool>
      </property>
-     <widget class="QWidget" name="tab_3">
+     <widget class="QWidget" name="tab_1">
       <attribute name="title">
        <string>TAB_TORRENT</string>
       </attribute>
@@ -460,7 +460,7 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab">
+     <widget class="QWidget" name="tab_3">
       <attribute name="title">
        <string>TAB_TORRENT_FILTERING</string>
       </attribute>
@@ -730,10 +730,205 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>TAB_SCEDULER</string>
+      </attribute>
+      <layout class="QGridLayout" name="gridLayout_19">
+       <item row="1" column="1">
+        <widget class="QComboBox" name="tasksComboBox">
+         <property name="maximumSize">
+          <size>
+           <width>150</width>
+           <height>16777215</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QPushButton" name="addTaskButton">
+         <property name="text">
+          <string>ADD_BUTTON</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="3">
+        <widget class="QPushButton" name="deleteTaskButton">
+         <property name="text">
+          <string>DELETE_BUTTON</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_14">
+         <property name="maximumSize">
+          <size>
+           <width>150</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="text">
+          <string>ACTIONS</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" rowspan="2" colspan="4">
+        <widget class="QGroupBox" name="groupBox_11">
+         <property name="title">
+          <string>GroupBox</string>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_14">
+          <item row="1" column="1">
+           <widget class="QDateTimeEdit" name="beginDateTimeEdit"/>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_13">
+            <property name="text">
+             <string>ACTION_NAME</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_9">
+            <property name="text">
+             <string>ACTION_BEGIN</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QLineEdit" name="taskNameLineEdit">
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>16777215</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="2">
+           <widget class="QGroupBox" name="groupBox">
+            <property name="title">
+             <string>ACTIONS</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_15">
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_11">
+               <property name="text">
+                <string>LIMIT_DOWNLOAD</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="dlLimitEdit">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="2">
+              <widget class="QLabel" name="label_12">
+               <property name="text">
+                <string>LIMIT_UPLOAD</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="3">
+              <widget class="QLineEdit" name="ulLimitEdit">
+               <property name="enabled">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2" colspan="2">
+              <widget class="QRadioButton" name="startAllRadioButton">
+               <property name="text">
+                <string>START_ALL</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2" colspan="2">
+              <widget class="QRadioButton" name="limitUlRadioButton">
+               <property name="text">
+                <string>LIMIT_UPLOAD</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0" colspan="2">
+              <widget class="QRadioButton" name="limitDlRadioButton">
+               <property name="text">
+                <string>LIMIT_DOWNLOAD</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0" colspan="2">
+              <widget class="QRadioButton" name="pauseAllRadioButton">
+               <property name="text">
+                <string>PUASE_ALL</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="0" column="2" rowspan="3">
+           <widget class="QCalendarWidget" name="calendarWidget"/>
+          </item>
+         </layout>
+         <zorder>label_9</zorder>
+         <zorder>beginDateTimeEdit</zorder>
+         <zorder>groupBox</zorder>
+         <zorder>label_13</zorder>
+         <zorder>taskNameLineEdit</zorder>
+         <zorder>calendarWidget</zorder>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>OKButton</tabstop>
+  <tabstop>cancelButton</tabstop>
+  <tabstop>applyButton</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>localeComboBox</tabstop>
+  <tabstop>portEdit</tabstop>
+  <tabstop>proxyGroupBox</tabstop>
+  <tabstop>proxyHostEdit</tabstop>
+  <tabstop>proxyUsernameEdit</tabstop>
+  <tabstop>proxyPwdEdit</tabstop>
+  <tabstop>proxyTypeComboBox</tabstop>
+  <tabstop>uploadLimitEdit</tabstop>
+  <tabstop>downloadLimitEdit</tabstop>
+  <tabstop>activeLimitEdit</tabstop>
+  <tabstop>activeSeedLimitEdit</tabstop>
+  <tabstop>activeDownloadLimitEdit</tabstop>
+  <tabstop>asociationCheckBox</tabstop>
+  <tabstop>magnetAssociationCheckBox</tabstop>
+  <tabstop>runOnbootCheckBox</tabstop>
+  <tabstop>startMinimizedCheckBox</tabstop>
+  <tabstop>lockFilesCheckBox</tabstop>
+  <tabstop>diskIOCasheModeComboBox</tabstop>
+  <tabstop>casheSizeLineEdit</tabstop>
+  <tabstop>useDiskReadAheadCheckBox</tabstop>
+  <tabstop>alowReorderedOpsCheckBox</tabstop>
+  <tabstop>lowPrioDiskCheckBox</tabstop>
+  <tabstop>useReadCasheCheckBox</tabstop>
+  <tabstop>GroupsListWidget</tabstop>
+  <tabstop>removeGroupButton</tabstop>
+  <tabstop>newGroupNameEdit</tabstop>
+  <tabstop>addNewGroupButton</tabstop>
+  <tabstop>extensionsEdit</tabstop>
+  <tabstop>groupSavePathEdit</tabstop>
+  <tabstop>BrowseGroupSavePathButton</tabstop>
+  <tabstop>DTPathEdit</tabstop>
+  <tabstop>browseDTPathButton</tabstop>
+  <tabstop>driveNumberComboBox</tabstop>
+  <tabstop>customMoutGroupBox</tabstop>
+  <tabstop>customCommandEdit</tabstop>
+ </tabstops>
  <resources>
   <include location="ltorrent.qrc"/>
  </resources>
@@ -866,6 +1061,70 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>addTaskButton</sender>
+   <signal>clicked()</signal>
+   <receiver>SettingsDialog</receiver>
+   <slot>AddTask()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>388</x>
+     <y>50</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>313</x>
+     <y>176</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>deleteTaskButton</sender>
+   <signal>clicked()</signal>
+   <receiver>SettingsDialog</receiver>
+   <slot>DeleteTask()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>537</x>
+     <y>50</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>313</x>
+     <y>176</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>limitDlRadioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>dlLimitEdit</receiver>
+   <slot>setFocus()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>178</x>
+     <y>237</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>227</x>
+     <y>268</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>limitUlRadioButton</sender>
+   <signal>clicked()</signal>
+   <receiver>ulLimitEdit</receiver>
+   <slot>setFocus()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>457</x>
+     <y>237</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>496</x>
+     <y>268</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ApplySettings()</slot>
@@ -882,5 +1141,8 @@
   <slot>showSelectedGroup(int)</slot>
   <slot>ApplyHandler()</slot>
   <slot>ApplyAndClose()</slot>
+  <slot>SetDate()</slot>
+  <slot>AddTask()</slot>
+  <slot>DeleteTask()</slot>
  </slots>
 </ui>

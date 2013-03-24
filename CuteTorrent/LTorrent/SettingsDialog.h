@@ -20,30 +20,37 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ui_SettingsDialog.h"
 #include "QApplicationSettings.h"
 #include "GroupForFileFiltering.h"
+#include "CalendarWidget.h"
 class SettingsDialog : public QDialog , private Ui::SettingsDialog
 {
 	Q_OBJECT
 private:
 	QApplicationSettings* settings;
 	QList<GroupForFileFiltering> filterGroups;
+	QList<SchedulerTask> tasks;
+	QDateTimeEdit* previousFocuse;
 	void FillFilteringGroups();
 	void FillTorrentTab();
 	void FillHDDTab();
 	void FillDTTab();
+	void SetupSchedullerTab();
 public:
  	SettingsDialog(QWidget* parent=0,int flags=0);
 	~SettingsDialog();
 	void ApplySettingsToSession();
 signals:
 	void needRetranslate();
+	void tasksChanged();
 private slots:
 	void ApplyAndClose();
 	void ApplySettings();
-	void proxySwitcher();
 	void addGroup();
 	void removeGroup();
 	void browseSavepathGroup();
 	void browseDTPath();
-	void customCommandSwitcher();
 	void showSelectedGroup(int);
+	void SetDate(QDate date);
+	void AddTask();
+	void DeleteTask();
+	void UpdateSchedullerTab( int index );
 };

@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "application.h"
 #include "CuteTorrent.h"
+#include "Scheduller.h"
 #include <QMessageBox>
 #include <QComboBox>
 #include <QDateTime>
@@ -38,7 +39,7 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 {
     setupUi(this);
     model = new QTorrentDisplayModel(listView,this);
-
+	
 	mng = TorrentManager::getInstance();
 	notyfire = new UpdateNotifier();
 	mayShowNotifies = false;
@@ -63,7 +64,7 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	mng->initSession();
 
 	QTimer::singleShot(10000,this,SLOT(checkForUpdates()));
-
+	Scheduller* sch=Scheduller::getInstance();
 	
 	
 }
@@ -728,6 +729,7 @@ CuteTorrent::~CuteTorrent()
 	trayIcon->hide();
 	mng->freeInstance();
 	model->~QTorrentDisplayModel();
+	Scheduller::freeInstance();
 	QApplicationSettings::FreeInstance();
 	delete notyfire;
 	delete trayIcon;

@@ -26,15 +26,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 #include <QTranslator>
 #include "application.h"
-SettingsDialog::SettingsDialog(QWidget* parrent,int flags) 
+#include "Scheduller.h"
+SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 {
 	setupUi(this);
-
+	previousFocuse=NULL;
 	settings = QApplicationSettings::getInstance();
 	FillDTTab();
 	FillFilteringGroups();
 	FillTorrentTab();
 	FillHDDTab();
+	SetupSchedullerTab();
 	////////////////////////OS_SPECIFICK//////////////////////////////////////////////////
 #ifdef Q_WS_WIN
 	QSettings assocSettings ("HKEY_CLASSES_ROOT", QSettings::NativeFormat);                                                                                   
@@ -44,24 +46,24 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	QSettings bootUpSettings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
 	QString val=bootUpSettings.value("CuteTorrent").toString();
 	int current=0;
+	runOnbootCheckBox->setChecked(val.length()>0);	
+	startMinimizedCheckBox->setChecked(val.contains("-m"));
+#endif
+	////////////////////////OS_SPECIFICK//////////////////////////////////////////////////
 	QString curLoc=Application::currentLocale().split('_')[1];
 	foreach (QString avail, Application::availableLanguages())
 	{
 		QString loc=avail.split('_')[1];
 
 		localeComboBox->addItem(loc);
-		
+
 		if (loc==curLoc)
 			localeComboBox->setCurrentIndex(current);
 		current++;
-		
-	}
 
-	runOnbootCheckBox->setChecked(val.length()>0);	
-	startMinimizedCheckBox->setChecked(val.contains("-m"));
-#endif
-	////////////////////////OS_SPECIFICK//////////////////////////////////////////////////
+	}
 	
+
 }
 
 
@@ -134,16 +136,6 @@ SettingsDialog::~SettingsDialog()
 	
 	QApplicationSettings::FreeInstance();
 }
-void SettingsDialog::customCommandSwitcher()
-{
-
-}
-void SettingsDialog::proxySwitcher()
-{
-
-}
-
-
 void SettingsDialog::ApplySettings()
 {
 	settings->setValue("Torrent","listen_port",qVariantFromValue(portEdit->text().toInt()));
@@ -234,6 +226,8 @@ void SettingsDialog::ApplySettings()
 	int curLocaleIndex=localeComboBox->currentIndex();
 	Application::setLanguage("cutetorrent_"+localeComboBox->currentText().toUpper());
 	settings->setValue("System","Lang",localeComboBox->currentText().toUpper());
+	retranslateUi(this);
+	calendarWidget->setLocale(localeComboBox->currentIndex()==0 ? QLocale(QLocale::English) : QLocale(QLocale::Russian));
 }
 void SettingsDialog::ApplySettingsToSession()
 {
@@ -370,6 +364,110 @@ void SettingsDialog::ApplyAndClose()
 {
 	ApplySettings();
 	close();
+}
+
+void SettingsDialog::SetDate(QDate date)
+{
+//	QPair<QDateTime,QDateTime> interval=calendarWidget->getSelectedInterval();
+	
+	beginDateTimeEdit->setDate(date);
+	
+}
+
+void SettingsDialog::DeleteTask()
+{
+	int index=tasksComboBox->currentIndex();
+	SchedulerTask currentTask=tasksComboBox->itemData(index).value<SchedulerTask>();
+	tasksComboBox->removeItem(index);
+	tasks.removeAt (index);
+	settings->SaveSchedullerQueue(tasks);
+}
+
+void SettingsDialog::AddTask()
+{
+	
+	SchedulerTask::TaskType type=SchedulerTask::UNKNOWN;
+	int limit=-1;
+	QString name=taskNameLineEdit->text();
+	QVariant limitVal;
+	if (pauseAllRadioButton->isChecked())
+	{
+		type=SchedulerTask::PAUSE_ALL;
+	}
+	else if(startAllRadioButton->isChecked())
+	{
+		type=SchedulerTask::START_ALL;
+	}
+	else if(limitDlRadioButton->isChecked())
+	{
+		type=SchedulerTask::LIMIT_DOWNLOAD;
+		limit=dlLimitEdit->text().toInt();
+	}
+	else if(limitUlRadioButton->isChecked())
+	{
+		type=SchedulerTask::LIMIT_UPLOAD;
+		limit=ulLimitEdit->text().toInt();
+	}
+	if (limit >0)
+	{
+		limitVal=qVariantFromValue(limit);
+	}
+	if (SchedulerTask::UNKNOWN==type)
+	{
+		QMessageBox::warning(this,tr("ERROR_SRT"),tr("SCHEDULLER_UNKNOWN_TYPE"));
+		return;
+	}
+	if (name.length()==0)
+	{
+		QMessageBox::warning(this,tr("ERROR_SRT"),tr("SCHEDULLER_NO_NAME"));
+		return;
+	}
+	SchedulerTask newTask(name,type,limitVal,beginDateTimeEdit->dateTime());
+	tasks.push_back(newTask);
+	settings->SaveSchedullerQueue(tasks);
+	tasksComboBox->addItem(newTask.name(),qVariantFromValue(newTask));
+	emit tasksChanged();
+	
+}
+
+void SettingsDialog::SetupSchedullerTab()
+{
+	calendarWidget->setLocale(localeComboBox->currentIndex()==0 ? QLocale(QLocale::English) : QLocale(QLocale::Russian));
+	QObject::connect(calendarWidget,SIGNAL(clicked(QDate)),this,SLOT(SetDate(QDate)));
+	beginDateTimeEdit->setDateTime(QDateTime::currentDateTime().addSecs(120));
+	QObject::connect(tasksComboBox,SIGNAL(currentIndexChanged(int)),this,SLOT(UpdateSchedullerTab(int)));    
+	tasks = settings->GetSchedullerQueue();
+	for (int i=0;i<tasks.count();i++)
+	{
+		tasksComboBox->addItem(tasks.at(i).name(),qVariantFromValue(tasks.at(i)));
+	}
+	Scheduller* scheduller=Scheduller::getInstance();
+	QObject::connect(this,SIGNAL(tasksChanged()),scheduller,SLOT(UpdateTasks()));
+	Scheduller::freeInstance();
+}
+
+void SettingsDialog::UpdateSchedullerTab( int index )
+{
+	SchedulerTask currentTask=tasksComboBox->itemData(index).value<SchedulerTask>();
+	taskNameLineEdit->setText(currentTask.name());
+	beginDateTimeEdit->setDateTime(currentTask.startTime());
+	switch(currentTask.type())
+	{
+	case SchedulerTask::START_ALL :
+		startAllRadioButton->setChecked(true);
+		break;
+	case SchedulerTask::PAUSE_ALL:
+		pauseAllRadioButton->setChecked(true);
+		break;
+	case SchedulerTask::LIMIT_UPLOAD:
+		limitUlRadioButton->setChecked(true);
+		ulLimitEdit->setText(QString::number(currentTask.limit()));
+		break;
+	case SchedulerTask::LIMIT_DOWNLOAD:
+		limitDlRadioButton->setChecked(true);
+		dlLimitEdit->setText(QString::number(currentTask.limit()));
+		break;
+	}
 }
 
 
