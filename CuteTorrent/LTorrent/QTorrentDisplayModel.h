@@ -73,6 +73,7 @@ private:
 	QAction* setSequentual;
 	QAction* updateTrackers;
 	QAction* MoveStorrage;
+	QAction* PlayInPlayer;
 	TorrentManager* mgr;
     Torrent* CurrentTorrent;
 	QTimer* timer;
@@ -112,6 +113,7 @@ public slots:
 	void UpdateTrackers();
 	void DellAll();
 	void MountDT();
+	void playInPlayer();
 	void setSequentualDL();
 	void moveStorrage();
 	void updateVisibleTorrents();

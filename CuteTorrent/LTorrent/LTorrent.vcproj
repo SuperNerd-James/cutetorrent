@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(PlatformName)\$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)$(PlatformName)\$(ConfigurationName)1"
 			IntermediateDirectory="$(SolutionDir)$(PlatformName)\$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
@@ -41,8 +41,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="&quot;.\qtsingleapplication\src&quot;;E:\src\boost_1_53_0;E:\src\libtorrent-rasterbar-0.16.8\include;&quot;.\GeneratedFiles&quot;;&quot;.&quot;;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;"
-				PreprocessorDefinitions="UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB"
+				AdditionalIncludeDirectories="&quot;.\qtsingleapplication\src&quot;;E:\src\boost_1_53_0;E:\src\libtorrent-rasterbar-0.16.8\include;&quot;.\GeneratedFiles&quot;;&quot;.&quot;;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include\phonon&quot;;&quot;$(QTDIR)\include\QtMultimedia&quot;;&quot;$(QTDIR)\include\QtOpenGL&quot;;&quot;$(QTDIR)\include\QtScript&quot;"
+				PreprocessorDefinitions="UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_PHONON_LIB;QT_MULTIMEDIA_LIB;QT_OPENGL_LIB;QT_SCRIPT_LIB"
 				StringPooling="true"
 				MinimalRebuild="false"
 				RuntimeLibrary="2"
@@ -67,7 +67,7 @@
 				IgnoreImportLibrary="false"
 				UseLibraryDependencyInputs="true"
 				UseUnicodeResponseFiles="true"
-				AdditionalDependencies="qtmain.lib QtCore4.lib QtGui4.lib QtNetwork4.lib libtorrent.lib QtSolutions_SingleApplication-head.lib"
+				AdditionalDependencies="qtmain.lib QtCore4.lib QtGui4.lib QtNetwork4.lib libtorrent.lib QtSolutions_SingleApplication-head.lib phonon4.lib QtMultimedia4.lib QtOpenGL4.lib opengl32.lib glu32.lib QtScript4.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				Version="0.8.8.3"
 				LinkIncremental="0"
@@ -127,8 +127,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;.\qtsingleapplication\src&quot;;E:\src\boost_1_53_0;E:\src\libtorrent-rasterbar-0.16.8\include;&quot;.\GeneratedFiles&quot;;&quot;.&quot;;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;"
-				PreprocessorDefinitions="UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_DLL;QT_CORE_LIB;QT_GUI_LIB"
+				AdditionalIncludeDirectories="&quot;.\qtsingleapplication\src&quot;;E:\src\boost_1_53_0;E:\src\libtorrent-rasterbar-0.16.8\include;&quot;.\GeneratedFiles&quot;;&quot;.&quot;;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include\phonon&quot;;&quot;$(QTDIR)\include\QtMultimedia&quot;;&quot;$(QTDIR)\include\QtOpenGL&quot;;&quot;$(QTDIR)\include\QtScript&quot;"
+				PreprocessorDefinitions="UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_PHONON_LIB;QT_MULTIMEDIA_LIB;QT_OPENGL_LIB;QT_SCRIPT_LIB"
 				RuntimeLibrary="3"
 				TreatWChar_tAsBuiltInType="false"
 				DebugInformationFormat="3"
@@ -144,7 +144,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib QtNetworkd4.lib libtorrentd.lib QtSolutions_SingleApplication-headd4.lib"
+				AdditionalDependencies="qtmaind.lib QtCored4.lib QtGuid4.lib QtNetworkd4.lib libtorrentd.lib QtSolutions_SingleApplication-headd4.lib phonond4.lib QtMultimediad4.lib QtOpenGLd4.lib opengl32.lib glu32.lib QtScriptd4.lib"
 				OutputFile="$(OutDir)\$(ProjectName).exe"
 				AdditionalLibraryDirectories="F:\src\CuteTorrent\LTorrent\QTSingleApplication\lib;F:\src\libtorrent\lib;F:\src\boost_1_52_0\lib;&quot;$(QTDIR)\lib&quot;"
 				IgnoreDefaultLibraryNames=""
@@ -282,6 +282,18 @@
 				RelativePath=".\UpdateNotyfier.cpp"
 				>
 			</File>
+			<Filter
+				Name="VideoPlayer"
+				>
+				<File
+					RelativePath=".\VideoPlayer\microtime.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\VideoPlayer\VideoPlayerWindow.cpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -297,7 +309,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing application.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -308,7 +320,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing application.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -353,7 +365,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing CuteTorrent.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -364,7 +376,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing CuteTorrent.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -383,7 +395,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing FileTreeModel.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -394,7 +406,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing FileTreeModel.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -413,7 +425,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing MetaDataDownloadWaiter.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -424,7 +436,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing MetaDataDownloadWaiter.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -439,7 +451,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing MultipleDTDialog.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -450,7 +462,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing MultipleDTDialog.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -465,7 +477,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing OpenMagnetDialog.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -476,7 +488,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing OpenMagnetDialog.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -491,7 +503,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing OpenTorrentDialog.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -502,7 +514,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing OpenTorrentDialog.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -529,7 +541,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing QTorrentDisplayModel.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -540,7 +552,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing QTorrentDisplayModel.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -555,7 +567,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing QTorrentItemDelegat.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -566,7 +578,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing QTorrentItemDelegat.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -581,7 +593,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing QTorrentListView.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -592,7 +604,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing QTorrentListView.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -663,7 +675,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing Scheduller.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -D_UNICODE &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -674,7 +686,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing Scheduller.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -689,7 +701,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing SettingsDialog.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -700,7 +712,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing SettingsDialog.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -719,7 +731,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing Torrent.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -730,7 +742,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing Torrent.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -745,7 +757,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing TorrentManager.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -756,7 +768,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing TorrentManager.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -775,7 +787,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing UpdateNotyfier.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB -D_UNICODE  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -786,7 +798,7 @@
 					<Tool
 						Name="VCCustomBuildTool"
 						Description="Moc&apos;ing UpdateNotyfier.h..."
-						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot;&#x0D;&#x0A;"
+						CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
 						AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
@@ -796,6 +808,40 @@
 				RelativePath=".\versionInfo.h"
 				>
 			</File>
+			<Filter
+				Name="VideoPlayer"
+				>
+				<File
+					RelativePath=".\VideoPlayer\microtime.h"
+					>
+				</File>
+				<File
+					RelativePath=".\VideoPlayer\VideoPlayerWindow.h"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing VideoPlayerWindow.h..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB -D_UNICODE &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="VCCustomBuildTool"
+							Description="Moc&apos;ing VideoPlayerWindow.h..."
+							CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -DQT_MULTIMEDIA_LIB -DQT_OPENGL_LIB -DQT_SCRIPT_LIB &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot; &quot;-I$(QTDIR)\include\QtMultimedia&quot; &quot;-I$(QTDIR)\include\QtOpenGL&quot; &quot;-I$(QTDIR)\include\QtScript&quot;&#x0D;&#x0A;"
+							AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
+							Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
+						/>
+					</FileConfiguration>
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="Form Files"
@@ -934,6 +980,32 @@
 			</File>
 			<File
 				RelativePath=".\SettingsDialog.ui"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)..."
+						CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; -o &quot;.\GeneratedFiles\ui_$(InputName).h&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe"
+						Outputs="&quot;.\GeneratedFiles\ui_$(InputName).h&quot;"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+						Description="Uic&apos;ing $(InputFileName)..."
+						CommandLine="&quot;$(QTDIR)\bin\uic.exe&quot; -o &quot;.\GeneratedFiles\ui_$(InputName).h&quot; &quot;$(InputPath)&quot;&#x0D;&#x0A;"
+						AdditionalDependencies="$(QTDIR)\bin\uic.exe"
+						Outputs="&quot;.\GeneratedFiles\ui_$(InputName).h&quot;"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\VideoPlayer\VideoPlayerWindow.ui"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -1902,6 +1974,10 @@
 				RelativePath=".\GeneratedFiles\ui_SettingsDialog.h"
 				>
 			</File>
+			<File
+				RelativePath=".\GeneratedFiles\ui_VideoPlayerWindow.h"
+				>
+			</File>
 			<Filter
 				Name="Release"
 				Filter="cpp;moc"
@@ -2101,6 +2177,18 @@
 				</File>
 				<File
 					RelativePath=".\GeneratedFiles\Release\moc_UpdateNotyfier.cpp"
+					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\GeneratedFiles\Release\moc_VideoPlayerWindow.cpp"
 					>
 					<FileConfiguration
 						Name="Debug|Win32"
@@ -2311,6 +2399,18 @@
 				</File>
 				<File
 					RelativePath=".\GeneratedFiles\Debug\moc_UpdateNotyfier.cpp"
+					>
+					<FileConfiguration
+						Name="Release|Win32"
+						ExcludedFromBuild="true"
+						>
+						<Tool
+							Name="VCCLCompilerTool"
+						/>
+					</FileConfiguration>
+				</File>
+				<File
+					RelativePath=".\GeneratedFiles\Debug\moc_VideoPlayerWindow.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"
