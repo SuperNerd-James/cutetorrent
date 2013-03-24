@@ -23,7 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QString>
 #include <QStringList>
 #include <QMutex>
+#include <QQueue>
 #include "GroupForFileFiltering.h"
+#include "SchedulerTask.h"
 
 // support only one sub level in settings
 class QApplicationSettings
@@ -48,6 +50,8 @@ public:
 	static void FreeInstance();
 	static QApplicationSettings* getInstance();
 	QStringList GetGroupNames();
+	QList<SchedulerTask> GetSchedullerQueue();
+	void SaveSchedullerQueue(QList<SchedulerTask>&);
 	void setValue(const QString group, const QString key, const QVariant &value);
 	int valueInt(const QString group,const QString key, int defalt = 0);
 	QString valueString(const QString group,const QString key,QString defalt = "");

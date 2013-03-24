@@ -159,3 +159,19 @@ QString StaticHelpers::toTimeString( int seconds )
 	result.append(tmp.sprintf("%02d",seconds));
 	return result;
 }
+
+QString StaticHelpers::SchedulerTypeToString( SchedulerTask::TaskType type )
+{
+	switch (type)
+	{
+	case SchedulerTask::START_ALL :
+		return "START_ALL";
+	case SchedulerTask::PAUSE_ALL:
+		return "PAUSE_ALL";
+	case SchedulerTask::LIMIT_UPLOAD:
+		return "LIMIT_UL";
+	case SchedulerTask::LIMIT_DOWNLOAD:
+		return "LIMIT_DL";
+	}
+	return "";
+}

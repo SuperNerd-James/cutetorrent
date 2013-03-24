@@ -964,3 +964,42 @@ bool TorrentManager::AddMagnet( torrent_handle h,QString SavePath,QMap<QString,i
 	return true;
 	
 }
+
+void TorrentManager::StartAllTorrents()
+{
+	try
+	{
+		std::vector<torrent_handle> torrents=ses->get_torrents();
+		for (int i = 0; i<torrents.size();i++)
+		{
+			if (torrents.at(i).is_paused())
+				torrents.at(i).resume();
+		}
+	}
+	catch (...)
+	{
+		
+	}
+	
+}
+
+void TorrentManager::PauseAllTorrents()
+{
+
+	try
+	{
+		std::vector<torrent_handle> torrents=ses->get_torrents();
+		for (int i = 0; i<torrents.size();i++)
+		{
+			if (!torrents.at(i).is_paused())
+			{
+				torrents.at(i).auto_managed(false);
+				torrents.at(i).pause();
+			}
+		}
+	}
+	catch (...)
+	{
+
+	}
+}
