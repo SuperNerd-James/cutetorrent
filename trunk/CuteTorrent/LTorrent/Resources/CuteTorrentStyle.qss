@@ -44,8 +44,10 @@ padding-right: 4px;
  border-radius: 5px;
 }
  QLineEdit, QComboBox[editable="true"], QSpinBox {
+	background-color: transparent;
     border-image: url(:/images/frame.png) 4;
     border-width: 3;
+    border-radius: 4px;
 }
 
 

@@ -1,4 +1,5 @@
 #include "Scheduller.h"
+#include "QBaloon.h"
 #include <QDebug>
 Scheduller::Scheduller()
 {
@@ -75,6 +76,9 @@ void Scheduller::timerEvent( QTimerEvent *event )
 {
 	if (event->timerId()==cuurentTimerID)
 	{
+		QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information;
+		QBalloonTip::showBalloon("CuteTorrent", tr("CT_PEFORMING_TASK %1").arg(tasks.first().name()),QBalloonTip::Info,qVariantFromValue(0), icon,
+			5* 1000);
 		tasks.first().pefromTask();
 		tasks.removeFirst();
 		killTimer(cuurentTimerID);

@@ -26,6 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 #include <QThread>
 #include "MultipleDTDialog.h"
+#include "VideoPlayer/VideoPlayerWindow.h"
 #include "DT_mounter.h"
 
 QTorrentDisplayModel::QTorrentDisplayModel(QListView* _parrent,QObject* __parrent):QAbstractListModel(__parrent)
@@ -53,7 +54,9 @@ QTorrentDisplayModel::QTorrentDisplayModel(QListView* _parrent,QObject* __parren
 	QObject::connect(setSequentual, SIGNAL(triggered()), this, SLOT(setSequentualDL()));
 	menu->addAction(setSequentual);
 	menu->addSeparator();
-	
+	PlayInPlayer = new QAction(tr("ACTION_PLAY_IN_PLAYER"), this);
+	QObject::connect(PlayInPlayer, SIGNAL(triggered()), this, SLOT(playInPlayer()));
+	menu->addAction(PlayInPlayer);
 	MoveStorrage = new QAction(tr("ACTION_MOVE_STORRAGE"), this);
 	QObject::connect(MoveStorrage, SIGNAL(triggered()), this, SLOT(moveStorrage()));
 	menu->addAction(MoveStorrage);
@@ -519,6 +522,7 @@ void QTorrentDisplayModel::retranslate()
 	setSequentual->setText(tr("ACTION_SET_SEQUENTIAL"));
 	updateTrackers->setText(tr("ACTION_UPDATE_TRACKERS"));
 	MoveStorrage->setText(tr("ACTION_MOVE_STORRAGE"));
+	PlayInPlayer->setText(tr("ACTION_PLAY_IN_PLAYER"));
 }
 
 void QTorrentDisplayModel::setSequentualDL()
@@ -553,4 +557,13 @@ void QTorrentDisplayModel::moveStorrage()
 		current->MoveStorrage(path+QDir::separator());
 	}
 }
-	
+
+void QTorrentDisplayModel::playInPlayer()
+{
+	VideoPlayerWindow* vpw = new VideoPlayerWindow();
+	vpw->openFileT(CurrentTorrent->GetSavePath()+CurrentTorrent->GetFileDownloadInfo().first().name);
+	vpw->show();
+
+}
+
+
