@@ -225,14 +225,9 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
 	{
 		QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));
 		
-		if (curfile.suffix()=="mds")
+		if (mauntableTypes.contains(curfile.suffix()))
 		{
-			base_suffix="mdf";
-			break;
-		}
-		if (curfile.suffix()=="mdf")
-		{
-			base_suffix="mdf";
+			base_suffix="mds";
 			break;
 		}
 		if (curfile.suffix()=="m2ts")

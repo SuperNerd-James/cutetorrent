@@ -37,9 +37,14 @@ QBalloonTip::QBalloonTip(const QString& title, const QString& message,QBaloonTyp
 	setAttribute(Qt::WA_DeleteOnClose); 
 	setAttribute(Qt::WA_TranslucentBackground);
 	setObjectName("QBalloonTip" );
+	QFile File1(":/icons/BaseStyle.qss");
+	File1.open(QFile::ReadOnly);
+	QString StyleSheet = QString::fromUtf8(File1.readAll().data());
+	File1.close();
+	setStyleSheet(StyleSheet);
 	QFile File(":/icons/BallonStyle.qss");
 	File.open(QFile::ReadOnly);
-	QString StyleSheet = QString::fromUtf8(File.readAll().data());
+	StyleSheet = QString::fromUtf8(File.readAll().data());
 	File.close();
 	setStyleSheet(StyleSheet);
 	
@@ -98,7 +103,6 @@ QBalloonTip::QBalloonTip(const QString& title, const QString& message,QBaloonTyp
 	layout->setSizeConstraint(QLayout::SetFixedSize);
 	layout->setMargin(3);
 	setLayout(layout);
-	setAutoFillBackground(true);
 	QPropertyAnimation  *anim = new QPropertyAnimation(this, "windowOpacity");
 	anim->setDuration(2500);
 	anim->setStartValue(0.f);

@@ -1,152 +1,116 @@
+/*
+CuteTorrent BitTorrent Client with dht support, userfriendly interface
+and some additional features which make it more convenient.
+Copyright (C) 2012 Ruslan Fedoseyenko
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #include "VideoPlayerWindow.h"
+#include "mediacontroller.h"
 
+
+#include <phonon/MediaObject>
+#include <phonon/MediaSource>
+#include <phonon/VideoWidget>
+
+
+#include <QContextMenuEvent>
 #include <QFileDialog>
-#include "microtime.h"
-#include <QDebug>
-#include <QMessageBox>
-VideoPlayerWindow::VideoPlayerWindow(QWidget *parent)
-    : QMainWindow(parent), ui(new Ui::VideoPlayerWindow)
+#include <QMenu>
+
+VideoPlayerWindow::VideoPlayerWindow(QWidget *parent) :
+QMainWindow(parent)
 {
-    ui->setupUi(this);
-	setAttribute(Qt::WA_DeleteOnClose, true);
-    ui->m_allTime->setText("00:00");
-    ui->m_currentTime->setText("00:00");
-
-   
-    ui->m_seekSlider->setMediaObject(ui->m_player->mediaObject());
-   
-    ui->m_volume->setAudioOutput(ui->m_player->audioOutput());
-
-    connect(ui->m_exitAction,SIGNAL(triggered()),SLOT(close()));
-    connect(ui->m_openAction,SIGNAL(triggered()),SLOT(openFile()));
-    connect(ui->m_pauseButton,SIGNAL(clicked()),ui->m_player,SLOT(pause()));
-    connect(ui->m_playButton,SIGNAL(clicked()),ui->m_player,SLOT(play()));
-    connect(ui->m_stopButton,SIGNAL(clicked()),ui->m_player,SLOT(stop()));
-    connect(ui->m_player->mediaObject(),SIGNAL(tick(qint64)),SLOT(updateTime(qint64)));
-    connect(ui->m_player->mediaObject(),SIGNAL(totalTimeChanged(qint64)),SLOT(setTotalTime(qint64)));
-    connect(ui->m_player->mediaObject(),SIGNAL(stateChanged(Phonon::State, Phonon::State)),SLOT(updateStateStatus(Phonon::State, Phonon::State)));
-    ui->m_player->videoWidget()->installEventFilter(this);
-}
-
-VideoPlayerWindow::~VideoPlayerWindow()
-{
-	ui->m_player->mediaObject()->stop();
-	ui->m_player->mediaObject()->clearQueue();
-    delete ui;
-}
-
-void VideoPlayerWindow::openFile()
-{
-    QFileDialog dialog(this);
-
-
-    dialog.setAcceptMode(QFileDialog::AcceptOpen);
-    dialog.setNameFilter("Video Files (*.avi *.mkv)");
-
-    if (dialog.exec())
-    {
-        QStringList list = dialog.selectedFiles();
-
-        if (!list.isEmpty())
-        {
-            ui->m_player->mediaObject()->stop();
-            ui->m_player->mediaObject()->clearQueue();
-            ui->m_player->play(Phonon::MediaSource(list[0]));
-
-        }
-    }
-
-}
-
-void VideoPlayerWindow::openFileT( QString filename )
-{
-	ui->m_player->mediaObject()->stop();
-	ui->m_player->mediaObject()->clearQueue();
-	ui->m_player->play(Phonon::MediaSource(filename));
+    m_videoWidget = new Phonon::VideoWidget();
+    setCentralWidget(m_videoWidget);
+    m_mediaControl = new MediaController(m_videoWidget);
+    Phonon::createPath(m_mediaControl->mediaObject(), m_videoWidget);
+	
+	controls = new MediaControls(m_mediaControl,m_videoWidget);
+	controls->show();
+	
+	setWindowIcon(QIcon(":/icons/app.ico"));
+	m_videoWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
+	QAction* openFileAction=new QAction(tr("Open a file"),m_videoWidget);
+	QObject::connect(openFileAction,SIGNAL(triggered()),m_mediaControl, SLOT(openFile()));
+	m_videoWidget->addAction(openFileAction);
+	QAction* openUrlAction=new QAction(tr("Open a URL"),m_videoWidget);
+	QObject::connect(openUrlAction,SIGNAL(triggered()),m_mediaControl, SLOT(openURL()));
+	m_videoWidget->addAction(openUrlAction);
+	
+	QObject::connect(controls,SIGNAL(play()),m_mediaControl,SLOT(play()));
+	QObject::connect(controls,SIGNAL(pause()),m_mediaControl,SLOT(pause()));
+	QObject::connect(controls,SIGNAL(openFile()),m_mediaControl,SLOT(openFile()));
+	QObject::connect(controls,SIGNAL(toggleFullScreen()),this,SLOT(goFullScreen()));
+	
+	setAttribute(Qt::WA_DeleteOnClose);
+	setMouseTracking(true);
+    resize(600, 400);
+	m_videoWidget->installEventFilter(this);
+	m_videoWidget->setAspectRatio(Phonon::VideoWidget::AspectRatioAuto);
+	controls->move((m_videoWidget->width()-controls->width())/2,m_videoWidget->height()-controls->height());
+	QTimer::singleShot(3000,controls,SLOT(startHide()));
 }
 
 
-void VideoPlayerWindow::setTotalTime(qint64 time)
+void VideoPlayerWindow::resizeEvent( QResizeEvent* event )
 {
-
-    QString format("mm:ss");
-    QTime microTime((time/3600000) % 24,(time / 60000) % 60, (time / 1000) % 60);
-
-    if (microTime.hour() > 0)
-        format = "h:mm:ss";
-
-    ui->m_allTime->setText(microTime.toString(format));
+	controls->move(QPoint((event->size().width()-controls->width())/2,event->size().height()-controls->height()));
+	
+	QWidget::resizeEvent(event);
 }
 
-void VideoPlayerWindow::updateStateStatus(Phonon::State newState, Phonon::State oldState)
+bool VideoPlayerWindow::eventFilter( QObject *src, QEvent *event )
 {
-    switch(newState)
-    {
-    case  Phonon::LoadingState:
-        statusBar()->setStatusTip("Loading...");
-        break;
-    case Phonon::StoppedState:
-        statusBar()->setStatusTip("Stoped");
-        break;
-    case Phonon::PlayingState:
-        statusBar()->setStatusTip("Playing...");
-        resize(width()+1,height());
-        break;
-    case Phonon::BufferingState:
-        statusBar()->setStatusTip("Buffering...");
-        break;
-    case Phonon::PausedState:
-        statusBar()->setStatusTip("Paused");
-        break;
-    case Phonon::ErrorState:
-        if(ui->m_player->mediaObject()->errorType()==Phonon::FatalError)
-        {
-            ui->m_player->play();
-        }
-        else
-            statusBar()->setStatusTip("Error "+ui->m_player->mediaObject()->errorString());
-        break;
-    }
-
-
+	if(src==m_videoWidget && event->type()==QEvent::MouseButtonDblClick )
+	{
+		goFullScreen();
+		return true;
+	}
+	return false;
 }
 
-bool VideoPlayerWindow::eventFilter(QObject *obj, QEvent *event)
+void VideoPlayerWindow::goFullScreen()
 {
-    if(obj==ui->m_player->videoWidget() && event->type()==QEvent::MouseButtonDblClick)
-    {
-        ui->m_player->videoWidget()->setFullScreen(!ui->m_player->videoWidget()->isFullScreen());
-        return true;
-    }
-    return QMainWindow::eventFilter(obj,event);
+	m_videoWidget->setFullScreen(!m_videoWidget->isFullScreen());
+	controls->move(QPoint((m_videoWidget->width()-controls->width())/2,m_videoWidget->height()-controls->height()));
 }
 
-void VideoPlayerWindow::updateTime(qint64 time)
+void VideoPlayerWindow::openFile( QString path )
 {
-    qint64 totalTime = ui->m_player->mediaObject()->totalTime();
-    qint64 currentTime = time;
-    QString timeStr;
-    QString format("h:mm:ss");
-    QTime microTime((totalTime/3600000) % 24,(totalTime / 60000) % 60, (totalTime / 1000) % 60);
-
-   //if (ui->m_seekSlider->mediaObject()!=ui->m_player->mediaObject())
-        ui->m_seekSlider->setMediaObject( ui->m_player->mediaObject());
-    ui->m_allTime->setText(microTime.toString(format));
-    if (totalTime > 0 || currentTime > 0)
-    {
-        ui->m_allTime->setText(microTime.toString(format));
-        QString format;
-        MicroTime playTime(currentTime);
-        MicroTime totTime(totalTime - currentTime);
-        format = "h:mm:ss";
-
-
-
-        timeStr = playTime.toString(format);
-       
-    }
-    else
-        timeStr = "00:00";
-
-    ui->m_currentTime->setText(timeStr);
+	m_mediaControl->playFile(path);
 }
+
+void VideoPlayerWindow::mouseMoveEvent( QMouseEvent *event )
+{
+	controls->show();
+	animationTimerID=startTimer(3000);
+}
+
+void VideoPlayerWindow::timerEvent( QTimerEvent * event )
+{
+	if (event->timerId()==animationTimerID)
+	{
+		killTimer(animationTimerID);
+		controls->hide();
+	}
+}
+
+
+
+
+
+
+

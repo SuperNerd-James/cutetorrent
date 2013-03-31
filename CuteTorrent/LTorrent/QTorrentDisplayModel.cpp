@@ -561,7 +561,7 @@ void QTorrentDisplayModel::moveStorrage()
 void QTorrentDisplayModel::playInPlayer()
 {
 	VideoPlayerWindow* vpw = new VideoPlayerWindow();
-	vpw->openFileT(CurrentTorrent->GetSavePath()+CurrentTorrent->GetFileDownloadInfo().first().name);
+	vpw->openFile(CurrentTorrent->GetSavePath()+CurrentTorrent->GetFileDownloadInfo().first().name);
 	vpw->show();
 
 }

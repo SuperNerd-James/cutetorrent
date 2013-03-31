@@ -46,8 +46,15 @@
         <file alias="checkbox_unchecked_pressed.png">Resources/images/checkbox_unchecked_pressed.png</file>
         <file alias="loader.gif">Resources/images/loader.gif</file>
         <file alias="ToolTipFrame.png">Resources/images/ToolTipFrame.png</file>
-        <file>Resources/images/pause.png</file>
-        <file>Resources/images/play.png</file>
-        <file>Resources/images/stop.png</file>
+    </qresource>
+    <qresource prefix="/PlayerControlImages">
+        <file alias="ControlBar.png">Resources/playerImages/ControlBar.png</file>
+        <file alias="FileButton.png">Resources/playerImages/FileButton.png</file>
+        <file alias="FullscreenButton.png">Resources/playerImages/FullscreenButton.png</file>
+        <file alias="PauseButton.png">Resources/playerImages/PauseButton.png</file>
+        <file alias="PlayButton.png">Resources/playerImages/PlayButton.png</file>
+        <file alias="RateButtonForward.png">Resources/playerImages/RateButtonForward.png</file>
+        <file alias="RateButtonReverse.png">Resources/playerImages/RateButtonReverse.png</file>
+        <file alias="UrlButton.png">Resources/playerImages/UrlButton.png</file>
     </qresource>
 </RCC>

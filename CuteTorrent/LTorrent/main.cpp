@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//#define DEBUG
+#define DEBUG
 #include "CuteTorrent.h"
 #include <QDir>
 #include <qtsingleapplication.h>
@@ -114,11 +114,7 @@ int main(int argc, char *argv[])
 	
 	
 	CuteTorrent w;
-	QFile File(":/icons/BaseStyle.qss");
-	File.open(QFile::ReadOnly);
-	QString StyleSheet = QString::fromUtf8(File.readAll().data());
-	File.close();
-	a.setStyleSheet(StyleSheet);
+	
 	a.setActivationWindow(&w);
 	w.ConnectMessageReceved(&a);
 	

@@ -66,6 +66,11 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	QTimer::singleShot(10000,this,SLOT(checkForUpdates()));
 	Scheduller* sch=Scheduller::getInstance();
 	
+	QFile File(":/icons/BaseStyle.qss");
+	File.open(QFile::ReadOnly);
+	QString StyleSheet = QString::fromUtf8(File.readAll().data());
+	File.close();
+	setStyleSheet(StyleSheet);
 	
 }
 void CuteTorrent::checkForUpdates()

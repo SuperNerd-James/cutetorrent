@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MediaControls</class>
+ <widget class="QWidget" name="MediaControls">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>368</width>
+    <height>71</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color:&quot;transparent&quot;;
+border-color:&quot;transparent&quot;</string>
+  </property>
+  <widget class="Phonon::VolumeSlider" name="volumeSlider">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>9</y>
+     <width>112</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>100</width>
+     <height>0</height>
+    </size>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="playButton">
+   <property name="geometry">
+    <rect>
+     <x>127</x>
+     <y>9</y>
+     <width>28</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:&quot;transparent&quot;;
+border-color:&quot;transparent&quot;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="../ltorrent.qrc">
+     <normaloff>:/PlayerControlImages/PlayButton.png</normaloff>:/PlayerControlImages/PlayButton.png</iconset>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pauseButton">
+   <property name="geometry">
+    <rect>
+     <x>161</x>
+     <y>9</y>
+     <width>28</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:&quot;transparent&quot;;
+border-color:&quot;transparent&quot;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="../ltorrent.qrc">
+     <normaloff>:/PlayerControlImages/PauseButton.png</normaloff>:/PlayerControlImages/PauseButton.png</iconset>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="reverseButton">
+   <property name="geometry">
+    <rect>
+     <x>195</x>
+     <y>9</y>
+     <width>28</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:&quot;transparent&quot;;
+border-color:&quot;transparent&quot;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="../ltorrent.qrc">
+     <normaloff>:/PlayerControlImages/RateButtonReverse.png</normaloff>:/PlayerControlImages/RateButtonReverse.png</iconset>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="forwardButton">
+   <property name="geometry">
+    <rect>
+     <x>229</x>
+     <y>9</y>
+     <width>28</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:&quot;transparent&quot;;
+border-color:&quot;transparent&quot;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="../ltorrent.qrc">
+     <normaloff>:/PlayerControlImages/RateButtonForward.png</normaloff>:/PlayerControlImages/RateButtonForward.png</iconset>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="openFileButton">
+   <property name="geometry">
+    <rect>
+     <x>263</x>
+     <y>9</y>
+     <width>28</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:&quot;transparent&quot;;
+border-color:&quot;transparent&quot;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="../ltorrent.qrc">
+     <normaloff>:/PlayerControlImages/FileButton.png</normaloff>:/PlayerControlImages/FileButton.png</iconset>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="openUrlButton">
+   <property name="geometry">
+    <rect>
+     <x>297</x>
+     <y>9</y>
+     <width>28</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:&quot;transparent&quot;;
+border-color:&quot;transparent&quot;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="../ltorrent.qrc">
+     <normaloff>:/PlayerControlImages/UrlButton.png</normaloff>:/PlayerControlImages/UrlButton.png</iconset>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="fullScreenButton">
+   <property name="geometry">
+    <rect>
+     <x>331</x>
+     <y>9</y>
+     <width>28</width>
+     <height>28</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color:&quot;transparent&quot;;
+border-color:&quot;transparent&quot;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="../ltorrent.qrc">
+     <normaloff>:/PlayerControlImages/FullscreenButton.png</normaloff>:/PlayerControlImages/FullscreenButton.png</iconset>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="Phonon::SeekSlider" name="seekSlider">
+   <property name="geometry">
+    <rect>
+     <x>9</x>
+     <y>40</y>
+     <width>351</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <property name="iconVisible">
+    <bool>true</bool>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>Phonon::SeekSlider</class>
+   <extends>QWidget</extends>
+   <header location="global">phonon/seekslider.h</header>
+  </customwidget>
+  <customwidget>
+   <class>Phonon::VolumeSlider</class>
+   <extends>QWidget</extends>
+   <header location="global">phonon/volumeslider.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources>
+  <include location="../ltorrent.qrc"/>
+ </resources>
+ <connections/>
+ <slots>
+  <signal>play()</signal>
+  <signal>playFile(QString)</signal>
+  <signal>playURL(QString)</signal>
+  <signal>pause()</signal>
+  <signal>setVolume(int)</signal>
+  <signal>setPosition(int)</signal>
+ </slots>
+</ui>

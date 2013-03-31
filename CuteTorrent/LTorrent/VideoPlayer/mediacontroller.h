@@ -16,26 +16,40 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#ifndef OMD_H
-#define OMD_H
-#include <QDialog>
-#include <QFile>
-#include <QString>
-#include <QMessageBox>
-#include "ui_OpenMagnetDialog.h"
-#include "TorrentManager.h"
-class OpenMagnetDialog : public QDialog , private Ui::OpenMagnetDialog
+
+#ifndef MEDIACONTROLLER_H
+#define MEDIACONTROLLER_H
+
+#include <QtCore/QObject>
+#include <phonon/AudioOutput>
+#include <phonon/VideoWidget>
+namespace Phonon
 {
-	Q_OBJECT
+class MediaObject;
+class MediaSource;
+
+}
+
+class MediaController : public QObject
+{
+    Q_OBJECT
 public:
-	OpenMagnetDialog(QWidget *parent = 0, Qt::WFlags flags = 0);
-	QString getLink(){return link;}
+	explicit MediaController(Phonon::VideoWidget *parent = 0);
+    void playFile(QString file);
+    Phonon::MediaObject *mediaObject() const;
+	Phonon::AudioOutput *audioOutput() const;
+public slots:
+	void play();
+	void pause();
+    void openFile();
+    void openURL();
+	void updateStateStatus(Phonon::State, Phonon::State);
+signals:
+	void updateMediaObject();
 private:
-	QString link;
-protected:
-private slots:
-	void accept();
-	void reject();
+    Phonon::MediaObject *m_media;
+	Phonon::AudioOutput *m_AudioOutput;
+    void playSource(const Phonon::MediaSource &);
 };
 
-#endif //OMD_H
+#endif // MEDIACONTROLLER_H
