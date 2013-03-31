@@ -32,3 +32,8 @@ OpenMagnetDialog::OpenMagnetDialog( QWidget *parent /*= 0*/, Qt::WFlags flags /*
 {
 	setupUi(this);
 }
+
+void OpenMagnetDialog::reject()
+{
+	this->close();
+}
