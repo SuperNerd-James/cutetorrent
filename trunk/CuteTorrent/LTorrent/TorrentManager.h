@@ -159,6 +159,7 @@ public:
 	QString GetSessionUploadSpeed();
 	QString GetSessionDownloaded();
 	QString GetSessionUploaded();
+	QString GetSessionDHTstate();
 	void initSession();
 	static TorrentManager* getInstance();
 	static void freeInstance();

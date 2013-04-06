@@ -44,7 +44,7 @@ class Torrent : public QObject
 private:
 	StaticHelpers* helper;
 	torrent_handle cur_torrent;
-	qint64 size;
+	libtorrent::size_type size;
 	QIcon icon;
 	QString ErrorString;
 	bool mountable;

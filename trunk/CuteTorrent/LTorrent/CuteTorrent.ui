@@ -510,7 +510,6 @@
    <addaction name="actionStart"/>
    <addaction name="actionPause"/>
    <addaction name="actionRemove"/>
-   <addaction name="separator"/>
    <addaction name="actionSettings_2"/>
   </widget>
   <action name="actionOpenTorrent">

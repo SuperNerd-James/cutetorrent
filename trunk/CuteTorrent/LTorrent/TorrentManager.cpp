@@ -385,7 +385,7 @@ session_settings TorrentManager::readSettings()
 	s_settings.unchoke_slots_limit = torrentSettings->valueInt("Torrent","unchoke_slots_limit",8);
 	s_settings.urlseed_wait_retry = torrentSettings->valueInt("Torrent","urlseed_wait_retry",30);
 	s_settings.listen_queue_size = torrentSettings->valueInt("Torrent","listen_queue_size",30);
-
+	s_settings.mixed_mode_algorithm = session_settings::peer_proportional;
 	s_settings.max_peerlist_size = torrentSettings->valueInt("Torrent","max_peerlist_size",4000);
 	s_settings.max_paused_peerlist_size = torrentSettings->valueInt("Torrent","max_paused_peerlist_size",4000);
 	ipFilterFileName = torrentSettings->valueString("Torrent","ip_filter_filename","");
@@ -573,12 +573,6 @@ void TorrentManager::onClose()
 		save_file("CT_DATA/actual.state", out);
 	}
     UpdatePathResumeAndLinks();
-	entry dht_state=ses->dht_state();
-	
-
-	std::vector<char> out;
-	bencode(std::back_inserter(out), dht_state);
-	save_file("CT_DATA/dht.state", out);
 	ses->abort();
 
 }
@@ -671,49 +665,7 @@ opentorrent_info* TorrentManager::GetTorrentInfo(QString filename)
 	info->name=QString::fromUtf8(ti->name().c_str());
 	info->describtion = QString::fromUtf8(ti->comment().c_str());
 	info->files = ti->files();
-	QMap<QString,int> suffixesCount;
-	QString base_suffix;
-	int maxSuffix=0;
-
-	for(libtorrent::file_storage::iterator i=info->files.begin();i!=info->files.end();i++)
-	{
-		QFileInfo curfile(QString::fromUtf8(info->files.file_path(*i).c_str()));
-		if (curfile.suffix()=="mds")
-		{
-			base_suffix="mdf";
-			break;
-		}
-		if (curfile.suffix()=="mdf")
-		{
-			base_suffix="mdf";
-			break;
-		}
-		if (curfile.suffix()=="m2ts")
-		{
-			base_suffix="m2ts";
-			break;
-		}
-		if (!suffixesCount.contains(curfile.suffix()))
-		{
-			suffixesCount.insert(curfile.suffix(),1);
-			if (suffixesCount[curfile.suffix()] > maxSuffix)
-			{
-				maxSuffix=suffixesCount[curfile.suffix()];
-				base_suffix=curfile.suffix();
-			}
-		}
-		else
-		{
-
-			suffixesCount[curfile.suffix()]++;
-			if (suffixesCount[curfile.suffix()] > maxSuffix)
-			{
-				maxSuffix=suffixesCount[curfile.suffix()];
-				base_suffix=curfile.suffix();
-			}
-		}
-	}
-	info->base_suffix=base_suffix;
+	info->base_suffix=StaticHelpers::GetBaseSuffix(info->files);
 	return info;
 }
 
@@ -729,49 +681,7 @@ openmagnet_info* TorrentManager::GetTorrentInfo( torrent_handle handle )
 	info->name=QString::fromUtf8(ti.name().c_str());
 	info->describtion = QString::fromUtf8(ti.comment().c_str());
 	info->files = ti.files();
-	QMap<QString,int> suffixesCount;
-	QString base_suffix;
-	int maxSuffix=0;
-
-	for(libtorrent::file_storage::iterator i=info->files.begin();i!=info->files.end();i++)
-	{
-		QFileInfo curfile(QString::fromUtf8(info->files.file_path(*i).c_str()));
-		if (curfile.suffix()=="mds")
-		{
-			base_suffix="mdf";
-			break;
-		}
-		if (curfile.suffix()=="mdf")
-		{
-			base_suffix="mdf";
-			break;
-		}
-		if (curfile.suffix()=="m2ts")
-		{
-			base_suffix="m2ts";
-			break;
-		}
-		if (!suffixesCount.contains(curfile.suffix()))
-		{
-			suffixesCount.insert(curfile.suffix(),1);
-			if (suffixesCount[curfile.suffix()] > maxSuffix)
-			{
-				maxSuffix=suffixesCount[curfile.suffix()];
-				base_suffix=curfile.suffix();
-			}
-		}
-		else
-		{
-
-			suffixesCount[curfile.suffix()]++;
-			if (suffixesCount[curfile.suffix()] > maxSuffix)
-			{
-				maxSuffix=suffixesCount[curfile.suffix()];
-				base_suffix=curfile.suffix();
-			}
-		}
-	}
-	info->base_suffix=base_suffix;
+	info->base_suffix=StaticHelpers::GetBaseSuffix(info->files);
 	return info;
 }
 
@@ -1002,4 +912,9 @@ void TorrentManager::PauseAllTorrents()
 	{
 
 	}
+}
+
+QString TorrentManager::GetSessionDHTstate()
+{
+	return "";
 }

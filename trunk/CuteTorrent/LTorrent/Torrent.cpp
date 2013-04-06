@@ -179,14 +179,11 @@ QStringList& Torrent::GetImageFiles()
 	file_storage storrgae=cur_torrent.get_torrent_info().files();
 	libtorrent::file_storage::iterator bg=storrgae.begin(),
 		end=storrgae.end();
-	QSet<QString> mauntableTypes;
-	mauntableTypes << QString::fromAscii("iso");
-	mauntableTypes << QString::fromAscii("mdf");
-	mauntableTypes << QString::fromAscii("mds");
+	
 	for (libtorrent::file_storage::iterator i=bg;i!=end;i++)
 	{
 		QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));
-		if (mauntableTypes.contains(curfile.suffix()) && cur_torrent.file_priority(storrgae.file_index(*i)) > 0)
+		if (StaticHelpers::suffixes[StaticHelpers::DISK].contains(curfile.suffix()) && cur_torrent.file_priority(storrgae.file_index(*i)) > 0)
 		{
 			imageFiles << QString::fromUtf8(cur_torrent.save_path().c_str())+QString::fromUtf8(storrgae.file_path(*i).c_str());
 		}
@@ -201,17 +198,11 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
 	file_storage storrgae=cur_torrent.get_torrent_info().files();
 	libtorrent::file_storage::iterator bg=storrgae.begin(),
 		end=storrgae.end();
-	QMap<QString,int> suffixesCount;
-	QSet<QString> mauntableTypes;
-	mauntableTypes << QString::fromAscii("iso");
-	mauntableTypes << QString::fromAscii("mdf");
-	mauntableTypes << QString::fromAscii("mds");
-	int maxSuffix=0;
-	
+	size=0;
 	for (libtorrent::file_storage::iterator i=bg;i!=end;i++)
 	{
 		QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));
-		if (mauntableTypes.contains(curfile.suffix()) && cur_torrent.file_priority(storrgae.file_index(*i)) > 0)
+		if (StaticHelpers::suffixes[StaticHelpers::DISK].contains(curfile.suffix()) && cur_torrent.file_priority(storrgae.file_index(*i)) > 0)
 		{
 			imageFiles << QString::fromUtf8(cur_torrent.save_path().c_str())+QString::fromUtf8(storrgae.file_path(*i).c_str());
 		}
@@ -220,45 +211,12 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
 			size+=storrgae.file_size(*i);
 		}
 	}
-	//qDebug()<< "found " << imageFiles.count() << " imagefiles for torrent " << QString(torrentStatus.name().c_str());
-	for(libtorrent::file_storage::iterator i=bg;i!=end;i++)
-	{
-		QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));
-		
-		if (mauntableTypes.contains(curfile.suffix()))
-		{
-			base_suffix="mds";
-			break;
-		}
-		if (curfile.suffix()=="m2ts")
-		{
-			base_suffix="m2ts";
-			break;
-		}
-		if (!suffixesCount.contains(curfile.suffix()))
-		{
-			suffixesCount.insert(curfile.suffix(),1);
-			if (suffixesCount[curfile.suffix()] > maxSuffix)
-			{
-				maxSuffix=suffixesCount[curfile.suffix()];
-				base_suffix=curfile.suffix();
-			}
-		}
-		else
-		{
-
-			suffixesCount[curfile.suffix()]++;
-			if (suffixesCount[curfile.suffix()] > maxSuffix)
-			{
-				maxSuffix=suffixesCount[curfile.suffix()];
-				base_suffix=curfile.suffix();
-			}
-		}
-	}
+	qDebug() << torrentStatus.name().c_str() << size;
+	base_suffix=StaticHelpers::GetBaseSuffix(storrgae);
 	if (!base_suffix.isEmpty())
 	{
 
-		if (mauntableTypes.contains(base_suffix))
+		if (StaticHelpers::suffixes[StaticHelpers::DISK].contains(base_suffix))
 			mountable=true;
 		icon=StaticHelpers::guessMimeIcon(base_suffix);
 	}
@@ -537,7 +495,7 @@ QString Torrent::GetTotalSize() const
 {
 	try
 	{
-		return StaticHelpers::toKbMbGb(cur_torrent.get_torrent_info().total_size());
+		return StaticHelpers::toKbMbGb(size);
 	}
 	catch (...)
 	{
