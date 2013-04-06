@@ -35,39 +35,7 @@ QTorrentDisplayModel::QTorrentDisplayModel(QListView* _parrent,QObject* __parren
 	mgr = TorrentManager::getInstance();
 	auto_id=0;
 	selectedRow=-1;
-	menu = new QMenu(parrent);
-	openDir = new QAction(tr("ACTION_OPEN_FOLDER"), this);
-	QObject::connect(openDir, SIGNAL(triggered()), this, SLOT(OpenDirSelected()));
-	menu->addAction(openDir);
-	menu->addSeparator();
-	DTmount = new QAction(tr("ACTION_DT_MOUNT"), this);
-	QObject::connect(DTmount, SIGNAL(triggered()), this, SLOT(MountDT()));
-	menu->addAction(DTmount);
-	HashRecheck = new QAction(tr("ACTION_REHASH"), this);
-	QObject::connect(HashRecheck, SIGNAL(triggered()), this, SLOT(Rehash()));
-	menu->addAction(HashRecheck);
-	updateTrackers = new QAction(tr("ACTION_UPDATE_TRACKERS"), this);
-	QObject::connect(updateTrackers, SIGNAL(triggered()), this, SLOT(UpdateTrackers()));
-	menu->addAction(updateTrackers);
-	setSequentual = new QAction(tr("ACTION_SET_SEQUENTIAL"), this);
-	setSequentual->setCheckable(true);
-	QObject::connect(setSequentual, SIGNAL(triggered()), this, SLOT(setSequentualDL()));
-	menu->addAction(setSequentual);
-	menu->addSeparator();
-	PlayInPlayer = new QAction(tr("ACTION_PLAY_IN_PLAYER"), this);
-	QObject::connect(PlayInPlayer, SIGNAL(triggered()), this, SLOT(playInPlayer()));
-	menu->addAction(PlayInPlayer);
-	MoveStorrage = new QAction(tr("ACTION_MOVE_STORRAGE"), this);
-	QObject::connect(MoveStorrage, SIGNAL(triggered()), this, SLOT(moveStorrage()));
-	menu->addAction(MoveStorrage);
-	menu->addSeparator();
-
-	DelAll = new QAction(tr("ACTION_DELETE_ALL"), this);
-	QObject::connect(DelAll, SIGNAL(triggered()), this, SLOT(DellAll()));
-	menu->addAction(DelAll);
-	DelTorrentOnly = new QAction(tr("ACTION_DELETE_TORRENT"), this);
-	QObject::connect(DelTorrentOnly, SIGNAL(triggered()), this, SLOT(DellTorrentOnly()));
-	menu->addAction(DelTorrentOnly);
+	setupContextMenu();
 	
 	locker = new QMutex();
 
@@ -564,6 +532,43 @@ void QTorrentDisplayModel::playInPlayer()
 	vpw->openFile(CurrentTorrent->GetSavePath()+CurrentTorrent->GetFileDownloadInfo().first().name);
 	vpw->show();
 
+}
+
+void QTorrentDisplayModel::setupContextMenu()
+{
+	menu = new QMenu(parrent);
+	openDir = new QAction(tr("ACTION_OPEN_FOLDER"), this);
+	QObject::connect(openDir, SIGNAL(triggered()), this, SLOT(OpenDirSelected()));
+	menu->addAction(openDir);
+	menu->addSeparator();
+	DTmount = new QAction(tr("ACTION_DT_MOUNT"), this);
+	QObject::connect(DTmount, SIGNAL(triggered()), this, SLOT(MountDT()));
+	menu->addAction(DTmount);
+	HashRecheck = new QAction(tr("ACTION_REHASH"), this);
+	QObject::connect(HashRecheck, SIGNAL(triggered()), this, SLOT(Rehash()));
+	menu->addAction(HashRecheck);
+	updateTrackers = new QAction(tr("ACTION_UPDATE_TRACKERS"), this);
+	QObject::connect(updateTrackers, SIGNAL(triggered()), this, SLOT(UpdateTrackers()));
+	menu->addAction(updateTrackers);
+	setSequentual = new QAction(tr("ACTION_SET_SEQUENTIAL"), this);
+	setSequentual->setCheckable(true);
+	QObject::connect(setSequentual, SIGNAL(triggered()), this, SLOT(setSequentualDL()));
+	menu->addAction(setSequentual);
+	menu->addSeparator();
+	PlayInPlayer = new QAction(tr("ACTION_PLAY_IN_PLAYER"), this);
+	QObject::connect(PlayInPlayer, SIGNAL(triggered()), this, SLOT(playInPlayer()));
+	menu->addAction(PlayInPlayer);
+	MoveStorrage = new QAction(tr("ACTION_MOVE_STORRAGE"), this);
+	QObject::connect(MoveStorrage, SIGNAL(triggered()), this, SLOT(moveStorrage()));
+	menu->addAction(MoveStorrage);
+	menu->addSeparator();
+
+	DelAll = new QAction(tr("ACTION_DELETE_ALL"), this);
+	QObject::connect(DelAll, SIGNAL(triggered()), this, SLOT(DellAll()));
+	menu->addAction(DelAll);
+	DelTorrentOnly = new QAction(tr("ACTION_DELETE_TORRENT"), this);
+	QObject::connect(DelTorrentOnly, SIGNAL(triggered()), this, SLOT(DellTorrentOnly()));
+	menu->addAction(DelTorrentOnly);
 }
 
 

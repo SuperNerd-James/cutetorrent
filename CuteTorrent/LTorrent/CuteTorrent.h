@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtGui/QMainWindow>
 #include <QMessageBox>
 #include <QFileDialog>
+#include <QDoubleSpinBox>
 #include <QString>
 #include <QTimer>
 #include "ui_CuteTorrent.h"
@@ -71,13 +72,15 @@ private:
 	UpdateNotifier* notyfire;
 	bool mayShowNotifies;
 	QSystemTrayIcon *trayIcon;
+	QDoubleSpinBox* ul,*dl;
 	QMenu *trayIconMenu;
 	QAction* minimizeAction;
     QAction* maximizeAction;
     QAction* restoreAction;
     QAction* quitAction;
 	QAction* copyContext;
-	QLabel* upLabelText, *upLabel;
+	QLabel *upLabelText, *upLabel;
+	QLabel *uploadLimit, *downloadLimit;
 	QLabel* downLabelText, *downLabel;
 	QTorrentDisplayModel* model;
 	TorrentManager* mng;

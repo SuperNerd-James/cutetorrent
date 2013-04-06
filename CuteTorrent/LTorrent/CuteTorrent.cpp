@@ -143,14 +143,34 @@ void CuteTorrent::setupTabelWidgets()
 }
 void CuteTorrent::setupToolBar()
 {
-	QWidget* spacer=new QWidget(this);
+	
 	QTorrentItemDelegat::max_width=width()-110;
 	listView->setItemDelegate(new QTorrentItemDelegat(this));
 	searchEdit=new QLineEdit(this);
 	QObject::connect(searchEdit,SIGNAL(returnPressed()),this,SLOT(peformSearch()));
-	spacer->setMinimumWidth(200);
+	ul = new QDoubleSpinBox(this);
+	ul->setSpecialValueText(tr("None"));
+	ul->setSuffix(" Kb\\s");
+	ul->setMaximum(12000.0f);
+	ul->setSingleStep(10.0);
+	ul->setButtonSymbols(QAbstractSpinBox::PlusMinus);
+	dl = new QDoubleSpinBox(this);
+	dl->setSpecialValueText(tr("None"));
+	dl->setMaximum(12000.0f);
+	dl->setSuffix(" Kb\\s");
+	dl->setSingleStep(10.0);
+	dl->setButtonSymbols(QAbstractSpinBox::PlusMinus);
+	uploadLimit = new QLabel(tr("LIMIT_UL"),this);
+	uploadLimit->setBuddy(ul);
+	downloadLimit = new QLabel(tr("LIMIT_DL"),this);
+	downloadLimit->setBuddy(dl);
 	searchEdit->setMinimumWidth(100);
-	toolBar->addWidget(spacer);
+	toolBar->addSeparator();
+	toolBar->addWidget(uploadLimit);
+	toolBar->addWidget(ul);
+	toolBar->addWidget(downloadLimit);
+	toolBar->addWidget(dl);
+	toolBar->addSeparator();
 	toolBar->addWidget(searchEdit);
 }
 void CuteTorrent::setupConnections()
@@ -927,7 +947,11 @@ void CuteTorrent::showTorrentInfoNotyfy( const QString name,const QString info)
 
 void CuteTorrent::keyPressEvent( QKeyEvent * event )
 {
-
+	if (focusWidget()!=listView)
+	{
+		QMainWindow::keyPressEvent(event);
+		return;
+	}
 	switch(event->key())
 	{
 		case Qt::Key_Delete:

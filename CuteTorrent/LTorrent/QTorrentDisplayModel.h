@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QVector>
 #include <QSet>
 #include <QAbstractListModel>
+#include <QSignalMapper>
 #include <QListView>
 #include "Torrent.h"
 #include "TorrentManager.h"
@@ -78,7 +79,8 @@ private:
     Torrent* CurrentTorrent;
 	QTimer* timer;
 	QMutex* locker;
-	
+private:
+	void setupContextMenu();
 public:
 	QTorrentDisplayModel(QListView* parrent,QObject* __parrent);
 	~QTorrentDisplayModel();

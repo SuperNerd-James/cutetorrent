@@ -19,6 +19,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "CuteTorrent.h"
 #include "StaticHelpers.h"
 #include <QDebug>
+
+
+QIcon StaticHelpers::fileIcons[TYPE_COUNT];
+QSet<QString> StaticHelpers::suffixes[TYPE_COUNT];
+
 QString StaticHelpers::toKbMbGb(libtorrent::size_type size)
 {
 	float val=size;
@@ -32,12 +37,13 @@ QString StaticHelpers::toKbMbGb(libtorrent::size_type size)
 	str.append(Suffix[i]);
 	return str;
 }
+
 QIcon StaticHelpers::guessMimeIcon(QString suffix)
 {
-	enum { DISK=0, DOCUMENT=1, PICTURE=2, VIDEO=3, ARCHIVE=4, AUDIO=5, APP=6, TYPE_COUNT=7 };
+	
 	static QIcon fallback;
-	static QIcon fileIcons[TYPE_COUNT];
-	static QSet<QString> suffixes[TYPE_COUNT];
+	
+	
 	
 	if( fileIcons[0].isNull( ) )
 	{
@@ -175,3 +181,47 @@ QString StaticHelpers::SchedulerTypeToString( SchedulerTask::TaskType type )
 	}
 	return "";
 }
+
+QString StaticHelpers::GetBaseSuffix( libtorrent::file_storage storrage )
+{
+	QString base_suffix;
+	int maxSuffix=0;
+	QMap<QString,int> suffixesCount;
+	libtorrent::file_storage::iterator iter=storrage.begin();
+	for (iter;iter!=storrage.end();iter++)
+	{
+		QFileInfo curfile(QString::fromUtf8(storrage.file_path(*iter).c_str()));
+		if (suffixes[DISK].contains(curfile.suffix()))
+		{
+			base_suffix="mds";
+			break;
+		}
+		if (suffixes[VIDEO].contains(curfile.suffix()))
+		{
+			base_suffix=curfile.suffix();
+			break;
+		}
+		if (!suffixesCount.contains(curfile.suffix()))
+		{
+			suffixesCount.insert(curfile.suffix(),1);
+			if (suffixesCount[curfile.suffix()] > maxSuffix)
+			{
+				maxSuffix=suffixesCount[curfile.suffix()];
+				base_suffix=curfile.suffix();
+			}
+		}
+		else
+		{
+
+			suffixesCount[curfile.suffix()]++;
+			if (suffixesCount[curfile.suffix()] > maxSuffix)
+			{
+				maxSuffix=suffixesCount[curfile.suffix()];
+				base_suffix=curfile.suffix();
+			}
+		}
+
+	}
+	return base_suffix;
+}
+
