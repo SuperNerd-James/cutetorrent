@@ -154,12 +154,14 @@ void CuteTorrent::setupToolBar()
 	ul->setMaximum(12000.0f);
 	ul->setSingleStep(10.0);
 	ul->setButtonSymbols(QAbstractSpinBox::PlusMinus);
+	QObject::connect(ul,SIGNAL(valueChanged(double)),this,SLOT(UpdateUL(double)));
 	dl = new QDoubleSpinBox(this);
 	dl->setSpecialValueText(tr("None"));
 	dl->setMaximum(12000.0f);
 	dl->setSuffix(" Kb\\s");
 	dl->setSingleStep(10.0);
 	dl->setButtonSymbols(QAbstractSpinBox::PlusMinus);
+	QObject::connect(dl,SIGNAL(valueChanged(double)),this,SLOT(UpdateDL(double)));
 	uploadLimit = new QLabel(tr("LIMIT_UL"),this);
 	uploadLimit->setBuddy(ul);
 	downloadLimit = new QLabel(tr("LIMIT_DL"),this);
@@ -275,8 +277,12 @@ void CuteTorrent::updateTabWidget(int tab)
 	trayIcon->setToolTip("CuteTorrent "CT_VERSION"\nUpload: "+mng->GetSessionUploadSpeed()+"\nDownload:"+mng->GetSessionDownloadSpeed());
 	if (this->isMinimized())
 		return;
+	bool udapteLimits = false;
 	if (tab==-1)
+	{
 		tab=tabWidget->currentIndex();
+		udapteLimits = true;
+	}
 	try
 	{
 		switch(tab)
@@ -297,6 +303,22 @@ void CuteTorrent::updateTabWidget(int tab)
 			
 			UpdateFileTab();
 			break;
+		}
+		if (udapteLimits)
+		{
+			Torrent* tor = model->GetSelectedTorrent();
+			if (tor!=NULL)
+			{
+				ul->setValue(tor->GetDownloadLimit()/1024.0);
+				dl->setValue(tor->GetUploadLimit()/1024.0);
+			}
+			else
+			{
+				ul->setValue(mng->GetDownloadLimit()/1024.0);
+				dl->setValue(mng->GetUploadLimit()/1024.0);
+			}
+			
+			
 		}
 		upLabelText->setText(QString("%1(%2)").arg(mng->GetSessionUploaded()).arg(mng->GetSessionUploadSpeed()));
 		downLabelText->setText(QString("%1(%2)").arg(mng->GetSessionDownloaded()).arg(mng->GetSessionDownloadSpeed()));
@@ -458,11 +480,14 @@ void CuteTorrent::changeEvent(QEvent *event)
 		restoreAction->setText(tr("ACTION_MAXIMIZE"));
 		quitAction->setText(tr("ACTION_EXIT"));
 		copyContext->setText(tr("ACTION_COPY"));
-
+		
 		downLabel->setToolTip(tr("STATUS_DWONLOAD"));
 		downLabelText->setToolTip(tr("STATUS_DWONLOAD"));
 		upLabel->setToolTip(tr("STATUS_UPLOAD"));
 		upLabelText->setToolTip(tr("STATUS_UPLOAD"));
+
+		uploadLimit->setText(tr("LIMIT_UL"));
+		downloadLimit->setText(tr("LIMIT_DL"));
 		model->retranslate();
 	 }
   QMainWindow::changeEvent(event);
@@ -1026,5 +1051,33 @@ void CuteTorrent::clearPieceDisplay()
 	piceDwonloadedView->scene()->deleteLater();
 	piceDwonloadedView->setScene(scene);
 	piceDwonloadedView->show();
+}
+
+void CuteTorrent::UpdateUL(double kbps)
+{
+	qDebug()<< "UpdateUL" << kbps*1024;
+	Torrent* tor=model->GetSelectedTorrent();
+	if (tor!=NULL)
+	{
+		tor->SetUlLimit(kbps*1024);
+	}
+	else
+	{
+		mng->SetUlLimit(kbps*1024);
+	}
+}
+
+void CuteTorrent::UpdateDL(double kbps)
+{
+	qDebug()<< "UpdateDL" << kbps*1024;
+	Torrent* tor=model->GetSelectedTorrent();
+	if (tor!=NULL)
+	{
+		tor->SetDlLimit(kbps*1024);
+	}
+	else
+	{
+		mng->SetDlLimit(kbps*1024);
+	}
 }
 

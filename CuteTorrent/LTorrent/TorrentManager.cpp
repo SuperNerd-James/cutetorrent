@@ -918,3 +918,25 @@ QString TorrentManager::GetSessionDHTstate()
 {
 	return "";
 }
+
+void TorrentManager::SetUlLimit( int val )
+{
+	qDebug() << "TorrentManager::SetUlLimit" << val;
+	ses->set_upload_rate_limit(val);
+}
+
+void TorrentManager::SetDlLimit( int val )
+{
+	qDebug() << "TorrentManager::SetDlLimit" << val;
+	ses->set_download_rate_limit(val);
+}
+
+int TorrentManager::GetDownloadLimit()
+{
+	return ses->download_rate_limit();
+}
+
+int TorrentManager::GetUploadLimit()
+{
+	return ses->upload_rate_limit();
+}

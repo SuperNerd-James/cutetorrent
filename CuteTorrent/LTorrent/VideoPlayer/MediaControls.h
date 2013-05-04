@@ -35,7 +35,10 @@ public slots:
 	void showControls();
 	void startHide();
 	void setOpacity(qreal val);
+	void updateMedaiObject();
 signals:
+	void forvard();
+	void reverse();
 	void play();
 	void openFile();
 	void openURL();
@@ -51,7 +54,7 @@ private:
 	QPixmap* bg;
 	QPropertyAnimation  *anim;
 	void setupConnections();
-	void updateMedaiObject();
+	
 protected:
 	void paintEvent(QPaintEvent *event);
 	

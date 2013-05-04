@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="3"
-				AdditionalIncludeDirectories="&quot;.\qtsingleapplication\src&quot;;E:\src\boost_1_53_0;E:\src\libtorrent-rasterbar-0.16.8\include;&quot;.\GeneratedFiles&quot;;&quot;.&quot;;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include\phonon&quot;;&quot;$(QTDIR)\include\QtMultimedia&quot;;&quot;$(QTDIR)\include\QtOpenGL&quot;;&quot;$(QTDIR)\include\QtScript&quot;"
+				AdditionalIncludeDirectories=".\qtsingleapplication\src;E:\src\boost_1_53_0;&quot;E:\src\libtorrent-rasterbar-0.16.8\include&quot;;.\GeneratedFiles;.;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include\phonon&quot;;&quot;$(QTDIR)\include\QtMultimedia&quot;;&quot;$(QTDIR)\include\QtOpenGL&quot;;&quot;$(QTDIR)\include\QtScript&quot;"
 				PreprocessorDefinitions="UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_PHONON_LIB;QT_MULTIMEDIA_LIB;QT_OPENGL_LIB;QT_SCRIPT_LIB"
 				StringPooling="true"
 				MinimalRebuild="false"

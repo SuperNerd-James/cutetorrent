@@ -23,7 +23,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <phonon/mediaobject.h>
 
 #include <QFileDialog>
-
+#include <QInputDialog>
+#include <QLineEdit>
+#include <QUrl>
+#include <QTimer>
 MediaController::MediaController(Phonon::VideoWidget *parent) :
 QObject(parent)
 {
@@ -31,6 +34,7 @@ QObject(parent)
 	connect(m_media,SIGNAL(stateChanged(Phonon::State, Phonon::State)),SLOT(updateStateStatus(Phonon::State, Phonon::State)));
 	m_AudioOutput = new Phonon::AudioOutput(Phonon::VideoCategory);
 	Phonon::createPath( m_media, m_AudioOutput );
+	m_LastDir="";
 }
 
 Phonon::MediaObject *MediaController::mediaObject() const
@@ -40,16 +44,54 @@ Phonon::MediaObject *MediaController::mediaObject() const
 
 void MediaController::openFile()
 {
-    QString file = QFileDialog::getOpenFileName(0, tr("Open a new file to play"), "");
-    if (!file.isEmpty()) {
-        Phonon::MediaSource s(file);
-        playSource(s);
-    }
+    QString file = QFileDialog::getOpenFileName(0, tr("Open a new file to play"),m_LastDir, "Suported Video Files (*.mkv *.avi *.mp4 *.m2ts *.mpg *.mpeg);;"
+																					 "Matroska (*.mkv);;"
+																					 "Audio Video Interleave (*.avi);;"
+																					 "MPEG-4 Video (*.mp4);;"
+																					 "MPEG-TS Video (*.m2ts);;"
+																					 "MPEG-1 Video (*.mpg *.mpeg)"
+																					 "Any File (*.*)");
+	if (!file.isEmpty()) {
+		if (!QFile::exists(file))
+			file= m_LastDir + QDir::separator() + file;
+		QDir dir=QFileInfo(file).absoluteDir();
+		if (m_LastDir != dir.absolutePath())
+		{
+			m_LastDir = dir.absolutePath();
+			QStringList namefilters;
+			namefilters << "*.mkv";
+			namefilters << "*.avi";
+			namefilters << "*.mp4";
+			namefilters << "*.m2ts";
+			namefilters << "*.mpg";
+			namefilters << "*.mpeg";
+			m_playList = dir.entryList(namefilters);
+			m_playListPosition = m_playList.indexOf(QFileInfo(file).fileName());
+			if (m_playListPosition < 0)
+			{
+				m_playList=dir.entryList();
+				m_playListPosition = m_playList.indexOf(file);
+			}
+			qDebug() << m_playListPosition << m_playList;
+		}
+
+		Phonon::MediaSource s(file);
+		playSource(s);
+		emit newFile(QFileInfo(file).fileName());
+	}
 }
 
 void MediaController::openURL()
 {
-
+	bool ok;
+	QString url = QInputDialog::getText(NULL, tr("Type an url to play"),
+		tr("Mediafile URL:"), QLineEdit::Normal,
+		QDir::home().dirName(), &ok);
+	if (ok && !url.isEmpty())
+	{
+		Phonon::MediaSource s(QUrl::fromPercentEncoding(url.toUtf8().data()));
+		playSource(s);
+	}
 }
 
 void MediaController::playSource(const Phonon::MediaSource &s)
@@ -83,11 +125,68 @@ void MediaController::updateStateStatus( Phonon::State newState, Phonon::State o
 	  {
 		  m_media->play();
 		  qobject_cast<Phonon::VideoWidget*>(parent())->setAspectRatio(Phonon::VideoWidget::AspectRatioAuto);
+		  QTimer::singleShot(1000,this,SIGNAL(updateMediaObject()));
+
 	  }
 }
 
 void MediaController::playFile( QString file )
 {
-	Phonon::MediaSource s(file);
-	playSource(s);
+	if (!file.isEmpty()) {
+		if (!QFile::exists(file))
+			file= m_LastDir + QDir::separator() + file;
+		QDir dir=QFileInfo(file).absoluteDir();
+		if (m_LastDir != dir.absolutePath())
+		{
+			m_LastDir = dir.absolutePath();
+			QStringList namefilters;
+			namefilters << "*.mkv";
+			namefilters << "*.avi";
+			namefilters << "*.mp4";
+			namefilters << "*.m2ts";
+			namefilters << "*.mpg";
+			namefilters << "*.mpeg";
+			m_playList = dir.entryList(namefilters);
+			m_playListPosition = m_playList.indexOf(QFileInfo(file).fileName());
+			if (m_playListPosition < 0)
+			{
+				m_playList=dir.entryList();
+				m_playListPosition = m_playList.indexOf(file);
+			}
+			qDebug() << m_playListPosition << m_playList;
+		}
+		
+		Phonon::MediaSource s(file);
+		playSource(s);
+		emit newFile(QFileInfo(file).fileName());
+	}
 }
+
+void MediaController::forvard()
+{
+	qDebug() << "MediaController::forvard" << m_playListPosition;
+	if (m_playListPosition+1 < m_playList.length())
+	{
+		m_playListPosition++;
+	}
+	else
+	{
+		m_playListPosition=0;
+	}
+	playFile(m_playList[m_playListPosition]);
+}
+
+void MediaController::reverse()
+{
+	qDebug() << "MediaController::reverse" << m_playListPosition;
+	if (m_playListPosition-1 >= 0 )
+	{
+		m_playListPosition--;
+	}
+	else
+	{
+		m_playListPosition=m_playList.length()-1;
+	}
+	playFile(m_playList[m_playListPosition]);
+}
+

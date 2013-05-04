@@ -266,6 +266,9 @@
             <height>150</height>
            </size>
           </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
           <property name="gridStyle">
            <enum>Qt::NoPen</enum>
           </property>
@@ -336,6 +339,9 @@
           <property name="layoutDirection">
            <enum>Qt::LeftToRight</enum>
           </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
+          </property>
           <property name="gridStyle">
            <enum>Qt::NoPen</enum>
           </property>
@@ -388,6 +394,9 @@
           </property>
           <property name="contextMenuPolicy">
            <enum>Qt::CustomContextMenu</enum>
+          </property>
+          <property name="editTriggers">
+           <set>QAbstractItemView::NoEditTriggers</set>
           </property>
           <property name="gridStyle">
            <enum>Qt::NoPen</enum>

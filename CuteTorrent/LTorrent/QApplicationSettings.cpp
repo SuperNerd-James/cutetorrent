@@ -87,7 +87,7 @@ void QApplicationSettings::setValue(const QString group,const QString key,const 
 QVariant QApplicationSettings::value(const QString group,const QString key)
 {
 	locker->lock();
-	QVariant res;
+	QVariant res = QVariant(QVariant::Double);
 	if (settingsStorrage.contains(group))
 		if (settingsStorrage[group].contains(key))
 			res=settingsStorrage[group][key];
@@ -97,16 +97,24 @@ QVariant QApplicationSettings::value(const QString group,const QString key)
 int QApplicationSettings::valueInt(const QString group,const QString key,int defalt)
 {
 	QVariant val=value(group,key);
-	if (val.isNull())
+	qDebug() << group << key << val << val.isNull() ;
+	if (val.isNull() )
+	{
+		settingsStorrage[group][key]=defalt;
 		return defalt;
+	}
 	else
 		return val.toInt();
 }
 QString	QApplicationSettings::valueString(const QString group,const QString key,QString defalt)
 {
 	QVariant val=value(group,key);
-	if (val.isNull())
+	qDebug() << group << key << val << val.isNull() ;
+	if (val.isNull() )
+	{
+		settingsStorrage[group][key]=defalt;
 		return defalt;
+	}
 	else
 		return val.toString();
 }
@@ -114,8 +122,12 @@ QString	QApplicationSettings::valueString(const QString group,const QString key,
 bool QApplicationSettings::valueBool(const QString group,const QString key,bool defalt)
 {
 	QVariant val=value(group,key);
-	if (val.isNull())
+	qDebug() << group << key << val << val.isNull() ;
+	if (val.isNull() )
+	{
+		settingsStorrage[group][key]=defalt;
 		return defalt;
+	}
 	else
 		return val.toBool();
 }
@@ -123,6 +135,7 @@ void  QApplicationSettings::ReedSettings()
 {
 	
 	QStringList rootGroups=settings->childGroups();
+	//qDebug() << "================================================";
 	for(int i=0;i<rootGroups.size();i++)
 	{
 		
@@ -130,11 +143,12 @@ void  QApplicationSettings::ReedSettings()
 		QStringList keys= settings->childKeys();
 		for (int j=0;j<keys.size();j++)
 		{
-			
+			//qDebug() << rootGroups.at(i) << keys.at(j) << settings->value(keys.at(j));
 			settingsStorrage[rootGroups.at(i)][keys.at(j)]=settings->value(keys.at(j));
 		}
 		settings->endGroup();
 	}
+	//qDebug() << "================================================";
 	
 }
 void QApplicationSettings::SaveFilterGropups(QList<GroupForFileFiltering> filters)

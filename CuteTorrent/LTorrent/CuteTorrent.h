@@ -109,6 +109,8 @@ private:
 public slots:
 	void HandleNewTorrent(const QString &);
 private slots:
+	void UpdateUL(double);
+	void UpdateDL(double);
 	void OpenFileSelected();
 	void OpenDirSelected();
 	void setLowForCurrentFile();

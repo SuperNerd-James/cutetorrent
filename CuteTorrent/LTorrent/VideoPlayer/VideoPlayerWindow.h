@@ -56,12 +56,14 @@ signals:
 
 public slots:
 	void goFullScreen();
+
 protected:
 	void mouseMoveEvent(QMouseEvent *event);
 	void timerEvent(QTimerEvent * event);
   	void resizeEvent(QResizeEvent* event);
 	bool eventFilter(QObject *src, QEvent *event);
 private:
+	bool isFullScr;
 	MediaControls* controls;
     MediaController *m_mediaControl;
     Phonon::VideoWidget *m_videoWidget;

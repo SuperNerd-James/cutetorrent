@@ -103,6 +103,10 @@ public :
 	void pause();
 	void resume();
 	void MoveStorrage(QString path);
+	void SetUlLimit(int val);
+	void SetDlLimit(int val);
+	int GetDownloadLimit();
+	int GetUploadLimit();
 
 };
 
