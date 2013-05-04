@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define MEDIACONTROLLER_H
 
 #include <QtCore/QObject>
+#include <QStringList>
 #include <phonon/AudioOutput>
 #include <phonon/VideoWidget>
 namespace Phonon
@@ -43,13 +44,20 @@ public slots:
 	void pause();
     void openFile();
     void openURL();
+	void reverse();
+	void forvard();
 	void updateStateStatus(Phonon::State, Phonon::State);
 signals:
 	void updateMediaObject();
+	void newFile(QString);
 private:
+	QStringList m_playList;
+	int m_playListPosition;
+	QString m_LastDir;
     Phonon::MediaObject *m_media;
 	Phonon::AudioOutput *m_AudioOutput;
     void playSource(const Phonon::MediaSource &);
+
 };
 
 #endif // MEDIACONTROLLER_H

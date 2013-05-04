@@ -25,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "TorrentManager.h"
 #include <QDebug>
 #include <QTranslator>
+ #include <QIntValidator>
 #include "application.h"
 #include "Scheduller.h"
 SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
@@ -89,8 +90,11 @@ void SettingsDialog::FillTorrentTab()
 	uploadLimitEdit->setText(QString::number(settings->valueInt("Torrent","upload_rate_limit")/1024)+" Kb/s" );
 	downloadLimitEdit->setText(QString::number(settings->valueInt("Torrent","download_rate_limit")/1024)+" Kb/s" );
 	activeLimitEdit->setText(settings->valueString("Torrent","active_limit"));
+	activeLimitEdit->setValidator(new QIntValidator());
 	activeSeedLimitEdit->setText(settings->valueString("Torrent","active_seeds"));
+	activeSeedLimitEdit->setValidator(new QIntValidator());
 	activeDownloadLimitEdit->setText(settings->valueString("Torrent","active_downloads"));
+	activeDownloadLimitEdit->setValidator(new QIntValidator());
 	bool useProxy=settings->valueBool("Torrent","useProxy");
 	proxyGroupBox->setChecked(useProxy);
 	if (useProxy)

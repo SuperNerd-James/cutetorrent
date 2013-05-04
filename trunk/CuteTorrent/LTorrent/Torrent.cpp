@@ -183,7 +183,7 @@ QStringList& Torrent::GetImageFiles()
 	for (libtorrent::file_storage::iterator i=bg;i!=end;i++)
 	{
 		QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));
-		if (StaticHelpers::suffixes[StaticHelpers::DISK].contains(curfile.suffix()) && cur_torrent.file_priority(storrgae.file_index(*i)) > 0)
+		if (cur_torrent.file_priority(storrgae.file_index(*i)) > 0 && StaticHelpers::suffixes[StaticHelpers::DISK].contains(curfile.suffix().toLower()) )
 		{
 			imageFiles << QString::fromUtf8(cur_torrent.save_path().c_str())+QString::fromUtf8(storrgae.file_path(*i).c_str());
 		}
@@ -199,10 +199,11 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
 	libtorrent::file_storage::iterator bg=storrgae.begin(),
 		end=storrgae.end();
 	size=0;
+	StaticHelpers::guessMimeIcon("");
 	for (libtorrent::file_storage::iterator i=bg;i!=end;i++)
 	{
 		QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));
-		if (StaticHelpers::suffixes[StaticHelpers::DISK].contains(curfile.suffix()) && cur_torrent.file_priority(storrgae.file_index(*i)) > 0)
+		if (cur_torrent.file_priority(storrgae.file_index(*i)) > 0 && StaticHelpers::suffixes[StaticHelpers::DISK].contains(curfile.suffix().toLower()))
 		{
 			imageFiles << QString::fromUtf8(cur_torrent.save_path().c_str())+QString::fromUtf8(storrgae.file_path(*i).c_str());
 		}
@@ -211,13 +212,12 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
 			size+=storrgae.file_size(*i);
 		}
 	}
-	qDebug() << torrentStatus.name().c_str() << size;
+	
 	base_suffix=StaticHelpers::GetBaseSuffix(storrgae);
+	qDebug() << base_suffix << GetName();
 	if (!base_suffix.isEmpty())
 	{
-
-		if (StaticHelpers::suffixes[StaticHelpers::DISK].contains(base_suffix))
-			mountable=true;
+				
 		icon=StaticHelpers::guessMimeIcon(base_suffix);
 	}
 	else
@@ -227,7 +227,7 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
 }
 bool Torrent::isDaemonToolsMountable()
 {
-	return mountable;
+	return imageFiles.length() > 0;
 }
 QString Torrent::GetProgresString() const
 {
@@ -692,4 +692,58 @@ QString Torrent::GetDiscribtion()
 		
 	}
 	return "";
+}
+
+void Torrent::SetUlLimit( int val )
+{
+	qDebug() << "Torrent::SetUlLimit" << val;
+	try
+	{
+
+		cur_torrent.set_upload_limit(val);
+	}
+	catch (...)
+	{
+		
+	}
+	
+}
+
+void Torrent::SetDlLimit( int val )
+{
+	qDebug() << "Torrent::SetDlLimit" << val;
+	try
+	{
+		cur_torrent.set_download_limit(val);
+	}
+	catch (...)
+	{
+
+	}
+}
+
+int Torrent::GetDownloadLimit()
+{
+	try
+	{
+		return cur_torrent.download_limit();
+	}
+	catch (...)
+	{
+
+	}
+	return 0;
+}
+
+int Torrent::GetUploadLimit()
+{
+	try
+	{
+		return cur_torrent.upload_limit();
+	}
+	catch (...)
+	{
+
+	}
+	return 0;
 }

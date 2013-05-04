@@ -47,9 +47,9 @@ MediaControls::~MediaControls(void)
 void MediaControls::paintEvent( QPaintEvent *event )
 {
 	QPainter painter(this);
-	//painter.setOpacity(opacity());
+	painter.save();
 	painter.drawPixmap(rect(),*bg);
-	
+	painter.restore();
 	QWidget::paintEvent(event);
 }
 
@@ -57,10 +57,9 @@ void MediaControls::setupConnections()
 {
 	QObject::connect(ui->playButton,SIGNAL(clicked()),this,SIGNAL(play()));
 	QObject::connect(ui->pauseButton,SIGNAL(clicked()),this,SIGNAL(pause()));
-	//QObject::connect(ui->reverseButton,SIGNAL(clicked()),this,SIGNAL(play()));
-	//QObject::connect(ui->forwardButton,SIGNAL(clicked()),this,SIGNAL(play()));
+	QObject::connect(ui->reverseButton,SIGNAL(clicked()),this,SIGNAL(reverse()));
+	QObject::connect(ui->forwardButton,SIGNAL(clicked()),this,SIGNAL(forvard()));
 	QObject::connect(ui->openFileButton,SIGNAL(clicked()),this,SIGNAL(openFile()));
-	//QObject::connect(ui->openFileButton,SIGNAL(clicked()),this,SIGNAL(enableHiding()));
 	QObject::connect(ui->openUrlButton,SIGNAL(clicked()),this,SIGNAL(openURL()));
 	QObject::connect(ui->fullScreenButton,SIGNAL(clicked()),this,SIGNAL(toggleFullScreen()));
 	QObject::connect(m_mediaControl->mediaObject(),SIGNAL(tick(qint64)),SLOT(updateTime(qint64)));
@@ -71,32 +70,11 @@ void MediaControls::updateMedaiObject()
 {
 	ui->seekSlider->setMediaObject(m_mediaControl->mediaObject());
 }
-/*
-// 
-// void MediaControls::enterEvent( QEvent *event )
-// {
-// 	QPropertyAnimation  *anim = new QPropertyAnimation(this, "windowOpacity");
-// 	anim->setDuration(1000);
-// 	anim->setStartValue(1.f);
-// 	anim->setEndValue(0.f);
-// 	anim->start();
-// 	QWidget::enterEvent(event);
-// }
-// 
-// void MediaControls::leaveEvent( QEvent *event )
-// {
-// 	QPropertyAnimation  *anim = new QPropertyAnimation(this, "windowOpacity");
-// 	anim->setDuration(1000);
-// 	anim->setStartValue(0.f);
-// 	anim->setEndValue(1.f);
-// 	anim->start();
-// 	QWidget::leaveEvent(event);
-// }
-*/
+
 
 void MediaControls::updateTime( qint64 time )
 {
-	 ui->seekSlider->setMediaObject( m_mediaControl->mediaObject());
+	
 }
 
 void MediaControls::showControls()
@@ -120,19 +98,4 @@ void MediaControls::setOpacity( qreal val )
 	m_opacity=val;
 }
 
-/*
-// 
-// void MediaControls::mouseMoveEvent( QMouseEvent *event )
-// {
-// 	qDebug() << "mouseMoveEvent";
-// 	setWindowOpacity(1.0);
-// 	startTimer(3000);
-// }
-// 
-// void MediaControls::timerEvent( QTimerEvent *e )
-// {
-// 	
-// 	anim->start();
-// 		
-// }
-*/
+

@@ -175,6 +175,10 @@ public:
     void CancelMagnetLink(QString link);
 	void StartAllTorrents();
 	void PauseAllTorrents();
+	void SetUlLimit(int val);
+	void SetDlLimit(int val);
+	int GetDownloadLimit();
+	int GetUploadLimit();
 protected:
 };
 Q_DECLARE_METATYPE(opentorrent_info);

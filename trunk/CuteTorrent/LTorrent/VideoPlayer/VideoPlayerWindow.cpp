@@ -42,19 +42,18 @@ QMainWindow(parent)
 	controls->show();
 	
 	setWindowIcon(QIcon(":/icons/app.ico"));
-	m_videoWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
-	QAction* openFileAction=new QAction(tr("Open a file"),m_videoWidget);
-	QObject::connect(openFileAction,SIGNAL(triggered()),m_mediaControl, SLOT(openFile()));
-	m_videoWidget->addAction(openFileAction);
-	QAction* openUrlAction=new QAction(tr("Open a URL"),m_videoWidget);
-	QObject::connect(openUrlAction,SIGNAL(triggered()),m_mediaControl, SLOT(openURL()));
-	m_videoWidget->addAction(openUrlAction);
+	
 	
 	QObject::connect(controls,SIGNAL(play()),m_mediaControl,SLOT(play()));
 	QObject::connect(controls,SIGNAL(pause()),m_mediaControl,SLOT(pause()));
 	QObject::connect(controls,SIGNAL(openFile()),m_mediaControl,SLOT(openFile()));
+	QObject::connect(controls,SIGNAL(openURL()),m_mediaControl,SLOT(openURL()));
+	QObject::connect(controls,SIGNAL(forvard()),m_mediaControl,SLOT(forvard()));
+	QObject::connect(controls,SIGNAL(reverse()),m_mediaControl,SLOT(reverse()));
 	QObject::connect(controls,SIGNAL(toggleFullScreen()),this,SLOT(goFullScreen()));
-	
+	QObject::connect(m_mediaControl,SIGNAL(newFile(QString)),this,SLOT(setWindowTitle(QString)));
+	QObject::connect(m_mediaControl,SIGNAL(updateMediaObject()),controls,SLOT(updateMediaObject()));
+
 	setAttribute(Qt::WA_DeleteOnClose);
 	setMouseTracking(true);
     resize(600, 400);
@@ -84,7 +83,28 @@ bool VideoPlayerWindow::eventFilter( QObject *src, QEvent *event )
 
 void VideoPlayerWindow::goFullScreen()
 {
-	m_videoWidget->setFullScreen(!m_videoWidget->isFullScreen());
+	isFullScr=!isFullScr;
+	Qt::WindowFlags flags = windowFlags();
+	if (isFullScr) {
+		if (!isFullScreen()) {
+			//we only update that value if it is not already fullscreen
+			
+		
+#ifdef Q_WS_X11
+			// This works around a bug with Compiz
+			// as the window must be visible before we can set the state
+			show();
+			raise();
+			setWindowState( windowState() | Qt::WindowFullScreen ); // set
+#else
+			setWindowState( windowState() | Qt::WindowFullScreen ); // set
+			show();
+#endif
+		}
+	} else if (isFullScreen()) {
+		setWindowState( windowState()  ^ Qt::WindowFullScreen ); // reset
+		show();
+	}
 	controls->move(QPoint((m_videoWidget->width()-controls->width())/2,m_videoWidget->height()-controls->height()));
 }
 

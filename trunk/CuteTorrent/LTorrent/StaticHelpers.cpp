@@ -43,29 +43,36 @@ QIcon StaticHelpers::guessMimeIcon(QString suffix)
 	
 	static QIcon fallback;
 	
-	
+	suffix=suffix.toLower();
 	
 	if( fileIcons[0].isNull( ) )
 	{
 	
 		fallback = QIcon(QString::fromUtf8(":/icons/my-folder.ico"));
-	
-	    suffixes[DISK] << QString::fromAscii("iso");
-		suffixes[DISK] << QString::fromAscii("mdf");
-		suffixes[DISK] << QString::fromAscii("mds");
-	    fileIcons[DISK]= QIcon( ":/icons/my-iso.ico");
+		const char * disk_types[] = {
+				"mdx", "mds", "mdf", "iso", "b5t", "b6t", "bwt", "ccd", "cdi",
+				"nrg", "pdi", "isz" };
+		for( int i=0, n=sizeof(disk_types)/sizeof(disk_types[0]); i<n; ++i )
+		{
+			suffixes[DISK] << QString::fromAscii(disk_types[i]);
+		}
+		fileIcons[DISK]= QIcon( ":/icons/my-iso.ico");
 	
 	    const char * doc_types[] = {
 	            "abw", "csv", "doc", "dvi", "htm", "html", "ini", "log", "odp",
 	            "ods", "odt", "pdf", "ppt", "ps",  "rtf", "tex", "txt", "xml" };
 	    for( int i=0, n=sizeof(doc_types)/sizeof(doc_types[0]); i<n; ++i )
+		{
 			suffixes[DOCUMENT] << QString::fromAscii(doc_types[i] );
+		}
 		fileIcons[DOCUMENT] = QIcon( ":/icons/my-doc.ico" );
 	
 	    const char * pic_types[] = {
 	            "bmp", "gif", "jpg", "jpeg", "pcx", "png", "psd", "ras", "tga", "tiff" };
 	    for( int i=0, n=sizeof(pic_types)/sizeof(pic_types[0]); i<n; ++i )
+		{
 			suffixes[PICTURE] << QString::fromAscii(pic_types[i]);
+		}
 	    fileIcons[PICTURE]  = QIcon( ":/icons/my-picture.ico" );
 	
 	    const char * vid_types[] = {
@@ -80,25 +87,38 @@ QIcon StaticHelpers::guessMimeIcon(QString suffix)
 	    const char * arc_types[] = {
 	            "7z", "ace", "bz2", "cbz", "gz", "gzip", "lzma", "rar", "sft", "tar", "zip" };
 	    for( int i=0, n=sizeof(arc_types)/sizeof(arc_types[0]); i<n; ++i )
-			suffixes[VIDEO] << QString::fromAscii(arc_types[i]);
+		{
+			suffixes[ARCHIVE] << QString::fromAscii(arc_types[i]);
+		}
         fileIcons[ARCHIVE]  = QIcon( ":/icons/my-archive.ico" );
 
         const char * aud_types[] = {
 	            "aac", "ac3", "aiff", "ape", "au", "flac", "m3u", "m4a", "mid", "midi", "mp2",
 	            "mp3", "mpc", "nsf", "oga", "ogg", "ra", "ram", "shn", "voc", "wav", "wma" };
 	    for( int i=0, n=sizeof(aud_types)/sizeof(aud_types[0]); i<n; ++i )
+		{
 			suffixes[AUDIO] << QString::fromAscii(aud_types[i]);
+		}
 	    fileIcons[AUDIO] = QIcon( ":/icons/my-audio.ico" );
 	
 	    const char * exe_types[] = { "bat", "cmd", "com", "exe" };
 	    for( int i=0, n=sizeof(exe_types)/sizeof(exe_types[0]); i<n; ++i )
+		{
 			suffixes[APP] << QString::fromAscii(exe_types[i]);
+		}
 	    fileIcons[APP] = QIcon::fromTheme( "application-x-executable", fallback );
 	}
+	if (!suffix.isEmpty())
+	{
+		for( int i=0; i<TYPE_COUNT; ++i )
+		{
+			if( suffixes[i].contains(suffix))
+			{
+				return fileIcons[i];
+			}
+		}
+	}
 	
-	for( int i=0; i<TYPE_COUNT; ++i )
-		if( suffixes[i].contains(suffix))
-			return fileIcons[i];
 	
 	return fallback;
 }
@@ -193,7 +213,7 @@ QString StaticHelpers::GetBaseSuffix( libtorrent::file_storage storrage )
 		QFileInfo curfile(QString::fromUtf8(storrage.file_path(*iter).c_str()));
 		if (suffixes[DISK].contains(curfile.suffix()))
 		{
-			base_suffix="mds";
+			base_suffix=curfile.suffix();
 			break;
 		}
 		if (suffixes[VIDEO].contains(curfile.suffix()))
@@ -204,21 +224,18 @@ QString StaticHelpers::GetBaseSuffix( libtorrent::file_storage storrage )
 		if (!suffixesCount.contains(curfile.suffix()))
 		{
 			suffixesCount.insert(curfile.suffix(),1);
-			if (suffixesCount[curfile.suffix()] > maxSuffix)
-			{
-				maxSuffix=suffixesCount[curfile.suffix()];
-				base_suffix=curfile.suffix();
-			}
+			
 		}
 		else
 		{
 
 			suffixesCount[curfile.suffix()]++;
-			if (suffixesCount[curfile.suffix()] > maxSuffix)
-			{
-				maxSuffix=suffixesCount[curfile.suffix()];
-				base_suffix=curfile.suffix();
-			}
+			
+		}
+		if (suffixesCount[curfile.suffix()] > maxSuffix)
+		{
+			maxSuffix=suffixesCount[curfile.suffix()];
+			base_suffix=curfile.suffix();
 		}
 
 	}
