@@ -222,9 +222,9 @@
     <message>
         <location filename="CuteTorrent.cpp" line="83"/>
         <source>ABAUT_TEXT</source>
-        <translation>CuteTorrent %1 -бесплатный торрент клиент с поддержкой DHT, возможностью монтировани образов в DaemonTools.
+        <translation>CuteTorrent %1 -бесплатный торрент клиент с поддержкой DHT, возможностью монтировани образов в DaemonTools и встроенным Аудио/Видео плеером.
 
-Если вы заплатили деньги за это програмное обеспечение потребуйте возврата денег.</translation>
+Если вы заплатили деньги за это програмное обеспечение потребуйте возврата денег</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="88"/>
