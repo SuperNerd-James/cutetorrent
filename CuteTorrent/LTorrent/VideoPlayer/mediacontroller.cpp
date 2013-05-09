@@ -32,7 +32,7 @@ QObject(parent)
 {
     m_media = new Phonon::MediaObject(this);
 	connect(m_media,SIGNAL(stateChanged(Phonon::State, Phonon::State)),SLOT(updateStateStatus(Phonon::State, Phonon::State)));
-	qDebug() << "connect(m_media,SIGNAL(aboutToFinish()),SLOT(forvard()));" << connect(m_media,SIGNAL(aboutToFinish()),SLOT(forvard()));
+	connect(m_media,SIGNAL(aboutToFinish()),SLOT(forvard()));
 	m_AudioOutput = new Phonon::AudioOutput(Phonon::VideoCategory);
 	Phonon::createPath( m_media, m_AudioOutput );
 	m_LastDir="";

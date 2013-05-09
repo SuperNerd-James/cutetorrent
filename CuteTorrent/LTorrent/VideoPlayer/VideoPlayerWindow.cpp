@@ -59,6 +59,7 @@ QMainWindow(parent)
     resize(600, 400);
 	m_videoWidget->installEventFilter(this);
 	m_videoWidget->setAspectRatio(Phonon::VideoWidget::AspectRatioAuto);
+	m_videoWidget->setStyleSheet("background-image: url(qrc:/PlayerControlImages/bg.png)");
 	controls->move((m_videoWidget->width()-controls->width())/2,m_videoWidget->height()-controls->height());
 	QTimer::singleShot(3000,controls,SLOT(startHide()));
 }

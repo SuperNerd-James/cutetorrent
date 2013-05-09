@@ -227,6 +227,17 @@ void QTorrentDisplayModel::contextualMenu(const QPoint & point)
 					DTmount->setEnabled(true);
 				}
 			}
+			if (!torrent->hasMediaFiles())
+			{
+				PlayInPlayer->setEnabled(false);
+			}
+			else
+			{
+				if (!PlayInPlayer->isEnabled())
+				{
+					PlayInPlayer->setEnabled(true);
+				}
+			}
 			setSequentual->setChecked(torrent->isSquential());
 			menu->exec(parrent->mapToGlobal(point));
 		}

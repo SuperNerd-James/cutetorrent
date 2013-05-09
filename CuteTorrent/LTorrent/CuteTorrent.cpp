@@ -64,6 +64,7 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	mng->initSession();
 
 	QTimer::singleShot(10000,this,SLOT(checkForUpdates()));
+	QTimer::singleShot(3000,this,SLOT(enableNitifyShow()));
 	Scheduller* sch=Scheduller::getInstance();
 	
 	QFile File(":/icons/BaseStyle.qss");
@@ -247,14 +248,16 @@ void CuteTorrent::ShowNoUpdateNitify(const QString & ver)
 }
 void CuteTorrent::ShowTorrentError(const QString& name,const QString& error)
 {
-	
+	if (!mayShowNotifies)
+		return;
 	QBalloonTip::showBalloon("CuteTorrent", tr("CT_ERROR %1\n%2").arg(name).arg(error), QBalloonTip::Error,qVariantFromValue(0),
 		QSystemTrayIcon::Critical,15000,false);
 	
 }
 void CuteTorrent::showTorrentCompletedNotyfy(const QString name,QString path)
 {
-	
+	if (!mayShowNotifies)
+			return;	
 	QBalloonTip::showBalloon("CuteTorrent", tr("CT_DOWNLOAD_COMPLETE %1").arg(name),QBalloonTip::TorrentCompleted,qVariantFromValue(path+name),
 		QSystemTrayIcon::Information,15000,false);
 	

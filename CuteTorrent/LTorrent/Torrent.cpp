@@ -190,15 +190,12 @@ QStringList& Torrent::GetImageFiles()
 	}
 	return imageFiles;
 }
-Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
+Torrent::Torrent(libtorrent::torrent_handle torrentStatus) 
+	: mountable(false) , m_hasMedia(false) , cur_torrent(torrentStatus) , size(0)
 {
-
-	mountable=false;
-	cur_torrent=torrentStatus;
 	file_storage storrgae=cur_torrent.get_torrent_info().files();
 	libtorrent::file_storage::iterator bg=storrgae.begin(),
 		end=storrgae.end();
-	size=0;
 	StaticHelpers::guessMimeIcon("");
 	for (libtorrent::file_storage::iterator i=bg;i!=end;i++)
 	{
@@ -209,6 +206,8 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
 		}
 		if (cur_torrent.file_priority(storrgae.file_index(*i)) > 0)
 		{
+			if (StaticHelpers::suffixes[StaticHelpers::VIDEO].contains(curfile.suffix().toLower()) || StaticHelpers::suffixes[StaticHelpers::AUDIO].contains(curfile.suffix().toLower()))
+				m_hasMedia=true;
 			size+=storrgae.file_size(*i);
 		}
 	}
@@ -746,4 +745,8 @@ int Torrent::GetUploadLimit()
 
 	}
 	return 0;
+}
+bool Torrent::hasMediaFiles()
+{
+	return m_hasMedia;
 }
