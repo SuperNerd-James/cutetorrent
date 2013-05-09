@@ -32,6 +32,7 @@ QObject(parent)
 {
     m_media = new Phonon::MediaObject(this);
 	connect(m_media,SIGNAL(stateChanged(Phonon::State, Phonon::State)),SLOT(updateStateStatus(Phonon::State, Phonon::State)));
+	qDebug() << "connect(m_media,SIGNAL(aboutToFinish()),SLOT(forvard()));" << connect(m_media,SIGNAL(aboutToFinish()),SLOT(forvard()));
 	m_AudioOutput = new Phonon::AudioOutput(Phonon::VideoCategory);
 	Phonon::createPath( m_media, m_AudioOutput );
 	m_LastDir="";
@@ -45,11 +46,22 @@ Phonon::MediaObject *MediaController::mediaObject() const
 void MediaController::openFile()
 {
     QString file = QFileDialog::getOpenFileName(0, tr("Open a new file to play"),m_LastDir, "Suported Video Files (*.mkv *.avi *.mp4 *.m2ts *.mpg *.mpeg);;"
+																					 "Suported Audio Files (*.mp3 *.aac *.ac3 *.aiff *.flac *.m4a *.mpc *.nsf *.oga *.ogg *.wav *.wma);;"
 																					 "Matroska (*.mkv);;"
 																					 "Audio Video Interleave (*.avi);;"
 																					 "MPEG-4 Video (*.mp4);;"
 																					 "MPEG-TS Video (*.m2ts);;"
-																					 "MPEG-1 Video (*.mpg *.mpeg)"
+																					 "MPEG-1 Video (*.mpg *.mpeg);;"
+																					 "MPEG-1/2/2.5 Layer 3 (*.mp3);;"
+																					 "Advanced Audio Coding (*.aac);;"
+																					 "Dolby Digital (*.ac3);;"
+																					 "Audio Interchange File Format (*.aiff);;"
+																					 "Free Lossless Audio Codec (*.flac);;"
+																					 "M4A (*.m4a);;"
+																					 "MusePack (*.mpc);;"
+																					 "NES Sound Format (*.nsf);;"
+																					 "Vorbis Audio (*.oga *.ogg);;"
+																					 "Windwos Audio (*.wav *.wma);;"
 																					 "Any File (*.*)");
 	if (!file.isEmpty()) {
 		if (!QFile::exists(file))
@@ -65,6 +77,19 @@ void MediaController::openFile()
 			namefilters << "*.m2ts";
 			namefilters << "*.mpg";
 			namefilters << "*.mpeg";
+			namefilters << "*.mp3";
+			namefilters << "*.mp3";
+			namefilters << "*.aac";
+			namefilters << "*.ac3";
+			namefilters << "*.aiff";
+			namefilters << "*.flac";
+			namefilters << "*.m4a";
+			namefilters << "*.mpc";
+			namefilters << "*.nsf";
+			namefilters << "*.oga";
+			namefilters << "*.ogg";
+			namefilters << "*.wav";
+			namefilters << "*.wma";
 			m_playList = dir.entryList(namefilters);
 			m_playListPosition = m_playList.indexOf(QFileInfo(file).fileName());
 			if (m_playListPosition < 0)

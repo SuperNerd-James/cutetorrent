@@ -52,7 +52,7 @@ QMainWindow(parent)
 	QObject::connect(controls,SIGNAL(reverse()),m_mediaControl,SLOT(reverse()));
 	QObject::connect(controls,SIGNAL(toggleFullScreen()),this,SLOT(goFullScreen()));
 	QObject::connect(m_mediaControl,SIGNAL(newFile(QString)),this,SLOT(setWindowTitle(QString)));
-	QObject::connect(m_mediaControl,SIGNAL(updateMediaObject()),controls,SLOT(updateMediaObject()));
+	QObject::connect(m_mediaControl,SIGNAL(updateMediaObject()),controls,SLOT(updateMedaiObject()));
 
 	setAttribute(Qt::WA_DeleteOnClose);
 	setMouseTracking(true);
