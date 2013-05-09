@@ -32,6 +32,7 @@ public:
 	
 public slots:
 	void updateTime( qint64 time );
+	void updateTotalTime( qint64 time );
 	void showControls();
 	void startHide();
 	void setOpacity(qreal val);
