@@ -64,7 +64,7 @@
       <enum>QTabWidget::Rounded</enum>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <property name="documentMode">
       <bool>true</bool>
@@ -96,13 +96,6 @@
             </property>
            </widget>
           </item>
-          <item row="0" column="1">
-           <widget class="QLineEdit" name="uploadLimitEdit">
-            <property name="whatsThis">
-             <string>UPLOAD_SPEED_LIMIT</string>
-            </property>
-           </widget>
-          </item>
           <item row="3" column="0">
            <widget class="QLabel" name="label_15">
             <property name="whatsThis">
@@ -127,13 +120,6 @@
             </property>
             <property name="text">
              <string>DOWNLOAD_SPEED_LIMIT(Kb/s)</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="downloadLimitEdit">
-            <property name="whatsThis">
-             <string>DOWNLOAD_SPEED_LIMIT</string>
             </property>
            </widget>
           </item>
@@ -168,6 +154,38 @@
            <widget class="QLineEdit" name="activeDownloadLimitEdit">
             <property name="whatsThis">
              <string>ACTIVE_DOWNLOADS_LIMIT</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="uploadLimitEdit">
+            <property name="specialValueText">
+             <string>None</string>
+            </property>
+            <property name="suffix">
+             <string> Kb\s</string>
+            </property>
+            <property name="prefix">
+             <string/>
+            </property>
+            <property name="maximum">
+             <number>99999</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QSpinBox" name="downloadLimitEdit">
+            <property name="specialValueText">
+             <string>None</string>
+            </property>
+            <property name="suffix">
+             <string> Kb\s</string>
+            </property>
+            <property name="prefix">
+             <string/>
+            </property>
+            <property name="maximum">
+             <number>99999</number>
             </property>
            </widget>
           </item>
@@ -366,23 +384,23 @@
        <string>TAB_HDD</string>
       </attribute>
       <layout class="QGridLayout" name="gridLayout_17">
-       <item row="0" column="0">
-        <widget class="QCheckBox" name="lockFilesCheckBox">
+       <item row="4" column="0">
+        <widget class="QCheckBox" name="lowPrioDiskCheckBox">
          <property name="whatsThis">
-          <string>LOCK_FILES_WIT</string>
+          <string>LOW_PORIO_DISK_WIT</string>
          </property>
          <property name="text">
-          <string>LOCK_FILES</string>
+          <string>LOW_PORIO_DISK</string>
          </property>
         </widget>
        </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_19">
+       <item row="3" column="1">
+        <widget class="QCheckBox" name="alowReorderedOpsCheckBox">
          <property name="whatsThis">
-          <string>DISK_IO_CASH_MODE_WIT</string>
+          <string>ALOW_REORDERED_OPERATIONS_WIT</string>
          </property>
          <property name="text">
-          <string>DISK_IO_CASH_MODE</string>
+          <string>ALOW_REORDERED_OPERATIONS</string>
          </property>
         </widget>
        </item>
@@ -396,10 +414,47 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="1">
-        <widget class="QLineEdit" name="casheSizeLineEdit"/>
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_19">
+         <property name="whatsThis">
+          <string>DISK_IO_CASH_MODE_WIT</string>
+         </property>
+         <property name="text">
+          <string>DISK_IO_CASH_MODE</string>
+         </property>
+        </widget>
        </item>
-       <item row="1" column="1">
+       <item row="3" column="0">
+        <widget class="QCheckBox" name="useDiskReadAheadCheckBox">
+         <property name="whatsThis">
+          <string>USE_DISK_READ_AHEAD_WIT</string>
+         </property>
+         <property name="text">
+          <string>USE_DISK_READ_AHEAD</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="1">
+        <widget class="QCheckBox" name="useReadCasheCheckBox">
+         <property name="whatsThis">
+          <string>USE_READ_CASHE_WIT</string>
+         </property>
+         <property name="text">
+          <string>USE_READ_CASHE</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="2">
+        <widget class="QCheckBox" name="lockFilesCheckBox">
+         <property name="whatsThis">
+          <string>LOCK_FILES_WIT</string>
+         </property>
+         <property name="text">
+          <string>LOCK_FILES</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1" colspan="2">
         <widget class="QComboBox" name="diskIOCasheModeComboBox">
          <item>
           <property name="text">
@@ -418,43 +473,19 @@
          </item>
         </widget>
        </item>
-       <item row="3" column="1">
-        <widget class="QCheckBox" name="alowReorderedOpsCheckBox">
-         <property name="whatsThis">
-          <string>ALOW_REORDERED_OPERATIONS_WIT</string>
+       <item row="2" column="1">
+        <widget class="QSpinBox" name="casheSizeLineEdit">
+         <property name="specialValueText">
+          <string>None</string>
          </property>
-         <property name="text">
-          <string>ALOW_REORDERED_OPERATIONS</string>
+         <property name="suffix">
+          <string> Kb</string>
          </property>
-        </widget>
-       </item>
-       <item row="4" column="0">
-        <widget class="QCheckBox" name="lowPrioDiskCheckBox">
-         <property name="whatsThis">
-          <string>LOW_PORIO_DISK_WIT</string>
+         <property name="prefix">
+          <string/>
          </property>
-         <property name="text">
-          <string>LOW_PORIO_DISK</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QCheckBox" name="useReadCasheCheckBox">
-         <property name="whatsThis">
-          <string>USE_READ_CASHE_WIT</string>
-         </property>
-         <property name="text">
-          <string>USE_READ_CASHE</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QCheckBox" name="useDiskReadAheadCheckBox">
-         <property name="whatsThis">
-          <string>USE_DISK_READ_AHEAD_WIT</string>
-         </property>
-         <property name="text">
-          <string>USE_DISK_READ_AHEAD</string>
+         <property name="maximum">
+          <number>512000</number>
          </property>
         </widget>
        </item>
@@ -900,8 +931,6 @@
   <tabstop>proxyUsernameEdit</tabstop>
   <tabstop>proxyPwdEdit</tabstop>
   <tabstop>proxyTypeComboBox</tabstop>
-  <tabstop>uploadLimitEdit</tabstop>
-  <tabstop>downloadLimitEdit</tabstop>
   <tabstop>activeLimitEdit</tabstop>
   <tabstop>activeSeedLimitEdit</tabstop>
   <tabstop>activeDownloadLimitEdit</tabstop>
@@ -909,9 +938,7 @@
   <tabstop>magnetAssociationCheckBox</tabstop>
   <tabstop>runOnbootCheckBox</tabstop>
   <tabstop>startMinimizedCheckBox</tabstop>
-  <tabstop>lockFilesCheckBox</tabstop>
   <tabstop>diskIOCasheModeComboBox</tabstop>
-  <tabstop>casheSizeLineEdit</tabstop>
   <tabstop>useDiskReadAheadCheckBox</tabstop>
   <tabstop>alowReorderedOpsCheckBox</tabstop>
   <tabstop>lowPrioDiskCheckBox</tabstop>

@@ -240,14 +240,26 @@ void QTorrentDisplayModel::contextualMenu(const QPoint & point)
 }
 
 
-void QTorrentDisplayModel::UpdateSelectedIndex(const QModelIndex & index)
+void QTorrentDisplayModel::UpdateSelectedIndex(const QItemSelection & index)
 {
 	
 	try
 	{
-		selectedRow= index.row();
-        CurrentTorrent=torrents.at(selectedRow);
-        emit updateTabSender(-1);
+		QModelIndexList indexes = index.indexes();
+		if (indexes.count()==1)
+		{
+			
+			selectedRow= indexes[0].row();
+			CurrentTorrent=torrents.at(selectedRow);
+			
+		}
+		else
+		{
+			parrent->selectionModel()->reset();
+			selectedRow=-1;
+			CurrentTorrent=NULL;
+		}
+		emit updateTabSender(-2);
 	}
 	catch (std::exception e)
 	{
@@ -528,10 +540,15 @@ void QTorrentDisplayModel::moveStorrage()
 
 void QTorrentDisplayModel::playInPlayer()
 {
-	VideoPlayerWindow* vpw = new VideoPlayerWindow();
-	vpw->openFile(CurrentTorrent->GetSavePath()+CurrentTorrent->GetFileDownloadInfo().first().name);
-	vpw->show();
-
+	try 
+	{
+		VideoPlayerWindow* vpw = new VideoPlayerWindow();
+		vpw->openFile(CurrentTorrent->GetSavePath()+CurrentTorrent->GetFileDownloadInfo().first().name);
+		vpw->show();
+	
+	}
+	catch(...)
+	{}
 }
 
 void QTorrentDisplayModel::setupContextMenu()

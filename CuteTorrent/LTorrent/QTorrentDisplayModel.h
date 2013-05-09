@@ -105,7 +105,7 @@ signals:
 	void TorrentErrorPoxySender(const QString&);
 public slots:
 	void AddTorrent(Torrent*);
-	void UpdateSelectedIndex(const QModelIndex &);
+	void UpdateSelectedIndex(const QItemSelection &);
 	void TorrentErrorProxy(const QString&);
 	void TorrentCompletedProxy(const QString);
 	void contextualMenu(const QPoint &);
