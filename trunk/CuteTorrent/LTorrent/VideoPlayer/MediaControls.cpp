@@ -63,7 +63,8 @@ void MediaControls::setupConnections()
 	QObject::connect(ui->openUrlButton,SIGNAL(clicked()),this,SIGNAL(openURL()));
 	QObject::connect(ui->fullScreenButton,SIGNAL(clicked()),this,SIGNAL(toggleFullScreen()));
 	QObject::connect(m_mediaControl->mediaObject(),SIGNAL(tick(qint64)),SLOT(updateTime(qint64)));
-
+	QObject::connect(m_mediaControl->mediaObject(),SIGNAL(totalTimeChanged(qint64)),SLOT(updateTotalTime(qint64)));
+ 
 }
 
 void MediaControls::updateMedaiObject()
@@ -74,7 +75,17 @@ void MediaControls::updateMedaiObject()
 
 void MediaControls::updateTime( qint64 time )
 {
-	
+	QTime t(0,0,0);
+	t=t.addMSecs(time);
+	qDebug() << t;
+	ui->currentTimeLabel->setText(t.toString("hh:mm:ss"));
+}
+void MediaControls::updateTotalTime( qint64 time )
+{
+	QTime t(0,0,0);
+	t=t.addMSecs(time);
+	qDebug() << t;
+	ui->totalTimeLabel->setText(t.toString("hh:mm:ss"));
 }
 
 void MediaControls::showControls()
