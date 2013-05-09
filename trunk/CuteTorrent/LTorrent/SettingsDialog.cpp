@@ -76,7 +76,7 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 void SettingsDialog::FillHDDTab()
 {
 	lockFilesCheckBox->setCheckState(settings->valueBool("Torrent","lock_files") ?  Qt::Checked :Qt::Unchecked );
-	casheSizeLineEdit->setText(QString::number(settings->valueInt("Torrent","cache_size")*16*1024));
+	casheSizeLineEdit->setValue(settings->valueInt("Torrent","cache_size")*16);
 	diskIOCasheModeComboBox->setCurrentIndex(settings->valueInt("Torrent","disk_io_write_mode"));
 	useDiskReadAheadCheckBox->setCheckState(settings->valueBool("Torrent","use_disk_read_ahead") ?  Qt::Checked :Qt::Unchecked );
 	alowReorderedOpsCheckBox->setCheckState(settings->valueBool("Torrent","allow_reordered_disk_operations") ?  Qt::Checked :Qt::Unchecked );
@@ -87,8 +87,9 @@ void SettingsDialog::FillHDDTab()
 void SettingsDialog::FillTorrentTab()
 {
 	portEdit->setText(settings->valueString("Torrent","listen_port"));
-	uploadLimitEdit->setText(QString::number(settings->valueInt("Torrent","upload_rate_limit")/1024)+" Kb/s" );
-	downloadLimitEdit->setText(QString::number(settings->valueInt("Torrent","download_rate_limit")/1024)+" Kb/s" );
+	portEdit->setValidator(new QIntValidator());
+	uploadLimitEdit->setValue(settings->valueInt("Torrent","upload_rate_limit")/1024.0);
+	downloadLimitEdit->setValue(settings->valueInt("Torrent","download_rate_limit")/1024.0);
 	activeLimitEdit->setText(settings->valueString("Torrent","active_limit"));
 	activeLimitEdit->setValidator(new QIntValidator());
 	activeSeedLimitEdit->setText(settings->valueString("Torrent","active_seeds"));
@@ -153,8 +154,8 @@ void SettingsDialog::ApplySettings()
 	settings->setValue("Torrent","active_seeds",qVariantFromValue(activeSeedLimitEdit->text().toInt()));
 
 
-	settings->setValue("Torrent","upload_rate_limit",qVariantFromValue(uploadLimitEdit->text().split(' ').at(0).toInt()*1024));
-	settings->setValue("Torrent","download_rate_limit",qVariantFromValue(downloadLimitEdit->text().split(' ').at(0).toInt()*1024));
+	settings->setValue("Torrent","upload_rate_limit",qVariantFromValue(uploadLimitEdit->value()*1024));
+	settings->setValue("Torrent","download_rate_limit",qVariantFromValue(downloadLimitEdit->value()*1024));
 	settings->setValue("Torrent","useProxy",qVariantFromValue(proxyGroupBox->isChecked()));
 	if (proxyGroupBox->isChecked())
 	{
@@ -171,6 +172,7 @@ void SettingsDialog::ApplySettings()
 	}
 	
 	settings->setValue("Torrent","lock_files",lockFilesCheckBox->isChecked());
+	settings->setValue("Torrent","cache_size",casheSizeLineEdit->value() /16 );
 	settings->setValue("Torrent","disk_io_read_mode",diskIOCasheModeComboBox->currentIndex());
 	settings->setValue("Torrent","disk_io_write_mode",diskIOCasheModeComboBox->currentIndex());
 	settings->setValue("Torrent","low_prio_disk",lowPrioDiskCheckBox->isChecked() );
@@ -248,6 +250,7 @@ void SettingsDialog::ApplySettingsToSession()
 	current.active_downloads	= activeDownloadLimitEdit->text().toInt();
 	current.active_seeds		= activeSeedLimitEdit->text().toInt();
 	
+	current.cache_size			= casheSizeLineEdit->value() /16 ;
 	current.use_read_cache		= useReadCasheCheckBox->isChecked();
 	current.lock_files			= lockFilesCheckBox->isChecked();
 	current.disk_io_write_mode  = diskIOCasheModeComboBox->currentIndex();
@@ -256,9 +259,9 @@ void SettingsDialog::ApplySettingsToSession()
 
 	current.allow_reordered_disk_operations = alowReorderedOpsCheckBox->isChecked();
 
-	current.upload_rate_limit	= uploadLimitEdit->text().split(' ').at(0).toInt()*1024;
+	current.upload_rate_limit	= uploadLimitEdit->value()*1024;
 	
-	current.download_rate_limit = downloadLimitEdit->text().split(' ').at(0).toInt()*1024;
+	current.download_rate_limit = downloadLimitEdit->value()*1024;
 	
 	manager->updateSettings(current);
 	

@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtGui/QMainWindow>
 #include <QMessageBox>
 #include <QFileDialog>
-#include <QDoubleSpinBox>
+#include <QSpinBox>
 #include <QString>
 #include <QTimer>
 #include "ui_CuteTorrent.h"
@@ -59,8 +59,6 @@ protected:
 	void changeEvent(QEvent *event);
 	void resizeEvent ( QResizeEvent * event );
 	void closeEvent(QCloseEvent* ce);
-	/*void mouseMoveEvent(QMouseEvent* event);
-    void mousePressEvent(QMouseEvent* event); */
 	void dragEnterEvent(QDragEnterEvent *event);
     void dropEvent(QDropEvent *event);
 	void keyPressEvent ( QKeyEvent * event );
@@ -72,7 +70,7 @@ private:
 	UpdateNotifier* notyfire;
 	bool mayShowNotifies;
 	QSystemTrayIcon *trayIcon;
-	QDoubleSpinBox* ul,*dl;
+	QSpinBox* ul,*dl;
 	QMenu *trayIconMenu;
 	QAction* minimizeAction;
     QAction* maximizeAction;
@@ -109,8 +107,8 @@ private:
 public slots:
 	void HandleNewTorrent(const QString &);
 private slots:
-	void UpdateUL(double);
-	void UpdateDL(double);
+	void UpdateUL(int);
+	void UpdateDL(int);
 	void OpenFileSelected();
 	void OpenDirSelected();
 	void setLowForCurrentFile();
