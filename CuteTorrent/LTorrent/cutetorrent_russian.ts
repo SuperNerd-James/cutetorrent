@@ -951,7 +951,7 @@
     <message>
         <location filename="SettingsDialog.ui" line="222"/>
         <source>PROXY_USER_NAME</source>
-        <translation>Имя польщователя</translation>
+        <translation>Имя пользователя</translation>
     </message>
     <message>
         <location filename="SettingsDialog.ui" line="232"/>
