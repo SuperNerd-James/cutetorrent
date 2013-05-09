@@ -224,7 +224,7 @@ Are you shure?</translation>
         <source>ABAUT_TEXT</source>
         <translation>CuteTorrent %1
 
-CuteTorrent - free BitTorrent clent with DHT,  torrent filtering, opportunity of mounting Daemon Tools
+CuteTorrent - free BitTorrent clent with DHT,  torrent filtering, opportunity of mounting Daemon Tools images and embeded Video/Audio Player
 
 If you have paid money for this software demand a refund</translation>
     </message>
