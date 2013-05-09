@@ -42,6 +42,7 @@ class Torrent : public QObject
 	Q_OBJECT
 		
 private:
+	bool m_hasMedia;
 	StaticHelpers* helper;
 	torrent_handle cur_torrent;
 	libtorrent::size_type size;
@@ -87,6 +88,7 @@ public :
 	bool isDaemonToolsMountable();
 	bool isSquential() const;
 	bool hasError() const;	
+	bool hasMediaFiles();
 	int GetPieceCount();
 	QVector<int> GetDownloadedPieces();
 	QVector<int> GetDownloadingPieces();
