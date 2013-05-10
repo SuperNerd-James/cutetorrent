@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QVector>
 #include <QFileIconProvider>
 #include <QMessageBox>
+#include <QHostAddress>
 class TorrentManager;
 class StaticHelpers;
 struct file_info 
@@ -105,6 +106,8 @@ public :
 	void pause();
 	void resume();
 	void MoveStorrage(QString path);
+	void AddTracker(QString url);
+	void AddPeer(QHostAddress adr,short port);
 	void SetUlLimit(int val);
 	void SetDlLimit(int val);
 	int GetDownloadLimit();

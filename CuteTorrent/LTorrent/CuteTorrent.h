@@ -77,6 +77,7 @@ private:
     QAction* restoreAction;
     QAction* quitAction;
 	QAction* copyContext;
+	QAction* addPeer,* addTracker;
 	QLabel *upLabelText, *upLabel;
 	QLabel *uploadLimit, *downloadLimit;
 	QLabel* downLabelText, *downLabel;
@@ -143,6 +144,8 @@ private slots:
 	void copyDiscribtion();
 	void clearPieceDisplay();
 	void updateItemWidth(int,int);
+	void AddTracker();
+	void AddPeer();
 };
 
 #endif // LTORRENT_H
