@@ -142,6 +142,7 @@ private slots:
 	void peformSearch();
 	void copyDiscribtion();
 	void clearPieceDisplay();
+	void updateItemWidth(int,int);
 };
 
 #endif // LTORRENT_H

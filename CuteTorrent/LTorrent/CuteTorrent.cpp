@@ -185,6 +185,7 @@ void CuteTorrent::setupConnections()
 	QObject::connect(notyfire,SIGNAL(showUpdateNitify(const QString &)),this,SLOT(ShowUpdateNitify(const QString &)));
 	QObject::connect(notyfire,SIGNAL(showNoUpdateNitify(const QString &)),this,SLOT(ShowNoUpdateNitify(const QString &)));
 	QObject::connect(fileTableWidget,SIGNAL(customContextMenuRequested ( const QPoint &)),this,SLOT(fileTabContextMenu(const QPoint &)));
+	QObject::connect(listView->verticalScrollBar(),SIGNAL(rangeChanged (int,int)),this,SLOT(updateItemWidth(int,int)));
 }
 void CuteTorrent::fileTabContextMenu(const QPoint & point)
 {
@@ -262,10 +263,16 @@ void CuteTorrent::showTorrentCompletedNotyfy(const QString name,QString path)
 		QSystemTrayIcon::Information,15000,false);
 	
 }
-
+void CuteTorrent::updateItemWidth(int min,int max)
+{
+	qDebug() << "updateItemWidth " << QTorrentItemDelegat::max_width << listView->verticalScrollBar()->isVisible() << min << max;
+	QTorrentItemDelegat::max_width=width()-QApplication::style( )->pixelMetric( QStyle::PM_MessageBoxIconSize )-35-(max!=0 ? listView->autoScrollMargin() : 0);
+	qDebug() << "updateItemWidth " << QTorrentItemDelegat::max_width << listView->verticalScrollBar()->isVisible()<< min << max;
+}
 void CuteTorrent::updateTabWidget(int tab)
 {
-	qDebug() << "updateTabWidget(" << tab << ");";
+	//qDebug() << "updateTabWidget(" << tab << ");";
+
 	
 	trayIcon->setToolTip("CuteTorrent "CT_VERSION"\nUpload: "+mng->GetSessionUploadSpeed()+"\nDownload:"+mng->GetSessionDownloadSpeed());
 	if (this->isMinimized())
@@ -277,7 +284,7 @@ void CuteTorrent::updateTabWidget(int tab)
 			udapteLimits = true;	
 		tab=tabWidget->currentIndex();
 	}
-	qDebug() << "udapteLimits =" << udapteLimits << ";";
+	//qDebug() << "udapteLimits =" << udapteLimits << ";";
 	
 
 	try
@@ -962,7 +969,7 @@ void CuteTorrent::peformSearch()
 void CuteTorrent::resizeEvent( QResizeEvent * event )
 {
     Q_UNUSED(event);
-    QTorrentItemDelegat::max_width=width()-QApplication::style( )->pixelMetric( QStyle::PM_MessageBoxIconSize )-54;
+	QTorrentItemDelegat::max_width=width()-QApplication::style( )->pixelMetric( QStyle::PM_MessageBoxIconSize )-35-(listView->verticalScrollBar()->isVisible() ? listView->autoScrollMargin() : 0);
 	fillPieceDisplay();
 }
 
