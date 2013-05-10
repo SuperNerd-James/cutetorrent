@@ -15,8 +15,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">background-color:&quot;transparent&quot;;
-border-color:&quot;transparent&quot;;
-</string>
+border-color:&quot;transparent&quot;;</string>
   </property>
   <widget class="Phonon::VolumeSlider" name="volumeSlider">
    <property name="geometry">
