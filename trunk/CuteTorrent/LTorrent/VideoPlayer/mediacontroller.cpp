@@ -110,7 +110,7 @@ void MediaController::openURL()
 	bool ok;
 	QString url = QInputDialog::getText(NULL, tr("Type an url to play"),
 		tr("Mediafile URL:"), QLineEdit::Normal,
-		QDir::home().dirName(), &ok);
+		"", &ok);
 	if (ok && !url.isEmpty())
 	{
 		Phonon::MediaSource s(QUrl::fromPercentEncoding(url.toUtf8().data()));

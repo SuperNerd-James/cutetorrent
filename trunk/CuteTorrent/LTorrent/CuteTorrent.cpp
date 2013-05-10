@@ -124,10 +124,22 @@ void CuteTorrent::setupTabelWidgets()
 	trackerTableWidget->verticalHeader()->hide();
 	trackerTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
 	trackerTableWidget->setColumnWidth(2,120);
+	trackerTableWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
+	addTracker = new QAction(tr("ADD_TRACKER"),trackerTableWidget);
+	QObject::connect(addTracker,SIGNAL(triggered()),this,SLOT(AddTracker()));
+	trackerTableWidget->addAction(addTracker);
+
+	
+
     fileTableWidget->setSortingEnabled(true);
 	peerTableWidget->verticalHeader()->hide();
 	peerTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
 	peerTableWidget->setSortingEnabled(true);
+	peerTableWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
+	addPeer = new QAction(tr("ADD_PEER"),peerTableWidget);
+	QObject::connect(addPeer,SIGNAL(triggered()),this,SLOT(AddPeer()));
+	peerTableWidget->addAction(addPeer);
+
 
 }
 void CuteTorrent::setupToolBar()
@@ -496,6 +508,10 @@ void CuteTorrent::changeEvent(QEvent *event)
 
 		uploadLimit->setText(tr("LIMIT_UL"));
 		downloadLimit->setText(tr("LIMIT_DL"));
+
+		addTracker->setText(tr("ADD_TRACKER"));
+		addPeer->setText(tr("ADD_PEER"));
+
 		model->retranslate();
 	 }
   QMainWindow::changeEvent(event);
@@ -571,10 +587,12 @@ void CuteTorrent::ConnectMessageReceved(QtSingleApplication* a)
 }
 void CuteTorrent::HandleNewTorrent(const QString & path)
 {
-	//showNormal();
+	showNormal();
+	activateWindow();
 	OpenTorrentDialog dlg(this);
 	dlg.SetData(path);
 	dlg.execConditional();
+
 }
 void CuteTorrent::ShowCreateTorrentDialog(void)
 {
@@ -1094,6 +1112,43 @@ void CuteTorrent::UpdateDL(int kbps)
 		settings->setValue("Torrent","download_rate_limit",kbps*1024);
 		QApplicationSettings::FreeInstance();
 		mng->SetDlLimit(kbps*1024);
+	}
+}
+
+void CuteTorrent::AddPeer()
+{
+	Torrent* torrent=model->GetSelectedTorrent();
+	if (torrent!=NULL)
+	{
+		bool ok;
+		QString peerStr = QInputDialog::getText(this,tr("ADD_PEER_DLG"),tr("PEER:"),QLineEdit::Normal,"",&ok);
+		if (ok && !peerStr.isEmpty())
+		{
+			QStringList parts = peerStr.split(':');
+			if (parts.count()==2)
+			{
+				QHostAddress adr(parts[0]);
+				if(!adr.isNull())
+				{
+					torrent->AddPeer(adr,parts[1].toUInt());
+
+				}
+			}
+		}
+	}
+}
+
+void CuteTorrent::AddTracker()
+{
+	Torrent* torrent=model->GetSelectedTorrent();
+	if (torrent!=NULL)
+	{
+		bool ok;
+		QString trackerUrl = QInputDialog::getText(this,tr("ADD_TRACKER_DLG"),tr("TRACKER:"),QLineEdit::Normal,"",&ok);
+		if (ok && !trackerUrl.isEmpty())
+		{
+			torrent->AddTracker(trackerUrl);
+		}
 	}
 }
 

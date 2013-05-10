@@ -750,3 +750,15 @@ bool Torrent::hasMediaFiles()
 {
 	return m_hasMedia;
 }
+
+void Torrent::AddPeer( QHostAddress adr,short port )
+{
+	tcp::endpoint ep(boost::asio::ip::address_v4(adr.toIPv4Address()),port);
+	cur_torrent.connect_peer(ep);
+}
+
+void Torrent::AddTracker( QString url )
+{
+	
+	cur_torrent.add_tracker(url.toStdString());
+}

@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMenu>
 
 VideoPlayerWindow::VideoPlayerWindow(QWidget *parent) :
-QMainWindow(parent)
+QMainWindow(parent),isFullScr(false)
 {
     m_videoWidget = new Phonon::VideoWidget();
     setCentralWidget(m_videoWidget);
@@ -42,8 +42,7 @@ QMainWindow(parent)
 	controls->show();
 	
 	setWindowIcon(QIcon(":/icons/app.ico"));
-	setStyleSheet("background-image: url(:/PlayerControlImages/bg.png);");
-	
+		
 	QObject::connect(controls,SIGNAL(play()),m_mediaControl,SLOT(play()));
 	QObject::connect(controls,SIGNAL(pause()),m_mediaControl,SLOT(pause()));
 	QObject::connect(controls,SIGNAL(openFile()),m_mediaControl,SLOT(openFile()));
