@@ -19,23 +19,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "MediaControls.h"
 #include <phonon/MediaObject>
-MediaControls::MediaControls(MediaController* m_mediaController,QWidget* parrent) : QWidget(parrent),hidingEnabled(false),m_opacity(0.5)
+MediaControls::MediaControls(MediaController* m_mediaController,QWidget* parrent) : QWidget(parrent),hidingEnabled(false),reverseTime(false)/*,m_opacity(0.5)*/
 {
 	ui = new Ui::MediaControls();
 	ui->setupUi(this);
 	m_mediaControl=m_mediaController;
 	ui->volumeSlider->setAudioOutput(m_mediaController->audioOutput());
 	ui->seekSlider->setMediaObject(m_mediaController->mediaObject());
-	//this->setAttribute(Qt::WA_TranslucentBackground, true);
 	bg = new QPixmap(":/PlayerControlImages/ControlBar.png");
 	setMask(bg->scaled(size(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation).mask());
 	setupConnections();
-	//setAttribute(Qt::WA_TranslucentBackground);
 	setMouseTracking(true);
-	anim = new QPropertyAnimation(this, "opacity",this);
-	anim->setDuration(1000);
-	anim->setStartValue(1.f);
-	anim->setEndValue(0.f);
+	ui->currentTimeLabel->installEventFilter(this);
 }
 
 MediaControls::~MediaControls(void)
@@ -76,37 +71,27 @@ void MediaControls::updateMedaiObject()
 void MediaControls::updateTime( qint64 time )
 {
 	QTime t(0,0,0);
-	t=t.addMSecs(time);
+	t=t.addMSecs(reverseTime ?totalTime-time :time);
 	qDebug() << t;
 	ui->currentTimeLabel->setText(t.toString("hh:mm:ss"));
 }
 void MediaControls::updateTotalTime( qint64 time )
 {
+	totalTime=time;
 	QTime t(0,0,0);
 	t=t.addMSecs(time);
 	qDebug() << t;
 	ui->totalTimeLabel->setText(t.toString("hh:mm:ss"));
 }
+ bool MediaControls::eventFilter(QObject *obj, QEvent *event)
+ {
+	 if (obj==ui->currentTimeLabel && event->type()==QEvent::MouseButtonPress)
+	 {
+		 reverseTime=!reverseTime;
+		 return true;
+	 }
+	 return QWidget::eventFilter(obj,event);
+ }
 
-void MediaControls::showControls()
-{
-	setOpacity(1.0);
-}
-
-void MediaControls::startHide()
-{
-	qDebug() << "MediaControls::startHide()";
-	anim->start();
-}
-
-qreal MediaControls::opacity() const
-{
-	return m_opacity;
-}
-
-void MediaControls::setOpacity( qreal val )
-{
-	m_opacity=val;
-}
 
 

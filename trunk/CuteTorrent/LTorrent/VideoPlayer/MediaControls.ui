@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>376</width>
+    <width>442</width>
     <height>71</height>
    </rect>
   </property>
@@ -15,7 +15,8 @@
   </property>
   <property name="styleSheet">
    <string notr="true">background-color:&quot;transparent&quot;;
-border-color:&quot;transparent&quot;</string>
+border-color:&quot;transparent&quot;;
+</string>
   </property>
   <widget class="Phonon::VolumeSlider" name="volumeSlider">
    <property name="geometry">
@@ -33,7 +34,7 @@ border-color:&quot;transparent&quot;</string>
     </size>
    </property>
    <property name="maximumVolume">
-    <double>2.000000000000000</double>
+    <double>1.000000000000000</double>
    </property>
   </widget>
   <widget class="QPushButton" name="playButton">
@@ -63,8 +64,8 @@ border-color:&quot;transparent&quot;</string>
   <widget class="QPushButton" name="pauseButton">
    <property name="geometry">
     <rect>
-     <x>162</x>
-     <y>9</y>
+     <x>180</x>
+     <y>10</y>
      <width>28</width>
      <height>24</height>
     </rect>
@@ -87,8 +88,8 @@ border-color:&quot;transparent&quot;</string>
   <widget class="QPushButton" name="reverseButton">
    <property name="geometry">
     <rect>
-     <x>197</x>
-     <y>9</y>
+     <x>220</x>
+     <y>10</y>
      <width>28</width>
      <height>24</height>
     </rect>
@@ -111,8 +112,8 @@ border-color:&quot;transparent&quot;</string>
   <widget class="QPushButton" name="forwardButton">
    <property name="geometry">
     <rect>
-     <x>231</x>
-     <y>9</y>
+     <x>270</x>
+     <y>10</y>
      <width>28</width>
      <height>24</height>
     </rect>
@@ -135,8 +136,8 @@ border-color:&quot;transparent&quot;</string>
   <widget class="QPushButton" name="openFileButton">
    <property name="geometry">
     <rect>
-     <x>266</x>
-     <y>9</y>
+     <x>310</x>
+     <y>10</y>
      <width>28</width>
      <height>24</height>
     </rect>
@@ -159,8 +160,8 @@ border-color:&quot;transparent&quot;</string>
   <widget class="QPushButton" name="openUrlButton">
    <property name="geometry">
     <rect>
-     <x>301</x>
-     <y>9</y>
+     <x>360</x>
+     <y>10</y>
      <width>28</width>
      <height>24</height>
     </rect>
@@ -183,8 +184,8 @@ border-color:&quot;transparent&quot;</string>
   <widget class="QPushButton" name="fullScreenButton">
    <property name="geometry">
     <rect>
-     <x>336</x>
-     <y>9</y>
+     <x>400</x>
+     <y>10</y>
      <width>28</width>
      <height>24</height>
     </rect>
@@ -340,7 +341,7 @@ border-color:&quot;transparent&quot;</string>
     <rect>
      <x>58</x>
      <y>40</y>
-     <width>261</width>
+     <width>301</width>
      <height>22</height>
     </rect>
    </property>
@@ -351,8 +352,8 @@ border-color:&quot;transparent&quot;</string>
   <widget class="QLabel" name="totalTimeLabel">
    <property name="geometry">
     <rect>
-     <x>323</x>
-     <y>43</y>
+     <x>370</x>
+     <y>40</y>
      <width>51</width>
      <height>16</height>
     </rect>

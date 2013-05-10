@@ -78,7 +78,6 @@ void MediaController::openFile()
 			namefilters << "*.mpg";
 			namefilters << "*.mpeg";
 			namefilters << "*.mp3";
-			namefilters << "*.mp3";
 			namefilters << "*.aac";
 			namefilters << "*.ac3";
 			namefilters << "*.aiff";
@@ -115,6 +114,7 @@ void MediaController::openURL()
 	if (ok && !url.isEmpty())
 	{
 		Phonon::MediaSource s(QUrl::fromPercentEncoding(url.toUtf8().data()));
+		emit newFile(s.fileName());
 		playSource(s);
 	}
 }
@@ -171,6 +171,18 @@ void MediaController::playFile( QString file )
 			namefilters << "*.m2ts";
 			namefilters << "*.mpg";
 			namefilters << "*.mpeg";
+			namefilters << "*.mp3";
+			namefilters << "*.aac";
+			namefilters << "*.ac3";
+			namefilters << "*.aiff";
+			namefilters << "*.flac";
+			namefilters << "*.m4a";
+			namefilters << "*.mpc";
+			namefilters << "*.nsf";
+			namefilters << "*.oga";
+			namefilters << "*.ogg";
+			namefilters << "*.wav";
+			namefilters << "*.wma";
 			m_playList = dir.entryList(namefilters);
 			m_playListPosition = m_playList.indexOf(QFileInfo(file).fileName());
 			if (m_playListPosition < 0)

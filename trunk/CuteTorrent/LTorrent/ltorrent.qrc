@@ -56,5 +56,6 @@
         <file alias="RateButtonForward.png">Resources/playerImages/RateButtonForward.png</file>
         <file alias="RateButtonReverse.png">Resources/playerImages/RateButtonReverse.png</file>
         <file alias="UrlButton.png">Resources/playerImages/UrlButton.png</file>
+        <file alias="bg.png">Resources/playerImages/pattern.png</file>
     </qresource>
 </RCC>

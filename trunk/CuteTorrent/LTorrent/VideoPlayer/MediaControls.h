@@ -24,18 +24,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class MediaControls : public QWidget
 {
 	Q_OBJECT
-	Q_PROPERTY(qreal opacity READ opacity WRITE setOpacity)
 public:
 	MediaControls(MediaController* m_mediaController,QWidget* parrent=NULL);
 	~MediaControls(void);
-	qreal opacity() const;
+	
 	
 public slots:
 	void updateTime( qint64 time );
 	void updateTotalTime( qint64 time );
-	void showControls();
-	void startHide();
-	void setOpacity(qreal val);
 	void updateMedaiObject();
 signals:
 	void forvard();
@@ -48,18 +44,17 @@ signals:
 	void setPosition(int value);
 	void toggleFullScreen();
 private:
-	qreal m_opacity;
+	qint64 totalTime;
+	bool reverseTime;
 	bool hidingEnabled;
 	Ui::MediaControls* ui;
 	MediaController* m_mediaControl;
 	QPixmap* bg;
-	QPropertyAnimation  *anim;
 	void setupConnections();
 	
 protected:
 	void paintEvent(QPaintEvent *event);
-	
-
+    bool eventFilter(QObject *obj, QEvent *event);
 
 };
 

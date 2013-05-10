@@ -72,7 +72,7 @@
 				Version="0.8.8.3"
 				LinkIncremental="0"
 				SuppressStartupBanner="false"
-				AdditionalLibraryDirectories="E:\src\CuteTorrent\LTorrent\qtsingleapplication\lib;&quot;E:\src\libtorrent-rasterbar-0.16.8\lib&quot;;E:\src\boost_1_53_0\stage\lib;&quot;$(QTDIR)\lib&quot;"
+				AdditionalLibraryDirectories="E:\src\CuteTorrent\trunk\CuteTorrent\LTorrent\qtsingleapplication\lib;&quot;E:\src\libtorrent-rasterbar-0.16.8\lib&quot;;E:\src\boost_1_53_0\stage\lib;&quot;$(QTDIR)\lib&quot;"
 				UACExecutionLevel="2"
 				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="false"
@@ -1370,6 +1370,26 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Resources\playerImages\ControlBar.png"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\cutetorrent_english.qm"
 				>
 				<FileConfiguration
@@ -1550,6 +1570,26 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Resources\playerImages\FileButton.png"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\Resources\folder.ico"
 				>
 				<FileConfiguration
@@ -1571,6 +1611,26 @@
 			</File>
 			<File
 				RelativePath=".\Resources\images\frame.png"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Resources\playerImages\FullscreenButton.png"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -1639,7 +1699,7 @@
 						Name="VCCustomBuildTool"
 						Description="Rcc&apos;ing $(InputFileName)..."
 						CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name &quot;$(InputName)&quot; -no-compress &quot;$(InputPath)&quot; -o .\GeneratedFiles\qrc_$(InputName).cpp&#x0D;&#x0A;"
-						AdditionalDependencies="$(InputPath);.\Resources\Actions-application-exit.ico;.\Resources\Actions-arrow-right.ico;.\Resources\Actions-media-playback-pause.ico;.\Resources\archime.ico;.\Resources\audio.ico;.\Resources\default.ico;.\Resources\doc.ico;.\Resources\movie.ico;.\Resources\picture.ico;.\Resources\folder.ico;.\Resources\app.ico;.\Resources\CuteTorrentStyle.qss;.\Resources\File-iso-icon.ico;.\Resources\download.ico;.\Resources\upload.ico;.\Resources\gtk_preferences.ico;.\cutetorrent_russian.qm;.\cutetorrent_english.qm;.\Resources\stylesheet-branch-closed.png;.\Resources\stylesheet-branch-end.png;.\Resources\stylesheet-branch-more.png;.\Resources\stylesheet-branch-open.png;.\Resources\stylesheet-vline.png;.\Resources\images\pushbutton.png;.\Resources\images\pushbutton_hover.png;.\Resources\images\pushbutton_pressed.png;.\Resources\images\down_arrow.png;.\Resources\images\down_arrow_disabled.png;.\Resources\images\up_arrow.png;.\Resources\images\up_arrow_disabled.png;.\Resources\images\frame.png;.\Resources\images\sizegrip.png;.\Resources\images\checkbox_checked.png;.\Resources\images\checkbox_checked_hover.png;.\Resources\images\checkbox_checked_pressed.png;.\Resources\images\checkbox_unchecked.png;.\Resources\images\checkbox_unchecked_hover.png;.\Resources\images\checkbox_unchecked_pressed.png;.\Resources\images\loader.gif;.\Resources\images\ToolTipFrame.png"
+						AdditionalDependencies="$(InputPath);.\Resources\Actions-application-exit.ico;.\Resources\Actions-arrow-right.ico;.\Resources\Actions-media-playback-pause.ico;.\Resources\archime.ico;.\Resources\audio.ico;.\Resources\default.ico;.\Resources\doc.ico;.\Resources\movie.ico;.\Resources\picture.ico;.\Resources\folder.ico;.\Resources\app.ico;.\Resources\CuteTorrentStyle.qss;.\Resources\File-iso-icon.ico;.\Resources\download.ico;.\Resources\upload.ico;.\Resources\gtk_preferences.ico;.\cutetorrent_russian.qm;.\cutetorrent_english.qm;.\Resources\stylesheet-branch-closed.png;.\Resources\stylesheet-branch-end.png;.\Resources\stylesheet-branch-more.png;.\Resources\stylesheet-branch-open.png;.\Resources\stylesheet-vline.png;.\Resources\images\pushbutton.png;.\Resources\images\pushbutton_hover.png;.\Resources\images\pushbutton_pressed.png;.\Resources\images\down_arrow.png;.\Resources\images\down_arrow_disabled.png;.\Resources\images\up_arrow.png;.\Resources\images\up_arrow_disabled.png;.\Resources\images\frame.png;.\Resources\images\sizegrip.png;.\Resources\images\checkbox_checked.png;.\Resources\images\checkbox_checked_hover.png;.\Resources\images\checkbox_checked_pressed.png;.\Resources\images\checkbox_unchecked.png;.\Resources\images\checkbox_unchecked_hover.png;.\Resources\images\checkbox_unchecked_pressed.png;.\Resources\images\loader.gif;.\Resources\images\ToolTipFrame.png;.\Resources\playerImages\ControlBar.png;.\Resources\playerImages\FileButton.png;.\Resources\playerImages\FullscreenButton.png;.\Resources\playerImages\PauseButton.png;.\Resources\playerImages\PlayButton.png;.\Resources\playerImages\RateButtonForward.png;.\Resources\playerImages\RateButtonReverse.png;.\Resources\playerImages\UrlButton.png;.\Resources\playerImages\pattern.png"
 						Outputs=".\GeneratedFiles\qrc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
@@ -1650,7 +1710,7 @@
 						Name="VCCustomBuildTool"
 						Description="Rcc&apos;ing $(InputFileName)..."
 						CommandLine="&quot;$(QTDIR)\bin\rcc.exe&quot; -name &quot;$(InputName)&quot; -no-compress &quot;$(InputPath)&quot; -o .\GeneratedFiles\qrc_$(InputName).cpp&#x0D;&#x0A;"
-						AdditionalDependencies="$(InputPath);.\Resources\Actions-application-exit.ico;.\Resources\Actions-arrow-right.ico;.\Resources\Actions-media-playback-pause.ico;.\Resources\archime.ico;.\Resources\audio.ico;.\Resources\default.ico;.\Resources\doc.ico;.\Resources\movie.ico;.\Resources\picture.ico;.\Resources\folder.ico;.\Resources\app.ico;.\Resources\CuteTorrentStyle.qss;.\Resources\File-iso-icon.ico;.\Resources\download.ico;.\Resources\upload.ico;.\Resources\gtk_preferences.ico;.\cutetorrent_russian.qm;.\cutetorrent_english.qm;.\Resources\stylesheet-branch-closed.png;.\Resources\stylesheet-branch-end.png;.\Resources\stylesheet-branch-more.png;.\Resources\stylesheet-branch-open.png;.\Resources\stylesheet-vline.png;.\Resources\images\pushbutton.png;.\Resources\images\pushbutton_hover.png;.\Resources\images\pushbutton_pressed.png;.\Resources\images\down_arrow.png;.\Resources\images\down_arrow_disabled.png;.\Resources\images\up_arrow.png;.\Resources\images\up_arrow_disabled.png;.\Resources\images\frame.png;.\Resources\images\sizegrip.png;.\Resources\images\checkbox_checked.png;.\Resources\images\checkbox_checked_hover.png;.\Resources\images\checkbox_checked_pressed.png;.\Resources\images\checkbox_unchecked.png;.\Resources\images\checkbox_unchecked_hover.png;.\Resources\images\checkbox_unchecked_pressed.png;.\Resources\images\loader.gif;.\Resources\images\ToolTipFrame.png"
+						AdditionalDependencies="$(InputPath);.\Resources\Actions-application-exit.ico;.\Resources\Actions-arrow-right.ico;.\Resources\Actions-media-playback-pause.ico;.\Resources\archime.ico;.\Resources\audio.ico;.\Resources\default.ico;.\Resources\doc.ico;.\Resources\movie.ico;.\Resources\picture.ico;.\Resources\folder.ico;.\Resources\app.ico;.\Resources\CuteTorrentStyle.qss;.\Resources\File-iso-icon.ico;.\Resources\download.ico;.\Resources\upload.ico;.\Resources\gtk_preferences.ico;.\cutetorrent_russian.qm;.\cutetorrent_english.qm;.\Resources\stylesheet-branch-closed.png;.\Resources\stylesheet-branch-end.png;.\Resources\stylesheet-branch-more.png;.\Resources\stylesheet-branch-open.png;.\Resources\stylesheet-vline.png;.\Resources\images\pushbutton.png;.\Resources\images\pushbutton_hover.png;.\Resources\images\pushbutton_pressed.png;.\Resources\images\down_arrow.png;.\Resources\images\down_arrow_disabled.png;.\Resources\images\up_arrow.png;.\Resources\images\up_arrow_disabled.png;.\Resources\images\frame.png;.\Resources\images\sizegrip.png;.\Resources\images\checkbox_checked.png;.\Resources\images\checkbox_checked_hover.png;.\Resources\images\checkbox_checked_pressed.png;.\Resources\images\checkbox_unchecked.png;.\Resources\images\checkbox_unchecked_hover.png;.\Resources\images\checkbox_unchecked_pressed.png;.\Resources\images\loader.gif;.\Resources\images\ToolTipFrame.png;.\Resources\playerImages\ControlBar.png;.\Resources\playerImages\FileButton.png;.\Resources\playerImages\FullscreenButton.png;.\Resources\playerImages\PauseButton.png;.\Resources\playerImages\PlayButton.png;.\Resources\playerImages\RateButtonForward.png;.\Resources\playerImages\RateButtonReverse.png;.\Resources\playerImages\UrlButton.png;.\Resources\playerImages\pattern.png"
 						Outputs=".\GeneratedFiles\qrc_$(InputName).cpp"
 					/>
 				</FileConfiguration>
@@ -1676,7 +1736,67 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath=".\Resources\playerImages\pattern.png"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Resources\playerImages\PauseButton.png"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
 				RelativePath=".\Resources\picture.ico"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Resources\playerImages\PlayButton.png"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -1737,6 +1857,46 @@
 			</File>
 			<File
 				RelativePath=".\Resources\images\pushbutton_pressed.png"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Resources\playerImages\RateButtonForward.png"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Resources\playerImages\RateButtonReverse.png"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
@@ -1957,6 +2117,26 @@
 			</File>
 			<File
 				RelativePath=".\Resources\upload.ico"
+				>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCustomBuildTool"
+					/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\Resources\playerImages\UrlButton.png"
 				>
 				<FileConfiguration
 					Name="Release|Win32"
