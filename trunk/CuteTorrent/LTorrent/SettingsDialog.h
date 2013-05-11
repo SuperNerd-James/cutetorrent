@@ -20,7 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ui_SettingsDialog.h"
 #include "QApplicationSettings.h"
 #include "GroupForFileFiltering.h"
-#include "CalendarWidget.h"
 class SettingsDialog : public QDialog , private Ui::SettingsDialog
 {
 	Q_OBJECT

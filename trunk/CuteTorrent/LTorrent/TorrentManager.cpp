@@ -929,6 +929,7 @@ void TorrentManager::SetDlLimit( int val )
 {
 	qDebug() << "TorrentManager::SetDlLimit" << val;
 	ses->set_download_rate_limit(val);
+	
 }
 
 int TorrentManager::GetDownloadLimit()

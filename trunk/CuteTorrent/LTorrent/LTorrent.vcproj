@@ -187,10 +187,6 @@
 				>
 			</File>
 			<File
-				RelativePath=".\CalendarWidget.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\CreateTorrentDialog.cpp"
 				>
 			</File>
@@ -200,6 +196,10 @@
 			</File>
 			<File
 				RelativePath=".\DT_mounter.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\FileTabelModel.cpp"
 				>
 			</File>
 			<File
@@ -331,10 +331,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\CalendarWidget.h"
-				>
-			</File>
-			<File
 				RelativePath=".\CreateTorrentDilaog.h"
 				>
 				<FileConfiguration
@@ -388,6 +384,10 @@
 			</File>
 			<File
 				RelativePath=".\DT_mounter.h"
+				>
+			</File>
+			<File
+				RelativePath=".\FileTabelModel.h"
 				>
 			</File>
 			<File

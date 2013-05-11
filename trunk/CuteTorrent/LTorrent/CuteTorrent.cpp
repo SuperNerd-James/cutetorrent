@@ -967,14 +967,16 @@ void CuteTorrent::setNotDownloadForCurrentFile()
 
 void CuteTorrent::ProcessMagnet()
 {
-	OpenMagnetDialog* dlg = new OpenMagnetDialog(this);
-	dlg->exec();
-	QString magnetLink=dlg->getLink();
-	delete dlg;
-	OpenTorrentDialog* dlg2 = new OpenTorrentDialog();
-	dlg2->SetData(magnetLink);
-	dlg2->exec();
-	delete dlg2;
+	bool ok;
+	QString magnetLink=QInputDialog::getText(this,tr("MAGNET_LINK_DLG"),tr("MAGNET_LINK:"),QLineEdit::Normal,"",&ok);
+	if (ok && !magnetLink.isEmpty())
+	{
+		OpenTorrentDialog* dlg2 = new OpenTorrentDialog();
+		dlg2->SetData(magnetLink);
+		dlg2->exec();
+		delete dlg2;
+	}
+	
 }
 
 void CuteTorrent::peformSearch()
@@ -1131,9 +1133,11 @@ void CuteTorrent::AddPeer()
 				if(!adr.isNull())
 				{
 					torrent->AddPeer(adr,parts[1].toUInt());
-
+					return;
 				}
+				
 			}
+			QMessageBox::critical(this,tr("PEER_ERR"),tr("INVALID_IP_STRING"));
 		}
 	}
 }
