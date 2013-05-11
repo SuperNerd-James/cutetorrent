@@ -1,8 +1,8 @@
-#summary A way to organise automatic storrage for torrent.
+#summary A way to organise automatic storrage for torrents.
 
 = Introduction =
 
-Torrent Filtering is a way to organise automatic storrage for torrent.
+Torrent Filtering is a way to organise automatic storrage for torrents.
 
 
 = Details =
