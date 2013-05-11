@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ui_CuteTorrent.h"
 #include "SettingsDialog.h"
 #include "TorrentManager.h"
+#include "FileTabelModel.h"
 #include "CreateTorrentDilaog.h"
 #include "OpenTorrentDialog.h"
 #include "OpenMagnetDialog.h"
@@ -41,6 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "UpdateNotyfier.h"
 #include <QMutex>
 #include <QtNetwork/QHostAddress>
+#include <QScrollBar>
 Q_DECLARE_METATYPE(QHostAddress)
 class CuteTorrent : public QMainWindow , private Ui::CuteTorrentClass
 {
@@ -81,6 +83,7 @@ private:
 	QLabel *upLabelText, *upLabel;
 	QLabel *uploadLimit, *downloadLimit;
 	QLabel* downLabelText, *downLabel;
+	FileTabelModel* fModel;
 	QTorrentDisplayModel* model;
 	TorrentManager* mng;
 	QTimer *timer;
