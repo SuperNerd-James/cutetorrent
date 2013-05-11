@@ -1,0 +1,12 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Torrent Filtering is a way to organise automatic storrage for torrent.
+
+
+= Details =
+
+To enable torrent filtering you should add a Torrent Filtering group.
+
+When adding a torrent filterting group you should add its name, extension by which torrents will be filtered and save path where torrents will automaticly saved.
