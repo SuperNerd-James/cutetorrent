@@ -5,7 +5,7 @@
 
 CuteTorrent - is a full-featured BitTorrent client for Windwos, Linux, OS X. It is based on libtorrent.
 
-Features:
+=Features:=
   * BitTorrent Protocol Encryption
   * Mainline DHT
   * Local Peer Discovery (aka LSD)
@@ -21,5 +21,5 @@ Features:
   * IPv6 support
   * Sequential downloading
   * Embedded btdigg search
-
-http://s23.postimg.org/3t55eayzf/ct_screen.png
+=Screenshots=
+http://s12.postimg.org/c98d840z1/ct_screen.png
