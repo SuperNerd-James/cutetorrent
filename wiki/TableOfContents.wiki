@@ -1,6 +1,6 @@
 #sidebar TableOfContents
-  * [Articles CuteTorrent]
-  * [ArticlesXSS Torrent Filtering]
-  * [ArticlesDom VideoPlayer]
-  * [ArticlesStyle DaemonTools]
-  * [ArticlesTips BitTorrent]
+  * CuteTorrent
+  * TorrentFiltering
+  * VideoPlayer
+  * DaemonTools
+  * BitTorrent
