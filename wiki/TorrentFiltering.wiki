@@ -4,9 +4,11 @@
 
 Torrent Filtering is a way to organise automatic storrage for torrents.
 
+When user add a torrent CuteTorrent will chose type acording to torrent filtering group and offer user save path. Of cource user can change it how he wants.
+
 
 = Details =
 
-To enable torrent filtering you should add a Torrent Filtering group.
+To enable torrent filtering you should add a Torrent Filtering group in program settings.
 
-When adding a torrent filterting group you should add its name, extension by which torrents will be filtered and save path where torrents will automaticly saved.
+When adding a torrent filterting group you should add its name, extensions by which torrents will be filtered and save path which will be offered as a save path for torrent.
