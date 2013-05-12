@@ -1,7 +1,7 @@
 #summary Some comments to embedded VideoPlayer.
 #labels Featured
 
-=Itroduction=
+=Introduction=
 
 Embedded VideoPLayer supports varios formats of Video/Audio files.
 
