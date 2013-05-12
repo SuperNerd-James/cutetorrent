@@ -521,7 +521,7 @@ void TorrentManager::onClose()
 		printf("\r%d  ", num_outstanding_resume_data);
 		
 	}
-	//qDebug() << "waiting for resume data " << num_outstanding_resume_data << "\n";
+	////qDebug() << "waiting for resume data " << num_outstanding_resume_data << "\n";
 	
 	while (num_outstanding_resume_data > 0)
 	{
@@ -558,7 +558,7 @@ void TorrentManager::onClose()
 			torrent_handle h = rd->handle;
 			std::vector<char> out;
 			bencode(std::back_inserter(out), *rd->resume_data);
-			//qDebug() << "Saving fast resume for "+QString::fromStdString(h.name());
+			////qDebug() << "Saving fast resume for "+QString::fromStdString(h.name());
 			save_file( combine_path("CT_DATA", to_hex(h.info_hash().to_string()) + ".resume"), out);
 		}
 	}
@@ -706,22 +706,22 @@ void TorrentManager::RemoveTorrent(torrent_handle h,bool delFiles)
         magnet_links.remove(infoHash);
     }
     UpdatePathResumeAndLinks();
-	//qDebug() << "before ses->remove_torrent(h); h.is_valid()=" << h.is_valid();
+	////qDebug() << "before ses->remove_torrent(h); h.is_valid()=" << h.is_valid();
 	try
 	{
 		ses->remove_torrent(h,delFiles ? session::delete_files : session::none); 
 	}
 	catch (libtorrent::libtorrent_exception e)
 	{
-		//qDebug() << e.what();
+		////qDebug() << e.what();
 	}
 	catch(...)
 	{
-		//qDebug() << "Not a libtorrent exception caught";
+		////qDebug() << "Not a libtorrent exception caught";
 	}
 	
 
-	//qDebug() << "after ses->remove_torrent(h)";
+	////qDebug() << "after ses->remove_torrent(h)";
 }
 QString TorrentManager::GetSessionDownloadSpeed()
 {
@@ -921,13 +921,13 @@ QString TorrentManager::GetSessionDHTstate()
 
 void TorrentManager::SetUlLimit( int val )
 {
-	qDebug() << "TorrentManager::SetUlLimit" << val;
+	//qDebug() << "TorrentManager::SetUlLimit" << val;
 	ses->set_upload_rate_limit(val);
 }
 
 void TorrentManager::SetDlLimit( int val )
 {
-	qDebug() << "TorrentManager::SetDlLimit" << val;
+	//qDebug() << "TorrentManager::SetDlLimit" << val;
 	ses->set_download_rate_limit(val);
 	
 }
