@@ -5,7 +5,7 @@
 
 Embedded VideoPLayer supports varios formats of Video/Audio files.
 
-For decoding audio/video streams it reques external audio/video decoders. Video Player was tested with [http://codecguide.com/download_kl.htm K-Lite Codec Pack]
+For decoding audio/video streams it reques external audio/video decoders. Recomended to use [http://codecguide.com/download_kl.htm K-Lite Codec Pack]
 
 =Fatures=
   * Suport Varios Audio/Video Fromats (mkv(AVC),avi,mp4,mp3,flac)
