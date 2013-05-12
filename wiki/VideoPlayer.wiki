@@ -1,4 +1,5 @@
 #summary Some comments to ebeded VideoPlayer.
+#labels Featured
 
 
 I think it will be useful to say that it requers external codecks like K-Lite.
