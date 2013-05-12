@@ -10,6 +10,7 @@ When user adds a torrent CuteTorrent will chose group acording to torrent filter
 
 To enable torrent filtering you should add a Torrent Filtering group in program settings.
 
-While adding a torrent filterting group you should add its name, extensions by which torrents will be filtered and save path which will be offered as a save path for torrent.
+While adding a torrent filterting group you should add its name [1],file extensions [2] by which torrents will be filtered and save path [3] which will be offered as a save path for torrent.
 
+http://s10.postimg.org/6nbc3b761/Torrent_Filtering.png
 While choosing group CuteTorrent will detect most frequent file extension and compare it with extensions in torrent filtering group.
