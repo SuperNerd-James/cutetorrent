@@ -1,4 +1,5 @@
 #summary A way to organise automatic storrage for torrents.
+#labels Featured
 = Introduction =
 
 Torrent Filtering is a way to organise automatic storrage for torrents.
