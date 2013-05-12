@@ -277,13 +277,13 @@ void CuteTorrent::showTorrentCompletedNotyfy(const QString name,QString path)
 }
 void CuteTorrent::updateItemWidth(int min,int max)
 {
-	qDebug() << "updateItemWidth " << QTorrentItemDelegat::max_width << listView->verticalScrollBar()->isVisible() << min << max;
+	//qDebug() << "updateItemWidth " << QTorrentItemDelegat::max_width << listView->verticalScrollBar()->isVisible() << min << max;
 	QTorrentItemDelegat::max_width=width()-QApplication::style( )->pixelMetric( QStyle::PM_MessageBoxIconSize )-35-(max!=0 ? listView->autoScrollMargin() : 0);
-	qDebug() << "updateItemWidth " << QTorrentItemDelegat::max_width << listView->verticalScrollBar()->isVisible()<< min << max;
+	//qDebug() << "updateItemWidth " << QTorrentItemDelegat::max_width << listView->verticalScrollBar()->isVisible()<< min << max;
 }
 void CuteTorrent::updateTabWidget(int tab)
 {
-	//qDebug() << "updateTabWidget(" << tab << ");";
+	////qDebug() << "updateTabWidget(" << tab << ");";
 
 	
 	trayIcon->setToolTip("CuteTorrent "CT_VERSION"\nUpload: "+mng->GetSessionUploadSpeed()+"\nDownload:"+mng->GetSessionDownloadSpeed());
@@ -296,7 +296,7 @@ void CuteTorrent::updateTabWidget(int tab)
 			udapteLimits = true;	
 		tab=tabWidget->currentIndex();
 	}
-	//qDebug() << "udapteLimits =" << udapteLimits << ";";
+	////qDebug() << "udapteLimits =" << udapteLimits << ";";
 	
 
 	try
@@ -362,7 +362,7 @@ public:
 		QHostAddress thisadr(text());
 		if (!thisadr.isNull())
 		{
-			//qDebug() << "Ip Addresses" << text() << other.text();
+			////qDebug() << "Ip Addresses" << text() << other.text();
 			QHostAddress otheradr(other.text());
 			return thisadr.toIPv4Address() < otheradr.toIPv4Address();
 		}
@@ -395,7 +395,7 @@ public:
 					break;
 
 				}
-				//qDebug() << parts1 << speed1;
+				////qDebug() << parts1 << speed1;
 				switch(parts2[1][0].toLower().toAscii())
 				{
 				case 'k':
@@ -414,14 +414,14 @@ public:
 					break;
 
 				}
-				//qDebug() << "Speed or size" << text() << other.text() << speed1 << speed2;
+				////qDebug() << "Speed or size" << text() << other.text() << speed1 << speed2;
 				return speed1 < speed2;
 			}
 
 		}else
 		if (text().endsWith('%'))
 		{
-			//qDebug() << "Percentage" << text() << other.text() ;
+			////qDebug() << "Percentage" << text() << other.text() ;
 			QString perc1=text().remove('%'),perc2=other.text().remove('%');
 			return perc1.toDouble() < perc2.toDouble();
 		}
@@ -473,7 +473,7 @@ void CuteTorrent::changeEvent(QEvent *event)
 
 	 if(event->type() == QEvent::ActivationChange) 
 	 {     
-		if(isVisible() && isMinimized()) 
+		if(!isVisible() && isMinimized()) 
 		{
 			setUpdatesEnabled(false);
 		}
@@ -520,35 +520,23 @@ void CuteTorrent::changeEvent(QEvent *event)
 }
 void CuteTorrent::iconActivated(QSystemTrayIcon::ActivationReason reason)
  {
-     switch (reason) {
-     case QSystemTrayIcon::Trigger:
-		 break;
-     case QSystemTrayIcon::DoubleClick:
-		 if (isVisible())
-			 hide();
-		 else
-		 {
-			showNormal();
-			raise();
-			activateWindow();
-		}
-         break;
-     case QSystemTrayIcon::MiddleClick:
-         showMessage();
-         break;
-     default:
-         ;
+     switch (reason) 
+	 {
+		 case QSystemTrayIcon::DoubleClick:
+			 if (isVisible())
+				 hide();
+			 else
+			 {
+				showNormal();
+				raise();
+				activateWindow();
+			}
+			 break;
+		 default:
+			 break;
      }
  }
-void CuteTorrent::showMessage()
- {
-	 
- }
- void CuteTorrent::messageClicked()
- {
-     
-     showNormal();
- }
+
 void CuteTorrent::createTrayIcon()
  {
      trayIconMenu = new QMenu(this);
@@ -795,7 +783,7 @@ void CuteTorrent::dropEvent(QDropEvent *event)
         }
         else
         {
-            //qDebug() << file;
+            ////qDebug() << file;
         }
     }
 
@@ -1084,7 +1072,7 @@ void CuteTorrent::clearPieceDisplay()
 
 void CuteTorrent::UpdateUL(int kbps)
 {
-	qDebug()<< "UpdateUL" << kbps*1024;
+	//qDebug()<< "UpdateUL" << kbps*1024;
 	Torrent* tor=model->GetSelectedTorrent();
 	if (tor!=NULL)
 	{
@@ -1101,7 +1089,7 @@ void CuteTorrent::UpdateUL(int kbps)
 
 void CuteTorrent::UpdateDL(int kbps)
 {
-	qDebug()<< "UpdateDL" << kbps*1024;
+	//qDebug()<< "UpdateDL" << kbps*1024;
 	Torrent* tor=model->GetSelectedTorrent();
 	
 	if (tor!=NULL)

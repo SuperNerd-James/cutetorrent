@@ -31,7 +31,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "FileTabelModel.h"
 #include "CreateTorrentDilaog.h"
 #include "OpenTorrentDialog.h"
-#include "OpenMagnetDialog.h"
 #include "QTorrentDisplayModel.h"
 #include "QTorrentItemDelegat.h"
 #include <qtsingleapplication.h>
@@ -98,7 +97,6 @@ private:
 	QLineEdit* searchEdit;
 	void createTrayIcon();
 	void createActions();
-	void showMessage();
 	void setupTray();
 	void setupToolBar();
 	void setupConnections();
@@ -140,7 +138,6 @@ private slots:
 	void UpadteTrackerTab();
 	void OpenSettingsDialog();
 	void iconActivated(QSystemTrayIcon::ActivationReason reason);
-	void messageClicked();
 	void updateTabWidget(int);
 	void ProcessMagnet();
 	void peformSearch();

@@ -213,7 +213,7 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
 	}
 	
 	base_suffix=StaticHelpers::GetBaseSuffix(storrgae);
-	qDebug() << base_suffix << GetName();
+	//qDebug() << base_suffix << GetName();
 	if (!base_suffix.isEmpty())
 	{
 				
@@ -414,7 +414,7 @@ void Torrent::seqensialDownload()
 
 void Torrent::RemoveTorrent(TorrentManager *mgr,bool delfiles)
 {
-	//qDebug() << "Torrent::RemoveTorrent " << cur_torrent.name().c_str();
+	////qDebug() << "Torrent::RemoveTorrent " << cur_torrent.name().c_str();
 	mgr->RemoveTorrent(cur_torrent,delfiles);
 }
 void Torrent::pause()
@@ -695,7 +695,7 @@ QString Torrent::GetDiscribtion()
 
 void Torrent::SetUlLimit( int val )
 {
-	qDebug() << "Torrent::SetUlLimit" << val;
+	//qDebug() << "Torrent::SetUlLimit" << val;
 	try
 	{
 
@@ -710,7 +710,7 @@ void Torrent::SetUlLimit( int val )
 
 void Torrent::SetDlLimit( int val )
 {
-	qDebug() << "Torrent::SetDlLimit" << val;
+	//qDebug() << "Torrent::SetDlLimit" << val;
 	try
 	{
 		cur_torrent.set_download_limit(val);

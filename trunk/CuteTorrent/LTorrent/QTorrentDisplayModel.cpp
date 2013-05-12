@@ -409,7 +409,7 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 				{
 					foreach(int row,rows)
 					{
-						qDebug() << "removing row " << row;
+						//qDebug() << "removing row " << row;
 						removeRow(row,false);
 					}
 				}
@@ -419,7 +419,7 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 					
 					foreach(int row,rows)
 					{
-						qDebug() << "removing row " << row;
+						//qDebug() << "removing row " << row;
 						removeRow(row,true);
 					}
 				}
