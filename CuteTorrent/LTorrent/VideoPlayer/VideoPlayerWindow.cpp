@@ -39,7 +39,7 @@ QMainWindow(parent),isFullScr(false)
     Phonon::createPath(m_mediaControl->mediaObject(), m_videoWidget);
 	
 	controls = new MediaControls(m_mediaControl,m_videoWidget);
-	controls->show();
+	//controls->show();
 	
 	setWindowIcon(QIcon(":/icons/app.ico"));
 		
