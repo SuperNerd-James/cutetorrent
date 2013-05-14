@@ -260,18 +260,18 @@
         <translation>Завершилась загрузка торрента %1</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="606"/>
+        <location filename="CuteTorrent.cpp" line="596"/>
         <source>Òîððåíò ôàéëû (*.torrent);;Any File (*.*)</source>
         <translation>Торент файл (*.torrent);;Any File (*.*)</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="743"/>
+        <location filename="CuteTorrent.cpp" line="733"/>
         <source>CT_HIDE_MSG</source>
         <translation>CuteTrrent Продолжает работать. Что бы выйти используйте контекстное меню в области уведомлений.</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="490"/>
-        <location filename="CuteTorrent.cpp" line="826"/>
+        <location filename="CuteTorrent.cpp" line="816"/>
         <source>FILETAB_OPEN_FILE</source>
         <translation>Открыть файл</translation>
     </message>
@@ -307,56 +307,76 @@
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="498"/>
-        <location filename="CuteTorrent.cpp" line="567"/>
+        <location filename="CuteTorrent.cpp" line="555"/>
         <source>ACTION_HIDE</source>
         <translation>Свернуть</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="499"/>
-        <location filename="CuteTorrent.cpp" line="570"/>
+        <location filename="CuteTorrent.cpp" line="558"/>
         <source>ACTION_MAXIMIZE_FULLSCREEN</source>
         <translation>Развернуть на весь экран</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="500"/>
-        <location filename="CuteTorrent.cpp" line="573"/>
+        <location filename="CuteTorrent.cpp" line="561"/>
         <source>ACTION_MAXIMIZE</source>
         <translation>Развернуть</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="501"/>
-        <location filename="CuteTorrent.cpp" line="576"/>
+        <location filename="CuteTorrent.cpp" line="564"/>
         <source>ACTION_EXIT</source>
         <translation>Выход</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="502"/>
-        <location filename="CuteTorrent.cpp" line="579"/>
+        <location filename="CuteTorrent.cpp" line="567"/>
         <source>ACTION_COPY</source>
         <translation>Копировать</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="605"/>
+        <location filename="CuteTorrent.cpp" line="595"/>
         <source>OPEN_TOORENT_DIALOG</source>
         <translation>Выбирите торрент файл</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="1122"/>
+        <location filename="CuteTorrent.cpp" line="959"/>
+        <source>MAGNET_LINK_DLG</source>
+        <translation>Magnet-сслыка</translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.cpp" line="959"/>
+        <source>MAGNET_LINK:</source>
+        <translation>Magnet-сслыка:</translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.cpp" line="1114"/>
         <source>ADD_PEER_DLG</source>
         <translation>Добавление пира</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="1122"/>
+        <location filename="CuteTorrent.cpp" line="1114"/>
         <source>PEER:</source>
         <translation>Пир:</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="1145"/>
+        <location filename="CuteTorrent.cpp" line="1128"/>
+        <source>PEER_ERR</source>
+        <translation>Ошибка</translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.cpp" line="1128"/>
+        <source>INVALID_IP_STRING</source>
+        <translation>ВВеден неправельный ip адрес</translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.cpp" line="1139"/>
         <source>ADD_TRACKER_DLG</source>
         <translation>Добавление трекера</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="1145"/>
+        <location filename="CuteTorrent.cpp" line="1139"/>
         <source>TRACKER:</source>
         <translation>Трекер:</translation>
     </message>
@@ -367,37 +387,37 @@
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="491"/>
-        <location filename="CuteTorrent.cpp" line="829"/>
+        <location filename="CuteTorrent.cpp" line="819"/>
         <source>FILETAB_OPEN_FOLDER</source>
         <translation>Открыть папку</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="492"/>
-        <location filename="CuteTorrent.cpp" line="834"/>
+        <location filename="CuteTorrent.cpp" line="824"/>
         <source>FILETAB_PRIORITY</source>
         <translation>Приоритет</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="493"/>
-        <location filename="CuteTorrent.cpp" line="835"/>
+        <location filename="CuteTorrent.cpp" line="825"/>
         <source>FILETAB_PRIORITY_LOW</source>
         <translation>Низкий</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="494"/>
-        <location filename="CuteTorrent.cpp" line="839"/>
+        <location filename="CuteTorrent.cpp" line="829"/>
         <source>FILETAB_PRIORITY_MEDIUM</source>
         <translation>Средний</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="495"/>
-        <location filename="CuteTorrent.cpp" line="843"/>
+        <location filename="CuteTorrent.cpp" line="833"/>
         <source>FILETAB_PRIORITY_HIGH</source>
         <translation>Высокий</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="496"/>
-        <location filename="CuteTorrent.cpp" line="849"/>
+        <location filename="CuteTorrent.cpp" line="839"/>
         <source>FILETAB_PRIORITY_ZERO</source>
         <translation>Не загружать</translation>
     </message>
@@ -739,8 +759,8 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="VideoPlayer/MediaControls.ui" line="335"/>
-        <location filename="VideoPlayer/MediaControls.ui" line="479"/>
+        <location filename="VideoPlayer/MediaControls.ui" line="338"/>
+        <location filename="VideoPlayer/MediaControls.ui" line="469"/>
         <source>00:00:00</source>
         <translation>00:00:00</translation>
     </message>
@@ -759,19 +779,12 @@
 <context>
     <name>OpenMagnetDialog</name>
     <message>
-        <location filename="OpenMagnetDialog.ui" line="14"/>
         <source>MGNET_OPEN_DIALOG</source>
-        <translation>Magnet сслыка</translation>
+        <translation type="obsolete">Magnet сслыка</translation>
     </message>
     <message>
-        <location filename="OpenMagnetDialog.ui" line="44"/>
-        <source>OK</source>
-        <translation></translation>
-    </message>
-    <message>
-        <location filename="OpenMagnetDialog.ui" line="51"/>
         <source>Cancel</source>
-        <translation>Отмена</translation>
+        <translation type="obsolete">Отмена</translation>
     </message>
 </context>
 <context>
@@ -1296,6 +1309,77 @@
         <location filename="SettingsDialog.ui" line="450"/>
         <source>LOCK_FILES_WIT</source>
         <translation>Блоировать файлы когда запущен CuteTorrent для запрета изменения этих фалов.</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="920"/>
+        <source>TAB_WEB_CONTROL</source>
+        <translation>Удаленный доступ</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="932"/>
+        <source>WEB_CONTROLL_ENABLED</source>
+        <translation>Включить удаленный доступ</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="944"/>
+        <source>WEB_UI_USE_IP_FILTER</source>
+        <translation>Использовать IP фильтр</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="956"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;allow all &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;#deny 192.168.1.* &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;#allow 192.168.1.10-192.168.1.15&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="978"/>
+        <source>WEB_UI_LOGGING_ENABLED</source>
+        <translation>Вести лог событий</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="992"/>
+        <source>WEB_UI_LOG_NAME</source>
+        <translation>Имя файла лога соытий</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="1007"/>
+        <source>WEB_UI_PASSWORD</source>
+        <translation>Пароль</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="1014"/>
+        <source>WEB_UI_LOGIN</source>
+        <translation>Логин</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="1021"/>
+        <source>WEB_UI_UPNP_ENABLED</source>
+        <translation>Включить UPnP</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="1028"/>
+        <source>WEB_UI_PORT</source>
+        <translation>Веб порт</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="1050"/>
+        <source>WEBUI_START</source>
+        <translation>Запустить</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="1057"/>
+        <source>WEBUI_STOP</source>
+        <translation>Остановить</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="1079"/>
+        <source>RCON_PORT</source>
+        <translation>Rcon порт </translation>
     </message>
     <message>
         <location filename="SettingsDialog.ui" line="420"/>

@@ -261,18 +261,18 @@ If you have paid money for this software demand a refund</translation>
         <translation>Complited downloading %1</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="606"/>
+        <location filename="CuteTorrent.cpp" line="596"/>
         <source>Òîððåíò ôàéëû (*.torrent);;Any File (*.*)</source>
         <translation>Torrent File (*.torrent);;Any File (*.*)</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="743"/>
+        <location filename="CuteTorrent.cpp" line="733"/>
         <source>CT_HIDE_MSG</source>
         <translation>CuteTorrent continues working.To exit use system tray context menu.</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="490"/>
-        <location filename="CuteTorrent.cpp" line="826"/>
+        <location filename="CuteTorrent.cpp" line="816"/>
         <source>FILETAB_OPEN_FILE</source>
         <translation>Open</translation>
     </message>
@@ -308,92 +308,112 @@ If you have paid money for this software demand a refund</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="491"/>
-        <location filename="CuteTorrent.cpp" line="829"/>
+        <location filename="CuteTorrent.cpp" line="819"/>
         <source>FILETAB_OPEN_FOLDER</source>
         <translation>Open folder</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="492"/>
-        <location filename="CuteTorrent.cpp" line="834"/>
+        <location filename="CuteTorrent.cpp" line="824"/>
         <source>FILETAB_PRIORITY</source>
         <translation>Priority</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="493"/>
-        <location filename="CuteTorrent.cpp" line="835"/>
+        <location filename="CuteTorrent.cpp" line="825"/>
         <source>FILETAB_PRIORITY_LOW</source>
         <translation>Low</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="494"/>
-        <location filename="CuteTorrent.cpp" line="839"/>
+        <location filename="CuteTorrent.cpp" line="829"/>
         <source>FILETAB_PRIORITY_MEDIUM</source>
         <translation>Medium</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="495"/>
-        <location filename="CuteTorrent.cpp" line="843"/>
+        <location filename="CuteTorrent.cpp" line="833"/>
         <source>FILETAB_PRIORITY_HIGH</source>
         <translation>High</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="496"/>
-        <location filename="CuteTorrent.cpp" line="849"/>
+        <location filename="CuteTorrent.cpp" line="839"/>
         <source>FILETAB_PRIORITY_ZERO</source>
         <translation>Don&apos;t download</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="498"/>
-        <location filename="CuteTorrent.cpp" line="567"/>
+        <location filename="CuteTorrent.cpp" line="555"/>
         <source>ACTION_HIDE</source>
         <translation>Minimize</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="499"/>
-        <location filename="CuteTorrent.cpp" line="570"/>
+        <location filename="CuteTorrent.cpp" line="558"/>
         <source>ACTION_MAXIMIZE_FULLSCREEN</source>
         <translation>Maximze to full screen</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="500"/>
-        <location filename="CuteTorrent.cpp" line="573"/>
+        <location filename="CuteTorrent.cpp" line="561"/>
         <source>ACTION_MAXIMIZE</source>
         <translation>Maximize</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="501"/>
-        <location filename="CuteTorrent.cpp" line="576"/>
+        <location filename="CuteTorrent.cpp" line="564"/>
         <source>ACTION_EXIT</source>
         <translation>Exit</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="502"/>
-        <location filename="CuteTorrent.cpp" line="579"/>
+        <location filename="CuteTorrent.cpp" line="567"/>
         <source>ACTION_COPY</source>
         <translation>Copy</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="605"/>
+        <location filename="CuteTorrent.cpp" line="595"/>
         <source>OPEN_TOORENT_DIALOG</source>
         <translation>Choose a torrent file</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="1122"/>
+        <location filename="CuteTorrent.cpp" line="959"/>
+        <source>MAGNET_LINK_DLG</source>
+        <translation>Magnet-link</translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.cpp" line="959"/>
+        <source>MAGNET_LINK:</source>
+        <translation>Magnet-link:</translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.cpp" line="1114"/>
         <source>ADD_PEER_DLG</source>
         <translation>Adding a peer</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="1122"/>
+        <location filename="CuteTorrent.cpp" line="1114"/>
         <source>PEER:</source>
         <translation>Peer:</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="1145"/>
+        <location filename="CuteTorrent.cpp" line="1128"/>
+        <source>PEER_ERR</source>
+        <translation>Error</translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.cpp" line="1128"/>
+        <source>INVALID_IP_STRING</source>
+        <translation>Invalid ip string</translation>
+    </message>
+    <message>
+        <location filename="CuteTorrent.cpp" line="1139"/>
         <source>ADD_TRACKER_DLG</source>
         <translation>Adding a tracker</translation>
     </message>
     <message>
-        <location filename="CuteTorrent.cpp" line="1145"/>
+        <location filename="CuteTorrent.cpp" line="1139"/>
         <source>TRACKER:</source>
         <translation>Tracker:</translation>
     </message>
@@ -749,8 +769,8 @@ If you have paid money for this software demand a refund</translation>
         <translation>Form</translation>
     </message>
     <message>
-        <location filename="VideoPlayer/MediaControls.ui" line="335"/>
-        <location filename="VideoPlayer/MediaControls.ui" line="479"/>
+        <location filename="VideoPlayer/MediaControls.ui" line="338"/>
+        <location filename="VideoPlayer/MediaControls.ui" line="469"/>
         <source>00:00:00</source>
         <translation>00:00:00</translation>
     </message>
@@ -769,19 +789,16 @@ If you have paid money for this software demand a refund</translation>
 <context>
     <name>OpenMagnetDialog</name>
     <message>
-        <location filename="OpenMagnetDialog.ui" line="14"/>
         <source>MGNET_OPEN_DIALOG</source>
-        <translation>Mgnet link</translation>
+        <translation type="obsolete">Mgnet link</translation>
     </message>
     <message>
-        <location filename="OpenMagnetDialog.ui" line="44"/>
         <source>OK</source>
-        <translation>OK</translation>
+        <translation type="obsolete">OK</translation>
     </message>
     <message>
-        <location filename="OpenMagnetDialog.ui" line="51"/>
         <source>Cancel</source>
-        <translation>Cancel</translation>
+        <translation type="obsolete">Cancel</translation>
     </message>
 </context>
 <context>
@@ -1274,6 +1291,77 @@ If you have paid money for this software demand a refund</translation>
         <location filename="SettingsDialog.ui" line="453"/>
         <source>LOCK_FILES</source>
         <translation>Lock files</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="920"/>
+        <source>TAB_WEB_CONTROL</source>
+        <translation>Web Controll</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="932"/>
+        <source>WEB_CONTROLL_ENABLED</source>
+        <translation>Web Controll Enabled</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="944"/>
+        <source>WEB_UI_USE_IP_FILTER</source>
+        <translation>Use ip filter</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="956"/>
+        <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:&apos;MS Shell Dlg 2&apos;; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;allow all &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;#deny 192.168.1.* &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;#allow 192.168.1.10-192.168.1.15&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation></translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="978"/>
+        <source>WEB_UI_LOGGING_ENABLED</source>
+        <translation>Loggin</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="992"/>
+        <source>WEB_UI_LOG_NAME</source>
+        <translation>Log name</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="1007"/>
+        <source>WEB_UI_PASSWORD</source>
+        <translation>Password</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="1014"/>
+        <source>WEB_UI_LOGIN</source>
+        <translation>Login</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="1021"/>
+        <source>WEB_UI_UPNP_ENABLED</source>
+        <translation>Enable upnp</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="1028"/>
+        <source>WEB_UI_PORT</source>
+        <translation>WebUI port</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="1050"/>
+        <source>WEBUI_START</source>
+        <translation>Start WebUI</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="1057"/>
+        <source>WEBUI_STOP</source>
+        <translation>Stop WebUI</translation>
+    </message>
+    <message>
+        <location filename="SettingsDialog.ui" line="1079"/>
+        <source>RCON_PORT</source>
+        <translation>Rcon port</translation>
     </message>
     <message>
         <location filename="SettingsDialog.ui" line="420"/>

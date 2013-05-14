@@ -57,7 +57,7 @@ TorrentManager::TorrentManager()
 	
 	std::string bind_to_interface = "";
 	
-	ses->listen_on(std::make_pair(listen_port, listen_port)
+	ses->listen_on(std::make_pair(listen_port, listen_port+20)
 		, ec, bind_to_interface.c_str());
 	if (ec)
 	{
