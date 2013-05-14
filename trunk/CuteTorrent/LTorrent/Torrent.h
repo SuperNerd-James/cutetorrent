@@ -30,14 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QHostAddress>
 class TorrentManager;
 class StaticHelpers;
-struct file_info 
-{
-	QString name;
-	size_type size;
-	float progrss;
-	int prioiry;
-	int index;
-};
+#include "defs.h"
 class Torrent : public QObject
 {
 	Q_OBJECT

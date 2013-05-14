@@ -82,44 +82,14 @@ using boost::bind;
 
 #endif
 
-struct opentorrent_info
-{
-	QString name,describtion,base_suffix;
-	libtorrent::file_storage files;
-	libtorrent::size_type size;
-};
-struct openmagnet_info
-{
-	QString name,describtion,base_suffix;
-	libtorrent::torrent_handle handle;
-	libtorrent::file_storage files;
-	libtorrent::size_type size;
-};
+
 using namespace libtorrent;
 
 #include "QApplicationSettings.h"
 #include "Torrent.h"
 class QTorrentDisplayModel;
 class Torrent;
-
-enum torrent_filter
-{
-	active=0,stopped=1,compled=2,seeding=3
-
-};
-
-
-
-struct torrent_creation_info
-{
-	std::string path,filter,describtion;
-	std::vector<std::string> web_seeds;
-	std::vector<std::string> trackers;
-	quint64 pice_size;
-	bool _private, startSeed, saveFileOrder;
-
-
-};
+#include "defs.h"
 
 class TorrentManager : public QObject
 {

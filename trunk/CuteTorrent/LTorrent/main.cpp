@@ -1,5 +1,5 @@
 /*
-CuteTorrent BitTorrent Client with dht support, userfriendly interface
+CuteTorrent BitTorrent Client with dht support, user friendly interface
 and some additional features which make it more convenient.
 Copyright (C) 2012 Ruslan Fedoseyenko
 
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
 	/*QTextCodec::setCodecForTr(wantUnicode);
 	QTextCodec::setCodecForLocale(wantUnicode);*/
 	QTextCodec::setCodecForCStrings(wantUnicode);
-	bool minimize=false;
+	bool minimize=false,consoleWarint=false;
 	QString file2open;
 	if (a.isRunning())
 	{
