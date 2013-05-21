@@ -62,6 +62,7 @@ protected:
 	void timerEvent(QTimerEvent * event);
   	void resizeEvent(QResizeEvent* event);
 	bool eventFilter(QObject *src, QEvent *event);
+	void keyPressEvent(QKeyEvent *keyEvent);
 private:
 	bool isFullScr;
 	MediaControls* controls;

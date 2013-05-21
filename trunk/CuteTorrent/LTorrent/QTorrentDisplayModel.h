@@ -84,7 +84,7 @@ private:
 public:
 	QTorrentDisplayModel(QListView* parrent,QObject* __parrent);
 	~QTorrentDisplayModel();
-	enum action{pause,resume,remove,removeAll};
+	enum action{stop,pause,resume,remove,removeAll};
 	void ActionOnSelectedItem(action wtf);
 	void ChangeData(int row);
 	QTorrentDisplayModel(QObject* parrent=NULL);

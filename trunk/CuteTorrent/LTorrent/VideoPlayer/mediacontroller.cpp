@@ -145,7 +145,15 @@ Phonon::AudioOutput * MediaController::audioOutput() const
 void MediaController::updateStateStatus( Phonon::State newState, Phonon::State oldState)
 {
 	Q_UNUSED(oldState)
-  if (newState == Phonon::ErrorState)
+	if (newState==Phonon::PlayingState)
+	{
+		m_playing=true;
+	}
+	else
+	{
+		m_playing=false;
+	}
+	if (newState == Phonon::ErrorState)
 	  if(m_media->errorType()==Phonon::FatalError)
 	  {
 		  m_media->play();
@@ -225,5 +233,10 @@ void MediaController::reverse()
 		m_playListPosition=m_playList.length()-1;
 	}
 	playFile(m_playList[m_playListPosition]);
+}
+
+bool MediaController::isPlaying()
+{
+	return m_playing;
 }
 

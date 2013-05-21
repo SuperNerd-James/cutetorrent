@@ -134,7 +134,8 @@ bool Torrent::isPaused() const
 {
 	try
 	{
-		return cur_torrent.is_paused();
+		if (!m_stoped)
+			return cur_torrent.is_paused();
 	}
 	catch (...)
 	{
@@ -191,7 +192,7 @@ QStringList& Torrent::GetImageFiles()
 	return imageFiles;
 }
 Torrent::Torrent(libtorrent::torrent_handle torrentStatus) 
-	: mountable(false) , m_hasMedia(false) , cur_torrent(torrentStatus) , size(0)
+	: mountable(false) , m_hasMedia(false) , cur_torrent(torrentStatus) , size(0) , m_stoped(false)
 {
 	file_storage storrgae=cur_torrent.get_torrent_info().files();
 	libtorrent::file_storage::iterator bg=storrgae.begin(),
@@ -421,8 +422,12 @@ void Torrent::pause()
 {
 	try
 	{
-		cur_torrent.auto_managed(false);
-		cur_torrent.pause();
+		if (!m_stoped)
+		{
+			cur_torrent.auto_managed(false);
+			cur_torrent.pause();
+		}
+		
 	}
 	catch (...)
 	{
@@ -435,6 +440,7 @@ void Torrent::resume()
 	try
 	{
 		cur_torrent.resume();
+		m_stoped=false;
 	}
 	catch (...)
 	{
@@ -761,4 +767,16 @@ void Torrent::AddTracker( QString url )
 {
 	
 	cur_torrent.add_tracker(url.toStdString());
+}
+
+void Torrent::stop()
+{
+	cur_torrent.auto_managed(false);
+	cur_torrent.pause(torrent_handle::graceful_pause);
+	m_stoped=true;
+}
+
+bool Torrent::isStoped() const
+{
+	return m_stoped;
 }

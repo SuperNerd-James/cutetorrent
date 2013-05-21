@@ -39,6 +39,7 @@ public:
     void playFile(QString file);
     Phonon::MediaObject *mediaObject() const;
 	Phonon::AudioOutput *audioOutput() const;
+	bool isPlaying();
 public slots:
 	void play();
 	void pause();
@@ -56,7 +57,8 @@ private:
 	QString m_LastDir;
     Phonon::MediaObject *m_media;
 	Phonon::AudioOutput *m_AudioOutput;
-    void playSource(const Phonon::MediaSource &);
+	bool m_playing;
+	void playSource(const Phonon::MediaSource &);
 
 };
 

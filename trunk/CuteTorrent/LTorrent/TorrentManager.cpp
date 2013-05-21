@@ -36,7 +36,7 @@ TorrentManager::TorrentManager()
 	ses = new session(fingerprint("CT", VERSION_MAJOR ,VERSION_MINOR,VERSION_REVISION ,VERSION_TAG)
 		, session::start_default_features
 		| session::add_default_plugins
-		, alert::all_categories);
+		, alert::error_notification | alert::performance_warning |alert::storage_notification );
 	error_code ec;
 	std::vector<char> in;
 	if (load_file("CT_DATA/actual.state", in, ec) == 0)
@@ -55,16 +55,12 @@ TorrentManager::TorrentManager()
 	ses->add_extension(&libtorrent::create_ut_pex_plugin);
 	create_directory("CT_DATA",ec);
 	
-	std::string bind_to_interface = "";
-	
 	ses->listen_on(std::make_pair(listen_port, listen_port+20)
-		, ec, bind_to_interface.c_str());
+		, ec);
 	if (ec)
 	{
-		QMessageBox msg;
-		msg.setText("Failed to bing port "+listen_port);
-		msg.exec();
-		
+		QMessageBox::critical(NULL,"ERROR",tr("LISTENING ON PORT %1 FAILED").arg(listen_port));
+		return;
 	}
 
 
@@ -129,7 +125,7 @@ void TorrentManager::initSession()
 	else
 	{
 		QMessageBox::warning(NULL,"Warning",tr("ERR_NO_FILE_PATH_RESUME_IF_FIRST_TIME_THEN_OK"));
-		return;	
+		
 			
 	}
 	QFile magnetlinks("CT_DATA/links.list");
@@ -194,72 +190,94 @@ std::vector<torrent_status> TorrentManager::GetTorrents()
 }
 void TorrentManager::handle_alert(alert* a)
 {
-	if (torrent_finished_alert* p = alert_cast<torrent_finished_alert>(a))
+	switch(a->type())
 	{
-		p->handle.set_max_connections(max_connections_per_torrent / 2);
+		case torrent_finished_alert::alert_type:
+		{
+			torrent_finished_alert* p = alert_cast<torrent_finished_alert>(a);
+			p->handle.set_max_connections(max_connections_per_torrent / 2);
 
-		
-		torrent_handle h = p->handle;
-		emit TorrentCompleted(h.name().c_str(),h.save_path().c_str());
-		h.save_resume_data();
-		
-	}else if (save_resume_data_alert* p = alert_cast<save_resume_data_alert>(a))
-	{
-		
-		torrent_handle h = p->handle;
-	
-		if (p->resume_data)
-		{
-			std::vector<char> out;
-			bencode(std::back_inserter(out), *p->resume_data);
-			save_file( combine_path("CT_DATA", to_hex(h.info_hash().to_string()) + ".resume"), out);
-		
+			torrent_handle h = p->handle;
+			emit TorrentCompleted(h.name().c_str(),h.save_path().c_str());
+			h.save_resume_data();
+			break;
 		}
-	}
-	else if (save_resume_data_failed_alert* p = alert_cast<save_resume_data_failed_alert>(a))
-	{
-		torrent_handle h = p->handle;
-		emit TorrentError(h.name().c_str(),tr("ERROR_UNABLE_SAVE_DAT_RESUME"));
-		
-		
-	}else if (tracker_error_alert* p = alert_cast<tracker_error_alert>(a))
-	{
-		torrent_handle h = p->handle;
-		if (strstr(p->message().c_str(),"(200)")==NULL)
-			if (strstr(p->message().c_str(),"(-")==NULL)
-				emit TorrentError(h.name().c_str(),p->message().c_str());
-	}
-	else if (torrent_error_alert *p = alert_cast<torrent_error_alert>(a))
-	{
-		torrent_handle h = p->handle;
-		emit TorrentError(h.name().c_str(),p->message().c_str());
-	
-	}else if (file_error_alert *p = alert_cast<file_error_alert>(a))
-	{
-		torrent_handle h = p->handle;
-		emit TorrentError(h.name().c_str(),p->message().c_str());
-	}else if (storage_moved_alert *p=alert_cast<storage_moved_alert>(a))
-	{
-		torrent_handle h = p->handle;
-		if (save_path_data.contains(to_hex(h.info_hash().to_string()).c_str()))
+		case save_resume_data_alert::alert_type:
 		{
-			save_path_data[to_hex(h.info_hash().to_string()).c_str()]=QString::fromStdString(h.save_path());
-		}
-		else
-		{
-			save_path_data.insert(to_hex(h.info_hash().to_string()).c_str(),QString::fromStdString(h.save_path()));
-		}
-		QFile pathDataFile("CT_DATA/path.resume");
-		if (pathDataFile.open(QFile::WriteOnly))
-		{
-			for (QMap<QString,QString>::iterator i=save_path_data.begin();i!=save_path_data.end();i++)
+			save_resume_data_alert* p = alert_cast<save_resume_data_alert>(a);
+			torrent_handle h = p->handle;
+			if (p->resume_data)
 			{
-				pathDataFile.write((i.key()+"|"+i.value()+"\n").toUtf8());
+				std::vector<char> out;
+				bencode(std::back_inserter(out), *p->resume_data);
+				save_file( combine_path("CT_DATA", to_hex(h.info_hash().to_string()) + ".resume"), out);
 			}
-			pathDataFile.close();
+			break;
 		}
-		emit TorrentInfo(QString::fromStdString(h.name()),tr("MOVE_STORRAGE_COMPLETED_TO:\n%1").arg(QString::fromStdString(h.save_path())));
+		case udp_error_alert::alert_type:
+		break;
+		case tracker_error_alert::alert_type:
+		{
+			tracker_error_alert* p=alert_cast<tracker_error_alert>(a);
+
+			if (strstr(p->message().c_str(),"-")==NULL && strstr(p->message().c_str(),"200")==NULL )
+			{
+				emit TorrentError("",p->message().c_str());
+			}
+			break;
+		}
+		case storage_moved_alert::alert_type:
+		{
+			storage_moved_alert *p=alert_cast<storage_moved_alert>(a);
+			torrent_handle h = p->handle;
+			if (save_path_data.contains(to_hex(h.info_hash().to_string()).c_str()))
+			{
+				save_path_data[to_hex(h.info_hash().to_string()).c_str()]=QString::fromStdString(h.save_path());
+			}
+			else
+			{
+				save_path_data.insert(to_hex(h.info_hash().to_string()).c_str(),QString::fromStdString(h.save_path()));
+			}
+			QFile pathDataFile("CT_DATA/path.resume");
+			if (pathDataFile.open(QFile::WriteOnly))
+			{
+				for (QMap<QString,QString>::iterator i=save_path_data.begin();i!=save_path_data.end();i++)
+				{
+					pathDataFile.write((i.key()+"|"+i.value()+"\n").toUtf8());
+				}
+				pathDataFile.close();
+			}
+			emit TorrentInfo(QString::fromStdString(h.name()),tr("MOVE_STORRAGE_COMPLETED_TO:\n%1").arg(QString::fromStdString(h.save_path())));
+			break;
+		}
+		case fastresume_rejected_alert::alert_type:
+		{
+			fastresume_rejected_alert *p=alert_cast<fastresume_rejected_alert>(a);
+			
+			torrent_handle h = p->handle;
+			h.auto_managed(false);
+			h.pause();
+			emit TorrentError("",p->message().c_str());
+			
+			break;
+		}
+		default:
+		{
+
+			if (a->category() & alert::error_notification==alert::error_notification)
+			{
+				emit TorrentError("",a->message().c_str());
+			}
+			else
+			{
+				if (a->category() & alert::status_notification !=alert::status_notification)
+					emit TorrentInfo("",a->message().c_str());
+			}
+			break;
+		}
 	}
+
+	
 }
 void TorrentManager::PostTorrentUpdate()
 {

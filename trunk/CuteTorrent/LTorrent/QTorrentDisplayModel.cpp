@@ -401,6 +401,10 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 				return;
 			switch(wtf)
 			{
+			case stop:
+				foreach(Torrent* torrent,selectedTorrents)
+					torrent->stop();
+				break;
 			case pause:
 				foreach(Torrent* torrent,selectedTorrents)
 					torrent->pause();

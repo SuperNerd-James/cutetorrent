@@ -130,6 +130,7 @@ private slots:
 	void ShowCreateTorrentDialog();
 	void ShowOpenTorrentDialog();
 	void PauseSelected();
+	void StopSelected();
 	void ResumeSelected();
 	void DeleteSelected();
 	void UpdateInfoTab();
