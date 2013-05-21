@@ -261,8 +261,6 @@ void CuteTorrent::ShowNoUpdateNitify(const QString & ver)
 }
 void CuteTorrent::ShowTorrentError(const QString& name,const QString& error)
 {
-	if (!mayShowNotifies)
-		return;
 	QBalloonTip::showBalloon("CuteTorrent", tr("CT_ERROR %1\n%2").arg(name).arg(error), QBalloonTip::Error,qVariantFromValue(0),
 		QSystemTrayIcon::Critical,15000,false);
 	
@@ -1142,5 +1140,10 @@ void CuteTorrent::AddTracker()
 			torrent->AddTracker(trackerUrl);
 		}
 	}
+}
+
+void CuteTorrent::StopSelected()
+{
+	model->ActionOnSelectedItem(QTorrentDisplayModel::stop);
 }
 

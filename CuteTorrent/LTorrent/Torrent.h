@@ -36,7 +36,7 @@ class Torrent : public QObject
 	Q_OBJECT
 		
 private:
-	bool m_hasMedia;
+	bool m_hasMedia,m_stoped;
 	StaticHelpers* helper;
 	torrent_handle cur_torrent;
 	libtorrent::size_type size;
@@ -77,6 +77,7 @@ public :
 	QList<file_info> GetFileDownloadInfo();
 	bool isPaused() const;
 	bool isSeeding() const;
+	bool isStoped() const;
 	bool hasMetadata() const;
 	bool isDownloading() const;
 	bool isDaemonToolsMountable();
@@ -97,6 +98,7 @@ public :
 	void updateTrackers();
 	void seqensialDownload();
 	void pause();
+	void stop();
 	void resume();
 	void MoveStorrage(QString path);
 	void AddTracker(QString url);

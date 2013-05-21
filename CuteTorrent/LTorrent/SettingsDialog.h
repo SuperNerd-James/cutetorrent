@@ -32,6 +32,7 @@ private:
 	void FillTorrentTab();
 	void FillHDDTab();
 	void FillDTTab();
+	void FillWebUITab();
 	void SetupSchedullerTab();
 public:
  	SettingsDialog(QWidget* parent=0,int flags=0);

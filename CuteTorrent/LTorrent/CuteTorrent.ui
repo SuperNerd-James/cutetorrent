@@ -817,5 +817,6 @@
   <slot>ShowAbaut()</slot>
   <slot>ProcessMagnet()</slot>
   <slot>copyDiscribtion()</slot>
+  <slot>StopSelected()</slot>
  </slots>
 </ui>

@@ -25,9 +25,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "TorrentManager.h"
 #include <QDebug>
 #include <QTranslator>
- #include <QIntValidator>
+#include <QIntValidator>
 #include "application.h"
 #include "Scheduller.h"
+
+#ifdef Q_WS_WIN //file association for windows
+#include <windows.h>
+#include <tchar.h>
+
+typedef BOOL (WINAPI *LPFN_ISWOW64PROCESS) (HANDLE, PBOOL);
+
+LPFN_ISWOW64PROCESS fnIsWow64Process;
+
+BOOL IsWow64()
+{
+	BOOL bIsWow64 = FALSE;
+
+	//IsWow64Process is not available on all supported versions of Windows.
+	//Use GetModuleHandle to get a handle to the DLL that contains the function
+	//and GetProcAddress to get a pointer to the function if available.
+
+	fnIsWow64Process = (LPFN_ISWOW64PROCESS) GetProcAddress(
+		GetModuleHandle(TEXT("kernel32")),"IsWow64Process");
+
+	if(NULL != fnIsWow64Process)
+	{
+		if (!fnIsWow64Process(GetCurrentProcess(),&bIsWow64))
+		{
+			//handle error
+		}
+	}
+	return bIsWow64;
+}
+
+#endif
 SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 {
 	setupUi(this);
@@ -44,7 +75,7 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	QString torrentAssociation=assocSettings.value (".torrent/.").toString();  
 	magnetAssociationCheckBox->setChecked(assocSettings.value ("Magnet/shell/open/command/.").toString().toLower().contains("cutetorrent"));
 	asociationCheckBox->setChecked( torrentAssociation == "CuteTorrent.file");
-	QSettings bootUpSettings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
+	QSettings bootUpSettings(QString("HKEY_LOCAL_MACHINE\\SOFTWARE\\")+(IsWow64() ? "Wow6432Node\\" : "")+"Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
 	QString val=bootUpSettings.value("CuteTorrent").toString();
 	int current=0;
 	runOnbootCheckBox->setChecked(val.length()>0);	
@@ -69,7 +100,7 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	File.close();
 	setStyleSheet(StyleSheet);
 	
-
+	tabWidget->removeTab(5);
 }
 
 
@@ -128,6 +159,20 @@ void SettingsDialog::FillDTTab()
 	customCommandEdit->setText( (useCustomCommand ? settings->valueString("DT","CustomtCommand") : settings->valueString("DT","DefaultCommand")));
 }
 
+void SettingsDialog::FillWebUITab()
+{
+	webUIGroupBox->setChecked(settings->valueBool("WebControl","webui_enabled",false));
+	loginLineEdit->setText(settings->valueString("WebControl","webui_login"));
+	passwordLineEdit->setText(settings->valueString("WebControl","webui_password"));
+	webPortLineEdit->setText(settings->valueString("WebControl","web_port","8080"));
+	rconPortLineEdit->setText(settings->valueString("WebControl","rcon_port","18745"));
+	upnpCheckBox->setChecked(settings->valueBool("WebControl","enable_upnp",false));
+	webUILogginGroupBox->setChecked(settings->valueBool("WebControl","enable_loggin",false));
+	logLineEdit->setText(settings->valueString("WebControl","log_name"));
+	IPFilterGroupBox->setChecked(settings->valueBool("WebControl","enable_ipfilter",false));
+	ipFilterTextEdit->setText(settings->valueString("WebControl","ipfilter"));
+}
+
 void SettingsDialog::showSelectedGroup(int row)
 {
 	if (row > filterGroups.count())
@@ -148,42 +193,56 @@ SettingsDialog::~SettingsDialog()
 }
 void SettingsDialog::ApplySettings()
 {
-	settings->setValue("Torrent","listen_port",qVariantFromValue(portEdit->text().toInt()));
-	settings->setValue("Torrent","active_limit",qVariantFromValue(activeLimitEdit->text().toInt()));
-	settings->setValue("Torrent","active_downloads",qVariantFromValue(activeDownloadLimitEdit->text().toInt()));
-	settings->setValue("Torrent","active_seeds",qVariantFromValue(activeSeedLimitEdit->text().toInt()));
+	settings->setValue("Torrent","listen_port",					qVariantFromValue(portEdit->text().toInt()));
+	settings->setValue("Torrent","active_limit",				qVariantFromValue(activeLimitEdit->text().toInt()));
+	settings->setValue("Torrent","active_downloads",			qVariantFromValue(activeDownloadLimitEdit->text().toInt()));
+	settings->setValue("Torrent","active_seeds",				qVariantFromValue(activeSeedLimitEdit->text().toInt()));
 
 
-	settings->setValue("Torrent","upload_rate_limit",qVariantFromValue(uploadLimitEdit->value()*1024));
-	settings->setValue("Torrent","download_rate_limit",qVariantFromValue(downloadLimitEdit->value()*1024));
-	settings->setValue("Torrent","useProxy",qVariantFromValue(proxyGroupBox->isChecked()));
+	settings->setValue("Torrent","upload_rate_limit",			qVariantFromValue(uploadLimitEdit->value()*1024));
+	settings->setValue("Torrent","download_rate_limit",			qVariantFromValue(downloadLimitEdit->value()*1024));
+	settings->setValue("Torrent","useProxy",					qVariantFromValue(proxyGroupBox->isChecked()));
 	if (proxyGroupBox->isChecked())
 	{
 		QStringList iport= proxyHostEdit->text().split(':');
 		if (iport.count()==2)
 		{
-			settings->setValue("Torrent","proxy_hostname",qVariantFromValue(iport.at(0)));
-			settings->setValue("Torrent","proxy_password",qVariantFromValue(proxyPwdEdit->text()));
-			settings->setValue("Torrent","proxy_port",qVariantFromValue(iport[1]));
-			settings->setValue("Torrent","proxy_type",qVariantFromValue(proxyTypeComboBox->currentIndex()));
-			settings->setValue("Torrent","proxy_username",qVariantFromValue(proxyUsernameEdit->text()));
+			settings->setValue("Torrent","proxy_hostname",		qVariantFromValue(iport.at(0)));
+			settings->setValue("Torrent","proxy_password",		qVariantFromValue(proxyPwdEdit->text()));
+			settings->setValue("Torrent","proxy_port",			qVariantFromValue(iport[1]));
+			settings->setValue("Torrent","proxy_type",			qVariantFromValue(proxyTypeComboBox->currentIndex()));
+			settings->setValue("Torrent","proxy_username",		qVariantFromValue(proxyUsernameEdit->text()));
 		}
 		
 	}
 	
-	settings->setValue("Torrent","lock_files",lockFilesCheckBox->isChecked());
-	settings->setValue("Torrent","cache_size",casheSizeLineEdit->value() /16 );
-	settings->setValue("Torrent","disk_io_read_mode",diskIOCasheModeComboBox->currentIndex());
-	settings->setValue("Torrent","disk_io_write_mode",diskIOCasheModeComboBox->currentIndex());
-	settings->setValue("Torrent","low_prio_disk",lowPrioDiskCheckBox->isChecked() );
+	settings->setValue("Torrent","lock_files",					lockFilesCheckBox->isChecked());
+	settings->setValue("Torrent","cache_size",					casheSizeLineEdit->value() /16 );
+	settings->setValue("Torrent","disk_io_read_mode",			diskIOCasheModeComboBox->currentIndex());
+	settings->setValue("Torrent","disk_io_write_mode",			diskIOCasheModeComboBox->currentIndex());
+	settings->setValue("Torrent","low_prio_disk",				lowPrioDiskCheckBox->isChecked() );
 	settings->setValue("Torrent","allow_reordered_disk_operations",alowReorderedOpsCheckBox->isChecked() );
-	settings->setValue("Torrent","use_read_cache",useReadCasheCheckBox->isChecked() );
+	settings->setValue("Torrent","use_read_cache",				useReadCasheCheckBox->isChecked() );
+
 	ApplySettingsToSession();
-	settings->setValue("DT","Executable",DTPathEdit->text());
-	settings->setValue("DT","Drive",driveNumberComboBox->currentIndex());
-	settings->setValue("DT","DefaultCommand","-mount dt,%1,\"%2\"");
-	settings->setValue("DT","UseCustomCommand",(customMoutGroupBox->isChecked()));
-	settings->setValue("DT","CustomtCommand",customCommandEdit->text());
+
+	settings->setValue("DT","Executable",						DTPathEdit->text());
+	settings->setValue("DT","Drive",							driveNumberComboBox->currentIndex());
+	settings->setValue("DT","DefaultCommand",					"-mount dt,%1,\"%2\"");
+	settings->setValue("DT","UseCustomCommand",					(customMoutGroupBox->isChecked()));
+	settings->setValue("DT","CustomtCommand",					customCommandEdit->text());
+
+	settings->setValue("WebControl","webui_enabled",			webUIGroupBox->isChecked());
+	settings->setValue("WebControl","webui_login",				loginLineEdit->text());
+	settings->setValue("WebControl","webui_password",			passwordLineEdit->text());
+	settings->setValue("WebControl","web_port",					webPortLineEdit->text());
+	settings->setValue("WebControl","rcon_port",				rconPortLineEdit->text());
+	settings->setValue("WebControl","enable_upnp",				upnpCheckBox->isChecked());
+	settings->setValue("WebControl","enable_loggin",			webUILogginGroupBox->isChecked());
+	settings->setValue("WebControl","log_name",					logLineEdit->text());
+	settings->setValue("WebControl","enable_ipfilter",			IPFilterGroupBox->isChecked());
+	settings->setValue("WebControl","ipfilter",					ipFilterTextEdit->toPlainText());
+
 	settings->SaveFilterGropups(filterGroups);
 #ifdef Q_WS_WIN //file association for windows
 	QSettings asocSettings ("HKEY_CLASSES_ROOT", QSettings::NativeFormat);   
@@ -225,7 +284,7 @@ void SettingsDialog::ApplySettings()
 		asocSettings.remove ("Magnet/URL Protocol");
 		asocSettings.remove ("Magnet/shell/open/command/.");
 	}
-	QSettings bootUpSettings("HKEY_CURRENT_USER\\Software\\Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
+	QSettings bootUpSettings(QString("HKEY_LOCAL_MACHINE\\SOFTWARE\\")+(IsWow64() ? "Wow6432Node\\" : "")+"Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
 	
 	if (runOnbootCheckBox->checkState()==Qt::Checked)
 	{
@@ -481,6 +540,8 @@ void SettingsDialog::UpdateSchedullerTab( int index )
 		break;
 	}
 }
+
+
 
 
 

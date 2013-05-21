@@ -33,32 +33,39 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 VideoPlayerWindow::VideoPlayerWindow(QWidget *parent) :
 QMainWindow(parent),isFullScr(false)
 {
-    m_videoWidget = new Phonon::VideoWidget();
-    setCentralWidget(m_videoWidget);
-    m_mediaControl = new MediaController(m_videoWidget);
-    Phonon::createPath(m_mediaControl->mediaObject(), m_videoWidget);
+	try
+	{
 	
-	controls = new MediaControls(m_mediaControl,m_videoWidget);
-	//controls->show();
-	
-	setWindowIcon(QIcon(":/icons/app.ico"));
+		m_videoWidget = new Phonon::VideoWidget();
+		setCentralWidget(m_videoWidget);
+		m_mediaControl = new MediaController(m_videoWidget);
+		Phonon::createPath(m_mediaControl->mediaObject(), m_videoWidget);
 		
-	QObject::connect(controls,SIGNAL(play()),m_mediaControl,SLOT(play()));
-	QObject::connect(controls,SIGNAL(pause()),m_mediaControl,SLOT(pause()));
-	QObject::connect(controls,SIGNAL(openFile()),m_mediaControl,SLOT(openFile()));
-	QObject::connect(controls,SIGNAL(openURL()),m_mediaControl,SLOT(openURL()));
-	QObject::connect(controls,SIGNAL(forvard()),m_mediaControl,SLOT(forvard()));
-	QObject::connect(controls,SIGNAL(reverse()),m_mediaControl,SLOT(reverse()));
-	QObject::connect(controls,SIGNAL(toggleFullScreen()),this,SLOT(goFullScreen()));
-	QObject::connect(m_mediaControl,SIGNAL(newFile(QString)),this,SLOT(setWindowTitle(QString)));
-	QObject::connect(m_mediaControl,SIGNAL(updateMediaObject()),controls,SLOT(updateMedaiObject()));
+		controls = new MediaControls(m_mediaControl,m_videoWidget);
+				
+		setWindowIcon(QIcon(":/icons/app.ico"));
+			
+		QObject::connect(controls,SIGNAL(play()),m_mediaControl,SLOT(play()));
+		QObject::connect(controls,SIGNAL(pause()),m_mediaControl,SLOT(pause()));
+		QObject::connect(controls,SIGNAL(openFile()),m_mediaControl,SLOT(openFile()));
+		QObject::connect(controls,SIGNAL(openURL()),m_mediaControl,SLOT(openURL()));
+		QObject::connect(controls,SIGNAL(forvard()),m_mediaControl,SLOT(forvard()));
+		QObject::connect(controls,SIGNAL(reverse()),m_mediaControl,SLOT(reverse()));
+		QObject::connect(controls,SIGNAL(toggleFullScreen()),this,SLOT(goFullScreen()));
+		QObject::connect(m_mediaControl,SIGNAL(newFile(QString)),this,SLOT(setWindowTitle(QString)));
+		QObject::connect(m_mediaControl,SIGNAL(updateMediaObject()),controls,SLOT(updateMedaiObject()));
 
-	setAttribute(Qt::WA_DeleteOnClose);
-	setMouseTracking(true);
-    resize(600, 400);
-	m_videoWidget->installEventFilter(this);
-	m_videoWidget->setAspectRatio(Phonon::VideoWidget::AspectRatioAuto);
-	controls->move((m_videoWidget->width()-controls->width())/2,m_videoWidget->height()-controls->height());
+		setAttribute(Qt::WA_DeleteOnClose);
+		setMouseTracking(true);
+		resize(600, 400);
+		m_videoWidget->installEventFilter(this);
+		m_videoWidget->setAspectRatio(Phonon::VideoWidget::AspectRatioAuto);
+		controls->move((m_videoWidget->width()-controls->width())/2,m_videoWidget->height()-controls->height());
+	}
+	catch (...)
+	{
+		QMessageBox::warning(this,"Exception","VideoPlayerWindow::VideoPlayerWindow()\n");
+	}
 }
 
 
@@ -108,7 +115,15 @@ void VideoPlayerWindow::goFullScreen()
 
 void VideoPlayerWindow::openFile( QString path )
 {
-	m_mediaControl->playFile(path);
+	try
+	{
+		m_mediaControl->playFile(path);
+	}
+	catch (...)
+	{
+		QMessageBox::warning(this,"ERROR","VideoPlayerWindow::openFile()");
+	}
+	
 }
 
 void VideoPlayerWindow::mouseMoveEvent( QMouseEvent *event )
@@ -123,6 +138,21 @@ void VideoPlayerWindow::timerEvent( QTimerEvent * event )
 	{
 		killTimer(animationTimerID);
 		controls->hide();
+	}
+}
+
+void VideoPlayerWindow::keyPressEvent( QKeyEvent *keyEvent )
+{
+	if (keyEvent->key()==Qt::Key_Space)
+	{
+		if (m_mediaControl->isPlaying())
+		{
+			m_mediaControl->pause();
+		}
+		else
+		{
+			m_mediaControl->play();
+		}
 	}
 }
 
