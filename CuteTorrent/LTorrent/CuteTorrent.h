@@ -147,6 +147,7 @@ private slots:
 	void updateItemWidth(int,int);
 	void AddTracker();
 	void AddPeer();
+	
 };
 
 #endif // LTORRENT_H

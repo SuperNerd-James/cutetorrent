@@ -25,7 +25,7 @@ private:
 	void balloon(int, bool);
 
 protected:
-	void paintEvent(QPaintEvent *);
+/*	void paintEvent(QPaintEvent *);*/
 	void resizeEvent(QResizeEvent *);
 	void mousePressEvent(QMouseEvent *e);
 	void timerEvent(QTimerEvent *e);

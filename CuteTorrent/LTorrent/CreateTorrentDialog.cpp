@@ -22,12 +22,7 @@ CreateTorrentDialog::CreateTorrentDialog(QWidget *parent, Qt::WFlags flags)
 {
 	setupUi(this);
 	
-	mgr= TorrentManager::getInstance();
-	QFile File(":/icons/BaseStyle.qss");
-	File.open(QFile::ReadOnly);
-	QString StyleSheet = QString::fromUtf8(File.readAll().data());
-	File.close();
-	setStyleSheet(StyleSheet);
+	mgr = TorrentManager::getInstance();
 }
 quint64 CreateTorrentDialog::listFolder ( QString path ) {
 	QDir currentFolder( path );
@@ -239,7 +234,7 @@ void CreateTorrentDialog::UpdateProgressBar(int val)
 }
 
 
-//////////////////////////////////torrentCreatorThread\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//////////////////torrentCreatorThread\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 #include "libtorrent/entry.hpp"
 #include "libtorrent/bencode.hpp"

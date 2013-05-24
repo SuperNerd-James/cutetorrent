@@ -415,7 +415,7 @@ void Torrent::seqensialDownload()
 
 void Torrent::RemoveTorrent(TorrentManager *mgr,bool delfiles)
 {
-	////qDebug() << "Torrent::RemoveTorrent " << cur_torrent.name().c_str();
+	//qDebug() << "Torrent::RemoveTorrent " << cur_torrent.name().c_str();
 	mgr->RemoveTorrent(cur_torrent,delfiles);
 }
 void Torrent::pause()

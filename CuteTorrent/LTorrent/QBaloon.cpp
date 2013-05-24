@@ -35,21 +35,12 @@ QBalloonTip::QBalloonTip(const QString& title, const QString& message,QBaloonTyp
 	currentData=data;
 	setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
 	setAttribute(Qt::WA_DeleteOnClose); 
-	setAttribute(Qt::WA_TranslucentBackground);
+	//setAttribute(Qt::WA_TranslucentBackground);
 	setObjectName("QBalloonTip" );
-	QFile File1(":/icons/BaseStyle.qss");
-	File1.open(QFile::ReadOnly);
-	QString StyleSheet = QString::fromUtf8(File1.readAll().data());
-	File1.close();
-	setStyleSheet(StyleSheet);
-	QFile File(":/icons/BallonStyle.qss");
-	File.open(QFile::ReadOnly);
-	StyleSheet = QString::fromUtf8(File.readAll().data());
-	File.close();
-	setStyleSheet(StyleSheet);
-	
+	setStyleSheet(" QWidget#QBalloonTip	{border: 3px solid #8f8f91;	background-color:#f0f0f0;	}");
 	cuurentIcon=icon;
-    pixmap=QPixmap(":/images/ToolTipFrame.png");
+   
+
 	QLabel *titleLabel = new QLabel;
 	titleLabel->installEventFilter(this);
 	titleLabel->setText(title);
@@ -108,6 +99,9 @@ QBalloonTip::QBalloonTip(const QString& title, const QString& message,QBaloonTyp
 	anim->setStartValue(0.f);
 	anim->setEndValue(1.f);
 	anim->start();
+/*
+	pixmap=QPixmap(":/images/ToolTipFrame.png");
+	setMask(pixmap.mask());*/
 	
 }
 
@@ -115,12 +109,14 @@ QBalloonTip::~QBalloonTip()
 {
 	theSolitaryBalloonTip = 0;
 }
+/*
 
 void QBalloonTip::paintEvent(QPaintEvent *)
 {
 	QPainter painter(this);
 	painter.drawPixmap(rect(), pixmap);
 }
+*/
 
 void QBalloonTip::resizeEvent(QResizeEvent *ev)
 {
@@ -253,7 +249,7 @@ void QBalloonTip::timerEvent(QTimerEvent *e)
 	if (e->timerId() == timerId) {
 		killTimer(timerId);
 		if (!underMouse())
-			close(); // закрываем по таймеру
+			close(); 
 		return;
 	}
 	QWidget::timerEvent(e);
