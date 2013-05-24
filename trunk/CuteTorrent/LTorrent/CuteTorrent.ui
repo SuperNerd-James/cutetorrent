@@ -58,8 +58,14 @@
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="tabPosition">
+       <enum>QTabWidget::North</enum>
+      </property>
       <property name="currentIndex">
        <number>0</number>
+      </property>
+      <property name="elideMode">
+       <enum>Qt::ElideMiddle</enum>
       </property>
       <widget class="QWidget" name="tab">
        <attribute name="title">
@@ -522,6 +528,10 @@
    <addaction name="actionSettings_2"/>
   </widget>
   <action name="actionOpenTorrent">
+   <property name="icon">
+    <iconset resource="ltorrent.qrc">
+     <normaloff>:/MenuIcons/addTorrent.ico</normaloff>:/MenuIcons/addTorrent.ico</iconset>
+   </property>
    <property name="text">
     <string>MENU_OPEN_TORRENT</string>
    </property>
@@ -536,6 +546,10 @@
    </property>
   </action>
   <action name="action_magnet">
+   <property name="icon">
+    <iconset resource="ltorrent.qrc">
+     <normaloff>:/MenuIcons/addUrl.ico</normaloff>:/MenuIcons/addUrl.ico</iconset>
+   </property>
    <property name="text">
     <string>MENU_OPEN_MAGNET</string>
    </property>
@@ -544,6 +558,10 @@
    </property>
   </action>
   <action name="actionCreateTorrent">
+   <property name="icon">
+    <iconset resource="ltorrent.qrc">
+     <normaloff>:/MenuIcons/createTorrent.ico</normaloff>:/MenuIcons/createTorrent.ico</iconset>
+   </property>
    <property name="text">
     <string>MENU_CREATE_TORRENT</string>
    </property>
@@ -552,19 +570,33 @@
    </property>
   </action>
   <action name="actionExit">
+   <property name="icon">
+    <iconset resource="ltorrent.qrc">
+     <normaloff>:/MenuIcons/quit.ico</normaloff>:/MenuIcons/quit.ico</iconset>
+   </property>
    <property name="text">
     <string>MENU_EXIT</string>
    </property>
    <property name="shortcut">
     <string>Alt+X</string>
    </property>
+   <property name="menuRole">
+    <enum>QAction::QuitRole</enum>
+   </property>
   </action>
   <action name="actionSettings">
+   <property name="icon">
+    <iconset resource="ltorrent.qrc">
+     <normaloff>:/MenuIcons/preferencies.ico</normaloff>:/MenuIcons/preferencies.ico</iconset>
+   </property>
    <property name="text">
     <string>MENU_CONFIGURATION</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+S</string>
+   </property>
+   <property name="menuRole">
+    <enum>QAction::PreferencesRole</enum>
    </property>
   </action>
   <action name="actionPause">
@@ -607,6 +639,10 @@
    </property>
   </action>
   <action name="actionAboutCuteTorrent">
+   <property name="icon">
+    <iconset resource="ltorrent.qrc">
+     <normaloff>:/MenuIcons/about.ico</normaloff>:/MenuIcons/about.ico</iconset>
+   </property>
    <property name="text">
     <string>MENU_ABAUT</string>
    </property>
@@ -618,6 +654,10 @@
    </property>
   </action>
   <action name="actionCheckUpdate">
+   <property name="icon">
+    <iconset resource="ltorrent.qrc">
+     <normaloff>:/MenuIcons/checkUpdates.ico</normaloff>:/MenuIcons/checkUpdates.ico</iconset>
+   </property>
    <property name="text">
     <string>MENU_CHECK_UPDATES</string>
    </property>

@@ -33,11 +33,7 @@ OpenTorrentDialog::OpenTorrentDialog(QWidget *parent, Qt::WFlags flags)
 	/*QTextCodec::setCodecForTr(wantUnicode);
 	QTextCodec::setCodecForLocale(wantUnicode);*/
 	QTextCodec::setCodecForCStrings(wantUnicode);
-	QFile File(":/icons/BaseStyle.qss");
-	File.open(QFile::ReadOnly);
-	QString StyleSheet = QString::fromUtf8(File.readAll().data());
-	File.close();
-	setStyleSheet(StyleSheet);
+	
 }
 void OpenTorrentDialog::setupGroupComboBox()
 {

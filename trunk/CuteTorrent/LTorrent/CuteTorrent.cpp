@@ -34,6 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QtNetwork/QHostAddress>
 #include <QSortFilterProxyModel>
 #include <QClipboard>
+#include <QCleanlooksStyle>
 CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent,flags)
 {
@@ -67,11 +68,7 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	QTimer::singleShot(3000,this,SLOT(enableNitifyShow()));
 	Scheduller* sch=Scheduller::getInstance();
 	
-	QFile File(":/icons/BaseStyle.qss");
-	File.open(QFile::ReadOnly);
-	QString StyleSheet = QString::fromUtf8(File.readAll().data());
-	File.close();
-	setStyleSheet(StyleSheet);
+	
 	
 }
 void CuteTorrent::checkForUpdates()
@@ -281,7 +278,7 @@ void CuteTorrent::updateItemWidth(int min,int max)
 }
 void CuteTorrent::updateTabWidget(int tab)
 {
-	////qDebug() << "updateTabWidget(" << tab << ");";
+	//qDebug() << "updateTabWidget(" << tab << ");";
 
 	
 	trayIcon->setToolTip("CuteTorrent "CT_VERSION"\nUpload: "+mng->GetSessionUploadSpeed()+"\nDownload:"+mng->GetSessionDownloadSpeed());
@@ -294,7 +291,7 @@ void CuteTorrent::updateTabWidget(int tab)
 			udapteLimits = true;	
 		tab=tabWidget->currentIndex();
 	}
-	////qDebug() << "udapteLimits =" << udapteLimits << ";";
+	//qDebug() << "udapteLimits =" << udapteLimits << ";";
 	
 
 	try
@@ -360,7 +357,7 @@ public:
 		QHostAddress thisadr(text());
 		if (!thisadr.isNull())
 		{
-			////qDebug() << "Ip Addresses" << text() << other.text();
+			//qDebug() << "Ip Addresses" << text() << other.text();
 			QHostAddress otheradr(other.text());
 			return thisadr.toIPv4Address() < otheradr.toIPv4Address();
 		}
@@ -393,7 +390,7 @@ public:
 					break;
 
 				}
-				////qDebug() << parts1 << speed1;
+				//qDebug() << parts1 << speed1;
 				switch(parts2[1][0].toLower().toAscii())
 				{
 				case 'k':
@@ -412,14 +409,14 @@ public:
 					break;
 
 				}
-				////qDebug() << "Speed or size" << text() << other.text() << speed1 << speed2;
+				//qDebug() << "Speed or size" << text() << other.text() << speed1 << speed2;
 				return speed1 < speed2;
 			}
 
 		}else
 		if (text().endsWith('%'))
 		{
-			////qDebug() << "Percentage" << text() << other.text() ;
+			//qDebug() << "Percentage" << text() << other.text() ;
 			QString perc1=text().remove('%'),perc2=other.text().remove('%');
 			return perc1.toDouble() < perc2.toDouble();
 		}
@@ -781,7 +778,7 @@ void CuteTorrent::dropEvent(QDropEvent *event)
         }
         else
         {
-            ////qDebug() << file;
+            //qDebug() << file;
         }
     }
 
@@ -1146,4 +1143,6 @@ void CuteTorrent::StopSelected()
 {
 	model->ActionOnSelectedItem(QTorrentDisplayModel::stop);
 }
+
+
 

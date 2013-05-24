@@ -36,7 +36,7 @@ MultipleDTDialog::MultipleDTDialog(QStringList& _files,QWidget* parrent/* =0 */,
 	
 	
 	
-	////qDebug() << "files set";
+	//qDebug() << "files set";
 	QStandardItemModel *model = new QStandardItemModel(files.count(),1);
 	listView->setModel(model);
 	listView->setSelectionMode(QAbstractItemView::SingleSelection);

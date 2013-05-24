@@ -136,7 +136,7 @@ void  QApplicationSettings::ReedSettings()
 {
 	
 	QStringList rootGroups=settings->childGroups();
-	////qDebug() << "================================================";
+	//qDebug() << "================================================";
 	for(int i=0;i<rootGroups.size();i++)
 	{
 		
@@ -144,12 +144,12 @@ void  QApplicationSettings::ReedSettings()
 		QStringList keys= settings->childKeys();
 		for (int j=0;j<keys.size();j++)
 		{
-			////qDebug() << rootGroups.at(i) << keys.at(j) << settings->value(keys.at(j));
+			//qDebug() << rootGroups.at(i) << keys.at(j) << settings->value(keys.at(j));
 			settingsStorrage[rootGroups.at(i)][keys.at(j)]=settings->value(keys.at(j));
 		}
 		settings->endGroup();
 	}
-	////qDebug() << "================================================";
+	//qDebug() << "================================================";
 	
 }
 void QApplicationSettings::SaveFilterGropups(QList<GroupForFileFiltering> filters)

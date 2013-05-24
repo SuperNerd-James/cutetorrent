@@ -69,7 +69,7 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	FillTorrentTab();
 	FillHDDTab();
 	SetupSchedullerTab();
-	////////////////////////OS_SPECIFICK//////////////////////////////////////////////////
+	////////////OS_SPECIFICK//////////////////////////
 #ifdef Q_WS_WIN
 	QSettings assocSettings ("HKEY_CLASSES_ROOT", QSettings::NativeFormat);                                                                                   
 	QString torrentAssociation=assocSettings.value (".torrent/.").toString();  
@@ -81,7 +81,7 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	runOnbootCheckBox->setChecked(val.length()>0);	
 	startMinimizedCheckBox->setChecked(val.contains("-m"));
 #endif
-	////////////////////////OS_SPECIFICK//////////////////////////////////////////////////
+	////////////OS_SPECIFICK//////////////////////////
 	QString curLoc=Application::currentLocale().split('_')[1];
 	foreach (QString avail, Application::availableLanguages())
 	{
@@ -94,11 +94,7 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 		current++;
 
 	}
-	QFile File(":/icons/BaseStyle.qss");
-	File.open(QFile::ReadOnly);
-	QString StyleSheet = QString::fromUtf8(File.readAll().data());
-	File.close();
-	setStyleSheet(StyleSheet);
+	
 	
 	tabWidget->removeTab(5);
 }

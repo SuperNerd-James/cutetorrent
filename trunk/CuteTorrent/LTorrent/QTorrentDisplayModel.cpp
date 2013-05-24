@@ -216,7 +216,8 @@ void QTorrentDisplayModel::contextualMenu(const QPoint & point)
 		if (torrent!=NULL)
 		{
 			
-			if (!torrent->isDaemonToolsMountable())
+			
+			if (!torrent->isDaemonToolsMountable() || !torrent->isSeeding())
 			{
 				DTmount->setEnabled(false);
 			}
@@ -557,7 +558,7 @@ void QTorrentDisplayModel::playInPlayer()
 {
 	try 
 	{
-		VideoPlayerWindow* vpw = new VideoPlayerWindow();
+		VideoPlayerWindow* vpw = new VideoPlayerWindow(parrent);
 		vpw->openFile(CurrentTorrent->GetSavePath()+CurrentTorrent->GetFileDownloadInfo().first().name);
 		vpw->show();
 	
