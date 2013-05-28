@@ -35,7 +35,7 @@ RconServer* RconServer::getInstance()
 void RconServer::FreeInstance()
 {
 	_instanceCount--;
-	//qDebug() << "QApplicationSettings freeing " <<_instanceCount<< " instance " ;
+	////qDebug() << "QApplicationSettings freeing " <<_instanceCount<< " instance " ;
 	if (!_instanceCount)
 	{
 		_instance->~RconServer();
@@ -70,7 +70,7 @@ void RconServer::readClient()
 
 	QTcpSocket* socket = (QTcpSocket*)sender();
 	QByteArray data=socket->readAll();
-	qDebug() << data;
+	//qDebug() << data;
 	 // parse data
 	RconMessageType type = (RconMessageType)data.toUInt();
 	data.remove(0,sizeof(uint));

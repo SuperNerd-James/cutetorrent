@@ -275,6 +275,65 @@ void TorrentManager::handle_alert(alert* a)
 				
 			}
 		}
+		case performance_alert::alert_type:
+		/*{
+			performance_alert* p=alert_cast<performance_alert>(a);
+			session_settings settings = ses->settings();
+			switch (p->warning_code)
+			{
+				case performance_alert::outstanding_disk_buffer_limit_reached:
+				{
+					//qDebug() << "max_queued_disk_bytes" << settings.max_queued_disk_bytes;
+					settings.max_queued_disk_bytes+=settings.max_queued_disk_bytes/4;
+					break;				
+				}
+				case performance_alert::outstanding_request_limit_reached:
+				{
+					//qDebug() << "max_out_request_queue" << settings.max_out_request_queue;
+					settings.max_out_request_queue+=settings.max_out_request_queue/4;
+					break;
+				}
+				case performance_alert::upload_limit_too_low:
+				{
+					//qDebug() << "upload_rate_limit" << settings.upload_rate_limit;
+					settings.upload_rate_limit+=settings.upload_rate_limit*5/100;
+					break;
+				}
+				case performance_alert::download_limit_too_low:
+				{
+					//qDebug() << "download_rate_limit" << settings.download_rate_limit;
+					settings.download_rate_limit+=settings.download_rate_limit*5/100;
+					break;
+				}
+				case performance_alert::send_buffer_watermark_too_low:
+				{
+					//qDebug() << "send_buffer_watermark" << settings.send_buffer_watermark;
+					settings.send_buffer_watermark+=settings.send_buffer_watermark/4;
+					break;
+				}
+				case performance_alert::too_many_optimistic_unchoke_slots:
+				{
+					//qDebug() << "unchoke_slots_limit" << settings.unchoke_slots_limit;
+					settings.unchoke_slots_limit+= settings.unchoke_slots_limit/4;
+					break;
+				}
+				case performance_alert::too_high_disk_queue_limit:
+				{
+					//qDebug() << "max_queued_disk_bytes" << settings.max_queued_disk_bytes;
+					//qDebug() << "cache_size" << settings.cache_size;
+					if (settings.max_queued_disk_bytes-settings.max_queued_disk_bytes/4 < 16*1024)
+					{
+						settings.max_queued_disk_bytes=settings.max_queued_disk_bytes-settings.max_queued_disk_bytes/4;
+					}
+					else
+					{
+						settings.cache_size+=32;
+					}
+					break;
+				}
+			}
+			ses->set_settings(settings);
+		}*/
 		case listen_succeeded_alert::alert_type:
 		case state_changed_alert::alert_type:
 		case state_update_alert::alert_type:
@@ -572,7 +631,7 @@ void TorrentManager::onClose()
 		printf("\r%d  ", num_outstanding_resume_data);
 		
 	}
-	//qDebug() << "waiting for resume data " << num_outstanding_resume_data << "\n";
+	////qDebug() << "waiting for resume data " << num_outstanding_resume_data << "\n";
 	
 	while (num_outstanding_resume_data > 0)
 	{
@@ -609,7 +668,7 @@ void TorrentManager::onClose()
 			torrent_handle h = rd->handle;
 			std::vector<char> out;
 			bencode(std::back_inserter(out), *rd->resume_data);
-			//qDebug() << "Saving fast resume for "+QString::fromStdString(h.name());
+			////qDebug() << "Saving fast resume for "+QString::fromStdString(h.name());
 			save_file( combine_path("CT_DATA", to_hex(h.info_hash().to_string()) + ".resume"), out);
 		}
 	}
@@ -761,22 +820,22 @@ void TorrentManager::RemoveTorrent(torrent_handle h,bool delFiles)
         magnet_links.remove(infoHash);
     }
     UpdatePathResumeAndLinks();
-	//qDebug() << "before ses->remove_torrent(h); h.is_valid()=" << h.is_valid();
+	////qDebug() << "before ses->remove_torrent(h); h.is_valid()=" << h.is_valid();
 	try
 	{
 		ses->remove_torrent(h,delFiles ? session::delete_files : session::none); 
 	}
 	catch (libtorrent::libtorrent_exception e)
 	{
-		//qDebug() << e.what();
+		////qDebug() << e.what();
 	}
 	catch(...)
 	{
-		//qDebug() << "Not a libtorrent exception caught";
+		////qDebug() << "Not a libtorrent exception caught";
 	}
 	
 
-	//qDebug() << "after ses->remove_torrent(h)";
+	////qDebug() << "after ses->remove_torrent(h)";
 }
 QString TorrentManager::GetSessionDownloadSpeed()
 {
@@ -977,13 +1036,13 @@ QString TorrentManager::GetSessionDHTstate()
 
 void TorrentManager::SetUlLimit( int val )
 {
-	//qDebug() << "TorrentManager::SetUlLimit" << val;
+	////qDebug() << "TorrentManager::SetUlLimit" << val;
 	ses->set_upload_rate_limit(val);
 }
 
 void TorrentManager::SetDlLimit( int val )
 {
-	//qDebug() << "TorrentManager::SetDlLimit" << val;
+	////qDebug() << "TorrentManager::SetDlLimit" << val;
 	ses->set_download_rate_limit(val);
 	
 }

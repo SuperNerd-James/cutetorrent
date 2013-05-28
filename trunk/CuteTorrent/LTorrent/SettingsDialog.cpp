@@ -96,7 +96,7 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	}
 	
 	
-	tabWidget->removeTab(5);
+	//tabWidget->removeTab(5);
 }
 
 

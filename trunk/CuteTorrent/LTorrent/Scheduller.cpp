@@ -9,9 +9,9 @@ Scheduller::Scheduller()
 	if (!tasks.isEmpty())
 	{
 		QDateTime now = QDateTime::currentDateTime();
-		//qDebug() << tasks.first().startTime() << now;
+		////qDebug() << tasks.first().startTime() << now;
 		int toNextTask = tasks.first().startTime().toTime_t()-now.toTime_t();
-		//qDebug() << toNextTask;
+		////qDebug() << toNextTask;
 		cuurentTimerID=startTimer(toNextTask*1000);
 	}
 	
@@ -61,11 +61,11 @@ void Scheduller::checkTasks()
 	for (QList<SchedulerTask>::iterator i=tasks.begin();i!=tasks.end();i++)
 	{
 	
-		//qDebug() << i->startTime() << now;
+		////qDebug() << i->startTime() << now;
 		if (i->startTime()<now)
 			
 		{
-			//qDebug() << "removing";
+			////qDebug() << "removing";
 			tasks.erase(i);
 		}
 	}

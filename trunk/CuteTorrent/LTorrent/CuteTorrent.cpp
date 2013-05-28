@@ -53,7 +53,7 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	setupTabelWidgets();
 	setupFileTabel();
 	setupConnections();
-
+	
 	QApplicationSettings* settings=QApplicationSettings::getInstance();
 	
 	Application::setLanguage("cutetorrent_"+settings->valueString("System","Lang","RUSSIAN"));
@@ -63,7 +63,7 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	QTextCodec::setCodecForCStrings(wantUnicode);
 	
 	mng->initSession();
-
+	
 	QTimer::singleShot(10000,this,SLOT(checkForUpdates()));
 	QTimer::singleShot(3000,this,SLOT(enableNitifyShow()));
 	Scheduller* sch=Scheduller::getInstance();
@@ -272,13 +272,13 @@ void CuteTorrent::showTorrentCompletedNotyfy(const QString name,QString path)
 }
 void CuteTorrent::updateItemWidth(int min,int max)
 {
-	//qDebug() << "updateItemWidth " << QTorrentItemDelegat::max_width << listView->verticalScrollBar()->isVisible() << min << max;
+	////qDebug() << "updateItemWidth " << QTorrentItemDelegat::max_width << listView->verticalScrollBar()->isVisible() << min << max;
 	QTorrentItemDelegat::max_width=width()-QApplication::style( )->pixelMetric( QStyle::PM_MessageBoxIconSize )-35-(max!=0 ? listView->autoScrollMargin() : 0);
-	//qDebug() << "updateItemWidth " << QTorrentItemDelegat::max_width << listView->verticalScrollBar()->isVisible()<< min << max;
+	////qDebug() << "updateItemWidth " << QTorrentItemDelegat::max_width << listView->verticalScrollBar()->isVisible()<< min << max;
 }
 void CuteTorrent::updateTabWidget(int tab)
 {
-	//qDebug() << "updateTabWidget(" << tab << ");";
+	////qDebug() << "updateTabWidget(" << tab << ");";
 
 	
 	trayIcon->setToolTip("CuteTorrent "CT_VERSION"\nUpload: "+mng->GetSessionUploadSpeed()+"\nDownload:"+mng->GetSessionDownloadSpeed());
@@ -291,7 +291,7 @@ void CuteTorrent::updateTabWidget(int tab)
 			udapteLimits = true;	
 		tab=tabWidget->currentIndex();
 	}
-	//qDebug() << "udapteLimits =" << udapteLimits << ";";
+	////qDebug() << "udapteLimits =" << udapteLimits << ";";
 	
 
 	try
@@ -357,7 +357,7 @@ public:
 		QHostAddress thisadr(text());
 		if (!thisadr.isNull())
 		{
-			//qDebug() << "Ip Addresses" << text() << other.text();
+			////qDebug() << "Ip Addresses" << text() << other.text();
 			QHostAddress otheradr(other.text());
 			return thisadr.toIPv4Address() < otheradr.toIPv4Address();
 		}
@@ -390,7 +390,7 @@ public:
 					break;
 
 				}
-				//qDebug() << parts1 << speed1;
+				////qDebug() << parts1 << speed1;
 				switch(parts2[1][0].toLower().toAscii())
 				{
 				case 'k':
@@ -409,14 +409,14 @@ public:
 					break;
 
 				}
-				//qDebug() << "Speed or size" << text() << other.text() << speed1 << speed2;
+				////qDebug() << "Speed or size" << text() << other.text() << speed1 << speed2;
 				return speed1 < speed2;
 			}
 
 		}else
 		if (text().endsWith('%'))
 		{
-			//qDebug() << "Percentage" << text() << other.text() ;
+			////qDebug() << "Percentage" << text() << other.text() ;
 			QString perc1=text().remove('%'),perc2=other.text().remove('%');
 			return perc1.toDouble() < perc2.toDouble();
 		}
@@ -601,6 +601,7 @@ void CuteTorrent::ShowOpenTorrentDialog()
 }
 void CuteTorrent::enableNitifyShow()
 {
+	model->sort();
 	mayShowNotifies = true;
 }
 
@@ -737,7 +738,7 @@ void CuteTorrent::dragEnterEvent(QDragEnterEvent *event)
 {
     foreach (const QString &mime, event->mimeData()->formats())
     {
-       qDebug("mimeData: %s", mime.toLocal8Bit().data());
+       //qDebug("mimeData: %s", mime.toLocal8Bit().data());
     }
     if (event->mimeData()->hasFormat(QString("text/plain")) || event->mimeData()->hasFormat(QString("text/uri-list")))
     {
@@ -778,7 +779,7 @@ void CuteTorrent::dropEvent(QDropEvent *event)
         }
         else
         {
-            //qDebug() << file;
+            ////qDebug() << file;
         }
     }
 
@@ -1067,7 +1068,7 @@ void CuteTorrent::clearPieceDisplay()
 
 void CuteTorrent::UpdateUL(int kbps)
 {
-	//qDebug()<< "UpdateUL" << kbps*1024;
+	////qDebug()<< "UpdateUL" << kbps*1024;
 	Torrent* tor=model->GetSelectedTorrent();
 	if (tor!=NULL)
 	{
@@ -1084,7 +1085,7 @@ void CuteTorrent::UpdateUL(int kbps)
 
 void CuteTorrent::UpdateDL(int kbps)
 {
-	//qDebug()<< "UpdateDL" << kbps*1024;
+	////qDebug()<< "UpdateDL" << kbps*1024;
 	Torrent* tor=model->GetSelectedTorrent();
 	
 	if (tor!=NULL)
