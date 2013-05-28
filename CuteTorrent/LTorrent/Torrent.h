@@ -48,8 +48,7 @@ private:
 	bool prevHaserror,prevIsCompleted;
 public :
 
-	Torrent::Torrent(const Torrent &): QObject(0){};
-	Torrent(): QObject(0){};
+	Torrent(const Torrent &other);
 	~Torrent() {};
 	void SetFilePriority(int index,int prioryty);
 	QString GetRemainingTime();
@@ -107,7 +106,8 @@ public :
 	void SetDlLimit(int val);
 	int GetDownloadLimit();
 	int GetUploadLimit();
-
+	bool operator<(const Torrent) const;
+	bool operator<(Torrent*);
 };
 
 //Q_DECLARE_METATYPE(Torrent)

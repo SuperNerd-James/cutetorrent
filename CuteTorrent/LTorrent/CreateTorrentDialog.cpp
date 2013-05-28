@@ -48,6 +48,7 @@ quint64 CreateTorrentDialog::listFolder ( QString path ) {
 }
 CreateTorrentDialog::~CreateTorrentDialog()
 {
+	creator->deleteLater();
 	TorrentManager::freeInstance();
 }
 
@@ -69,7 +70,7 @@ quint64 CreateTorrentDialog::getPiceSize()
 				pieceSize=fileSize/1000;
 			}
 			if(fi.isDir()){
-				//qDebug()<<"this is dir";
+				////qDebug()<<"this is dir";
 				dirSize=listFolder(file);
 				pieceSize=dirSize/1000;
 			}
@@ -93,7 +94,7 @@ quint64 CreateTorrentDialog::getPiceSize()
 				needToSet=8*1024;
 			}else 
 				needToSet=16*1024;
-			//qDebug() << needToSet;
+			////qDebug() << needToSet;
 			return needToSet;	
 		}
 		case 1 :
@@ -150,7 +151,7 @@ void CreateTorrentDialog::BeginCreate()
 	if (path.length()==0)
 	{	QMessageBox::information(this, tr("ERROR_STR"),
 		tr("ERROR_NO_FILE_OR_FOLDER_NAME"));
-		delete creator;
+		//delete creator;
 		createButton->setEnabled(true);
 		return;
 	}
@@ -167,12 +168,12 @@ void CreateTorrentDialog::BeginCreate()
 		tr("ERROR_NO_TRACKERS"),
 		QMessageBox::Yes | QMessageBox::No))
 		{
-			delete creator;
+			//delete creator;
 			createButton->setEnabled(true);
 			return;
 		}
 	}
-	//qDebug() << "before removing web seeds";
+	////qDebug() << "before removing web seeds";
 	for (QStringList::iterator i=webseeds.begin();i!=webseeds.end();i++)
 	{
 		if ((*i).isEmpty())
@@ -180,19 +181,19 @@ void CreateTorrentDialog::BeginCreate()
 	}
 	
 	QFileInfo info(path);
-	//qDebug() << "after removing web seeds";
+	////qDebug() << "after removing web seeds";
 	QString save_path = QFileDialog::getSaveFileName(this,
 		tr("CREATE_TORRENT_DIALOG"),path+QDir::separator()+info.fileName(),
 		tr("Торрент файлы (*.torrent)"));
 	if (!save_path.isEmpty())
 	{
 		creator  = new torrentCreatorThread(this);
-		//qDebug() << "new torrentCreatorThread";
+		////qDebug() << "new torrentCreatorThread";
 		QObject::connect(creator,SIGNAL(updateProgress(int)),this,SLOT(UpdateProgressBar(int)));
 		QObject::connect(creator,SIGNAL(ShowCreationSucces(QString)),this,SLOT(ShowCreationSucces(QString)));
 		QObject::connect(creator,SIGNAL(ShowCreationFailture(QString)),this,SLOT(ShowCreationFailture(QString)));
 		QObject::connect(this,SIGNAL(AbortCreation()),creator,SLOT(terminate()));
-		//qDebug() << "connects";
+		////qDebug() << "connects";
 		creator->create(pathEdit->text(),save_path,filterEdit->text(),trackers,webseeds,discribtionEdit->text(),privateCheckBox->isChecked(),getPiceSize()*1024);
 	}
 	else
@@ -215,8 +216,8 @@ void CreateTorrentDialog::ShowCreationSucces(QString filename)
 	}
 	progressBar->setValue(0);
 	createButton->setEnabled(true);
-	delete creator;
-	creator = NULL;
+	//delete creator;
+	//creator = NULL;
 }
 void CreateTorrentDialog::ShowCreationFailture(QString msg)
 {
@@ -224,8 +225,8 @@ void CreateTorrentDialog::ShowCreationFailture(QString msg)
 		tr("CREATE_TORRENT_FILE_ERROR\n %1").arg(msg));
 	progressBar->setValue(0);
 	createButton->setEnabled(true);
-	delete creator;
-	creator = NULL;
+// 	delete creator;
+// 	creator = NULL;
 }
 void CreateTorrentDialog::UpdateProgressBar(int val)
 {
@@ -260,7 +261,7 @@ void torrentCreatorThread::create(QString _input_path, QString _save_path,QStrin
 	is_private = _is_private;
 	piece_size = _piece_size;
 	abort = false;
-	//qDebug() << "starting torrentCreatorThread";
+	////qDebug() << "starting torrentCreatorThread";
 	start();
 }
 
@@ -325,6 +326,6 @@ void torrentCreatorThread::run() {
 	catch (std::exception& e){
 		emit ShowCreationFailture(QString::fromUtf8(e.what()));
 	}
-	//qDebug() << "torrentCreatorThread finished";
+	////qDebug() << "torrentCreatorThread finished";
 }
 

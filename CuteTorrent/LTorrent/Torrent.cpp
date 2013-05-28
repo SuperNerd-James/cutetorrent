@@ -192,7 +192,7 @@ QStringList& Torrent::GetImageFiles()
 	return imageFiles;
 }
 Torrent::Torrent(libtorrent::torrent_handle torrentStatus) 
-	: mountable(false) , m_hasMedia(false) , cur_torrent(torrentStatus) , size(0) , m_stoped(false)
+	: QObject(0),mountable(false) , m_hasMedia(false) , cur_torrent(torrentStatus) , size(0) , m_stoped(false)
 {
 	file_storage storrgae=cur_torrent.get_torrent_info().files();
 	libtorrent::file_storage::iterator bg=storrgae.begin(),
@@ -214,7 +214,7 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
 	}
 	
 	base_suffix=StaticHelpers::GetBaseSuffix(storrgae);
-	//qDebug() << base_suffix << GetName();
+	////qDebug() << base_suffix << GetName();
 	if (!base_suffix.isEmpty())
 	{
 				
@@ -225,6 +225,42 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus)
 		icon = QIcon(":/icons/my-folder.ico");
 	}
 }
+
+Torrent::Torrent( const Torrent &other )
+{
+	cur_torrent = other.cur_torrent;
+	file_storage storrgae=cur_torrent.get_torrent_info().files();
+	libtorrent::file_storage::iterator bg=storrgae.begin(),
+		end=storrgae.end();
+	StaticHelpers::guessMimeIcon("");
+	for (libtorrent::file_storage::iterator i=bg;i!=end;i++)
+	{
+		QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));
+		if (cur_torrent.file_priority(storrgae.file_index(*i)) > 0 && StaticHelpers::suffixes[StaticHelpers::DISK].contains(curfile.suffix().toLower()))
+		{
+			imageFiles << QString::fromUtf8(cur_torrent.save_path().c_str())+QString::fromUtf8(storrgae.file_path(*i).c_str());
+		}
+		if (cur_torrent.file_priority(storrgae.file_index(*i)) > 0)
+		{
+			if (StaticHelpers::suffixes[StaticHelpers::VIDEO].contains(curfile.suffix().toLower()) || StaticHelpers::suffixes[StaticHelpers::AUDIO].contains(curfile.suffix().toLower()))
+				m_hasMedia=true;
+			size+=storrgae.file_size(*i);
+		}
+	}
+
+	base_suffix=StaticHelpers::GetBaseSuffix(storrgae);
+	////qDebug() << base_suffix << GetName();
+	if (!base_suffix.isEmpty())
+	{
+
+		icon=StaticHelpers::guessMimeIcon(base_suffix);
+	}
+	else
+	{
+		icon = QIcon(":/icons/my-folder.ico");
+	}
+}
+
 bool Torrent::isDaemonToolsMountable()
 {
 	return imageFiles.length() > 0;
@@ -289,7 +325,7 @@ QString Torrent::GetName() const
 	}
 	catch (...)
 	{
-
+		//qDebug() << " Torrent::GetName exception";
 	}
 	return "";
 }
@@ -415,7 +451,7 @@ void Torrent::seqensialDownload()
 
 void Torrent::RemoveTorrent(TorrentManager *mgr,bool delfiles)
 {
-	//qDebug() << "Torrent::RemoveTorrent " << cur_torrent.name().c_str();
+	////qDebug() << "Torrent::RemoveTorrent " << cur_torrent.name().c_str();
 	mgr->RemoveTorrent(cur_torrent,delfiles);
 }
 void Torrent::pause()
@@ -701,7 +737,7 @@ QString Torrent::GetDiscribtion()
 
 void Torrent::SetUlLimit( int val )
 {
-	//qDebug() << "Torrent::SetUlLimit" << val;
+	////qDebug() << "Torrent::SetUlLimit" << val;
 	try
 	{
 
@@ -716,7 +752,7 @@ void Torrent::SetUlLimit( int val )
 
 void Torrent::SetDlLimit( int val )
 {
-	//qDebug() << "Torrent::SetDlLimit" << val;
+	////qDebug() << "Torrent::SetDlLimit" << val;
 	try
 	{
 		cur_torrent.set_download_limit(val);
@@ -780,3 +816,17 @@ bool Torrent::isStoped() const
 {
 	return m_stoped;
 }
+
+bool Torrent::operator<(const Torrent other) const
+{
+	
+	return GetName() < other.GetName();
+}
+
+bool Torrent::operator<( Torrent* other)
+{
+	
+	return other->GetName() < (GetName());
+}
+
+

@@ -91,6 +91,7 @@ public:
 	bool hasTorrent(const QString& InfoHash) const;
 	void clear();
 	void retranslate();
+	void sort();
 	virtual int rowCount( const QModelIndex& parent = QModelIndex() ) const;
     virtual QVariant data( const QModelIndex& index, int role = Qt::DisplayRole ) const;
     bool removeRow(int row,bool delFiles);

@@ -157,11 +157,8 @@ void QTorrentDisplayModel::updateVisibleTorrents()
 	try
 	{
 		
-		for (int i=0;i<torrents_to_add.count();i++)
-		{
-			torrents.append(torrents_to_add.at(i));
-		}
-		torrents_to_add.clear();
+	
+	
 		mgr->PostTorrentUpdate();
 		if (!parrent->isVisible())
 		{
@@ -293,7 +290,8 @@ void QTorrentDisplayModel::AddTorrent(Torrent* tr)
 	if (tr!=NULL)
 	{
 		locker->lock();
-		torrents_to_add.append(tr);
+		torrents.append(tr);
+		sort();
 		locker->unlock();
 	}
 }
@@ -414,7 +412,7 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 				{
 					foreach(int row,rows)
 					{
-						//qDebug() << "removing row " << row;
+						////qDebug() << "removing row " << row;
 						removeRow(row,false);
 					}
 				}
@@ -424,7 +422,7 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 					
 					foreach(int row,rows)
 					{
-						//qDebug() << "removing row " << row;
+						////qDebug() << "removing row " << row;
 						removeRow(row,true);
 					}
 				}
@@ -480,8 +478,10 @@ bool QTorrentDisplayModel::removeRow(int row, bool delFiles)
     if (rowCount()==0)
         return false;
     parrent->selectionModel()->reset();
+	locker->lock();
     torrents.at( row )->RemoveTorrent(mgr,delFiles);
     torrents.erase(torrents.begin() + row);
+	locker->unlock();
     return true;
 }
 
@@ -602,6 +602,16 @@ void QTorrentDisplayModel::setupContextMenu()
 	DelTorrentOnly = new QAction(tr("ACTION_DELETE_TORRENT"), this);
 	QObject::connect(DelTorrentOnly, SIGNAL(triggered()), this, SLOT(DellTorrentOnly()));
 	menu->addAction(DelTorrentOnly);
+}
+bool LessThan(const Torrent* a,const Torrent* b)
+{
+	return (*a) < (*b);
+}
+void QTorrentDisplayModel::sort()
+{
+	
+	qSort(torrents.begin(),torrents.end(),LessThan);
+	
 }
 
 

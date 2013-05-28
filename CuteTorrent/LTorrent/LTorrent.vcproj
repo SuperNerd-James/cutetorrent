@@ -40,7 +40,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="3"
+				Optimization="1"
 				AdditionalIncludeDirectories=".\qtsingleapplication\src;E:\src\boost_1_53_0;&quot;E:\src\libtorrent-rasterbar-0.16.8\include&quot;;.\GeneratedFiles;.;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include\phonon&quot;"
 				PreprocessorDefinitions="UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_PHONON_LIB"
 				StringPooling="true"
