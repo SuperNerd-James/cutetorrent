@@ -88,7 +88,7 @@ public:
 	void ActionOnSelectedItem(action wtf);
 	void ChangeData(int row);
 	QTorrentDisplayModel(QObject* parrent=NULL);
-	bool hasTorrent(const QString& InfoHash) const;
+	int hasTorrent(const QString& InfoHash) const;
 	void clear();
 	void retranslate();
 	void sort();
@@ -98,8 +98,6 @@ public:
     virtual bool removeRows ( int row, int count, const QModelIndex & parent = QModelIndex() );
     enum Role { TorrentRole = Qt::UserRole };
 	Torrent* GetSelectedTorrent();
-	
-	bool updateTorrent(QString infohash,torrent_status status);
 signals:
 	void updateTabSender(int);
 	void TorrentCompletedProxySender(const QString);

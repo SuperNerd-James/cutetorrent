@@ -29,6 +29,7 @@ bool Torrent::hasError() const
 {
 	try
 	{
+		
 		QString errorString="";
 		bool hasErr=false;
 		if (cur_torrent.status(torrent_handle::query_accurate_download_counters).error.length()>0)

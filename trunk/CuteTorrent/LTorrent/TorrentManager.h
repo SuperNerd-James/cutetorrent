@@ -149,6 +149,7 @@ public:
 	void SetDlLimit(int val);
 	int GetDownloadLimit();
 	int GetUploadLimit();
+	Torrent* GetTorrentByInfoHash(sha1_hash hash);
 protected:
 };
 Q_DECLARE_METATYPE(opentorrent_info);
