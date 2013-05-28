@@ -1056,3 +1056,13 @@ int TorrentManager::GetUploadLimit()
 {
 	return ses->upload_rate_limit();
 }
+
+Torrent* TorrentManager::GetTorrentByInfoHash( sha1_hash hash )
+{
+	torrent_handle handle=ses->find_torrent(hash);
+	if (handle.is_valid())
+	{
+		return new Torrent(handle);
+	}
+	return NULL;
+}

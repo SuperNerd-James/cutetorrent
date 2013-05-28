@@ -3,16 +3,22 @@
 
 #include <QObject>
 #include <QTcpServer>
+#include "QApplicationSettings.h"
+#include "TorrentManager.h"
+#include "QTorrentDisplayModel.h"
 #include "defs.h"
 class RconServer : 
 	private QTcpServer
 {
 	Q_OBJECT
 private:
+	QTorrentDisplayModel* model;
+	TorrentManager* tManager;
+	QApplicationSettings* settings;
 	bool disabled,useIPFilters;
 	QSet<QHostAddress> allowedIPs,notAllowedIPs;
-	QList<int> activeSessions;
-	RconServer(int port,QObject* parrent);
+	QVector<int> activeSessions;
+	RconServer(int port,QTorrentDisplayModel* model,QObject* parrent);
 	~RconServer(void);
 	static RconServer* _instance;
 	static int _instanceCount;
@@ -26,7 +32,7 @@ private:
 	void handleRemoveTorrent( QByteArray data );
 	void handlePauseTorrent( QByteArray data );
 	void handleLogout( QByteArray data );
-	void handleLogin( QByteArray data );
+	void handleLogin( QTcpSocket* socket,QByteArray data );
 public:
 	static int ListenPort;
 	static RconServer* getInstance();

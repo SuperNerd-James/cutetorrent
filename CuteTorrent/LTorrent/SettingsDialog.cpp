@@ -68,6 +68,7 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	FillFilteringGroups();
 	FillTorrentTab();
 	FillHDDTab();
+	FillWebUITab();
 	SetupSchedullerTab();
 	////////////OS_SPECIFICK//////////////////////////
 #ifdef Q_WS_WIN

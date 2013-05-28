@@ -2,9 +2,10 @@
 #include "QApplicationSettings.h"
 #include <QTcpSocket>
 #include <QDebug>
-
-RconServer::RconServer(int port,QObject* parrent=0) : QTcpServer(parrent)
+#include <QCryptographicHash>
+RconServer::RconServer(int port,QTorrentDisplayModel* m_model=0,QObject* parrent=0) : QTcpServer(parrent), settings(QApplicationSettings::getInstance()) , tManager(TorrentManager::getInstance())
 {
+	model=m_model;
 	ListenPort=port;
 	QApplicationSettings* settings = QApplicationSettings::getInstance();
 	disabled = ! settings->valueBool("WebUI","webui_enabled",false);
@@ -79,7 +80,7 @@ void RconServer::readClient()
 	{
 		case LOGIN:
 		{
-			handleLogin(data);
+			handleLogin(socket,data);
 			break;
 		}
 		case LOGOUT:
@@ -174,53 +175,119 @@ void RconServer::handleSetSettingsVal( QByteArray data )
 
 void RconServer::handleSetGlobalUL( QByteArray data )
 {
-
+	tManager->SetUlLimit(data.toInt());
 }
 
 void RconServer::handleSetGlobalDL( QByteArray data )
 {
-
+	tManager->SetDlLimit(data.toInt());
 }
 
 void RconServer::handleSetUL( QByteArray data )
 {
-
+	QByteArray bSha1;
+	for (int i=0;i<20;i++)
+	{
+		bSha1.append(data[i]);
+	}
+	data.remove(0,20);
+	int limit = data.toInt();
+	sha1_hash sha1 = sha1_hash(bSha1.data()); 
+	Torrent* torrent = tManager->GetTorrentByInfoHash(sha1);
+	if (torrent!=NULL)
+	{
+		torrent->SetUlLimit(limit);
+		delete torrent;
+	}
 }
 
 void RconServer::handleSetDL( QByteArray data )
 {
-
+	QByteArray bSha1;
+	for (int i=0;i<20;i++)
+	{
+		bSha1.append(data[i]);
+	}
+	data.remove(0,20);
+	int limit = data.toInt();
+	sha1_hash sha1 = sha1_hash(bSha1.data()); 
+	Torrent* torrent = tManager->GetTorrentByInfoHash(sha1);
+	if (torrent!=NULL)
+	{
+		torrent->SetDlLimit(limit);
+		delete torrent;
+	}
 }
 
 void RconServer::handleRemoveTorrentAll( QByteArray data )
 {
-
+	QByteArray bSha1;
+	for (int i=0;i<20;i++)
+	{
+		bSha1.append(data[i]);
+	}
+	sha1_hash sha1 = sha1_hash(bSha1.data()); 
+	int index = model->hasTorrent(QString::fromStdString(sha1.to_string()));
+	if (index >= 0)
+		model->removeRow(index,true);
 }
 
 void RconServer::handleRemoveTorrent( QByteArray data )
 {
-
+	QByteArray bSha1;
+	for (int i=0;i<20;i++)
+	{
+		bSha1.append(data[i]);
+	}
+	sha1_hash sha1 = sha1_hash(bSha1.data()); 
+	int index = model->hasTorrent(QString::fromStdString(sha1.to_string()));
+	if (index >= 0)
+		model->removeRow(index,false);
 }
 
 void RconServer::handlePauseTorrent( QByteArray data )
 {
-
+	QByteArray bSha1;
+	for (int i=0;i<20;i++)
+	{
+		bSha1.append(data[i]);
+	}
+	sha1_hash sha1 = sha1_hash(bSha1.data()); 
+	Torrent* torrent = tManager->GetTorrentByInfoHash(sha1);
+	if (torrent!=NULL)
+	{
+		torrent->pause();
+		delete torrent;
+	}
+	
 }
 
 void RconServer::handleLogout( QByteArray data )
 {
-
+	int ID=data.toInt();
+	if (activeSessions.contains(ID))
+	{
+		activeSessions.remove(ID);
+	}
 }
 
-void RconServer::handleLogin( QByteArray data )
+void RconServer::handleLogin(QTcpSocket* socket, QByteArray data )
 {
-	QDataStream packet;
-	packet.writeRawData(data.data(),data.count());
-	QString login;
-	packet >> login;
+	QString login = QString(data);
 	QByteArray passHash;
-	passHash.resize(16);
-	packet.readRawData (passHash.data(),passHash.size());
+	passHash.resize(data.size() - login.length());
+	for (int i=login.length();i<data.size();i++)
+	{
+		passHash.append(data[i]);
+	}
+	QString settingsPasswordStr = settings->valueString("WebControl","webui_password");
+	QByteArray settingsPassHash=QCryptographicHash::hash(settingsPasswordStr.toUtf8(),QCryptographicHash::Md5);
+	if (passHash==settingsPassHash)
+	{
+		int newID=qrand();
+		activeSessions.append(newID);
+		socket->write(reinterpret_cast< const char* >( &newID ), sizeof( newID ) );
+	}
 }
 
 void RconServer::parseIpfiltrString(QString ipFilterStr)

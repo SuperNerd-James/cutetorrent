@@ -310,6 +310,7 @@ void QTorrentDisplayModel::ChangeData(int row)
 }
 bool QTorrentDisplayModel::hasTorrent(const QString& InfoHash) const
 {
+	int i=0;
 	for (QVector<Torrent*>::const_iterator tor=torrents.begin();
 		tor!=torrents.end();
 		tor++
@@ -317,9 +318,10 @@ bool QTorrentDisplayModel::hasTorrent(const QString& InfoHash) const
 	{
 		
 	        if( (*tor)->GetHashString() == InfoHash )
-	            return true;
+	            return i;
+			i++;
 	}
-	return false;
+	return -1;
 }
 void QTorrentDisplayModel::clear()
 {
@@ -369,12 +371,6 @@ Torrent* QTorrentDisplayModel::GetSelectedTorrent()
 	
 	return NULL;
 
-}
-bool QTorrentDisplayModel::updateTorrent(QString InfoHash,torrent_status status)
-{
-
-
-	return false;
 }
 void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 {
