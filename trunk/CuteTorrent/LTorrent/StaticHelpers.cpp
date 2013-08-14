@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 QIcon StaticHelpers::fileIcons[TYPE_COUNT];
 QSet<QString> StaticHelpers::suffixes[TYPE_COUNT];
-
+const char* StaticHelpers::EnumStrings[] = { "iso","doc","picture","movie","archive","audio","app" };
 QString StaticHelpers::toKbMbGb(libtorrent::size_type size)
 {
 	float val=size;
@@ -38,7 +38,7 @@ QString StaticHelpers::toKbMbGb(libtorrent::size_type size)
 	return str;
 }
 
-QIcon StaticHelpers::guessMimeIcon(QString suffix)
+QIcon StaticHelpers::guessMimeIcon(QString suffix,QString& type)
 {
 	
 	static QIcon fallback;
@@ -114,6 +114,7 @@ QIcon StaticHelpers::guessMimeIcon(QString suffix)
 		{
 			if( suffixes[i].contains(suffix))
 			{
+				type=EnumStrings[i];
 				return fileIcons[i];
 			}
 		}
@@ -132,7 +133,7 @@ void StaticHelpers::dellDir(QString dirName)
 	}
 	catch (...)
 	{
-		////qDebug() << " exception caught int deldir";
+		//qDebug() << " exception caught int deldir";
 	}
 	
 	

@@ -43,7 +43,7 @@ QApplicationSettings::QApplicationSettings()
 }
 QApplicationSettings::~QApplicationSettings()
 {
-	////qDebug() << "QApplicationSettings: object destruction";
+	//qDebug() << "QApplicationSettings: object destruction";
 	WriteSettings();
 
 }
@@ -52,7 +52,7 @@ QApplicationSettings* QApplicationSettings::getInstance()
 	
 	if (_instance==NULL)
 		_instance = new QApplicationSettings();
-	////qDebug() << "QApplicationSettings giving " <<_instanceCount<< " instance " ;
+	//qDebug() << "QApplicationSettings giving " <<_instanceCount<< " instance " ;
 	_instanceCount++;
 	return _instance;
 }
@@ -60,7 +60,7 @@ void QApplicationSettings::FreeInstance()
 {
 	
 	_instanceCount--;
-	////qDebug() << "QApplicationSettings freeing " <<_instanceCount<< " instance " ;
+	//qDebug() << "QApplicationSettings freeing " <<_instanceCount<< " instance " ;
 	if (!_instanceCount)
 	{
 		_instance->~QApplicationSettings();
@@ -80,7 +80,7 @@ void QApplicationSettings::setValue(const QString group,const QString key,const 
 {
 	locker->lock();
 	settingsStorrage[group][key]=value;
-	////qDebug() << "QApplicationSettings::setValue " << group << " " << key << " " << value;
+	qDebug() << "QApplicationSettings::setValue " << group << " " << key << " " << value;
 	locker->unlock();
 	WriteSettings();
 }
@@ -98,7 +98,7 @@ QVariant QApplicationSettings::value(const QString group,const QString key)
 int QApplicationSettings::valueInt(const QString group,const QString key,int defalt)
 {
 	QVariant val=value(group,key);
-	////qDebug() << group << key << val << val.isNull() ;
+	//qDebug() << group << key << val << val.isNull() ;
 	if (val.isNull() )
 	{
 		settingsStorrage[group][key]=defalt;
@@ -110,7 +110,7 @@ int QApplicationSettings::valueInt(const QString group,const QString key,int def
 QString	QApplicationSettings::valueString(const QString group,const QString key,QString defalt)
 {
 	QVariant val=value(group,key);
-	////qDebug() << group << key << val << val.isNull() ;
+	//qDebug() << group << key << val << val.isNull() ;
 	if (val.isNull() )
 	{
 		settingsStorrage[group][key]=defalt;
@@ -123,7 +123,7 @@ QString	QApplicationSettings::valueString(const QString group,const QString key,
 bool QApplicationSettings::valueBool(const QString group,const QString key,bool defalt)
 {
 	QVariant val=value(group,key);
-	////qDebug() << group << key << val << val.isNull() ;
+	//qDebug() << group << key << val << val.isNull() ;
 	if (val.isNull() )
 	{
 		settingsStorrage[group][key]=defalt;
@@ -136,7 +136,7 @@ void  QApplicationSettings::ReedSettings()
 {
 	
 	QStringList rootGroups=settings->childGroups();
-	////qDebug() << "================================================";
+	//qDebug() << "================================================";
 	for(int i=0;i<rootGroups.size();i++)
 	{
 		
@@ -144,12 +144,12 @@ void  QApplicationSettings::ReedSettings()
 		QStringList keys= settings->childKeys();
 		for (int j=0;j<keys.size();j++)
 		{
-			////qDebug() << rootGroups.at(i) << keys.at(j) << settings->value(keys.at(j));
+			//qDebug() << rootGroups.at(i) << keys.at(j) << settings->value(keys.at(j));
 			settingsStorrage[rootGroups.at(i)][keys.at(j)]=settings->value(keys.at(j));
 		}
 		settings->endGroup();
 	}
-	////qDebug() << "================================================";
+	//qDebug() << "================================================";
 	
 }
 void QApplicationSettings::SaveFilterGropups(QList<GroupForFileFiltering> filters)
@@ -202,7 +202,7 @@ void  QApplicationSettings::WriteSettings()
 		QMap<QString,QVariant>::const_iterator j=i.value().constBegin();
 		while (j != i.value().constEnd())
 		{
-			////qDebug() << QString("[%1] %2 %3" ).arg(i.key()).arg(j.key()).arg(j.value().toString());
+			//qDebug() << QString("[%1] %2 %3" ).arg(i.key()).arg(j.key()).arg(j.value().toString());
 			settings->setValue(j.key(),j.value());
 			++j;
 		}
@@ -257,7 +257,7 @@ QList<SchedulerTask> QApplicationSettings::GetSchedullerQueue()
 			}
 			else 
 			{
-				////qDebug() << "Unknown type " << val;
+				//qDebug() << "Unknown type " << val;
 			}
 		}
 		if (atribbutes.hasAttribute("NAME"))
@@ -289,7 +289,7 @@ QList<SchedulerTask> QApplicationSettings::GetSchedullerQueue()
 	}
 	if (xml.hasError()) 
 	{
-		////qDebug() << xml.errorString();	
+		//qDebug() << xml.errorString();	
 	}
 	file.close();
 	return res;
@@ -306,13 +306,13 @@ void QApplicationSettings::SaveSchedullerQueue( QList<SchedulerTask> &tasks)
 	QXmlStreamWriter xml(&file);
 	xml.setAutoFormatting(true);
 	xml.writeStartDocument();
-	////qDebug() << tasks.count();
+	//qDebug() << tasks.count();
 	qSort(tasks);
 	xml.writeStartElement("tasks");
 	for (QQueue<SchedulerTask>::iterator i = tasks.begin();i!=tasks.end();i++)
 	{
 		xml.writeStartElement("task");
-		////qDebug() << i->startTime().toString("dd:MM:yyyy hh:mm:ss");
+		//qDebug() << i->startTime().toString("dd:MM:yyyy hh:mm:ss");
 		xml.writeAttribute("TYPE", StaticHelpers::SchedulerTypeToString(i->type()));
 		xml.writeAttribute("NAME", i->name());
 		xml.writeAttribute("LIMIT", QString::number(i->limit()));

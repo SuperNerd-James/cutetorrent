@@ -195,6 +195,7 @@ void CuteTorrent::setupConnections()
 	QObject::connect(notyfire,SIGNAL(showNoUpdateNitify(const QString &)),this,SLOT(ShowNoUpdateNitify(const QString &)));
 	QObject::connect(fileTableWidget,SIGNAL(customContextMenuRequested ( const QPoint &)),this,SLOT(fileTabContextMenu(const QPoint &)));
 	QObject::connect(listView->verticalScrollBar(),SIGNAL(rangeChanged (int,int)),this,SLOT(updateItemWidth(int,int)));
+	QObject::connect(mng,SIGNAL(initCompleted()),model,SLOT(initSessionFinished()));
 }
 void CuteTorrent::fileTabContextMenu(const QPoint & point)
 {
@@ -272,13 +273,13 @@ void CuteTorrent::showTorrentCompletedNotyfy(const QString name,QString path)
 }
 void CuteTorrent::updateItemWidth(int min,int max)
 {
-	////qDebug() << "updateItemWidth " << QTorrentItemDelegat::max_width << listView->verticalScrollBar()->isVisible() << min << max;
+	//qDebug() << "updateItemWidth " << QTorrentItemDelegat::max_width << listView->verticalScrollBar()->isVisible() << min << max;
 	QTorrentItemDelegat::max_width=width()-QApplication::style( )->pixelMetric( QStyle::PM_MessageBoxIconSize )-35-(max!=0 ? listView->autoScrollMargin() : 0);
-	////qDebug() << "updateItemWidth " << QTorrentItemDelegat::max_width << listView->verticalScrollBar()->isVisible()<< min << max;
+	//qDebug() << "updateItemWidth " << QTorrentItemDelegat::max_width << listView->verticalScrollBar()->isVisible()<< min << max;
 }
 void CuteTorrent::updateTabWidget(int tab)
 {
-	////qDebug() << "updateTabWidget(" << tab << ");";
+	//qDebug() << "updateTabWidget(" << tab << ");";
 
 	
 	trayIcon->setToolTip("CuteTorrent "CT_VERSION"\nUpload: "+mng->GetSessionUploadSpeed()+"\nDownload:"+mng->GetSessionDownloadSpeed());
@@ -291,7 +292,7 @@ void CuteTorrent::updateTabWidget(int tab)
 			udapteLimits = true;	
 		tab=tabWidget->currentIndex();
 	}
-	////qDebug() << "udapteLimits =" << udapteLimits << ";";
+	//qDebug() << "udapteLimits =" << udapteLimits << ";";
 	
 
 	try
@@ -357,7 +358,7 @@ public:
 		QHostAddress thisadr(text());
 		if (!thisadr.isNull())
 		{
-			////qDebug() << "Ip Addresses" << text() << other.text();
+			//qDebug() << "Ip Addresses" << text() << other.text();
 			QHostAddress otheradr(other.text());
 			return thisadr.toIPv4Address() < otheradr.toIPv4Address();
 		}
@@ -390,7 +391,7 @@ public:
 					break;
 
 				}
-				////qDebug() << parts1 << speed1;
+				//qDebug() << parts1 << speed1;
 				switch(parts2[1][0].toLower().toAscii())
 				{
 				case 'k':
@@ -409,14 +410,14 @@ public:
 					break;
 
 				}
-				////qDebug() << "Speed or size" << text() << other.text() << speed1 << speed2;
+				//qDebug() << "Speed or size" << text() << other.text() << speed1 << speed2;
 				return speed1 < speed2;
 			}
 
 		}else
 		if (text().endsWith('%'))
 		{
-			////qDebug() << "Percentage" << text() << other.text() ;
+			//qDebug() << "Percentage" << text() << other.text() ;
 			QString perc1=text().remove('%'),perc2=other.text().remove('%');
 			return perc1.toDouble() < perc2.toDouble();
 		}
@@ -425,35 +426,42 @@ public:
 };
 void CuteTorrent::UpdateFileTab()
 {
-	Torrent* tor=model->GetSelectedTorrent();
-	if (tor!=NULL)
+	try
 	{
-		
-		fileinfosLocker->lock();
-		file_infos=tor->GetFileDownloadInfo();
-		fileTableWidget->setRowCount(file_infos.count());
-		
-		
-		for (int i=0;i<file_infos.count();i++)
+		Torrent* tor=model->GetSelectedTorrent();
+		if (tor!=NULL)
 		{
-			
-			file_info current=file_infos.at(i);
-			
-			fileTableWidget->setItem(i,0,new MyTableWidgetItem(current.name));
-			
-			fileTableWidget->setItem(i,1,new MyTableWidgetItem(StaticHelpers::toKbMbGb(current.size)));
-			
-			fileTableWidget->setItem(i,2,new MyTableWidgetItem(QString::number(current.progrss,'f',0)+" %"));
-			
-			fileTableWidget->setItem(i,3,new MyTableWidgetItem(StaticHelpers::filePriorityToString(current.prioiry)));
+
+			fileinfosLocker->lock();
+			file_infos=tor->GetFileDownloadInfo();
+			fileTableWidget->setRowCount(file_infos.count());
+
+			for (int i=0;i<file_infos.count();i++)
+			{
+
+				file_info current=file_infos.at(i);
+
+				fileTableWidget->setItem(i,0,new MyTableWidgetItem(current.name));
+
+				fileTableWidget->setItem(i,1,new MyTableWidgetItem(StaticHelpers::toKbMbGb(current.size)));
+
+				fileTableWidget->setItem(i,2,new MyTableWidgetItem(QString::number(current.progrss,'f',0)+" %"));
+
+				fileTableWidget->setItem(i,3,new MyTableWidgetItem(StaticHelpers::filePriorityToString(current.prioiry)));
+			}
+			//fileTableWidget->resizeColumnsToContents();
+			fileinfosLocker->unlock();
 		}
-        //fileTableWidget->resizeColumnsToContents();
-		fileinfosLocker->unlock();
+		else
+		{
+			fileTableWidget->setRowCount(0);
+		}
 	}
-	else
+	catch (...)
 	{
-		fileTableWidget->setRowCount(0);
+		qDebug() << "Exception in CuteTorrent::UpdateFileTab";
 	}
+	
 }
 void CuteTorrent::setupTray()
 {
@@ -779,7 +787,7 @@ void CuteTorrent::dropEvent(QDropEvent *event)
         }
         else
         {
-            ////qDebug() << file;
+            //qDebug() << file;
         }
     }
 
@@ -803,7 +811,6 @@ void CuteTorrent::setupFileTabel()
 	fileTableWidget->setColumnWidth(1,60);
 	fileTableWidget->setColumnWidth(2,60);
 	fileTableWidget->setColumnWidth(3,60);
-	
 	setupFileTabelContextMenu();
 }
 void CuteTorrent::setupFileTabelContextMenu()
@@ -1068,7 +1075,7 @@ void CuteTorrent::clearPieceDisplay()
 
 void CuteTorrent::UpdateUL(int kbps)
 {
-	////qDebug()<< "UpdateUL" << kbps*1024;
+	//qDebug()<< "UpdateUL" << kbps*1024;
 	Torrent* tor=model->GetSelectedTorrent();
 	if (tor!=NULL)
 	{
@@ -1085,7 +1092,7 @@ void CuteTorrent::UpdateUL(int kbps)
 
 void CuteTorrent::UpdateDL(int kbps)
 {
-	////qDebug()<< "UpdateDL" << kbps*1024;
+	//qDebug()<< "UpdateDL" << kbps*1024;
 	Torrent* tor=model->GetSelectedTorrent();
 	
 	if (tor!=NULL)

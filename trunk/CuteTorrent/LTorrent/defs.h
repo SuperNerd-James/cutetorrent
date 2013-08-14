@@ -15,7 +15,7 @@ struct opentorrent_info
 };
 struct openmagnet_info
 {
-	QString name,describtion,base_suffix;
+	QString name,describtion,base_suffix,link;
 	libtorrent::torrent_handle handle;
 	libtorrent::file_storage files;
 	libtorrent::size_type size;

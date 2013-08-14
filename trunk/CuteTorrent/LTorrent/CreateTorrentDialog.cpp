@@ -21,7 +21,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 CreateTorrentDialog::CreateTorrentDialog(QWidget *parent, Qt::WFlags flags)
 {
 	setupUi(this);
-	
+	creator  = new torrentCreatorThread(this);
+	//qDebug() << "new torrentCreatorThread";
 	mgr = TorrentManager::getInstance();
 }
 quint64 CreateTorrentDialog::listFolder ( QString path ) {
@@ -70,7 +71,7 @@ quint64 CreateTorrentDialog::getPiceSize()
 				pieceSize=fileSize/1000;
 			}
 			if(fi.isDir()){
-				////qDebug()<<"this is dir";
+				//qDebug()<<"this is dir";
 				dirSize=listFolder(file);
 				pieceSize=dirSize/1000;
 			}
@@ -94,7 +95,7 @@ quint64 CreateTorrentDialog::getPiceSize()
 				needToSet=8*1024;
 			}else 
 				needToSet=16*1024;
-			////qDebug() << needToSet;
+			//qDebug() << needToSet;
 			return needToSet;	
 		}
 		case 1 :
@@ -173,7 +174,7 @@ void CreateTorrentDialog::BeginCreate()
 			return;
 		}
 	}
-	////qDebug() << "before removing web seeds";
+	//qDebug() << "before removing web seeds";
 	for (QStringList::iterator i=webseeds.begin();i!=webseeds.end();i++)
 	{
 		if ((*i).isEmpty())
@@ -181,19 +182,18 @@ void CreateTorrentDialog::BeginCreate()
 	}
 	
 	QFileInfo info(path);
-	////qDebug() << "after removing web seeds";
+	//qDebug() << "after removing web seeds";
 	QString save_path = QFileDialog::getSaveFileName(this,
 		tr("CREATE_TORRENT_DIALOG"),path+QDir::separator()+info.fileName(),
 		tr("Торрент файлы (*.torrent)"));
 	if (!save_path.isEmpty())
 	{
-		creator  = new torrentCreatorThread(this);
-		////qDebug() << "new torrentCreatorThread";
+		
 		QObject::connect(creator,SIGNAL(updateProgress(int)),this,SLOT(UpdateProgressBar(int)));
 		QObject::connect(creator,SIGNAL(ShowCreationSucces(QString)),this,SLOT(ShowCreationSucces(QString)));
 		QObject::connect(creator,SIGNAL(ShowCreationFailture(QString)),this,SLOT(ShowCreationFailture(QString)));
 		QObject::connect(this,SIGNAL(AbortCreation()),creator,SLOT(terminate()));
-		////qDebug() << "connects";
+		//qDebug() << "connects";
 		creator->create(pathEdit->text(),save_path,filterEdit->text(),trackers,webseeds,discribtionEdit->text(),privateCheckBox->isChecked(),getPiceSize()*1024);
 	}
 	else
@@ -261,7 +261,7 @@ void torrentCreatorThread::create(QString _input_path, QString _save_path,QStrin
 	is_private = _is_private;
 	piece_size = _piece_size;
 	abort = false;
-	////qDebug() << "starting torrentCreatorThread";
+	//qDebug() << "starting torrentCreatorThread";
 	start();
 }
 
@@ -326,6 +326,6 @@ void torrentCreatorThread::run() {
 	catch (std::exception& e){
 		emit ShowCreationFailture(QString::fromUtf8(e.what()));
 	}
-	////qDebug() << "torrentCreatorThread finished";
+	//qDebug() << "torrentCreatorThread finished";
 }
 
