@@ -36,11 +36,12 @@ MultipleDTDialog::MultipleDTDialog(QStringList& _files,QWidget* parrent/* =0 */,
 	
 	
 	
-	////qDebug() << "files set";
+	//qDebug() << "files set";
 	QStandardItemModel *model = new QStandardItemModel(files.count(),1);
 	listView->setModel(model);
 	listView->setSelectionMode(QAbstractItemView::SingleSelection);
-	QIcon iso = StaticHelpers::guessMimeIcon("iso");
+	QString temp; 
+	QIcon iso = StaticHelpers::guessMimeIcon("iso",temp);
 	for (int i=0;i<files.count();i++)
 	{
 		QStandardItem * item = new QStandardItem(iso,files.at(i));

@@ -60,13 +60,14 @@ class QTorrentDisplayModel : public QAbstractListModel
 	Q_OBJECT
 private:
 	DeleterThread* thread;
-	QVector<Torrent*> torrents;
+	static QVector<Torrent*> torrents;
 	QVector<Torrent*> torrents_to_remove,torrents_to_add;
 	int auto_id;
 	QListView* parrent;
 	int selectedRow;
 	QMenu* menu;
 	QAction* openDir;
+	QAction* superSeed;
 	QAction* DTmount;
 	QAction* HashRecheck;
 	QAction* DelAll;
@@ -98,12 +99,14 @@ public:
     virtual bool removeRows ( int row, int count, const QModelIndex & parent = QModelIndex() );
     enum Role { TorrentRole = Qt::UserRole };
 	Torrent* GetSelectedTorrent();
+	static QVector<Torrent*> GetTorrents();
 signals:
 	void updateTabSender(int);
 	void TorrentCompletedProxySender(const QString);
 	void TorrentErrorPoxySender(const QString&);
 public slots:
 	void AddTorrent(Torrent*);
+	void onTorrentRemove(Torrent*);
 	void UpdateSelectedIndex(const QItemSelection &);
 	void TorrentErrorProxy(const QString&);
 	void TorrentCompletedProxy(const QString);
@@ -118,7 +121,8 @@ public slots:
 	void setSequentualDL();
 	void moveStorrage();
 	void updateVisibleTorrents();
-	
+	void SetSuperSeed();
+	void initSessionFinished();
 };
 
 

@@ -4,10 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CuteTorrent", "LTorrent\LTorrent.vcproj", "{D441FCD6-9330-45D0-8C15-1144E99D11FD}"
 EndProject
 Global
-	GlobalSection(RocketSvnScc) = preSolution
-		Svn-Managed = True
-		Manager = Rocket SVN - Subversion Support for Visual Studio
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
 		Release|Win32 = Release|Win32
@@ -20,5 +16,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(RocketSvnScc) = preSolution
+		Svn-Managed = True
+		Manager = Rocket SVN - Subversion Support for Visual Studio
 	EndGlobalSection
 EndGlobal

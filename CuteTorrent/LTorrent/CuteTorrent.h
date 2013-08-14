@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ui_CuteTorrent.h"
 #include "SettingsDialog.h"
 #include "TorrentManager.h"
-#include "FileTabelModel.h"
 #include "CreateTorrentDilaog.h"
 #include "OpenTorrentDialog.h"
 #include "QTorrentDisplayModel.h"
@@ -82,7 +81,6 @@ private:
 	QLabel *upLabelText, *upLabel;
 	QLabel *uploadLimit, *downloadLimit;
 	QLabel* downLabelText, *downLabel;
-	FileTabelModel* fModel;
 	QTorrentDisplayModel* model;
 	TorrentManager* mng;
 	QTimer *timer;

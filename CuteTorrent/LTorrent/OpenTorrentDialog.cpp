@@ -88,7 +88,7 @@ void OpenTorrentDialog::SetData(QString filename)
 			QStringList files;
 			for (libtorrent::file_storage::iterator i = info->files.begin(); 
 				i != info->files.end();
-				++i)
+				i++)
 			{
 				files << QString::fromUtf8(info->files.file_path(*i).c_str())+"|"+StaticHelpers::toKbMbGb(info->files.file_size(*i));
 			}
@@ -111,6 +111,7 @@ void OpenTorrentDialog::SetData(QString filename)
 			if (!info->base_suffix.isEmpty())
 			{
 				QApplicationSettings* instance= QApplicationSettings::getInstance();
+				
 				filters=instance->GetFileFilterGroups();
 				int selected=-1;
 				for (int i=0;i<filters.count();i++)
@@ -165,11 +166,19 @@ void OpenTorrentDialog::AccepTorrent()
 	{
 		QFile file(torrentFilename);
 		QMap<QString,int> filePriorities=model->getFilePiorites();
+		error_code ec;
 		if (!torrentFilename.startsWith("magnet"))
-			mgr->AddTorrent(torrentFilename,pathEdit->displayText(),filePriorities);
+		{
+			mgr->AddTorrent(torrentFilename,pathEdit->displayText(),filePriorities,ec);
+		}
 		else
 		{
 			mgr->AddMagnet(_info.handle,pathEdit->displayText(),filePriorities);
+		}
+		if (ec)
+		{
+			QMessageBox::critical(this,"Adding torrent Error",QString::fromStdString(ec.message()));
+			return;
 		}
 	}
 	accept ();
@@ -183,54 +192,76 @@ void OpenTorrentDialog::ChangeGroup()
 
 void OpenTorrentDialog::DownloadMetadataCompleted(openmagnet_info info)
 {
+	//qDebug() << "OpenTorrentDialog::DownloadMetadataCompleted";
 	loaderGifLabel->hide();		
 	loaderTextLabel->hide();
 	yesButton->setEnabled(true);
 	_info=info;
 	setUpdatesEnabled( false );
+	//qDebug() << "accesing info.name";
 	labelNameData->setText(info.name);
+	//qDebug() << "accesing info.describtion";
 	labelComentData->setText(info.describtion);
+	//qDebug() << "accesing info.size";
 	labelSizeData->setText(StaticHelpers::toKbMbGb(info.size));
 	QStringList files;
+	//qDebug() << "building file lsit";
 	for (libtorrent::file_storage::iterator i = info.files.begin(); 
 		i != info.files.end();
-		++i)
+		i++)
 	{
 		files << QString::fromUtf8(info.files.file_path(*i).c_str())+"|"+StaticHelpers::toKbMbGb(info.files.file_size(*i));
 	}
 	files.sort();
-
+	//qDebug() << "Creating file tree model";
 	model = new FileTreeModel();
 	for (int i=0;i<files.count();i++)
 	{
-
+		qDebug() << "Adding to file tree model "+files.at(i);
 		QStringList parts= files.at(i).split('|');
-		model->addPath(parts.at(0),parts.at(1));
+		if (parts.count() >= 1)
+		{
+			model->addPath(parts.at(0),parts.at(1));
+		}
 
 	}
-
+	//qDebug() << "Setting file tree model";
 	treeView->setModel(model);
 	treeView->setColumnWidth(0,300);
 
 
 	setUpdatesEnabled( true );
+	qDebug() << "base_suffix stuf started";
 	if (!info.base_suffix.isEmpty())
 	{
-		QApplicationSettings* instance= QApplicationSettings::getInstance();
-		filters=instance->GetFileFilterGroups();
-		int selected=-1;
-		for (int i=0;i<filters.count();i++)
+		try
 		{
-			GroupComboBox->addItem(filters[i].Name());
-
-			if (filters.at(i).Contains(info.base_suffix) && selected<0)
+			
+			QApplicationSettings* instance= QApplicationSettings::getInstance();
+			
+			
+			filters=instance->GetFileFilterGroups();
+			
+			int selected=-1;
+			for (int i=0;i<filters.count();i++)
 			{
-				selected=i;
-				pathEdit->setText(filters.at(i).SavePath());
+				GroupComboBox->addItem(filters[i].Name());
+
+				if (filters.at(i).Contains(info.base_suffix) && selected<0)
+				{
+					selected=i;
+					pathEdit->setText(filters.at(i).SavePath());
+				}
 			}
+			if (selected>=0)
+				GroupComboBox->setCurrentIndex(selected);
+			QApplicationSettings::FreeInstance();
+		
 		}
-		if (selected>=0)
-			GroupComboBox->setCurrentIndex(selected);
-		QApplicationSettings::FreeInstance();
+		catch (std::exception ex)
+		{
+			qDebug() << ex.what();
+		}
+		
 	} 
 }

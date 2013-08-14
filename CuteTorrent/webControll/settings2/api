@@ -1,0 +1,18 @@
+{
+"id":1,
+"port":6301,
+"activeDL":13,
+"DLimit":5,
+"activeTorrents":18,
+"ULimit":183,
+"activeUL":2,
+"cacheSize":8144532,
+"userReadAhead":true,
+"reorderedOps":"false","blockFiles":false,"lowIOPoroir":false,"useRead":true,
+"filteringGroups":[
+	{"name":"testgr1"},
+	{"name":"testgr4"},
+	{"name":"testgr3"},
+	{"name":"testgr2"}
+	]
+}

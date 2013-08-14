@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>627</width>
-    <height>353</height>
+    <width>734</width>
+    <height>323</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,24 +18,16 @@
     <normaloff>:/icons/app.ico</normaloff>:/icons/app.ico</iconset>
   </property>
   <layout class="QGridLayout" name="gridLayout_4">
-   <item row="1" column="3">
+   <item row="1" column="5">
     <widget class="QPushButton" name="applyButton">
+     <property name="maximumSize">
+      <size>
+       <width>80</width>
+       <height>16777215</height>
+      </size>
+     </property>
      <property name="text">
       <string>SETTINGS_ACCEPT_BUTTON</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="2">
-    <widget class="QPushButton" name="cancelButton">
-     <property name="text">
-      <string>SETTINGS_CANCEL_BUTTON</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="1">
-    <widget class="QPushButton" name="OKButton">
-     <property name="text">
-      <string>SETTINGS_OK_BITTON</string>
      </property>
     </widget>
    </item>
@@ -46,151 +38,148 @@
      </property>
      <property name="sizeHint" stdset="0">
       <size>
-       <width>168</width>
+       <width>300</width>
        <height>20</height>
       </size>
      </property>
     </spacer>
    </item>
-   <item row="0" column="0" colspan="4">
-    <widget class="QTabWidget" name="tabWidget">
-     <property name="whatsThis">
-      <string/>
+   <item row="1" column="4">
+    <widget class="QPushButton" name="cancelButton">
+     <property name="maximumSize">
+      <size>
+       <width>80</width>
+       <height>16777215</height>
+      </size>
      </property>
-     <property name="autoFillBackground">
-      <bool>true</bool>
+     <property name="text">
+      <string>SETTINGS_CANCEL_BUTTON</string>
      </property>
-     <property name="tabShape">
-      <enum>QTabWidget::Rounded</enum>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QListWidget" name="listWidget">
+     <property name="minimumSize">
+      <size>
+       <width>0</width>
+       <height>0</height>
+      </size>
      </property>
-     <property name="currentIndex">
-      <number>5</number>
+     <property name="styleSheet">
+      <string notr="true">
+ QListView {
+   border: none;
+	background-color: transparent;
+     show-decoration-selected: 1; /* make the selection span the entire width of the view */
+ }
+ QListView::item {
+	min-height:40px;
+    border: 1px solid #8588B2; 
+   border-radius:4px;
+ }
+ QListView::item:alternate {
+     background: #EEEEEE;
+ }
+
+ QListView::item:selected {
+     border: 1px solid #6a6ea9;
+ }
+
+ QListView::item:selected:!active {
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                 stop: 0 #ABAFE5, stop: 1 #8588B2);
+ }
+
+ QListView::item:selected:active {
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                 stop: 0 #6a6ea9, stop: 1 #888dd9);
+ }
+
+ QListView::item:hover {
+     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
+                                 stop: 0 #FAFBFE, stop: 1 #DCDEF1);
+ }</string>
      </property>
-     <property name="documentMode">
-      <bool>false</bool>
-     </property>
-     <property name="tabsClosable">
-      <bool>false</bool>
-     </property>
-     <property name="movable">
-      <bool>true</bool>
-     </property>
-     <widget class="QWidget" name="tab_1">
-      <attribute name="title">
+     <item>
+      <property name="text">
        <string>TAB_TORRENT</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_2">
-       <item row="1" column="2" colspan="2">
-        <widget class="QGroupBox" name="groupBox_2">
-         <property name="title">
-          <string>RESTRICTIONS</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>TAB_HDD</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>TAB_TORRENT_FILTERING</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>TAB_DAEMONTOOLS</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>TAB_SCEDULER</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>TAB_WEB_CONTROL</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="1" column="2">
+    <spacer name="horizontalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item row="0" column="1" colspan="5">
+    <widget class="QStackedWidget" name="stackedWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="page_3">
+      <layout class="QGridLayout" name="gridLayout_22">
+       <item row="0" column="0">
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>LANGUAGE</string>
          </property>
-         <layout class="QGridLayout" name="gridLayout_3">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_6">
-            <property name="whatsThis">
-             <string>UPLOAD_SPEED_LIMIT_WIT</string>
-            </property>
-            <property name="text">
-             <string>UPLOAD_SPEED_LIMIT(Kb/s)</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_15">
-            <property name="whatsThis">
-             <string>ACTIVE_TORRENTS_LIMIT_WIT</string>
-            </property>
-            <property name="text">
-             <string>ACTIVE_TORRENTS_LIMIT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QLineEdit" name="activeLimitEdit">
-            <property name="whatsThis">
-             <string>ACTIVE_TORRENTS_LIMIT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_7">
-            <property name="whatsThis">
-             <string>DOWNLOAD_SPEED_LIMIT_WIT</string>
-            </property>
-            <property name="text">
-             <string>DOWNLOAD_SPEED_LIMIT(Kb/s)</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_16">
-            <property name="whatsThis">
-             <string>ACTIVE_SEEDS_LIMIT_WIT</string>
-            </property>
-            <property name="text">
-             <string>ACTIVE_SEEDS_LIMIT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QLineEdit" name="activeSeedLimitEdit">
-            <property name="whatsThis">
-             <string>ACTIVE_SEEDS_LIMIT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="label_17">
-            <property name="whatsThis">
-             <string>ACTIVE_DOWNLOADS_LIMIT_WIT</string>
-            </property>
-            <property name="text">
-             <string>ACTIVE_DOWNLOADS_LIMIT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QLineEdit" name="activeDownloadLimitEdit">
-            <property name="whatsThis">
-             <string>ACTIVE_DOWNLOADS_LIMIT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QSpinBox" name="uploadLimitEdit">
-            <property name="specialValueText">
-             <string>None</string>
-            </property>
-            <property name="suffix">
-             <string> Kb\s</string>
-            </property>
-            <property name="prefix">
-             <string/>
-            </property>
-            <property name="maximum">
-             <number>99999</number>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QSpinBox" name="downloadLimitEdit">
-            <property name="specialValueText">
-             <string>None</string>
-            </property>
-            <property name="suffix">
-             <string> Kb\s</string>
-            </property>
-            <property name="prefix">
-             <string/>
-            </property>
-            <property name="maximum">
-             <number>99999</number>
-            </property>
-           </widget>
-          </item>
-         </layout>
         </widget>
+       </item>
+       <item row="0" column="1">
+        <widget class="QComboBox" name="localeComboBox"/>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLabel" name="label">
+         <property name="layoutDirection">
+          <enum>Qt::LeftToRight</enum>
+         </property>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <property name="text">
+          <string>LISTEN_PORT</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QLineEdit" name="portEdit"/>
        </item>
        <item row="1" column="0" colspan="2">
         <widget class="QGroupBox" name="proxyGroupBox">
@@ -308,27 +297,127 @@
          </layout>
         </widget>
        </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="label">
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
+       <item row="1" column="2" colspan="2">
+        <widget class="QGroupBox" name="groupBox_2">
+         <property name="title">
+          <string>RESTRICTIONS</string>
          </property>
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
-         <property name="text">
-          <string>LISTEN_PORT</string>
-         </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-         </property>
+         <layout class="QGridLayout" name="gridLayout_3">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_6">
+            <property name="whatsThis">
+             <string>UPLOAD_SPEED_LIMIT_WIT</string>
+            </property>
+            <property name="text">
+             <string>UPLOAD_SPEED_LIMIT(Kb/s)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QLabel" name="label_15">
+            <property name="whatsThis">
+             <string>ACTIVE_TORRENTS_LIMIT_WIT</string>
+            </property>
+            <property name="text">
+             <string>ACTIVE_TORRENTS_LIMIT</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QLineEdit" name="activeLimitEdit">
+            <property name="whatsThis">
+             <string>ACTIVE_TORRENTS_LIMIT</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_7">
+            <property name="whatsThis">
+             <string>DOWNLOAD_SPEED_LIMIT_WIT</string>
+            </property>
+            <property name="text">
+             <string>DOWNLOAD_SPEED_LIMIT(Kb/s)</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="0">
+           <widget class="QLabel" name="label_16">
+            <property name="whatsThis">
+             <string>ACTIVE_SEEDS_LIMIT_WIT</string>
+            </property>
+            <property name="text">
+             <string>ACTIVE_SEEDS_LIMIT</string>
+            </property>
+           </widget>
+          </item>
+          <item row="4" column="1">
+           <widget class="QLineEdit" name="activeSeedLimitEdit">
+            <property name="whatsThis">
+             <string>ACTIVE_SEEDS_LIMIT</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0">
+           <widget class="QLabel" name="label_17">
+            <property name="whatsThis">
+             <string>ACTIVE_DOWNLOADS_LIMIT_WIT</string>
+            </property>
+            <property name="text">
+             <string>ACTIVE_DOWNLOADS_LIMIT</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="1">
+           <widget class="QLineEdit" name="activeDownloadLimitEdit">
+            <property name="whatsThis">
+             <string>ACTIVE_DOWNLOADS_LIMIT</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QSpinBox" name="uploadLimitEdit">
+            <property name="specialValueText">
+             <string>None</string>
+            </property>
+            <property name="suffix">
+             <string> Kb\s</string>
+            </property>
+            <property name="prefix">
+             <string/>
+            </property>
+            <property name="maximum">
+             <number>99999</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QSpinBox" name="downloadLimitEdit">
+            <property name="specialValueText">
+             <string>None</string>
+            </property>
+            <property name="suffix">
+             <string> Kb\s</string>
+            </property>
+            <property name="prefix">
+             <string/>
+            </property>
+            <property name="maximum">
+             <number>99999</number>
+            </property>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
-       <item row="0" column="3">
-        <widget class="QLineEdit" name="portEdit"/>
-       </item>
-       <item row="0" column="1">
-        <widget class="QComboBox" name="localeComboBox"/>
+       <item row="2" column="0" colspan="2">
+        <widget class="QCheckBox" name="asociationCheckBox">
+         <property name="whatsThis">
+          <string>TORRENT_FILES_ASSOCIATION_WIT</string>
+         </property>
+         <property name="text">
+          <string>TORRENT_FILES_ASSOCIATION</string>
+         </property>
+        </widget>
        </item>
        <item row="2" column="2">
         <widget class="QCheckBox" name="runOnbootCheckBox">
@@ -360,61 +449,11 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0" colspan="2">
-        <widget class="QCheckBox" name="asociationCheckBox">
-         <property name="whatsThis">
-          <string>TORRENT_FILES_ASSOCIATION_WIT</string>
-         </property>
-         <property name="text">
-          <string>TORRENT_FILES_ASSOCIATION</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_8">
-         <property name="text">
-          <string>LANGUAGE</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_2">
-      <attribute name="title">
-       <string>TAB_HDD</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_17">
-       <item row="4" column="0">
-        <widget class="QCheckBox" name="lowPrioDiskCheckBox">
-         <property name="whatsThis">
-          <string>LOW_PORIO_DISK_WIT</string>
-         </property>
-         <property name="text">
-          <string>LOW_PORIO_DISK</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QCheckBox" name="alowReorderedOpsCheckBox">
-         <property name="whatsThis">
-          <string>ALOW_REORDERED_OPERATIONS_WIT</string>
-         </property>
-         <property name="text">
-          <string>ALOW_REORDERED_OPERATIONS</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QLabel" name="label_20">
-         <property name="whatsThis">
-          <string>CASH_SIZE_WIT</string>
-         </property>
-         <property name="text">
-          <string>CASH_SIZE</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
+     <widget class="QWidget" name="page_4">
+      <layout class="QGridLayout" name="gridLayout_23">
+       <item row="0" column="0">
         <widget class="QLabel" name="label_19">
          <property name="whatsThis">
           <string>DISK_IO_CASH_MODE_WIT</string>
@@ -424,37 +463,7 @@
          </property>
         </widget>
        </item>
-       <item row="3" column="0">
-        <widget class="QCheckBox" name="useDiskReadAheadCheckBox">
-         <property name="whatsThis">
-          <string>USE_DISK_READ_AHEAD_WIT</string>
-         </property>
-         <property name="text">
-          <string>USE_DISK_READ_AHEAD</string>
-         </property>
-        </widget>
-       </item>
-       <item row="4" column="1">
-        <widget class="QCheckBox" name="useReadCasheCheckBox">
-         <property name="whatsThis">
-          <string>USE_READ_CASHE_WIT</string>
-         </property>
-         <property name="text">
-          <string>USE_READ_CASHE</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="2">
-        <widget class="QCheckBox" name="lockFilesCheckBox">
-         <property name="whatsThis">
-          <string>LOCK_FILES_WIT</string>
-         </property>
-         <property name="text">
-          <string>LOCK_FILES</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1" colspan="2">
+       <item row="0" column="1" colspan="2">
         <widget class="QComboBox" name="diskIOCasheModeComboBox">
          <item>
           <property name="text">
@@ -473,7 +482,17 @@
          </item>
         </widget>
        </item>
-       <item row="2" column="1">
+       <item row="1" column="0">
+        <widget class="QLabel" name="label_20">
+         <property name="whatsThis">
+          <string>CASH_SIZE_WIT</string>
+         </property>
+         <property name="text">
+          <string>CASH_SIZE</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="1">
         <widget class="QSpinBox" name="casheSizeLineEdit">
          <property name="specialValueText">
           <string>None</string>
@@ -489,13 +508,60 @@
          </property>
         </widget>
        </item>
+       <item row="2" column="0">
+        <widget class="QCheckBox" name="useDiskReadAheadCheckBox">
+         <property name="whatsThis">
+          <string>USE_DISK_READ_AHEAD_WIT</string>
+         </property>
+         <property name="text">
+          <string>USE_DISK_READ_AHEAD</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1">
+        <widget class="QCheckBox" name="alowReorderedOpsCheckBox">
+         <property name="whatsThis">
+          <string>ALOW_REORDERED_OPERATIONS_WIT</string>
+         </property>
+         <property name="text">
+          <string>ALOW_REORDERED_OPERATIONS</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2">
+        <widget class="QCheckBox" name="lockFilesCheckBox">
+         <property name="whatsThis">
+          <string>LOCK_FILES_WIT</string>
+         </property>
+         <property name="text">
+          <string>LOCK_FILES</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="0">
+        <widget class="QCheckBox" name="lowPrioDiskCheckBox">
+         <property name="whatsThis">
+          <string>LOW_PORIO_DISK_WIT</string>
+         </property>
+         <property name="text">
+          <string>LOW_PORIO_DISK</string>
+         </property>
+        </widget>
+       </item>
+       <item row="3" column="1">
+        <widget class="QCheckBox" name="useReadCasheCheckBox">
+         <property name="whatsThis">
+          <string>USE_READ_CASHE_WIT</string>
+         </property>
+         <property name="text">
+          <string>USE_READ_CASHE</string>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_3">
-      <attribute name="title">
-       <string>TAB_TORRENT_FILTERING</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_13">
+     <widget class="QWidget" name="page_5">
+      <layout class="QGridLayout" name="gridLayout_24">
        <item row="0" column="0" rowspan="3">
         <widget class="QGroupBox" name="groupBox_3">
          <property name="maximumSize">
@@ -624,24 +690,8 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_4">
-      <attribute name="title">
-       <string>TAB_DAEMONTOOLS</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_12">
-       <item row="2" column="0">
-        <spacer name="verticalSpacer_4">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
+     <widget class="QWidget" name="page_6">
+      <layout class="QGridLayout" name="gridLayout_25">
        <item row="0" column="1">
         <widget class="QGroupBox" name="groupBox_8">
          <property name="title">
@@ -708,31 +758,6 @@
          </layout>
         </widget>
        </item>
-       <item row="1" column="0" colspan="2">
-        <widget class="QGroupBox" name="customMoutGroupBox">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="title">
-          <string>DAEMONTOOLS_CUSTOM_COMMAND</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="checked">
-          <bool>false</bool>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_10">
-          <item row="0" column="0">
-           <widget class="QLineEdit" name="customCommandEdit">
-            <property name="whatsThis">
-             <string>DAEMONTOOLS_COMMAND_WIT</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
        <item row="0" column="0">
         <widget class="QGroupBox" name="groupBox_6">
          <property name="title">
@@ -759,38 +784,49 @@
          </layout>
         </widget>
        </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="tab">
-      <attribute name="title">
-       <string>TAB_SCEDULER</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_19">
-       <item row="1" column="1">
-        <widget class="QComboBox" name="tasksComboBox">
-         <property name="maximumSize">
+       <item row="1" column="0" colspan="2">
+        <widget class="QGroupBox" name="customMoutGroupBox">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="title">
+          <string>DAEMONTOOLS_CUSTOM_COMMAND</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+         <property name="checked">
+          <bool>false</bool>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_10">
+          <item row="0" column="0">
+           <widget class="QLineEdit" name="customCommandEdit">
+            <property name="whatsThis">
+             <string>DAEMONTOOLS_COMMAND_WIT</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="2" column="0">
+        <spacer name="verticalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
           <size>
-           <width>150</width>
-           <height>16777215</height>
+           <width>20</width>
+           <height>40</height>
           </size>
          </property>
-        </widget>
+        </spacer>
        </item>
-       <item row="1" column="2">
-        <widget class="QPushButton" name="addTaskButton">
-         <property name="text">
-          <string>ADD_BUTTON</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="3">
-        <widget class="QPushButton" name="deleteTaskButton">
-         <property name="text">
-          <string>DELETE_BUTTON</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
+      </layout>
+     </widget>
+     <widget class="QWidget" name="page_7">
+      <layout class="QGridLayout" name="gridLayout_26">
+       <item row="0" column="0">
         <widget class="QLabel" name="label_14">
          <property name="maximumSize">
           <size>
@@ -803,7 +839,31 @@
          </property>
         </widget>
        </item>
-       <item row="2" column="0" rowspan="2" colspan="4">
+       <item row="0" column="1">
+        <widget class="QComboBox" name="tasksComboBox">
+         <property name="maximumSize">
+          <size>
+           <width>150</width>
+           <height>16777215</height>
+          </size>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QPushButton" name="addTaskButton">
+         <property name="text">
+          <string>ADD_BUTTON</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QPushButton" name="deleteTaskButton">
+         <property name="text">
+          <string>DELETE_BUTTON</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="4">
         <widget class="QGroupBox" name="groupBox_11">
          <property name="title">
           <string>GroupBox</string>
@@ -915,11 +975,8 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="tab_5">
-      <attribute name="title">
-       <string>TAB_WEB_CONTROL</string>
-      </attribute>
-      <layout class="QGridLayout" name="gridLayout_20">
+     <widget class="QWidget" name="page_8">
+      <layout class="QGridLayout" name="gridLayout_27">
        <item row="0" column="0">
         <widget class="QGroupBox" name="webUIGroupBox">
          <property name="maximumSize">
@@ -1090,16 +1147,24 @@ p, li { white-space: pre-wrap; }
      </widget>
     </widget>
    </item>
+   <item row="1" column="3">
+    <widget class="QPushButton" name="OKButton">
+     <property name="maximumSize">
+      <size>
+       <width>80</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>SETTINGS_OK_BITTON</string>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <tabstops>
-  <tabstop>OKButton</tabstop>
   <tabstop>cancelButton</tabstop>
   <tabstop>applyButton</tabstop>
-  <tabstop>tabWidget</tabstop>
-  <tabstop>localeComboBox</tabstop>
-  <tabstop>portEdit</tabstop>
-  <tabstop>proxyGroupBox</tabstop>
   <tabstop>proxyHostEdit</tabstop>
   <tabstop>proxyUsernameEdit</tabstop>
   <tabstop>proxyPwdEdit</tabstop>
@@ -1107,15 +1172,6 @@ p, li { white-space: pre-wrap; }
   <tabstop>activeLimitEdit</tabstop>
   <tabstop>activeSeedLimitEdit</tabstop>
   <tabstop>activeDownloadLimitEdit</tabstop>
-  <tabstop>asociationCheckBox</tabstop>
-  <tabstop>magnetAssociationCheckBox</tabstop>
-  <tabstop>runOnbootCheckBox</tabstop>
-  <tabstop>startMinimizedCheckBox</tabstop>
-  <tabstop>diskIOCasheModeComboBox</tabstop>
-  <tabstop>useDiskReadAheadCheckBox</tabstop>
-  <tabstop>alowReorderedOpsCheckBox</tabstop>
-  <tabstop>lowPrioDiskCheckBox</tabstop>
-  <tabstop>useReadCasheCheckBox</tabstop>
   <tabstop>GroupsListWidget</tabstop>
   <tabstop>removeGroupButton</tabstop>
   <tabstop>newGroupNameEdit</tabstop>
@@ -1126,7 +1182,6 @@ p, li { white-space: pre-wrap; }
   <tabstop>DTPathEdit</tabstop>
   <tabstop>browseDTPathButton</tabstop>
   <tabstop>driveNumberComboBox</tabstop>
-  <tabstop>customMoutGroupBox</tabstop>
   <tabstop>customCommandEdit</tabstop>
  </tabstops>
  <resources>
@@ -1182,50 +1237,18 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>addNewGroupButton</sender>
+   <sender>limitDlRadioButton</sender>
    <signal>clicked()</signal>
-   <receiver>SettingsDialog</receiver>
-   <slot>addGroup()</slot>
+   <receiver>dlLimitEdit</receiver>
+   <slot>setFocus()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>443</x>
-     <y>74</y>
+     <x>178</x>
+     <y>237</y>
     </hint>
     <hint type="destinationlabel">
-     <x>256</x>
-     <y>159</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>removeGroupButton</sender>
-   <signal>clicked()</signal>
-   <receiver>SettingsDialog</receiver>
-   <slot>removeGroup()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>94</x>
-     <y>247</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>256</x>
-     <y>159</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>BrowseGroupSavePathButton</sender>
-   <signal>clicked()</signal>
-   <receiver>SettingsDialog</receiver>
-   <slot>browseSavepathGroup()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>443</x>
-     <y>247</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>256</x>
-     <y>159</y>
+     <x>227</x>
+     <y>268</y>
     </hint>
    </hints>
   </connection>
@@ -1246,14 +1269,14 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>GroupsListWidget</sender>
-   <signal>currentRowChanged(int)</signal>
+   <sender>addNewGroupButton</sender>
+   <signal>clicked()</signal>
    <receiver>SettingsDialog</receiver>
-   <slot>showSelectedGroup(int)</slot>
+   <slot>addGroup()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>94</x>
-     <y>146</y>
+     <x>443</x>
+     <y>74</y>
     </hint>
     <hint type="destinationlabel">
      <x>256</x>
@@ -1278,34 +1301,18 @@ p, li { white-space: pre-wrap; }
    </hints>
   </connection>
   <connection>
-   <sender>deleteTaskButton</sender>
+   <sender>removeGroupButton</sender>
    <signal>clicked()</signal>
    <receiver>SettingsDialog</receiver>
-   <slot>DeleteTask()</slot>
+   <slot>removeGroup()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>537</x>
-     <y>50</y>
+     <x>94</x>
+     <y>247</y>
     </hint>
     <hint type="destinationlabel">
-     <x>313</x>
-     <y>176</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>limitDlRadioButton</sender>
-   <signal>clicked()</signal>
-   <receiver>dlLimitEdit</receiver>
-   <slot>setFocus()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>178</x>
-     <y>237</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>227</x>
-     <y>268</y>
+     <x>256</x>
+     <y>159</y>
     </hint>
    </hints>
   </connection>
@@ -1322,6 +1329,70 @@ p, li { white-space: pre-wrap; }
     <hint type="destinationlabel">
      <x>496</x>
      <y>268</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>GroupsListWidget</sender>
+   <signal>currentRowChanged(int)</signal>
+   <receiver>SettingsDialog</receiver>
+   <slot>showSelectedGroup(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>94</x>
+     <y>146</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>256</x>
+     <y>159</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>BrowseGroupSavePathButton</sender>
+   <signal>clicked()</signal>
+   <receiver>SettingsDialog</receiver>
+   <slot>browseSavepathGroup()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>443</x>
+     <y>247</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>256</x>
+     <y>159</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>deleteTaskButton</sender>
+   <signal>clicked()</signal>
+   <receiver>SettingsDialog</receiver>
+   <slot>DeleteTask()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>537</x>
+     <y>50</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>313</x>
+     <y>176</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>listWidget</sender>
+   <signal>currentRowChanged(int)</signal>
+   <receiver>stackedWidget</receiver>
+   <slot>setCurrentIndex(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>83</x>
+     <y>146</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>446</x>
+     <y>146</y>
     </hint>
    </hints>
   </connection>

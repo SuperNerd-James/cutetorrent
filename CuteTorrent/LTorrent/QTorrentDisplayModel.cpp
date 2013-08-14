@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "VideoPlayer/VideoPlayerWindow.h"
 #include "DT_mounter.h"
 
+QVector<Torrent*> QTorrentDisplayModel::torrents;
 QTorrentDisplayModel::QTorrentDisplayModel(QListView* _parrent,QObject* __parrent):QAbstractListModel(__parrent)
 {
 	parrent=_parrent;
@@ -40,6 +41,7 @@ QTorrentDisplayModel::QTorrentDisplayModel(QListView* _parrent,QObject* __parren
 	locker = new QMutex();
 
 	timer = new QTimer(this);
+	QObject::connect(mgr,SIGNAL(TorrentRemove(Torrent*)),this,SLOT(onTorrentRemove(Torrent*)));
 	QObject::connect(timer, SIGNAL(timeout()), this, SLOT(updateVisibleTorrents()));
 	timer->start(1000);
 
@@ -220,10 +222,15 @@ void QTorrentDisplayModel::contextualMenu(const QPoint & point)
 			}
 			else
 			{
-				if (!DTmount->isEnabled())
-				{
-					DTmount->setEnabled(true);
-				}
+				DTmount->setEnabled(true);
+			}
+			if (!torrent->isSuperSeed())
+			{
+				superSeed->setChecked(false);
+			}
+			else
+			{
+				superSeed->setChecked(true);
 			}
 			if (!torrent->hasMediaFiles())
 			{
@@ -289,10 +296,10 @@ void QTorrentDisplayModel::AddTorrent(Torrent* tr)
 	
 	if (tr!=NULL)
 	{
-		locker->lock();
+	//	locker->lock();
 		torrents.append(tr);
-		sort();
-		locker->unlock();
+	//	sort();
+	//	locker->unlock();
 	}
 }
 void QTorrentDisplayModel::TorrentErrorProxy(const QString& name)
@@ -308,7 +315,7 @@ void QTorrentDisplayModel::ChangeData(int row)
 	}
 	
 }
-bool QTorrentDisplayModel::hasTorrent(const QString& InfoHash) const
+int QTorrentDisplayModel::hasTorrent(const QString& InfoHash) const
 {
 	int i=0;
 	for (QVector<Torrent*>::const_iterator tor=torrents.begin();
@@ -316,10 +323,9 @@ bool QTorrentDisplayModel::hasTorrent(const QString& InfoHash) const
 		tor++
 		)
 	{
-		
-	        if( (*tor)->GetHashString() == InfoHash )
-	            return i;
-			i++;
+		if( (*tor)->GetHashString() == InfoHash )
+			return i;
+		i++;
 	}
 	return -1;
 }
@@ -408,7 +414,7 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 				{
 					foreach(int row,rows)
 					{
-						////qDebug() << "removing row " << row;
+						//qDebug() << "removing row " << row;
 						removeRow(row,false);
 					}
 				}
@@ -418,7 +424,7 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 					
 					foreach(int row,rows)
 					{
-						////qDebug() << "removing row " << row;
+						//qDebug() << "removing row " << row;
 						removeRow(row,true);
 					}
 				}
@@ -515,6 +521,7 @@ void QTorrentDisplayModel::retranslate()
 	updateTrackers->setText(tr("ACTION_UPDATE_TRACKERS"));
 	MoveStorrage->setText(tr("ACTION_MOVE_STORRAGE"));
 	PlayInPlayer->setText(tr("ACTION_PLAY_IN_PLAYER"));
+	superSeed->setText(tr("ACTION_SET_SUPERSEED"));
 }
 
 void QTorrentDisplayModel::setSequentualDL()
@@ -566,37 +573,43 @@ void QTorrentDisplayModel::playInPlayer()
 void QTorrentDisplayModel::setupContextMenu()
 {
 	menu = new QMenu(parrent);
-	openDir = new QAction(tr("ACTION_OPEN_FOLDER"), this);
+	openDir = new QAction(tr("ACTION_OPEN_FOLDER"),parrent);
 	QObject::connect(openDir, SIGNAL(triggered()), this, SLOT(OpenDirSelected()));
+	openDir->setShortcut(QKeySequence("Enter"));
 	menu->addAction(openDir);
 	menu->addSeparator();
-	DTmount = new QAction(tr("ACTION_DT_MOUNT"), this);
+	DTmount = new QAction(tr("ACTION_DT_MOUNT"), parrent);
 	QObject::connect(DTmount, SIGNAL(triggered()), this, SLOT(MountDT()));
 	menu->addAction(DTmount);
-	HashRecheck = new QAction(tr("ACTION_REHASH"), this);
+	PlayInPlayer = new QAction(tr("ACTION_PLAY_IN_PLAYER"), parrent);
+	QObject::connect(PlayInPlayer, SIGNAL(triggered()), this, SLOT(playInPlayer()));
+	menu->addAction(PlayInPlayer);
+	MoveStorrage = new QAction(tr("ACTION_MOVE_STORRAGE"), parrent);
+	QObject::connect(MoveStorrage, SIGNAL(triggered()), this, SLOT(moveStorrage()));
+	menu->addAction(MoveStorrage);
+	menu->addSeparator();
+	superSeed = new QAction(tr("ACTION_SET_SUPERSEED"),parrent);
+	superSeed->setCheckable(true);
+	QObject::connect(superSeed, SIGNAL(triggered()), this, SLOT(SetSuperSeed()));
+	menu->addAction(superSeed);
+	HashRecheck = new QAction(tr("ACTION_REHASH"), parrent);
 	QObject::connect(HashRecheck, SIGNAL(triggered()), this, SLOT(Rehash()));
 	menu->addAction(HashRecheck);
-	updateTrackers = new QAction(tr("ACTION_UPDATE_TRACKERS"), this);
+	updateTrackers = new QAction(tr("ACTION_UPDATE_TRACKERS"), parrent);
 	QObject::connect(updateTrackers, SIGNAL(triggered()), this, SLOT(UpdateTrackers()));
 	menu->addAction(updateTrackers);
-	setSequentual = new QAction(tr("ACTION_SET_SEQUENTIAL"), this);
+	setSequentual = new QAction(tr("ACTION_SET_SEQUENTIAL"), parrent);
 	setSequentual->setCheckable(true);
 	QObject::connect(setSequentual, SIGNAL(triggered()), this, SLOT(setSequentualDL()));
 	menu->addAction(setSequentual);
 	menu->addSeparator();
-	PlayInPlayer = new QAction(tr("ACTION_PLAY_IN_PLAYER"), this);
-	QObject::connect(PlayInPlayer, SIGNAL(triggered()), this, SLOT(playInPlayer()));
-	menu->addAction(PlayInPlayer);
-	MoveStorrage = new QAction(tr("ACTION_MOVE_STORRAGE"), this);
-	QObject::connect(MoveStorrage, SIGNAL(triggered()), this, SLOT(moveStorrage()));
-	menu->addAction(MoveStorrage);
-	menu->addSeparator();
-
-	DelAll = new QAction(tr("ACTION_DELETE_ALL"), this);
+	DelAll = new QAction(tr("ACTION_DELETE_ALL"), parrent);
 	QObject::connect(DelAll, SIGNAL(triggered()), this, SLOT(DellAll()));
+	DelAll->setShortcut(QKeySequence("Shift+Del"));
 	menu->addAction(DelAll);
-	DelTorrentOnly = new QAction(tr("ACTION_DELETE_TORRENT"), this);
+	DelTorrentOnly = new QAction(tr("ACTION_DELETE_TORRENT"), parrent);
 	QObject::connect(DelTorrentOnly, SIGNAL(triggered()), this, SLOT(DellTorrentOnly()));
+	DelTorrentOnly->setShortcut(QKeySequence("Del"));
 	menu->addAction(DelTorrentOnly);
 }
 bool LessThan(const Torrent* a,const Torrent* b)
@@ -608,6 +621,43 @@ void QTorrentDisplayModel::sort()
 	
 	qSort(torrents.begin(),torrents.end(),LessThan);
 	
+}
+
+void QTorrentDisplayModel::SetSuperSeed()
+{
+	Torrent* tor  = GetSelectedTorrent();
+	if (tor!=NULL)
+	{
+		tor->SuperSeed();
+	}
+}
+
+void QTorrentDisplayModel::initSessionFinished()
+{
+	sort();
+}
+
+QVector<Torrent*> QTorrentDisplayModel::GetTorrents()
+{
+	return torrents;
+}
+
+void QTorrentDisplayModel::onTorrentRemove( Torrent* torrentToRemove )
+{
+	QString InfoHash = torrentToRemove->GetInfoHash();
+	int i=0;
+	for (QVector<Torrent*>::const_iterator tor=torrents.begin();
+		tor!=torrents.end();
+		tor++
+		)
+	{
+		if( (*tor)->GetInfoHash() == InfoHash )
+		{
+			torrents.remove(i);
+			break;
+		}
+		i++;
+	}
 }
 
 

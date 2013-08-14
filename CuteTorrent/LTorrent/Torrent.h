@@ -44,6 +44,7 @@ private:
 	QString ErrorString;
 	bool mountable;
 	QString base_suffix;
+	QString type;
 	QStringList imageFiles;
 	bool prevHaserror,prevIsCompleted;
 public :
@@ -66,8 +67,11 @@ public :
 	QString GetSeedString();
 	QString GetPeerString();
 	QString GetName() const;
+	QString GetType();
 	QString GetDiscribtion();
+	int GetStatus();
 	QString GetHashString() const;
+	QString GetInfoHash();
 	int GetProgress() const;
 	int GetPeerCount();
 	int GetActivePeerCount();
@@ -108,6 +112,9 @@ public :
 	int GetUploadLimit();
 	bool operator<(const Torrent) const;
 	bool operator<(Torrent*);
+	void SuperSeed();
+	bool isSuperSeed();
+	
 };
 
 //Q_DECLARE_METATYPE(Torrent)

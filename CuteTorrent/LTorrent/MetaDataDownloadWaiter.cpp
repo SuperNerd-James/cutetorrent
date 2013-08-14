@@ -20,8 +20,9 @@ void MetaDataDownloadWaiter::run()
 
 	if (!_autoAdd)
 	{
-		openmagnet_info ti =*_tManager->GetTorrentInfo(h);
-		emit DownloadCompleted(ti);
+		openmagnet_info* ti =_tManager->GetTorrentInfo(h);
+		ti->link=MetaLink;	
+		emit DownloadCompleted(*ti);
 	}
 	else
 	{

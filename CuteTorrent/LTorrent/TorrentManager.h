@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <iterator>
 #include <vector>
+#include <QVector>
 #include <QString>
 #include <QStringList>
 #include <QMap>
@@ -99,17 +100,22 @@ signals:
 	void TorrentError(const QString&,const QString&);
 	void TorrentCompleted(const QString&,const QString&);
 	void TorrentInfo(const QString&,const QString&);
+	void initCompleted();
+	void TorrentRemove(Torrent*);
 protected:
 	TorrentManager();
 	~TorrentManager();
 	static TorrentManager* _instance;
 	static int _instanceCount;
+
+
 private:
 	void handle_alert(alert*);
 	void writeSettings();
+	QVector<Torrent*> torrents;
 	QMap<QString,QString> save_path_data;
-    QMap<QString,QString> magnet_links;
-	libtorrent::session* ses;
+    libtorrent::session* ses;
+	libtorrent::upnp* m_upnp;
 	QApplicationSettings* torrentSettings;
 	int save_file(std::string const& filename, std::vector<char>& v);
     void UpdatePathResumeAndLinks();
@@ -123,6 +129,9 @@ private:
 //settingsData end
 	void onClose();
 public:
+	
+	void initSession();
+	libtorrent::upnp* GetUpnp();
 	libtorrent::session_settings readSettings();
 	void updateSettings(libtorrent::session_settings settings);
 	QString GetSessionDownloadSpeed();
@@ -130,18 +139,18 @@ public:
 	QString GetSessionDownloaded();
 	QString GetSessionUploaded();
 	QString GetSessionDHTstate();
-	void initSession();
 	static TorrentManager* getInstance();
 	static void freeInstance();
 	std::vector<torrent_status> GetTorrents();
+	QVector<Torrent*> GetQTorrents();
 	opentorrent_info* GetTorrentInfo(QString filename);
 	openmagnet_info* GetTorrentInfo(torrent_handle handle);
 	void RemoveTorrent(QString InfoHash);
 	bool AddMagnet( torrent_handle h,QString SavePath,QMap<QString,int> filepriorities = QMap<QString,int>() );
-	bool AddTorrent(QString path, QString save_path,QMap<QString,int> filepriorities = QMap<QString,int>());
+	bool AddTorrent(QString path, QString save_path,QMap<QString,int> filepriorities = QMap<QString,int>(),error_code& ec = error_code());
 	void PostTorrentUpdate();
 	void RemoveTorrent(torrent_handle h,bool dellfiles=false);
-	torrent_handle ProcessMagnetLink(QString link);
+	torrent_handle ProcessMagnetLink(QString link,error_code& ec=error_code());
     void CancelMagnetLink(QString link);
 	void StartAllTorrents();
 	void PauseAllTorrents();

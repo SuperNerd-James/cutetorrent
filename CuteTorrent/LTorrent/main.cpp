@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//#define DEBUG
+#define DEBUG
 #include "CuteTorrent.h"
 #include <QDir>
 #include <qtsingleapplication.h>
@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "application.h"
 #include <QMessageBox>
 #include <QTextCodec>
+#include "WebService.h"
 #ifdef DEBUG
 
 void myMessageOutput(QtMsgType type, const char *msg)
@@ -67,6 +68,8 @@ int main(int argc, char *argv[])
 	QTextCodec::setCodecForCStrings(wantUnicode);
 	bool minimize=false,consoleWarint=false;
 	QString file2open;
+	WebService* webSvc = new WebService();
+	webSvc->Start();
 	if (a.isRunning())
 	{
 		if (argc>=2)
@@ -131,6 +134,7 @@ int main(int argc, char *argv[])
 		w.HandleNewTorrent(file2open);
 	}
 	int res=a.exec();
+	delete webSvc;
 #ifdef DEBUG
 	fclose(fp);
 #endif // DEBUG

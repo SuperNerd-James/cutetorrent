@@ -137,6 +137,7 @@ void SettingsDialog::FillTorrentTab()
 
 void SettingsDialog::FillFilteringGroups()
 {
+	
 	filterGroups = settings->GetFileFilterGroups();
 	for (int i=0;i<filterGroups.count();i++)
 	{

@@ -7,19 +7,21 @@ RconServer::RconServer(int port,QTorrentDisplayModel* m_model=0,QObject* parrent
 {
 	model=m_model;
 	ListenPort=port;
-	QApplicationSettings* settings = QApplicationSettings::getInstance();
+	
 	disabled = ! settings->valueBool("WebUI","webui_enabled",false);
 	useIPFilters = settings->valueBool("WebUI","webui_use_ipfilters",false);
 	QString ipFiletrString = settings->valueString("WebUI","webui_ipfilter","allow all");
 	if (useIPFilters)
 		parseIpfiltrString(ipFiletrString);
-	QApplicationSettings::FreeInstance();
+	
 	if (!disabled)
 		listen(QHostAddress::Any, port);
 }
 
 RconServer::~RconServer(void)
 {
+	QApplicationSettings::FreeInstance();
+	TorrentManager::freeInstance();
 	close();
 }
 
@@ -36,7 +38,7 @@ RconServer* RconServer::getInstance()
 void RconServer::FreeInstance()
 {
 	_instanceCount--;
-	////qDebug() << "QApplicationSettings freeing " <<_instanceCount<< " instance " ;
+	//qDebug() << "QApplicationSettings freeing " <<_instanceCount<< " instance " ;
 	if (!_instanceCount)
 	{
 		_instance->~RconServer();
@@ -170,95 +172,181 @@ bool RconServer::isRunning()
 
 void RconServer::handleSetSettingsVal( QByteArray data )
 {
+	try
+	{
+		int id = data.toInt();
+		data.remove(0,sizeof(int));
+		if (activeSessions.contains(id))
+		{
+			QString group = QString(data);
+			data.remove(0,group.length());
+			QString key = QString(data);
+			data.remove(0,key.length());
+			QString value = QString(data);
+			settings->setValue(group,key,value);
+		}
+		else
+		{
 
+		}
+	}
+	catch (...)
+	{
+		
+	}
+	
 }
 
 void RconServer::handleSetGlobalUL( QByteArray data )
 {
-	tManager->SetUlLimit(data.toInt());
+	int id = data.toInt();
+	data.remove(0,sizeof(int));
+	if (activeSessions.contains(id))
+	{
+		tManager->SetUlLimit(data.toInt());
+	}
+	else
+	{
+
+	}
 }
 
 void RconServer::handleSetGlobalDL( QByteArray data )
 {
-	tManager->SetDlLimit(data.toInt());
+	int id = data.toInt();
+	data.remove(0,sizeof(int));
+	if (activeSessions.contains(id))
+	{
+		tManager->SetDlLimit(data.toInt());
+	}
+	else
+	{
+
+	}
 }
 
 void RconServer::handleSetUL( QByteArray data )
 {
-	QByteArray bSha1;
-	for (int i=0;i<20;i++)
+	int id = data.toInt();
+	data.remove(0,sizeof(int));
+	if (activeSessions.contains(id))
 	{
-		bSha1.append(data[i]);
+		QByteArray bSha1;
+		for (int i=0;i<20;i++)
+		{
+			bSha1.append(data[i]);
+		}
+		data.remove(0,20);
+		int limit = data.toInt();
+		sha1_hash sha1 = sha1_hash(bSha1.data()); 
+		Torrent* torrent = tManager->GetTorrentByInfoHash(sha1);
+		if (torrent!=NULL)
+		{
+			torrent->SetUlLimit(limit);
+			delete torrent;
+		}
 	}
-	data.remove(0,20);
-	int limit = data.toInt();
-	sha1_hash sha1 = sha1_hash(bSha1.data()); 
-	Torrent* torrent = tManager->GetTorrentByInfoHash(sha1);
-	if (torrent!=NULL)
+	else
 	{
-		torrent->SetUlLimit(limit);
-		delete torrent;
+
 	}
 }
 
 void RconServer::handleSetDL( QByteArray data )
 {
-	QByteArray bSha1;
-	for (int i=0;i<20;i++)
+	int id = data.toInt();
+	data.remove(0,sizeof(int));
+	if (activeSessions.contains(id))
 	{
-		bSha1.append(data[i]);
+		QByteArray bSha1;
+		for (int i=0;i<20;i++)
+		{
+			bSha1.append(data[i]);
+		}
+		data.remove(0,20);
+		int limit = data.toInt();
+		sha1_hash sha1 = sha1_hash(bSha1.data()); 
+		Torrent* torrent = tManager->GetTorrentByInfoHash(sha1);
+		if (torrent!=NULL)
+		{
+			torrent->SetDlLimit(limit);
+			delete torrent;
+		}
 	}
-	data.remove(0,20);
-	int limit = data.toInt();
-	sha1_hash sha1 = sha1_hash(bSha1.data()); 
-	Torrent* torrent = tManager->GetTorrentByInfoHash(sha1);
-	if (torrent!=NULL)
+	else
 	{
-		torrent->SetDlLimit(limit);
-		delete torrent;
+
 	}
 }
 
 void RconServer::handleRemoveTorrentAll( QByteArray data )
 {
-	QByteArray bSha1;
-	for (int i=0;i<20;i++)
+	int id = data.toInt();
+	data.remove(0,sizeof(int));
+	if (activeSessions.contains(id))
 	{
-		bSha1.append(data[i]);
+		QByteArray bSha1;
+		for (int i=0;i<20;i++)
+		{
+			bSha1.append(data[i]);
+		}
+		sha1_hash sha1 = sha1_hash(bSha1.data()); 
+		int index = model->hasTorrent(QString::fromStdString(sha1.to_string()));
+		if (index >= 0)
+			model->removeRow(index,true);
 	}
-	sha1_hash sha1 = sha1_hash(bSha1.data()); 
-	int index = model->hasTorrent(QString::fromStdString(sha1.to_string()));
-	if (index >= 0)
-		model->removeRow(index,true);
+	else
+	{
+
+	}
 }
 
 void RconServer::handleRemoveTorrent( QByteArray data )
 {
-	QByteArray bSha1;
-	for (int i=0;i<20;i++)
+	int id = data.toInt();
+	data.remove(0,sizeof(int));
+	if (activeSessions.contains(id))
 	{
-		bSha1.append(data[i]);
+		QByteArray bSha1;
+		for (int i=0;i<20;i++)
+		{
+			bSha1.append(data[i]);
+		}
+		sha1_hash sha1 = sha1_hash(bSha1.data()); 
+		int index = model->hasTorrent(QString::fromStdString(sha1.to_string()));
+		if (index >= 0)
+			model->removeRow(index,false);
 	}
-	sha1_hash sha1 = sha1_hash(bSha1.data()); 
-	int index = model->hasTorrent(QString::fromStdString(sha1.to_string()));
-	if (index >= 0)
-		model->removeRow(index,false);
+	else
+	{
+
+	}
 }
 
 void RconServer::handlePauseTorrent( QByteArray data )
 {
-	QByteArray bSha1;
-	for (int i=0;i<20;i++)
+	int id = data.toInt();
+	data.remove(0,sizeof(int));
+	if (activeSessions.contains(id))
 	{
-		bSha1.append(data[i]);
+		QByteArray bSha1;
+		for (int i=0;i<20;i++)
+		{
+			bSha1.append(data[i]);
+		}
+		sha1_hash sha1 = sha1_hash(bSha1.data()); 
+		Torrent* torrent = tManager->GetTorrentByInfoHash(sha1);
+		if (torrent!=NULL)
+		{
+			torrent->pause();
+			delete torrent;
+		}
 	}
-	sha1_hash sha1 = sha1_hash(bSha1.data()); 
-	Torrent* torrent = tManager->GetTorrentByInfoHash(sha1);
-	if (torrent!=NULL)
+	else
 	{
-		torrent->pause();
-		delete torrent;
+
 	}
+	
 	
 }
 
