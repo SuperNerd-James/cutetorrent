@@ -22,5 +22,6 @@ CuteTorrent - is a full-featured BitTorrent client for Windwos, Linux, OS X. It 
   * Sequential downloading
   * Embedded btdigg search
   * Mounting Disk Images to DaemonTools
+  * Remote controll via Web interface
 =Screenshots=
 http://s12.postimg.org/c98d840z1/ct_screen.png
