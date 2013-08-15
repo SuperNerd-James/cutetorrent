@@ -28,7 +28,7 @@ Possible IP filters discribed below:
  * IP_ADDRES_RANGE = IP_ADDRES - IP_ADDRES
  * IP_ADDRES = NUMBER <256 . NUMBER <256 . NUMBER <256 . NUMBER <256 
  === Examples:===
-  * allow 192.168.1.`*` (equals to allow 10.10.109.0-10.10.109.255 )
+  * allow 192.168.1.`*` (equals to allow 192.168.1.0-192.168.1.255 )
   * allow 10.10.109.0-10.10.109.128
   * deny 192.168.1.`*`
   * deny 10.10.109.0-10.10.109.128
