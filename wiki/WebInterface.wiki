@@ -1,0 +1,19 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Web interface was builden with help of JS(JavaScript) frameworks (jsrender, backbone) so to wark with it you should enable executing of JS in your browser
+
+
+= Features=
+
+  * Asynckroniuos interface(no page reloading).
+  * Paginted list of torrents.
+  * Access vai IP wihite list.
+  * Pausing,resuming,adding torrents.
+  * Access to settings of torrent client.
+= Some explanation of usage=
+
+To make some action on torrent you should toggle it. To do it you should click on it. After clicking detailed information about torrnt will be displayed. 
+= Screenshot=
+http://s23.postimg.org/wgxza4fhn/2013_08_15_181411.png
