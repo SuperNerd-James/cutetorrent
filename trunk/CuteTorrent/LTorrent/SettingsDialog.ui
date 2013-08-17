@@ -100,6 +100,9 @@
                                  stop: 0 #FAFBFE, stop: 1 #DCDEF1);
  }</string>
      </property>
+     <property name="currentRow">
+      <number>0</number>
+     </property>
      <item>
       <property name="text">
        <string>TAB_TORRENT</string>
@@ -995,7 +998,7 @@
           <bool>false</bool>
          </property>
          <layout class="QGridLayout" name="gridLayout_18">
-          <item row="0" column="3" rowspan="9">
+          <item row="0" column="3" rowspan="8">
            <widget class="QGroupBox" name="IPFilterGroupBox">
             <property name="title">
              <string>WEB_UI_USE_IP_FILTER</string>
@@ -1014,16 +1017,14 @@
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;allow all &lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;#deny 192.168.1.* &lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;#allow 192.168.1.10-192.168.1.15&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                </property>
               </widget>
              </item>
             </layout>
            </widget>
           </item>
-          <item row="8" column="0" colspan="3">
+          <item row="7" column="0" colspan="3">
            <widget class="QGroupBox" name="webUILogginGroupBox">
             <property name="maximumSize">
              <size>
@@ -1058,13 +1059,6 @@ p, li { white-space: pre-wrap; }
             </layout>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_18">
-            <property name="text">
-             <string>WEB_UI_PASSWORD</string>
-            </property>
-           </widget>
-          </item>
           <item row="0" column="0">
            <widget class="QLabel" name="label_10">
             <property name="text">
@@ -1072,22 +1066,19 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
-          <item row="4" column="0">
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_18">
+            <property name="text">
+             <string>WEB_UI_PASSWORD</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
            <widget class="QCheckBox" name="upnpCheckBox">
             <property name="text">
              <string>WEB_UI_UPNP_ENABLED</string>
             </property>
            </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_21">
-            <property name="text">
-             <string>WEB_UI_PORT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1" colspan="2">
-           <widget class="QLineEdit" name="loginLineEdit"/>
           </item>
           <item row="1" column="1" colspan="2">
            <widget class="QLineEdit" name="passwordLineEdit">
@@ -1096,20 +1087,30 @@ p, li { white-space: pre-wrap; }
             </property>
            </widget>
           </item>
+          <item row="0" column="1" colspan="2">
+           <widget class="QLineEdit" name="loginLineEdit"/>
+          </item>
           <item row="2" column="1" colspan="2">
            <widget class="QLineEdit" name="webPortLineEdit"/>
           </item>
-          <item row="6" column="0" colspan="3">
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_21">
+            <property name="text">
+             <string>WEB_UI_PORT</string>
+            </property>
+           </widget>
+          </item>
+          <item row="5" column="0" colspan="3">
            <layout class="QHBoxLayout" name="horizontalLayout_2">
             <item>
-             <widget class="QPushButton" name="pushButton">
+             <widget class="QPushButton" name="startRconButton">
               <property name="text">
                <string>WEBUI_START</string>
               </property>
              </widget>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_2">
+             <widget class="QPushButton" name="stopRconButton">
               <property name="text">
                <string>WEBUI_STOP</string>
               </property>
@@ -1129,16 +1130,6 @@ p, li { white-space: pre-wrap; }
              </widget>
             </item>
            </layout>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_23">
-            <property name="text">
-             <string>RCON_PORT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QLineEdit" name="rconPortLineEdit"/>
           </item>
          </layout>
         </widget>
@@ -1396,6 +1387,38 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>startRconButton</sender>
+   <signal>clicked()</signal>
+   <receiver>SettingsDialog</receiver>
+   <slot>StartRcon()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>208</x>
+     <y>23</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>366</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>stopRconButton</sender>
+   <signal>clicked()</signal>
+   <receiver>SettingsDialog</receiver>
+   <slot>StopRcon()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>208</x>
+     <y>23</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>366</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ApplySettings()</slot>
@@ -1415,5 +1438,7 @@ p, li { white-space: pre-wrap; }
   <slot>SetDate()</slot>
   <slot>AddTask()</slot>
   <slot>DeleteTask()</slot>
+  <slot>StopRcon()</slot>
+  <slot>StartRcon()</slot>
  </slots>
 </ui>

@@ -12,7 +12,7 @@
 #include <QThread>
 #include "httprequest.h"
 #include "httprequesthandler.h"
-
+#include "QApplicationSettings.h"
 /**
   The connection handler accepts incoming connections and dispatches incoming requests to to a
   request mapper. Since HTTP clients can send multiple requests before waiting for the response,
@@ -39,7 +39,7 @@ public:
       @param settings Configuration settings of the HTTP webserver
       @param requestHandler handler that will process each incomin HTTP request
     */
-    HttpConnectionHandler(QSettings* settings, HttpRequestHandler* requestHandler);
+    HttpConnectionHandler( HttpRequestHandler* requestHandler);
 
     /** Destructor */
     virtual ~HttpConnectionHandler();
@@ -49,11 +49,11 @@ public:
 
     /** Mark this handler as busy */
     void setBusy();
-
+	static QList<QPair<uint,uint>> allowedIP,notAllowedIP;
 private:
-
+	bool blockClient;
     /** Configuration settings */
-    QSettings* settings;
+    QApplicationSettings* settings;
 
     /** TCP socket of the current connection */
     QTcpSocket socket;

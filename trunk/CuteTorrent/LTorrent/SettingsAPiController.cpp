@@ -2,6 +2,7 @@
 #include "json/json.h"
 SettingsAPiController::SettingsAPiController(QObject* parent) : HttpRequestHandler(parent),settings(QApplicationSettings::getInstance())
 {
+	
 }
 
 SettingsAPiController::~SettingsAPiController(void)
@@ -11,6 +12,10 @@ SettingsAPiController::~SettingsAPiController(void)
 
 void SettingsAPiController::service( HttpRequest& request,HttpResponse& response )
 {
+	if (!CheckCreditinals(request,response))
+	{
+		return;
+	}
 	if (request.getMethod()=="GET")
 	{
 		QtJson::JsonObject jSettings;

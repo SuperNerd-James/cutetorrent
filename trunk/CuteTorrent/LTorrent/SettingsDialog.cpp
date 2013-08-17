@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QIntValidator>
 #include "application.h"
 #include "Scheduller.h"
-
+#include "RconWebService.h"
 #ifdef Q_WS_WIN //file association for windows
 #include <windows.h>
 #include <tchar.h>
@@ -163,12 +163,18 @@ void SettingsDialog::FillWebUITab()
 	loginLineEdit->setText(settings->valueString("WebControl","webui_login"));
 	passwordLineEdit->setText(settings->valueString("WebControl","webui_password"));
 	webPortLineEdit->setText(settings->valueString("WebControl","web_port","8080"));
-	rconPortLineEdit->setText(settings->valueString("WebControl","rcon_port","18745"));
 	upnpCheckBox->setChecked(settings->valueBool("WebControl","enable_upnp",false));
 	webUILogginGroupBox->setChecked(settings->valueBool("WebControl","enable_loggin",false));
 	logLineEdit->setText(settings->valueString("WebControl","log_name"));
 	IPFilterGroupBox->setChecked(settings->valueBool("WebControl","enable_ipfilter",false));
 	ipFilterTextEdit->setText(settings->valueString("WebControl","ipfilter"));
+	RconWebService* svc = RconWebService::getInstance();
+	bool isRunning=svc->isRunning();
+	RunningLabel->setEnabled(isRunning);
+	startRconButton->setEnabled(!isRunning);
+	stopRconButton->setEnabled(isRunning);
+	RconWebService::freeInstance();
+	
 }
 
 void SettingsDialog::showSelectedGroup(int row)
@@ -234,13 +240,12 @@ void SettingsDialog::ApplySettings()
 	settings->setValue("WebControl","webui_login",				loginLineEdit->text());
 	settings->setValue("WebControl","webui_password",			passwordLineEdit->text());
 	settings->setValue("WebControl","web_port",					webPortLineEdit->text());
-	settings->setValue("WebControl","rcon_port",				rconPortLineEdit->text());
 	settings->setValue("WebControl","enable_upnp",				upnpCheckBox->isChecked());
 	settings->setValue("WebControl","enable_loggin",			webUILogginGroupBox->isChecked());
 	settings->setValue("WebControl","log_name",					logLineEdit->text());
 	settings->setValue("WebControl","enable_ipfilter",			IPFilterGroupBox->isChecked());
 	settings->setValue("WebControl","ipfilter",					ipFilterTextEdit->toPlainText());
-
+	ipFilterTextEdit->setText(settings->valueString("WebControl","ipfilter"));
 	settings->SaveFilterGropups(filterGroups);
 #ifdef Q_WS_WIN //file association for windows
 	QSettings asocSettings ("HKEY_CLASSES_ROOT", QSettings::NativeFormat);   
@@ -294,7 +299,7 @@ void SettingsDialog::ApplySettings()
 	int curLocaleIndex=localeComboBox->currentIndex();
 	Application::setLanguage("cutetorrent_"+localeComboBox->currentText().toUpper());
 	settings->setValue("System","Lang",localeComboBox->currentText().toUpper());
-	retranslateUi(this);
+	//retranslateUi(this);
 	calendarWidget->setLocale(localeComboBox->currentIndex()==0 ? QLocale(QLocale::English) : QLocale(QLocale::Russian));
 }
 void SettingsDialog::ApplySettingsToSession()
@@ -537,6 +542,28 @@ void SettingsDialog::UpdateSchedullerTab( int index )
 		dlLimitEdit->setText(QString::number(currentTask.limit()));
 		break;
 	}
+}
+
+void SettingsDialog::StartRcon()
+{
+	RconWebService* svc = RconWebService::getInstance();
+	svc->Start();
+	bool isRunning=svc->isRunning();
+	RunningLabel->setEnabled(isRunning);
+	startRconButton->setEnabled(!isRunning);
+	stopRconButton->setEnabled(isRunning);
+	RconWebService::freeInstance();
+}
+
+void SettingsDialog::StopRcon()
+{
+	RconWebService* svc = RconWebService::getInstance();
+	svc->Stop();
+	bool isRunning=svc->isRunning();
+	RunningLabel->setEnabled(isRunning);
+	startRconButton->setEnabled(!isRunning);
+	stopRconButton->setEnabled(isRunning);
+	RconWebService::freeInstance();
 }
 
 

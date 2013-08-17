@@ -54,4 +54,6 @@ private slots:
 	void AddTask();
 	void DeleteTask();
 	void UpdateSchedullerTab( int index );
+	void StartRcon();
+	void StopRcon();
 };

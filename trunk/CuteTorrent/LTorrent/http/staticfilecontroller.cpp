@@ -8,33 +8,32 @@
 #include <QDir>
 #include <QDateTime>
 #include <QCryptographicHash>
-StaticFileController::StaticFileController(QSettings* settings, QObject* parent)
+#include <QMessageBox>
+StaticFileController::StaticFileController(QObject* parent)
     :HttpRequestHandler(parent)
 {
-    maxAge=settings->value("maxAge","60000").toInt();
-    encoding=settings->value("encoding","UTF-8").toString();
-    docroot=settings->value("path",".").toString();
-    // Convert relative path to absolute, based on the directory of the config file.
-#ifdef Q_OS_WIN32
-    if (QDir::isRelativePath(docroot) && settings->format()!=QSettings::NativeFormat)
-#else
-        if (QDir::isRelativePath(docroot))
-#endif
-    {
-        QFileInfo configFile(settings->fileName());
-        docroot=QFileInfo(configFile.absolutePath(),docroot).absoluteFilePath();
-    }
-    qDebug("StaticFileController: docroot=%s, encoding=%s, maxAge=%i",qPrintable(docroot),qPrintable(encoding),maxAge);
-    maxCachedFileSize=settings->value("maxCachedFileSize","65536").toInt();
-	requireAuth = settings->value("requireAuth",false).toBool();
-	if (requireAuth)
+	
+	settings=QApplicationSettings::getInstance();
+    maxAge=settings->valueInt("WebControl","maxAge",60000);
+    encoding=settings->valueString("WebControl","encoding","UTF-8");
+    docroot=settings->valueString("WebControl","path","./webControll/");
+	qDebug("StaticFileController: docroot=%s, encoding=%s, maxAge=%i",qPrintable(docroot),qPrintable(encoding),maxAge);
+    maxCachedFileSize=settings->valueInt("WebControl","maxCachedFileSize",65536);
+	qDebug("StaticFileController: maxCachedFileSize=%i",maxCachedFileSize);
+    cache.setMaxCost(settings->valueInt("WebControl","cacheSize",1000000));
+	qDebug() << "cache.setMaxCost";
+	try
 	{
-		account.username = settings->value("username","admin").toString();
-		account.password = settings->value("password","admin").toString();
+		cacheTimeout=settings->valueInt("WebControl","cacheTime",60000);
+		qDebug("StaticFileController: cache timeout=%i, size=%i",cacheTimeout,cache.maxCost());
 	}
-    cache.setMaxCost(settings->value("cacheSize","1000000").toInt());
-    cacheTimeout=settings->value("cacheTime","60000").toInt();
-    qDebug("StaticFileController: cache timeout=%i, size=%i",cacheTimeout,cache.maxCost());
+	catch (...)
+	{
+		
+	}
+	
+    
+
 }
 
 
@@ -46,25 +45,13 @@ void StaticFileController::service(HttpRequest& request, HttpResponse& response)
         response.setStatus(403,"forbidden");
         response.write("403 forbidden",true);
     }
-	if (requireAuth)
-	{
-		if (request.getHeader("Authorization").isEmpty())
-		{
-			qDebug() << "header: " << request.getHeaderMap()<<  "parametrs: "  << request.getParameterMap();
-			response.setStatus(401,"Not authoriarised");
-			response.setHeader("WWW-Authenticate","Digest realm=\"realm@host.com\",qop=\"auth,auth-int\",nonce=\"dcd98b7102dd2f0e8b11d0f600bfb0c093\",opaque=\"5ccc069c403ebaf9f0171e9517f40e41\"");
-		}
-		else
-		{
-			qDebug() << "Authorization" << request.getHeader("Authorization");
-			if (!CheckCreditinals(request,response))
-			{
-				return;
-			}
-		}
-	}
 	
-    // Check if we have the file in cache
+	if (!CheckCreditinals(request,response))
+	{
+
+		return;
+	}
+	// Check if we have the file in cache
     qint64 now=QDateTime::currentMSecsSinceEpoch();
     mutex.lock();
     CacheEntry* entry=cache.object(path);
@@ -164,6 +151,12 @@ void StaticFileController::setContentType(QString fileName, HttpResponse& respon
     // Todo: add all of your content types
 }
 
+StaticFileController::~StaticFileController()
+{
+	QApplicationSettings::FreeInstance();
+}
+
+/*
 bool StaticFileController::CheckCreditinals( HttpRequest& request,HttpResponse& response )
 {
 	QString autorsation = request.getHeader("Authorization");
@@ -215,4 +208,4 @@ bool StaticFileController::CheckCreditinals( HttpRequest& request,HttpResponse& 
 	delete parametrsMap;
 	return true;
 	
-}
+}*/

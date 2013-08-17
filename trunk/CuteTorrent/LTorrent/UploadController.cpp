@@ -3,11 +3,16 @@
 #include <QApplication>
 UploadController::UploadController( QObject* parent ) : HttpRequestHandler(parent),tManager(TorrentManager::getInstance())
 {
-
+	
 }
 
 void UploadController::service( HttpRequest& request, HttpResponse& response )
 {
+
+	if (!CheckCreditinals(request,response))
+	{
+		return;
+	}
 	if (request.getMethod()=="POST")
 	{
 		std::map<QByteArray,QByteArray> parametrs=request.getParameterMap().toStdMap();

@@ -24,8 +24,13 @@
 class HttpRequestHandler : public QObject {
     Q_OBJECT
     Q_DISABLE_COPY(HttpRequestHandler)
-public:
 
+public:
+	struct Creditionals{
+		QString username,password;
+	};
+	bool requireAuth;
+	Creditionals account;
     /** Constructor */
     HttpRequestHandler(QObject* parent=0);
 
@@ -39,6 +44,10 @@ public:
       @warning This method must be thread safe
     */
     virtual void service(HttpRequest& request, HttpResponse& response);
+	
+	bool CheckCreditinals(HttpRequest& request,HttpResponse& response);
+private:
+	void initSettings();
 
 };
 

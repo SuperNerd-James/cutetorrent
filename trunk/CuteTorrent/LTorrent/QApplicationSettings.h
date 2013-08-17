@@ -39,12 +39,12 @@ protected:
 private:
 	QSettings* settings;
 	QMutex* locker;
-	QMap<QString,QMap<QString,QVariant> > settingsStorrage;
 	void ReedSettings();
 	void WriteSettings();
-	QVariant value(const QString group,const QString key);
+	
 	
 public:
+	QVariant value(const QString group,const QString key,QVariant default=QVariant(QVariant::Invalid));
 	void SaveFilterGropups(QList<GroupForFileFiltering>);
 	QList<GroupForFileFiltering> GetFileFilterGroups();
 	static void FreeInstance();

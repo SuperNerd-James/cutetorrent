@@ -1,12 +1,12 @@
 #include "httpconnectionhandlerpool.h"
 
-HttpConnectionHandlerPool::HttpConnectionHandlerPool(QSettings* settings, HttpRequestHandler* requestHandler)
+HttpConnectionHandlerPool::HttpConnectionHandlerPool( HttpRequestHandler* _requestHandler)
     : QObject()
 {
-    Q_ASSERT(settings!=0);
-    this->settings=settings;
-    this->requestHandler=requestHandler;
-    cleanupTimer.start(settings->value("cleanupInterval",1000).toInt());
+    qDebug() << "HttpConnectionHandlerPool::HttpConnectionHandlerPool";
+	this->settings=QApplicationSettings::getInstance();
+    this->requestHandler=_requestHandler;
+    cleanupTimer.start(settings->value("WebControl","cleanupInterval",1000).toInt());
     connect(&cleanupTimer, SIGNAL(timeout()), SLOT(cleanup()));
 }
 
@@ -33,9 +33,9 @@ HttpConnectionHandler* HttpConnectionHandlerPool::getConnectionHandler() {
     }
     // create a new handler, if necessary
     if (!freeHandler) {
-        int maxConnectionHandlers=settings->value("maxThreads",100).toInt();
+        int maxConnectionHandlers=settings->value("WebControl","maxThreads",100).toInt();
         if (pool.count()<maxConnectionHandlers) {
-            freeHandler=new HttpConnectionHandler(settings,requestHandler);
+            freeHandler=new HttpConnectionHandler(requestHandler);
             freeHandler->setBusy();
             pool.append(freeHandler);
         }
@@ -47,7 +47,7 @@ HttpConnectionHandler* HttpConnectionHandlerPool::getConnectionHandler() {
 
 
 void HttpConnectionHandlerPool::cleanup() {
-    int maxIdleHandlers=settings->value("minThreads",1).toInt();
+    int maxIdleHandlers=settings->value("WebControl","minThreads",1).toInt();
     int idleCounter=0;
     mutex.lock();
     foreach(HttpConnectionHandler* handler, pool) {

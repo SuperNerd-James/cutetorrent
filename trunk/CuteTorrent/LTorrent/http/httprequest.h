@@ -43,7 +43,7 @@ public:
       Constructor.
       @param settings Configuration settings
     */
-    HttpRequest(QSettings* settings);
+    HttpRequest();
 
     /**
       Destructor.

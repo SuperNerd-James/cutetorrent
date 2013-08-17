@@ -11,7 +11,7 @@
 #include "httprequesthandler.h"
 #include <QCache>
 #include <QMutex>
-
+#include "QApplicationSettings.h"
 /**
   Delivers static files. It is usually called by the applications main request handler when
   the caller request a path that is mapped to static files.
@@ -45,13 +45,14 @@ class StaticFileController : public HttpRequestHandler  {
 public:
 
     /** Constructor */
-    StaticFileController(QSettings* settings, QObject* parent = 0);
-
+    StaticFileController(QObject* parent = 0);
+	~StaticFileController();
     /** Generates the response */
     void service(HttpRequest& request, HttpResponse& response);
 
 private:
 
+	QApplicationSettings* settings;
     /** Encoding of text files */
     QString encoding;
 
@@ -84,7 +85,7 @@ private:
 
     /** Set a content-type header in the response depending on the ending of the filename */
     void setContentType(QString file, HttpResponse& response) const;
-	bool CheckCreditinals(HttpRequest& request,HttpResponse& response);
+
 };
 
 #endif // STATICFILECONTROLLER_H

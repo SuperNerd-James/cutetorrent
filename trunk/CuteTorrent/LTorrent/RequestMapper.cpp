@@ -3,21 +3,14 @@
 #include <QApplication>
 RequestMapper::RequestMapper(QObject* parent)
 :HttpRequestHandler(parent) {
-	QSettings* settings = new QSettings( QApplication::applicationDirPath()+"/CuteTorrent.ini", QSettings::IniFormat);
-	settings->beginGroup("listener");
-	settings->setValue("path",QApplication::applicationDirPath()+"/webControll");
-	settings->setValue("encoding","UTF-8");
-	settings->setValue("maxAge",60000);
-	settings->setValue("cacheTime",60000);
-	settings->setValue("cacheSize",1000000);
-	settings->setValue("maxCachedFileSize",65536);
-	staticFileController = new StaticFileController(settings,this);
+	
+	staticFileController = new StaticFileController(this);
 	torrentController = new TorrentApiController(this);
 	uploadController = new UploadController(this);
 	commandsController = new CommandsApiController(this);
 	settingsController = new SettingsAPiController(this);
 	magnetController = new MagnetApiController(this);
-	settings->endGroup();
+	
 }
 
 
