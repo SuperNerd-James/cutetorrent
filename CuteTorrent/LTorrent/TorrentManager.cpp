@@ -551,9 +551,9 @@ session_settings TorrentManager::readSettings()
 	s_settings.allowed_fast_set_size = torrentSettings->valueInt("Torrent","allowed_fast_set_size",10);
 	s_settings.read_cache_line_size = torrentSettings->valueInt("Torrent","read_cache_line_size",40);
 	s_settings.allow_reordered_disk_operations = torrentSettings->valueBool("Torrent","allow_reordered_disk_operations",true);
-	s_settings.active_downloads = torrentSettings->valueInt("Torrent","active_downloads",3);
-	s_settings.active_limit = torrentSettings->valueInt("Torrent","active_limit",(std::max)(s_settings.active_downloads * 2, s_settings.active_limit));
-	s_settings.active_seeds = torrentSettings->valueInt("Torrent","active_seeds",5);
+	s_settings.active_downloads = torrentSettings->valueInt("Torrent","active_downloads",-1);
+	s_settings.active_limit = torrentSettings->valueInt("Torrent","active_limit",-1);
+	s_settings.active_seeds = torrentSettings->valueInt("Torrent","active_seeds",-1);
 	s_settings.choking_algorithm = session_settings::auto_expand_choker;
 	s_settings.disk_cache_algorithm = session_settings::avoid_readback;
 	s_settings.user_agent = "CuteTorrent "CT_VERSION;
@@ -732,20 +732,7 @@ void TorrentManager::UpdatePathResumeAndLinks()
         QMessageBox::critical(0,"Error","CT_DATA/path.resume couldn't be opened");
     }
 
-    QFile magnetlinks("CT_DATA/links.list");
-	magnetlinks.remove();
-    /*if (magnetlinks.open(QFile::WriteOnly))
-    {
-        for (QMap<QString,QString>::Iterator i = magnet_links.begin();i!=magnet_links.end();i++)
-        {
-            magnetlinks.write(QString("%1|%2\n").arg(i.key()).arg(i.value()).toUtf8());
-        }
-        magnetlinks.close();
-    }
-    else
-    {
-        QMessageBox::critical(0,"Error","CT_DATA/links.list couldn't be opened");
-    }*/
+    
 }
 
 TorrentManager::~TorrentManager()

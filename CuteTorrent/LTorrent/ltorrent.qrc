@@ -43,5 +43,15 @@
         <file alias="preferencies.ico">Resources/MenuIcons/preferencies.ico</file>
         <file alias="quit.ico">Resources/MenuIcons/quit.ico</file>
         <file alias="createTorrent.ico">Resources/MenuIcons/createTorrent.ico</file>
+        <file alias="delete.ico">Resources/delete.ico</file>
+        <file alias="mount-dt.ico">Resources/mount-dt.ico</file>
+        <file alias="move-folder.iso">Resources/move-folder.ico</file>
+        <file alias="open-folder">Resources/open-folder.ico</file>
+        <file alias="play.ico">Resources/play.ico</file>
+        <file alias="re-hash.iso">Resources/re-hash.ico</file>
+        <file alias="sequntioal-dl.ico">Resources/sequntial-dl.ico</file>
+        <file alias="super-seed.ico">Resources/super-seed.ico</file>
+        <file alias="update-trackers.ico">Resources/update-trackers.ico</file>
+        <file alias="copy-to-clipboard.ico">Resources/copy-to-clipboard.ico</file>
     </qresource>
 </RCC>

@@ -79,78 +79,57 @@ QStringList QApplicationSettings::GetGroupNames()
 void QApplicationSettings::setValue(const QString group,const QString key,const QVariant &value)
 {
 	locker->lock();
-	settingsStorrage[group][key]=value;
+	settings->beginGroup(group);
+	settings->setValue(key,value);
+	settings->endGroup();
 	qDebug() << "QApplicationSettings::setValue " << group << " " << key << " " << value;
 	locker->unlock();
 	WriteSettings();
 }
 
-QVariant QApplicationSettings::value(const QString group,const QString key)
+QVariant QApplicationSettings::value(const QString group,const QString key,QVariant default)
 {
 	locker->lock();
-	QVariant res = QVariant(QVariant::Double);
-	if (settingsStorrage.contains(group))
-		if (settingsStorrage[group].contains(key))
-			res=settingsStorrage[group][key];
+	QVariant res = QVariant();
+	settings->beginGroup(group);
+	res = settings->value(key);
+	if (!res.isValid() &&  default.isValid())
+	{
+		settings->setValue(key,default);
+		res=default;
+	}
+	settings->endGroup();
 	locker->unlock();
 	return res;
 }
 int QApplicationSettings::valueInt(const QString group,const QString key,int defalt)
 {
-	QVariant val=value(group,key);
-	//qDebug() << group << key << val << val.isNull() ;
-	if (val.isNull() )
+	try
 	{
-		settingsStorrage[group][key]=defalt;
+		QVariant val=value(group,key,defalt);
+		return val.toInt();
+	}
+	catch (...)
+	{
 		return defalt;
 	}
-	else
-		return val.toInt();
+
+
 }
 QString	QApplicationSettings::valueString(const QString group,const QString key,QString defalt)
 {
-	QVariant val=value(group,key);
-	//qDebug() << group << key << val << val.isNull() ;
-	if (val.isNull() )
-	{
-		settingsStorrage[group][key]=defalt;
-		return defalt;
-	}
-	else
-		return val.toString();
+	QVariant val=value(group,key,defalt);
+	return val.toString();
 }
 
 bool QApplicationSettings::valueBool(const QString group,const QString key,bool defalt)
 {
-	QVariant val=value(group,key);
-	//qDebug() << group << key << val << val.isNull() ;
-	if (val.isNull() )
-	{
-		settingsStorrage[group][key]=defalt;
-		return defalt;
-	}
-	else
-		return val.toBool();
+	QVariant val=value(group,key,defalt);
+	return val.toBool();
 }
 void  QApplicationSettings::ReedSettings()
 {
-	
-	QStringList rootGroups=settings->childGroups();
-	//qDebug() << "================================================";
-	for(int i=0;i<rootGroups.size();i++)
-	{
-		
-		settings->beginGroup(rootGroups.at(i));
-		QStringList keys= settings->childKeys();
-		for (int j=0;j<keys.size();j++)
-		{
-			//qDebug() << rootGroups.at(i) << keys.at(j) << settings->value(keys.at(j));
-			settingsStorrage[rootGroups.at(i)][keys.at(j)]=settings->value(keys.at(j));
-		}
-		settings->endGroup();
-	}
-	//qDebug() << "================================================";
-	
+	settings->sync();
 }
 void QApplicationSettings::SaveFilterGropups(QList<GroupForFileFiltering> filters)
 {
@@ -189,27 +168,7 @@ QList<GroupForFileFiltering> QApplicationSettings::GetFileFilterGroups()
 }
 void  QApplicationSettings::WriteSettings()
 {
-	
-	QMap<QString, QMap<QString,QVariant> >::const_iterator i = settingsStorrage.constBegin();
-	while (i != settingsStorrage.constEnd())
-	{
-		if (i.key()=="FileFiltering")
-		{
-			i++;
-			continue;
-		}
-		settings->beginGroup(i.key());
-		QMap<QString,QVariant>::const_iterator j=i.value().constBegin();
-		while (j != i.value().constEnd())
-		{
-			//qDebug() << QString("[%1] %2 %3" ).arg(i.key()).arg(j.key()).arg(j.value().toString());
-			settings->setValue(j.key(),j.value());
-			++j;
-		}
-		settings->endGroup();
-		++i;
-	}
-	
+	settings->sync();
 }
 
 QList<SchedulerTask> QApplicationSettings::GetSchedullerQueue()

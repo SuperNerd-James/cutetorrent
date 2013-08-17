@@ -12,7 +12,7 @@
 #include "httpconnectionhandler.h"
 #include "httpconnectionhandlerpool.h"
 #include "httprequesthandler.h"
-
+#include "QApplicationSettings.h"
 /**
   Listens for incoming TCP connections and and passes all incoming HTTP requests to your implementation of HttpRequestHandler,
   which processes the request and generates the response (usually a HTML document).
@@ -44,8 +44,8 @@ public:
       @param requestHandler Processes each received HTTP request, usually by dispatching to controller classes.
       @param parent Parent object.
     */
-    HttpListener(QSettings* settings, HttpRequestHandler* requestHandler, QObject* parent = 0);
-
+    HttpListener(HttpRequestHandler* requestHandler, QObject* parent = 0);
+	void Start();
     /** Destructor */
     virtual ~HttpListener();
 
@@ -57,7 +57,7 @@ protected:
 private:
 
     /** Configuration settings for the HTTP server */
-    QSettings* settings;
+    QApplicationSettings* settings;
 
     /** Pool of connection handlers */
     HttpConnectionHandlerPool* pool;

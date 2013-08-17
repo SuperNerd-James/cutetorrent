@@ -6,11 +6,15 @@
 #include "json/json.h"
 TorrentApiController::TorrentApiController( QObject* parent/*=0*/ ): HttpRequestHandler(parent),tManager(TorrentManager::getInstance())
 {
-
+	
 }
 
 void TorrentApiController::service( HttpRequest& request, HttpResponse& response )
 {
+	/*if (!CheckCreditinals(request,response))
+	{
+		return;
+	}*/
 	QMultiMap<QByteArray,QByteArray> parametrs=request.getParameterMap();
 	qDebug() << parametrs;
 	if (request.getMethod().toUpper()=="GET")
@@ -29,7 +33,7 @@ void TorrentApiController::service( HttpRequest& request, HttpResponse& response
 				if (ok)
 				{
 					QVector<Torrent*> torrents = tManager->GetQTorrents();
-					for (int i=iPage*iPageSize;i<std::min(torrents.count(),(iPage+1)*iPageSize);i++)
+					for (int i=(iPage-1)*iPageSize;i<std::min(torrents.count(),iPage*iPageSize);i++)
 					{
 						QtJson::JsonObject torrent;
 						torrent["id"] = torrents[i]->GetInfoHash();

@@ -3,6 +3,7 @@
 #include "MetaDataDownloadWaiter.h"
 MagnetApiController::MagnetApiController(QObject* parrent) : HttpRequestHandler(parrent),tManager(TorrentManager::getInstance())
 {
+	
 }
 
 MagnetApiController::~MagnetApiController(void)
@@ -10,7 +11,11 @@ MagnetApiController::~MagnetApiController(void)
 }
 
 void MagnetApiController::service( HttpRequest& request, HttpResponse& response )
-{
+{	
+	if (!CheckCreditinals(request,response))
+	{
+		return;
+	}
 	if (request.getMethod()=="POST")
 	{
 		QString magnetLink=request.getParameter("magnetLink");

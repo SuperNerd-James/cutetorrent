@@ -8,24 +8,15 @@
 #include "httpconnectionhandlerpool.h"
 #include <QCoreApplication>
 
-HttpListener::HttpListener(QSettings* settings, HttpRequestHandler* requestHandler, QObject *parent)
+HttpListener::HttpListener(HttpRequestHandler* requestHandler, QObject *parent)
     : QTcpServer(parent)
 {
-    Q_ASSERT(settings!=0);
+    qDebug() << "HttpListener::HttpListener";
     // Create connection handler pool
-    this->settings=settings;
-    pool=new HttpConnectionHandlerPool(settings,requestHandler);
-    // Start listening
-	qDebug() << settings->value("port");
-	qDebug() << settings;
-    int port=settings->value("port").toInt();
-    listen(QHostAddress::Any, port);
-    if (!isListening()) {
-        qCritical("HttpListener: Cannot bind on port %i: %s",port,qPrintable(errorString()));
-    }
-    else {
-        qDebug("HttpListener: Listening on port %i",port);
-    }
+	this->settings=QApplicationSettings::getInstance();
+    pool=new HttpConnectionHandlerPool(requestHandler);
+    
+	
 }
 
 HttpListener::~HttpListener() {
@@ -46,6 +37,7 @@ void HttpListener::incomingConnection(int socketDescriptor) {
     if (freeHandler) {
         // The descriptor is passed via signal/slot because the handler lives in another
         // thread and cannot open the socket when called by another thread.
+
         connect(this,SIGNAL(handleConnection(int)),freeHandler,SLOT(handleConnection(int)));
         emit handleConnection(socketDescriptor);
         disconnect(this,SIGNAL(handleConnection(int)),freeHandler,SLOT(handleConnection(int)));
@@ -59,4 +51,18 @@ void HttpListener::incomingConnection(int socketDescriptor) {
         socket->write("HTTP/1.1 503 too many connections\r\nConnection: close\r\n\r\nToo many connections\r\n");
         socket->disconnectFromHost();
     }
+}
+
+void HttpListener::Start()
+{
+	// Start listening
+	qDebug() << settings->value("WebControl","web_port");
+	int port=settings->value("WebControl","web_port").toInt();
+	listen(QHostAddress::Any, port);
+	if (!isListening()) {
+		qCritical("HttpListener: Cannot bind on port %i: %s",port,qPrintable(errorString()));
+	}
+	else {
+		qDebug("HttpListener: Listening on port %i",port);
+	}
 }

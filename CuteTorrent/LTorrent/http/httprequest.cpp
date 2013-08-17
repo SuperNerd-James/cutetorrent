@@ -7,13 +7,15 @@
 #include <QList>
 #include <QDir>
 #include "httpcookie.h"
-
-HttpRequest::HttpRequest(QSettings* settings) {
+#include "QApplicationSettings.h"
+HttpRequest::HttpRequest() {
+	QApplicationSettings* settings = QApplicationSettings::getInstance();
     status=waitForRequest;
     currentSize=0;
     expectedBodySize=0;
-    maxSize=settings->value("maxRequestSize","16000").toInt();
-    maxMultiPartSize=settings->value("maxMultiPartSize","1000000").toInt();
+    maxSize=settings->value("WebControl","maxRequestSize","16000").toInt();
+	maxMultiPartSize=settings->value("WebControl","maxMultiPartSize","1000000").toInt();
+	QApplicationSettings::FreeInstance();
 }
 
 void HttpRequest::readRequest(QTcpSocket& socket) {

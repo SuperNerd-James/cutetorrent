@@ -54,11 +54,22 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	setupFileTabel();
 	setupConnections();
 	
-	QApplicationSettings* settings=QApplicationSettings::getInstance();
+	settings=QApplicationSettings::getInstance();
 	
 	Application::setLanguage("cutetorrent_"+settings->valueString("System","Lang","RUSSIAN"));
-
-	
+	rcon = RconWebService::getInstance();
+	if (settings->valueBool("WebControl","webui_enabled",false))
+	{
+		rcon->Start();	
+		if (settings->valueBool("WebControl","enable_ipfilter",false))
+			rcon->parseIpFilter(settings->valueString("WebControl","ipfilter"));
+		if (settings->valueBool("WebControl","enable_upnp",false))
+		{
+			libtorrent::upnp* upnpMapper=mng->GetUpnp();
+			int port=settings->valueInt("WebControl","web_port",8080);
+			upnpMapper->add_mapping(upnp::tcp,port,port);
+		}
+	}
 	QTextCodec *wantUnicode = QTextCodec::codecForName("UTF-8");
 	QTextCodec::setCodecForCStrings(wantUnicode);
 	
@@ -122,7 +133,7 @@ void CuteTorrent::setupTabelWidgets()
 	trackerTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
 	trackerTableWidget->setColumnWidth(2,120);
 	trackerTableWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
-	addTracker = new QAction(tr("ADD_TRACKER"),trackerTableWidget);
+	addTracker = new QAction(QIcon(":/MenuIcons/addTorrent.ico"),tr("ADD_TRACKER"),trackerTableWidget);
 	QObject::connect(addTracker,SIGNAL(triggered()),this,SLOT(AddTracker()));
 	trackerTableWidget->addAction(addTracker);
 
@@ -133,7 +144,7 @@ void CuteTorrent::setupTabelWidgets()
 	peerTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
 	peerTableWidget->setSortingEnabled(true);
 	peerTableWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
-	addPeer = new QAction(tr("ADD_PEER"),peerTableWidget);
+	addPeer = new QAction(QIcon(":/MenuIcons/addTorrent.ico"),tr("ADD_PEER"),peerTableWidget);
 	QObject::connect(addPeer,SIGNAL(triggered()),this,SLOT(AddPeer()));
 	peerTableWidget->addAction(addPeer);
 
@@ -567,7 +578,7 @@ void CuteTorrent::createTrayIcon()
 	 quitAction = new QAction(tr("ACTION_EXIT"), this);
 	 connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
 
-	 copyContext = new QAction(tr("ACTION_COPY"),describtionLabel);
+	 copyContext = new QAction(QIcon(":/MenuIcons/copy-to-clipboard.ico"),tr("ACTION_COPY"),describtionLabel);
 	 connect(copyContext, SIGNAL(triggered()), this, SLOT(copyDiscribtion()));
 	 describtionLabel->addAction(copyContext);
 
@@ -728,6 +739,19 @@ void CuteTorrent::OpenSettingsDialog()
 	QObject::connect(dlg,SIGNAL(needRetranslate()),this,SLOT(retranslate()));
 	dlg->exec();
 	delete dlg;
+	if (settings->valueBool("WebControl","webui_enabled",false))
+	{
+		rcon->Start();	
+		if (settings->valueBool("WebControl","enable_ipfilter",false))
+			rcon->parseIpFilter(settings->valueString("WebControl","ipfilter"));
+	}
+	else
+	{
+		if (rcon->isRunning())
+		{
+			rcon->Stop();
+		}
+	}
 	updateTabWidget(-2);
 }
 void CuteTorrent::closeEvent(QCloseEvent* ce)
@@ -795,6 +819,7 @@ void CuteTorrent::dropEvent(QDropEvent *event)
 }
 CuteTorrent::~CuteTorrent()
 {
+	RconWebService::freeInstance();
 	trayIcon->hide();
 	mng->freeInstance();
 	model->~QTorrentDisplayModel();

@@ -6,7 +6,7 @@
 #include <QObject>
 #include <QMutex>
 #include "httpconnectionhandler.h"
-
+#include "QApplicationSettings.h"
 /**
   Pool of http connection handlers. Connection handlers are created on demand and idle handlers are
   cleaned up in regular time intervals.
@@ -38,7 +38,7 @@ public:
       @param requestHandler The handler that will process each received HTTP request.
       @warning The requestMapper gets deleted by the destructor of this pool
     */
-    HttpConnectionHandlerPool(QSettings* settings, HttpRequestHandler* requestHandler);
+    HttpConnectionHandlerPool(HttpRequestHandler* requestHandler);
 
     /** Destructor */
     virtual ~HttpConnectionHandlerPool();
@@ -49,7 +49,7 @@ public:
 private:
 
     /** Settings for this pool */
-    QSettings* settings;
+    QApplicationSettings* settings;
 
     /** Will be assigned to each Connectionhandler during their creation */
     HttpRequestHandler* requestHandler;
