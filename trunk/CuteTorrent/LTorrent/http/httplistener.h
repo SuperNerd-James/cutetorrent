@@ -44,14 +44,11 @@ public:
       @param requestHandler Processes each received HTTP request, usually by dispatching to controller classes.
       @param parent Parent object.
     */
-<<<<<<< .mine
+
     HttpListener(QString name,HttpRequestHandler* requestHandler, QObject* parent = 0);
 	void Start();
-=======
-    HttpListener(HttpRequestHandler* requestHandler, QObject* parent = 0);
-	void Start();
->>>>>>> .r166
-    /** Destructor */
+
+	/** Destructor */
     virtual ~HttpListener();
 
 protected:

@@ -8,17 +8,14 @@
 #include <QDir>
 #include <QDateTime>
 #include <QCryptographicHash>
-<<<<<<< .mine
+
 #include <QMessageBox>
 StaticFileController::StaticFileController(QObject* parent)
     :HttpRequestHandler("WebControl",parent)
-=======
-#include <QMessageBox>
-StaticFileController::StaticFileController(QObject* parent)
-    :HttpRequestHandler(parent)
->>>>>>> .r166
 {
-<<<<<<< .mine
+
+
+
 	
 	settings=QApplicationSettings::getInstance();
     maxAge=settings->valueInt("WebControl","maxAge",60000);
@@ -30,27 +27,11 @@ StaticFileController::StaticFileController(QObject* parent)
     cache.setMaxCost(settings->valueInt("WebControl","cacheSize",1000000));
 	//qDebug() << "cache.setMaxCost";
 	try
-=======
-	
-	settings=QApplicationSettings::getInstance();
-    maxAge=settings->valueInt("WebControl","maxAge",60000);
-    encoding=settings->valueString("WebControl","encoding","UTF-8");
-    docroot=settings->valueString("WebControl","path","./webControll/");
-	qDebug("StaticFileController: docroot=%s, encoding=%s, maxAge=%i",qPrintable(docroot),qPrintable(encoding),maxAge);
-    maxCachedFileSize=settings->valueInt("WebControl","maxCachedFileSize",65536);
-	qDebug("StaticFileController: maxCachedFileSize=%i",maxCachedFileSize);
-    cache.setMaxCost(settings->valueInt("WebControl","cacheSize",1000000));
-	qDebug() << "cache.setMaxCost";
-	try
->>>>>>> .r166
 	{
-<<<<<<< .mine
+
 		cacheTimeout=settings->valueInt("WebControl","cacheTime",60000);
 		//qDebug("StaticFileController: cache timeout=%i, size=%i",cacheTimeout,cache.maxCost());
-=======
-		cacheTimeout=settings->valueInt("WebControl","cacheTime",60000);
-		qDebug("StaticFileController: cache timeout=%i, size=%i",cacheTimeout,cache.maxCost());
->>>>>>> .r166
+
 	}
 	catch (...)
 	{

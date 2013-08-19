@@ -522,6 +522,7 @@ void QTorrentDisplayModel::retranslate()
 	MoveStorrage->setText(tr("ACTION_MOVE_STORRAGE"));
 	PlayInPlayer->setText(tr("ACTION_PLAY_IN_PLAYER"));
 	superSeed->setText(tr("ACTION_SET_SUPERSEED"));
+	GenerateMagnet->setText(tr("ACTION_GENERATE_MAGNET"));
 }
 
 void QTorrentDisplayModel::setSequentualDL()
@@ -602,8 +603,7 @@ void QTorrentDisplayModel::setupContextMenu()
 	setSequentual->setCheckable(true);
 	QObject::connect(setSequentual, SIGNAL(triggered()), this, SLOT(setSequentualDL()));
 	menu->addAction(setSequentual);
-	GenerateMagnet = new QAction(QIcon(":/MenuIcons/sequntioal-dl.ico"),tr("ACTION_SET_SEQUENTIAL"), parrent);
-	GenerateMagnet->setCheckable(true);
+	GenerateMagnet = new QAction(QIcon(":/MenuIcons/addUrl.ico"),tr("ACTION_GENERATE_MAGNET"), parrent);
 	QObject::connect(GenerateMagnet, SIGNAL(triggered()), this, SLOT(generateMagnetLink()));
 	menu->addAction(GenerateMagnet);
 	menu->addSeparator();
@@ -666,7 +666,11 @@ void QTorrentDisplayModel::onTorrentRemove(  QString InfoHash )
 
 void QTorrentDisplayModel::generateMagnetLink()
 {
-
+	Torrent* tor = GetSelectedTorrent();
+	if (tor!=NULL)
+	{
+		QApplication::clipboard()->setText(tor->generateMagnetLink());
+	}
 }
 
 

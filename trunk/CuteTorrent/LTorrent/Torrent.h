@@ -114,7 +114,8 @@ public :
 	bool operator<(Torrent*);
 	void SuperSeed();
 	bool isSuperSeed();
-	
+	QString generateMagnetLink();
+
 };
 
 //Q_DECLARE_METATYPE(Torrent)

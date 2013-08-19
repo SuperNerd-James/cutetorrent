@@ -166,7 +166,6 @@ void HttpConnectionHandler::read() {
 
     // If the request is complete, let the request mapper dispatch it
     if (currentRequest->getStatus()==HttpRequest::complete) {
-<<<<<<< .mine
 		readTimer.stop();
 		//qDebug("HttpConnectionHandler (%p): received request",this);
 		HttpResponse response(&socket);
@@ -186,27 +185,7 @@ void HttpConnectionHandler::read() {
 			}
 		}
 		// Finalize sending the response if not already done
-=======
-		readTimer.stop();
-		qDebug("HttpConnectionHandler (%p): received request",this);
-		HttpResponse response(&socket);
-		if (blockClient && settings->valueBool("WebControl","enable_ipfilter",false) )
-		{
-			response.setStatus(403,"Forbidden");
-			response.write("<h1>403 Forbidden<h1>",true);
-		}
-		else
-		{
-        
-			try {
-				requestHandler->service(*currentRequest, response);
-			}
-			catch (...) {
-				qCritical("HttpConnectionHandler (%p): An uncatched exception occured in the request handler",this);
-			}
-		}
-		// Finalize sending the response if not already done
->>>>>>> .r166
+
         if (!response.hasSentLastPart()) {
             response.write(QByteArray(),true);
         }

@@ -884,4 +884,9 @@ int Torrent::GetStatus()
 	return cur_torrent.status().state;
 }
 
+QString Torrent::generateMagnetLink()
+{
+	return QString::fromStdString(libtorrent::make_magnet_uri(cur_torrent));
+}
+
 
