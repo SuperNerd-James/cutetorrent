@@ -248,11 +248,8 @@ void SettingsDialog::ApplySettings()
 	settings->setValue("WebControl","log_name",					logLineEdit->text());
 	settings->setValue("WebControl","enable_ipfilter",			IPFilterGroupBox->isChecked());
 	settings->setValue("WebControl","ipfilter",					ipFilterTextEdit->toPlainText());
-<<<<<<< .mine
+
 	//ipFilterTextEdit->setText(settings->valueString("WebControl","ipfilter"));
-=======
-	ipFilterTextEdit->setText(settings->valueString("WebControl","ipfilter"));
->>>>>>> .r166
 	settings->SaveFilterGropups(filterGroups);
 	settings->setValue("TorrentTracker","enabled",trackerGroupBox->isChecked());
 	settings->setValue("TorrentTracker","port",trackerPortEdit->text());
