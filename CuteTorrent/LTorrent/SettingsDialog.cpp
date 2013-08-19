@@ -70,7 +70,7 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	FillHDDTab();
 	FillWebUITab();
 	SetupSchedullerTab();
-	////////////OS_SPECIFICK//////////////////////////
+	////OS_SPECIFICK////////
 #ifdef Q_WS_WIN
 	QSettings assocSettings ("HKEY_CLASSES_ROOT", QSettings::NativeFormat);                                                                                   
 	QString torrentAssociation=assocSettings.value (".torrent/.").toString();  
@@ -82,7 +82,7 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	runOnbootCheckBox->setChecked(val.length()>0);	
 	startMinimizedCheckBox->setChecked(val.contains("-m"));
 #endif
-	////////////OS_SPECIFICK//////////////////////////
+	////OS_SPECIFICK////////
 	QString curLoc=Application::currentLocale().split('_')[1];
 	foreach (QString avail, Application::availableLanguages())
 	{
@@ -133,6 +133,9 @@ void SettingsDialog::FillTorrentTab()
 		proxyUsernameEdit->setText(settings->valueString("Torrent","proxy_username"));
 		proxyPwdEdit->setText(settings->valueString("Torrent","proxy_password"));
 	}
+    trackerGroupBox->setChecked(settings->valueBool("TorrentTracker","enabled",false));
+    trackerPortEdit->setText(settings->valueString("TorrentTracker","port","6996"));
+
 }
 
 void SettingsDialog::FillFilteringGroups()
@@ -245,8 +248,14 @@ void SettingsDialog::ApplySettings()
 	settings->setValue("WebControl","log_name",					logLineEdit->text());
 	settings->setValue("WebControl","enable_ipfilter",			IPFilterGroupBox->isChecked());
 	settings->setValue("WebControl","ipfilter",					ipFilterTextEdit->toPlainText());
+<<<<<<< .mine
+	//ipFilterTextEdit->setText(settings->valueString("WebControl","ipfilter"));
+=======
 	ipFilterTextEdit->setText(settings->valueString("WebControl","ipfilter"));
+>>>>>>> .r166
 	settings->SaveFilterGropups(filterGroups);
+	settings->setValue("TorrentTracker","enabled",trackerGroupBox->isChecked());
+	settings->setValue("TorrentTracker","port",trackerPortEdit->text());
 #ifdef Q_WS_WIN //file association for windows
 	QSettings asocSettings ("HKEY_CLASSES_ROOT", QSettings::NativeFormat);   
 	QString base_dir=QDir::toNativeSeparators(settings->valueString("System","BaseDir"))+QDir::separator()+"CuteTorrent.exe";

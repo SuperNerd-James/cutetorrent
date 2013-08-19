@@ -23,6 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMessageBox>
 #include <QFileDialog>
 #include <QSpinBox>
+#include <QMenuBar>
+#include <QMenu>
 #include <QString>
 #include <QTimer>
 #include "ui_CuteTorrent.h"
@@ -41,6 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMutex>
 #include <QtNetwork/QHostAddress>
 #include <QScrollBar>
+#include "tracker/torrentracker.h"
 #include "RconWebService.h"
 Q_DECLARE_METATYPE(QHostAddress)
 class CuteTorrent : public QMainWindow , private Ui::CuteTorrentClass
@@ -64,6 +67,7 @@ protected:
     void dropEvent(QDropEvent *event);
 	void keyPressEvent ( QKeyEvent * event );
 private:
+    TorrentTracker* tracker;
 	QApplicationSettings* settings;
 	RconWebService* rcon;
 	int  m_nMouseClick_X_Coordinate;

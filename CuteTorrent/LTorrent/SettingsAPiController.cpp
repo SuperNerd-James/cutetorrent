@@ -1,6 +1,6 @@
 #include "SettingsAPiController.h"
 #include "json/json.h"
-SettingsAPiController::SettingsAPiController(QObject* parent) : HttpRequestHandler(parent),settings(QApplicationSettings::getInstance())
+SettingsAPiController::SettingsAPiController(QObject* parent) : HttpRequestHandler("WebControl",parent),settings(QApplicationSettings::getInstance())
 {
 	
 }
@@ -57,8 +57,8 @@ void SettingsAPiController::service( HttpRequest& request,HttpResponse& response
 		if (ok)
 		{
 			QVariantList groups = settingsVal["filteringGroups"].toList();
-			qDebug() << settingsVal << ok;
-			qDebug() << groups;
+			//qDebug() << settingsVal << ok;
+			//qDebug() << groups;
 			if (!ok)
 			{
 				response.setStatus(500,"Internal Server Error");
@@ -87,7 +87,7 @@ void SettingsAPiController::service( HttpRequest& request,HttpResponse& response
 		}
 		else
 		{
-			qDebug() << "Json couldn't be parsed";
+			//qDebug() << "Json couldn't be parsed";
 			response.setStatus(400,"Bad Request");
 			response.write("<BODY><h3>400 Bad Request.</h3></BODY>");
 		}

@@ -24,9 +24,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
 #define VERSION_MAJOR		0
+<<<<<<< .mine
+#define VERSION_MINOR		9
+#define VERSION_REVISION	0
+#define VERSION_TAG			2
+=======
 #define VERSION_MINOR		9
 #define VERSION_REVISION	0
 #define VERSION_TAG			1
+>>>>>>> .r166
 
 #define QU(x) #x
 #define QUH(x) QU(x)

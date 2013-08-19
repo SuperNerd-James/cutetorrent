@@ -1,7 +1,7 @@
 #include "MagnetApiController.h"
 
 #include "MetaDataDownloadWaiter.h"
-MagnetApiController::MagnetApiController(QObject* parrent) : HttpRequestHandler(parrent),tManager(TorrentManager::getInstance())
+MagnetApiController::MagnetApiController(QObject* parrent) : HttpRequestHandler("WebControl",parrent),tManager(TorrentManager::getInstance())
 {
 	
 }
@@ -20,7 +20,7 @@ void MagnetApiController::service( HttpRequest& request, HttpResponse& response 
 	{
 		QString magnetLink=request.getParameter("magnetLink");
 		QString savePath=request.getParameter("savePath");
-		qDebug() << request.getParameterMap();
+		//qDebug() << request.getParameterMap();
 		if (magnetLink.isEmpty() || savePath.isEmpty())
 		{
 			response.write("Invalid data passed");

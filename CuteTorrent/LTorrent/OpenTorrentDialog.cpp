@@ -217,7 +217,7 @@ void OpenTorrentDialog::DownloadMetadataCompleted(openmagnet_info info)
 	model = new FileTreeModel();
 	for (int i=0;i<files.count();i++)
 	{
-		qDebug() << "Adding to file tree model "+files.at(i);
+		//qDebug() << "Adding to file tree model "+files.at(i);
 		QStringList parts= files.at(i).split('|');
 		if (parts.count() >= 1)
 		{
@@ -231,7 +231,7 @@ void OpenTorrentDialog::DownloadMetadataCompleted(openmagnet_info info)
 
 
 	setUpdatesEnabled( true );
-	qDebug() << "base_suffix stuf started";
+	//qDebug() << "base_suffix stuf started";
 	if (!info.base_suffix.isEmpty())
 	{
 		try
@@ -260,7 +260,7 @@ void OpenTorrentDialog::DownloadMetadataCompleted(openmagnet_info info)
 		}
 		catch (std::exception ex)
 		{
-			qDebug() << ex.what();
+			//qDebug() << ex.what();
 		}
 		
 	} 

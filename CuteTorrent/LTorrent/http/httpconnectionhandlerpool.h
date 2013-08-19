@@ -38,7 +38,11 @@ public:
       @param requestHandler The handler that will process each received HTTP request.
       @warning The requestMapper gets deleted by the destructor of this pool
     */
+<<<<<<< .mine
+    HttpConnectionHandlerPool(QString name,HttpRequestHandler* requestHandler);
+=======
     HttpConnectionHandlerPool(HttpRequestHandler* requestHandler);
+>>>>>>> .r166
 
     /** Destructor */
     virtual ~HttpConnectionHandlerPool();
@@ -47,6 +51,7 @@ public:
     HttpConnectionHandler* getConnectionHandler();
 
 private:
+    QString serverName;
 
     /** Settings for this pool */
     QApplicationSettings* settings;

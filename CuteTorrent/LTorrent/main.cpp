@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#define DEBUG
+//#define DEBUG
 #include "CuteTorrent.h"
 #include <QDir>
 #include <qtsingleapplication.h>
@@ -33,6 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void myMessageOutput(QtMsgType type, const char *msg)
 {
+
 	fflush(stderr);
 	switch (type) {
 	 case QtDebugMsg:
@@ -55,7 +56,8 @@ int main(int argc, char *argv[])
 {
 	
 #ifdef DEBUG
-	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF|_CRTDBG_LEAK_CHECK_DF);
+    //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF|_CRTDBG_LEAK_CHECK_DF);
+
 	FILE * fp=freopen("ct_debug.log","a+",stderr);
 	qInstallMsgHandler(myMessageOutput);
 #endif // DEBUG

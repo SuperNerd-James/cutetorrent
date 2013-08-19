@@ -102,7 +102,7 @@ signals:
 	void TorrentCompleted(const QString&,const QString&);
 	void TorrentInfo(const QString&,const QString&);
 	void initCompleted();
-	void TorrentRemove(Torrent*);
+    void TorrentRemove(QString);
 protected:
 	TorrentManager();
 	~TorrentManager();

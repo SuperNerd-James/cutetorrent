@@ -4,7 +4,7 @@ RconWebService::RconWebService(void)
 {
 	
 	mapper = new RequestMapper(this);
-	listener = new HttpListener(mapper,this);
+    listener = new HttpListener("WebControl",mapper,this);
 }
 
 RconWebService::~RconWebService(void)
@@ -25,7 +25,7 @@ void RconWebService::Start()
 	}
 	else
 	{
-		listener = new HttpListener(mapper,this);
+        listener = new HttpListener("WebControl",mapper,this);
 		listener->Start();
 	}
 		
@@ -36,17 +36,17 @@ void RconWebService::Start()
 void RconWebService::parseIpFilter( QString ipFilterStr )
 {
 	QStringList lines = ipFilterStr.split("\n");
-	qDebug() << lines;
+	//qDebug() << lines;
 	foreach(QString line,lines)
 	{
-		qDebug()<< "parsing line:" << line;
+		//qDebug()<< "parsing line:" << line;
 		if (line.trimmed().startsWith("#"))
 		{
-			qDebug()<< "line:" << line << "is comment so skiping it";
+			//qDebug()<< "line:" << line << "is comment so skiping it";
 			continue;
 		}
 		QStringList parts = line.trimmed().split(' ');
-		qDebug() << "parts:" << parts;
+		//qDebug() << "parts:" << parts;
 		if(parts[0]=="allow" || parts[0]=="deny")
 		{
 			if(parts[0]=="allow")
@@ -68,7 +68,7 @@ void RconWebService::parseIpFilter( QString ipFilterStr )
 				}
 				else
 				{
-					qDebug()<< "line:" << line << "not match parts[1].contains('*') && !parts[1].contains('-')";
+					//qDebug()<< "line:" << line << "not match parts[1].contains('*') && !parts[1].contains('-')";
 
 				}
 				if (parts[1].contains('-') && !parts[1].contains('*'))
@@ -87,7 +87,7 @@ void RconWebService::parseIpFilter( QString ipFilterStr )
 				}
 				else
 				{
-					qDebug()<< "line:" << line << "not match parts[1].contains('-') && !parts[1].contains('*')";
+					//qDebug()<< "line:" << line << "not match parts[1].contains('-') && !parts[1].contains('*')";
 				}
 			}
 			else
@@ -104,7 +104,7 @@ void RconWebService::parseIpFilter( QString ipFilterStr )
 					QString endIP = parts[1].replace("*","255").trimmed();
 					QHostAddress start(startIP);
 					QHostAddress end(endIP);
-					qDebug() << "deny: start: " << start << "end: " <<end;
+					//qDebug() << "deny: start: " << start << "end: " <<end;
 					if(start.toIPv4Address() > end.toIPv4Address())
 					{
 						qSwap(start,end);
@@ -114,7 +114,7 @@ void RconWebService::parseIpFilter( QString ipFilterStr )
 				}
 				else
 				{
-					qDebug()<< "line:" << line << "not match parts[1].contains('*') && !parts[1].contains('-')";
+					//qDebug()<< "line:" << line << "not match parts[1].contains('*') && !parts[1].contains('-')";
 				}
 				if (parts[1].contains('-') && !parts[1].contains('*'))
 				{
@@ -132,19 +132,19 @@ void RconWebService::parseIpFilter( QString ipFilterStr )
 				}
 				else
 				{
-				qDebug()<< "line:" << line << "not match parts[1].contains('-') && !parts[1].contains('*')";
+				//qDebug()<< "line:" << line << "not match parts[1].contains('-') && !parts[1].contains('*')";
 				}
 			}
 		}
 		else
 		{
-			qDebug()<< "line:" << line << "is invalid";
+			//qDebug()<< "line:" << line << "is invalid";
 		}
 	}
 	HttpConnectionHandler::allowedIP=allowedIP;
 	HttpConnectionHandler::notAllowedIP=notAllowedIP;
-	qDebug() << "notAllowedIP:" << notAllowedIP;
-	qDebug() << "allowedIP:"    << allowedIP;
+	//qDebug() << "notAllowedIP:" << notAllowedIP;
+	//qDebug() << "allowedIP:"    << allowedIP;
 }
 
 bool RconWebService::isRunning()
