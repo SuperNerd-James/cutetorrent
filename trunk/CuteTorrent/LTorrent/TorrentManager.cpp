@@ -280,7 +280,7 @@ void TorrentManager::handle_alert(alert* a)
 				}
 				catch (...)
 				{
-					qDebug() << "Exception in metadata_received_alert";
+					//qDebug() << "Exception in metadata_received_alert";
 				}
 				
 				
@@ -801,7 +801,7 @@ openmagnet_info* TorrentManager::GetTorrentInfo( torrent_handle handle )
 void TorrentManager::RemoveTorrent(torrent_handle h,bool delFiles)
 {
 	Torrent* tor = new Torrent(h);
-	emit TorrentRemove(tor);
+    emit TorrentRemove(tor->GetInfoHash());
 	std::string info_hash=to_hex(h.info_hash().to_string());
 	QString infoHash=QString::fromStdString(info_hash);
 	for (int i=0;i<torrents.size();i++)
@@ -835,11 +835,11 @@ void TorrentManager::RemoveTorrent(torrent_handle h,bool delFiles)
 	}
 	catch (libtorrent::libtorrent_exception e)
 	{
-		qDebug() << e.what();
+		//qDebug() << e.what();
 	}
 	catch(...)
 	{
-		qDebug() << "Not a libtorrent exception caught";
+		//qDebug() << "Not a libtorrent exception caught";
 	}
 	
 

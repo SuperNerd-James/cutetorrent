@@ -8,10 +8,29 @@
 #include <QDir>
 #include <QDateTime>
 #include <QCryptographicHash>
+<<<<<<< .mine
+#include <QMessageBox>
+StaticFileController::StaticFileController(QObject* parent)
+    :HttpRequestHandler("WebControl",parent)
+=======
 #include <QMessageBox>
 StaticFileController::StaticFileController(QObject* parent)
     :HttpRequestHandler(parent)
+>>>>>>> .r166
 {
+<<<<<<< .mine
+	
+	settings=QApplicationSettings::getInstance();
+    maxAge=settings->valueInt("WebControl","maxAge",60000);
+    encoding=settings->valueString("WebControl","encoding","UTF-8");
+    docroot=settings->valueString("WebControl","path","./webControll/");
+	//qDebug("StaticFileController: docroot=%s, encoding=%s, maxAge=%i",qPrintable(docroot),qPrintable(encoding),maxAge);
+    maxCachedFileSize=settings->valueInt("WebControl","maxCachedFileSize",65536);
+	//qDebug("StaticFileController: maxCachedFileSize=%i",maxCachedFileSize);
+    cache.setMaxCost(settings->valueInt("WebControl","cacheSize",1000000));
+	//qDebug() << "cache.setMaxCost";
+	try
+=======
 	
 	settings=QApplicationSettings::getInstance();
     maxAge=settings->valueInt("WebControl","maxAge",60000);
@@ -23,9 +42,15 @@ StaticFileController::StaticFileController(QObject* parent)
     cache.setMaxCost(settings->valueInt("WebControl","cacheSize",1000000));
 	qDebug() << "cache.setMaxCost";
 	try
+>>>>>>> .r166
 	{
+<<<<<<< .mine
+		cacheTimeout=settings->valueInt("WebControl","cacheTime",60000);
+		//qDebug("StaticFileController: cache timeout=%i, size=%i",cacheTimeout,cache.maxCost());
+=======
 		cacheTimeout=settings->valueInt("WebControl","cacheTime",60000);
 		qDebug("StaticFileController: cache timeout=%i, size=%i",cacheTimeout,cache.maxCost());
+>>>>>>> .r166
 	}
 	catch (...)
 	{
@@ -58,14 +83,14 @@ void StaticFileController::service(HttpRequest& request, HttpResponse& response)
     if (entry && (cacheTimeout==0 || entry->created>now-cacheTimeout) && QFileInfo(docroot+path).lastModified().toMSecsSinceEpoch() <= entry->created) {       
         QByteArray document=entry->document; //copy the cached document, because other threads may destroy the cached entry immediately after mutex unlock.
         mutex.unlock();
-        qDebug("StaticFileController: Cache hit for %s",path.data());
+        //qDebug("StaticFileController: Cache hit for %s",path.data());
         setContentType(path,response);
         response.setHeader("Cache-Control","max-age="+QByteArray::number(maxAge/1000));
         response.write(document);
     }
     else {
         mutex.unlock();
-        qDebug("StaticFileController: Cache miss for %s",path.data());
+        //qDebug("StaticFileController: Cache miss for %s",path.data());
         // The file is not in cache.
         // If the filename is a directory, append index.html.
         if (QFileInfo(docroot+path).isDir()) {
@@ -73,7 +98,7 @@ void StaticFileController::service(HttpRequest& request, HttpResponse& response)
         }
         QFile file(docroot+path);
         if (file.exists()) {
-            qDebug("StaticFileController: Open file %s",qPrintable(file.fileName()));
+            //qDebug("StaticFileController: Open file %s",qPrintable(file.fileName()));
             if (file.open(QIODevice::ReadOnly)) {
                 setContentType(path,response);
                 response.setHeader("Cache-Control","max-age="+QByteArray::number(maxAge/1000));
@@ -164,23 +189,23 @@ bool StaticFileController::CheckCreditinals( HttpRequest& request,HttpResponse& 
 	QString parametrs = autorsation.remove(0,method.length());
 	QMap<QString,QString>* parametrsMap = new QMap<QString,QString>();;
 	QStringList paremaetrsParts = parametrs.split(',');
-	qDebug() << paremaetrsParts;
+	//qDebug() << paremaetrsParts;
 	for (int i=0;i<paremaetrsParts.count();i++)
 	{
 		QStringList keyValue = paremaetrsParts[i].split('=');
-		qDebug() << keyValue;
+		//qDebug() << keyValue;
 		if (keyValue.count() ==2)
 		{
 			parametrsMap->insert(keyValue[0].trimmed(),keyValue[1].trimmed().replace("\"",""));
 		}
 		else
 		{
-			qDebug() << "unable to parse "	<< keyValue;
+			//qDebug() << "unable to parse "	<< keyValue;
 		}
 	}
 	if (parametrsMap->value("username")!=account.username)
 	{
-		qDebug() << "Username not match";
+		//qDebug() << "Username not match";
 		response.setStatus(401,"Unauthorized");
 		response.setHeader("WWW-Authenticate","Digest realm=\"realm@host.com\",qop=\"auth,auth-int\",nonce=\"dcd98b7102dd2f0e8b11d0f600bfb0c093\",opaque=\"5ccc069c403ebaf9f0171e9517f40e41\"");
 		response.write("<BODY><H1>401 Unauthorized.</H1></BODY>");
@@ -196,15 +221,15 @@ bool StaticFileController::CheckCreditinals( HttpRequest& request,HttpResponse& 
 													HA2.toHex()).toUtf8(),QCryptographicHash::Md5);
 	if (Response.toHex()!=parametrsMap->value("response"))
 	{
-		qDebug() << "Username not match";
+		//qDebug() << "Username not match";
 		response.setStatus(401,"Unauthorized");
 		response.setHeader("WWW-Authenticate","Digest realm=\"realm@host.com\",qop=\"auth,auth-int\",nonce=\"dcd98b7102dd2f0e8b11d0f600bfb0c093\",opaque=\"5ccc069c403ebaf9f0171e9517f40e41\"");
 		response.write("<BODY><H1>401 Unauthorized.</H1></BODY>");
 		return false;
 	}
 
-	qDebug() << Response.toHex();												
-	qDebug() << *parametrsMap;
+	//qDebug() << Response.toHex();												
+	//qDebug() << *parametrsMap;
 	delete parametrsMap;
 	return true;
 	

@@ -82,7 +82,7 @@ void QApplicationSettings::setValue(const QString group,const QString key,const 
 	settings->beginGroup(group);
 	settings->setValue(key,value);
 	settings->endGroup();
-	qDebug() << "QApplicationSettings::setValue " << group << " " << key << " " << value;
+	//qDebug() << "QApplicationSettings::setValue " << group << " " << key << " " << value;
 	locker->unlock();
 	WriteSettings();
 }

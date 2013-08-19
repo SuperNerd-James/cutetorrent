@@ -13,7 +13,7 @@
 #include <QSettings>
 #include <QTemporaryFile>
 #include <QUuid>
-
+#include <QHostAddress>
 /**
   This object represents a single HTTP request. It reads the request
   from a TCP socket and provides getters for the individual parts
@@ -108,6 +108,8 @@ public:
 
     /** Get the HTTP request body  */
     QByteArray getBody() const;
+    /** Get the Client IP Address  */
+    QHostAddress getSource();
 
     /**
       Decode an URL parameter.
@@ -161,7 +163,8 @@ private:
 
     /** Request protocol version */
     QByteArray version;
-
+    /** Client IP addres */
+    QHostAddress source;
     /**
       Status of this request.
       @see RequestStatus

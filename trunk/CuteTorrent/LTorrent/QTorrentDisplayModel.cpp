@@ -41,7 +41,7 @@ QTorrentDisplayModel::QTorrentDisplayModel(QListView* _parrent,QObject* __parren
 	locker = new QMutex();
 
 	timer = new QTimer(this);
-	QObject::connect(mgr,SIGNAL(TorrentRemove(Torrent*)),this,SLOT(onTorrentRemove(Torrent*)));
+    QObject::connect(mgr,SIGNAL(TorrentRemove(QString)),this,SLOT(onTorrentRemove(QString)));
 	QObject::connect(timer, SIGNAL(timeout()), this, SLOT(updateVisibleTorrents()));
 	timer->start(1000);
 
@@ -158,8 +158,8 @@ void QTorrentDisplayModel::updateVisibleTorrents()
 	locker->lock();
 	try
 	{
-		
-	
+
+
 	
 		mgr->PostTorrentUpdate();
 		if (!parrent->isVisible())
@@ -482,7 +482,7 @@ bool QTorrentDisplayModel::removeRow(int row, bool delFiles)
     parrent->selectionModel()->reset();
 	locker->lock();
     torrents.at( row )->RemoveTorrent(mgr,delFiles);
-    torrents.erase(torrents.begin() + row);
+  //  torrents.erase(torrents.begin() + row);
 	locker->unlock();
     return true;
 }
@@ -499,7 +499,7 @@ bool QTorrentDisplayModel::removeRows(int row, int count, const QModelIndex &par
     for  (int i=row;i<row+count;i++)
     {
         torrents.at( i )->RemoveTorrent(mgr);
-        torrents.erase(torrents.begin() + i);
+  //    torrents.erase(torrents.begin() + i);
     }
     return true;
 }
@@ -602,6 +602,10 @@ void QTorrentDisplayModel::setupContextMenu()
 	setSequentual->setCheckable(true);
 	QObject::connect(setSequentual, SIGNAL(triggered()), this, SLOT(setSequentualDL()));
 	menu->addAction(setSequentual);
+	GenerateMagnet = new QAction(QIcon(":/MenuIcons/sequntioal-dl.ico"),tr("ACTION_SET_SEQUENTIAL"), parrent);
+	GenerateMagnet->setCheckable(true);
+	QObject::connect(GenerateMagnet, SIGNAL(triggered()), this, SLOT(generateMagnetLink()));
+	menu->addAction(GenerateMagnet);
 	menu->addSeparator();
 	DelAll = new QAction(QIcon(":/MenuIcons/delete.ico"),tr("ACTION_DELETE_ALL"), parrent);
 	QObject::connect(DelAll, SIGNAL(triggered()), this, SLOT(DellAll()));
@@ -642,22 +646,27 @@ QVector<Torrent*> QTorrentDisplayModel::GetTorrents()
 	return torrents;
 }
 
-void QTorrentDisplayModel::onTorrentRemove( Torrent* torrentToRemove )
+void QTorrentDisplayModel::onTorrentRemove(  QString InfoHash )
 {
-	QString InfoHash = torrentToRemove->GetInfoHash();
-	int i=0;
+
+    int i=0;
 	for (QVector<Torrent*>::const_iterator tor=torrents.begin();
 		tor!=torrents.end();
 		tor++
 		)
 	{
 		if( (*tor)->GetInfoHash() == InfoHash )
-		{
-			torrents.remove(i);
+        {
+            torrents.remove(i);
 			break;
 		}
 		i++;
-	}
+    }
+}
+
+void QTorrentDisplayModel::generateMagnetLink()
+{
+
 }
 
 

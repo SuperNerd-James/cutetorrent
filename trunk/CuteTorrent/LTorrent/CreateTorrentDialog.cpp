@@ -235,7 +235,7 @@ void CreateTorrentDialog::UpdateProgressBar(int val)
 }
 
 
-//////////////////torrentCreatorThread\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+//////torrentCreatorThread\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
 #include "libtorrent/entry.hpp"
 #include "libtorrent/bencode.hpp"

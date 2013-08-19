@@ -4,7 +4,7 @@
 #include <QUrl>
 #include <QTextDocument>
 #include "json/json.h"
-TorrentApiController::TorrentApiController( QObject* parent/*=0*/ ): HttpRequestHandler(parent),tManager(TorrentManager::getInstance())
+TorrentApiController::TorrentApiController( QObject* parent/*=0*/ ): HttpRequestHandler("WebControl",parent),tManager(TorrentManager::getInstance())
 {
 	
 }
@@ -16,7 +16,7 @@ void TorrentApiController::service( HttpRequest& request, HttpResponse& response
 		return;
 	}*/
 	QMultiMap<QByteArray,QByteArray> parametrs=request.getParameterMap();
-	qDebug() << parametrs;
+	//qDebug() << parametrs;
 	if (request.getMethod().toUpper()=="GET")
 	{
 		QtJson::JsonArray respJson;

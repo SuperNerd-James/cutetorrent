@@ -76,6 +76,7 @@ private:
 	QAction* updateTrackers;
 	QAction* MoveStorrage;
 	QAction* PlayInPlayer;
+	QAction* GenerateMagnet;
 	TorrentManager* mgr;
     Torrent* CurrentTorrent;
 	QTimer* timer;
@@ -106,7 +107,7 @@ signals:
 	void TorrentErrorPoxySender(const QString&);
 public slots:
 	void AddTorrent(Torrent*);
-	void onTorrentRemove(Torrent*);
+    void onTorrentRemove(QString);
 	void UpdateSelectedIndex(const QItemSelection &);
 	void TorrentErrorProxy(const QString&);
 	void TorrentCompletedProxy(const QString);
@@ -123,6 +124,7 @@ public slots:
 	void updateVisibleTorrents();
 	void SetSuperSeed();
 	void initSessionFinished();
+	void generateMagnetLink();
 };
 
 

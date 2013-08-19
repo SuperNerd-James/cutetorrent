@@ -1,4 +1,4 @@
-/*
+п»ї/*
 CuteTorrent BitTorrenttClient with dht support, userfriendly interface
 and some additional features which make it more convenient.
 Copyright (C) <year>  <name of author>
@@ -45,17 +45,22 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	notyfire = new UpdateNotifier();
 	mayShowNotifies = false;
 	fileinfosLocker = new QMutex(QMutex::NonRecursive);
+   // setWindowFlags(Qt::FramelessWindowHint);
     setAcceptDrops(true);
 	setupStatusBar();
 	setupTray();
-	setupToolBar();
+    setupToolBar();
 	setupListView();
 	setupTabelWidgets();
 	setupFileTabel();
 	setupConnections();
 	
+    tracker = new TorrentTracker(this);
+
 	settings=QApplicationSettings::getInstance();
 	
+
+
 	Application::setLanguage("cutetorrent_"+settings->valueString("System","Lang","RUSSIAN"));
 	rcon = RconWebService::getInstance();
 	if (settings->valueBool("WebControl","webui_enabled",false))
@@ -70,6 +75,11 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 			upnpMapper->add_mapping(upnp::tcp,port,port);
 		}
 	}
+    if (settings->valueBool("TorrentTracker","enabled",false))
+    {
+        tracker->start();
+    }
+
 	QTextCodec *wantUnicode = QTextCodec::codecForName("UTF-8");
 	QTextCodec::setCodecForCStrings(wantUnicode);
 	
@@ -470,7 +480,7 @@ void CuteTorrent::UpdateFileTab()
 	}
 	catch (...)
 	{
-		qDebug() << "Exception in CuteTorrent::UpdateFileTab";
+		//qDebug() << "Exception in CuteTorrent::UpdateFileTab";
 	}
 	
 }
@@ -607,7 +617,7 @@ void CuteTorrent::ShowOpenTorrentDialog()
 	QApplicationSettings* settings=QApplicationSettings::getInstance();
 	QString lastDir=settings->valueString("System","LastOpenTorrentDir","");
 	QString filename =  QFileDialog::getOpenFileName(this,tr("OPEN_TOORENT_DIALOG"),
-		lastDir , tr("Торрент файлы (*.torrent);;Any File (*.*)"));
+		lastDir , tr("TORRENT_FILES (*.torrent);;Any File (*.*)"));
 	if (!filename.isEmpty())
 	{
 		OpenTorrentDialog* dlg=new OpenTorrentDialog(this);
@@ -620,6 +630,7 @@ void CuteTorrent::ShowOpenTorrentDialog()
 }
 void CuteTorrent::enableNitifyShow()
 {
+
 	model->sort();
 	mayShowNotifies = true;
 }
@@ -752,6 +763,15 @@ void CuteTorrent::OpenSettingsDialog()
 			rcon->Stop();
 		}
 	}
+	//qDebug() << "TorrentTracker enabled" << settings->valueBool("TorrentTracker","enabled",false);
+	if (settings->valueBool("TorrentTracker","enabled",false))
+    {
+        tracker->start();
+    }
+    else
+    {
+        tracker->stop();
+    }
 	updateTabWidget(-2);
 }
 void CuteTorrent::closeEvent(QCloseEvent* ce)
