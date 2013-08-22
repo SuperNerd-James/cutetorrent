@@ -35,7 +35,7 @@ TorrentManager::TorrentManager()
 {
 
 	try{
-	
+	torrents = TorrentStorrage::getInstance();
 	torrentSettings = QApplicationSettings::getInstance();
 	
 	ses = new session(fingerprint("CT", VERSION_MAJOR ,VERSION_MINOR,VERSION_REVISION ,VERSION_TAG)
@@ -288,6 +288,11 @@ void TorrentManager::handle_alert(alert* a)
 			}
 			break;
 		}
+		case portmap_alert::alert_type:
+			{
+				portmap_alert* alert = alert_cast<portmap_alert>(a);
+				emit TorrentInfo("",QString::fromStdString(alert->message()));
+			}
 		case performance_alert::alert_type:
 		/*{
 			performance_alert* p=alert_cast<performance_alert>(a);
@@ -464,7 +469,7 @@ bool TorrentManager::AddTorrent(QString path, QString save_path,QMap<QString,int
 		}
 		Torrent* current=new Torrent(h);
 		emit AddTorrentGui(current);
-		torrents.append(current);
+		torrents->append(current);
 		QFileInfo file(path);
 		h.set_max_connections(max_connections_per_torrent);
 		QFile::copy(path,combine_path(QDir::currentPath().toAscii().data(),combine_path("CT_DATA",(to_hex(t->info_hash().to_string())+".torrent").c_str()).c_str()).c_str());
@@ -739,6 +744,7 @@ TorrentManager::~TorrentManager()
 {
 
 	onClose();
+	TorrentStorrage::freeInstance();
 	QApplicationSettings::FreeInstance();
 }
 
@@ -804,11 +810,11 @@ void TorrentManager::RemoveTorrent(torrent_handle h,bool delFiles)
     emit TorrentRemove(tor->GetInfoHash());
 	std::string info_hash=to_hex(h.info_hash().to_string());
 	QString infoHash=QString::fromStdString(info_hash);
-	for (int i=0;i<torrents.size();i++)
+	for (int i=0;i<torrents->count();i++)
 	{
-		if (torrents[i]->GetInfoHash()==infoHash)
+		if (torrents->at(i)->GetInfoHash()==infoHash)
 		{
-			torrents.remove(i);
+			torrents->remove(infoHash);
 			break;
 		}
 	}
@@ -992,7 +998,7 @@ bool TorrentManager::AddMagnet( torrent_handle h,QString SavePath,QMap<QString,i
 		save_path_data.insert(to_hex(h.info_hash().to_string()).c_str(),SavePath);
 	}
 	Torrent* current = new Torrent(h);
-	torrents.append(current);
+	torrents->append(current);
     UpdatePathResumeAndLinks();
 	return true;
 	
@@ -1078,8 +1084,4 @@ Torrent* TorrentManager::GetTorrentByInfoHash( sha1_hash hash )
 libtorrent::upnp* TorrentManager::GetUpnp()
 {
 	return m_upnp;
-}
-QVector<Torrent*> TorrentManager::GetQTorrents()
-{
-	return torrents;
 }

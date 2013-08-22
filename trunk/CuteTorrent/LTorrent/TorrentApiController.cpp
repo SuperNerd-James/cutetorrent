@@ -6,7 +6,7 @@
 #include "json/json.h"
 TorrentApiController::TorrentApiController( QObject* parent/*=0*/ ): HttpRequestHandler("WebControl",parent),tManager(TorrentManager::getInstance())
 {
-	
+	torrents = TorrentStorrage::getInstance();	
 }
 
 void TorrentApiController::service( HttpRequest& request, HttpResponse& response )
@@ -32,32 +32,33 @@ void TorrentApiController::service( HttpRequest& request, HttpResponse& response
 				int iPageSize = pageSize.toInt(&ok);
 				if (ok)
 				{
-					QVector<Torrent*> torrents = tManager->GetQTorrents();
-					for (int i=(iPage-1)*iPageSize;i<std::min(torrents.count(),iPage*iPageSize);i++)
+					
+					for (int i=(iPage-1)*iPageSize;i<std::min(torrents->count(),iPage*iPageSize);i++)
 					{
 						QtJson::JsonObject torrent;
-						torrent["id"] = torrents[i]->GetInfoHash();
-						torrent["torrentType"]=torrents[i]->GetType();
-						torrent["torrentName"]=torrents[i]->GetName();
-						torrent["torrentStatus"]=QString::number(torrents[i]->GetStatus());
-						torrent["hasError"]=torrents[i]->hasError();
-						torrent["isPaused"]=torrents[i]->isPaused();
-						torrent["errorMessage"]= torrents[i]->GetErrorMessage();
-						torrent["progress"]=QString::number(torrents[i]->GetProgress()) ;
-						torrent["escapedTime"]=torrents[i]->GetActiveTime() ;	
-						torrent["remainingTime"]=torrents[i]->GetRemainingTime() ;	
-						torrent["dlSpeed"]=torrents[i]->GetDwonloadSpeed() ;	
-						torrent["ulSpeed"]=torrents[i]->GetUploadSpeed() ;	
-						torrent["dlSize"]=torrents[i]->GetTotalDownloaded() ;	
-						torrent["ulSize"]=torrents[i]->GetTotalUploaded() ;	
-						torrent["describtion"]=torrents[i]->GetDiscribtion() ;	
-						torrent["torrentSize"]=torrents[i]->GetTotalSize() ;	
-						torrent["savePath"]= torrents[i]->GetSavePath();	
-						torrent["seedStr"]=torrents[i]->GetSeedString() ;	
-						torrent["peerStr"]=torrents[i]->GetPeerString() ;	
-						torrent["torrentsCount"] = torrents.count();
+						Torrent* curret=torrents->at(i);
+						torrent["id"] = curret->GetInfoHash();
+						torrent["torrentType"]=curret->GetType();
+						torrent["torrentName"]=curret->GetName();
+						torrent["torrentStatus"]=QString::number(curret->GetStatus());
+						torrent["hasError"]=curret->hasError();
+						torrent["isPaused"]=curret->isPaused();
+						torrent["errorMessage"]= curret->GetErrorMessage();
+						torrent["progress"]=QString::number(curret->GetProgress()) ;
+						torrent["escapedTime"]=curret->GetActiveTime() ;	
+						torrent["remainingTime"]=curret->GetRemainingTime() ;	
+						torrent["dlSpeed"]=curret->GetDwonloadSpeed() ;	
+						torrent["ulSpeed"]=curret->GetUploadSpeed() ;	
+						torrent["dlSize"]=curret->GetTotalDownloaded() ;	
+						torrent["ulSize"]=curret->GetTotalUploaded() ;	
+						torrent["describtion"]=curret->GetDiscribtion() ;	
+						torrent["torrentSize"]=curret->GetTotalSize() ;	
+						torrent["savePath"]= curret->GetSavePath();	
+						torrent["seedStr"]=curret->GetSeedString() ;	
+						torrent["peerStr"]=curret->GetPeerString() ;	
+						torrent["torrentsCount"] = torrents->count();
 						QtJson::JsonArray peers;
-						std::vector<peer_info> peerInfos=torrents[i]->GetPeerInfo();
+						std::vector<peer_info> peerInfos=curret->GetPeerInfo();
 						for (int j=0;j<peerInfos.size();j++)
 						{
 							QtJson::JsonObject peer;
@@ -67,35 +68,37 @@ void TorrentApiController::service( HttpRequest& request, HttpResponse& response
 							peer["peerDlSpeed"]=StaticHelpers::toKbMbGb(peerInfos[j].down_speed)+"/s" ;	
 							peer["peerUlSpeed"]=StaticHelpers::toKbMbGb(peerInfos[j].up_speed)+"/s" ;	
 							peer["dlSize"]=StaticHelpers::toKbMbGb(peerInfos[j].total_download) ;
-							peer["ulSize"]=StaticHelpers::toKbMbGb(peerInfos[j].total_upload) +"\"";
+                            peer["ulSize"]=StaticHelpers::toKbMbGb(peerInfos[j].total_upload) ;
 							peers.append(peer);
 						}
 						torrent["peers"]=peers;
 
 
 						QtJson::JsonArray trackers;
-						std::vector<announce_entry> trackerInfos=torrents[i]->GetTrackerInfo();
+						std::vector<announce_entry> trackerInfos=curret->GetTrackerInfo();
 						for (int j=0;j<trackerInfos.size();j++)
 						{
 							QtJson::JsonObject tracker;
 							tracker["url"]=QString::fromStdString(trackerInfos[j].url) ;	
-							tracker["state"]= (trackerInfos[j].message.length() >0 ? QString::fromUtf8(trackerInfos[j].message.c_str()) : "Ok" ) +"\"";
+                            tracker["state"]= (trackerInfos[j].message.length() >0 ? QString::fromUtf8(trackerInfos[j].message.c_str()) : "Ok" );
 							trackers.append(tracker);
 						}
 						torrent["trackers"]=trackers;
 
 
 						QtJson::JsonArray files;
-						QList<file_info> fileinfo=torrents[i]->GetFileDownloadInfo();
-						for (int j=0;j<fileinfo.count();j++)
+                        files_info fileinfo=curret->GetFileDownloadInfo();
+                        int counter=0;
+                        for (file_storage::iterator j=fileinfo.storrage.begin();j!=fileinfo.storrage.end();j++)
 						{
 							QtJson::JsonObject file;
-							file_info current=fileinfo.at(j);
 
-							file["path"]= current.name;	
-							file["size"]=StaticHelpers::toKbMbGb(current.size) ;	
-							file["percent"]=QString::number(current.progrss,'f',0)+" %";	
-							file["priority"]= StaticHelpers::filePriorityToString(current.prioiry) +"\"";
+
+                            file["path"]= QString::fromStdString(fileinfo.storrage.file_path(*j));
+                            file["size"]=StaticHelpers::toKbMbGb(fileinfo.storrage.file_size(*j)) ;
+                            file["percent"]=QString::number(fileinfo.progresses[counter]*100.0f,'f',0)+" %";
+                            file["priority"]= StaticHelpers::filePriorityToString(fileinfo.priorities[counter]);
+                            counter++;
 							files.append(file);
 						}
 						torrent["files"]=files;
@@ -127,6 +130,11 @@ void TorrentApiController::service( HttpRequest& request, HttpResponse& response
 
 		
 	}
+}
+
+TorrentApiController::~TorrentApiController()
+{
+	TorrentStorrage::freeInstance();
 }
 
 

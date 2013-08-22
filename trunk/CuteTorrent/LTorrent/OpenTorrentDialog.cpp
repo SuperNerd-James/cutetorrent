@@ -265,3 +265,11 @@ void OpenTorrentDialog::DownloadMetadataCompleted(openmagnet_info info)
 		
 	} 
 }
+
+void OpenTorrentDialog::changeEvent( QEvent *event )
+{
+	if (event->type()==QEvent::LanguageChange)
+	{
+		retranslateUi(this);
+	}
+}

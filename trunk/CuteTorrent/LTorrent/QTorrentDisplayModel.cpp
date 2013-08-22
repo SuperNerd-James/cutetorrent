@@ -29,11 +29,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "VideoPlayer/VideoPlayerWindow.h"
 #include "DT_mounter.h"
 
-QVector<Torrent*> QTorrentDisplayModel::torrents;
+
 QTorrentDisplayModel::QTorrentDisplayModel(QListView* _parrent,QObject* __parrent):QAbstractListModel(__parrent)
 {
 	parrent=_parrent;
 	mgr = TorrentManager::getInstance();
+	torrents = TorrentStorrage::getInstance();
 	auto_id=0;
 	selectedRow=-1;
 	setupContextMenu();
@@ -71,12 +72,12 @@ void QTorrentDisplayModel::DellTorrentOnly()
 
 		return ;
 	}
-	Torrent* tor=torrents.at(selectedRow);
+	Torrent* tor=torrents->at(selectedRow);
 	if (tor!=NULL)
 	{
         removeRows(selectedRow,1);
-        /*int index=torrents.indexOf(tor);
-		torrents.erase(torrents.begin() + index);
+        /*int index=torrents->indexOf(tor);
+		torrents->erase(torrents->begin() + index);
 		tor->RemoveTorrent(mgr);
         parrent->selectionModel()->reset();*/
 	}
@@ -99,7 +100,7 @@ void QTorrentDisplayModel::DellAll()
 	}
 	try
 	{
-		Torrent* tor=torrents.at(selectedRow);
+		Torrent* tor=torrents->at(selectedRow);
 		if (tor!=NULL)
 		{
             removeRow(selectedRow,true);
@@ -167,7 +168,7 @@ void QTorrentDisplayModel::updateVisibleTorrents()
 			locker->unlock();
 			return;
 		}
-		QModelIndex top(index(0,0)),bot(index(torrents.count(),0));
+		QModelIndex top(index(0,0)),bot(index(torrents->count(),0));
 		emit dataChanged( top,bot );
 		emit updateTabSender(-1);
 		
@@ -266,7 +267,7 @@ void QTorrentDisplayModel::UpdateSelectedIndex(const QItemSelection & index)
 		{
 			
 			selectedRow= indexes[0].row();
-			CurrentTorrent=torrents.at(selectedRow);
+			CurrentTorrent=torrents->at(selectedRow);
 			
 		}
 		else
@@ -297,7 +298,7 @@ void QTorrentDisplayModel::AddTorrent(Torrent* tr)
 	if (tr!=NULL)
 	{
 	//	locker->lock();
-		torrents.append(tr);
+		torrents->append(tr);
 	//	sort();
 	//	locker->unlock();
 	}
@@ -318,8 +319,8 @@ void QTorrentDisplayModel::ChangeData(int row)
 int QTorrentDisplayModel::hasTorrent(const QString& InfoHash) const
 {
 	int i=0;
-	for (QVector<Torrent*>::const_iterator tor=torrents.begin();
-		tor!=torrents.end();
+	for (QList<Torrent*>::const_iterator tor=torrents->begin();
+		tor!=torrents->end();
 		tor++
 		)
 	{
@@ -331,14 +332,14 @@ int QTorrentDisplayModel::hasTorrent(const QString& InfoHash) const
 }
 void QTorrentDisplayModel::clear()
 {
-	torrents.clear();
+	torrents->clear();
 	reset( );
 }
 int QTorrentDisplayModel::rowCount( const QModelIndex& parent ) const
 {
 	try
 	{
-		return torrents.count();
+		return torrents->count();
 	}
 	catch (std::exception e)
 	{
@@ -447,10 +448,10 @@ QVariant QTorrentDisplayModel::data( const QModelIndex& index, int role ) const
 	QVariant var;
     const int row = index.row( );
 
-    if( row<0 || row>=torrents.size() )
+    if( row<0 || row>=torrents->count() )
         return QVariant( );
 
-	Torrent* t = torrents.at( row );
+	Torrent* t = torrents->at( row );
 	
     switch( role )
     {
@@ -475,14 +476,16 @@ QVariant QTorrentDisplayModel::data( const QModelIndex& index, int role ) const
 
 bool QTorrentDisplayModel::removeRow(int row, bool delFiles)
 {
-    if ((row > torrents.count()) || (row < 0))
+    if ((row > torrents->count()) || (row < 0))
         return false;
     if (rowCount()==0)
         return false;
     parrent->selectionModel()->reset();
 	locker->lock();
-    torrents.at( row )->RemoveTorrent(mgr,delFiles);
-  //  torrents.erase(torrents.begin() + row);
+	if (torrents->at(row)==CurrentTorrent)
+		CurrentTorrent=NULL;
+    torrents->at( row )->RemoveTorrent(mgr,delFiles);
+  //  torrents->erase(torrents->begin() + row);
 	locker->unlock();
     return true;
 }
@@ -490,7 +493,7 @@ bool QTorrentDisplayModel::removeRow(int row, bool delFiles)
 bool QTorrentDisplayModel::removeRows(int row, int count, const QModelIndex &parent)
 {
     Q_UNUSED(parent);
-    if ((row+count > torrents.count()) || (row < 0))
+    if ((row+count > torrents->count()) || (row < 0))
         return false;
     if (rowCount()==0)
         return false;
@@ -498,8 +501,8 @@ bool QTorrentDisplayModel::removeRows(int row, int count, const QModelIndex &par
     parrent->selectionModel()->reset();
     for  (int i=row;i<row+count;i++)
     {
-        torrents.at( i )->RemoveTorrent(mgr);
-  //    torrents.erase(torrents.begin() + i);
+        torrents->at( i )->RemoveTorrent(mgr);
+  //    torrents->erase(torrents->begin() + i);
     }
     return true;
 }
@@ -508,6 +511,7 @@ QTorrentDisplayModel::~QTorrentDisplayModel()
 {
 	timer->stop();
 	TorrentManager::freeInstance();
+	TorrentStorrage::freeInstance();
 }
 
 void QTorrentDisplayModel::retranslate()
@@ -546,7 +550,7 @@ void QTorrentDisplayModel::UpdateTrackers()
 void QTorrentDisplayModel::moveStorrage()
 {
 	
-	Torrent* current=torrents.at(selectedRow);
+	Torrent* current=torrents->at(selectedRow);
 	if (current!=NULL)
 	{
 		QString path = QFileDialog::getExistingDirectory(parrent, tr("DIALOG_OPEN_FOLDER"),
@@ -562,9 +566,9 @@ void QTorrentDisplayModel::playInPlayer()
 {
 	try 
 	{
-		VideoPlayerWindow* vpw = new VideoPlayerWindow(parrent);
-		vpw->openFile(CurrentTorrent->GetSavePath()+CurrentTorrent->GetFileDownloadInfo().first().name);
-		vpw->show();
+        //VideoPlayerWindow* vpw = new VideoPlayerWindow(parrent);
+//		vpw->openFile(CurrentTorrent->GetSavePath()+CurrentTorrent->GetFileDownloadInfo().first().name);
+    //	vpw->show();
 	
 	}
 	catch(...)
@@ -615,6 +619,11 @@ void QTorrentDisplayModel::setupContextMenu()
 	QObject::connect(DelTorrentOnly, SIGNAL(triggered()), this, SLOT(DellTorrentOnly()));
 	DelTorrentOnly->setShortcut(QKeySequence("Del"));
 	menu->addAction(DelTorrentOnly);
+	/*QMenu* filterMenu = new QMenu(parrent);
+	filterMenu->setTitle("FILTER_MENU");
+	QAction* activeFilter = new QAction(QIcon(":/MenuIcons/delete.ico"),tr("FILTER_ACTIVE"), parrent);
+	filterMenu->addAction(activeFilter);
+	menu->addMenu(filterMenu);*/
 }
 bool LessThan(const Torrent* a,const Torrent* b)
 {
@@ -623,7 +632,7 @@ bool LessThan(const Torrent* a,const Torrent* b)
 void QTorrentDisplayModel::sort()
 {
 	
-	qSort(torrents.begin(),torrents.end(),LessThan);
+	//qSort(torrents->begin(),torrents->end(),LessThan);
 	
 }
 
@@ -638,26 +647,24 @@ void QTorrentDisplayModel::SetSuperSeed()
 
 void QTorrentDisplayModel::initSessionFinished()
 {
-	sort();
+	torrents->sort();
+	QTimer::singleShot(3000,this,SIGNAL(initCompleted()));
 }
 
-QVector<Torrent*> QTorrentDisplayModel::GetTorrents()
-{
-	return torrents;
-}
+
 
 void QTorrentDisplayModel::onTorrentRemove(  QString InfoHash )
 {
 
     int i=0;
-	for (QVector<Torrent*>::const_iterator tor=torrents.begin();
-		tor!=torrents.end();
+	for (QList<Torrent*>::const_iterator tor=torrents->begin();
+		tor!=torrents->end();
 		tor++
 		)
 	{
 		if( (*tor)->GetInfoHash() == InfoHash )
         {
-            torrents.remove(i);
+            torrents->remove(InfoHash);
 			break;
 		}
 		i++;
@@ -672,5 +679,6 @@ void QTorrentDisplayModel::generateMagnetLink()
 		QApplication::clipboard()->setText(tor->generateMagnetLink());
 	}
 }
+
 
 

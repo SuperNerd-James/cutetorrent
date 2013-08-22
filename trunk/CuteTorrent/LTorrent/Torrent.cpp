@@ -599,13 +599,15 @@ QString Torrent::GetRemainingTime()
 	return res;
 }
 
-QList<file_info> Torrent::GetFileDownloadInfo()
+files_info Torrent::GetFileDownloadInfo()
 {
-	QList<file_info> res;
-	try
-	{
-		torrent_info ti=cur_torrent.get_torrent_info();
-		file_storage storage=ti.files();
+    files_info filesInfo;
+	filesInfo.infoHash=GetInfoHash();
+    filesInfo.storrage= cur_torrent.get_torrent_info().files();
+    cur_torrent.file_progress(filesInfo.progresses);
+    filesInfo.priorities = cur_torrent.file_priorities();
+    return filesInfo;
+        /*
 		std::vector<float> progresses;
 		cur_torrent.file_progress(progresses);
 		int counter=0;
@@ -626,7 +628,7 @@ QList<file_info> Torrent::GetFileDownloadInfo()
 	{
 
 	}
-	return res;
+    return res;*/
 }
 void Torrent::SetFilePriority(int index,int prioryty)
 {

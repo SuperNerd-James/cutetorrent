@@ -60,3 +60,11 @@ void MultipleDTDialog::Mount( QString filename )
 {
 	DT_mounter::mountImage(filename);
 }
+
+void MultipleDTDialog::changeEvent( QEvent *event )
+{
+	if (event->type()==QEvent::LanguageChange)
+	{
+		retranslateUi(this);
+	}
+}

@@ -77,7 +77,7 @@ public :
 	int GetActivePeerCount();
 	QIcon GetMimeTypeIcon() const;
 	QIcon GetMimeTypeIcon();
-	QList<file_info> GetFileDownloadInfo();
+    files_info GetFileDownloadInfo();
 	bool isPaused() const;
 	bool isSeeding() const;
 	bool isStoped() const;

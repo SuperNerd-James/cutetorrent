@@ -35,6 +35,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QSortFilterProxyModel>
 #include <QClipboard>
 #include <QCleanlooksStyle>
+#include "FileSizeItemDelegate.h"
+#include "ProgressItemDelegate.h"
+#include "PriorityItemDelegate.h"
 CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	: QMainWindow(parent,flags)
 {
@@ -45,7 +48,9 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	notyfire = new UpdateNotifier();
 	mayShowNotifies = false;
 	fileinfosLocker = new QMutex(QMutex::NonRecursive);
-   // setWindowFlags(Qt::FramelessWindowHint);
+ //   setWindowFlags(Qt::FramelessWindowHint);
+	settings=QApplicationSettings::getInstance();
+	Application::setLanguage("cutetorrent_"+settings->valueString("System","Lang","RUSSIAN"));
     setAcceptDrops(true);
 	setupStatusBar();
 	setupTray();
@@ -57,11 +62,7 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	
     tracker = new TorrentTracker(this);
 
-	settings=QApplicationSettings::getInstance();
 	
-
-
-	Application::setLanguage("cutetorrent_"+settings->valueString("System","Lang","RUSSIAN"));
 	rcon = RconWebService::getInstance();
 	if (settings->valueBool("WebControl","webui_enabled",false))
 	{
@@ -71,7 +72,7 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 		if (settings->valueBool("WebControl","enable_upnp",false))
 		{
 			libtorrent::upnp* upnpMapper=mng->GetUpnp();
-			int port=settings->valueInt("WebControl","web_port",8080);
+			int port=settings->valueInt("WebControl","port",8080);
 			upnpMapper->add_mapping(upnp::tcp,port,port);
 		}
 	}
@@ -86,7 +87,7 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 	mng->initSession();
 	
 	QTimer::singleShot(10000,this,SLOT(checkForUpdates()));
-	QTimer::singleShot(3000,this,SLOT(enableNitifyShow()));
+//	QTimer::singleShot(3000,this,SLOT(enableNitifyShow()));
 	Scheduller* sch=Scheduller::getInstance();
 	
 	
@@ -133,6 +134,7 @@ void CuteTorrent::setupStatusBar()
 void CuteTorrent::setupListView()
 {
 	
+	
 	listView->setModel(model);
 	listView->setSelectionMode(QAbstractItemView::ExtendedSelection );
 	listView->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -146,10 +148,22 @@ void CuteTorrent::setupTabelWidgets()
 	addTracker = new QAction(QIcon(":/MenuIcons/addTorrent.ico"),tr("ADD_TRACKER"),trackerTableWidget);
 	QObject::connect(addTracker,SIGNAL(triggered()),this,SLOT(AddTracker()));
 	trackerTableWidget->addAction(addTracker);
-
+/*
+	gridLayout_3->setSpacing(0);
+	title = new QLabel(tr("CUTE_TORRENT_TITLE"),this);
 	
+	QWidget* buttonPlaceHolder = new QWidget(this);
+	toolButtonsUi = new Ui::ToolButtons();
+	toolButtonsUi->setupUi(buttonPlaceHolder);
 
-    fileTableWidget->setSortingEnabled(true);
+	gridLayout_3->addWidget(title,0,0,1,1);
+	gridLayout_3->addWidget(buttonPlaceHolder,0,1,1,1,Qt::AlignRight);
+	gridLayout_3->addWidget(mainMenuBar,1,0,1,2);
+	gridLayout_3->addWidget(mainToolbar,2,0,1,2);
+	gridLayout_3->addWidget(listView,3,0,1,2);
+	gridLayout_3->addWidget(tabWidget,4,0,1,2);
+	gridLayout_3->addWidget(statusBar(),5,0,1,2);*/
+//    fileTableWidget->setSortingEnabled(true);
 	peerTableWidget->verticalHeader()->hide();
 	peerTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
 	peerTableWidget->setSortingEnabled(true);
@@ -186,13 +200,14 @@ void CuteTorrent::setupToolBar()
 	downloadLimit = new QLabel(tr("LIMIT_DL"),this);
 	downloadLimit->setBuddy(dl);
 	searchEdit->setMinimumWidth(100);
-	toolBar->addSeparator();
-	toolBar->addWidget(uploadLimit);
-	toolBar->addWidget(ul);
-	toolBar->addWidget(downloadLimit);
-	toolBar->addWidget(dl);
-	toolBar->addSeparator();
-	toolBar->addWidget(searchEdit);
+
+	mainToolbar->addSeparator();
+	mainToolbar->addWidget(uploadLimit);
+	mainToolbar->addWidget(ul);
+	mainToolbar->addWidget(downloadLimit);
+	mainToolbar->addWidget(dl);
+	mainToolbar->addSeparator();
+	mainToolbar->addWidget(searchEdit);
 	updateTabWidget(-2);
 }
 void CuteTorrent::setupConnections()
@@ -214,20 +229,27 @@ void CuteTorrent::setupConnections()
 	QObject::connect(mng,SIGNAL(AddTorrentGui(Torrent*)),model,SLOT(AddTorrent(Torrent*)));
 	QObject::connect(notyfire,SIGNAL(showUpdateNitify(const QString &)),this,SLOT(ShowUpdateNitify(const QString &)));
 	QObject::connect(notyfire,SIGNAL(showNoUpdateNitify(const QString &)),this,SLOT(ShowNoUpdateNitify(const QString &)));
-	QObject::connect(fileTableWidget,SIGNAL(customContextMenuRequested ( const QPoint &)),this,SLOT(fileTabContextMenu(const QPoint &)));
+	QObject::connect(fileTableView,SIGNAL(customContextMenuRequested ( const QPoint &)),this,SLOT(fileTabContextMenu(const QPoint &)));
 	QObject::connect(listView->verticalScrollBar(),SIGNAL(rangeChanged (int,int)),this,SLOT(updateItemWidth(int,int)));
 	QObject::connect(mng,SIGNAL(initCompleted()),model,SLOT(initSessionFinished()));
+	QObject::connect(model,SIGNAL(initCompleted()),this,SLOT(enableNitifyShow()));
 }
 void CuteTorrent::fileTabContextMenu(const QPoint & point)
 {
-	QModelIndex qmi=fileTableWidget->indexAt(point);
+	
+	QModelIndex qmi=fileTableView->indexAt(point);
 	if (qmi.isValid())
 	{
-		fileinfosLocker->lock();
-		int currentPriority=file_infos.at(qmi.row()).prioiry;
-		fileinfosLocker->unlock();
-		switch(currentPriority)
+		Torrent* tor = model->GetSelectedTorrent();
+		if (tor!=NULL)
 		{
+			files_info fileInfos = tor->GetFileDownloadInfo();
+			QModelIndex priorityIndex=proxymodel->index(qmi.row(),3);
+			int currentPriority=priorityIndex.data().toInt();
+			qDebug() << qmi;
+			qDebug() << qmi.data();
+			switch(currentPriority)
+			{
 			case 1:
 			case 2:
 				lowPriority->setChecked(true);
@@ -262,13 +284,15 @@ void CuteTorrent::fileTabContextMenu(const QPoint & point)
 				highPriority->setChecked(false);
 				dontDownload->setChecked(false);
 				break;
+			}
+			fileTabMenu->exec(fileTableView->mapToGlobal(point));
 		}
-		fileTabMenu->exec(fileTableWidget->mapToGlobal(point));
+		
 	}
 	else
 	{
 
-		fileTableWidget->selectionModel()->reset();
+		fileTableView->selectionModel()->reset();
 
 	}
 }
@@ -357,6 +381,7 @@ void CuteTorrent::updateTabWidget(int tab)
 			
 			
 		}
+		
 		upLabelText->setText(QString("%1(%2)").arg(mng->GetSessionUploaded()).arg(mng->GetSessionUploadSpeed()));
 		downLabelText->setText(QString("%1(%2)").arg(mng->GetSessionDownloaded()).arg(mng->GetSessionDownloadSpeed()));
 		
@@ -447,41 +472,13 @@ public:
 };
 void CuteTorrent::UpdateFileTab()
 {
-	try
-	{
-		Torrent* tor=model->GetSelectedTorrent();
-		if (tor!=NULL)
-		{
-
-			fileinfosLocker->lock();
-			file_infos=tor->GetFileDownloadInfo();
-			fileTableWidget->setRowCount(file_infos.count());
-
-			for (int i=0;i<file_infos.count();i++)
-			{
-
-				file_info current=file_infos.at(i);
-
-				fileTableWidget->setItem(i,0,new MyTableWidgetItem(current.name));
-
-				fileTableWidget->setItem(i,1,new MyTableWidgetItem(StaticHelpers::toKbMbGb(current.size)));
-
-				fileTableWidget->setItem(i,2,new MyTableWidgetItem(QString::number(current.progrss,'f',0)+" %"));
-
-				fileTableWidget->setItem(i,3,new MyTableWidgetItem(StaticHelpers::filePriorityToString(current.prioiry)));
-			}
-			//fileTableWidget->resizeColumnsToContents();
-			fileinfosLocker->unlock();
-		}
-		else
-		{
-			fileTableWidget->setRowCount(0);
-		}
-	}
-	catch (...)
-	{
-		//qDebug() << "Exception in CuteTorrent::UpdateFileTab";
-	}
+    Torrent* tor = model->GetSelectedTorrent();
+    if (tor!=NULL)
+    {
+        files_info infos = tor->GetFileDownloadInfo();
+        fileViewModel->setDataSource(infos);
+    }
+	
 	
 }
 void CuteTorrent::setupTray()
@@ -511,7 +508,7 @@ void CuteTorrent::changeEvent(QEvent *event)
 	{
 		retranslateUi(this);
 
-		openFile->setText(tr("FILETAB_OPEN_FILE"));
+    	openFile->setText(tr("FILETAB_OPEN_FILE"));
 		openDir->setText(tr("FILETAB_OPEN_FOLDER"));
 		priority->setTitle(tr("FILETAB_PRIORITY"));
 		lowPriority->setText(tr("FILETAB_PRIORITY_LOW"));
@@ -576,16 +573,16 @@ void CuteTorrent::createTrayIcon()
  }
  void CuteTorrent::createActions()
  {
-	 minimizeAction = new QAction(tr("ACTION_HIDE"), this);
+	 minimizeAction = new QAction(QIcon(":/MenuIcons/minimize.ico"),tr("ACTION_HIDE"), this);
 	 connect(minimizeAction, SIGNAL(triggered()), this, SLOT(hide()));
 
-	 maximizeAction = new QAction(tr("ACTION_MAXIMIZE_FULLSCREEN"), this);
+	 maximizeAction = new QAction(QIcon(":/MenuIcons/maximize.ico"),tr("ACTION_MAXIMIZE_FULLSCREEN"), this);
 	 connect(maximizeAction, SIGNAL(triggered()), this, SLOT(showMaximized()));
 
-	 restoreAction = new QAction(tr("ACTION_MAXIMIZE"), this);
+	 restoreAction = new QAction(QIcon(":/MenuIcons/maximize.ico"),tr("ACTION_MAXIMIZE"), this);
 	 connect(restoreAction, SIGNAL(triggered()), this, SLOT(showNormal()));
 
-	 quitAction = new QAction(tr("ACTION_EXIT"), this);
+	 quitAction = new QAction(QIcon(":/MenuIcons/quit.ico"),tr("ACTION_EXIT"), this);
 	 connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
 
 	 copyContext = new QAction(QIcon(":/MenuIcons/copy-to-clipboard.ico"),tr("ACTION_COPY"),describtionLabel);
@@ -770,7 +767,8 @@ void CuteTorrent::OpenSettingsDialog()
     }
     else
     {
-        tracker->stop();
+        if (tracker->isRunning())
+            tracker->stop();
     }
 	updateTabWidget(-2);
 }
@@ -851,11 +849,21 @@ CuteTorrent::~CuteTorrent()
 
 void CuteTorrent::setupFileTabel()
 {
-	fileTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
-	fileTableWidget->setColumnWidth(0,300);
-	fileTableWidget->setColumnWidth(1,60);
-	fileTableWidget->setColumnWidth(2,60);
-	fileTableWidget->setColumnWidth(3,60);
+    fileViewModel = new FileViewModel(this);
+	proxymodel = new QSortFilterProxyModel(this);
+	proxymodel->setSourceModel(fileViewModel);
+	fileTableView->setModel(proxymodel);
+	fileTableView->setShowGrid(false);
+	fileTableView->setContextMenuPolicy(Qt::CustomContextMenu);
+	fileTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
+	fileTableView->setItemDelegateForColumn(1,new FileSizeItemDelegate(this));
+	fileTableView->setItemDelegateForColumn(2,new ProgressItemDelegate(this));
+	fileTableView->setItemDelegateForColumn(3,new PriorityItemDelegate(this));
+	fileTableView->setSortingEnabled(true);
+	fileTableView->setColumnWidth(0,300);
+    fileTableView->setColumnWidth(1,65);
+    fileTableView->setColumnWidth(2,65);
+    fileTableView->setColumnWidth(3,70);
 	setupFileTabelContextMenu();
 }
 void CuteTorrent::setupFileTabelContextMenu()
@@ -896,11 +904,12 @@ void CuteTorrent::OpenFileSelected()
 	Torrent* tor= model->GetSelectedTorrent();
 	if (tor!=NULL)
 	{
-		int file_num=fileTableWidget->currentRow();
+		files_info info = tor->GetFileDownloadInfo();
+		int file_num=fileTableView->selectionModel()->currentIndex().row();
 		QDesktopServices desctopService;
-		fileinfosLocker->lock();
-		QString path=combine_path(tor->GetSavePath().toAscii().data(),file_infos.at(file_num).name.toAscii().data()).c_str();
-		fileinfosLocker->unlock();
+		
+		QString path=QString::fromStdString(combine_path(tor->GetSavePath().toStdString(),info.storrage.file_path(file_num)));
+		
 		desctopService.openUrl(QUrl("file:///"+path));
 	}
 }
@@ -910,10 +919,10 @@ void CuteTorrent::OpenDirSelected()
 	Torrent* tor= model->GetSelectedTorrent();
 	if (tor!=NULL)
 	{
-		int file_num=fileTableWidget->currentRow();
-		fileinfosLocker->lock();
-		QString path = QFileInfo(QDir::toNativeSeparators(tor->GetSavePath()+file_infos.at(file_num).name)).absoluteFilePath();
-		fileinfosLocker->unlock();
+		int file_num=fileTableView->selectionModel()->currentIndex().row();
+		QModelIndex file_index = proxymodel->index(file_num,0);
+		QString path = QFileInfo(QDir::toNativeSeparators(tor->GetSavePath()+file_index.data().toString())).absoluteFilePath();
+		
 #ifdef Q_WS_MAC
 		QStringList args;
 		args << "-e";
@@ -938,67 +947,22 @@ void CuteTorrent::OpenDirSelected()
 
 void CuteTorrent::setLowForCurrentFile()
 {
-	Torrent* tor= model->GetSelectedTorrent();
-	if (tor!=NULL)
-	{
-		
-		mediumPriority->setChecked(false);
-		highPriority->setChecked(false);
-		dontDownload->setChecked(false);
-		int file_num=fileTableWidget->currentRow();
-		fileinfosLocker->lock();
-		file_info current=file_infos.at(file_num);
-		fileinfosLocker->unlock();
-		tor->SetFilePriority(current.index,2);
-	}
+	setFilePriority(2);
 }
 
 void CuteTorrent::setMediumForCurrentFile()
 {
-	Torrent* tor= model->GetSelectedTorrent();
-	if (tor!=NULL)
-	{
-		lowPriority->setChecked(false);
-		highPriority->setChecked(false);
-		dontDownload->setChecked(false);
-		int file_num=fileTableWidget->currentRow();
-		fileinfosLocker->lock();
-		file_info current=file_infos.at(file_num);
-		fileinfosLocker->unlock();
-		tor->SetFilePriority(current.index,5);
-	}
+	setFilePriority(5);
 }
 
 void CuteTorrent::setHighForCurrentFile()
 {
-	Torrent* tor= model->GetSelectedTorrent();
-	if (tor!=NULL)
-	{
-		lowPriority->setChecked(false);
-		mediumPriority->setChecked(false);
-		dontDownload->setChecked(false);
-		int file_num=fileTableWidget->currentRow();
-		fileinfosLocker->lock();
-		file_info current=file_infos.at(file_num);
-		fileinfosLocker->unlock();
-		tor->SetFilePriority(current.index,7);
-	}
+	setFilePriority(7);
 }
 
 void CuteTorrent::setNotDownloadForCurrentFile()
 {
-	Torrent* tor= model->GetSelectedTorrent();
-	if (tor!=NULL)
-	{
-		lowPriority->setChecked(false);
-		mediumPriority->setChecked(false);
-		highPriority->setChecked(false);
-		int file_num=fileTableWidget->currentRow();
-		fileinfosLocker->lock();
-		file_info current=file_infos.at(file_num);
-		fileinfosLocker->unlock();
-		tor->SetFilePriority(current.index,0);
-	}
+	setFilePriority(0);
 }
 
 void CuteTorrent::ProcessMagnet()
@@ -1195,6 +1159,24 @@ void CuteTorrent::AddTracker()
 void CuteTorrent::StopSelected()
 {
 	model->ActionOnSelectedItem(QTorrentDisplayModel::stop);
+}
+
+void CuteTorrent::setFilePriority( int priority)
+{
+	Torrent* tor= model->GetSelectedTorrent();
+	if (tor!=NULL)
+	{
+		qDebug() << " CuteTorrent::setHighForCurrentFile";	
+		lowPriority->setChecked(false);
+		mediumPriority->setChecked(false);
+		dontDownload->setChecked(false);
+		int file_num=fileTableView->selectionModel()->currentIndex().row();
+		int file_index = proxymodel->index(file_num,0).data(Qt::UserRole).toInt();
+		tor->SetFilePriority(file_index,priority);
+		files_info info = tor->GetFileDownloadInfo();
+		fileViewModel->setDataSource(info);
+
+	}
 }
 
 

@@ -30,38 +30,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTimer>
 #include <QMutex>
 #include <QThread>
+#include <TorrentStorrage.h>
 class Torrent;
 class TorrentManager;
-class DeleterThread : private QThread
-{private:
-QString path;
-public:
-	void create(QString _path)
-	{
-		path=_path;
-		start();
-	}
-	void run()
-	{
-		try
-		{
-			StaticHelpers::dellDir(path);
-		}
-		catch (...)
-		{
-			
-		}
-		
-		
-	}
-};
 class QTorrentDisplayModel : public QAbstractListModel
 {
 	Q_OBJECT
 private:
-	DeleterThread* thread;
-	static QVector<Torrent*> torrents;
-	QVector<Torrent*> torrents_to_remove,torrents_to_add;
+	
+	TorrentStorrage* torrents;
 	int auto_id;
 	QListView* parrent;
 	int selectedRow;
@@ -100,8 +77,9 @@ public:
     virtual bool removeRows ( int row, int count, const QModelIndex & parent = QModelIndex() );
     enum Role { TorrentRole = Qt::UserRole };
 	Torrent* GetSelectedTorrent();
-	static QVector<Torrent*> GetTorrents();
+	
 signals:
+	void initCompleted();
 	void updateTabSender(int);
 	void TorrentCompletedProxySender(const QString);
 	void TorrentErrorPoxySender(const QString&);
@@ -125,6 +103,8 @@ public slots:
 	void SetSuperSeed();
 	void initSessionFinished();
 	void generateMagnetLink();
+
+	
 };
 
 

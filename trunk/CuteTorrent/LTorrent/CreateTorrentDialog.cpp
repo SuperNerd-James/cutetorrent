@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 CreateTorrentDialog::CreateTorrentDialog(QWidget *parent, Qt::WFlags flags)
 {
 	setupUi(this);
+	
 	creator  = new torrentCreatorThread(this);
 	//qDebug() << "new torrentCreatorThread";
 	mgr = TorrentManager::getInstance();

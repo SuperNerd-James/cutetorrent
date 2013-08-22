@@ -8,22 +8,47 @@ QWidget *QBalloonTip::showBalloon(const QString& title,
 								  const QString& message,QBaloonType type, QVariant data,const QSystemTrayIcon::MessageIcon& icon,
 								  int timeout, bool showArrow,QWidget* parent)
 {
-	
-	hideBalloon();
+	qDebug() << "Creating baloon" << title << message;
 	theSolitaryBalloonTip = new QBalloonTip(title, message,type,data,icon,parent);
-	if (timeout < 0)
-		timeout = 10000; // по умолчанию исчезнет через 10 секунд
-	theSolitaryBalloonTip->balloon(timeout, showArrow);
+	//hideBalloon();
+	if (current!=NULL && current->isFinished())
+	{
+		qDebug() << "no baloon is showing so showing this";
+	//	delete current;
+		current = theSolitaryBalloonTip;
+		if (timeout <= 0)
+			timeout = 10000; // по умолчанию исчезнет через 10 секунд
+		theSolitaryBalloonTip->balloon(timeout, showArrow);
+		
+	}
+	else
+	{
+		if (current==NULL)
+		{
+			qDebug() << "first baloone";
+			current = theSolitaryBalloonTip;
+			if (timeout <= 0)
+				timeout = 10000; // по умолчанию исчезнет через 10 секунд
+			theSolitaryBalloonTip->balloon(timeout, showArrow);
+			
+		}
+		else
+		{
+			qDebug() << "some one is shwoing so enqueue created";
+			baloonQueue.enqueue(theSolitaryBalloonTip);
+		}
+	}
 	return theSolitaryBalloonTip;
 }
 
 void QBalloonTip::hideBalloon()
 {
-	if (!theSolitaryBalloonTip)
+	qDebug() << "hiding current";
+	if (!current)
 		return;
-	theSolitaryBalloonTip->hide();
-	delete theSolitaryBalloonTip;
-	theSolitaryBalloonTip = 0;
+	current->hide();
+	delete current;
+	current = 0;
 }
 
 
@@ -34,7 +59,7 @@ QBalloonTip::QBalloonTip(const QString& title, const QString& message,QBaloonTyp
 	currentType=type;
 	currentData=data;
 	setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
-	setAttribute(Qt::WA_DeleteOnClose); 
+	//setAttribute(Qt::WA_DeleteOnClose); 
 	//setAttribute(Qt::WA_TranslucentBackground);
 	setObjectName("QBalloonTip" );
 	setStyleSheet(" QWidget#QBalloonTip	{border: 3px solid #8f8f91;	background-color:#f0f0f0;	}");
@@ -94,11 +119,7 @@ QBalloonTip::QBalloonTip(const QString& title, const QString& message,QBaloonTyp
 	layout->setSizeConstraint(QLayout::SetFixedSize);
 	layout->setMargin(3);
 	setLayout(layout);
-	QPropertyAnimation  *anim = new QPropertyAnimation(this, "windowOpacity");
-	anim->setDuration(2500);
-	anim->setStartValue(0.f);
-	anim->setEndValue(1.f);
-	anim->start();
+	finished=false;
 /*
 	pixmap=QPixmap(":/images/ToolTipFrame.png");
 	setMask(pixmap.mask());*/
@@ -203,6 +224,12 @@ void QBalloonTip::balloon(int msecs, bool showArrow)
 	if (msecs > 0)
 		timerId = startTimer(msecs);
 	show();
+	QPropertyAnimation  *anim = new QPropertyAnimation(this, "windowOpacity");
+	anim->setDuration(2500);
+	anim->setStartValue(0.f);
+	anim->setEndValue(1.f);
+	anim->start();
+	qDebug() << "shwoing baloon";
 }
 
 void QBalloonTip::mousePressEvent(QMouseEvent *e)
@@ -240,7 +267,8 @@ void QBalloonTip::mousePressEvent(QMouseEvent *e)
 				break;
 			}
 	}
-	close(); 
+	finished=true;
+	close();
 	return;
 }
 
@@ -248,9 +276,30 @@ void QBalloonTip::timerEvent(QTimerEvent *e)
 {
 	if (e->timerId() == timerId) {
 		killTimer(timerId);
-		if (!underMouse())
-			close(); 
+		finished=true;
+		close();
 		return;
 	}
 	QWidget::timerEvent(e);
 }
+
+bool QBalloonTip::isFinished()
+{
+	return finished;
+}
+
+void QBalloonTip::closeEvent( QCloseEvent *e )
+{
+	qDebug() << "closeEvent hiding and shwoing next if exist";
+	hideBalloon();
+	if (!baloonQueue.isEmpty())
+	{
+		current=baloonQueue.dequeue();
+		current->balloon(10000,false);
+	}
+	e->accept();
+}
+
+QBalloonTip* QBalloonTip::current=NULL;
+
+QQueue<QBalloonTip*> QBalloonTip::baloonQueue;
