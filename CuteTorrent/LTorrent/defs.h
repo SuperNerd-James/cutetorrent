@@ -40,28 +40,12 @@ struct torrent_creation_info
 
 };
 
-struct file_info 
+struct files_info
 {
-	QString name;
-	size_type size;
-	float progrss;
-	int prioiry;
-	int index;
-};
-
-enum RconMessageType
-{
-	LOGIN,
-	ADD_TORRENT,
-	PAUSE_TORRENT,
-	REMOVE_TORRENT_ONLY,
-	REMOVE_TORRENT_WITH_DATA,
-	SET_DOWNLOAD_LIMIT,
-	SET_UPLOAD_LIMIT,
-	SET_GLOBAL_DOWNLOAD_LIMIT,
-	SET_GLOBAL_UPLOAD_LIMIT,
-	SET_SETTINGS_VALUE,
-	LOGOUT
+	QString infoHash;
+    file_storage storrage;
+    std::vector<float> progresses;
+    std::vector<int> priorities;
 };
 
 #endif _DEFS_H

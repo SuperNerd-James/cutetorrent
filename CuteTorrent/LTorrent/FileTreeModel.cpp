@@ -192,7 +192,7 @@ QVariant FileTreeModel::data(const QModelIndex &index, int role) const
 			
 			
 			icon= iPorv.icon(info2);
-			tmpfile.remove(tmpfile.fileName());
+			tmpfile.remove();
 		}
 		else
 		{

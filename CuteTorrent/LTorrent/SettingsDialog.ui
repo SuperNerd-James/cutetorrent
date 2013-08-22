@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>740</width>
+    <width>759</width>
     <height>323</height>
    </rect>
   </property>
@@ -73,6 +73,7 @@
      show-decoration-selected: 1; /* make the selection span the entire width of the view */
  }
  QListView::item {
+    width:100%;
 	min-height:30px;
     border: 1px solid #8588B2; 
    border-radius:4px;
@@ -104,36 +105,60 @@
       <set>QAbstractItemView::NoEditTriggers</set>
      </property>
      <property name="currentRow">
-      <number>0</number>
+      <number>-1</number>
      </property>
      <item>
       <property name="text">
        <string>TAB_TORRENT</string>
+      </property>
+      <property name="icon">
+       <iconset resource="ltorrent.qrc">
+        <normaloff>:/MenuIcons/super-seed.ico</normaloff>:/MenuIcons/super-seed.ico</iconset>
       </property>
      </item>
      <item>
       <property name="text">
        <string>TAB_HDD</string>
       </property>
+      <property name="icon">
+       <iconset resource="ltorrent.qrc">
+        <normaloff>:/icons/hdd.ico</normaloff>:/icons/hdd.ico</iconset>
+      </property>
      </item>
      <item>
       <property name="text">
        <string>TAB_TORRENT_FILTERING</string>
+      </property>
+      <property name="icon">
+       <iconset resource="ltorrent.qrc">
+        <normaloff>:/icons/filtering.ico</normaloff>:/icons/filtering.ico</iconset>
       </property>
      </item>
      <item>
       <property name="text">
        <string>TAB_DAEMONTOOLS</string>
       </property>
+      <property name="icon">
+       <iconset resource="ltorrent.qrc">
+        <normaloff>:/MenuIcons/mount-dt.ico</normaloff>:/MenuIcons/mount-dt.ico</iconset>
+      </property>
      </item>
      <item>
       <property name="text">
        <string>TAB_SCEDULER</string>
       </property>
+      <property name="icon">
+       <iconset resource="ltorrent.qrc">
+        <normaloff>:/icons/schedule.ico</normaloff>:/icons/schedule.ico</iconset>
+      </property>
      </item>
      <item>
       <property name="text">
        <string>TAB_WEB_CONTROL</string>
+      </property>
+      <property name="icon">
+       <iconset resource="ltorrent.qrc">
+        <normaloff>:/icons/webControll.ico</normaloff>:/icons/webControll.ico</iconset>
       </property>
      </item>
     </widget>

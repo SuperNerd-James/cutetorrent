@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "application.h"
 #include <QMessageBox>
 #include <QTextCodec>
-
+#include "CuteTorentStyle.h"
 #ifdef DEBUG
 
 void myMessageOutput(QtMsgType type, const char *msg)
@@ -62,8 +62,10 @@ int main(int argc, char *argv[])
 	qInstallMsgHandler(myMessageOutput);
 #endif // DEBUG
 	
-	Application::setStyle("Cleanlooks");
+	
 	Application a(argc, argv);
+	CuteTorentStyle* style = new CuteTorentStyle();
+	a.setStyle(style);
 	QTextCodec *wantUnicode = QTextCodec::codecForName("UTF-8");
 	/*QTextCodec::setCodecForTr(wantUnicode);
 	QTextCodec::setCodecForLocale(wantUnicode);*/

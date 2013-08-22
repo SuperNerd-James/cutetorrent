@@ -24,6 +24,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class SettingsDialog : public QDialog , private Ui::SettingsDialog
 {
 	Q_OBJECT
+protected:
+	void changeEvent(QEvent *event);
 private:
 	QApplicationSettings* settings;
 	QList<GroupForFileFiltering> filterGroups;

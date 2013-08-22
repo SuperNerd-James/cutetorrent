@@ -165,7 +165,7 @@ void SettingsDialog::FillWebUITab()
 	webUIGroupBox->setChecked(settings->valueBool("WebControl","webui_enabled",false));
 	loginLineEdit->setText(settings->valueString("WebControl","webui_login"));
 	passwordLineEdit->setText(settings->valueString("WebControl","webui_password"));
-	webPortLineEdit->setText(settings->valueString("WebControl","web_port","8080"));
+	webPortLineEdit->setText(settings->valueString("WebControl","port","8080"));
 	upnpCheckBox->setChecked(settings->valueBool("WebControl","enable_upnp",false));
 	webUILogginGroupBox->setChecked(settings->valueBool("WebControl","enable_loggin",false));
 	logLineEdit->setText(settings->valueString("WebControl","log_name"));
@@ -242,14 +242,14 @@ void SettingsDialog::ApplySettings()
 	settings->setValue("WebControl","webui_enabled",			webUIGroupBox->isChecked());
 	settings->setValue("WebControl","webui_login",				loginLineEdit->text());
 	settings->setValue("WebControl","webui_password",			passwordLineEdit->text());
-	settings->setValue("WebControl","web_port",					webPortLineEdit->text());
+	settings->setValue("WebControl","port",					webPortLineEdit->text());
 	settings->setValue("WebControl","enable_upnp",				upnpCheckBox->isChecked());
 	settings->setValue("WebControl","enable_loggin",			webUILogginGroupBox->isChecked());
 	settings->setValue("WebControl","log_name",					logLineEdit->text());
 	settings->setValue("WebControl","enable_ipfilter",			IPFilterGroupBox->isChecked());
 	settings->setValue("WebControl","ipfilter",					ipFilterTextEdit->toPlainText());
 
-	//ipFilterTextEdit->setText(settings->valueString("WebControl","ipfilter"));
+	//
 	settings->SaveFilterGropups(filterGroups);
 	settings->setValue("TorrentTracker","enabled",trackerGroupBox->isChecked());
 	settings->setValue("TorrentTracker","port",trackerPortEdit->text());
@@ -570,6 +570,15 @@ void SettingsDialog::StopRcon()
 	startRconButton->setEnabled(!isRunning);
 	stopRconButton->setEnabled(isRunning);
 	RconWebService::freeInstance();
+}
+
+void SettingsDialog::changeEvent( QEvent *event )
+{
+	if (event->type()==QEvent::LanguageChange)
+	{
+		retranslateUi(this);
+		ipFilterTextEdit->setText(settings->valueString("WebControl","ipfilter"));
+	}
 }
 
 

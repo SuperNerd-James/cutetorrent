@@ -28,6 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QString>
 #include <QTimer>
 #include "ui_CuteTorrent.h"
+#include "ui_mainWindowButtons.h"
 #include "SettingsDialog.h"
 #include "TorrentManager.h"
 #include "CreateTorrentDilaog.h"
@@ -43,8 +44,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMutex>
 #include <QtNetwork/QHostAddress>
 #include <QScrollBar>
+#include <QSortFilterProxyModel>
 #include "tracker/torrentracker.h"
 #include "RconWebService.h"
+#include "FileViewModel.h"
+#include "QTorrentFilterModel.h"
 Q_DECLARE_METATYPE(QHostAddress)
 class CuteTorrent : public QMainWindow , private Ui::CuteTorrentClass
 {
@@ -67,13 +71,17 @@ protected:
     void dropEvent(QDropEvent *event);
 	void keyPressEvent ( QKeyEvent * event );
 private:
+	QTorrentFilterModel* torrentFilterModel;
+	QSortFilterProxyModel* proxymodel;
+    FileViewModel* fileViewModel;
+	Ui::ToolButtons* toolButtonsUi;
     TorrentTracker* tracker;
 	QApplicationSettings* settings;
 	RconWebService* rcon;
 	int  m_nMouseClick_X_Coordinate;
 	int  m_nMouseClick_Y_Coordinate;
 	QMutex* fileinfosLocker;
-	QList<file_info> file_infos;
+
 	UpdateNotifier* notyfire;
 	bool mayShowNotifies;
 	QSystemTrayIcon *trayIcon;
@@ -85,7 +93,7 @@ private:
     QAction* quitAction;
 	QAction* copyContext;
 	QAction* addPeer,* addTracker;
-	QLabel *upLabelText, *upLabel;
+	QLabel *upLabelText, *upLabel,*title;
 	QLabel *uploadLimit, *downloadLimit;
 	QLabel* downLabelText, *downLabel;
 	QTorrentDisplayModel* model;
@@ -111,6 +119,7 @@ private:
 	void setupFileTabel();
 	void setupFileTabelContextMenu();
 	void fillPieceDisplay();
+	void setFilePriority(int);
 public slots:
 	void HandleNewTorrent(const QString &);
 private slots:

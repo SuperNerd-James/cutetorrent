@@ -160,7 +160,8 @@ void RconWebService::Stop()
 {
 	if (listener!=NULL)
 	{
-		listener->close();
+		if (listener->isListening())
+			listener->close();
 		delete listener;
 		listener=NULL;
 	}

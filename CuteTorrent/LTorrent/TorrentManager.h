@@ -89,8 +89,10 @@ using namespace libtorrent;
 
 #include "QApplicationSettings.h"
 #include "Torrent.h"
+#include "TorrentStorrage.h"
 class QTorrentDisplayModel;
 class Torrent;
+class TorrentStorrage;
 #include "defs.h"
 
 class TorrentManager : public QObject
@@ -113,7 +115,7 @@ protected:
 private:
 	void handle_alert(alert*);
 	void writeSettings();
-	QVector<Torrent*> torrents;
+	TorrentStorrage* torrents;
 	QMap<QString,QString> save_path_data;
     libtorrent::session* ses;
 	libtorrent::upnp* m_upnp;
@@ -143,7 +145,6 @@ public:
 	static TorrentManager* getInstance();
 	static void freeInstance();
 	std::vector<torrent_status> GetTorrents();
-	QVector<Torrent*> GetQTorrents();
 	opentorrent_info* GetTorrentInfo(QString filename);
 	openmagnet_info* GetTorrentInfo(torrent_handle handle);
 	void RemoveTorrent(QString InfoHash);

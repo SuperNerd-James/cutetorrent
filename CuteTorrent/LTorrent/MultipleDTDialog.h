@@ -23,6 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class MultipleDTDialog : public QDialog, Ui::DTMountDialog
 {
 	Q_OBJECT
+protected:
+	void changeEvent(QEvent *event);
 public:
 	MultipleDTDialog(QStringList& _files,QWidget* parrent=0,int flags=0);
 	

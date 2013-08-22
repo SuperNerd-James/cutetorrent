@@ -9,10 +9,11 @@ class TorrentTracker : public QObject
     Q_OBJECT
 private:
     HttpListener* httpServer;
-    TrackerRequestMapper* requestHandler;
+    TrackerRequestHandler* requestHandler;
 public:
     explicit TorrentTracker(QObject *parent = 0);
     ~TorrentTracker();
+    bool isRunning();
     void start();
     void stop();
 signals:
