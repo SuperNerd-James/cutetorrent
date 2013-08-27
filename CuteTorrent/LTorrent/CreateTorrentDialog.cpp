@@ -185,7 +185,7 @@ void CreateTorrentDialog::BeginCreate()
 	QFileInfo info(path);
 	//qDebug() << "after removing web seeds";
 	QString save_path = QFileDialog::getSaveFileName(this,
-		tr("CREATE_TORRENT_DIALOG"),path+QDir::separator()+info.fileName(),
+		tr("CREATE_TORRENT_DIALOG"),info.isDir() ? path+QDir::separator()+info.fileName(): path+".torrent",
 		tr("Торрент файлы (*.torrent)"));
 	if (!save_path.isEmpty())
 	{

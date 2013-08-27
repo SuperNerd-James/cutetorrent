@@ -122,10 +122,12 @@ void TorrentManager::initSession()
 		{
 			line=strm.readLine();
 			QStringList parts=line.split("|");
-			if (parts.count()>2)
+			if (parts.count()>3)
 				continue;
-			
-			save_path_data.insert(parts.at(0),parts.at(1));
+			if (parts.count()<3)
+				save_path_data.insert(parts.at(0),	qMakePair(parts.at(1),QString("")));
+			else
+				save_path_data.insert(parts.at(0),	qMakePair(parts.at(1),parts.at(2)));
 		}
 		path_infohashFile.close();
 	}
@@ -135,30 +137,6 @@ void TorrentManager::initSession()
 		
 			
 	}
-/*	QFile magnetlinks("CT_DATA/links.list");
-	if (magnetlinks.open(QFile::ReadOnly))
-	{
-		QTextStream strm(&magnetlinks);
-		strm.setCodec("UTF-8");
-		QString line;
-		while(!strm.atEnd())
-		{
-			line=strm.readLine();
-            QStringList parts=line.split("|");
-            if (parts.count()!=2)
-            {
-                add_torrent_params add_info;
-                error_code ec;
-                parse_magnet_uri(line.toStdString(),add_info,ec);
-                magnet_links.insert(QString::fromStdString(to_hex( add_info.info_hash.to_string() )),line);
-            }
-            else
-            {
-                magnet_links.insert(parts[0],parts[1]);
-            }
-		}
-		magnetlinks.close();
-	}*/
 	error_code ec;
 	for (QStringList::iterator i=torrentFiles.begin();i!=torrentFiles.end();i++)
 	{
@@ -168,17 +146,13 @@ void TorrentManager::initSession()
 		if (save_path_data.contains(to_hex(t->info_hash().to_string()).c_str()))
 		{
 			
-			AddTorrent(dir.filePath(*i),save_path_data[to_hex(t->info_hash().to_string()).c_str()]);
+			QPair<QString,QString> torrentData = save_path_data[to_hex(t->info_hash().to_string()).c_str()];
+			AddTorrent(dir.filePath(*i),torrentData.first,torrentData.second);
 		}
 
 	}
 	emit initCompleted();
-/*    for (QMap<QString,QString>::Iterator i = magnet_links.begin();i!=magnet_links.end();i++)
-	{
-		
-        MetaDataDownloadWaiter* waiter = new MetaDataDownloadWaiter(i.value(),this,true);
-		waiter->start();
-	}*/
+
 	
 	
 }
@@ -237,21 +211,15 @@ void TorrentManager::handle_alert(alert* a)
 			torrent_handle h = p->handle;
 			if (save_path_data.contains(to_hex(h.info_hash().to_string()).c_str()))
 			{
-				save_path_data[to_hex(h.info_hash().to_string()).c_str()]=QString::fromStdString(h.save_path());
+				QPair<QString,QString> torrentData = save_path_data[to_hex(h.info_hash().to_string()).c_str()];
+				save_path_data[to_hex(h.info_hash().to_string()).c_str()]=qMakePair(QString::fromStdString(h.save_path()),torrentData.second);
 			}
 			else
 			{
-				save_path_data.insert(to_hex(h.info_hash().to_string()).c_str(),QString::fromStdString(h.save_path()));
+				QPair<QString,QString> torrentData=qMakePair(QString::fromStdString(h.save_path()),QString(""));
+				save_path_data.insert(to_hex(h.info_hash().to_string()).c_str(),torrentData);
 			}
-			QFile pathDataFile("CT_DATA/path.resume");
-			if (pathDataFile.open(QFile::WriteOnly))
-			{
-				for (QMap<QString,QString>::iterator i=save_path_data.begin();i!=save_path_data.end();i++)
-				{
-					pathDataFile.write((i.key()+"|"+i.value()+"\n").toUtf8());
-				}
-				pathDataFile.close();
-			}
+			UpdatePathResumeAndLinks();
 			emit TorrentInfo(QString::fromStdString(h.name()),tr("MOVE_STORRAGE_COMPLETED_TO:\n%1").arg(QString::fromStdString(h.save_path())));
 			break;
 		}
@@ -403,7 +371,7 @@ void TorrentManager::PostTorrentUpdate()
 	alerts.clear();
 	ses->post_torrent_updates();
 }
-bool TorrentManager::AddTorrent(QString path, QString save_path,QMap<QString,int> filePriorities,error_code& ec)
+bool TorrentManager::AddTorrent(QString path, QString save_path,QString group,QMap<QString,int> filePriorities,error_code& ec)
 {
 	{
 		
@@ -467,7 +435,7 @@ bool TorrentManager::AddTorrent(QString path, QString save_path,QMap<QString,int
 		//	QMessageBox::warning(0,"Error",ec.message().c_str());
 			return false;
 		}
-		Torrent* current=new Torrent(h);
+		Torrent* current=new Torrent(h,group);
 		emit AddTorrentGui(current);
 		torrents->append(current);
 		QFileInfo file(path);
@@ -480,11 +448,11 @@ bool TorrentManager::AddTorrent(QString path, QString save_path,QMap<QString,int
 
 		if (save_path_data.contains(to_hex(h.info_hash().to_string()).c_str()))
 		{
-			save_path_data[to_hex(h.info_hash().to_string()).c_str()]=save_path;
+			save_path_data[to_hex(h.info_hash().to_string()).c_str()]=qMakePair(save_path,group);
 		}
 		else
 		{
-			save_path_data.insert(to_hex(h.info_hash().to_string()).c_str(),save_path);
+			save_path_data.insert(to_hex(h.info_hash().to_string()).c_str(),qMakePair(save_path,group));
 		}
 		UpdatePathResumeAndLinks();
 	}
@@ -726,9 +694,9 @@ void TorrentManager::UpdatePathResumeAndLinks()
     QFile pathDataFile("CT_DATA/path.resume");
     if (pathDataFile.open(QFile::WriteOnly))
     {
-        for (QMap<QString,QString>::iterator i=save_path_data.begin();i!=save_path_data.end();i++)
+        for (QMap<QString,QPair<QString,QString>>::iterator i=save_path_data.begin();i!=save_path_data.end();i++)
         {
-            pathDataFile.write((i.key()+"|"+i.value()+"\n").toUtf8());
+            pathDataFile.write((i.key()+"|"+i.value().first+"|"+i.value().second+"\n").toUtf8());
         }
         pathDataFile.close();
     }
@@ -806,18 +774,18 @@ openmagnet_info* TorrentManager::GetTorrentInfo( torrent_handle handle )
 
 void TorrentManager::RemoveTorrent(torrent_handle h,bool delFiles)
 {
-	Torrent* tor = new Torrent(h);
+	Torrent* tor = new Torrent(h,"");
     emit TorrentRemove(tor->GetInfoHash());
 	std::string info_hash=to_hex(h.info_hash().to_string());
 	QString infoHash=QString::fromStdString(info_hash);
-	for (int i=0;i<torrents->count();i++)
+/*	for (int i=0;i<torrents->count();i++)
 	{
 		if (torrents->at(i)->GetInfoHash()==infoHash)
 		{
 			torrents->remove(infoHash);
 			break;
 		}
-	}
+	}*/
 	QString resume_path=QString::fromStdString(combine_path("CT_DATA",info_hash+".resume"));
 	QString torrent_path=QString::fromStdString(combine_path("CT_DATA",h.name()+".torrent"));
  	QString magnet_path = QString::fromStdString(combine_path("CT_DATA",info_hash+".torrent"));
@@ -920,7 +888,7 @@ torrent_handle TorrentManager::ProcessMagnetLink(QString link,error_code& ec)
 		add_info.resume_data = &buf;
 		if (save_path_data.contains(to_hex(add_info.info_hash.to_string()).c_str()))
 		{
-			add_info.save_path = save_path_data[to_hex(add_info.info_hash.to_string()).c_str()].toStdString();
+			add_info.save_path = save_path_data[to_hex(add_info.info_hash.to_string()).c_str()].first.toStdString();
 		}
 	}
 
@@ -958,7 +926,7 @@ void TorrentManager::CancelMagnetLink(QString link)
     }
 }
 
-bool TorrentManager::AddMagnet( torrent_handle h,QString SavePath,QMap<QString,int> filePriorities )
+bool TorrentManager::AddMagnet( torrent_handle h,QString SavePath,QString group,QMap<QString,int> filePriorities )
 {
 
 	if (!filePriorities.isEmpty())
@@ -984,20 +952,24 @@ bool TorrentManager::AddMagnet( torrent_handle h,QString SavePath,QMap<QString,i
 		h.move_storage(SavePath.toStdString());
 	}
 	h.resume();
+	if (save_path_data.contains(to_hex(h.info_hash().to_string()).c_str()))
+	{
+		group=save_path_data[to_hex(h.info_hash().to_string()).c_str()].second;
+	}
 	if (h.is_valid())
 	{
 		
-		emit AddTorrentGui(new Torrent(h));
+		emit AddTorrentGui(new Torrent(h,group));
 	}
 	if (save_path_data.contains(to_hex(h.info_hash().to_string()).c_str()))
 	{
-		save_path_data[to_hex(h.info_hash().to_string()).c_str()]=SavePath;
+		save_path_data[to_hex(h.info_hash().to_string()).c_str()]=qMakePair(SavePath,group);
 	}
 	else
 	{
-		save_path_data.insert(to_hex(h.info_hash().to_string()).c_str(),SavePath);
+		save_path_data.insert(to_hex(h.info_hash().to_string()).c_str(),qMakePair(SavePath,group));
 	}
-	Torrent* current = new Torrent(h);
+	Torrent* current = new Torrent(h,group);
 	torrents->append(current);
     UpdatePathResumeAndLinks();
 	return true;
@@ -1073,10 +1045,11 @@ int TorrentManager::GetUploadLimit()
 
 Torrent* TorrentManager::GetTorrentByInfoHash( sha1_hash hash )
 {
+	QString infoHash =QString::fromStdString(to_hex(hash.to_string()));
 	torrent_handle handle=ses->find_torrent(hash);
 	if (handle.is_valid())
 	{
-		return new Torrent(handle);
+		return new Torrent(handle,save_path_data[infoHash].second);
 	}
 	return NULL;
 }

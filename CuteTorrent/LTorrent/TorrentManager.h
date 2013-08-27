@@ -116,7 +116,7 @@ private:
 	void handle_alert(alert*);
 	void writeSettings();
 	TorrentStorrage* torrents;
-	QMap<QString,QString> save_path_data;
+	QMap<QString,QPair<QString,QString>> save_path_data;
     libtorrent::session* ses;
 	libtorrent::upnp* m_upnp;
 	QApplicationSettings* torrentSettings;
@@ -148,8 +148,8 @@ public:
 	opentorrent_info* GetTorrentInfo(QString filename);
 	openmagnet_info* GetTorrentInfo(torrent_handle handle);
 	void RemoveTorrent(QString InfoHash);
-	bool AddMagnet( torrent_handle h,QString SavePath,QMap<QString,int> filepriorities = QMap<QString,int>() );
-	bool AddTorrent(QString path, QString save_path,QMap<QString,int> filepriorities = QMap<QString,int>(),error_code& ec = error_code());
+	bool AddMagnet( torrent_handle h,QString SavePath,QString group,QMap<QString,int> filepriorities = QMap<QString,int>() );
+	bool AddTorrent(QString path, QString save_path,QString group,QMap<QString,int> filepriorities = QMap<QString,int>(),error_code& ec = error_code());
 	void PostTorrentUpdate();
 	void RemoveTorrent(torrent_handle h,bool dellfiles=false);
 	torrent_handle ProcessMagnetLink(QString link,error_code& ec=error_code());

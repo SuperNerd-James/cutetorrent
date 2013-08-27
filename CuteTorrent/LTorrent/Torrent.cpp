@@ -192,13 +192,13 @@ QStringList& Torrent::GetImageFiles()
 	}
 	return imageFiles;
 }
-Torrent::Torrent(libtorrent::torrent_handle torrentStatus) 
+Torrent::Torrent(libtorrent::torrent_handle torrentStatus,QString group) 
 	: QObject(0),mountable(false) , m_hasMedia(false) , cur_torrent(torrentStatus) , size(0) , m_stoped(false)
 {
 	file_storage storrgae=cur_torrent.get_torrent_info().files();
 	libtorrent::file_storage::iterator bg=storrgae.begin(),
 		end=storrgae.end();
-
+	this->group=group;
 	for (libtorrent::file_storage::iterator i=bg;i!=end;i++)
 	{
 		QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));
@@ -889,6 +889,11 @@ int Torrent::GetStatus()
 QString Torrent::generateMagnetLink()
 {
 	return QString::fromStdString(libtorrent::make_magnet_uri(cur_torrent));
+}
+
+QString Torrent::GetGroup()
+{
+	return group;
 }
 
 

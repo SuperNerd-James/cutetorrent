@@ -49,67 +49,17 @@ QTorrentDisplayModel::QTorrentDisplayModel(QListView* _parrent,QObject* __parren
 }
 void QTorrentDisplayModel::Rehash()
 {
-	Torrent* tor=GetSelectedTorrent();
-	if (tor!=NULL)
-	{
-		tor->announceRehash();
-	}
+	ActionOnSelectedItem(rehash);
 }
 void QTorrentDisplayModel::DellTorrentOnly()
 {
-	if (rowCount() == 0)
-	{
-
-		return ;
-	}
-	if (selectedRow >= rowCount())
-	{
-
-		return ;
-	}
-	if (selectedRow < 0)
-	{
-
-		return ;
-	}
-	Torrent* tor=torrents->at(selectedRow);
-	if (tor!=NULL)
-	{
-        removeRows(selectedRow,1);
-        /*int index=torrents->indexOf(tor);
-		torrents->erase(torrents->begin() + index);
-		tor->RemoveTorrent(mgr);
-        parrent->selectionModel()->reset();*/
-	}
+	ActionOnSelectedItem(remove);
 }
 
 void QTorrentDisplayModel::DellAll()
 {
 	
-	if (rowCount() == 0)
-	{
-		return ;
-	}
-	if (selectedRow >= rowCount())
-	{
-		return ;
-	}
-	if (selectedRow < 0)
-	{
-		return ;
-	}
-	try
-	{
-		Torrent* tor=torrents->at(selectedRow);
-		if (tor!=NULL)
-		{
-            removeRow(selectedRow,true);
-
-		}
-	}
-	catch (...)
-	{
-	}
+	ActionOnSelectedItem(remove_all);
 }
 class MountDialogThread : private QThread
 {
@@ -404,13 +354,19 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 			switch(wtf)
 			{
 			case stop:
-				foreach(Torrent* torrent,selectedTorrents)
-					torrent->stop();
-				break;
+				{
+					foreach(Torrent* torrent,selectedTorrents)
+						torrent->stop();
+					break;
+				}
+				
 			case pause:
-				foreach(Torrent* torrent,selectedTorrents)
-					torrent->pause();
-				break;
+				{
+					foreach(Torrent* torrent,selectedTorrents)
+						torrent->pause();
+					break;
+				}
+				
 			case remove:
 				{
 					foreach(int row,rows)
@@ -420,7 +376,7 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 					}
 				}
 				break;
-			case removeAll:
+			case remove_all:
 				{
 					
 					foreach(int row,rows)
@@ -428,11 +384,70 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 						//qDebug() << "removing row " << row;
 						removeRow(row,true);
 					}
+					break;
 				}
 			case resume:
 				foreach(Torrent* torrent,selectedTorrents)
 					torrent->resume();
 				break;
+			case rehash:
+				{
+					foreach(Torrent* torrent,selectedTorrents)
+					{
+						torrent->announceRehash();
+					}
+					break;
+				}
+			case move_storrage:
+				{
+					QString path = QFileDialog::getExistingDirectory(parrent, tr("DIALOG_OPEN_FOLDER"),
+						selectedTorrents[0]->GetSavePath(),
+						QFileDialog::ShowDirsOnly
+						| QFileDialog::DontResolveSymlinks);
+					if (!path.isEmpty())
+					{
+						foreach(Torrent* torrent,selectedTorrents)
+						{
+							torrent->MoveStorrage(path+QDir::separator());
+						}
+					}
+					break;	
+				}
+			case set_sequntial:
+				{
+					foreach(Torrent* torrent,selectedTorrents)
+					{
+						torrent->seqensialDownload();
+					}
+					break;
+				}
+			case set_superseed:
+				{
+					foreach(Torrent* torrent,selectedTorrents)
+					{
+						torrent->SuperSeed();
+					}
+					break;
+				}
+			case update_trackers:
+				{
+					foreach(Torrent* torrent,selectedTorrents)
+					{
+						torrent->updateTrackers();
+					}
+					break;
+				}
+			case generate_magmet:
+				{
+					QString clipboardData;
+					foreach(Torrent* torrent,selectedTorrents)
+					{
+						clipboardData+=torrent->generateMagnetLink();
+						clipboardData+="\n";
+					}
+					QApplication::clipboard()->setText(clipboardData);
+					break;
+				}
 			}
 	}
 	catch (std::exception e)
@@ -531,44 +546,27 @@ void QTorrentDisplayModel::retranslate()
 
 void QTorrentDisplayModel::setSequentualDL()
 {
-	Torrent *cur = GetSelectedTorrent();
-	if (cur!=NULL)
-	{
-		cur->seqensialDownload();
-	}
+	ActionOnSelectedItem(set_sequntial);
 }
 
 void QTorrentDisplayModel::UpdateTrackers()
 {
-	Torrent *cur = GetSelectedTorrent();
-	if (cur!=NULL)
-	{
-		cur->updateTrackers();
-	}
+	ActionOnSelectedItem(update_trackers);
 }
 
 void QTorrentDisplayModel::moveStorrage()
 {
 	
-	Torrent* current=torrents->at(selectedRow);
-	if (current!=NULL)
-	{
-		QString path = QFileDialog::getExistingDirectory(parrent, tr("DIALOG_OPEN_FOLDER"),
-			current->GetSavePath(),
-			QFileDialog::ShowDirsOnly
-			| QFileDialog::DontResolveSymlinks);
-
-		current->MoveStorrage(path+QDir::separator());
-	}
+	ActionOnSelectedItem(move_storrage);
 }
 
 void QTorrentDisplayModel::playInPlayer()
 {
 	try 
 	{
-        //VideoPlayerWindow* vpw = new VideoPlayerWindow(parrent);
-//		vpw->openFile(CurrentTorrent->GetSavePath()+CurrentTorrent->GetFileDownloadInfo().first().name);
-    //	vpw->show();
+		VideoPlayerWindow* vpw = new VideoPlayerWindow(parrent);
+		vpw->openFile(CurrentTorrent->GetSavePath()+QString::fromStdString(CurrentTorrent->GetFileDownloadInfo().storrage.at(0).path));
+    	vpw->show();
 	
 	}
 	catch(...)
@@ -638,11 +636,7 @@ void QTorrentDisplayModel::sort()
 
 void QTorrentDisplayModel::SetSuperSeed()
 {
-	Torrent* tor  = GetSelectedTorrent();
-	if (tor!=NULL)
-	{
-		tor->SuperSeed();
-	}
+	ActionOnSelectedItem(set_superseed);
 }
 
 void QTorrentDisplayModel::initSessionFinished()
@@ -669,15 +663,18 @@ void QTorrentDisplayModel::onTorrentRemove(  QString InfoHash )
 		}
 		i++;
     }
+	reset();
 }
 
 void QTorrentDisplayModel::generateMagnetLink()
 {
-	Torrent* tor = GetSelectedTorrent();
-	if (tor!=NULL)
-	{
-		QApplication::clipboard()->setText(tor->generateMagnetLink());
-	}
+	ActionOnSelectedItem(generate_magmet);
+}
+
+bool QTorrentDisplayModel::setData( const QModelIndex &index, const QVariant &value, int role /*= Qt::EditRole */ )
+{
+	qDebug()<< "QTorrentDisplayModel::setData" << index << value;
+	return true;
 }
 
 

@@ -21,13 +21,15 @@ struct openmagnet_info
 	libtorrent::size_type size;
 };
 
-enum torrent_filter
-{
-	active=0,stopped=1,compled=2,seeding=3
 
+enum FilterType{
+	ACTIVE,
+	NOT_ACTIVE,
+	SEEDING,
+	DWONLOADING,
+	COMPLETED,
+	NONE
 };
-
-
 
 struct torrent_creation_info
 {

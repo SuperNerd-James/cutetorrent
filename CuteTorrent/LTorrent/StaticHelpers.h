@@ -33,6 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QStyle>
 #include "TorrentManager.h"
 #include "SchedulerTask.h"
+#include "defs.h"
 class StaticHelpers
 {
 public:
@@ -48,6 +49,7 @@ public:
 	static QString SchedulerTypeToString(SchedulerTask::TaskType type);
 	static QString GetBaseSuffix(libtorrent::file_storage storrage);
 	template <typename T> static QList<T> reversed( const QList<T> & in );
+	static FilterType StrToFilter( QString filter );
 };
 
 template <typename T> QList<T>
