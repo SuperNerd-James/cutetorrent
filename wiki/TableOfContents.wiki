@@ -6,3 +6,4 @@
   * BitTorrent
   * WebInterface
   * TorrentTracker
+  * PaternSearch
