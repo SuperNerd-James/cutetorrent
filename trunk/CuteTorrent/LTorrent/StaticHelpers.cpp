@@ -243,3 +243,32 @@ QString StaticHelpers::GetBaseSuffix( libtorrent::file_storage storrage )
 	return base_suffix;
 }
 
+FilterType StaticHelpers::StrToFilter( QString filter )
+{
+	if(filter=="NONE")
+	{
+		return NONE;
+	}
+	if (filter=="DWONLOADING")
+	{
+		return DWONLOADING;
+	}
+	if(filter=="SEEDING")
+	{
+		return SEEDING;
+	}
+	if(filter=="COMPLETED")
+	{
+		return COMPLETED;
+	}
+	if(filter=="ACTIVE")
+	{
+		return ACTIVE;
+	}
+	if(filter=="NOT_ACTIVE")
+	{
+		return NOT_ACTIVE;
+	}
+	return NONE;
+}
+

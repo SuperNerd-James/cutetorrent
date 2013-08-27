@@ -4,18 +4,18 @@
 #include <QHash>
 #include <QString>
 #include <QMutex>
+#include <QTimer>
 class Torrent;
+#include "defs.h"
 class TorrentStorrage :
 	public QObject
 {
 	Q_OBJECT
-private:
-	static TorrentStorrage* instance;
-	static int instance_count;
-	QMap<QString,Torrent*> torrentsMap;
-	QVector<QMap<QString,Torrent*>::Iterator> torrents;
-	QMutex* locker;
+
 public:
+	
+	void setFilter(FilterType filter);
+	void setGroupFilter(QString filter);
 	static TorrentStorrage* getInstance();
 	static void freeInstance();
 	QList<Torrent*>::iterator begin();
@@ -33,4 +33,18 @@ public:
 protected:
 	TorrentStorrage(QObject* parrent=NULL);
 	~TorrentStorrage(void);
+private:
+	static TorrentStorrage* instance;
+	static int instance_count;
+	QMap<QString,Torrent*> torrentsMap;
+	QVector<QMap<QString,Torrent*>::Iterator> torrents;
+	QVector<QMap<QString,Torrent*>::Iterator> filteredTorrents;
+	QMutex* locker;
+	FilterType currentFilter;
+	QString groupFilter;
+	QTimer* timer;
+	void filterBybasicFilter();
+	void filterByGroup();
+private slots:	
+	void filterData();
 };

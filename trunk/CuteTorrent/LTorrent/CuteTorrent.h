@@ -48,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "tracker/torrentracker.h"
 #include "RconWebService.h"
 #include "FileViewModel.h"
-#include "QTorrentFilterModel.h"
+#include "TorrentStorrage.h"
 Q_DECLARE_METATYPE(QHostAddress)
 class CuteTorrent : public QMainWindow , private Ui::CuteTorrentClass
 {
@@ -71,7 +71,8 @@ protected:
     void dropEvent(QDropEvent *event);
 	void keyPressEvent ( QKeyEvent * event );
 private:
-	QTorrentFilterModel* torrentFilterModel;
+	QComboBox* searchSource;
+	TorrentStorrage* torrents;
 	QSortFilterProxyModel* proxymodel;
     FileViewModel* fileViewModel;
 	Ui::ToolButtons* toolButtonsUi;
@@ -80,7 +81,7 @@ private:
 	RconWebService* rcon;
 	int  m_nMouseClick_X_Coordinate;
 	int  m_nMouseClick_Y_Coordinate;
-	QMutex* fileinfosLocker;
+	
 
 	UpdateNotifier* notyfire;
 	bool mayShowNotifies;
@@ -108,6 +109,13 @@ private:
 	QAction* highPriority;
 	QAction* dontDownload;
 	QLineEdit* searchEdit;
+	QTreeWidgetItem *__qtreewidgetitem;
+	QTreeWidgetItem *__qtreewidgetitem1;
+	QTreeWidgetItem *__qtreewidgetitem2;
+	QTreeWidgetItem *__qtreewidgetitem3;
+	QTreeWidgetItem *__qtreewidgetitem4;
+	QTreeWidgetItem *__qtreewidgetitem5;
+	QTreeWidgetItem *__qtreewidgetitem6;
 	void createTrayIcon();
 	void createActions();
 	void setupTray();
@@ -117,6 +125,7 @@ private:
 	void setupTabelWidgets();
 	void setupStatusBar();
 	void setupFileTabel();
+	void setupGroupTreeWidget();
 	void setupFileTabelContextMenu();
 	void fillPieceDisplay();
 	void setFilePriority(int);
@@ -127,20 +136,20 @@ private slots:
 	void UpdateDL(int);
 	void OpenFileSelected();
 	void OpenDirSelected();
-	void setLowForCurrentFile();
-	void setMediumForCurrentFile();
-	void setHighForCurrentFile();
-	void setNotDownloadForCurrentFile();
-	void fileTabContextMenu(const QPoint &);
+	void SetLowForCurrentFile();
+	void SetMediumForCurrentFile();
+	void SetHighForCurrentFile();
+	void SetNotDownloadForCurrentFile();
+	void FileTabContextMenu(const QPoint &);
 	void ShowAbout();
-	void checkForUpdates();
+	void CheckForUpdates();
 	void ShowUpdateNitify(const QString&);
 	void ShowNoUpdateNitify(const QString&);
-	void retranslate();
+	void Retranslate();
 	void ShowTorrentError(const QString&,const QString&);
-	void enableNitifyShow();
-	void showTorrentCompletedNotyfy(const QString,const QString);
-	void showTorrentInfoNotyfy(const QString,const QString);
+	void EnableNitifyShow();
+	void ShowTorrentCompletedNotyfy(const QString,const QString);
+	void ShowTorrentInfoNotyfy(const QString,const QString);
 	void ShowCreateTorrentDialog();
 	void ShowOpenTorrentDialog();
 	void PauseSelected();
@@ -152,16 +161,18 @@ private slots:
 	void UpdateFileTab();
 	void UpadteTrackerTab();
 	void OpenSettingsDialog();
-	void iconActivated(QSystemTrayIcon::ActivationReason reason);
-	void updateTabWidget(int);
+	void IconActivated(QSystemTrayIcon::ActivationReason reason);
+	void UpdateTabWidget(int);
 	void ProcessMagnet();
-	void peformSearch();
-	void copyDiscribtion();
-	void clearPieceDisplay();
-	void updateItemWidth(int,int);
+	void PeformSearch();
+	void CopyDiscribtion();
+	void ClearPieceDisplay();
+	void UpdateItemWidth(int,int);
 	void AddTracker();
 	void AddPeer();
-	
+	void ChnageTorrentFilter();
+
+
 };
 
 #endif // LTORRENT_H

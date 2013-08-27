@@ -14,7 +14,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+along with this program.  If not, see .
 */
 #ifndef _TOR_DIPL_MODEL_H
 #define _TOR_DIPL_MODEL_H
@@ -33,61 +33,62 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <TorrentStorrage.h>
 class Torrent;
 class TorrentManager;
-class QTorrentDisplayModel : public QAbstractListModel
+class QTorrentDisplayModel:public QAbstractListModel 
 {
 	Q_OBJECT
 private:
-	
-	TorrentStorrage* torrents;
-	int auto_id;
-	QListView* parrent;
-	int selectedRow;
-	QMenu* menu;
-	QAction* openDir;
-	QAction* superSeed;
-	QAction* DTmount;
-	QAction* HashRecheck;
-	QAction* DelAll;
-	QAction* DelTorrentOnly;
-	QAction* setSequentual;
-	QAction* updateTrackers;
-	QAction* MoveStorrage;
-	QAction* PlayInPlayer;
-	QAction* GenerateMagnet;
-	TorrentManager* mgr;
-    Torrent* CurrentTorrent;
-	QTimer* timer;
-	QMutex* locker;
+TorrentStorrage * torrents;
+int auto_id;
+QListView *parrent;
+int selectedRow;
+QMenu *menu;
+QAction *openDir;
+QAction *superSeed;
+QAction *DTmount;
+QAction *HashRecheck;
+QAction *DelAll;
+QAction *DelTorrentOnly;
+QAction *setSequentual;
+QAction *updateTrackers;
+QAction *MoveStorrage;
+QAction *PlayInPlayer;
+QAction *GenerateMagnet;
+TorrentManager *mgr;
+Torrent *CurrentTorrent;
+QTimer *timer;
+QMutex *locker;
 private:
 	void setupContextMenu();
 public:
-	QTorrentDisplayModel(QListView* parrent,QObject* __parrent);
+	QTorrentDisplayModel(QListView * parrent, QObject * __parrent);
 	~QTorrentDisplayModel();
-	enum action{stop,pause,resume,remove,removeAll};
+	enum action { stop, pause, resume, remove, remove_all, move_storrage,
+		set_sequntial, set_superseed, generate_magmet, update_trackers,
+		rehash };
 	void ActionOnSelectedItem(action wtf);
 	void ChangeData(int row);
-	QTorrentDisplayModel(QObject* parrent=NULL);
-	int hasTorrent(const QString& InfoHash) const;
+	QTorrentDisplayModel(QObject * parrent = NULL);
+	int hasTorrent(const QString & InfoHash) const;
 	void clear();
 	void retranslate();
 	void sort();
-	virtual int rowCount( const QModelIndex& parent = QModelIndex() ) const;
-    virtual QVariant data( const QModelIndex& index, int role = Qt::DisplayRole ) const;
-    bool removeRow(int row,bool delFiles);
-    virtual bool removeRows ( int row, int count, const QModelIndex & parent = QModelIndex() );
-    enum Role { TorrentRole = Qt::UserRole };
-	Torrent* GetSelectedTorrent();
-	
-signals:
-	void initCompleted();
+	virtual int rowCount(const QModelIndex & parent = QModelIndex())const;
+	virtual QVariant data(const QModelIndex & index, int role =	Qt::DisplayRole) const;
+	bool setData( const QModelIndex &index, const QVariant &value, int role = Qt::EditRole );
+	bool removeRow(int row, bool delFiles);
+	virtual bool removeRows(int row, int count,
+		const QModelIndex & parent = QModelIndex());
+	enum Role { TorrentRole = Qt::UserRole };
+	Torrent *GetSelectedTorrent();
+
+signals:void initCompleted();
 	void updateTabSender(int);
 	void TorrentCompletedProxySender(const QString);
-	void TorrentErrorPoxySender(const QString&);
-public slots:
-	void AddTorrent(Torrent*);
-    void onTorrentRemove(QString);
+	void TorrentErrorPoxySender(const QString &);
+	public slots:void AddTorrent(Torrent *);
+	void onTorrentRemove(QString);
 	void UpdateSelectedIndex(const QItemSelection &);
-	void TorrentErrorProxy(const QString&);
+	void TorrentErrorProxy(const QString &);
 	void TorrentCompletedProxy(const QString);
 	void contextualMenu(const QPoint &);
 	void OpenDirSelected();
@@ -105,6 +106,8 @@ public slots:
 	void generateMagnetLink();
 
 	
+
+
 };
 
 

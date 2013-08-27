@@ -45,6 +45,7 @@ private:
 	bool mountable;
 	QString base_suffix;
 	QString type;
+	QString group;
 	QStringList imageFiles;
 	bool prevHaserror,prevIsCompleted;
 public :
@@ -56,7 +57,8 @@ public :
 	QStringList& GetImageFiles();
 	QString GetSuffix();
 	QString GetErrorMessage() const;
-  	Torrent(torrent_handle torrentStatus);
+  	Torrent(torrent_handle torrentStatus,QString group);
+	QString GetGroup();
 	QString GetDwonloadSpeed();
 	QString GetUploadSpeed();
 	QString GetSavePath();

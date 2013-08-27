@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMap>
 #include <QTextCodec>
 #include <QMovie>
-OpenTorrentDialog::OpenTorrentDialog(QWidget *parent, Qt::WFlags flags)
+OpenTorrentDialog::OpenTorrentDialog(QWidget *parent, Qt::WFlags flags) : useGroup(false)
 {
 	setupUi(this);
 	setupGroupComboBox();
@@ -154,6 +154,7 @@ void OpenTorrentDialog::BrowseButton()
 		dir=QDir::toNativeSeparators(dir);
 		settings->setValue("System","LastSaveTorrentDir",dir);
 		pathEdit->setText(dir);
+		useGroup=false;
 	}
 	QApplicationSettings::FreeInstance();
 }
@@ -167,13 +168,14 @@ void OpenTorrentDialog::AccepTorrent()
 		QFile file(torrentFilename);
 		QMap<QString,int> filePriorities=model->getFilePiorites();
 		error_code ec;
+		QString group=useGroup ? filters[GroupComboBox->currentIndex()].Name(): "" ;
 		if (!torrentFilename.startsWith("magnet"))
 		{
-			mgr->AddTorrent(torrentFilename,pathEdit->displayText(),filePriorities,ec);
+			mgr->AddTorrent(torrentFilename,pathEdit->displayText(),group,filePriorities,ec);
 		}
 		else
 		{
-			mgr->AddMagnet(_info.handle,pathEdit->displayText(),filePriorities);
+			mgr->AddMagnet(_info.handle,pathEdit->displayText(),group,filePriorities);
 		}
 		if (ec)
 		{
@@ -187,7 +189,10 @@ void OpenTorrentDialog::AccepTorrent()
 void OpenTorrentDialog::ChangeGroup()
 {
 	if (GroupComboBox->currentIndex()>=0 && GroupComboBox->currentIndex()<filters.length())
+	{
 		pathEdit->setText(filters[GroupComboBox->currentIndex()].SavePath());
+		useGroup=true;
+	}
 }
 
 void OpenTorrentDialog::DownloadMetadataCompleted(openmagnet_info info)
