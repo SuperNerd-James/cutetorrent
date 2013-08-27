@@ -344,7 +344,7 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 			selectedTorrents.append(index.data(TorrentRole).value<Torrent*>());
 		}
 		qSort(rows);
-		rows=StaticHelpers::reversed(rows);
+        rows=StaticHelpers::reversed(rows);
 		if (rowCount()==0)
 				return;
 			if (selectedRow < 0)

@@ -89,6 +89,7 @@ void TorrentStorrage::append( Torrent* torrent)
 		}
 	}
 	locker->unlock();
+
 	
 }
 
@@ -102,17 +103,17 @@ void TorrentStorrage::remove( Torrent* torrent )
 
 void TorrentStorrage::remove( QString infoHash)
 {
-	qDebug() << "TorrentStorrage::remove" << infoHash;
+	//qDebug() << "TorrentStorrage::remove" << infoHash;
 	QMap<QString,Torrent*>::Iterator it=torrentsMap.find(infoHash);
 	int index=torrents.indexOf(it);
 	int index2 = filteredTorrents.lastIndexOf(it);
-	qDebug() << "Found " << index << it.value();
+	//qDebug() << "Found " << index << it.value();
 	if (index>=0)
 	{
-		qDebug() << "Before Removing" << torrentsMap.count();
+		//qDebug() << "Before Removing" << torrentsMap.count();
 		torrents.remove(index);
 		torrentsMap.remove(infoHash);
-		qDebug() << "After Removing" << torrentsMap.count();
+		//qDebug() << "After Removing" << torrentsMap.count();
 	}
 	if (index2>=0)
 	{
@@ -200,103 +201,128 @@ void TorrentStorrage::setFilter( FilterType filter )
 {
 	currentFilter = filter;
 	groupFilter="";
+    searchFilter="";
 	filterData();
 }
 
 void TorrentStorrage::filterData()
 {
-	if (groupFilter.isEmpty())
-	{
-		filterBybasicFilter();
-	}
-	else
-	{
-		filterByGroup();
-	}
+    filteredTorrents.clear();
+    switch(currentFilter)
+    {
+    case ACTIVE:
+        {
+            for(int i=0;i<torrents.count();i++)
+            {
+                if (!torrents[i].value()->GetUploadSpeed().isEmpty() || !torrents[i].value()->GetDwonloadSpeed().isEmpty())
+                {
+                    filteredTorrents.append(torrents[i]);
+                }
+            }
+            break;
+        }
+    case NOT_ACTIVE:
+        {
+            for(int i=0;i<torrents.count();i++)
+            {
+                if (torrents[i].value()->GetUploadSpeed().isEmpty() && torrents[i].value()->GetDwonloadSpeed().isEmpty())
+                {
+                    filteredTorrents.append(torrents[i]);
+                }
+            }
+            break;
+        }
+    case DWONLOADING:
+        {
+            for(int i=0;i<torrents.count();i++)
+            {
+                if (torrents[i].value()->isDownloading())
+                {
+                    filteredTorrents.append(torrents[i]);
+                }
+            }
+            break;
+        }
+    case SEEDING:
+        {
+            for(int i=0;i<torrents.count();i++)
+            {
+                if (torrents[i].value()->isSeeding())
+                {
+                    filteredTorrents.append(torrents[i]);
+                }
+            }
+            break;
+        }
+    case COMPLETED:
+        {
+            for(int i=0;i<torrents.count();i++)
+            {
+                if (torrents[i].value()->GetProgress()==100)
+                {
+                    filteredTorrents.append(torrents[i]);
+                }
+            }
+            break;
+        }
+    case NONE:
+        {
+            filteredTorrents = torrents;
+            break;
+        }
+    case MY_GROUP_FILTER:
+        {
+            filterByGroup();
+            break;
+        }
+    case SEARCH:
+        {
+            filterBySearch();
+            break;
+        }
+    }
 }
 
 void TorrentStorrage::setGroupFilter( QString filter )
 {
+    currentFilter = MY_GROUP_FILTER;
 	groupFilter = filter;
-	filterData();
+    filterData();
+}
+
+void TorrentStorrage::setSearchFilter(QString filter)
+{
+    currentFilter = SEARCH;
+    searchFilter = filter;
+    filterData();
 }
 
 void TorrentStorrage::filterByGroup()
 {
-	filteredTorrents.clear();
-	for(int i=0;i<torrents.count();i++)
+    for(int i=0;i<torrents.count();i++)
 	{
 		if (torrents[i].value()->GetGroup().toLower() == groupFilter.toLower())
 		{
 			filteredTorrents.append(torrents[i]);
 		}
-	}
+    }
 }
 
-void TorrentStorrage::filterBybasicFilter()
+void TorrentStorrage::filterBySearch()
 {
-	filteredTorrents.clear();
-	switch(currentFilter)
-	{
-	case ACTIVE:
-		{
-			for(int i=0;i<torrents.count();i++)
-			{
-				if (!torrents[i].value()->GetUploadSpeed().isEmpty() || !torrents[i].value()->GetDwonloadSpeed().isEmpty())
-				{
-					filteredTorrents.append(torrents[i]);
-				}
-			}
-			break;
-		}
-	case NOT_ACTIVE:
-		{
-			for(int i=0;i<torrents.count();i++)
-			{
-				if (torrents[i].value()->GetUploadSpeed().isEmpty() && torrents[i].value()->GetDwonloadSpeed().isEmpty())
-				{
-					filteredTorrents.append(torrents[i]);
-				}
-			}
-			break;
-		}
-	case DWONLOADING:
-		{
-			for(int i=0;i<torrents.count();i++)
-			{
-				if (torrents[i].value()->isDownloading())
-				{
-					filteredTorrents.append(torrents[i]);
-				}
-			}
-			break;
-		}
-	case SEEDING:
-		{
-			for(int i=0;i<torrents.count();i++)
-			{
-				if (torrents[i].value()->isSeeding())
-				{
-					filteredTorrents.append(torrents[i]);
-				}
-			}
-			break;
-		}
-	case COMPLETED:
-		{
-			for(int i=0;i<torrents.count();i++)
-			{
-				if (torrents[i].value()->GetProgress()==100)
-				{
-					filteredTorrents.append(torrents[i]);
-				}
-			}
-			break;
-		}
-	case NONE:
-		{
-			filteredTorrents = torrents;
-			break;
-		}
-	}
+
+    if (searchFilter.isEmpty())
+    {
+        filteredTorrents=torrents;
+        return;
+    }
+    for(int i=0;i<torrents.count();i++)
+    {
+        if (torrents[i].value()->GetName().toLower().contains(searchFilter.toLower(),Qt::CaseInsensitive))
+        {
+            filteredTorrents.append(torrents[i]);
+        }
+    }
 }
+
+

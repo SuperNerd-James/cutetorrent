@@ -23,6 +23,8 @@ struct openmagnet_info
 
 
 enum FilterType{
+    MY_GROUP_FILTER,
+    SEARCH,
 	ACTIVE,
 	NOT_ACTIVE,
 	SEEDING,

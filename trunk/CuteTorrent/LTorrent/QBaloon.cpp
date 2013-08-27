@@ -8,12 +8,12 @@ QWidget *QBalloonTip::showBalloon(const QString& title,
 								  const QString& message,QBaloonType type, QVariant data,const QSystemTrayIcon::MessageIcon& icon,
 								  int timeout, bool showArrow,QWidget* parent)
 {
-	qDebug() << "Creating baloon" << title << message;
+	//qDebug() << "Creating baloon" << title << message;
 	theSolitaryBalloonTip = new QBalloonTip(title, message,type,data,icon,parent);
 	//hideBalloon();
 	if (current!=NULL && current->isFinished())
 	{
-		qDebug() << "no baloon is showing so showing this";
+		//qDebug() << "no baloon is showing so showing this";
 	//	delete current;
 		current = theSolitaryBalloonTip;
 		if (timeout <= 0)
@@ -25,7 +25,7 @@ QWidget *QBalloonTip::showBalloon(const QString& title,
 	{
 		if (current==NULL)
 		{
-			qDebug() << "first baloone";
+			//qDebug() << "first baloone";
 			current = theSolitaryBalloonTip;
 			if (timeout <= 0)
 				timeout = 10000; // по умолчанию исчезнет через 10 секунд
@@ -34,7 +34,7 @@ QWidget *QBalloonTip::showBalloon(const QString& title,
 		}
 		else
 		{
-			qDebug() << "some one is shwoing so enqueue created";
+			//qDebug() << "some one is shwoing so enqueue created";
 			baloonQueue.enqueue(theSolitaryBalloonTip);
 		}
 	}
@@ -43,7 +43,7 @@ QWidget *QBalloonTip::showBalloon(const QString& title,
 
 void QBalloonTip::hideBalloon()
 {
-	qDebug() << "hiding current";
+	//qDebug() << "hiding current";
 	if (!current)
 		return;
 	current->hide();
@@ -229,7 +229,7 @@ void QBalloonTip::balloon(int msecs, bool showArrow)
 	anim->setStartValue(0.f);
 	anim->setEndValue(1.f);
 	anim->start();
-	qDebug() << "shwoing baloon";
+	//qDebug() << "shwoing baloon";
 }
 
 void QBalloonTip::mousePressEvent(QMouseEvent *e)
@@ -290,7 +290,7 @@ bool QBalloonTip::isFinished()
 
 void QBalloonTip::closeEvent( QCloseEvent *e )
 {
-	qDebug() << "closeEvent hiding and shwoing next if exist";
+	//qDebug() << "closeEvent hiding and shwoing next if exist";
 	hideBalloon();
 	if (!baloonQueue.isEmpty())
 	{

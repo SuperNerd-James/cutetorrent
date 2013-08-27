@@ -3,8 +3,9 @@
 TorrentTracker::TorrentTracker(QObject *parent) :
     QObject(parent)
 {
-    httpServer = new HttpListener("TorrentTracker",requestHandler);
     requestHandler = new TrackerRequestHandler(this);
+    httpServer = new HttpListener("TorrentTracker",requestHandler);
+
    
 }
 

@@ -40,7 +40,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="0"
+				Optimization="3"
+				InlineFunctionExpansion="2"
 				AdditionalIncludeDirectories=".\qtsingleapplication\src;E:\src\boost_1_53_0;&quot;E:\src\libtorrent-rasterbar-0.16.8\include&quot;;.\GeneratedFiles;.;&quot;$(QTDIR)\include&quot;;&quot;.\GeneratedFiles\$(ConfigurationName)&quot;;&quot;$(QTDIR)\include\QtCore&quot;;&quot;$(QTDIR)\include\QtGui&quot;;&quot;$(QTDIR)\include\phonon&quot;"
 				PreprocessorDefinitions="UNICODE;WIN32;QT_LARGEFILE_SUPPORT;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_PHONON_LIB"
 				StringPooling="true"
@@ -224,6 +225,10 @@
 			</File>
 			<File
 				RelativePath=".\Scheduller.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\searchitem.cpp"
 				>
 			</File>
 			<File
@@ -448,10 +453,6 @@
 						RelativePath=".\QTorrentDisplayModel.cpp"
 						>
 					</File>
-					<File
-						RelativePath=".\QTorrentFilterModel.cpp"
-						>
-					</File>
 				</Filter>
 			</Filter>
 			<Filter
@@ -599,6 +600,10 @@
 						Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 					/>
 				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\searchitem.h"
+				>
 			</File>
 			<File
 				RelativePath=".\StaticHelpers.h"
@@ -1521,32 +1526,6 @@
 								Name="VCCustomBuildTool"
 								Description="Moc&apos;ing QTorrentDisplayModel.h..."
 								CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB  &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot;&#x0D;&#x0A;"
-								AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-								Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
-							/>
-						</FileConfiguration>
-					</File>
-					<File
-						RelativePath=".\QTorrentFilterModel.h"
-						>
-						<FileConfiguration
-							Name="Release|Win32"
-							>
-							<Tool
-								Name="VCCustomBuildTool"
-								Description="Moc&apos;ing QTorrentFilterModel.h..."
-								CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB -D_UNICODE &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot;&#x0D;&#x0A;"
-								AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
-								Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
-							/>
-						</FileConfiguration>
-						<FileConfiguration
-							Name="Debug|Win32"
-							>
-							<Tool
-								Name="VCCustomBuildTool"
-								Description="Moc&apos;ing QTorrentFilterModel.h..."
-								CommandLine="&quot;$(QTDIR)\bin\moc.exe&quot;  &quot;$(InputPath)&quot; -o &quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;  -DUNICODE -DWIN32 -DQT_LARGEFILE_SUPPORT -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_PHONON_LIB &quot;-I.\qtsingleapplication\src&quot; &quot;-IE:\src\boost_1_53_0&quot; &quot;-IE:\src\libtorrent-rasterbar-0.16.8\include&quot; &quot;-I.\GeneratedFiles&quot; &quot;-I.&quot; &quot;-I$(QTDIR)\include&quot; &quot;-I.\GeneratedFiles\$(ConfigurationName)\.&quot; &quot;-I$(QTDIR)\include\QtCore&quot; &quot;-I$(QTDIR)\include\QtGui&quot; &quot;-I$(QTDIR)\include\phonon&quot;&#x0D;&#x0A;"
 								AdditionalDependencies="&quot;$(QTDIR)\bin\moc.exe&quot;;$(InputPath)"
 								Outputs="&quot;.\GeneratedFiles\$(ConfigurationName)\moc_$(InputName).cpp&quot;"
 							/>
@@ -2926,18 +2905,6 @@
 					</FileConfiguration>
 				</File>
 				<File
-					RelativePath=".\GeneratedFiles\Release\moc_QTorrentFilterModel.cpp"
-					>
-					<FileConfiguration
-						Name="Debug|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
 					RelativePath=".\GeneratedFiles\Release\moc_QTorrentItemDelegat.cpp"
 					>
 					<FileConfiguration
@@ -3389,18 +3356,6 @@
 				</File>
 				<File
 					RelativePath=".\GeneratedFiles\Debug\moc_QTorrentDisplayModel.cpp"
-					>
-					<FileConfiguration
-						Name="Release|Win32"
-						ExcludedFromBuild="true"
-						>
-						<Tool
-							Name="VCCLCompilerTool"
-						/>
-					</FileConfiguration>
-				</File>
-				<File
-					RelativePath=".\GeneratedFiles\Debug\moc_QTorrentFilterModel.cpp"
 					>
 					<FileConfiguration
 						Name="Release|Win32"

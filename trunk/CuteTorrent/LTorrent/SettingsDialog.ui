@@ -31,6 +31,19 @@
      </property>
     </widget>
    </item>
+   <item row="1" column="4">
+    <widget class="QPushButton" name="cancelButton">
+     <property name="maximumSize">
+      <size>
+       <width>80</width>
+       <height>16777215</height>
+      </size>
+     </property>
+     <property name="text">
+      <string>SETTINGS_CANCEL_BUTTON</string>
+     </property>
+    </widget>
+   </item>
    <item row="1" column="0">
     <spacer name="horizontalSpacer">
      <property name="orientation">
@@ -44,8 +57,8 @@
      </property>
     </spacer>
    </item>
-   <item row="1" column="4">
-    <widget class="QPushButton" name="cancelButton">
+   <item row="1" column="3">
+    <widget class="QPushButton" name="OKButton">
      <property name="maximumSize">
       <size>
        <width>80</width>
@@ -53,9 +66,22 @@
       </size>
      </property>
      <property name="text">
-      <string>SETTINGS_CANCEL_BUTTON</string>
+      <string>SETTINGS_OK_BITTON</string>
      </property>
     </widget>
+   </item>
+   <item row="1" column="2">
+    <spacer name="horizontalSpacer_2">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>40</width>
+       <height>20</height>
+      </size>
+     </property>
+    </spacer>
    </item>
    <item row="0" column="0">
     <widget class="QListWidget" name="listWidget">
@@ -105,7 +131,7 @@
       <set>QAbstractItemView::NoEditTriggers</set>
      </property>
      <property name="currentRow">
-      <number>-1</number>
+      <number>0</number>
      </property>
      <item>
       <property name="text">
@@ -161,32 +187,11 @@
         <normaloff>:/icons/webControll.ico</normaloff>:/icons/webControll.ico</iconset>
       </property>
      </item>
-    </widget>
-   </item>
-   <item row="1" column="2">
-    <spacer name="horizontalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="1" column="3">
-    <widget class="QPushButton" name="OKButton">
-     <property name="maximumSize">
-      <size>
-       <width>80</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>SETTINGS_OK_BITTON</string>
-     </property>
+     <item>
+      <property name="text">
+       <string>TAB_SEARCH</string>
+      </property>
+     </item>
     </widget>
    </item>
    <item row="0" column="2" colspan="4">
@@ -1202,6 +1207,82 @@ p, li { white-space: pre-wrap; }
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="page">
+      <layout class="QGridLayout" name="gridLayout_12">
+       <item row="0" column="0" colspan="2">
+        <widget class="QGroupBox" name="groupBox_7">
+         <property name="title">
+          <string/>
+         </property>
+         <layout class="QGridLayout" name="gridLayout_13">
+          <item row="0" column="0">
+           <widget class="QComboBox" name="sourcesComboBox"/>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_24">
+            <property name="text">
+             <string>SEARCH_NAME</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QLineEdit" name="searchItemNameLineEdit"/>
+          </item>
+          <item row="2" column="0">
+           <widget class="QLabel" name="label_25">
+            <property name="text">
+             <string>SEARCH_PATERN</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QLineEdit" name="searchItemPatternLineEdit"/>
+          </item>
+          <item row="3" column="0">
+           <widget class="QPushButton" name="addSearchButton">
+            <property name="text">
+             <string>ADD_SEARCH</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QPushButton" name="removeSearchButton">
+            <property name="text">
+             <string>REMOVE_SEARCH</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item row="1" column="0" colspan="3">
+        <spacer name="verticalSpacer">
+         <property name="orientation">
+          <enum>Qt::Vertical</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>20</width>
+           <height>40</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+      </layout>
+     </widget>
     </widget>
    </item>
   </layout>
@@ -1472,6 +1553,54 @@ p, li { white-space: pre-wrap; }
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>addSearchButton</sender>
+   <signal>clicked()</signal>
+   <receiver>SettingsDialog</receiver>
+   <slot>addSearchitem()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>537</x>
+     <y>231</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>379</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>removeSearchButton</sender>
+   <signal>clicked()</signal>
+   <receiver>SettingsDialog</receiver>
+   <slot>removeSearchItem()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>674</x>
+     <y>231</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>379</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>sourcesComboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SettingsDialog</receiver>
+   <slot>searchItemChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>261</x>
+     <y>58</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>379</x>
+     <y>161</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>ApplySettings()</slot>
@@ -1493,5 +1622,8 @@ p, li { white-space: pre-wrap; }
   <slot>DeleteTask()</slot>
   <slot>StopRcon()</slot>
   <slot>StartRcon()</slot>
+  <slot>addSearchitem()</slot>
+  <slot>removeSearchItem()</slot>
+  <slot>searchItemChanged(int)</slot>
  </slots>
 </ui>
