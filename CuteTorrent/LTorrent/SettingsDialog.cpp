@@ -29,6 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "application.h"
 #include "Scheduller.h"
 #include "RconWebService.h"
+
 #ifdef Q_WS_WIN //file association for windows
 #include <windows.h>
 #include <tchar.h>
@@ -70,6 +71,7 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	FillHDDTab();
 	FillWebUITab();
 	SetupSchedullerTab();
+    FillSearchTab();
 	////OS_SPECIFICK////////
 #ifdef Q_WS_WIN
 	QSettings assocSettings ("HKEY_CLASSES_ROOT", QSettings::NativeFormat);                                                                                   
@@ -251,6 +253,7 @@ void SettingsDialog::ApplySettings()
 
 	//
 	settings->SaveFilterGropups(filterGroups);
+    settings->setSearchSources(searchSources);
 	settings->setValue("TorrentTracker","enabled",trackerGroupBox->isChecked());
 	settings->setValue("TorrentTracker","port",trackerPortEdit->text());
 #ifdef Q_WS_WIN //file association for windows
@@ -523,7 +526,16 @@ void SettingsDialog::SetupSchedullerTab()
 	}
 	Scheduller* scheduller=Scheduller::getInstance();
 	QObject::connect(this,SIGNAL(tasksChanged()),scheduller,SLOT(UpdateTasks()));
-	Scheduller::freeInstance();
+    Scheduller::freeInstance();
+}
+
+void SettingsDialog::FillSearchTab()
+{
+    searchSources = settings->GetSearchSources();
+    for(int i=0;i<searchSources.size();i++)
+    {
+        sourcesComboBox->addItem(searchSources[i].getName());
+    }
 }
 
 void SettingsDialog::UpdateSchedullerTab( int index )
@@ -581,7 +593,70 @@ void SettingsDialog::changeEvent( QEvent *event )
 	}
 }
 
+void SettingsDialog::addSearchitem()
+{
+    int foundIndex=-1;
+    QString name =  searchItemNameLineEdit->text();
+    QString pattern = searchItemPatternLineEdit->text();
+    if (name.length()==0)
+    {
+        QMessageBox::warning(this,tr("ERROR_SRT"),tr("SEARCH_ITEM_NO_NAME"));
+        return;
+    }
+    if (pattern.length()==0)
+    {
+        QMessageBox::warning(this,tr("ERROR_SRT"),tr("SEARCH_ITEM_NO_PATTERN"));
+        return;
+    }
+    for(int i=0;i<searchSources.size();i++)
+    {
+        if (searchSources[i].getName()==name)
+        {
+            foundIndex = i;
+            break;
+        }
+    }
+    if (foundIndex > 0)
+    {
+        if (QMessageBox::No==QMessageBox::warning(this,tr("STR_SETTINGS"),
+            tr("SHURE_IN_CHANGING_SEARCH_ITEM %1").arg(name),
+            QMessageBox::No | QMessageBox::Yes))
+        return;
+        searchSources[foundIndex].setPattern(pattern);
+    }
 
+    else
+    {
 
+        SearchItem item;
+        item.setName(name);
+        item.setPattern(pattern);
+        searchSources.append(item);
+        sourcesComboBox->addItem(name);
+    }
 
+}
 
+void SettingsDialog::removeSearchItem()
+{
+    int index = sourcesComboBox->currentIndex();
+    if (index>=0)
+    {
+        sourcesComboBox->removeItem(index);
+        searchSources.removeAt(index);
+    }
+}
+
+void SettingsDialog::searchItemChanged(int index)
+{
+    if (index>=0)
+    {
+        searchItemNameLineEdit->setText(searchSources[index].getName());
+        searchItemPatternLineEdit->setText(searchSources[index].getPattern());
+    }
+    else
+    {
+        searchItemNameLineEdit->setText("");
+        searchItemPatternLineEdit->setText("");
+    }
+}

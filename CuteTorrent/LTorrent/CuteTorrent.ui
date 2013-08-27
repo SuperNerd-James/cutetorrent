@@ -844,7 +844,7 @@ QTreeView {
    <sender>actionCheckUpdate</sender>
    <signal>triggered()</signal>
    <receiver>CuteTorrentClass</receiver>
-   <slot>checkForUpdates()</slot>
+   <slot>CheckForUpdates()</slot>
    <hints>
     <hint type="sourcelabel">
      <x>-1</x>
@@ -913,7 +913,7 @@ QTreeView {
   <slot>ResumeSelected()</slot>
   <slot>DeleteSelected()</slot>
   <slot>OpenSettingsDialog()</slot>
-  <slot>checkForUpdates()</slot>
+  <slot>CheckForUpdates()</slot>
   <slot>ShowAbaut()</slot>
   <slot>ProcessMagnet()</slot>
   <slot>copyDiscribtion()</slot>

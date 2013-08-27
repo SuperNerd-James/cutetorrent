@@ -181,7 +181,11 @@ void CuteTorrent::setupToolBar()
 {
 	
 	searchSource = new QComboBox(this);
-
+    searchSources = settings->GetSearchSources();
+    for(int i=0;i<searchSources.size();i++)
+    {
+        searchSource->addItem(searchSources[i].getName());
+    }
 	searchEdit=new QLineEdit(this);
 	QObject::connect(searchEdit,SIGNAL(returnPressed()),this,SLOT(PeformSearch()));
 	ul = new QSpinBox(this);
@@ -203,7 +207,8 @@ void CuteTorrent::setupToolBar()
 	downloadLimit = new QLabel(tr("LIMIT_DL"),this);
 	downloadLimit->setBuddy(dl);
 	searchEdit->setMaximumWidth(150);
-	searchSource->setMaximumWidth(200);
+    searchSource->setMaximumWidth(150);
+    searchSource->setMinimumWidth(150);
 	mainToolbar->addSeparator();
 	mainToolbar->addWidget(uploadLimit);
 	mainToolbar->addWidget(ul);
@@ -788,6 +793,12 @@ void CuteTorrent::OpenSettingsDialog()
         if (tracker->isRunning())
             tracker->stop();
     }
+    searchSources = settings->GetSearchSources();
+    searchSource->clear();
+    for(int i=0;i<searchSources.size();i++)
+    {
+        searchSource->addItem(searchSources[i].getName());
+    }
 	setupGroupTreeWidget();
 	UpdateTabWidget(-2);
 }
@@ -1000,9 +1011,23 @@ void CuteTorrent::ProcessMagnet()
 
 void CuteTorrent::PeformSearch()
 {
+
 	QString searchText=searchEdit->text();
-	QDesktopServices desctopService;
-	desctopService.openUrl(QUrl("http://btdigg.org/search?q="+QUrl::toPercentEncoding(searchText)));
+    int soureIndex = searchSource->currentIndex();
+    if (soureIndex >= 0 )
+    {
+        SearchItem item = searchSources[soureIndex];
+        if (item.getPattern().startsWith("client:/search?q=",Qt::CaseInsensitive))
+        {
+            torrents->setSearchFilter(searchText);
+        }
+        else
+        {
+            QDesktopServices desctopService;
+            desctopService.openUrl(QUrl(item.getPattern().arg(QString(QUrl::toPercentEncoding(searchText)))));
+        }
+    }
+
 }
 
 void CuteTorrent::resizeEvent( QResizeEvent * event )

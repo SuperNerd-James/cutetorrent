@@ -2,7 +2,7 @@
 #include "CuteTorrent.h"
 FileViewModel::FileViewModel(QObject* parent) : QAbstractTableModel(parent)
 {
-    qDebug() << "FileViewModel::FileViewModel";
+  //  qDebug() << "FileViewModel::FileViewModel";
 	headerStringsData << trUtf8("FILES_PATH") << trUtf8("FILES_SIZE") << trUtf8("FILES_READY") <<trUtf8("FILES_PRIORITY");
 }
 

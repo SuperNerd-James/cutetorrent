@@ -49,6 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "RconWebService.h"
 #include "FileViewModel.h"
 #include "TorrentStorrage.h"
+#include "searchitem.h"
 Q_DECLARE_METATYPE(QHostAddress)
 class CuteTorrent : public QMainWindow , private Ui::CuteTorrentClass
 {
@@ -71,6 +72,7 @@ protected:
     void dropEvent(QDropEvent *event);
 	void keyPressEvent ( QKeyEvent * event );
 private:
+    QList<SearchItem> searchSources;
 	QComboBox* searchSource;
 	TorrentStorrage* torrents;
 	QSortFilterProxyModel* proxymodel;
@@ -171,6 +173,7 @@ private slots:
 	void AddTracker();
 	void AddPeer();
 	void ChnageTorrentFilter();
+
 
 
 };

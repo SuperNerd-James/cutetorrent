@@ -21,6 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "ui_SettingsDialog.h"
 #include "QApplicationSettings.h"
 #include "GroupForFileFiltering.h"
+#include "searchitem.h"
 class SettingsDialog : public QDialog , private Ui::SettingsDialog
 {
 	Q_OBJECT
@@ -28,6 +29,7 @@ protected:
 	void changeEvent(QEvent *event);
 private:
 	QApplicationSettings* settings;
+    QList<SearchItem> searchSources;
 	QList<GroupForFileFiltering> filterGroups;
 	QList<SchedulerTask> tasks;
 	QDateTimeEdit* previousFocuse;
@@ -37,6 +39,7 @@ private:
 	void FillDTTab();
 	void FillWebUITab();
 	void SetupSchedullerTab();
+    void FillSearchTab();
 public:
  	SettingsDialog(QWidget* parent=0,int flags=0);
 	~SettingsDialog();
@@ -58,4 +61,8 @@ private slots:
 	void UpdateSchedullerTab( int index );
 	void StartRcon();
 	void StopRcon();
+    void searchItemChanged(int index);
+    void addSearchitem();
+    void removeSearchItem();
+
 };

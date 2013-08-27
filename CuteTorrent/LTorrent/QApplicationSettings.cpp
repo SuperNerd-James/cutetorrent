@@ -251,7 +251,42 @@ QList<SchedulerTask> QApplicationSettings::GetSchedullerQueue()
 		//qDebug() << xml.errorString();	
 	}
 	file.close();
-	return res;
+    return res;
+}
+
+QList<SearchItem> QApplicationSettings::GetSearchSources()
+{
+    QList<SearchItem> res;
+    settings->beginGroup("Search");
+    int size = settings->value("size",0).toInt();
+    settings->endGroup();
+    settings->beginReadArray("Search");
+    for(int i=0;i<size;i++)
+    {
+        settings->setArrayIndex(i);
+        SearchItem item;
+        item.setName(settings->value("name").toString());
+        item.setPattern(settings->value("pattern").toString());
+        res.append(item);
+    }
+    settings->endArray();
+    return res;
+}
+
+void QApplicationSettings::setSearchSources(QList<SearchItem> searchSources)
+{
+    settings->beginGroup("Search");
+    settings->setValue("size",searchSources.size());
+    settings->endGroup();
+    settings->beginWriteArray("Search");
+    for(int i=0;i<searchSources.size();i++)
+    {
+        settings->setArrayIndex(i);
+        SearchItem item = searchSources[i];
+        settings->setValue("name",item.getName());
+        settings->setValue("pattern",item.getPattern());
+    }
+    settings->endArray();
 }
 
 void QApplicationSettings::SaveSchedullerQueue( QList<SchedulerTask> &tasks)

@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QQueue>
 #include "GroupForFileFiltering.h"
 #include "SchedulerTask.h"
-
+#include "searchitem.h"
 // support only one sub level in settings
 class QApplicationSettings
 {
@@ -44,13 +44,15 @@ private:
 	
 	
 public:
-	QVariant value(const QString group,const QString key,QVariant default=QVariant(QVariant::Invalid));
+    QVariant value(const QString group,const QString key,QVariant defaultVal=QVariant(QVariant::Invalid));
 	void SaveFilterGropups(QList<GroupForFileFiltering>);
 	QList<GroupForFileFiltering> GetFileFilterGroups();
 	static void FreeInstance();
 	static QApplicationSettings* getInstance();
 	QStringList GetGroupNames();
 	QList<SchedulerTask> GetSchedullerQueue();
+    QList<SearchItem> GetSearchSources();
+    void setSearchSources(QList<SearchItem> searchSources);
 	void SaveSchedullerQueue(QList<SchedulerTask>&);
 	void setValue(const QString group, const QString key, const QVariant &value);
 	int valueInt(const QString group,const QString key, int defalt = 0);

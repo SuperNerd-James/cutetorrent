@@ -16,6 +16,7 @@ public:
 	
 	void setFilter(FilterType filter);
 	void setGroupFilter(QString filter);
+    void setSearchFilter(QString filter);
 	static TorrentStorrage* getInstance();
 	static void freeInstance();
 	QList<Torrent*>::iterator begin();
@@ -42,9 +43,10 @@ private:
 	QMutex* locker;
 	FilterType currentFilter;
 	QString groupFilter;
+    QString searchFilter;
 	QTimer* timer;
-	void filterBybasicFilter();
-	void filterByGroup();
+    void filterByGroup();
+    void filterBySearch();
 private slots:	
 	void filterData();
 };

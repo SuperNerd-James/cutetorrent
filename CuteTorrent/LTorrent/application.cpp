@@ -26,8 +26,7 @@ Translators Application::translators;
 QString Application::current_locale="";
 Application::Application(int& argc, char* argv[])
 	: QtSingleApplication(argc, argv)
-{
-}
+{}
 
 Application::~Application()
 {

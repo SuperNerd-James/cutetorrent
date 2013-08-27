@@ -8,14 +8,16 @@ class TrackerRequestHandler : public HttpRequestHandler
 {
     Q_OBJECT
 public:
-    typedef QMap<QString,PeerInfo> PeerList;
-    QMap<QString,PeerList> torrents;
+
     explicit TrackerRequestHandler(QObject *parent = 0);
      void service(HttpRequest& request, HttpResponse& response);
 private:
+     typedef QMap<QString,PeerInfo> PeerList;
+     QMap<QString,PeerList> torrents;
+     QMap<int,char*> failtureText;
      void ProcessAnnounceRequest(HttpRequest& request, HttpResponse& response);
      void ReplyWithPeerList(HttpResponse& response,AnnounceRequest announceRequest);
-
+     void ReplyError(int code,HttpResponse& response);
 signals:
     
 public slots:
