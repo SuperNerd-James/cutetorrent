@@ -187,7 +187,7 @@ void CuteTorrent::setupToolBar()
         searchSource->addItem(searchSources[i].getName());
     }
 	searchEdit=new QLineEdit(this);
-	QObject::connect(searchEdit,SIGNAL(returnPressed()),this,SLOT(PeformSearch()));
+    QObject::connect(searchEdit,SIGNAL(returnPressed()),this,SLOT(PeformSearch()));
 	ul = new QSpinBox(this);
 	ul->setSpecialValueText(tr("None"));
 	ul->setSuffix(" Kb\\s");

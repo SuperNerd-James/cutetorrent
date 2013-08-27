@@ -131,7 +131,7 @@
       <set>QAbstractItemView::NoEditTriggers</set>
      </property>
      <property name="currentRow">
-      <number>0</number>
+      <number>-1</number>
      </property>
      <item>
       <property name="text">
@@ -190,6 +190,10 @@
      <item>
       <property name="text">
        <string>TAB_SEARCH</string>
+      </property>
+      <property name="icon">
+       <iconset resource="ltorrent.qrc">
+        <normaloff>:/icons/search.ico</normaloff>:/icons/search.ico</iconset>
       </property>
      </item>
     </widget>
