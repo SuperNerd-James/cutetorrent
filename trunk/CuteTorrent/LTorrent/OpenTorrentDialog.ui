@@ -59,20 +59,6 @@
       <string>OPEN_TORRENT_INFO</string>
      </property>
      <layout class="QGridLayout" name="gridLayout_2">
-      <item row="0" column="0">
-       <widget class="QLabel" name="labelNameTitile">
-        <property name="text">
-         <string>OPEN_TORRENT_INFO_NAME</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="QLabel" name="labelCommentTitle">
-        <property name="text">
-         <string>OPEN_TORRENT_INFO_DESCRIBTION</string>
-        </property>
-       </widget>
-      </item>
       <item row="2" column="0">
        <widget class="QLabel" name="labelSizeTitle">
         <property name="text">
@@ -87,7 +73,28 @@
         </property>
        </widget>
       </item>
-      <item row="3" column="0" colspan="6">
+      <item row="1" column="0" colspan="2">
+       <widget class="QLabel" name="labelCommentTitle">
+        <property name="text">
+         <string>OPEN_TORRENT_INFO_DESCRIBTION</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="labelNameTitile">
+        <property name="text">
+         <string>OPEN_TORRENT_INFO_NAME</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="2" colspan="4">
+       <widget class="QLabel" name="labelNameData">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0" colspan="6">
        <widget class="QTreeView" name="treeView">
         <property name="styleSheet">
          <string notr="true">
@@ -152,22 +159,15 @@ QTreeView {
         </property>
        </widget>
       </item>
-      <item row="2" column="4">
-       <widget class="QLabel" name="loaderGifLabel">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2" colspan="4">
-       <widget class="QLabel" name="labelNameData">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
       <item row="1" column="2" colspan="4">
        <widget class="QLabel" name="labelComentData">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="4">
+       <widget class="QLabel" name="loaderGifLabel">
         <property name="text">
          <string/>
         </property>
@@ -177,6 +177,13 @@ QTreeView {
        <widget class="QLabel" name="labelSizeData">
         <property name="text">
          <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QCheckBox" name="setSequntialCheckBox">
+        <property name="text">
+         <string>SET_SEQUNTIAL</string>
         </property>
        </widget>
       </item>

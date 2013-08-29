@@ -18,8 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef _UPDATENITYFIER_H
 #define _UPDATENITYFIER_H
-#include <QtNetwork\QNetworkAccessManager>
-#include <QtNetwork\QNetworkReply>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
 class UpdateNotifier : public QObject
 {
 	Q_OBJECT

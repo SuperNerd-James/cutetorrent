@@ -30,7 +30,13 @@ QApplicationSettings::QApplicationSettings()
 {
 	try
 	{
-		settings = new QSettings( QApplication::applicationDirPath()+"/CuteTorrent.ini", QSettings::IniFormat);
+        QString dataDir;
+    #ifdef Q_WS_MAC
+        dataDir="/Library/CuteTorrent/";
+    #else
+        dataDir = QApplication::applicationDirPath()+QDir::separator();
+    #endif
+        settings = new QSettings( dataDir+"CuteTorrent.ini", QSettings::IniFormat);
 
 		locker= new QMutex();
 		ReedSettings();
@@ -43,7 +49,7 @@ QApplicationSettings::QApplicationSettings()
 }
 QApplicationSettings::~QApplicationSettings()
 {
-	//qDebug() << "QApplicationSettings: object destruction";
+	qDebug() << "QApplicationSettings: object destruction";
 	WriteSettings();
 
 }
@@ -52,7 +58,7 @@ QApplicationSettings* QApplicationSettings::getInstance()
 	
 	if (_instance==NULL)
 		_instance = new QApplicationSettings();
-	//qDebug() << "QApplicationSettings giving " <<_instanceCount<< " instance " ;
+	qDebug() << "QApplicationSettings giving " <<_instanceCount<< " instance " ;
 	_instanceCount++;
 	return _instance;
 }
@@ -60,7 +66,7 @@ void QApplicationSettings::FreeInstance()
 {
 	
 	_instanceCount--;
-	//qDebug() << "QApplicationSettings freeing " <<_instanceCount<< " instance " ;
+	qDebug() << "QApplicationSettings freeing " <<_instanceCount<< " instance " ;
 	if (!_instanceCount)
 	{
 		_instance->~QApplicationSettings();
@@ -87,16 +93,16 @@ void QApplicationSettings::setValue(const QString group,const QString key,const 
 	WriteSettings();
 }
 
-QVariant QApplicationSettings::value(const QString group,const QString key,QVariant default)
+QVariant QApplicationSettings::value(const QString group,const QString key,QVariant defaultVal)
 {
 	locker->lock();
 	QVariant res = QVariant();
 	settings->beginGroup(group);
 	res = settings->value(key);
-	if (!res.isValid() &&  default.isValid())
+    if (!res.isValid() &&  defaultVal.isValid())
 	{
-		settings->setValue(key,default);
-		res=default;
+        settings->setValue(key,defaultVal);
+        res=defaultVal;
 	}
 	settings->endGroup();
 	locker->unlock();
@@ -175,7 +181,13 @@ QList<SchedulerTask> QApplicationSettings::GetSchedullerQueue()
 {
 	QList<SchedulerTask> res;
 	res.clear();
-	QFile file("CT_DATA/schedulertasks.xml");
+    QString dataDir;
+#ifdef Q_WS_MAC
+    dataDir="/Library/CuteTorrent/";
+#else
+    dataDir = QApplication::applicationDirPath()+QDir::separator();
+#endif
+    QFile file(dataDir+"CT_DATA/schedulertasks.xml");
 	if (!file.open(QFile::ReadOnly))
 	{
 		return res;

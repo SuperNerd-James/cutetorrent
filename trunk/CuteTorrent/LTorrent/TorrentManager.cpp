@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "TorrentManager.h"
 #include "MetaDataDownloadWaiter.h"
 #include <QMessageBox>
+#include <QApplication>
 #include  <QFile>
 #include  <QDir>
 #include  <QStringList>
@@ -59,7 +60,13 @@ TorrentManager::TorrentManager()
 	ses->add_extension(&libtorrent::create_ut_metadata_plugin);
 	ses->add_extension(&libtorrent::create_ut_pex_plugin);
 	ses->add_extension(&libtorrent::create_metadata_plugin);
-	create_directory("CT_DATA",ec);
+    QString dataDir;
+#ifdef Q_WS_MAC
+    dataDir="/Library/CuteTorrent/";
+#else
+    dataDir = QApplication::applicationDirPath()+QDir::separator();
+#endif
+    create_directory(dataDir.toStdString()+"CT_DATA",ec);
 	
 	ses->listen_on(std::make_pair(listen_port, listen_port+20)
 		, ec);
@@ -83,7 +90,7 @@ TorrentManager::TorrentManager()
 	ses->add_dht_router(std::make_pair(
 		std::string("dht.transmissionbt.com"), 6881));
 	in.clear();
-	if (load_file("CT_DATA/dht.state", in, ec) == 0)
+    if (load_file((dataDir).toStdString()+"CT_DATA/dht.state", in, ec) == 0)
 	{
 		entry e;
 		
@@ -106,13 +113,20 @@ TorrentManager::TorrentManager()
 
 void TorrentManager::initSession()
 {
-	QDir dir("CT_DATA");
+    QString dataDir;
+#ifdef Q_WS_MAC
+    dataDir="/Library/CuteTorrent/";
+#else
+    dataDir = QApplication::applicationDirPath()+QDir::separator();
+#endif
+    QDir dir(dataDir+"CT_DATA");
 	QStringList filter;
 	
 	filter <<"*.torrent";
 	
 	QStringList torrentFiles=dir.entryList(filter);
-	QFile path_infohashFile("CT_DATA/path.resume");
+    //QMessageBox::warning(NULL,QApplication::applicationDirPath(),QApplication::applicationDirPath());
+    QFile path_infohashFile(dataDir+"CT_DATA/path.resume");
 	if (path_infohashFile.open(QFile::ReadOnly))
 	{
 		QTextStream strm(&path_infohashFile);
@@ -147,7 +161,7 @@ void TorrentManager::initSession()
 		{
 			
 			QPair<QString,QString> torrentData = save_path_data[to_hex(t->info_hash().to_string()).c_str()];
-			AddTorrent(dir.filePath(*i),torrentData.first,torrentData.second);
+            AddTorrent(dir.filePath(*i),torrentData.first,ec,QMap<QString,int>(),torrentData.second);
 		}
 
 	}
@@ -371,8 +385,8 @@ void TorrentManager::PostTorrentUpdate()
 	alerts.clear();
 	ses->post_torrent_updates();
 }
-bool TorrentManager::AddTorrent(QString path, QString save_path,QString group,QMap<QString,int> filePriorities,error_code& ec)
-{
+bool TorrentManager::AddTorrent(QString path, QString save_path,error_code& ec,QMap< QString , qint32 > filePriorities,QString group,bool sequntial)
+
 	{
 		
 		boost::intrusive_ptr<torrent_info> t;
@@ -392,8 +406,13 @@ bool TorrentManager::AddTorrent(QString path, QString save_path,QString group,QM
 		add_torrent_params p;
 		
 		lazy_entry resume_data;
-
-		std::string filename = combine_path("CT_DATA", to_hex(t->info_hash().to_string()) + ".resume");
+		QString dataDir;
+#ifdef Q_WS_MAC
+		dataDir="/Library/CuteTorrent/";
+#else
+		dataDir = QApplication::applicationDirPath()+QDir::separator();
+#endif
+        std::string filename = combine_path((dataDir+"CT_DATA").toStdString(), to_hex(t->info_hash().to_string()) + ".resume");
 
 		std::vector<char> buf;
 		if (load_file(filename.c_str(), buf, ec) == 0)
@@ -436,14 +455,18 @@ bool TorrentManager::AddTorrent(QString path, QString save_path,QString group,QM
 			return false;
 		}
 		Torrent* current=new Torrent(h,group);
-		emit AddTorrentGui(current);
 		torrents->append(current);
-		QFileInfo file(path);
+        QObject::connect(current,SIGNAL(groupChanged(QString,QString)),this,SLOT(HandleGroupChange(QString,QString)));
+		emit AddTorrentGui(current);
+        QFileInfo file(path);
+		if (sequntial)
+			current->seqensialDownload();
 		h.set_max_connections(max_connections_per_torrent);
-		QFile::copy(path,combine_path(QDir::currentPath().toAscii().data(),combine_path("CT_DATA",(to_hex(t->info_hash().to_string())+".torrent").c_str()).c_str()).c_str());
-		if (QFile::exists(combine_path("CT_DATA",((t->name())+".torrent").c_str()).c_str()))
+     
+        QFile::copy(path,combine_path((dataDir).toAscii().data(),combine_path("CT_DATA",(to_hex(t->info_hash().to_string())+".torrent").c_str()).c_str()).c_str());
+        if (QFile::exists(combine_path((dataDir+"CT_DATA").toAscii().data(),((t->name())+".torrent").c_str()).c_str()))
 		{
-			QFile::remove(combine_path("CT_DATA",((t->name())+".torrent").c_str()).c_str());
+            QFile::remove(combine_path((dataDir+"CT_DATA").toAscii().data(),((t->name())+".torrent").c_str()).c_str());
 		}
 
 		if (save_path_data.contains(to_hex(h.info_hash().to_string()).c_str()))
@@ -455,13 +478,13 @@ bool TorrentManager::AddTorrent(QString path, QString save_path,QString group,QM
 			save_path_data.insert(to_hex(h.info_hash().to_string()).c_str(),qMakePair(save_path,group));
 		}
 		UpdatePathResumeAndLinks();
-	}
+
 	return true;
 }
 session_settings TorrentManager::readSettings()
 {
 
-	session_settings s_settings=ses->settings();
+	session_settings s_settings=high_performance_seed();
 	
 	QString baseDir=torrentSettings->valueString("System","BaseDir");
 	if (baseDir.isEmpty())
@@ -470,6 +493,7 @@ session_settings TorrentManager::readSettings()
 		torrentSettings->setValue("System","BaseDir",baseDir);
 	}
 	QDir::setCurrent(QDir::toNativeSeparators (baseDir));
+	//s_settings.p
 	s_settings.half_open_limit = torrentSettings->valueInt("Torrent","half_open_limit",0x7fffffff);
 	s_settings.allow_multiple_connections_per_ip = torrentSettings->valueBool("Torrent","allow_multiple_connections_per_ip",true);
 	listen_port=torrentSettings->valueInt("Torrent","listen_port",6103);
@@ -691,10 +715,16 @@ int TorrentManager::save_file(std::string const& filename, std::vector<char>& v)
 
 void TorrentManager::UpdatePathResumeAndLinks()
 {
-    QFile pathDataFile("CT_DATA/path.resume");
+    QString dataDir;
+#ifdef Q_WS_MAC
+    dataDir="/Library/CuteTorrent/";
+#else
+    dataDir = QApplication::applicationDirPath()+QDir::separator();
+#endif
+    QFile pathDataFile(dataDir+"CT_DATA/path.resume");
     if (pathDataFile.open(QFile::WriteOnly))
     {
-        for (QMap<QString,QPair<QString,QString>>::iterator i=save_path_data.begin();i!=save_path_data.end();i++)
+        for (QMap<QString,QPair<QString,QString> >::iterator i=save_path_data.begin();i!=save_path_data.end();i++)
         {
             pathDataFile.write((i.key()+"|"+i.value().first+"|"+i.value().second+"\n").toUtf8());
         }
@@ -710,7 +740,7 @@ void TorrentManager::UpdatePathResumeAndLinks()
 
 TorrentManager::~TorrentManager()
 {
-
+	qDebug() << "TorrentManager::~TorrentManager";
 	onClose();
 	TorrentStorrage::freeInstance();
 	QApplicationSettings::FreeInstance();
@@ -720,6 +750,7 @@ TorrentManager* TorrentManager::_instance=NULL;
 int TorrentManager::_instanceCount=0;
 TorrentManager* TorrentManager::getInstance()
 {
+	qDebug() << "TorrentManager::getInstance()";
 	if (_instance==NULL)
 		_instance = new TorrentManager();
 	_instanceCount++;
@@ -730,6 +761,7 @@ void TorrentManager::freeInstance()
 	
 	
 	_instanceCount--;
+	qDebug() << "TorrentManager::freeInstance()" << _instanceCount;
 	if (!_instanceCount)
 	{
 		_instance->~TorrentManager();
@@ -774,10 +806,11 @@ openmagnet_info* TorrentManager::GetTorrentInfo( torrent_handle handle )
 
 void TorrentManager::RemoveTorrent(torrent_handle h,bool delFiles)
 {
-	Torrent* tor = new Torrent(h,"");
-    emit TorrentRemove(tor->GetInfoHash());
+	
 	std::string info_hash=to_hex(h.info_hash().to_string());
 	QString infoHash=QString::fromStdString(info_hash);
+    emit TorrentRemove(infoHash);
+	
 /*	for (int i=0;i<torrents->count();i++)
 	{
 		if (torrents->at(i)->GetInfoHash()==infoHash)
@@ -786,9 +819,15 @@ void TorrentManager::RemoveTorrent(torrent_handle h,bool delFiles)
 			break;
 		}
 	}*/
-	QString resume_path=QString::fromStdString(combine_path("CT_DATA",info_hash+".resume"));
-	QString torrent_path=QString::fromStdString(combine_path("CT_DATA",h.name()+".torrent"));
- 	QString magnet_path = QString::fromStdString(combine_path("CT_DATA",info_hash+".torrent"));
+    QString dataDir;
+#ifdef Q_WS_MAC
+    dataDir="/Library/CuteTorrent/";
+#else
+    dataDir = QApplication::applicationDirPath()+QDir::separator();
+#endif
+    QString resume_path=dataDir+QString::fromStdString(combine_path("CT_DATA",info_hash+".resume"));
+    QString torrent_path=dataDir+QString::fromStdString(combine_path("CT_DATA",h.name()+".torrent"));
+    QString magnet_path = dataDir+QString::fromStdString(combine_path("CT_DATA",info_hash+".torrent"));
  	
 	if (QFile::exists(magnet_path))
 		QFile::remove(magnet_path);
@@ -880,7 +919,13 @@ torrent_handle TorrentManager::ProcessMagnetLink(QString link,error_code& ec)
 	}	
 	QString infohash=to_hex(h.info_hash().to_string()).c_str();
 	lazy_entry resume_data;
-	std::string filename = combine_path("CT_DATA", to_hex(add_info.info_hash.to_string()) + ".resume");
+    QString dataDir;
+#ifdef Q_WS_MAC
+    dataDir="/Library/CuteTorrent/";
+#else
+    dataDir = QApplication::applicationDirPath()+QDir::separator();
+#endif
+    std::string filename = (dataDir).toStdString()+combine_path("CT_DATA", to_hex(add_info.info_hash.to_string()) + ".resume");
 	std::vector<char> buf;
 
 	if (load_file(filename.c_str(), buf, ec) == 0)
@@ -915,7 +960,13 @@ void TorrentManager::CancelMagnetLink(QString link)
     parse_magnet_uri(link.toStdString(),add_info,ec);
     QString infoHash=QString::fromStdString(to_hex(add_info.info_hash.to_string()));
     torrent_handle h = ses->find_torrent(add_info.info_hash);
-	QString magnet_path = QString::fromStdString(combine_path("CT_DATA",to_hex(h.info_hash().to_string())+".torrent"));
+    QString dataDir;
+#ifdef Q_WS_MAC
+    dataDir="/Library/CuteTorrent/";
+#else
+    dataDir = QApplication::applicationDirPath()+QDir::separator();
+#endif
+    QString magnet_path = dataDir+QString::fromStdString(combine_path("CT_DATA",to_hex(h.info_hash().to_string())+".torrent"));
 
 	if (QFile::exists(magnet_path))
 		QFile::remove(magnet_path);
@@ -1046,15 +1097,31 @@ int TorrentManager::GetUploadLimit()
 Torrent* TorrentManager::GetTorrentByInfoHash( sha1_hash hash )
 {
 	QString infoHash =QString::fromStdString(to_hex(hash.to_string()));
-	torrent_handle handle=ses->find_torrent(hash);
-	if (handle.is_valid())
-	{
-		return new Torrent(handle,save_path_data[infoHash].second);
-	}
+	
+	if (torrents->hasTorrent(infoHash))
+		return	(*torrents)[infoHash];
 	return NULL;
+
+}
+Torrent* TorrentManager::GetTorrentByInfoHash( QString infoHash )
+{
+	if (torrents->hasTorrent(infoHash))
+		return	(*torrents)[infoHash];
+	return NULL;
+}
+
+void TorrentManager::HandleGroupChange(QString group, QString infohash)
+{
+    if (save_path_data.contains(infohash))
+    {
+        QString torrentData = save_path_data[infohash].first;
+        save_path_data[infohash]=qMakePair(torrentData,group);
+    }
+    UpdatePathResumeAndLinks();
 }
 
 libtorrent::upnp* TorrentManager::GetUpnp()
 {
 	return m_upnp;
 }
+

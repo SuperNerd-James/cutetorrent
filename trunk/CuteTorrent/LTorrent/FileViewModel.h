@@ -14,6 +14,8 @@ private:
 	const static int COLUMN_COUNT = 4;
 	QList<QString> headerStringsData;
     files_info dataSource;
+
+
 public:
 	FileViewModel(QObject*);
 	~FileViewModel(void);
@@ -26,6 +28,7 @@ public:
 	bool setHeaderData(int section, Qt::Orientation orientation, const QVariant &value,
 		int role = Qt::EditRole);
 	void Update();
+    void retranslateUI();
 private:
 	static QPixmapCache iconCache;
 

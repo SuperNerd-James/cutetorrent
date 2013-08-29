@@ -73,6 +73,7 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	SetupSchedullerTab();
     FillSearchTab();
 	////OS_SPECIFICK////////
+    int current=0;
 #ifdef Q_WS_WIN
 	QSettings assocSettings ("HKEY_CLASSES_ROOT", QSettings::NativeFormat);                                                                                   
 	QString torrentAssociation=assocSettings.value (".torrent/.").toString();  
@@ -80,7 +81,7 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	asociationCheckBox->setChecked( torrentAssociation == "CuteTorrent.file");
 	QSettings bootUpSettings(QString("HKEY_LOCAL_MACHINE\\SOFTWARE\\")+(IsWow64() ? "Wow6432Node\\" : "")+"Microsoft\\Windows\\CurrentVersion\\Run", QSettings::NativeFormat);
 	QString val=bootUpSettings.value("CuteTorrent").toString();
-	int current=0;
+
 	runOnbootCheckBox->setChecked(val.length()>0);	
 	startMinimizedCheckBox->setChecked(val.contains("-m"));
 #endif
@@ -242,6 +243,7 @@ void SettingsDialog::ApplySettings()
 	settings->setValue("DT","CustomtCommand",					customCommandEdit->text());
 
 	settings->setValue("WebControl","webui_enabled",			webUIGroupBox->isChecked());
+    settings->setValue("WebControl","requireAuth",              !loginLineEdit->text().isEmpty());
 	settings->setValue("WebControl","webui_login",				loginLineEdit->text());
 	settings->setValue("WebControl","webui_password",			passwordLineEdit->text());
 	settings->setValue("WebControl","port",					webPortLineEdit->text());
@@ -660,3 +662,4 @@ void SettingsDialog::searchItemChanged(int index)
         searchItemPatternLineEdit->setText("");
     }
 }
+

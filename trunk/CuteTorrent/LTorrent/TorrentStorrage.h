@@ -30,7 +30,8 @@ public:
 	Torrent* at(int index);
 	void clear();
 	int count();
-	Torrent* & operator [] (int index);
+	Torrent* operator [] (int index);
+	Torrent* operator [] (QString index);
 protected:
 	TorrentStorrage(QObject* parrent=NULL);
 	~TorrentStorrage(void);

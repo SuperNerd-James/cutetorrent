@@ -49,7 +49,7 @@ public:
 
     /** Mark this handler as busy */
     void setBusy();
-	static QList<QPair<uint,uint>> allowedIP,notAllowedIP;
+    static QList<QPair<uint,uint> > allowedIP,notAllowedIP;
 private:
 	bool blockClient;
     /** Configuration settings */

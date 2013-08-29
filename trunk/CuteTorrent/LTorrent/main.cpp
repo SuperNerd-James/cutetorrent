@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-//#define DEBUG
+#define DEBUG
 #include "CuteTorrent.h"
 #include <QDir>
 #include <qtsingleapplication.h>
@@ -61,12 +61,13 @@ int main(int argc, char *argv[])
 	FILE * fp=freopen("ct_debug.log","a+",stderr);
 	qInstallMsgHandler(myMessageOutput);
 #endif // DEBUG
-	
-	
-	Application a(argc, argv);
+    Application a(argc, argv);
+    a.setWindowIcon(QIcon(":/icons/app.ico"));
 	CuteTorentStyle* style = new CuteTorentStyle();
+#ifdef Q_WS_WIN
 	a.setStyle(style);
-	QTextCodec *wantUnicode = QTextCodec::codecForName("UTF-8");
+#endif
+    QTextCodec *wantUnicode = QTextCodec::codecForName("UTF-8");
 	/*QTextCodec::setCodecForTr(wantUnicode);
 	QTextCodec::setCodecForLocale(wantUnicode);*/
 	QTextCodec::setCodecForCStrings(wantUnicode);
@@ -140,7 +141,7 @@ int main(int argc, char *argv[])
 	int res=a.exec();
 	
 #ifdef DEBUG
-	fclose(fp);
+//	fclose(fp);
 #endif // DEBUG
 	return res;
 }

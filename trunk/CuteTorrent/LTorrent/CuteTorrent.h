@@ -27,6 +27,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMenu>
 #include <QString>
 #include <QTimer>
+#include "application.h"
 #include "ui_CuteTorrent.h"
 #include "ui_mainWindowButtons.h"
 #include "SettingsDialog.h"
@@ -60,7 +61,7 @@ public:
 
 	
 
-	void ConnectMessageReceved(QtSingleApplication* a);
+    void ConnectMessageReceved(Application* a);
 	
     ~CuteTorrent();
 protected:
@@ -71,20 +72,19 @@ protected:
 	void dragEnterEvent(QDragEnterEvent *event);
     void dropEvent(QDropEvent *event);
 	void keyPressEvent ( QKeyEvent * event );
+
 private:
     QList<SearchItem> searchSources;
 	QComboBox* searchSource;
 	TorrentStorrage* torrents;
 	QSortFilterProxyModel* proxymodel;
     FileViewModel* fileViewModel;
-	Ui::ToolButtons* toolButtonsUi;
+	//Ui::ToolButtons* toolButtonsUi;
     TorrentTracker* tracker;
 	QApplicationSettings* settings;
 	RconWebService* rcon;
-	int  m_nMouseClick_X_Coordinate;
-	int  m_nMouseClick_Y_Coordinate;
-	
-
+/*	int  m_nMouseClick_X_Coordinate;
+	int  m_nMouseClick_Y_Coordinate;*/
 	UpdateNotifier* notyfire;
 	bool mayShowNotifies;
 	QSystemTrayIcon *trayIcon;
@@ -100,8 +100,8 @@ private:
 	QLabel *uploadLimit, *downloadLimit;
 	QLabel* downLabelText, *downLabel;
 	QTorrentDisplayModel* model;
-	TorrentManager* mng;
-	QTimer *timer;
+    TorrentManager* tManager;
+	//QTimer *timer;
 	QMenu* fileTabMenu;
 	QAction* openFile;
 	QAction* openDir;
@@ -170,6 +170,7 @@ private slots:
 	void CopyDiscribtion();
 	void ClearPieceDisplay();
 	void UpdateItemWidth(int,int);
+
 	void AddTracker();
 	void AddPeer();
 	void ChnageTorrentFilter();

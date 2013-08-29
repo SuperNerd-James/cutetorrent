@@ -42,6 +42,7 @@ int auto_id;
 QListView *parrent;
 int selectedRow;
 QMenu *menu;
+QMenu *groupsMenu;
 QAction *openDir;
 QAction *superSeed;
 QAction *DTmount;
@@ -64,32 +65,31 @@ public:
 	~QTorrentDisplayModel();
 	enum action { stop, pause, resume, remove, remove_all, move_storrage,
 		set_sequntial, set_superseed, generate_magmet, update_trackers,
-		rehash };
+        rehash,change_group };
 	void ActionOnSelectedItem(action wtf);
-	void ChangeData(int row);
+	//void ChangeData(int row);
 	QTorrentDisplayModel(QObject * parrent = NULL);
-	int hasTorrent(const QString & InfoHash) const;
-	void clear();
+	//int hasTorrent(const QString & InfoHash) const;
+	//void clear();
 	void retranslate();
-	void sort();
+
 	virtual int rowCount(const QModelIndex & parent = QModelIndex())const;
 	virtual QVariant data(const QModelIndex & index, int role =	Qt::DisplayRole) const;
-	bool setData( const QModelIndex &index, const QVariant &value, int role = Qt::EditRole );
-	bool removeRow(int row, bool delFiles);
+    bool removeRow(int row, bool delFiles);
 	virtual bool removeRows(int row, int count,
 		const QModelIndex & parent = QModelIndex());
 	enum Role { TorrentRole = Qt::UserRole };
 	Torrent *GetSelectedTorrent();
 
-signals:void initCompleted();
+signals:
+	void initCompleted();
 	void updateTabSender(int);
-	void TorrentCompletedProxySender(const QString);
-	void TorrentErrorPoxySender(const QString &);
-	public slots:void AddTorrent(Torrent *);
+public slots:
+    //void AddTorrent(Torrent *);
 	void onTorrentRemove(QString);
 	void UpdateSelectedIndex(const QItemSelection &);
-	void TorrentErrorProxy(const QString &);
-	void TorrentCompletedProxy(const QString);
+/*	void TorrentErrorProxy(const QString &);
+	void TorrentCompletedProxy(const QString);*/
 	void contextualMenu(const QPoint &);
 	void OpenDirSelected();
 	void DellTorrentOnly();
@@ -104,7 +104,7 @@ signals:void initCompleted();
 	void SetSuperSeed();
 	void initSessionFinished();
 	void generateMagnetLink();
-
+	void changeGroup();
 	
 
 
