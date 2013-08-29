@@ -194,6 +194,17 @@ void QTorrentDisplayModel::contextualMenu(const QPoint & point)
 					PlayInPlayer->setEnabled(true);
 				}
 			}
+
+            QString group = torrent->GetGroup();
+            if (!group.isEmpty())
+            {
+                QList<QAction*> actions = groupsMenu->actions();
+                for(int i=0;i<actions.size();i++)
+                {
+                    actions[i]->setChecked(actions[i]->text()==group);
+                }
+            }
+
 			setSequentual->setChecked(torrent->isSquential());
 			menu->exec(parrent->mapToGlobal(point));
 		}
@@ -237,11 +248,11 @@ void QTorrentDisplayModel::UpdateSelectedIndex(const QItemSelection & index)
 	
 	
 }
-
+/*
 void QTorrentDisplayModel::TorrentCompletedProxy(const QString data)
 {
 	emit TorrentCompletedProxySender(data);
-}
+}/*
 void QTorrentDisplayModel::AddTorrent(Torrent* tr)
 {
 	
@@ -252,11 +263,11 @@ void QTorrentDisplayModel::AddTorrent(Torrent* tr)
 	//	sort();
 	//	locker->unlock();
 	}
-}
+}*//*
 void QTorrentDisplayModel::TorrentErrorProxy(const QString& name)
 {
 	emit TorrentErrorPoxySender(name);
-}
+}/*
 void QTorrentDisplayModel::ChangeData(int row)
 {
 	if (row<rowCount())
@@ -284,7 +295,7 @@ void QTorrentDisplayModel::clear()
 {
 	torrents->clear();
 	reset( );
-}
+}*/
 int QTorrentDisplayModel::rowCount( const QModelIndex& parent ) const
 {
 	try
@@ -542,12 +553,14 @@ void QTorrentDisplayModel::retranslate()
 	PlayInPlayer->setText(tr("ACTION_PLAY_IN_PLAYER"));
 	superSeed->setText(tr("ACTION_SET_SUPERSEED"));
 	GenerateMagnet->setText(tr("ACTION_GENERATE_MAGNET"));
+    groupsMenu->setTitle(tr("ACTION_CHANGE_GROUP"));
 }
 
 void QTorrentDisplayModel::setSequentualDL()
 {
 	ActionOnSelectedItem(set_sequntial);
 }
+
 
 void QTorrentDisplayModel::UpdateTrackers()
 {
@@ -617,22 +630,27 @@ void QTorrentDisplayModel::setupContextMenu()
 	QObject::connect(DelTorrentOnly, SIGNAL(triggered()), this, SLOT(DellTorrentOnly()));
 	DelTorrentOnly->setShortcut(QKeySequence("Del"));
 	menu->addAction(DelTorrentOnly);
-	/*QMenu* filterMenu = new QMenu(parrent);
-	filterMenu->setTitle("FILTER_MENU");
-	QAction* activeFilter = new QAction(QIcon(":/MenuIcons/delete.ico"),tr("FILTER_ACTIVE"), parrent);
-	filterMenu->addAction(activeFilter);
-	menu->addMenu(filterMenu);*/
+    groupsMenu = new QMenu(tr("ACTION_CHANGE_GROUP"),menu);
+    groupsMenu->setIcon(QIcon(":/icons/groups.ico"));
+    QList<GroupForFileFiltering> filters = QApplicationSettings::getInstance()->GetFileFilterGroups();
+    QApplicationSettings::FreeInstance();
+    QString type;
+    for(int i=0;i<filters.size();i++)
+    {
+        QAction* changeGroupAction = new QAction(StaticHelpers::guessMimeIcon(filters[i].Extensions().split('|')[0],type),filters[i].Name(),groupsMenu);
+        QObject::connect(changeGroupAction, SIGNAL(triggered()), this, SLOT(changeGroup()));
+        changeGroupAction->setCheckable(true);
+        groupsMenu->addAction(changeGroupAction);
+    }
+    menu->addSeparator();
+    menu->addMenu(groupsMenu);
+
 }
 bool LessThan(const Torrent* a,const Torrent* b)
 {
 	return (*a) < (*b);
 }
-void QTorrentDisplayModel::sort()
-{
-	
-	//qSort(torrents->begin(),torrents->end(),LessThan);
-	
-}
+
 
 void QTorrentDisplayModel::SetSuperSeed()
 {
@@ -642,27 +660,14 @@ void QTorrentDisplayModel::SetSuperSeed()
 void QTorrentDisplayModel::initSessionFinished()
 {
 	torrents->sort();
-	QTimer::singleShot(3000,this,SIGNAL(initCompleted()));
+    QTimer::singleShot(3000,this,SIGNAL(initCompleted()));
 }
 
 
 
 void QTorrentDisplayModel::onTorrentRemove(  QString InfoHash )
 {
-
-    int i=0;
-	for (QList<Torrent*>::const_iterator tor=torrents->begin();
-		tor!=torrents->end();
-		tor++
-		)
-	{
-		if( (*tor)->GetInfoHash() == InfoHash )
-        {
-            torrents->remove(InfoHash);
-			break;
-		}
-		i++;
-    }
+    torrents->remove(InfoHash);
 	reset();
 }
 
@@ -671,10 +676,30 @@ void QTorrentDisplayModel::generateMagnetLink()
 	ActionOnSelectedItem(generate_magmet);
 }
 
-bool QTorrentDisplayModel::setData( const QModelIndex &index, const QVariant &value, int role /*= Qt::EditRole */ )
+
+
+void QTorrentDisplayModel::changeGroup()
 {
-	qDebug()<< "QTorrentDisplayModel::setData" << index << value;
-	return true;
+    try{
+        QAction* senderAct = (QAction*)sender();
+        QString group=senderAct->text();
+        QList<QAction*> actions = groupsMenu->actions();
+        for(int i=0;i<actions.size();i++)
+        {
+            actions[i]->setChecked(actions[i]==senderAct);
+        }
+        QModelIndexList indexes = parrent->selectionModel()->selectedIndexes();
+        foreach(QModelIndex index,indexes)
+        {
+            index.data(TorrentRole).value<Torrent*>()->setGroup(group);
+        }
+    }
+    catch(...)
+    {
+
+    }
+
+
 }
 
 

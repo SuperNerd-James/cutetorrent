@@ -44,7 +44,7 @@ void UploadController::service( HttpRequest& request, HttpResponse& response )
 			return;
 		}
 		error_code ec;
-		tManager->AddTorrent(QFileInfo(uploaded).absoluteFilePath(),save_path,"",QMap<QString,int>(),ec);
+        tManager->AddTorrent(QFileInfo(uploaded).absoluteFilePath(),save_path,ec,QMap<QString,int>());
 		if (ec)
 		{
 			response.setStatus(500," Internal Server Error");

@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDir>
 #include <QFileInfo>
 #include <QTranslator>
+#include <QFileOpenEvent>
 #include "application.h"
 #include <QMessageBox>
 QTranslator* Application::current = 0;
@@ -27,11 +28,9 @@ QString Application::current_locale="";
 Application::Application(int& argc, char* argv[])
 	: QtSingleApplication(argc, argv)
 {}
-
 Application::~Application()
 {
 }
-
 void Application::loadTranslations(const QString& dir)
 {
 	loadTranslations(QDir(dir));
@@ -70,7 +69,22 @@ QString Application::currentLocale()
 const QStringList Application::availableLanguages()
 {
 	// the content won't get copied thanks to implicit sharing and constness
-	return QStringList(translators.keys());
+    return QStringList(translators.keys());
+}
+
+bool Application::event(QEvent *event)
+{
+    if (event->type()==QEvent::FileOpen)
+    {
+        QFileOpenEvent* fileOpenEvent = static_cast<QFileOpenEvent*>(event);
+        QMessageBox::warning(NULL,"",fileOpenEvent->file());
+        if (fileOpenEvent->file().endsWith(".torrent",Qt::CaseInsensitive))
+        {
+            emit OpenTorrent(fileOpenEvent->file());
+        }
+        fileOpenEvent->accept();
+    }
+    return QtSingleApplication::event(event);
 }
 
 void Application::setLanguage(const QString& locale)

@@ -5,6 +5,7 @@
 #include "QTorrentDisplayModel.h"
 void DT_mounter::mountImage( QString path )
 {
+    #ifdef Q_WS_WIN //file association for windows
 	QApplicationSettings* settings=QApplicationSettings::getInstance();
 	QString exe = settings->valueString("DT","Executable");
 	if (exe.isEmpty())
@@ -30,4 +31,5 @@ void DT_mounter::mountImage( QString path )
 
 	dt->waitForFinished();
 	delete dt;
+#endif
 }

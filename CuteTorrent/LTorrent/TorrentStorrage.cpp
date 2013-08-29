@@ -6,7 +6,7 @@ int TorrentStorrage::instance_count=0;
 
 TorrentStorrage* TorrentStorrage::getInstance()
 {
-	//qDebug() << "TorrentStorrage::getInstance";
+	qDebug() << "TorrentStorrage::getInstance";
 	if (instance==NULL)
 	{
 		instance = new TorrentStorrage();
@@ -17,7 +17,7 @@ TorrentStorrage* TorrentStorrage::getInstance()
 
 void TorrentStorrage::freeInstance()
 {
-	//qDebug() << "TorrentStorrage::freeInstance";
+	qDebug() << "TorrentStorrage::freeInstance";
 	instance_count--;
 	if (instance_count==0)
 	{
@@ -45,7 +45,7 @@ void TorrentStorrage::append( Torrent* torrent)
 	case ACTIVE:
 		{
 			
-				if (!it.value()->GetUploadSpeed().isEmpty() || !it.value()->GetDwonloadSpeed().isEmpty())
+                if (it.value()->isActive())
 				{
 					filteredTorrents.append(it);
 				}
@@ -136,7 +136,7 @@ bool TorrentStorrage::hasTorrent( QString infoHash)
 
 TorrentStorrage::~TorrentStorrage( void )
 {
-	//qDebug() << "TorrentStorrage::~TorrentStorrage";
+	qDebug() << "TorrentStorrage::~TorrentStorrage";
 	qDeleteAll(torrentsMap);
 	qDeleteAll(torrents);
 }
@@ -187,9 +187,14 @@ TorrentStorrage::TorrentStorrage( QObject* parrent/*=NULL*/ ) : QObject(parrent)
 	timer->start();
 }
 
-Torrent*& TorrentStorrage::operator[]( int index )
+Torrent* TorrentStorrage::operator[]( int index )
 {
 	return torrents.at(index).value();
+}
+
+Torrent* TorrentStorrage::operator[]( QString index )
+{
+	return torrentsMap[index];
 }
 
 void TorrentStorrage::sort()
@@ -214,7 +219,7 @@ void TorrentStorrage::filterData()
         {
             for(int i=0;i<torrents.count();i++)
             {
-                if (!torrents[i].value()->GetUploadSpeed().isEmpty() || !torrents[i].value()->GetDwonloadSpeed().isEmpty())
+                if (torrents[i].value()->isActive())
                 {
                     filteredTorrents.append(torrents[i]);
                 }
@@ -301,7 +306,7 @@ void TorrentStorrage::filterByGroup()
 {
     for(int i=0;i<torrents.count();i++)
 	{
-		if (torrents[i].value()->GetGroup().toLower() == groupFilter.toLower())
+        if (torrents[i].value()->GetGroup().compare (groupFilter,Qt::CaseInsensitive)==0)
 		{
 			filteredTorrents.append(torrents[i]);
 		}

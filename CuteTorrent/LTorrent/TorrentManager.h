@@ -90,6 +90,7 @@ using namespace libtorrent;
 #include "QApplicationSettings.h"
 #include "Torrent.h"
 #include "TorrentStorrage.h"
+
 class QTorrentDisplayModel;
 class Torrent;
 class TorrentStorrage;
@@ -116,7 +117,7 @@ private:
 	void handle_alert(alert*);
 	void writeSettings();
 	TorrentStorrage* torrents;
-	QMap<QString,QPair<QString,QString>> save_path_data;
+    QMap<QString,QPair<QString,QString> > save_path_data;
     libtorrent::session* ses;
 	libtorrent::upnp* m_upnp;
 	QApplicationSettings* torrentSettings;
@@ -148,11 +149,11 @@ public:
 	opentorrent_info* GetTorrentInfo(QString filename);
 	openmagnet_info* GetTorrentInfo(torrent_handle handle);
 	void RemoveTorrent(QString InfoHash);
-	bool AddMagnet( torrent_handle h,QString SavePath,QString group,QMap<QString,int> filepriorities = QMap<QString,int>() );
-	bool AddTorrent(QString path, QString save_path,QString group,QMap<QString,int> filepriorities = QMap<QString,int>(),error_code& ec = error_code());
+    bool AddMagnet( torrent_handle h,QString SavePath,QString group, QMap< QString , qint32 > filepriorities );
+    bool AddTorrent(QString path, QString save_path,error_code& ec,QMap< QString , qint32 > filepriorities,QString group="",bool sequntial=false );
 	void PostTorrentUpdate();
 	void RemoveTorrent(torrent_handle h,bool dellfiles=false);
-	torrent_handle ProcessMagnetLink(QString link,error_code& ec=error_code());
+    torrent_handle ProcessMagnetLink(QString link,error_code& ec);
     void CancelMagnetLink(QString link);
 	void StartAllTorrents();
 	void PauseAllTorrents();
@@ -161,7 +162,9 @@ public:
 	int GetDownloadLimit();
 	int GetUploadLimit();
 	Torrent* GetTorrentByInfoHash(sha1_hash hash);
-protected:
+	Torrent* GetTorrentByInfoHash(QString hash);
+private slots:
+    void HandleGroupChange(QString,QString);
 };
 Q_DECLARE_METATYPE(opentorrent_info);
 

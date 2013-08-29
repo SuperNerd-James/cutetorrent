@@ -36,8 +36,7 @@ class Torrent : public QObject
 	Q_OBJECT
 		
 private:
-	bool m_hasMedia,m_stoped;
-	StaticHelpers* helper;
+	bool m_hasMedia;
 	torrent_handle cur_torrent;
 	libtorrent::size_type size;
 	QIcon icon;
@@ -47,7 +46,7 @@ private:
 	QString type;
 	QString group;
 	QStringList imageFiles;
-	bool prevHaserror,prevIsCompleted;
+//	bool prevHaserror,prevIsCompleted;
 public :
 
 	Torrent(const Torrent &other);
@@ -72,7 +71,7 @@ public :
 	QString GetType();
 	QString GetDiscribtion();
 	int GetStatus();
-	QString GetHashString() const;
+	//QString GetHashString() const;
 	QString GetInfoHash();
 	int GetProgress() const;
 	int GetPeerCount();
@@ -88,6 +87,7 @@ public :
 	bool isDaemonToolsMountable();
 	bool isSquential() const;
 	bool hasError() const;	
+    bool isActive() const;
 	bool hasMediaFiles();
 	int GetPieceCount();
 	QVector<int> GetDownloadedPieces();
@@ -110,6 +110,7 @@ public :
 	void AddPeer(QHostAddress adr,short port);
 	void SetUlLimit(int val);
 	void SetDlLimit(int val);
+    void setGroup(QString group);
 	int GetDownloadLimit();
 	int GetUploadLimit();
 	bool operator<(const Torrent) const;
@@ -117,6 +118,8 @@ public :
 	void SuperSeed();
 	bool isSuperSeed();
 	QString generateMagnetLink();
+signals:
+    void groupChanged(QString,QString);
 
 };
 

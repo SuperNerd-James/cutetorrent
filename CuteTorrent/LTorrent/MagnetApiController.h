@@ -1,5 +1,5 @@
 #pragma once
-#include "http\HttpRequestHandler.h"
+#include "http/httprequesthandler.h"
 #include "TorrentManager.h"
 #include "defs.h"
 class MagnetApiController :

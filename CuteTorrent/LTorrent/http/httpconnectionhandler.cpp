@@ -8,8 +8,8 @@
 #include <QTimer>
 #include <QCoreApplication>
 #include <QHostAddress>
-QList<QPair<uint,uint>> HttpConnectionHandler::allowedIP;
-QList<QPair<uint,uint>> HttpConnectionHandler::notAllowedIP;
+QList<QPair<uint,uint> > HttpConnectionHandler::allowedIP;
+QList<QPair<uint,uint> > HttpConnectionHandler::notAllowedIP;
 HttpConnectionHandler::HttpConnectionHandler(HttpRequestHandler* requestHandler)
     : QThread()
 {

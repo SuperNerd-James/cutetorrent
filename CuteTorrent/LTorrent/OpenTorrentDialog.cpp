@@ -171,7 +171,7 @@ void OpenTorrentDialog::AccepTorrent()
 		QString group=useGroup ? filters[GroupComboBox->currentIndex()].Name(): "" ;
 		if (!torrentFilename.startsWith("magnet"))
 		{
-			mgr->AddTorrent(torrentFilename,pathEdit->displayText(),group,filePriorities,ec);
+            mgr->AddTorrent(torrentFilename,pathEdit->displayText(),ec,filePriorities,group,setSequntialCheckBox->isChecked());
 		}
 		else
 		{

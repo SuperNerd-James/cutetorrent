@@ -10,7 +10,7 @@ class RconWebService : QObject
 private:
 	static RconWebService* instnce;
 	static int intanceCount;
-	QList<QPair<uint,uint>> allowedIP,notAllowedIP;
+    QList<QPair<uint,uint> > allowedIP,notAllowedIP;
 	HttpListener* listener;
 	RequestMapper* mapper;
 protected:

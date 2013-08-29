@@ -49,7 +49,7 @@ private:
 	QString GetProgressString(const Torrent& tor) const;
 public:
 	QTorrentItemDelegat();
-	QTorrentItemDelegat::QTorrentItemDelegat(const QTorrentItemDelegat &);
+    QTorrentItemDelegat(const QTorrentItemDelegat &);
 	static  QColor blueBrush, greenBrush;
      static QColor blueBack,  greenBack;
 	 static int max_width;

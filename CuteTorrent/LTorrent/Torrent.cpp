@@ -50,7 +50,14 @@ bool Torrent::hasError() const
 	{
 		
 	}
-	return false;
+    return false;
+}
+
+bool Torrent::isActive() const
+{
+    return (cur_torrent.status().download_rate > 2*1024 ||
+            cur_torrent.status().upload_rate > 2*1024 ||
+            cur_torrent.status().state==torrent_status::checking_files );
 }
 std::vector<peer_info> Torrent::GetPeerInfo()
 {
@@ -135,7 +142,7 @@ bool Torrent::isPaused() const
 {
 	try
 	{
-		if (!m_stoped)
+//		if (!m_stoped)
 			return cur_torrent.is_paused();
 	}
 	catch (...)
@@ -193,7 +200,7 @@ QStringList& Torrent::GetImageFiles()
 	return imageFiles;
 }
 Torrent::Torrent(libtorrent::torrent_handle torrentStatus,QString group) 
-	: QObject(0),mountable(false) , m_hasMedia(false) , cur_torrent(torrentStatus) , size(0) , m_stoped(false)
+	: QObject(0),mountable(false) , m_hasMedia(false) , cur_torrent(torrentStatus) , size(0) 
 {
 	file_storage storrgae=cur_torrent.get_torrent_info().files();
 	libtorrent::file_storage::iterator bg=storrgae.begin(),
@@ -304,7 +311,7 @@ QString Torrent::GetStatusString() const
 	}
 	return "";
 
-}
+}/*
 QString Torrent::GetHashString() const
 {
 
@@ -318,7 +325,7 @@ QString Torrent::GetHashString() const
 
 	}
 	return "";
-}
+}*/
 
 QString Torrent::GetName() const
 {
@@ -462,12 +469,11 @@ void Torrent::pause()
 {
 	try
 	{
-		if (!m_stoped)
-		{
+
 			cur_torrent.auto_managed(false);
 			cur_torrent.pause();
 			cur_torrent.scrape_tracker();
-		}
+		
 		
 	}
 	catch (...)
@@ -481,7 +487,7 @@ void Torrent::resume()
 	try
 	{
 		cur_torrent.resume();
-		m_stoped=false;
+
 	}
 	catch (...)
 	{
@@ -816,12 +822,12 @@ void Torrent::stop()
 {
 	cur_torrent.auto_managed(false);
 	cur_torrent.pause(torrent_handle::graceful_pause);
-	m_stoped=true;
+//	m_stoped=true;
 }
 
 bool Torrent::isStoped() const
 {
-	return m_stoped;
+	return false;//m_stoped;
 }
 
 bool Torrent::operator<(const Torrent other) const
@@ -894,6 +900,12 @@ QString Torrent::generateMagnetLink()
 QString Torrent::GetGroup()
 {
 	return group;
+}
+
+void Torrent::setGroup( QString newGroup )
+{
+	this->group = newGroup;
+    emit groupChanged(newGroup,GetInfoHash());
 }
 
 

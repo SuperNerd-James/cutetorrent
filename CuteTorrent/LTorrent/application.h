@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef APPLICATION_H
-
+#define APPLICATION_H
 #include <QApplication>
 #include <QHash>
 #include <QStringList>
@@ -38,10 +38,13 @@ public:
 	static void loadTranslations(const QString& dir);
 	static void loadTranslations(const QDir& dir);
 	static const QStringList availableLanguages();
-
+protected:
+    bool event(QEvent* event);
 public slots:
 	static void setLanguage(const QString& locale);
 	static QString currentLocale();
+signals:
+    void OpenTorrent(QString);
 private:
 	static QString current_locale;
 	static QTranslator* current;

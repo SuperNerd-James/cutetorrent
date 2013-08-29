@@ -8,7 +8,7 @@
 #include <QDir>
 #include <QDateTime>
 #include <QCryptographicHash>
-
+#include <QApplication>
 #include <QMessageBox>
 StaticFileController::StaticFileController(QObject* parent)
     :HttpRequestHandler("WebControl",parent)
@@ -21,6 +21,12 @@ StaticFileController::StaticFileController(QObject* parent)
     maxAge=settings->valueInt("WebControl","maxAge",60000);
     encoding=settings->valueString("WebControl","encoding","UTF-8");
     docroot=settings->valueString("WebControl","path","./webControll/");
+    if (QDir::isRelativePath(docroot))
+    {
+        QString dataDir = QApplication::applicationDirPath()+QDir::separator();
+
+        docroot = QDir::cleanPath(dataDir+docroot);
+    }
 	//qDebug("StaticFileController: docroot=%s, encoding=%s, maxAge=%i",qPrintable(docroot),qPrintable(encoding),maxAge);
     maxCachedFileSize=settings->valueInt("WebControl","maxCachedFileSize",65536);
 	//qDebug("StaticFileController: maxCachedFileSize=%i",maxCachedFileSize);

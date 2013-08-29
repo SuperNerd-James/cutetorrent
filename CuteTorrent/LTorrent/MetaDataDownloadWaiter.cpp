@@ -16,7 +16,8 @@ MetaDataDownloadWaiter::~MetaDataDownloadWaiter()
 
 void MetaDataDownloadWaiter::run()
 {
-	torrent_handle h=_tManager->ProcessMagnetLink(MetaLink);
+    error_code ec;
+    torrent_handle h=_tManager->ProcessMagnetLink(MetaLink,ec);
 
 	if (!_autoAdd)
 	{
@@ -26,7 +27,7 @@ void MetaDataDownloadWaiter::run()
 	}
 	else
 	{
-		_tManager->AddMagnet(h,QString::fromStdString(h.save_path()),"");
+        _tManager->AddMagnet(h,QString::fromStdString(h.save_path()),"",QMap<QString,qint32>());
 	}
 	this->deleteLater();
 }
