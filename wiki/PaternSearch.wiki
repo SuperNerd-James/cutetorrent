@@ -1,4 +1,4 @@
-#summary Serch on external resources and in torrent client by paterns.
+#summary Search on external resources and in torrent client by paterns.
 
 = Introduction =
 
