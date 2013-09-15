@@ -52,28 +52,38 @@ void myMessageOutput(QtMsgType type, const char *msg)
 }
 #endif // DEBUG
 
+void loadStyleSheet(Application* a)
+{
+
+    QFile file(":/CuteTorrentStyle.css");
+    if (file.open(QFile::ReadOnly))
+    {
+        a->setStyleSheet(file.readAll());
+        file.close();
+    }
+}
+
 int main(int argc, char *argv[])
 {
 	
 #ifdef DEBUG
     //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF|_CRTDBG_LEAK_CHECK_DF);
 
+
 	FILE * fp=freopen("ct_debug.log","a+",stderr);
 	qInstallMsgHandler(myMessageOutput);
 #endif // DEBUG
     Application a(argc, argv);
     a.setWindowIcon(QIcon(":/icons/app.ico"));
-	CuteTorentStyle* style = new CuteTorentStyle();
-#ifdef Q_WS_WIN
-	a.setStyle(style);
-#endif
+
     QTextCodec *wantUnicode = QTextCodec::codecForName("UTF-8");
 	/*QTextCodec::setCodecForTr(wantUnicode);
 	QTextCodec::setCodecForLocale(wantUnicode);*/
 	QTextCodec::setCodecForCStrings(wantUnicode);
 	bool minimize=false,consoleWarint=false;
 	QString file2open;
-	
+
+    loadStyleSheet(&a);
 	
 	if (a.isRunning())
 	{
@@ -118,6 +128,7 @@ int main(int argc, char *argv[])
 	}
 	
 	a.loadTranslations(":/translations");
+    a.loadTranslationsQt(":/translations_qt");
 	a.addLibraryPath(QCoreApplication::applicationDirPath ()+"/plugins");
 	
 	
@@ -138,6 +149,7 @@ int main(int argc, char *argv[])
 	{
 		w.HandleNewTorrent(file2open);
 	}
+    a.setActiveWindow(&w);
 	int res=a.exec();
 	
 #ifdef DEBUG

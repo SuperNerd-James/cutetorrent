@@ -54,7 +54,8 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_ICON1               ICON                    "icon1.ico"
+IDI_ICON1               ICON                    "Resources\\app.ico"
+IDI_ICON2               ICON                    "Resources\\torrentfile.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -62,8 +63,8 @@ IDI_ICON1               ICON                    "icon1.ico"
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 0,9,0,7
- PRODUCTVERSION 0,9,0,7
+ FILEVERSION 0,9,0,9
+ PRODUCTVERSION 0,9,0,9
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -79,12 +80,12 @@ BEGIN
         BLOCK "041904b0"
         BEGIN
             VALUE "FileDescription", "CuteTorrent"
-            VALUE "FileVersion", "0, 9, 0, 7"
+            VALUE "FileVersion", "0, 9, 0, 9"
             VALUE "InternalName", "CuteTorrent 0.9.0.7"
             VALUE "LegalCopyright", "Ruslan Fedoseyenko Copyright (C) 2013"
             VALUE "OriginalFilename", "CuteTorrent.exe"
             VALUE "ProductName", "CuteTorrent"
-            VALUE "ProductVersion", "0, 9, 0, 7"
+            VALUE "ProductVersion", "0, 9, 0, 9"
         END
     END
     BLOCK "VarFileInfo"

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>449</width>
-    <height>533</height>
+    <width>436</width>
+    <height>482</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -20,201 +20,305 @@
   <property name="statusTip">
    <string/>
   </property>
-  <layout class="QGridLayout" name="gridLayout_3">
-   <property name="sizeConstraint">
-    <enum>QLayout::SetFixedSize</enum>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
    </property>
-   <item row="0" column="0" colspan="3">
-    <widget class="QGroupBox" name="groupBox">
-     <property name="title">
-      <string>OPEN_TORRENT_SAVE_PATH</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QLineEdit" name="pathEdit"/>
-      </item>
-      <item row="0" column="1">
-       <widget class="QPushButton" name="browseButton">
-        <property name="text">
-         <string>OPEN_TORRENT_BROWSE_BUTTON</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QComboBox" name="GroupComboBox"/>
-      </item>
-      <item row="1" column="1">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>DISCRIBTION_LABEL</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="1" column="0" colspan="3">
-    <widget class="QGroupBox" name="groupBox_2">
-     <property name="title">
-      <string>OPEN_TORRENT_INFO</string>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_2">
-      <item row="2" column="0">
-       <widget class="QLabel" name="labelSizeTitle">
-        <property name="text">
-         <string>SIZE</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="5">
-       <widget class="QLabel" name="loaderTextLabel">
-        <property name="text">
-         <string>RECIVING_METADATA</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0" colspan="2">
-       <widget class="QLabel" name="labelCommentTitle">
-        <property name="text">
-         <string>OPEN_TORRENT_INFO_DESCRIBTION</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QLabel" name="labelNameTitile">
-        <property name="text">
-         <string>OPEN_TORRENT_INFO_NAME</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="2" colspan="4">
-       <widget class="QLabel" name="labelNameData">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0" colspan="6">
-       <widget class="QTreeView" name="treeView">
-        <property name="styleSheet">
-         <string notr="true">
-QTreeView {
-     alternate-background-color: yellow;
- }
-  QTreeView {
-     show-decoration-selected: 1;
- }
-
- QTreeView::item {
-      border: 1px solid #d9d9d9;
-     border-top-color: transparent;
-     border-bottom-color: transparent;
- }
-
- QTreeView::item:hover {
-     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #e7effd, stop: 1 #cbdaf1);
-     border: 1px solid #bfcde4;
- }
-
- QTreeView::item:selected {
-     border: 1px solid #567dbc;
- }
-
- QTreeView::item:selected:active{
-     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #6ea1f1, stop: 1 #567dbc);
- }
-
- QTreeView::item:selected:!active {
-     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #6b9be8, stop: 1 #577fbf);
- }
- 
-  QTreeView::branch {
-         background: palette(base);
- }
-
-
- QTreeView::branch:has-siblings:!adjoins-item {
-     border-image: url(:treeview/vline.png) 0;
- }
-
- QTreeView::branch:has-siblings:adjoins-item {
-     border-image: url(:treeview/branch-more.png) 0;
- }
-
- QTreeView::branch:!has-children:!has-siblings:adjoins-item {
-     border-image: url(:treeview/branch-end.png) 0;
- }
-
- QTreeView::branch:has-children:!has-siblings:closed,
- QTreeView::branch:closed:has-children:has-siblings {
-         border-image: none;
-         image: url(:treeview/branch-closed.png);
- }
-
- QTreeView::branch:open:has-children:!has-siblings,
- QTreeView::branch:open:has-children:has-siblings  {
-         border-image: none;
-         image: url(:treeview/branch-open.png);
- }</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="2" colspan="4">
-       <widget class="QLabel" name="labelComentData">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="4">
-       <widget class="QLabel" name="loaderGifLabel">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="1" colspan="3">
-       <widget class="QLabel" name="labelSizeData">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="3" column="0">
-       <widget class="QCheckBox" name="setSequntialCheckBox">
-        <property name="text">
-         <string>SET_SEQUNTIAL</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="2" column="0">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
+   <property name="margin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QWidget" name="titleBar" native="true">
+     <property name="minimumSize">
       <size>
-       <width>266</width>
-       <height>20</height>
+       <width>0</width>
+       <height>23</height>
       </size>
      </property>
-    </spacer>
-   </item>
-   <item row="2" column="2">
-    <widget class="QPushButton" name="cancelButton">
-     <property name="text">
-      <string>OPEN_TORRENT_CANCEL_BUTTON</string>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>23</height>
+      </size>
      </property>
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <property name="spacing">
+       <number>4</number>
+      </property>
+      <property name="leftMargin">
+       <number>5</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>1</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="tbMenu">
+        <property name="maximumSize">
+         <size>
+          <width>15</width>
+          <height>15</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="ltorrent.qrc">:/icons/app.ico</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="LTitle">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>8</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+          <stylestrategy>PreferDefault</stylestrategy>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(0, 0, 0);</string>
+        </property>
+        <property name="text">
+         <string>DIALOG_OPEN_TORRENT</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pbMin">
+        <property name="minimumSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="icon">
+         <iconset resource="ltorrent.qrc">
+          <normaloff>:/images/app_min.ico</normaloff>:/images/app_min.ico</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pbClose">
+        <property name="minimumSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="icon">
+         <iconset resource="ltorrent.qrc">
+          <normaloff>:/images/app_close.ico</normaloff>:/images/app_close.ico</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
-   <item row="2" column="1">
-    <widget class="QPushButton" name="yesButton">
-     <property name="text">
-      <string>OPEN_TORRENT_ADD_BUTTON</string>
+   <item>
+    <widget class="QWidget" name="centralWidget" native="true">
+     <property name="styleSheet">
+      <string notr="true"/>
      </property>
+     <layout class="QGridLayout" name="gridLayout_3">
+      <item row="0" column="0" colspan="3">
+       <widget class="QGroupBox" name="groupBox">
+        <property name="title">
+         <string>OPEN_TORRENT_SAVE_PATH</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0">
+          <widget class="QLineEdit" name="pathEdit"/>
+         </item>
+         <item row="0" column="1">
+          <widget class="QPushButton" name="browseButton">
+           <property name="text">
+            <string>OPEN_TORRENT_BROWSE_BUTTON</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QComboBox" name="GroupComboBox"/>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>DISCRIBTION_LABEL</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="1" column="0" colspan="3">
+       <widget class="QGroupBox" name="groupBox_2">
+        <property name="title">
+         <string>OPEN_TORRENT_INFO</string>
+        </property>
+        <layout class="QGridLayout" name="gridLayout_2">
+         <item row="2" column="0">
+          <widget class="QLabel" name="labelSizeTitle">
+           <property name="text">
+            <string>SIZE</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="5">
+          <widget class="QLabel" name="loaderTextLabel">
+           <property name="text">
+            <string>RECIVING_METADATA</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0" colspan="2">
+          <widget class="QLabel" name="labelCommentTitle">
+           <property name="text">
+            <string>OPEN_TORRENT_INFO_DESCRIBTION</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="labelNameTitile">
+           <property name="text">
+            <string>OPEN_TORRENT_INFO_NAME</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2" colspan="4">
+          <widget class="QLabel" name="labelNameData">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="4" column="0" colspan="6">
+          <widget class="QTreeView" name="torrentFilesTreeView">
+           <property name="styleSheet">
+            <string notr="true"/>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2" colspan="4">
+          <widget class="QLabel" name="labelComentData">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="4">
+          <widget class="QLabel" name="loaderGifLabel">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1" colspan="3">
+          <widget class="QLabel" name="labelSizeData">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="3" column="0">
+          <widget class="QCheckBox" name="setSequntialCheckBox">
+           <property name="text">
+            <string>SET_SEQUNTIAL</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item row="2" column="0">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>266</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="2" column="1">
+       <widget class="QPushButton" name="yesButton">
+        <property name="text">
+         <string>OPEN_TORRENT_ADD_BUTTON</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2">
+       <widget class="QPushButton" name="cancelButton">
+        <property name="text">
+         <string>OPEN_TORRENT_CANCEL_BUTTON</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>

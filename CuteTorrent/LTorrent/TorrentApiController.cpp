@@ -135,6 +135,7 @@ void TorrentApiController::service( HttpRequest& request, HttpResponse& response
 TorrentApiController::~TorrentApiController()
 {
 	TorrentStorrage::freeInstance();
+	TorrentManager::freeInstance();
 }
 
 

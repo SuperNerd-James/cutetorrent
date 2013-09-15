@@ -28,7 +28,6 @@ FileTreeModel::~FileTreeModel()
 	delete rootItem;
 }
 
-
 FileTreeModel::FileTreeModel(QObject *parent)
 : QAbstractItemModel(parent)
 {

@@ -13,8 +13,7 @@ QList<QPair<uint,uint> > HttpConnectionHandler::notAllowedIP;
 HttpConnectionHandler::HttpConnectionHandler(HttpRequestHandler* requestHandler)
     : QThread()
 {
-    Q_ASSERT(settings!=0);
-    Q_ASSERT(requestHandler!=0);
+    //qDebug() << "QApplicationSettings::getInstance from HttpConnectionHandler::HttpConnectionHandler";
 	this->settings=QApplicationSettings::getInstance();
     this->requestHandler=requestHandler;
     currentRequest=0;
@@ -33,6 +32,7 @@ HttpConnectionHandler::HttpConnectionHandler(HttpRequestHandler* requestHandler)
 
 
 HttpConnectionHandler::~HttpConnectionHandler() {
+	//qDebug() << "QApplicationSettings::FreeInstance from HttpConnectionHandler::~HttpConnectionHandler";
 	QApplicationSettings::FreeInstance();
     socket.close();
     quit();

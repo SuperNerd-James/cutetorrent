@@ -8,6 +8,7 @@ MagnetApiController::MagnetApiController(QObject* parrent) : HttpRequestHandler(
 
 MagnetApiController::~MagnetApiController(void)
 {
+	TorrentManager::freeInstance();
 }
 
 void MagnetApiController::service( HttpRequest& request, HttpResponse& response )

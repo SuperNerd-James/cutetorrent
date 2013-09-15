@@ -8,7 +8,7 @@ void FileViewModel::retranslateUI()
 
 FileViewModel::FileViewModel(QObject* parent) : QAbstractTableModel(parent)
 {
-  //  qDebug() << "FileViewModel::FileViewModel";
+  //  //qDebug() << "FileViewModel::FileViewModel";
 	headerStringsData << trUtf8("FILES_PATH") << trUtf8("FILES_SIZE") << trUtf8("FILES_READY") <<trUtf8("FILES_PRIORITY");
 }
 
@@ -18,19 +18,21 @@ FileViewModel::~FileViewModel(void)
 
 int FileViewModel::rowCount( const QModelIndex &parent /*= QModelIndex( ) */ ) const
 {
-   // qDebug() << "FileViewModel::rowCount" << (dataSource.storrage.is_valid() ? dataSource.storrage.num_files() : 0);
+    Q_UNUSED(parent)
+   // //qDebug() << "FileViewModel::rowCount" << (dataSource.storrage.is_valid() ? dataSource.storrage.num_files() : 0);
     return dataSource.storrage.is_valid() ? dataSource.storrage.num_files() : 0;
 }
 
 int FileViewModel::columnCount( const QModelIndex &parent /*= QModelIndex( ) */ ) const
 {
-  //  qDebug() << "FileViewModel::columnCount";
+    Q_UNUSED(parent)
+  //  //qDebug() << "FileViewModel::columnCount";
 	return COLUMN_COUNT;
 }
 
 QVariant FileViewModel::data( const QModelIndex &index, int role /*= Qt::DisplayRole */ ) const
 {
-  //  qDebug() << "FileViewModel::data" << index.row() << index.column();
+  //  //qDebug() << "FileViewModel::data" << index.row() << index.column();
 	int column = index.column();
 	int row = index.row();
 	if (role == Qt::DisplayRole && dataSource.storrage.is_valid() )
@@ -100,17 +102,17 @@ QVariant FileViewModel::headerData( int section, Qt::Orientation orientation, in
     
 	 if(orientation==Qt::Horizontal)
 	 {
-	//	qDebug() << "FileViewModel::headerData" << section;
+	//	//qDebug() << "FileViewModel::headerData" << section;
 		switch(role)
 		{
 		case Qt::DisplayRole:
-/*			qDebug() << "Qt::DisplayRole";
-			qDebug() << section;
-			qDebug() << headerStringsData;*/
+/*			//qDebug() << "Qt::DisplayRole";
+			//qDebug() << section;
+			//qDebug() << headerStringsData;*/
 			return headerStringsData.at(section);
 /*		case Qt::SizeHintRole:
-/*			qDebug() << "Qt::SizeHintRole";
-			qDebug() << section;
+/*			//qDebug() << "Qt::SizeHintRole";
+			//qDebug() << section;
 			switch(section)
 			{
 			case 0:
@@ -146,21 +148,21 @@ void FileViewModel::setDataSource( files_info storage )
 	
 	if(dataSource.storrage.is_valid())
 	{	
-	//	qDebug() << "dataSource.storrage.is_valid=true";
+	//	//qDebug() << "dataSource.storrage.is_valid=true";
 		if (dataSource.infoHash != storage.infoHash)
 		{
-	//		qDebug() << "reseting";
+	//		//qDebug() << "reseting";
 			dataSource = storage;
 			reset();
 		} else {
-	//		qDebug() << "updating data";
+	//		//qDebug() << "updating data";
 			dataSource = storage;
 			QModelIndex topleft=index(0,0),botright=index(rowCount()-1,columnCount()-1);
 			emit dataChanged(topleft,botright);
 		}
 	} else {
-	//	qDebug() << "dataSource.storrage.is_valid=false";
-	//	qDebug() << "reseting";
+	//	//qDebug() << "dataSource.storrage.is_valid=false";
+	//	//qDebug() << "reseting";
 		dataSource = storage;
 		reset();
 	}

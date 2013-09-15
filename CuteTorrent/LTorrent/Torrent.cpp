@@ -206,6 +206,7 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus,QString group)
 	libtorrent::file_storage::iterator bg=storrgae.begin(),
 		end=storrgae.end();
 	this->group=group;
+    StaticHelpers::guessMimeIcon(base_suffix,type);
 	for (libtorrent::file_storage::iterator i=bg;i!=end;i++)
 	{
 		QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));

@@ -3,6 +3,7 @@
 #include <QDebug>
 Scheduller::Scheduller()
 {
+	//qDebug() << "QApplicationSettings::getInstance() from Scheduller::Scheduller";
 	settings = QApplicationSettings::getInstance();
 	tasks=settings->GetSchedullerQueue();
 	checkTasks();
@@ -42,6 +43,7 @@ void Scheduller::freeInstance()
 
 Scheduller::~Scheduller()
 {
+	//qDebug() << "QApplicationSettings::FreeInstance from Scheduller::~Scheduller";
 	QApplicationSettings::FreeInstance();
 }
 

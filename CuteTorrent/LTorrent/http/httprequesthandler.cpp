@@ -18,6 +18,7 @@ HttpRequestHandler::~HttpRequestHandler() {}
 
 void HttpRequestHandler::initSettings()
 {
+	//qDebug() << "QApplicationSettings::getInstance from HttpRequestHandler::initSettings";
 	QApplicationSettings* settings=QApplicationSettings::getInstance();
     requireAuth = settings->valueBool(serverName,"requireAuth",false);
 	
@@ -25,6 +26,7 @@ void HttpRequestHandler::initSettings()
     account.password = settings->valueString(serverName,"webui_password","admin");
 	
 	//qDebug() << account.username << account.password;
+	//qDebug() << "QApplicationSettings::FreeInstance from HttpRequestHandler::initSettings";
 	QApplicationSettings::FreeInstance();
 }
 void HttpRequestHandler::service(HttpRequest& request, HttpResponse& response) {

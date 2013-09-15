@@ -2,11 +2,12 @@
 #include "json/json.h"
 SettingsAPiController::SettingsAPiController(QObject* parent) : HttpRequestHandler("WebControl",parent),settings(QApplicationSettings::getInstance())
 {
-	
+	//qDebug() << "QApplicationSettings::getInstance() from SettingsAPiController::SettingsAPiController";
 }
 
 SettingsAPiController::~SettingsAPiController(void)
 {
+	//qDebug() << "QApplicationSettings::FreeInstance() from SettingsAPiController::SettingsAPiController";
 	QApplicationSettings::FreeInstance();
 }
 
