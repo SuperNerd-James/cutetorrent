@@ -16,7 +16,7 @@ StaticFileController::StaticFileController(QObject* parent)
 
 
 
-	
+	//qDebug() << "QApplicationSettings::getInstance from StaticFileController::StaticFileController";
 	settings=QApplicationSettings::getInstance();
     maxAge=settings->valueInt("WebControl","maxAge",60000);
     encoding=settings->valueString("WebControl","encoding","UTF-8");
@@ -165,6 +165,7 @@ void StaticFileController::setContentType(QString fileName, HttpResponse& respon
 
 StaticFileController::~StaticFileController()
 {
+	//qDebug() << "QApplicationSettings::FreeInstance() from StaticFileController::~StaticFileController";
 	QApplicationSettings::FreeInstance();
 }
 

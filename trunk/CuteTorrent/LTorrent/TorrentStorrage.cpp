@@ -6,7 +6,7 @@ int TorrentStorrage::instance_count=0;
 
 TorrentStorrage* TorrentStorrage::getInstance()
 {
-	qDebug() << "TorrentStorrage::getInstance";
+	//qDebug() << "TorrentStorrage::getInstance";
 	if (instance==NULL)
 	{
 		instance = new TorrentStorrage();
@@ -17,7 +17,7 @@ TorrentStorrage* TorrentStorrage::getInstance()
 
 void TorrentStorrage::freeInstance()
 {
-	qDebug() << "TorrentStorrage::freeInstance";
+	//qDebug() << "TorrentStorrage::freeInstance";
 	instance_count--;
 	if (instance_count==0)
 	{
@@ -136,7 +136,7 @@ bool TorrentStorrage::hasTorrent( QString infoHash)
 
 TorrentStorrage::~TorrentStorrage( void )
 {
-	qDebug() << "TorrentStorrage::~TorrentStorrage";
+	//qDebug() << "TorrentStorrage::~TorrentStorrage";
 	qDeleteAll(torrentsMap);
 	qDeleteAll(torrents);
 }

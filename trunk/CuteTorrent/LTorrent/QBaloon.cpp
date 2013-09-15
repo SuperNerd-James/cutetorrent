@@ -59,10 +59,8 @@ QBalloonTip::QBalloonTip(const QString& title, const QString& message,QBaloonTyp
 	currentType=type;
 	currentData=data;
 	setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
-	//setAttribute(Qt::WA_DeleteOnClose); 
-	//setAttribute(Qt::WA_TranslucentBackground);
-	setObjectName("QBalloonTip" );
-	setStyleSheet(" QWidget#QBalloonTip	{border: 3px solid #8f8f91;	background-color:#f0f0f0;	}");
+    setObjectName("QBalloonTip" );
+    setStyleSheet(" QWidget#QBalloonTip	{border: 1px solid #909090;	background-color:#f0f0f0;	}");
 	cuurentIcon=icon;
    
 
@@ -75,6 +73,7 @@ QBalloonTip::QBalloonTip(const QString& title, const QString& message,QBaloonTyp
 	titleLabel->setTextFormat(Qt::PlainText);
 
 	QPushButton *closeButton = new QPushButton;
+    closeButton->setObjectName("closeBaloon");
 	closeButton->setIcon(style()->standardIcon(QStyle::SP_DockWidgetCloseButton));
 	closeButton->setIconSize(QSize(18, 18));
 	closeButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);

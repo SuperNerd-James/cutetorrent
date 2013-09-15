@@ -17,6 +17,7 @@ HttpListener::HttpListener(QString name,HttpRequestHandler* requestHandler, QObj
     // Create connection handler pool
 
     serverName = name;
+	//qDebug()<<"QApplicationSettings::getInstance(); from HttpListener::HttpListener" << name;
 	this->settings=QApplicationSettings::getInstance();
     pool=new HttpConnectionHandlerPool(name,requestHandler);
 }
@@ -25,6 +26,8 @@ HttpListener::~HttpListener() {
     close();
     //qDebug("HttpListener: closed");
     delete pool;
+	//qDebug() << "QApplicationSettings::FreeInstance from HttpListener::~HttpListener" << serverName;
+	QApplicationSettings::FreeInstance();
     //qDebug("HttpListener: destroyed");
 }
 

@@ -9,12 +9,14 @@
 #include "httpcookie.h"
 #include "QApplicationSettings.h"
 HttpRequest::HttpRequest() {
+	//qDebug()<<"QApplicationSettings::getInstance() from HttpRequest::HttpRequest";
 	QApplicationSettings* settings = QApplicationSettings::getInstance();
     status=waitForRequest;
     currentSize=0;
     expectedBodySize=0;
     maxSize=settings->value("WebControl","maxRequestSize","16000").toInt();
 	maxMultiPartSize=settings->value("WebControl","maxMultiPartSize","1000000").toInt();
+	//qDebug() << "QApplicationSettings::FreeInstance from HttpRequest::HttpRequest";
 	QApplicationSettings::FreeInstance();
 }
 

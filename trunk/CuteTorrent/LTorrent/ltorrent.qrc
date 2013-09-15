@@ -1,12 +1,11 @@
 <RCC>
+    <qresource prefix="/">
+        <file>CuteTorrentStyle.css</file>
+    </qresource>
     <qresource prefix="/icons">
-        <file alias="remove.ico">Resources/Actions-application-exit.ico</file>
-        <file alias="start.ico">Resources/Actions-arrow-right.ico</file>
-        <file alias="pause.ico">Resources/Actions-media-playback-pause.ico</file>
         <file alias="schedule.ico">Resources/schedule.ico</file>
         <file alias="webControll.ico">Resources/webControll.ico</file>
         <file alias="my-audio.ico">Resources/audio.ico</file>
-        <file alias="my-default.ico">Resources/default.ico</file>
         <file alias="my-doc.ico">Resources/doc.ico</file>
         <file alias="my-movie.ico">Resources/movie.ico</file>
         <file alias="my-picture.ico">Resources/picture.ico</file>
@@ -17,11 +16,17 @@
         <file alias="hdd.ico">Resources/hdd.ico</file>
         <file alias="filtering.ico">Resources/filtering.ico</file>
         <file alias="upload.ico">Resources/upload.ico</file>
-        <file alias="settings.ico">Resources/gtk_preferences.ico</file>
         <file alias="my-archive.ico">Resources/archive.ico</file>
+        <file alias="delete.png">Resources/delete.png</file>
+        <file alias="options.png">Resources/option.png</file>
+        <file alias="pause.png">Resources/pause.png</file>
+        <file alias="play.png">Resources/play.png</file>
         <file alias="completed.ico">Resources/completed.ico</file>
         <file alias="groups.ico">Resources/groups.ico</file>
         <file alias="search.ico">Resources/search.ico</file>
+        <file alias="active.ico">Resources/activ.ico</file>
+        <file alias="dt-settings.ico">Resources/dt-settings.ico</file>
+        <file alias="torrent-settings.ico">Resources/torrent-settings.ico</file>
     </qresource>
     <qresource prefix="/treeview">
         <file alias="branch-closed.png">Resources/treeview/stylesheet-branch-closed.png</file>
@@ -46,19 +51,27 @@
         <file alias="bg.png">Resources/playerImages/pattern.png</file>
     </qresource>
     <qresource prefix="/images">
+        <file alias="app_close.ico">Resources/images/app_close.ico</file>
+        <file alias="app_rest.ico">Resources/images/app_rest.ico</file>
+        <file alias="app_min.ico">Resources/images/app_min.ico</file>
+        <file alias="app_max.ico">Resources/images/app_max.ico</file>
         <file alias="loader.gif">Resources/images/loader.gif</file>
-        <file alias="ToolTipFrame.png">Resources/images/ToolTipFrame.png</file>
+        <file alias="checbox-checked.png">Resources/images/checbox-checked.png</file>
+        <file alias="checbox-partitaly-checked.png">Resources/images/checbox-partitaly-checked.png</file>
+        <file alias="checbox-unchecked.png">Resources/images/checbox-unchecked.png</file>
+        <file alias="down-arrow.png">Resources/images/down-arrow.png</file>
+        <file alias="spin-minus.png">Resources/images/spin-minus.png</file>
+        <file alias="spin-plus.png">Resources/images/spin-plus.png</file>
+        <file alias="sort-down.png">Resources/images/sort-down.png</file>
+        <file alias="sort-up.png">Resources/images/sort-up.png</file>
     </qresource>
     <qresource prefix="/MenuIcons">
         <file alias="about.ico">Resources/MenuIcons/about.ico</file>
         <file alias="addTorrent.ico">Resources/MenuIcons/addTorrent.ico</file>
         <file alias="addUrl.ico">Resources/MenuIcons/addUrl.ico</file>
-        <file alias="checkUpdates.ico">Resources/MenuIcons/checkUpdates.ico</file>
         <file alias="preferencies.ico">Resources/MenuIcons/preferencies.ico</file>
-        <file alias="quit.ico">Resources/MenuIcons/quit.ico</file>
         <file alias="createTorrent.ico">Resources/MenuIcons/createTorrent.ico</file>
         <file alias="delete.ico">Resources/delete.ico</file>
-        <file alias="mount-dt.ico">Resources/mount-dt.ico</file>
         <file alias="move-folder.iso">Resources/move-folder.ico</file>
         <file alias="open-folder">Resources/open-folder.ico</file>
         <file alias="play.ico">Resources/play.ico</file>
@@ -67,7 +80,8 @@
         <file alias="super-seed.ico">Resources/super-seed.ico</file>
         <file alias="update-trackers.ico">Resources/update-trackers.ico</file>
         <file alias="copy-to-clipboard.ico">Resources/copy-to-clipboard.ico</file>
-        <file alias="maximize.ico">Resources/maximize.ico</file>
-        <file alias="minimize.ico">Resources/minimize.ico</file>
+    </qresource>
+    <qresource prefix="/translations_qt">
+       <file alias="qt_RUSSIAN.qm">C:/Qt/4.8.5/translations/qt_ru.qm</file>
     </qresource>
 </RCC>

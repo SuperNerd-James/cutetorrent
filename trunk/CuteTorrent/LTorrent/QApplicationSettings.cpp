@@ -49,7 +49,7 @@ QApplicationSettings::QApplicationSettings()
 }
 QApplicationSettings::~QApplicationSettings()
 {
-	qDebug() << "QApplicationSettings: object destruction";
+	//qDebug() << "QApplicationSettings: object destruction";
 	WriteSettings();
 
 }
@@ -58,7 +58,7 @@ QApplicationSettings* QApplicationSettings::getInstance()
 	
 	if (_instance==NULL)
 		_instance = new QApplicationSettings();
-	qDebug() << "QApplicationSettings giving " <<_instanceCount<< " instance " ;
+	//qDebug() << "QApplicationSettings giving " <<_instanceCount<< " instance " ;
 	_instanceCount++;
 	return _instance;
 }
@@ -66,7 +66,7 @@ void QApplicationSettings::FreeInstance()
 {
 	
 	_instanceCount--;
-	qDebug() << "QApplicationSettings freeing " <<_instanceCount<< " instance " ;
+	//qDebug() << "QApplicationSettings freeing " <<_instanceCount<< " instance " ;
 	if (!_instanceCount)
 	{
 		_instance->~QApplicationSettings();

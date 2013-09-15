@@ -12,6 +12,8 @@ TorrentTracker::TorrentTracker(QObject *parent) :
 TorrentTracker::~TorrentTracker()
 {
     stop();
+	delete httpServer;
+	delete requestHandler;
 }
 
 bool TorrentTracker::isRunning()

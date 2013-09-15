@@ -68,7 +68,7 @@ QIcon StaticHelpers::guessMimeIcon(QString suffix,QString& type)
 		fileIcons[DOCUMENT] = QIcon( ":/icons/my-doc.ico" );
 	
 	    const char * pic_types[] = {
-	            "bmp", "gif", "jpg", "jpeg", "pcx", "png", "psd", "ras", "tga", "tiff" };
+            "bmp", "gif", "jpg", "jpeg", "pcx", "png", "psd", "ras", "tga","ico", "tiff" };
 	    for( int i=0, n=sizeof(pic_types)/sizeof(pic_types[0]); i<n; ++i )
 		{
 			suffixes[PICTURE] << QString::fromAscii(pic_types[i]);

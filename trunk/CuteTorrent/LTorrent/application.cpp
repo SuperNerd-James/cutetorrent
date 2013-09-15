@@ -23,8 +23,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "application.h"
 #include <QMessageBox>
 QTranslator* Application::current = 0;
+QTranslator* Application::currentQt = 0;
 Translators Application::translators;
+Translators Application::qt_translators;
 QString Application::current_locale="";
+QString Application::current_locale_qt="";
 Application::Application(int& argc, char* argv[])
 	: QtSingleApplication(argc, argv)
 {}
@@ -62,6 +65,37 @@ void Application::loadTranslations(const QDir& dir)
 	}
 }
 
+void Application::loadTranslationsQt(const QString& dir)
+{
+    loadTranslationsQt(QDir(dir));
+}
+
+void Application::loadTranslationsQt(const QDir& dir)
+{
+    // <language>_<country>.qm
+    QString filter = "*_*.qm";
+    QDir::Filters filters = QDir::Files | QDir::Readable;
+    QDir::SortFlags sort = QDir::Name;
+    QFileInfoList entries = dir.entryInfoList(QStringList() << filter, filters, sort);
+    foreach (QFileInfo file, entries)
+    {
+        // pick country and language out of the file name
+        QStringList parts = file.baseName().split("_");
+        QString language = parts.at(parts.count() - 2).toLower();
+        QString country  = parts.at(parts.count() - 1).toUpper();
+
+        // construct and load translator
+
+        QTranslator* translator = new QTranslator(instance());
+        if (translator->load(file.absoluteFilePath()))
+        {
+            QString locale = language + "_" + country;
+
+            qt_translators.insert(locale, translator);
+        }
+    }
+}
+
 QString Application::currentLocale()
 {
 	return current_locale;
@@ -90,7 +124,7 @@ bool Application::event(QEvent *event)
 void Application::setLanguage(const QString& locale)
 {
 	// remove previous
-	if (current)
+    if (current)
 	{
 		removeTranslator(current);
 	}
@@ -101,5 +135,21 @@ void Application::setLanguage(const QString& locale)
 	if (current)
 	{
 		installTranslator(current);
-	}
+    }
+}
+
+void Application::setLanguageQt(const QString &locale)
+{
+    if (currentQt)
+    {
+        removeTranslator(currentQt);
+    }
+    current_locale_qt=locale;
+    // install new
+
+    currentQt = qt_translators.value(locale, 0);
+    if (currentQt)
+    {
+        installTranslator(currentQt);
+    }
 }

@@ -27,14 +27,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPainter>
 #include <QModelIndex>
 #include "Torrent.h"
-
+#include <QProgressBar>
 class Torrent;
 
 class QTorrentItemDelegat: public QStyledItemDelegate
 {
 	Q_OBJECT
  protected:
-	 QStyleOptionProgressBar * myProgressBarStyle;
+     QProgressBar * myProgressBarStyle;
 	
 	
 
@@ -42,7 +42,7 @@ protected:
 
      QSize margin( const QStyle& style ) const;
 	 virtual QSize sizeHint( const QStyleOptionViewItem&, const Torrent& ) const;
-	 virtual void setProgressBarPercentDone( const QStyleOptionViewItem& option, const Torrent& ) const;
+
 	 virtual void drawTorrent( QPainter* painter, const QStyleOptionViewItem& option,const Torrent& , int row) const;
 private:
 	QString GetStatusString(const Torrent& tor) const;

@@ -29,7 +29,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "application.h"
 #include "Scheduller.h"
 #include "RconWebService.h"
-
+#include <QPainter>
+#include <QDesktopServices>
+#include <QUrl>
+#define PIXELS_TO_ACT 2
 #ifdef Q_WS_WIN //file association for windows
 #include <windows.h>
 #include <tchar.h>
@@ -64,6 +67,7 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 {
 	setupUi(this);
 	previousFocuse=NULL;
+	//qDebug()<<"QApplicationSettings::getInstance from SettingsDialog::SettingsDialog";
 	settings = QApplicationSettings::getInstance();
 	FillDTTab();
 	FillFilteringGroups();
@@ -72,7 +76,8 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	FillWebUITab();
 	SetupSchedullerTab();
     FillSearchTab();
-	////OS_SPECIFICK////////
+    setupCustomeWindow();
+	//OS_SPECIFICK////
     int current=0;
 #ifdef Q_WS_WIN
 	QSettings assocSettings ("HKEY_CLASSES_ROOT", QSettings::NativeFormat);                                                                                   
@@ -85,7 +90,7 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	runOnbootCheckBox->setChecked(val.length()>0);	
 	startMinimizedCheckBox->setChecked(val.contains("-m"));
 #endif
-	////OS_SPECIFICK////////
+	//OS_SPECIFICK////
 	QString curLoc=Application::currentLocale().split('_')[1];
 	foreach (QString avail, Application::availableLanguages())
 	{
@@ -101,6 +106,302 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	
 	
 	//tabWidget->removeTab(5);
+}
+
+void SettingsDialog::mouseMoveEvent(QMouseEvent *e)
+{
+    int xMouse = e->pos().x();
+    int yMouse = e->pos().y();
+    int wWidth = geometry().width();
+    int wHeight = geometry().height();
+
+    if (moveWidget)
+    {
+        inResizeZone = false;
+        moveWindow(e);
+    }
+    else if (allowToResize)
+        resizeWindow(e);
+    //Cursor part dreta
+    else if (xMouse >= wWidth - PIXELS_TO_ACT && allowToResize)
+    {
+        inResizeZone = true;
+
+        if (yMouse >= wHeight - PIXELS_TO_ACT)
+            setCursor(Qt::SizeFDiagCursor);
+        else if (yMouse <= PIXELS_TO_ACT)
+            setCursor(Qt::SizeBDiagCursor);
+        else
+            setCursor(Qt::SizeHorCursor);
+
+        resizeWindow(e);
+    }
+    //Cursor part esquerra
+    else if (xMouse <= PIXELS_TO_ACT && allowToResize)
+    {
+        inResizeZone = true;
+
+        if (yMouse >= wHeight - PIXELS_TO_ACT)
+            setCursor(Qt::SizeBDiagCursor);
+        else if (yMouse <= PIXELS_TO_ACT)
+            setCursor(Qt::SizeFDiagCursor);
+        else
+            setCursor(Qt::SizeHorCursor);
+
+        resizeWindow(e);
+    }
+    //Cursor part inferior
+    else if ((yMouse >= wHeight - PIXELS_TO_ACT) && allowToResize)
+    {
+        inResizeZone = true;
+        setCursor(Qt::SizeVerCursor);
+
+        resizeWindow(e);
+    }
+    //Cursor part superior
+    else if (yMouse <= PIXELS_TO_ACT && allowToResize)
+    {
+        inResizeZone = true;
+        setCursor(Qt::SizeVerCursor);
+
+        resizeWindow(e);
+    }
+    else
+    {
+        inResizeZone = false;
+        setCursor(Qt::ArrowCursor);
+    }
+
+    e->accept();
+}
+
+void SettingsDialog::mousePressEvent(QMouseEvent *e)
+{
+    if (e->button() == Qt::LeftButton)
+    {
+        if (inResizeZone)
+        {
+            //allowToResize = true;
+
+            if (e->pos().y() <= PIXELS_TO_ACT)
+            {
+                if (e->pos().x() <= PIXELS_TO_ACT)
+                    resizeDiagSupEsq = true;
+                else if (e->pos().x() >= geometry().width() - PIXELS_TO_ACT)
+                    resizeDiagSupDer = true;
+                else
+                    resizeVerSup = true;
+            }
+            else if (e->pos().x() <= PIXELS_TO_ACT)
+                resizeHorEsq = true;
+        }
+        else if (e->pos().x() >= PIXELS_TO_ACT&&e->pos().x() < titleBar->geometry().width()
+            &&e->pos().y() >= PIXELS_TO_ACT&&e->pos().y() < titleBar->geometry().height())
+        {
+            moveWidget = true;
+            dragPosition = e->globalPos() - frameGeometry().topLeft();
+        }
+    }
+
+    e->accept();
+}
+
+void SettingsDialog::mouseReleaseEvent(QMouseEvent *e)
+{
+    moveWidget = false;
+    allowToResize = false;
+    resizeVerSup = false;
+    resizeHorEsq = false;
+    resizeDiagSupEsq = false;
+    resizeDiagSupDer = false;
+
+    e->accept();
+}
+
+void SettingsDialog::mouseDoubleClickEvent(QMouseEvent *e)
+{
+    if (e->pos().x() < tbMenu->geometry().right()&&e->pos().y() < tbMenu->geometry().bottom()
+        &&e->pos().x() >=  tbMenu->geometry().x()&&e->pos().y() >= tbMenu->geometry().y()
+        &&tbMenu->isVisible())
+        close();
+    e->accept();
+}
+
+void SettingsDialog::paintEvent (QPaintEvent *)
+{
+    QStyleOption opt;
+    opt.init (this);
+    QPainter p(this);
+    style()->drawPrimitive (QStyle::PE_Widget, &opt, &p, this);
+}
+
+void SettingsDialog::moveWindow(QMouseEvent *e)
+{
+    if (e->buttons() & Qt::LeftButton)
+    {
+        move(e->globalPos() - dragPosition);
+        e->accept();
+    }
+}
+
+
+
+
+
+void SettingsDialog::minimizeBtnClicked()
+{
+    if (this->isMinimized())
+    {
+        setWindowState(windowState() & ~Qt::WindowMinimized);
+    }
+    else
+    {
+        setWindowState(windowState() | Qt::WindowMinimized);
+    }
+}
+void SettingsDialog::resizeWindow(QMouseEvent *e)
+{
+    if (allowToResize)
+    {
+        int xMouse = e->pos().x();
+        int yMouse = e->pos().y();
+        int wWidth = geometry().width();
+        int wHeight = geometry().height();
+
+        if (cursor().shape() == Qt::SizeVerCursor)
+        {
+            if (resizeVerSup)
+            {
+                int newY = geometry().y() + yMouse;
+                int newHeight = wHeight - yMouse;
+
+                if (newHeight > minimumSizeHint().height())
+                {
+                    resize(wWidth, newHeight);
+                    move(geometry().x(), newY);
+                }
+            }
+            else
+                resize(wWidth, yMouse+1);
+        }
+        else if (cursor().shape() == Qt::SizeHorCursor)
+        {
+            if (resizeHorEsq)
+            {
+                int newX = geometry().x() + xMouse;
+                int newWidth = wWidth - xMouse;
+
+                if (newWidth > minimumSizeHint().width())
+                {
+                    resize(newWidth, wHeight);
+                    move(newX, geometry().y());
+                }
+            }
+            else
+                resize(xMouse, wHeight);
+        }
+        else if (cursor().shape() == Qt::SizeBDiagCursor)
+        {
+            int newX = 0;
+            int newWidth = 0;
+            int newY = 0;
+            int newHeight = 0;
+
+            if (resizeDiagSupDer)
+            {
+                newX = geometry().x();
+                newWidth = xMouse;
+                newY = geometry().y() + yMouse;
+                newHeight = wHeight - yMouse;
+            }
+            else
+            {
+                newX = geometry().x() + xMouse;
+                newWidth = wWidth - xMouse;
+                newY = geometry().y();
+                newHeight = yMouse;
+            }
+
+            if (newWidth >= minimumSizeHint().width()&&newHeight >= minimumSizeHint().height())
+            {
+                resize(newWidth, newHeight);
+                move(newX, newY);
+            }
+            else if (newWidth >= minimumSizeHint().width())
+            {
+                resize(newWidth, wHeight);
+                move(newX, geometry().y());
+            }
+            else if (newHeight >= minimumSizeHint().height())
+            {
+                resize(wWidth, newHeight);
+                move(geometry().x(), newY);
+            }
+        }
+        else if (cursor().shape() == Qt::SizeFDiagCursor)
+        {
+            if (resizeDiagSupEsq)
+            {
+                int newX = geometry().x() + xMouse;
+                int newWidth = wWidth - xMouse;
+                int newY = geometry().y() + yMouse;
+                int newHeight = wHeight - yMouse;
+
+                if (newWidth >= minimumSizeHint().width() && newHeight >= minimumSizeHint().height())
+                {
+                    resize(newWidth, newHeight);
+                    move(newX, newY);
+                }
+                else if (newWidth >= minimumSizeHint().width())
+                {
+                    resize(newWidth, wHeight);
+                    move(newX, geometry().y());
+                }
+                else if (newHeight >= minimumSizeHint().height())
+                {
+                    resize(wWidth, newHeight);
+                    move(geometry().x(), newY);
+                }
+            }
+            else
+                resize(xMouse+1, yMouse+1);
+        }
+
+        e->accept();
+    }
+}
+void SettingsDialog::setupCustomeWindow()
+{
+   // setAttribute(Qt::WA_DeleteOnClose);
+    setWindowFlags(Qt::CustomizeWindowHint);
+    setWindowFlags(Qt::FramelessWindowHint);
+
+    //setAttribute(Qt::WA_DeleteOnClose);
+    setMouseTracking(true);
+    titleBar->setMouseTracking(true);
+    LTitle->setMouseTracking(true);
+    tbMenu->setMouseTracking(true);
+    pbMin->setMouseTracking(true);
+    pbClose->setMouseTracking(true);
+    centralWidget->setMouseTracking(true);
+
+    /*centralLayout = new QHBoxLayout(centralWidget);
+    centralLayout->setContentsMargins(9,9,9,9);*/
+
+    //addAction(actionClose);
+
+    connect(pbMin, SIGNAL(clicked()), this, SLOT(minimizeBtnClicked()));
+    connect(pbClose, SIGNAL(clicked()), this, SLOT(close()));
+
+    //Per poder rebre les dades del ratolн sense haver de clicar cap botу
+    m_titleMode = FullTitle;
+    moveWidget = false;
+    inResizeZone = false;
+    allowToResize = false;
+    resizeVerSup = false;
+    resizeHorEsq = false;
+    resizeDiagSupEsq = false;
+    resizeDiagSupDer = false;
 }
 
 
@@ -198,7 +499,7 @@ void SettingsDialog::showSelectedGroup(int row)
 }
 SettingsDialog::~SettingsDialog() 
 {
-	
+	//qDebug()<<"QApplicationSettings::FreeInstance from SettingsDialog::~SettingsDialog";
 	QApplicationSettings::FreeInstance();
 }
 void SettingsDialog::ApplySettings()
@@ -271,17 +572,20 @@ void SettingsDialog::ApplySettings()
 
 		asocSettings.setValue (".torrent/.", "CuteTorrent.file");                                                      
 		asocSettings.setValue ("CuteTorrent.file/.", tr("Torrent file"));
-		
+		asocSettings.setValue (".torrent/OpenWithProgids/CuteTorrent.file","");
 		asocSettings.setValue ("CuteTorrent.file/shell/open/command/.",
 			"\"" + QDir::toNativeSeparators (base_dir) + "\"" + " \"%1\"");
-
+		asocSettings.setValue ("CuteTorrent.file/DefaultIcon/.",
+			 QDir::toNativeSeparators (QApplication::applicationFilePath())+ ",1" );
 		
 	}
 	else
 	{
+			asocSettings.remove(".torrent/OpenWithProgids/CuteTorrent.file");
 			asocSettings.remove(".torrent/.");
 			asocSettings.remove("CuteTorrent.file/.");
 			asocSettings.remove("CuteTorrent.file/shell/open/command/.");
+			asocSettings.remove("CuteTorrent.file/DefaultIcon/.");
 	}
 	if (magnetAssociationCheckBox->isChecked())
 	{
@@ -309,6 +613,7 @@ void SettingsDialog::ApplySettings()
 #endif
 	int curLocaleIndex=localeComboBox->currentIndex();
 	Application::setLanguage("cutetorrent_"+localeComboBox->currentText().toUpper());
+    Application::setLanguageQt("qt_"+localeComboBox->currentText().toUpper());
 	settings->setValue("System","Lang",localeComboBox->currentText().toUpper());
 	//retranslateUi(this);
 	calendarWidget->setLocale(localeComboBox->currentIndex()==0 ? QLocale(QLocale::English) : QLocale(QLocale::Russian));
@@ -399,31 +704,36 @@ void SettingsDialog::addGroup()
 }
 void SettingsDialog::removeGroup()
 {
-	QListWidgetItem* index=GroupsListWidget->selectedItems().first();
-	QString name=index->text();
-	int foundRow=-1;
-	for (int i=0;i<filterGroups.count();i++)
-	{
-		
-		if (filterGroups.at(i).Name()==name)
-		{
-			foundRow=i;
-			break;
-		}
-	}
-	if (foundRow >= 0)
-	{
-		newGroupNameEdit->setText("");
-		extensionsEdit->setText("");
-		groupSavePathEdit->setText("");
-		filterGroups.removeAt(foundRow);
-		delete index;
-	}
-	else
-	{
-		QMessageBox::warning(this,"Error",QString(tr("Unable to find %1")).arg(name));
-	}
-	
+    if (GroupsListWidget->selectedItems().length() > 0)
+    {
+        QListWidgetItem* index=GroupsListWidget->selectedItems().first();
+        if (index!=NULL)
+        {
+            QString name=index->text();
+            int foundRow=-1;
+            for (int i=0;i<filterGroups.count();i++)
+            {
+
+                if (filterGroups.at(i).Name()==name)
+                {
+                    foundRow=i;
+                    break;
+                }
+            }
+            if (foundRow >= 0)
+            {
+                newGroupNameEdit->setText("");
+                extensionsEdit->setText("");
+                groupSavePathEdit->setText("");
+                filterGroups.removeAt(foundRow);
+                delete index;
+            }
+            else
+            {
+                QMessageBox::warning(this,"Error",QString(tr("Unable to find %1")).arg(name));
+            }
+        }
+   }
 }
 void SettingsDialog::browseSavepathGroup()
 {
@@ -663,3 +973,14 @@ void SettingsDialog::searchItemChanged(int index)
     }
 }
 
+
+void SettingsDialog::on_pushButton_clicked()
+{
+    RconWebService* svc = RconWebService::getInstance();
+    if (svc->isRunning())
+    {
+       QDesktopServices desctopService;
+       desctopService.openUrl(QUrl("http://localhost:"+webPortLineEdit->text()+"/"));
+    }
+    RconWebService::freeInstance();
+}

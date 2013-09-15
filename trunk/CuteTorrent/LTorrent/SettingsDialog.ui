@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>903</width>
-    <height>388</height>
+    <width>736</width>
+    <height>332</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,1276 +17,1444 @@
    <iconset resource="ltorrent.qrc">
     <normaloff>:/icons/app.ico</normaloff>:/icons/app.ico</iconset>
   </property>
-  <layout class="QGridLayout" name="gridLayout_4">
-   <item row="1" column="5">
-    <widget class="QPushButton" name="applyButton">
-     <property name="maximumSize">
-      <size>
-       <width>80</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>SETTINGS_ACCEPT_BUTTON</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="4">
-    <widget class="QPushButton" name="cancelButton">
-     <property name="maximumSize">
-      <size>
-       <width>80</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>SETTINGS_CANCEL_BUTTON</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>330</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="1" column="3">
-    <widget class="QPushButton" name="OKButton">
-     <property name="maximumSize">
-      <size>
-       <width>80</width>
-       <height>16777215</height>
-      </size>
-     </property>
-     <property name="text">
-      <string>SETTINGS_OK_BITTON</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="2">
-    <spacer name="horizontalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="0" column="0">
-    <widget class="QListWidget" name="listWidget">
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>0</number>
+   </property>
+   <property name="margin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QWidget" name="titleBar" native="true">
      <property name="minimumSize">
       <size>
-       <width>154</width>
-       <height>0</height>
+       <width>0</width>
+       <height>23</height>
+      </size>
+     </property>
+     <property name="maximumSize">
+      <size>
+       <width>16777215</width>
+       <height>23</height>
       </size>
      </property>
      <property name="styleSheet">
-      <string notr="true">
+      <string notr="true"/>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <property name="spacing">
+       <number>4</number>
+      </property>
+      <property name="leftMargin">
+       <number>5</number>
+      </property>
+      <property name="topMargin">
+       <number>0</number>
+      </property>
+      <property name="rightMargin">
+       <number>1</number>
+      </property>
+      <property name="bottomMargin">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QLabel" name="tbMenu">
+        <property name="maximumSize">
+         <size>
+          <width>15</width>
+          <height>15</height>
+         </size>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="pixmap">
+         <pixmap resource="ltorrent.qrc">:/MenuIcons/preferencies.ico</pixmap>
+        </property>
+        <property name="scaledContents">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="LTitle">
+        <property name="minimumSize">
+         <size>
+          <width>100</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <family>Arial</family>
+          <pointsize>8</pointsize>
+          <weight>50</weight>
+          <bold>false</bold>
+          <stylestrategy>PreferDefault</stylestrategy>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: rgb(0, 0, 0);</string>
+        </property>
+        <property name="text">
+         <string>SETTINGS_DIALOG</string>
+        </property>
+        <property name="textFormat">
+         <enum>Qt::AutoText</enum>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pbMin">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="icon">
+         <iconset resource="ltorrent.qrc">
+          <normaloff>:/images/app_min.ico</normaloff>:/images/app_min.ico</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pbClose">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="icon">
+         <iconset resource="ltorrent.qrc">
+          <normaloff>:/images/app_close.ico</normaloff>:/images/app_close.ico</iconset>
+        </property>
+        <property name="iconSize">
+         <size>
+          <width>22</width>
+          <height>22</height>
+         </size>
+        </property>
+        <property name="flat">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QWidget" name="centralWidget" native="true">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_4">
+      <property name="horizontalSpacing">
+       <number>0</number>
+      </property>
+      <item row="0" column="1" colspan="4">
+       <widget class="QStackedWidget" name="stackedWidget">
+        <property name="styleSheet">
+         <string notr="true">QStackedWidget{
+border: 1px solid #909090;
+border-left:none;
+}</string>
+        </property>
+        <property name="currentIndex">
+         <number>5</number>
+        </property>
+        <widget class="QWidget" name="page_3">
+         <layout class="QGridLayout" name="gridLayout_22">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>LANGUAGE</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="localeComboBox">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QLabel" name="label">
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string>LISTEN_PORT</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QLineEdit" name="portEdit"/>
+          </item>
+          <item row="1" column="0" colspan="2">
+           <widget class="QGroupBox" name="proxyGroupBox">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="title">
+             <string>USE_PROXY</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+            <layout class="QGridLayout" name="gridLayout">
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_5">
+               <property name="whatsThis">
+                <string>PROXY_TYPE_WIT</string>
+               </property>
+               <property name="text">
+                <string>PROXY_TYPE</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="proxyUsernameEdit">
+               <property name="whatsThis">
+                <string>PROXY_USER_NAME_WIT</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="proxyHostEdit">
+               <property name="whatsThis">
+                <string>PROXY_HOST_WIT</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_3">
+               <property name="whatsThis">
+                <string>PROXY_USER_NAME_WIT</string>
+               </property>
+               <property name="text">
+                <string>PROXY_USER_NAME</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_2">
+               <property name="whatsThis">
+                <string>PROXY_HOST_WIT</string>
+               </property>
+               <property name="text">
+                <string>PROXY_HOST (IP:port)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="proxyPwdEdit">
+               <property name="whatsThis">
+                <string>PROXY_PASSWORD</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QComboBox" name="proxyTypeComboBox">
+               <property name="whatsThis">
+                <string>PROXY_TYPE</string>
+               </property>
+               <item>
+                <property name="text">
+                 <string>Socks4</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Socks5</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>Socks5 с паролем</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>http</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>http с паролем</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>i2p</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_4">
+               <property name="whatsThis">
+                <string>PROXY_PASSWORD_WIT</string>
+               </property>
+               <property name="text">
+                <string>PROXY_PASSWORD</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="1" column="2" colspan="2">
+           <widget class="QGroupBox" name="groupBox_2">
+            <property name="title">
+             <string>RESTRICTIONS</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_3">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_6">
+               <property name="whatsThis">
+                <string>UPLOAD_SPEED_LIMIT_WIT</string>
+               </property>
+               <property name="text">
+                <string>UPLOAD_SPEED_LIMIT(Kb/s)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_15">
+               <property name="whatsThis">
+                <string>ACTIVE_TORRENTS_LIMIT_WIT</string>
+               </property>
+               <property name="text">
+                <string>ACTIVE_TORRENTS_LIMIT</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLineEdit" name="activeLimitEdit">
+               <property name="whatsThis">
+                <string>ACTIVE_TORRENTS_LIMIT</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_7">
+               <property name="whatsThis">
+                <string>DOWNLOAD_SPEED_LIMIT_WIT</string>
+               </property>
+               <property name="text">
+                <string>DOWNLOAD_SPEED_LIMIT(Kb/s)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="label_16">
+               <property name="whatsThis">
+                <string>ACTIVE_SEEDS_LIMIT_WIT</string>
+               </property>
+               <property name="text">
+                <string>ACTIVE_SEEDS_LIMIT</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QLineEdit" name="activeSeedLimitEdit">
+               <property name="whatsThis">
+                <string>ACTIVE_SEEDS_LIMIT</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="label_17">
+               <property name="whatsThis">
+                <string>ACTIVE_DOWNLOADS_LIMIT_WIT</string>
+               </property>
+               <property name="text">
+                <string>ACTIVE_DOWNLOADS_LIMIT</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <widget class="QLineEdit" name="activeDownloadLimitEdit">
+               <property name="whatsThis">
+                <string>ACTIVE_DOWNLOADS_LIMIT</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QSpinBox" name="uploadLimitEdit">
+               <property name="specialValueText">
+                <string>None</string>
+               </property>
+               <property name="suffix">
+                <string> Kb\s</string>
+               </property>
+               <property name="prefix">
+                <string/>
+               </property>
+               <property name="maximum">
+                <number>99999</number>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QSpinBox" name="downloadLimitEdit">
+               <property name="specialValueText">
+                <string>None</string>
+               </property>
+               <property name="suffix">
+                <string> Kb\s</string>
+               </property>
+               <property name="prefix">
+                <string/>
+               </property>
+               <property name="maximum">
+                <number>99999</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="2">
+           <widget class="QCheckBox" name="asociationCheckBox">
+            <property name="whatsThis">
+             <string>TORRENT_FILES_ASSOCIATION_WIT</string>
+            </property>
+            <property name="text">
+             <string>TORRENT_FILES_ASSOCIATION</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QCheckBox" name="runOnbootCheckBox">
+            <property name="whatsThis">
+             <string>START_ON_BOOT_WIT</string>
+            </property>
+            <property name="text">
+             <string>START_ON_BOOT</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0" colspan="2">
+           <widget class="QCheckBox" name="magnetAssociationCheckBox">
+            <property name="whatsThis">
+             <string>MAGNET_ASSOCIATION_WIT</string>
+            </property>
+            <property name="text">
+             <string>MAGNET_ASSOCIATION</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="2">
+           <widget class="QCheckBox" name="startMinimizedCheckBox">
+            <property name="whatsThis">
+             <string>START_MINIMIZED_WIT</string>
+            </property>
+            <property name="text">
+             <string>START_MINIMIZED</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3" rowspan="2">
+           <widget class="QGroupBox" name="trackerGroupBox">
+            <property name="title">
+             <string>START_TRACKER</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_2">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_23">
+               <property name="text">
+                <string>TRACKER_PORT</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="trackerPortEdit"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_4">
+         <layout class="QGridLayout" name="gridLayout_23">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_19">
+            <property name="whatsThis">
+             <string>DISK_IO_CASH_MODE_WIT</string>
+            </property>
+            <property name="text">
+             <string>DISK_IO_CASH_MODE</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1" colspan="2">
+           <widget class="QComboBox" name="diskIOCasheModeComboBox">
+            <item>
+             <property name="text">
+              <string>ENABLE_OS_CACHE</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>DISABLE_OS_CACHE_FOR_ALIGNED_FILES</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>DISABLE_OS_CACHE</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_20">
+            <property name="whatsThis">
+             <string>CASH_SIZE_WIT</string>
+            </property>
+            <property name="text">
+             <string>CASH_SIZE</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QSpinBox" name="casheSizeLineEdit">
+            <property name="specialValueText">
+             <string>None</string>
+            </property>
+            <property name="suffix">
+             <string> Kb</string>
+            </property>
+            <property name="prefix">
+             <string/>
+            </property>
+            <property name="maximum">
+             <number>512000</number>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <widget class="QCheckBox" name="useDiskReadAheadCheckBox">
+            <property name="whatsThis">
+             <string>USE_DISK_READ_AHEAD_WIT</string>
+            </property>
+            <property name="text">
+             <string>USE_DISK_READ_AHEAD</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QCheckBox" name="alowReorderedOpsCheckBox">
+            <property name="whatsThis">
+             <string>ALOW_REORDERED_OPERATIONS_WIT</string>
+            </property>
+            <property name="text">
+             <string>ALOW_REORDERED_OPERATIONS</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="2">
+           <widget class="QCheckBox" name="lockFilesCheckBox">
+            <property name="whatsThis">
+             <string>LOCK_FILES_WIT</string>
+            </property>
+            <property name="text">
+             <string>LOCK_FILES</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="lowPrioDiskCheckBox">
+            <property name="whatsThis">
+             <string>LOW_PORIO_DISK_WIT</string>
+            </property>
+            <property name="text">
+             <string>LOW_PORIO_DISK</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="1">
+           <widget class="QCheckBox" name="useReadCasheCheckBox">
+            <property name="whatsThis">
+             <string>USE_READ_CASHE_WIT</string>
+            </property>
+            <property name="text">
+             <string>USE_READ_CASHE</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_5">
+         <layout class="QGridLayout" name="gridLayout_24">
+          <item row="0" column="0" rowspan="3">
+           <widget class="QGroupBox" name="groupBox_3">
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="title">
+             <string>FILTERING_GROUP</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_5">
+             <item row="0" column="1">
+              <widget class="QListWidget" name="GroupsListWidget">
+               <property name="whatsThis">
+                <string>GROUP_LISTBOX_WIT</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QPushButton" name="removeGroupButton">
+               <property name="whatsThis">
+                <string>FILTERING_GROUP_DELETE_WIT</string>
+               </property>
+               <property name="text">
+                <string>FILTERING_GROUP_DELETE</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QGroupBox" name="groupBox_9">
+            <property name="title">
+             <string>ADD_CHANGE_GROUP</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_8">
+             <item row="0" column="0">
+              <widget class="QLineEdit" name="newGroupNameEdit">
+               <property name="whatsThis">
+                <string>newGroupNameEdit_WIT</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="addNewGroupButton">
+               <property name="whatsThis">
+                <string>ADD_GROUP_BUTON_WIT</string>
+               </property>
+               <property name="text">
+                <string>ADD_GROUP_BUTON</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QGroupBox" name="groupBox_4">
+            <property name="title">
+             <string>FILE_EXTENSIONS(FORMAT: jpg|png|bmp)</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_6">
+             <item row="0" column="0">
+              <widget class="QTextEdit" name="extensionsEdit">
+               <property name="whatsThis">
+                <string>extensionsEdit_WIT</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="2" column="1">
+           <widget class="QGroupBox" name="groupBox_5">
+            <property name="title">
+             <string>GROUP_SAVE_PATH</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_7">
+             <item row="0" column="0">
+              <widget class="QLineEdit" name="groupSavePathEdit">
+               <property name="whatsThis">
+                <string>groupSavePathEdit_WIT</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="BrowseGroupSavePathButton">
+               <property name="whatsThis">
+                <string>GROUP_SAVE_PATH_CHOISE_BUTTON_WIT</string>
+               </property>
+               <property name="text">
+                <string>GROUP_SAVE_PATH_CHOISE_BUTTON</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_6">
+         <layout class="QGridLayout" name="gridLayout_25">
+          <item row="0" column="1">
+           <widget class="QGroupBox" name="groupBox_8">
+            <property name="title">
+             <string>DRIVE_NUMBER</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_11">
+             <item row="0" column="0">
+              <widget class="QComboBox" name="driveNumberComboBox">
+               <property name="whatsThis">
+                <string>driveNumberComboBox_WIT</string>
+               </property>
+               <item>
+                <property name="text">
+                 <string>1</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>2</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>3</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>4</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>5</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>6</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>7</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>8</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>9</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>10</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QGroupBox" name="groupBox_6">
+            <property name="title">
+             <string>DAEMONTOOLS_PATH</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_9">
+             <item row="0" column="0">
+              <widget class="QLineEdit" name="DTPathEdit">
+               <property name="whatsThis">
+                <string>DTPathEdit_WIT</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QPushButton" name="browseDTPathButton">
+               <property name="accessibleName">
+                <string>DAEMONTOOLS_PATH_CHOISE_BUUTON_WIT</string>
+               </property>
+               <property name="text">
+                <string>DAEMONTOOLS_PATH_CHOISE_BUUTON</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="1" column="0" colspan="2">
+           <widget class="QGroupBox" name="customMoutGroupBox">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="title">
+             <string>DAEMONTOOLS_CUSTOM_COMMAND</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_10">
+             <item row="0" column="0">
+              <widget class="QLineEdit" name="customCommandEdit">
+               <property name="whatsThis">
+                <string>DAEMONTOOLS_COMMAND_WIT</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="2" column="0">
+           <spacer name="verticalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_7">
+         <layout class="QGridLayout" name="gridLayout_26">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_14">
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>16777215</height>
+             </size>
+            </property>
+            <property name="text">
+             <string>ACTIONS</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="tasksComboBox">
+            <property name="maximumSize">
+             <size>
+              <width>150</width>
+              <height>16777215</height>
+             </size>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="2">
+           <widget class="QPushButton" name="addTaskButton">
+            <property name="text">
+             <string>ADD_BUTTON</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="3">
+           <widget class="QPushButton" name="deleteTaskButton">
+            <property name="text">
+             <string>DELETE_BUTTON</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" colspan="4">
+           <widget class="QGroupBox" name="groupBox_11">
+            <property name="title">
+             <string>GroupBox</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_14">
+             <item row="1" column="1">
+              <widget class="QDateTimeEdit" name="beginDateTimeEdit"/>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_13">
+               <property name="text">
+                <string>ACTION_NAME</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_9">
+               <property name="text">
+                <string>ACTION_BEGIN</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="taskNameLineEdit">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0" colspan="2">
+              <widget class="QGroupBox" name="groupBox">
+               <property name="title">
+                <string>ACTIONS</string>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_15">
+                <item row="2" column="0">
+                 <widget class="QLabel" name="label_11">
+                  <property name="text">
+                   <string>LIMIT_DOWNLOAD</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QLineEdit" name="dlLimitEdit">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="2">
+                 <widget class="QLabel" name="label_12">
+                  <property name="text">
+                   <string>LIMIT_UPLOAD</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="3">
+                 <widget class="QLineEdit" name="ulLimitEdit">
+                  <property name="enabled">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="2" colspan="2">
+                 <widget class="QRadioButton" name="startAllRadioButton">
+                  <property name="text">
+                   <string>START_ALL</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="2" colspan="2">
+                 <widget class="QRadioButton" name="limitUlRadioButton">
+                  <property name="text">
+                   <string>LIMIT_UPLOAD</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0" colspan="2">
+                 <widget class="QRadioButton" name="limitDlRadioButton">
+                  <property name="text">
+                   <string>LIMIT_DOWNLOAD</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0" colspan="2">
+                 <widget class="QRadioButton" name="pauseAllRadioButton">
+                  <property name="text">
+                   <string>PUASE_ALL</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="0" column="2" rowspan="3">
+              <widget class="QCalendarWidget" name="calendarWidget"/>
+             </item>
+            </layout>
+            <zorder>label_9</zorder>
+            <zorder>beginDateTimeEdit</zorder>
+            <zorder>groupBox</zorder>
+            <zorder>label_13</zorder>
+            <zorder>taskNameLineEdit</zorder>
+            <zorder>calendarWidget</zorder>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page_8">
+         <layout class="QGridLayout" name="gridLayout_27">
+          <item row="0" column="0">
+           <widget class="QGroupBox" name="webUIGroupBox">
+            <property name="maximumSize">
+             <size>
+              <width>100500</width>
+              <height>100500</height>
+             </size>
+            </property>
+            <property name="title">
+             <string>WEB_CONTROLL_ENABLED</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_18">
+             <item row="0" column="3" rowspan="8">
+              <widget class="QGroupBox" name="IPFilterGroupBox">
+               <property name="title">
+                <string>WEB_UI_USE_IP_FILTER</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_16">
+                <item row="0" column="0">
+                 <widget class="QTextEdit" name="ipFilterTextEdit">
+                  <property name="html">
+                   <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
+&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="7" column="0" colspan="3">
+              <widget class="QGroupBox" name="webUILogginGroupBox">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="title">
+                <string>WEB_UI_LOGGING_ENABLED</string>
+               </property>
+               <property name="checkable">
+                <bool>true</bool>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+               <layout class="QGridLayout" name="gridLayout_21">
+                <item row="1" column="0" colspan="3">
+                 <layout class="QHBoxLayout" name="horizontalLayout">
+                  <item>
+                   <widget class="QLabel" name="label_22">
+                    <property name="text">
+                     <string>WEB_UI_LOG_NAME</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
+                   <widget class="QLineEdit" name="logLineEdit"/>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_10">
+               <property name="text">
+                <string>WEB_UI_LOGIN</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_18">
+               <property name="text">
+                <string>WEB_UI_PASSWORD</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QCheckBox" name="upnpCheckBox">
+               <property name="text">
+                <string>WEB_UI_UPNP_ENABLED</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1" colspan="2">
+              <widget class="QLineEdit" name="passwordLineEdit">
+               <property name="echoMode">
+                <enum>QLineEdit::Password</enum>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1" colspan="2">
+              <widget class="QLineEdit" name="loginLineEdit"/>
+             </item>
+             <item row="2" column="1" colspan="2">
+              <widget class="QLineEdit" name="webPortLineEdit"/>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_21">
+               <property name="text">
+                <string>WEB_UI_PORT</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0" colspan="3">
+              <layout class="QHBoxLayout" name="horizontalLayout_2">
+               <item>
+                <widget class="QPushButton" name="startRconButton">
+                 <property name="text">
+                  <string>WEBUI_START</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="stopRconButton">
+                 <property name="text">
+                  <string>WEBUI_STOP</string>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QLabel" name="RunningLabel">
+                 <property name="enabled">
+                  <bool>false</bool>
+                 </property>
+                 <property name="maximumSize">
+                  <size>
+                   <width>16</width>
+                   <height>16</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="pixmap">
+                  <pixmap resource="ltorrent.qrc">:/icons/upload.ico</pixmap>
+                 </property>
+                 <property name="scaledContents">
+                  <bool>true</bool>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
+             </item>
+             <item row="3" column="1" colspan="2">
+              <widget class="QPushButton" name="pushButton">
+               <property name="text">
+                <string>OPEN_WEBUI</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page">
+         <layout class="QGridLayout" name="gridLayout_12">
+          <item row="0" column="0" colspan="2">
+           <widget class="QGroupBox" name="groupBox_7">
+            <property name="title">
+             <string/>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_13">
+             <item row="0" column="0">
+              <widget class="QComboBox" name="sourcesComboBox"/>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_24">
+               <property name="text">
+                <string>SEARCH_NAME</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLineEdit" name="searchItemNameLineEdit"/>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_25">
+               <property name="text">
+                <string>SEARCH_PATERN</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLineEdit" name="searchItemPatternLineEdit"/>
+             </item>
+             <item row="3" column="0">
+              <widget class="QPushButton" name="addSearchButton">
+               <property name="text">
+                <string>ADD_SEARCH</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QPushButton" name="removeSearchButton">
+               <property name="text">
+                <string>REMOVE_SEARCH</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="1" column="0" colspan="3">
+           <spacer name="verticalSpacer">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QPushButton" name="cancelButton">
+        <property name="maximumSize">
+         <size>
+          <width>80</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>SETTINGS_CANCEL_BUTTON</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="2">
+       <widget class="QPushButton" name="OKButton">
+        <property name="maximumSize">
+         <size>
+          <width>80</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>SETTINGS_OK_BITTON</string>
+        </property>
+        <property name="default">
+         <bool>false</bool>
+        </property>
+        <property name="flat">
+         <bool>false</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4">
+       <widget class="QPushButton" name="applyButton">
+        <property name="maximumSize">
+         <size>
+          <width>80</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>SETTINGS_ACCEPT_BUTTON</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QListWidget" name="listWidget">
+        <property name="minimumSize">
+         <size>
+          <width>154</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">
  QListView {
-   border: none;
+    border: none; 
+    border-right: 1px solid #909090; 
 	background-color: transparent;
      show-decoration-selected: 1; /* make the selection span the entire width of the view */
  }
  QListView::item {
+    
     width:100%;
 	min-height:30px;
-    border: 1px solid #8588B2; 
-   border-radius:4px;
+  	background-color: transparent;
+  
+  
  }
  QListView::item:alternate {
      background: #EEEEEE;
  }
 
  QListView::item:selected {
-     border: 1px solid #6a6ea9;
+	color: rgb(0, 0, 0);
+	position: absolute;
+    left:2px;
+     border: 1px solid #909090;
+   border-right:none;
  }
 
  QListView::item:selected:!active {
-     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                 stop: 0 #ABAFE5, stop: 1 #8588B2);
+     background: ;
  }
 
  QListView::item:selected:active {
-     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                 stop: 0 #6a6ea9, stop: 1 #888dd9);
+     background: ;
  }
 
  QListView::item:hover {
-     background: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                                 stop: 0 #FAFBFE, stop: 1 #DCDEF1);
+      background: ;
  }</string>
-     </property>
-     <property name="editTriggers">
-      <set>QAbstractItemView::NoEditTriggers</set>
-     </property>
-     <property name="currentRow">
-      <number>-1</number>
-     </property>
-     <item>
-      <property name="text">
-       <string>TAB_TORRENT</string>
-      </property>
-      <property name="icon">
-       <iconset resource="ltorrent.qrc">
-        <normaloff>:/MenuIcons/super-seed.ico</normaloff>:/MenuIcons/super-seed.ico</iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>TAB_HDD</string>
-      </property>
-      <property name="icon">
-       <iconset resource="ltorrent.qrc">
-        <normaloff>:/icons/hdd.ico</normaloff>:/icons/hdd.ico</iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>TAB_TORRENT_FILTERING</string>
-      </property>
-      <property name="icon">
-       <iconset resource="ltorrent.qrc">
-        <normaloff>:/icons/filtering.ico</normaloff>:/icons/filtering.ico</iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>TAB_DAEMONTOOLS</string>
-      </property>
-      <property name="icon">
-       <iconset resource="ltorrent.qrc">
-        <normaloff>:/MenuIcons/mount-dt.ico</normaloff>:/MenuIcons/mount-dt.ico</iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>TAB_SCEDULER</string>
-      </property>
-      <property name="icon">
-       <iconset resource="ltorrent.qrc">
-        <normaloff>:/icons/schedule.ico</normaloff>:/icons/schedule.ico</iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>TAB_WEB_CONTROL</string>
-      </property>
-      <property name="icon">
-       <iconset resource="ltorrent.qrc">
-        <normaloff>:/icons/webControll.ico</normaloff>:/icons/webControll.ico</iconset>
-      </property>
-     </item>
-     <item>
-      <property name="text">
-       <string>TAB_SEARCH</string>
-      </property>
-      <property name="icon">
-       <iconset resource="ltorrent.qrc">
-        <normaloff>:/icons/search.ico</normaloff>:/icons/search.ico</iconset>
-      </property>
-     </item>
-    </widget>
-   </item>
-   <item row="0" column="2" colspan="4">
-    <widget class="QStackedWidget" name="stackedWidget">
-     <property name="currentIndex">
-      <number>0</number>
-     </property>
-     <widget class="QWidget" name="page_3">
-      <layout class="QGridLayout" name="gridLayout_22">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_8">
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="currentRow">
+         <number>0</number>
+        </property>
+        <item>
          <property name="text">
-          <string>LANGUAGE</string>
+          <string>TAB_TORRENT</string>
          </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QComboBox" name="localeComboBox"/>
-       </item>
-       <item row="0" column="2">
-        <widget class="QLabel" name="label">
-         <property name="layoutDirection">
-          <enum>Qt::LeftToRight</enum>
+         <property name="icon">
+          <iconset resource="ltorrent.qrc">
+           <normaloff>:/icons/torrent-settings.ico</normaloff>:/icons/torrent-settings.ico</iconset>
          </property>
-         <property name="autoFillBackground">
-          <bool>false</bool>
-         </property>
+        </item>
+        <item>
          <property name="text">
-          <string>LISTEN_PORT</string>
+          <string>TAB_HDD</string>
          </property>
-         <property name="alignment">
-          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+         <property name="icon">
+          <iconset resource="ltorrent.qrc">
+           <normaloff>:/icons/hdd.ico</normaloff>:/icons/hdd.ico</iconset>
          </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QLineEdit" name="portEdit"/>
-       </item>
-       <item row="1" column="0" colspan="2">
-        <widget class="QGroupBox" name="proxyGroupBox">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="title">
-          <string>USE_PROXY</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="checked">
-          <bool>false</bool>
-         </property>
-         <layout class="QGridLayout" name="gridLayout">
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_5">
-            <property name="whatsThis">
-             <string>PROXY_TYPE_WIT</string>
-            </property>
-            <property name="text">
-             <string>PROXY_TYPE</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="proxyUsernameEdit">
-            <property name="whatsThis">
-             <string>PROXY_USER_NAME_WIT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLineEdit" name="proxyHostEdit">
-            <property name="whatsThis">
-             <string>PROXY_HOST_WIT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_3">
-            <property name="whatsThis">
-             <string>PROXY_USER_NAME_WIT</string>
-            </property>
-            <property name="text">
-             <string>PROXY_USER_NAME</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_2">
-            <property name="whatsThis">
-             <string>PROXY_HOST_WIT</string>
-            </property>
-            <property name="text">
-             <string>PROXY_HOST (IP:port)</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="proxyPwdEdit">
-            <property name="whatsThis">
-             <string>PROXY_PASSWORD</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QComboBox" name="proxyTypeComboBox">
-            <property name="whatsThis">
-             <string>PROXY_TYPE</string>
-            </property>
-            <item>
-             <property name="text">
-              <string>Socks4</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Socks5</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Socks5 с паролем</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>http</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>http с паролем</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>i2p</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_4">
-            <property name="whatsThis">
-             <string>PROXY_PASSWORD_WIT</string>
-            </property>
-            <property name="text">
-             <string>PROXY_PASSWORD</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="1" column="2" colspan="2">
-        <widget class="QGroupBox" name="groupBox_2">
-         <property name="title">
-          <string>RESTRICTIONS</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_3">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_6">
-            <property name="whatsThis">
-             <string>UPLOAD_SPEED_LIMIT_WIT</string>
-            </property>
-            <property name="text">
-             <string>UPLOAD_SPEED_LIMIT(Kb/s)</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QLabel" name="label_15">
-            <property name="whatsThis">
-             <string>ACTIVE_TORRENTS_LIMIT_WIT</string>
-            </property>
-            <property name="text">
-             <string>ACTIVE_TORRENTS_LIMIT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QLineEdit" name="activeLimitEdit">
-            <property name="whatsThis">
-             <string>ACTIVE_TORRENTS_LIMIT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_7">
-            <property name="whatsThis">
-             <string>DOWNLOAD_SPEED_LIMIT_WIT</string>
-            </property>
-            <property name="text">
-             <string>DOWNLOAD_SPEED_LIMIT(Kb/s)</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="0">
-           <widget class="QLabel" name="label_16">
-            <property name="whatsThis">
-             <string>ACTIVE_SEEDS_LIMIT_WIT</string>
-            </property>
-            <property name="text">
-             <string>ACTIVE_SEEDS_LIMIT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="4" column="1">
-           <widget class="QLineEdit" name="activeSeedLimitEdit">
-            <property name="whatsThis">
-             <string>ACTIVE_SEEDS_LIMIT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0">
-           <widget class="QLabel" name="label_17">
-            <property name="whatsThis">
-             <string>ACTIVE_DOWNLOADS_LIMIT_WIT</string>
-            </property>
-            <property name="text">
-             <string>ACTIVE_DOWNLOADS_LIMIT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="1">
-           <widget class="QLineEdit" name="activeDownloadLimitEdit">
-            <property name="whatsThis">
-             <string>ACTIVE_DOWNLOADS_LIMIT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QSpinBox" name="uploadLimitEdit">
-            <property name="specialValueText">
-             <string>None</string>
-            </property>
-            <property name="suffix">
-             <string> Kb\s</string>
-            </property>
-            <property name="prefix">
-             <string/>
-            </property>
-            <property name="maximum">
-             <number>99999</number>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QSpinBox" name="downloadLimitEdit">
-            <property name="specialValueText">
-             <string>None</string>
-            </property>
-            <property name="suffix">
-             <string> Kb\s</string>
-            </property>
-            <property name="prefix">
-             <string/>
-            </property>
-            <property name="maximum">
-             <number>99999</number>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="2" column="0" colspan="2">
-        <widget class="QCheckBox" name="asociationCheckBox">
-         <property name="whatsThis">
-          <string>TORRENT_FILES_ASSOCIATION_WIT</string>
-         </property>
+        </item>
+        <item>
          <property name="text">
-          <string>TORRENT_FILES_ASSOCIATION</string>
+          <string>TAB_TORRENT_FILTERING</string>
          </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QCheckBox" name="runOnbootCheckBox">
-         <property name="whatsThis">
-          <string>START_ON_BOOT_WIT</string>
+         <property name="icon">
+          <iconset resource="ltorrent.qrc">
+           <normaloff>:/icons/filtering.ico</normaloff>:/icons/filtering.ico</iconset>
          </property>
+        </item>
+        <item>
          <property name="text">
-          <string>START_ON_BOOT</string>
+          <string>TAB_DAEMONTOOLS</string>
          </property>
-        </widget>
-       </item>
-       <item row="3" column="0" colspan="2">
-        <widget class="QCheckBox" name="magnetAssociationCheckBox">
-         <property name="whatsThis">
-          <string>MAGNET_ASSOCIATION_WIT</string>
+         <property name="icon">
+          <iconset resource="ltorrent.qrc">
+           <normaloff>:/icons/dt-settings.ico</normaloff>:/icons/dt-settings.ico</iconset>
          </property>
+        </item>
+        <item>
          <property name="text">
-          <string>MAGNET_ASSOCIATION</string>
+          <string>TAB_SCEDULER</string>
          </property>
-        </widget>
-       </item>
-       <item row="3" column="2">
-        <widget class="QCheckBox" name="startMinimizedCheckBox">
-         <property name="whatsThis">
-          <string>START_MINIMIZED_WIT</string>
+         <property name="icon">
+          <iconset resource="ltorrent.qrc">
+           <normaloff>:/icons/schedule.ico</normaloff>:/icons/schedule.ico</iconset>
          </property>
+        </item>
+        <item>
          <property name="text">
-          <string>START_MINIMIZED</string>
+          <string>TAB_WEB_CONTROL</string>
          </property>
-        </widget>
-       </item>
-       <item row="2" column="3" rowspan="2">
-        <widget class="QGroupBox" name="trackerGroupBox">
-         <property name="title">
-          <string>START_TRACKER</string>
+         <property name="icon">
+          <iconset resource="ltorrent.qrc">
+           <normaloff>:/icons/webControll.ico</normaloff>:/icons/webControll.ico</iconset>
          </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="checked">
-          <bool>false</bool>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_2">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_23">
-            <property name="text">
-             <string>TRACKER_PORT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLineEdit" name="trackerPortEdit"/>
-          </item>
-         </layout>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="page_4">
-      <layout class="QGridLayout" name="gridLayout_23">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_19">
-         <property name="whatsThis">
-          <string>DISK_IO_CASH_MODE_WIT</string>
-         </property>
+        </item>
+        <item>
          <property name="text">
-          <string>DISK_IO_CASH_MODE</string>
+          <string>TAB_SEARCH</string>
          </property>
-        </widget>
-       </item>
-       <item row="0" column="1" colspan="2">
-        <widget class="QComboBox" name="diskIOCasheModeComboBox">
-         <item>
-          <property name="text">
-           <string>ENABLE_OS_CACHE</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>DISABLE_OS_CACHE_FOR_ALIGNED_FILES</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>DISABLE_OS_CACHE</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="label_20">
-         <property name="whatsThis">
-          <string>CASH_SIZE_WIT</string>
+         <property name="icon">
+          <iconset resource="ltorrent.qrc">
+           <normaloff>:/icons/search.ico</normaloff>:/icons/search.ico</iconset>
          </property>
-         <property name="text">
-          <string>CASH_SIZE</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QSpinBox" name="casheSizeLineEdit">
-         <property name="specialValueText">
-          <string>None</string>
-         </property>
-         <property name="suffix">
-          <string> Kb</string>
-         </property>
-         <property name="prefix">
-          <string/>
-         </property>
-         <property name="maximum">
-          <number>512000</number>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <widget class="QCheckBox" name="useDiskReadAheadCheckBox">
-         <property name="whatsThis">
-          <string>USE_DISK_READ_AHEAD_WIT</string>
-         </property>
-         <property name="text">
-          <string>USE_DISK_READ_AHEAD</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QCheckBox" name="alowReorderedOpsCheckBox">
-         <property name="whatsThis">
-          <string>ALOW_REORDERED_OPERATIONS_WIT</string>
-         </property>
-         <property name="text">
-          <string>ALOW_REORDERED_OPERATIONS</string>
-         </property>
-        </widget>
-       </item>
-       <item row="2" column="2">
-        <widget class="QCheckBox" name="lockFilesCheckBox">
-         <property name="whatsThis">
-          <string>LOCK_FILES_WIT</string>
-         </property>
-         <property name="text">
-          <string>LOCK_FILES</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="0">
-        <widget class="QCheckBox" name="lowPrioDiskCheckBox">
-         <property name="whatsThis">
-          <string>LOW_PORIO_DISK_WIT</string>
-         </property>
-         <property name="text">
-          <string>LOW_PORIO_DISK</string>
-         </property>
-        </widget>
-       </item>
-       <item row="3" column="1">
-        <widget class="QCheckBox" name="useReadCasheCheckBox">
-         <property name="whatsThis">
-          <string>USE_READ_CASHE_WIT</string>
-         </property>
-         <property name="text">
-          <string>USE_READ_CASHE</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="page_5">
-      <layout class="QGridLayout" name="gridLayout_24">
-       <item row="0" column="0" rowspan="3">
-        <widget class="QGroupBox" name="groupBox_3">
-         <property name="maximumSize">
-          <size>
-           <width>150</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="title">
-          <string>FILTERING_GROUP</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_5">
-          <item row="0" column="1">
-           <widget class="QListWidget" name="GroupsListWidget">
-            <property name="whatsThis">
-             <string>GROUP_LISTBOX_WIT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QPushButton" name="removeGroupButton">
-            <property name="whatsThis">
-             <string>FILTERING_GROUP_DELETE_WIT</string>
-            </property>
-            <property name="text">
-             <string>FILTERING_GROUP_DELETE</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QGroupBox" name="groupBox_9">
-         <property name="title">
-          <string>ADD_CHANGE_GROUP</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_8">
-          <item row="0" column="0">
-           <widget class="QLineEdit" name="newGroupNameEdit">
-            <property name="whatsThis">
-             <string>newGroupNameEdit_WIT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QPushButton" name="addNewGroupButton">
-            <property name="whatsThis">
-             <string>ADD_GROUP_BUTON_WIT</string>
-            </property>
-            <property name="text">
-             <string>ADD_GROUP_BUTON</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QGroupBox" name="groupBox_4">
-         <property name="title">
-          <string>FILE_EXTENSIONS(FORMAT: jpg|png|bmp)</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_6">
-          <item row="0" column="0">
-           <spacer name="verticalSpacer_5">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item row="1" column="0">
-           <widget class="QTextEdit" name="extensionsEdit">
-            <property name="whatsThis">
-             <string>extensionsEdit_WIT</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="2" column="1">
-        <widget class="QGroupBox" name="groupBox_5">
-         <property name="title">
-          <string>GROUP_SAVE_PATH</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_7">
-          <item row="1" column="0">
-           <widget class="QLineEdit" name="groupSavePathEdit">
-            <property name="whatsThis">
-             <string>groupSavePathEdit_WIT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QPushButton" name="BrowseGroupSavePathButton">
-            <property name="whatsThis">
-             <string>GROUP_SAVE_PATH_CHOISE_BUTTON_WIT</string>
-            </property>
-            <property name="text">
-             <string>GROUP_SAVE_PATH_CHOISE_BUTTON</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <spacer name="verticalSpacer_6">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="page_6">
-      <layout class="QGridLayout" name="gridLayout_25">
-       <item row="0" column="1">
-        <widget class="QGroupBox" name="groupBox_8">
-         <property name="title">
-          <string>DRIVE_NUMBER</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_11">
-          <item row="0" column="0">
-           <widget class="QComboBox" name="driveNumberComboBox">
-            <property name="whatsThis">
-             <string>driveNumberComboBox_WIT</string>
-            </property>
-            <item>
-             <property name="text">
-              <string>1</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>2</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>3</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>4</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>5</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>6</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>7</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>8</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>9</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>10</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QGroupBox" name="groupBox_6">
-         <property name="title">
-          <string>DAEMONTOOLS_PATH</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_9">
-          <item row="0" column="0">
-           <widget class="QLineEdit" name="DTPathEdit">
-            <property name="whatsThis">
-             <string>DTPathEdit_WIT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QPushButton" name="browseDTPathButton">
-            <property name="accessibleName">
-             <string>DAEMONTOOLS_PATH_CHOISE_BUUTON_WIT</string>
-            </property>
-            <property name="text">
-             <string>DAEMONTOOLS_PATH_CHOISE_BUUTON</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="1" column="0" colspan="2">
-        <widget class="QGroupBox" name="customMoutGroupBox">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="title">
-          <string>DAEMONTOOLS_CUSTOM_COMMAND</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="checked">
-          <bool>false</bool>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_10">
-          <item row="0" column="0">
-           <widget class="QLineEdit" name="customCommandEdit">
-            <property name="whatsThis">
-             <string>DAEMONTOOLS_COMMAND_WIT</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="2" column="0">
-        <spacer name="verticalSpacer_4">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="page_7">
-      <layout class="QGridLayout" name="gridLayout_26">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_14">
-         <property name="maximumSize">
-          <size>
-           <width>150</width>
-           <height>16777215</height>
-          </size>
-         </property>
-         <property name="text">
-          <string>ACTIONS</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="1">
-        <widget class="QComboBox" name="tasksComboBox">
-         <property name="maximumSize">
-          <size>
-           <width>150</width>
-           <height>16777215</height>
-          </size>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <widget class="QPushButton" name="addTaskButton">
-         <property name="text">
-          <string>ADD_BUTTON</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="3">
-        <widget class="QPushButton" name="deleteTaskButton">
-         <property name="text">
-          <string>DELETE_BUTTON</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0" colspan="4">
-        <widget class="QGroupBox" name="groupBox_11">
-         <property name="title">
-          <string>GroupBox</string>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_14">
-          <item row="1" column="1">
-           <widget class="QDateTimeEdit" name="beginDateTimeEdit"/>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_13">
-            <property name="text">
-             <string>ACTION_NAME</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_9">
-            <property name="text">
-             <string>ACTION_BEGIN</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QLineEdit" name="taskNameLineEdit">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>16777215</height>
-             </size>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="0" colspan="2">
-           <widget class="QGroupBox" name="groupBox">
-            <property name="title">
-             <string>ACTIONS</string>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_15">
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_11">
-               <property name="text">
-                <string>LIMIT_DOWNLOAD</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QLineEdit" name="dlLimitEdit">
-               <property name="enabled">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="2">
-              <widget class="QLabel" name="label_12">
-               <property name="text">
-                <string>LIMIT_UPLOAD</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="3">
-              <widget class="QLineEdit" name="ulLimitEdit">
-               <property name="enabled">
-                <bool>true</bool>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="2" colspan="2">
-              <widget class="QRadioButton" name="startAllRadioButton">
-               <property name="text">
-                <string>START_ALL</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="2" colspan="2">
-              <widget class="QRadioButton" name="limitUlRadioButton">
-               <property name="text">
-                <string>LIMIT_UPLOAD</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0" colspan="2">
-              <widget class="QRadioButton" name="limitDlRadioButton">
-               <property name="text">
-                <string>LIMIT_DOWNLOAD</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="0" colspan="2">
-              <widget class="QRadioButton" name="pauseAllRadioButton">
-               <property name="text">
-                <string>PUASE_ALL</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item row="0" column="2" rowspan="3">
-           <widget class="QCalendarWidget" name="calendarWidget"/>
-          </item>
-         </layout>
-         <zorder>label_9</zorder>
-         <zorder>beginDateTimeEdit</zorder>
-         <zorder>groupBox</zorder>
-         <zorder>label_13</zorder>
-         <zorder>taskNameLineEdit</zorder>
-         <zorder>calendarWidget</zorder>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="page_8">
-      <layout class="QGridLayout" name="gridLayout_27">
-       <item row="0" column="0">
-        <widget class="QGroupBox" name="webUIGroupBox">
-         <property name="maximumSize">
-          <size>
-           <width>100500</width>
-           <height>100500</height>
-          </size>
-         </property>
-         <property name="title">
-          <string>WEB_CONTROLL_ENABLED</string>
-         </property>
-         <property name="checkable">
-          <bool>true</bool>
-         </property>
-         <property name="checked">
-          <bool>false</bool>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_18">
-          <item row="0" column="3" rowspan="8">
-           <widget class="QGroupBox" name="IPFilterGroupBox">
-            <property name="title">
-             <string>WEB_UI_USE_IP_FILTER</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_16">
-             <item row="0" column="0">
-              <widget class="QTextEdit" name="ipFilterTextEdit">
-               <property name="html">
-                <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
-&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
-p, li { white-space: pre-wrap; }
-&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Lucida Grande'; font-size:13pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot;-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:'MS Shell Dlg 2'; font-size:8pt;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item row="7" column="0" colspan="3">
-           <widget class="QGroupBox" name="webUILogginGroupBox">
-            <property name="maximumSize">
-             <size>
-              <width>16777215</width>
-              <height>16777215</height>
-             </size>
-            </property>
-            <property name="title">
-             <string>WEB_UI_LOGGING_ENABLED</string>
-            </property>
-            <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="checked">
-             <bool>false</bool>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_21">
-             <item row="1" column="0" colspan="3">
-              <layout class="QHBoxLayout" name="horizontalLayout">
-               <item>
-                <widget class="QLabel" name="label_22">
-                 <property name="text">
-                  <string>WEB_UI_LOG_NAME</string>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="logLineEdit"/>
-               </item>
-              </layout>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_10">
-            <property name="text">
-             <string>WEB_UI_LOGIN</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_18">
-            <property name="text">
-             <string>WEB_UI_PASSWORD</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QCheckBox" name="upnpCheckBox">
-            <property name="text">
-             <string>WEB_UI_UPNP_ENABLED</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1" colspan="2">
-           <widget class="QLineEdit" name="passwordLineEdit">
-            <property name="echoMode">
-             <enum>QLineEdit::Password</enum>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1" colspan="2">
-           <widget class="QLineEdit" name="loginLineEdit"/>
-          </item>
-          <item row="2" column="1" colspan="2">
-           <widget class="QLineEdit" name="webPortLineEdit"/>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_21">
-            <property name="text">
-             <string>WEB_UI_PORT</string>
-            </property>
-           </widget>
-          </item>
-          <item row="5" column="0" colspan="3">
-           <layout class="QHBoxLayout" name="horizontalLayout_2">
-            <item>
-             <widget class="QPushButton" name="startRconButton">
-              <property name="text">
-               <string>WEBUI_START</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QPushButton" name="stopRconButton">
-              <property name="text">
-               <string>WEBUI_STOP</string>
-              </property>
-             </widget>
-            </item>
-            <item>
-             <widget class="QLabel" name="RunningLabel">
-              <property name="enabled">
-               <bool>false</bool>
-              </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="pixmap">
-               <pixmap resource="ltorrent.qrc">:/icons/upload.ico</pixmap>
-              </property>
-             </widget>
-            </item>
-           </layout>
-          </item>
-         </layout>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="page">
-      <layout class="QGridLayout" name="gridLayout_12">
-       <item row="0" column="0" colspan="2">
-        <widget class="QGroupBox" name="groupBox_7">
-         <property name="title">
-          <string/>
-         </property>
-         <layout class="QGridLayout" name="gridLayout_13">
-          <item row="0" column="0">
-           <widget class="QComboBox" name="sourcesComboBox"/>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_24">
-            <property name="text">
-             <string>SEARCH_NAME</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QLineEdit" name="searchItemNameLineEdit"/>
-          </item>
-          <item row="2" column="0">
-           <widget class="QLabel" name="label_25">
-            <property name="text">
-             <string>SEARCH_PATERN</string>
-            </property>
-           </widget>
-          </item>
-          <item row="2" column="1">
-           <widget class="QLineEdit" name="searchItemPatternLineEdit"/>
-          </item>
-          <item row="3" column="0">
-           <widget class="QPushButton" name="addSearchButton">
-            <property name="text">
-             <string>ADD_SEARCH</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QPushButton" name="removeSearchButton">
-            <property name="text">
-             <string>REMOVE_SEARCH</string>
-            </property>
-           </widget>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item row="0" column="2">
-        <spacer name="horizontalSpacer_3">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item row="1" column="0" colspan="3">
-        <spacer name="verticalSpacer">
-         <property name="orientation">
-          <enum>Qt::Vertical</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>20</width>
-           <height>40</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
+        </item>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>330</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+     </layout>
     </widget>
    </item>
   </layout>

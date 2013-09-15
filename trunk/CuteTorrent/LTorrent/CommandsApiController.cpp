@@ -1,9 +1,7 @@
 #include "CommandsApiController.h"
 #include "QApplicationSettings.h"
 CommandsApiController::CommandsApiController( QObject* parent/*=0*/ ) : HttpRequestHandler("WebControl",parent),tManager(TorrentManager::getInstance())
-{
-	
-}
+{}
 
 void CommandsApiController::service( HttpRequest& request, HttpResponse& response )
 {

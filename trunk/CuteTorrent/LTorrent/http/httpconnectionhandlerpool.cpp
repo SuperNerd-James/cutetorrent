@@ -7,6 +7,7 @@ HttpConnectionHandlerPool::HttpConnectionHandlerPool(QString name,HttpRequestHan
 
     //qDebug() << "HttpConnectionHandlerPool::HttpConnectionHandlerPool";
     serverName = name;
+	//qDebug() << "QApplicationSettings::getInstance() from HttpConnectionHandlerPool::HttpConnectionHandlerPool";
 	this->settings=QApplicationSettings::getInstance();
     this->requestHandler=_requestHandler;
     cleanupTimer.start(settings->value(serverName,"cleanupInterval",1000).toInt());
@@ -19,6 +20,8 @@ HttpConnectionHandlerPool::~HttpConnectionHandlerPool() {
     foreach(HttpConnectionHandler* handler, pool) {
         delete handler;
     }
+	//qDebug() << "QApplicationSettings::FreeInstance from HttpConnectionHandlerPool::~HttpConnectionHandlerPool";
+	QApplicationSettings::FreeInstance();
     //qDebug("HttpConnectionHandlerPool (%p): destroyed", this);
 }
 

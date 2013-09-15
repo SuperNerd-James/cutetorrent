@@ -120,7 +120,7 @@ void QTorrentDisplayModel::updateVisibleTorrents()
 		}
 		QModelIndex top(index(0,0)),bot(index(torrents->count(),0));
 		emit dataChanged( top,bot );
-		emit updateTabSender(-1);
+        emit updateTabSender(-1);
 		
 	}
 	catch (...)
@@ -167,14 +167,14 @@ void QTorrentDisplayModel::contextualMenu(const QPoint & point)
 		{
 			
 			
-			if (!torrent->isDaemonToolsMountable() || !torrent->isSeeding())
+            /*if (!torrent->isDaemonToolsMountable() || !torrent->isSeeding())
 			{
 				DTmount->setEnabled(false);
 			}
 			else
-			{
+            {*/
 				DTmount->setEnabled(true);
-			}
+            //}
 			if (!torrent->isSuperSeed())
 			{
 				superSeed->setChecked(false);
@@ -594,7 +594,7 @@ void QTorrentDisplayModel::setupContextMenu()
 	openDir->setShortcut(QKeySequence("Enter"));
 	menu->addAction(openDir);
 	menu->addSeparator();
-	DTmount = new QAction(QIcon(":/MenuIcons/mount-dt.ico"),tr("ACTION_DT_MOUNT"), parrent);
+    DTmount = new QAction(QIcon(":/icons/my-iso.ico"),tr("ACTION_DT_MOUNT"), parrent);
 	QObject::connect(DTmount, SIGNAL(triggered()), this, SLOT(MountDT()));
 	menu->addAction(DTmount);
 	PlayInPlayer = new QAction(QIcon(":/MenuIcons/play.ico"),tr("ACTION_PLAY_IN_PLAYER"), parrent);
@@ -632,7 +632,9 @@ void QTorrentDisplayModel::setupContextMenu()
 	menu->addAction(DelTorrentOnly);
     groupsMenu = new QMenu(tr("ACTION_CHANGE_GROUP"),menu);
     groupsMenu->setIcon(QIcon(":/icons/groups.ico"));
+	//qDebug() << "QApplicationSettings::getInstance from QTorrentDisplayModel::setupContextMenu";
     QList<GroupForFileFiltering> filters = QApplicationSettings::getInstance()->GetFileFilterGroups();
+	//qDebug() << "QApplicationSettings::FreeInstance from QTorrentDisplayModel::setupContextMenu";
     QApplicationSettings::FreeInstance();
     QString type;
     for(int i=0;i<filters.size();i++)

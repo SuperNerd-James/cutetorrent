@@ -42,10 +42,11 @@ enum
 };
 
 
-QTorrentItemDelegat::QTorrentItemDelegat(const QTorrentItemDelegat &dlg): QStyledItemDelegate(0) ,myProgressBarStyle(new QStyleOptionProgressBarV2)
+QTorrentItemDelegat::QTorrentItemDelegat(const QTorrentItemDelegat &dlg): QStyledItemDelegate(0) ,myProgressBarStyle(new QProgressBar())
 {
-	myProgressBarStyle->minimum = 0;
-    myProgressBarStyle->maximum = 100;
+    myProgressBarStyle->setMinimum(0);
+    myProgressBarStyle->setMaximum(100);
+    myProgressBarStyle->setTextVisible(false);
 	greenBrush=dlg.greenBrush;
 	greenBack=dlg.greenBack;
 	blueBrush=dlg.blueBrush;
@@ -53,9 +54,9 @@ QTorrentItemDelegat::QTorrentItemDelegat(const QTorrentItemDelegat &dlg): QStyle
 	max_width=dlg.max_width;
 }
 
-QTorrentItemDelegat::QTorrentItemDelegat(): QStyledItemDelegate(0) ,myProgressBarStyle(new QStyleOptionProgressBarV2){}
+QTorrentItemDelegat::QTorrentItemDelegat(): QStyledItemDelegate(0) ,myProgressBarStyle(new QProgressBar()){}
 
-QColor QTorrentItemDelegat::greenBrush = QColor("forestgreen");
+QColor QTorrentItemDelegat::greenBrush = QColor(81,211,49);
 QColor QTorrentItemDelegat ::greenBack = QColor("darkseagreen");
 
 QColor QTorrentItemDelegat ::blueBrush = QColor("steelblue");
@@ -63,11 +64,12 @@ QColor QTorrentItemDelegat ::blueBack = QColor("lightgrey");
 int QTorrentItemDelegat::max_width=0;
 QTorrentItemDelegat::QTorrentItemDelegat( QObject * parent ):
     QStyledItemDelegate( parent ),
-    myProgressBarStyle( new QStyleOptionProgressBarV2 )
+    myProgressBarStyle(new QProgressBar() )
 {
 	
-    myProgressBarStyle->minimum = 0;
-    myProgressBarStyle->maximum = 100;
+    myProgressBarStyle->setMinimum(0);
+    myProgressBarStyle->setMaximum(100);
+    myProgressBarStyle->setTextVisible(false);
 
     
 }
@@ -134,7 +136,7 @@ try
     const QSize m( margin( *style ) );
 	
     return QSize( m.width() + iconSize  + MAX3( nameWidth, statusWidth, progressWidth ),
-                  m.height()*3 + nameFM.lineSpacing() + statusFM.lineSpacing() + BAR_HEIGHT + progressFM.lineSpacing() );
+                  m.height()*3 + nameFM.lineSpacing() /*+ statusFM.lineSpacing()*/ +2* GUI_PAD + progressFM.lineSpacing() );
 }catch(...)
 {
 	//qDebug() << "exception in size hint";
@@ -187,16 +189,6 @@ QTorrentItemDelegat::paint( QPainter                    * painter,
 
 }
 
-void
-QTorrentItemDelegat::setProgressBarPercentDone( const QStyleOptionViewItem& option, const Torrent& tor ) const
-{
-
-      
-	const int scaledProgress = tor.GetProgress();
-	 myProgressBarStyle->direction = option.direction;
-    myProgressBarStyle->progress =scaledProgress;
-   
-}
 QString QTorrentItemDelegat::GetProgressString(const Torrent& tor) const
 {
 	if (tor.isDownloading())
@@ -264,35 +256,35 @@ void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionVie
 	
     painter->save( );
 	
-	if (row & 1) 
+	/*if (row & 1) 
 	{
-		painter->fillRect(option.rect, QColor(220, 220, 220));
-	}
+		painter->fillRect(option.rect, );
+	}*/
     if (option.state & QStyle::State_Selected) {
         QPalette::ColorGroup cg = option.state & QStyle::State_Enabled
                                   ? QPalette::Normal : QPalette::Disabled;
         if (cg == QPalette::Normal && !(option.state & QStyle::State_Active))
             cg = QPalette::Inactive;
 
-        painter->fillRect(option.rect, option.palette.brush(cg, QPalette::Highlight));
+        painter->fillRect(option.rect, QColor(216, 216, 216));
     }
 	
     QIcon::Mode im;
-    if( isPaused || !(option.state & QStyle::State_Enabled ) ) im = QIcon::Disabled;
+    /*if( isPaused || !(option.state & QStyle::State_Enabled ) ) im = QIcon::Disabled;
     else if( option.state & QStyle::State_Selected ) im = QIcon::Selected;
-    else im = QIcon::Normal;
+    else*/ im = QIcon::Normal;
 
     QIcon::State qs;
-    if( isPaused ) qs = QIcon::Off;
-    else qs = QIcon::On;
+   /* if( isPaused ) qs = QIcon::Off;
+    else*/ qs = QIcon::On;
 
     QPalette::ColorGroup cg = QPalette::Normal;
-    if( isPaused || !(option.state & QStyle::State_Enabled ) ) cg = QPalette::Disabled;
-    if( cg == QPalette::Normal && !(option.state & QStyle::State_Active ) ) cg = QPalette::Inactive;
+   /* if( isPaused || !(option.state & QStyle::State_Enabled ) ) cg = QPalette::Disabled;
+    if( cg == QPalette::Normal && !(option.state & QStyle::State_Active ) ) cg = QPalette::Inactive;*/
 
     QPalette::ColorRole cr;
-    if( option.state & QStyle::State_Selected ) cr = QPalette::HighlightedText;
-    else cr = QPalette::Text;
+/*    if( option.state & QStyle::State_Selected ) cr = QPalette::HighlightedText;
+    else */cr = QPalette::Text;
 
     QStyle::State progressBarState( option.state );
     if( isPaused ) progressBarState = QStyle::State_None;
@@ -305,21 +297,23 @@ void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionVie
     QRect iconArea( fillArea.x( ), fillArea.y( ) + ( fillArea.height( ) - iconSize ) / 2, iconSize, iconSize );
     QRect nameArea( iconArea.x( ) + iconArea.width( ) + GUI_PAD, fillArea.y( ),
                     fillArea.width( ) - GUI_PAD - iconArea.width(), nameSize.height( ) );
-	nameArea.setWidth(max_width);
-    QRect statusArea( nameArea );
-	
-    statusArea.moveTop( nameArea.y( ) + nameFM.lineSpacing( ) );
-    statusArea.setHeight( nameSize.height( ) );
-	statusArea.setWidth(max_width);
-
-    QRect barArea( statusArea );
-	
+	//nameArea.setWidth(max_width);
+    
+	QRect barArea( nameArea );
     barArea.setHeight( BAR_HEIGHT );
-    barArea.moveTop( statusArea.y( ) + statusFM.lineSpacing( ) );
-    QRect progArea( statusArea );
-    progArea.moveTop( barArea.y( ) + barArea.height( ) );
-	
+    barArea.moveTop( nameArea.y( ) + statusFM.lineSpacing( ) +GUI_PAD/2);
+    QRect progArea( nameArea );
+    progArea.moveTop( barArea.y( ) + barArea.height( ) +GUI_PAD/2);
+    progArea.setWidth(barArea.width()/2);
+	QRect statusArea( barArea );
 
+	statusArea.moveTop( barArea.y( ) + BAR_HEIGHT +GUI_PAD/2);
+    statusArea.moveLeft(barArea.width()/2+iconArea.width()+GUI_PAD);
+    statusArea.setWidth(barArea.width()/2);
+	statusArea.setHeight( nameSize.height( ) );
+	//statusArea.setWidth(max_width);
+
+	
     // render
     if( tor.hasError( ) )
         painter->setPen( QColor( "red" ) );
@@ -329,13 +323,26 @@ void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionVie
     painter->setFont( nameFont );
     painter->drawText( nameArea, 0, nameFM.elidedText( nameStr, Qt::ElideRight, nameArea.width() ) );
  	painter->setFont( statusFont );
-	if (isSeeding)
-		painter->drawText( statusArea, Qt::AlignRight, statusFM.elidedText( statusStr, Qt::ElideRight, statusArea.width( ) ) );
-	else
-		painter->drawText( statusArea, 0, statusFM.elidedText( statusStr, Qt::ElideRight, statusArea.width( ) ) );
-    painter->setFont( progressFont );
+	painter->drawText( statusArea, Qt::AlignRight, statusFM.elidedText( statusStr, Qt::ElideRight, statusArea.width( ) ) );
+	painter->setFont( progressFont );
 	painter->drawText( progArea, 0, progressFM.elidedText( progressStr, Qt::ElideLeft, progArea.width( ) ) );
-    myProgressBarStyle->rect = barArea;
+
+    int progressPercentage = tor.GetProgress();
+
+            // Customize style using style-sheet..
+
+    QString stylestr = "QProgressBar { border: 1px solid #909090; ; }";
+    stylestr += QString("QProgressBar::chunk { background-color: #") + ( progressPercentage < 100 ? "51D331" : "3291d4" )+ "; width: 20px; }";
+    myProgressBarStyle->resize(barArea.size());
+
+    myProgressBarStyle->setValue(progressPercentage);
+
+    myProgressBarStyle->setStyleSheet(stylestr);
+
+    painter->translate(barArea.topLeft());
+    myProgressBarStyle->render(painter);
+
+    /*myProgressBarStyle->rect = barArea;
 	if ( tor.isDownloading() ) {
         myProgressBarStyle->palette.setBrush( QPalette::Highlight, blueBrush );
         myProgressBarStyle->palette.setColor( QPalette::Base, blueBack );
@@ -346,10 +353,11 @@ void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionVie
         myProgressBarStyle->palette.setColor( QPalette::Base, greenBack );
         myProgressBarStyle->palette.setColor( QPalette::Background, greenBack );
     }
+
     myProgressBarStyle->state = progressBarState;
     setProgressBarPercentDone( option, tor );
 
     style->drawControl( QStyle::CE_ProgressBar, myProgressBarStyle, painter );
-
+*/
     painter->restore( );
 }

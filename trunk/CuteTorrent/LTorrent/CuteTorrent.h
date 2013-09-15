@@ -28,8 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QString>
 #include <QTimer>
 #include "application.h"
-#include "ui_CuteTorrent.h"
-#include "ui_mainWindowButtons.h"
 #include "SettingsDialog.h"
 #include "TorrentManager.h"
 #include "CreateTorrentDilaog.h"
@@ -42,6 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QCloseEvent>
 #include "QTorrentListView.h"
 #include "UpdateNotyfier.h"
+#include <QDesktopWidget>
 #include <QMutex>
 #include <QtNetwork/QHostAddress>
 #include <QScrollBar>
@@ -51,12 +50,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "FileViewModel.h"
 #include "TorrentStorrage.h"
 #include "searchitem.h"
+#include "peicedisplaywidget.h"
+#include "ui_CustomWindow.h"
+#define PIXELS_TO_ACT 2
 Q_DECLARE_METATYPE(QHostAddress)
-class CuteTorrent : public QMainWindow , private Ui::CuteTorrentClass
+class CuteTorrent : public QWidget , private Ui::CustomWindow
 {
 	Q_OBJECT
 
 public:
+	 enum TitleMode { CleanTitle = 0, OnlyCloseButton, MenuOff, MaxMinOff, FullScreenMode, MaximizeModeOff, MinimizeModeOff, FullTitle };
 	CuteTorrent(QWidget *parent = 0, Qt::WFlags flags = 0);
 
 	
@@ -74,9 +77,87 @@ protected:
 	void keyPressEvent ( QKeyEvent * event );
 
 private:
+	 /**
+         * @brief centralLayout Main layout where the centralwidget will be set.
+         */
+        QHBoxLayout *centralLayout;
+        /**
+         * @brief dragPosition Increment of the position movement.
+         */
+        QPoint dragPosition;
+        /**
+         * @brief m_titleMode Flags that defines the current titlebar mode.
+         */
+        TitleMode m_titleMode;
+        /**
+         * @brief moveWidget Specifies if the window is in move action.
+         */
+        bool moveWidget;
+        /**
+         * @brief inResizeZone Specifies if the mouse is in resize zone.
+         */
+        bool inResizeZone;
+        /**
+         * @brief allowToResize Specifies if the mouse is allowed to resize.
+         */
+        bool allowToResize;
+        /**
+         * @brief resizeVerSup Specifies if the resize is in the top of the window.
+         */
+        bool resizeVerSup;
+        /**
+         * @brief resizeHorEsq Specifies if the resize is in the left of the window.
+         */
+        bool resizeHorEsq;
+        /**
+         * @brief resizeDiagSupEsq Specifies if the resize is in the top left of the window.
+         */
+        bool resizeDiagSupEsq;
+        /**
+         * @brief resizeDiagSupDer Specifies if the resize is in the top right of the window.
+         */
+        bool resizeDiagSupDer;
+
+        /**
+         * @brief mouseMoveEvent Overloaded member that moves of resizes depending of the
+         * configuration sotred at mousePressEvent().
+         * @param e The mouse event.
+         */
+        void mouseMoveEvent(QMouseEvent *e);
+        /**
+         * @brief mousePressEvent Overloaded member that stores that changes the cursor and
+         * configures the side that is changing.
+         * @param e The mouse event.
+         */
+        void mousePressEvent(QMouseEvent *e);
+        /**
+         * @brief mouseReleaseEvent Overloaded member that removes the configuration set in mousePressEvent().
+         * @param e The mouse event.
+         */
+        void mouseReleaseEvent(QMouseEvent *e);
+        /**
+         * @brief mouseDoubleClickEvent Overloadad member that maximize/restore the window if is
+         * doubleclicked and the position of the mouse is not the top left of the window (menu zone).
+         * @param e The mouse event.
+         */
+        void mouseDoubleClickEvent(QMouseEvent *e);
+        /**
+         * @brief paintEvent Overloaded method that allows to customize the styles of the window.
+         */
+        void paintEvent (QPaintEvent *);
+        /**
+         * @brief resizeWindow Method that calculates the resize and new position of the window an
+         * does this actions.
+         * @param e The mouse event to calculate the new position and size.
+         */
+        void resizeWindow(QMouseEvent *e);
+
+		void moveWindow(QMouseEvent *e);
+  
     QList<SearchItem> searchSources;
 	QComboBox* searchSource;
 	TorrentStorrage* torrents;
+	PeiceDisplayWidget* pieceView;
 	QSortFilterProxyModel* proxymodel;
     FileViewModel* fileViewModel;
 	//Ui::ToolButtons* toolButtonsUi;
@@ -129,11 +210,20 @@ private:
 	void setupFileTabel();
 	void setupGroupTreeWidget();
 	void setupFileTabelContextMenu();
-	void fillPieceDisplay();
+    void fillPieceDisplay(QSize);
 	void setFilePriority(int);
+	void setupCustomeWindow();
 public slots:
 	void HandleNewTorrent(const QString &);
-private slots:
+	      /**
+         * @brief maximizeBtnClicked Maximizes or restores the window depending on the last status.
+         */
+        void maximizeBtnClicked();
+        /**
+         * @brief minimizeBtnClicked Minimizes or restores the window depending on the last status.
+         */
+        void minimizeBtnClicked();
+
 	void UpdateUL(int);
 	void UpdateDL(int);
 	void OpenFileSelected();
@@ -169,13 +259,13 @@ private slots:
 	void PeformSearch();
 	void CopyDiscribtion();
 	void ClearPieceDisplay();
-	void UpdateItemWidth(int,int);
+
 
 	void AddTracker();
 	void AddPeer();
 	void ChnageTorrentFilter();
-
-
+	
+	
 
 };
 
