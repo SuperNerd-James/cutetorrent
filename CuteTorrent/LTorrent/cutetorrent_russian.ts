@@ -580,7 +580,7 @@
         <location filename="CuteTorrent.cpp" line="207"/>
         <location filename="CuteTorrent.cpp" line="214"/>
         <source>None</source>
-        <translation>None</translation>
+        <translation>Нет</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="220"/>

@@ -1,5 +1,8 @@
 #include "torrentracker.h"
 
+TorrentTracker* TorrentTracker::instance=NULL;
+int TorrentTracker::instanceCount=0;
+
 TorrentTracker::TorrentTracker(QObject *parent) :
     QObject(parent)
 {
@@ -13,7 +16,27 @@ TorrentTracker::~TorrentTracker()
 {
     stop();
 	delete httpServer;
-	delete requestHandler;
+    delete requestHandler;
+}
+
+TorrentTracker *TorrentTracker::getInstance()
+{
+    if (instance==NULL)
+    {
+        instance = new TorrentTracker();
+    }
+    instanceCount++;
+    return instance;
+}
+
+void TorrentTracker::freeInstance()
+{
+    instanceCount--;
+    if (instanceCount==0)
+    {
+        delete instance;
+        instance=NULL;
+    }
 }
 
 bool TorrentTracker::isRunning()
