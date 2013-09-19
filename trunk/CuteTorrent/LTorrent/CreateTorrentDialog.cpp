@@ -24,7 +24,7 @@ CreateTorrentDialog::CreateTorrentDialog(QWidget *parent, Qt::WFlags flags) : QD
 	setupUi(this);
 	
 	setupCustomWindow();
-	
+    settings = QApplicationSettings::getInstance();
 	creator  = new torrentCreatorThread(this);
 	//qDebug() << "new torrentCreatorThread";
 	mgr = TorrentManager::getInstance();
@@ -233,7 +233,7 @@ void CreateTorrentDialog::minimizeBtnClicked()
 {
 	if (isMinimized())
 	{
-		setWindowState(windowState() & ~Qt::WindowMinimized);
+        setWindowState(windowState() & ~Qt::WindowMinimized);
 	}
 	else
 	{
@@ -353,6 +353,7 @@ void CreateTorrentDialog::resizeWindow(QMouseEvent *e)
 }
 CreateTorrentDialog::~CreateTorrentDialog()
 {
+    QApplicationSettings::FreeInstance();
 	creator->deleteLater();
 	TorrentManager::freeInstance();
 }
@@ -428,7 +429,7 @@ quint64 CreateTorrentDialog::getPiceSize()
 void CreateTorrentDialog::BrowseDir()
 {
 	path = QFileDialog::getExistingDirectory(this, tr("DIALOG_OPEN_FOLDER"),
-                                             "",
+                                             settings->valueString("System","LastSaveTorrentDir"),
                                              QFileDialog::ShowDirsOnly
                                              | QFileDialog::DontResolveSymlinks);
 	pathEdit->setText(path);
@@ -436,7 +437,7 @@ void CreateTorrentDialog::BrowseDir()
 void CreateTorrentDialog::BrowseFile()
 {
 	path =  QFileDialog::getOpenFileName(this,
-		tr("DIALOG_OPEN_FILE"), "", tr("Any File (*.*)"));
+        tr("DIALOG_OPEN_FILE"),settings->valueString("System","LastSaveTorrentDir") , tr("Any File (*.*)"));
 	pathEdit->setText(path);
 }
 void CreateTorrentDialog::BeginCreate()

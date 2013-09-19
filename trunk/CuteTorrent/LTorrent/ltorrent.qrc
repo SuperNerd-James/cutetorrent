@@ -82,6 +82,6 @@
         <file alias="copy-to-clipboard.ico">Resources/copy-to-clipboard.ico</file>
     </qresource>
     <qresource prefix="/translations_qt">
-       <file alias="qt_RUSSIAN.qm">C:/Qt/4.8.5/translations/qt_ru.qm</file>
+        <file alias="qt_Русский.qm">C:/Qt/4.8.5/translations/qt_ru.qm</file>
     </qresource>
 </RCC>
