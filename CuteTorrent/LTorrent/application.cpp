@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFileOpenEvent>
 #include "application.h"
 #include <QMessageBox>
+#include <QDebug>
 QTranslator* Application::current = 0;
 QTranslator* Application::currentQt = 0;
 Translators Application::translators;
@@ -56,10 +57,11 @@ void Application::loadTranslations(const QDir& dir)
 		// construct and load translator
 		
 		QTranslator* translator = new QTranslator(instance());
+
 		if (translator->load(file.absoluteFilePath()))
 		{
-			QString locale = language + "_" + country;
-			
+            QString locale = translator->translate("Application","__LANGNAME__");
+            qDebug() << locale;
 			translators.insert(locale, translator);
 		}
 	}
@@ -123,6 +125,7 @@ bool Application::event(QEvent *event)
 
 void Application::setLanguage(const QString& locale)
 {
+    qDebug() << "Application::setLanguage" << locale;
 	// remove previous
     if (current)
 	{

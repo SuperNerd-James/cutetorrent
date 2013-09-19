@@ -46,8 +46,8 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
 {
     settings=QApplicationSettings::getInstance();
 
-    Application::setLanguage("cutetorrent_"+settings->valueString("System","Lang","RUSSIAN"));
-    Application::setLanguageQt("qt_"+settings->valueString("System","Lang","RUSSIAN"));
+    Application::setLanguage(settings->valueString("System","Lang","Русский"));
+    Application::setLanguageQt("qt_"+settings->valueString("System","Lang","Русский"));
     setupCustomeWindow();
     //ui->setupUi(this);
 

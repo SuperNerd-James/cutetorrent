@@ -91,14 +91,14 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	startMinimizedCheckBox->setChecked(val.contains("-m"));
 #endif
 	//OS_SPECIFICK////
-	QString curLoc=Application::currentLocale().split('_')[1];
+    QString curLoc=Application::currentLocale();
 	foreach (QString avail, Application::availableLanguages())
 	{
-		QString loc=avail.split('_')[1];
 
-		localeComboBox->addItem(loc);
 
-		if (loc==curLoc)
+        localeComboBox->addItem(avail);
+
+        if (avail==curLoc)
 			localeComboBox->setCurrentIndex(current);
 		current++;
 
@@ -612,9 +612,9 @@ void SettingsDialog::ApplySettings()
 		bootUpSettings.remove("CuteTorrent");
 #endif
 	int curLocaleIndex=localeComboBox->currentIndex();
-	Application::setLanguage("cutetorrent_"+localeComboBox->currentText().toUpper());
-    Application::setLanguageQt("qt_"+localeComboBox->currentText().toUpper());
-	settings->setValue("System","Lang",localeComboBox->currentText().toUpper());
+    Application::setLanguage(localeComboBox->currentText());
+    Application::setLanguageQt("qt_"+localeComboBox->currentText());
+    settings->setValue("System","Lang",localeComboBox->currentText());
 	//retranslateUi(this);
 	calendarWidget->setLocale(localeComboBox->currentIndex()==0 ? QLocale(QLocale::English) : QLocale(QLocale::Russian));
 }

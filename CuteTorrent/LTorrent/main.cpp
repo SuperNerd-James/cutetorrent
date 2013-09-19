@@ -135,6 +135,7 @@ int main(int argc, char *argv[])
 	CuteTorrent w;
 	
 	a.setActivationWindow(&w);
+    a.setActiveWindow(&w);
 	w.ConnectMessageReceved(&a);
 	
 	if (minimize)
