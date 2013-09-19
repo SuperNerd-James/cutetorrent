@@ -23,6 +23,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "GroupForFileFiltering.h"
 #include "searchitem.h"
 #include <QMouseEvent>
+#include "tracker/torrentracker.h"
+#include "RconWebService.h"
 class SettingsDialog : public QDialog , private Ui::SettingsDialog
 {
 	Q_OBJECT
@@ -36,6 +38,8 @@ private:
 	QList<GroupForFileFiltering> filterGroups;
 	QList<SchedulerTask> tasks;
 	QDateTimeEdit* previousFocuse;
+    TorrentTracker* tracker;
+    RconWebService* rcon;
     /**
         * @brief centralLayout Main layout where the centralwidget will be set.
         */

@@ -70,7 +70,7 @@ CuteTorrent::CuteTorrent(QWidget *parent, Qt::WFlags flags)
     setupGroupTreeWidget();
     setupConnections();
 
-    tracker = new TorrentTracker(this);
+    tracker = TorrentTracker::getInstance();
 
 
     rcon = RconWebService::getInstance();
@@ -204,13 +204,14 @@ void CuteTorrent::setupToolBar()
     searchEdit=new QLineEdit(this);
     QObject::connect(searchEdit,SIGNAL(returnPressed()),this,SLOT(PeformSearch()));
     ul = new QSpinBox(this);
-    ul->setSpecialValueText(tr("None"));
+
     ul->setSuffix(" Kb\\s");
     ul->setMaximum(12000.0f);
     ul->setSingleStep(10.0);
     ul->setButtonSymbols(QAbstractSpinBox::PlusMinus);
     QObject::connect(ul,SIGNAL(valueChanged(int)),this,SLOT(UpdateUL(int)));
     dl = new QSpinBox(this);
+    ul->setSpecialValueText(tr("None"));
     dl->setSpecialValueText(tr("None"));
     dl->setMaximum(12000.0f);
     dl->setSuffix(" Kb\\s");
@@ -563,7 +564,8 @@ void CuteTorrent::changeEvent(QEvent *event)
         __qtreewidgetitem4->setText(0,tr("ACTIVE_FLTR"));
         __qtreewidgetitem5->setText(0,tr("NOT_ACTIVE_FLTR"));
         __qtreewidgetitem6->setText(0,tr("TORRENT_GROUPS"));
-
+        ul->setSpecialValueText(tr("None"));
+        dl->setSpecialValueText(tr("None"));
         fileViewModel->retranslateUI();
         model->retranslate();
 
@@ -781,29 +783,7 @@ void CuteTorrent::OpenSettingsDialog()
     QObject::connect(dlg,SIGNAL(needRetranslate()),this,SLOT(Retranslate()));
     dlg->exec();
     delete dlg;
-    if (settings->valueBool("WebControl","webui_enabled",false))
-    {
-        rcon->Start();
-        if (settings->valueBool("WebControl","enable_ipfilter",false))
-            rcon->parseIpFilter(settings->valueString("WebControl","ipfilter"));
-    }
-    else
-    {
-        if (rcon->isRunning())
-        {
-            rcon->Stop();
-        }
-    }
-    //qDebug() << "TorrentTracker enabled" << settings->valueBool("TorrentTracker","enabled",false);
-    if (settings->valueBool("TorrentTracker","enabled",false))
-    {
-        tracker->start();
-    }
-    else
-    {
-        if (tracker->isRunning())
-            tracker->stop();
-    }
+
     searchSources = settings->GetSearchSources();
     searchSource->clear();
     for(int i=0;i<searchSources.size();i++)
@@ -882,10 +862,11 @@ CuteTorrent::~CuteTorrent()
     settings->setValue("Window","maximized", isMaximized());
     settings->setValue("Window","selected_tab", tabWidget->currentIndex());
     //qDebug() << "CuteTorrent::~CuteTorrent";
+    TorrentTracker::freeInstance();
     RconWebService::freeInstance();
     trayIcon->hide();
     TorrentManager::freeInstance();
-    delete tracker;
+
     delete model;
     Scheduller::freeInstance();
     //qDebug() << "QApplicationSettings::FreeInstance() from CuteTorrent::~CuteTorren";

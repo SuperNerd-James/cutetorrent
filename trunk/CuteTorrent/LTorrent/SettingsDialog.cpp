@@ -69,6 +69,8 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	previousFocuse=NULL;
 	//qDebug()<<"QApplicationSettings::getInstance from SettingsDialog::SettingsDialog";
 	settings = QApplicationSettings::getInstance();
+    rcon = RconWebService::getInstance();
+    tracker = TorrentTracker::getInstance();
 	FillDTTab();
 	FillFilteringGroups();
 	FillTorrentTab();
@@ -90,6 +92,7 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	runOnbootCheckBox->setChecked(val.length()>0);	
 	startMinimizedCheckBox->setChecked(val.contains("-m"));
 #endif
+
 	//OS_SPECIFICK////
     QString curLoc=Application::currentLocale();
 	foreach (QString avail, Application::availableLanguages())
@@ -466,7 +469,8 @@ void SettingsDialog::FillDTTab()
 
 void SettingsDialog::FillWebUITab()
 {
-	webUIGroupBox->setChecked(settings->valueBool("WebControl","webui_enabled",false));
+    bool enabled  = settings->valueBool("WebControl","webui_enabled",false);
+    webUIGroupBox->setChecked(enabled);
 	loginLineEdit->setText(settings->valueString("WebControl","webui_login"));
 	passwordLineEdit->setText(settings->valueString("WebControl","webui_password"));
 	webPortLineEdit->setText(settings->valueString("WebControl","port","8080"));
@@ -475,12 +479,12 @@ void SettingsDialog::FillWebUITab()
 	logLineEdit->setText(settings->valueString("WebControl","log_name"));
 	IPFilterGroupBox->setChecked(settings->valueBool("WebControl","enable_ipfilter",false));
 	ipFilterTextEdit->setText(settings->valueString("WebControl","ipfilter"));
-	RconWebService* svc = RconWebService::getInstance();
-	bool isRunning=svc->isRunning();
-	RunningLabel->setEnabled(isRunning);
-	startRconButton->setEnabled(!isRunning);
-	stopRconButton->setEnabled(isRunning);
-	RconWebService::freeInstance();
+
+    bool isRunning=rcon->isRunning();
+    RunningLabel->setEnabled(isRunning && enabled);
+    startRconButton->setEnabled(!isRunning && enabled);
+    stopRconButton->setEnabled(isRunning && enabled);
+
 	
 }
 
@@ -499,6 +503,8 @@ void SettingsDialog::showSelectedGroup(int row)
 }
 SettingsDialog::~SettingsDialog() 
 {
+    RconWebService::freeInstance();
+    TorrentTracker::freeInstance();
 	//qDebug()<<"QApplicationSettings::FreeInstance from SettingsDialog::~SettingsDialog";
 	QApplicationSettings::FreeInstance();
 }
@@ -611,6 +617,30 @@ void SettingsDialog::ApplySettings()
 	else
 		bootUpSettings.remove("CuteTorrent");
 #endif
+    if (settings->valueBool("WebControl","webui_enabled",false))
+    {
+        rcon->Start();
+        if (settings->valueBool("WebControl","enable_ipfilter",false))
+            rcon->parseIpFilter(settings->valueString("WebControl","ipfilter"));
+    }
+    else
+    {
+        if (rcon->isRunning())
+        {
+            rcon->Stop();
+        }
+    }
+    //qDebug() << "TorrentTracker enabled" << settings->valueBool("TorrentTracker","enabled",false);
+    if (settings->valueBool("TorrentTracker","enabled",false))
+    {
+        tracker->start();
+    }
+    else
+    {
+        if (tracker->isRunning())
+            tracker->stop();
+    }
+    FillWebUITab();
 	int curLocaleIndex=localeComboBox->currentIndex();
     Application::setLanguage(localeComboBox->currentText());
     Application::setLanguageQt("qt_"+localeComboBox->currentText());

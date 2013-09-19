@@ -8,11 +8,16 @@ class TorrentTracker : public QObject
 {
     Q_OBJECT
 private:
+    static TorrentTracker *instance;
+    static int instanceCount;
     HttpListener* httpServer;
     TrackerRequestHandler* requestHandler;
-public:
+protected:
     explicit TorrentTracker(QObject *parent = 0);
     ~TorrentTracker();
+public:
+    static TorrentTracker* getInstance();
+    static void freeInstance();
     bool isRunning();
     void start();
     void stop();
