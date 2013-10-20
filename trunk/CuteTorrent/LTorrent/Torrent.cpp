@@ -499,7 +499,7 @@ QString Torrent::GetSavePath()
 {
 	try
 	{
-		return QString::fromUtf8(cur_torrent.save_path().c_str())/*+GetName()*/;
+        return QDir(QString::fromUtf8(cur_torrent.save_path().c_str())).absolutePath()/*+GetName()*/;
 	}
 	catch (...)
 	{
@@ -511,7 +511,7 @@ QString Torrent::GetTotalUploaded() const
 {
 	try
 	{
-		return StaticHelpers::toKbMbGb(cur_torrent.status().all_time_upload);
+        return StaticHelpers::toKbMbGb(cur_torrent.status(torrent_handle::query_accurate_download_counters).all_time_upload);
 	}
 	catch (...)
 	{
@@ -560,7 +560,8 @@ QString Torrent::GetSeedString()
 {
 	try
 	{
-		return QObject::tr("CT_CONNECTED %1 CT_FROM %2").arg(cur_torrent.status(torrent_handle::query_accurate_download_counters).num_seeds).arg(cur_torrent.status(torrent_handle::query_accurate_download_counters).list_seeds);
+        torrent_status status = cur_torrent.status(torrent_handle::query_accurate_download_counters);
+        return QObject::tr("CT_CONNECTED %1 CT_FROM %2").arg(status.num_seeds).arg(status.list_seeds);
 	}
 	catch (...)
 	{
@@ -572,7 +573,8 @@ QString Torrent::GetPeerString()
 {
 	try
 	{
-		return QObject::tr("CT_CONNECTED %1 CT_FROM %2").arg(cur_torrent.status(torrent_handle::query_accurate_download_counters).num_peers).arg(cur_torrent.status(torrent_handle::query_accurate_download_counters).list_peers);
+        torrent_status status = cur_torrent.status(torrent_handle::query_accurate_download_counters);
+        return QObject::tr("CT_CONNECTED %1 CT_FROM %2").arg(status.num_peers).arg(status.list_peers);
 	}
 	catch (...)
 	{
@@ -586,18 +588,19 @@ QString Torrent::GetRemainingTime()
 	QString res;
 	try
 	{
-		if (isSeeding() || isPaused())
-			{
-				res.append(QChar(8734));
-				return res;
-			}
-			if (cur_torrent.status(torrent_handle::query_accurate_download_counters).download_rate < 1024*10)
-				res.append(QChar(8734));
-			else
-			{
-				int time=(cur_torrent.get_torrent_info().total_size()-cur_torrent.status(torrent_handle::query_accurate_download_counters).all_time_download) / cur_torrent.status(torrent_handle::query_accurate_download_counters).download_rate;
-				res = StaticHelpers::toTimeString(time);
-			}
+        if (isSeeding() || isPaused())
+        {
+            res.append(QChar(8734));
+            return res;
+        }
+        torrent_status status = cur_torrent.status(torrent_handle::query_accurate_download_counters);
+        if (status.download_rate < 1024*10)
+            res.append(QChar(8734));
+        else
+        {
+            int time=size*(1.0f-status.progress_ppm/1000000.f) / status.download_rate;
+            res = StaticHelpers::toTimeString(time);
+        }
 	}	
 	catch (...)
 	{

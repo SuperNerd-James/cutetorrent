@@ -180,10 +180,219 @@
       <string notr="true"/>
      </property>
      <layout class="QGridLayout" name="gridLayout_4">
-      <property name="horizontalSpacing">
+      <property name="leftMargin">
+       <number>6</number>
+      </property>
+      <property name="topMargin">
        <number>0</number>
       </property>
-      <item row="0" column="1" colspan="4">
+      <property name="rightMargin">
+       <number>6</number>
+      </property>
+      <property name="bottomMargin">
+       <number>6</number>
+      </property>
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item row="0" column="0">
+       <widget class="QListWidget" name="listWidget">
+        <property name="minimumSize">
+         <size>
+          <width>154</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">
+ QListView {
+    border: none; 
+    border-right: 1px solid #909090; 
+	background-color: transparent;
+     show-decoration-selected: 1; /* make the selection span the entire width of the view */
+ }
+ QListView::item {
+    
+    width:100%;
+	min-height:30px;
+  	background-color: transparent;
+  
+  
+ }
+ QListView::item:alternate {
+     background: #EEEEEE;
+ }
+
+ QListView::item:selected {
+	color: rgb(0, 0, 0);
+	position: absolute;
+    left:2px;
+     border: 1px solid #909090;
+   border-right:none;
+ }
+
+ QListView::item:selected:!active {
+     background: ;
+ }
+
+ QListView::item:selected:active {
+     background: ;
+ }
+
+ QListView::item:hover {
+      background: ;
+ }</string>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="currentRow">
+         <number>0</number>
+        </property>
+        <item>
+         <property name="text">
+          <string>TAB_TORRENT</string>
+         </property>
+         <property name="icon">
+          <iconset resource="ltorrent.qrc">
+           <normaloff>:/icons/torrent-settings.ico</normaloff>:/icons/torrent-settings.ico</iconset>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>TAB_HDD</string>
+         </property>
+         <property name="icon">
+          <iconset resource="ltorrent.qrc">
+           <normaloff>:/icons/hdd.ico</normaloff>:/icons/hdd.ico</iconset>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>TAB_TORRENT_FILTERING</string>
+         </property>
+         <property name="icon">
+          <iconset resource="ltorrent.qrc">
+           <normaloff>:/icons/filtering.ico</normaloff>:/icons/filtering.ico</iconset>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>TAB_DAEMONTOOLS</string>
+         </property>
+         <property name="icon">
+          <iconset resource="ltorrent.qrc">
+           <normaloff>:/icons/dt-settings.ico</normaloff>:/icons/dt-settings.ico</iconset>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>TAB_SCEDULER</string>
+         </property>
+         <property name="icon">
+          <iconset resource="ltorrent.qrc">
+           <normaloff>:/icons/schedule.ico</normaloff>:/icons/schedule.ico</iconset>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>TAB_WEB_CONTROL</string>
+         </property>
+         <property name="icon">
+          <iconset resource="ltorrent.qrc">
+           <normaloff>:/icons/webControll.ico</normaloff>:/icons/webControll.ico</iconset>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>TAB_SEARCH</string>
+         </property>
+         <property name="icon">
+          <iconset resource="ltorrent.qrc">
+           <normaloff>:/icons/search.ico</normaloff>:/icons/search.ico</iconset>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>330</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="1">
+       <spacer name="horizontalSpacer_2">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="1" column="2">
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <property name="spacing">
+         <number>9</number>
+        </property>
+        <item>
+         <widget class="QPushButton" name="OKButton">
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>SETTINGS_OK_BITTON</string>
+          </property>
+          <property name="default">
+           <bool>false</bool>
+          </property>
+          <property name="flat">
+           <bool>false</bool>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="cancelButton">
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>SETTINGS_CANCEL_BUTTON</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="applyButton">
+          <property name="maximumSize">
+           <size>
+            <width>80</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>SETTINGS_ACCEPT_BUTTON</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item row="0" column="1" colspan="2">
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="styleSheet">
          <string notr="true">QStackedWidget{
@@ -192,7 +401,7 @@ border-left:none;
 }</string>
         </property>
         <property name="currentIndex">
-         <number>5</number>
+         <number>0</number>
         </property>
         <widget class="QWidget" name="page_3">
          <layout class="QGridLayout" name="gridLayout_22">
@@ -526,42 +735,33 @@ border-left:none;
         </widget>
         <widget class="QWidget" name="page_4">
          <layout class="QGridLayout" name="gridLayout_23">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_19">
+          <item row="4" column="0">
+           <widget class="QCheckBox" name="lockFilesCheckBox">
             <property name="whatsThis">
-             <string>DISK_IO_CASH_MODE_WIT</string>
+             <string>LOCK_FILES_WIT</string>
             </property>
             <property name="text">
-             <string>DISK_IO_CASH_MODE</string>
+             <string>LOCK_FILES</string>
             </property>
            </widget>
           </item>
-          <item row="0" column="1" colspan="2">
-           <widget class="QComboBox" name="diskIOCasheModeComboBox">
-            <item>
-             <property name="text">
-              <string>ENABLE_OS_CACHE</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>DISABLE_OS_CACHE_FOR_ALIGNED_FILES</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>DISABLE_OS_CACHE</string>
-             </property>
-            </item>
-           </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_20">
+          <item row="3" column="1">
+           <widget class="QCheckBox" name="useReadCasheCheckBox">
             <property name="whatsThis">
-             <string>CASH_SIZE_WIT</string>
+             <string>USE_READ_CASHE_WIT</string>
             </property>
             <property name="text">
-             <string>CASH_SIZE</string>
+             <string>USE_READ_CASHE</string>
+            </property>
+           </widget>
+          </item>
+          <item row="3" column="0">
+           <widget class="QCheckBox" name="lowPrioDiskCheckBox">
+            <property name="whatsThis">
+             <string>LOW_PORIO_DISK_WIT</string>
+            </property>
+            <property name="text">
+             <string>LOW_PORIO_DISK</string>
             </property>
            </widget>
           </item>
@@ -581,6 +781,35 @@ border-left:none;
             </property>
            </widget>
           </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="diskIOCasheModeComboBox">
+            <item>
+             <property name="text">
+              <string>ENABLE_OS_CACHE</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>DISABLE_OS_CACHE_FOR_ALIGNED_FILES</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>DISABLE_OS_CACHE</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_19">
+            <property name="whatsThis">
+             <string>DISK_IO_CASH_MODE_WIT</string>
+            </property>
+            <property name="text">
+             <string>DISK_IO_CASH_MODE</string>
+            </property>
+           </widget>
+          </item>
           <item row="2" column="0">
            <widget class="QCheckBox" name="useDiskReadAheadCheckBox">
             <property name="whatsThis">
@@ -588,6 +817,16 @@ border-left:none;
             </property>
             <property name="text">
              <string>USE_DISK_READ_AHEAD</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_20">
+            <property name="whatsThis">
+             <string>CASH_SIZE_WIT</string>
+            </property>
+            <property name="text">
+             <string>CASH_SIZE</string>
             </property>
            </widget>
           </item>
@@ -601,35 +840,18 @@ border-left:none;
             </property>
            </widget>
           </item>
-          <item row="2" column="2">
-           <widget class="QCheckBox" name="lockFilesCheckBox">
-            <property name="whatsThis">
-             <string>LOCK_FILES_WIT</string>
+          <item row="5" column="0" colspan="3">
+           <spacer name="verticalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
             </property>
-            <property name="text">
-             <string>LOCK_FILES</string>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
             </property>
-           </widget>
-          </item>
-          <item row="3" column="0">
-           <widget class="QCheckBox" name="lowPrioDiskCheckBox">
-            <property name="whatsThis">
-             <string>LOW_PORIO_DISK_WIT</string>
-            </property>
-            <property name="text">
-             <string>LOW_PORIO_DISK</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="1">
-           <widget class="QCheckBox" name="useReadCasheCheckBox">
-            <property name="whatsThis">
-             <string>USE_READ_CASHE_WIT</string>
-            </property>
-            <property name="text">
-             <string>USE_READ_CASHE</string>
-            </property>
-           </widget>
+           </spacer>
           </item>
          </layout>
         </widget>
@@ -1263,196 +1485,6 @@ p, li { white-space: pre-wrap; }
          </layout>
         </widget>
        </widget>
-      </item>
-      <item row="1" column="3">
-       <widget class="QPushButton" name="cancelButton">
-        <property name="maximumSize">
-         <size>
-          <width>80</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>SETTINGS_CANCEL_BUTTON</string>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="1">
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="1" column="2">
-       <widget class="QPushButton" name="OKButton">
-        <property name="maximumSize">
-         <size>
-          <width>80</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>SETTINGS_OK_BITTON</string>
-        </property>
-        <property name="default">
-         <bool>false</bool>
-        </property>
-        <property name="flat">
-         <bool>false</bool>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="4">
-       <widget class="QPushButton" name="applyButton">
-        <property name="maximumSize">
-         <size>
-          <width>80</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="text">
-         <string>SETTINGS_ACCEPT_BUTTON</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <widget class="QListWidget" name="listWidget">
-        <property name="minimumSize">
-         <size>
-          <width>154</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">
- QListView {
-    border: none; 
-    border-right: 1px solid #909090; 
-	background-color: transparent;
-     show-decoration-selected: 1; /* make the selection span the entire width of the view */
- }
- QListView::item {
-    
-    width:100%;
-	min-height:30px;
-  	background-color: transparent;
-  
-  
- }
- QListView::item:alternate {
-     background: #EEEEEE;
- }
-
- QListView::item:selected {
-	color: rgb(0, 0, 0);
-	position: absolute;
-    left:2px;
-     border: 1px solid #909090;
-   border-right:none;
- }
-
- QListView::item:selected:!active {
-     background: ;
- }
-
- QListView::item:selected:active {
-     background: ;
- }
-
- QListView::item:hover {
-      background: ;
- }</string>
-        </property>
-        <property name="editTriggers">
-         <set>QAbstractItemView::NoEditTriggers</set>
-        </property>
-        <property name="currentRow">
-         <number>0</number>
-        </property>
-        <item>
-         <property name="text">
-          <string>TAB_TORRENT</string>
-         </property>
-         <property name="icon">
-          <iconset resource="ltorrent.qrc">
-           <normaloff>:/icons/torrent-settings.ico</normaloff>:/icons/torrent-settings.ico</iconset>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>TAB_HDD</string>
-         </property>
-         <property name="icon">
-          <iconset resource="ltorrent.qrc">
-           <normaloff>:/icons/hdd.ico</normaloff>:/icons/hdd.ico</iconset>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>TAB_TORRENT_FILTERING</string>
-         </property>
-         <property name="icon">
-          <iconset resource="ltorrent.qrc">
-           <normaloff>:/icons/filtering.ico</normaloff>:/icons/filtering.ico</iconset>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>TAB_DAEMONTOOLS</string>
-         </property>
-         <property name="icon">
-          <iconset resource="ltorrent.qrc">
-           <normaloff>:/icons/dt-settings.ico</normaloff>:/icons/dt-settings.ico</iconset>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>TAB_SCEDULER</string>
-         </property>
-         <property name="icon">
-          <iconset resource="ltorrent.qrc">
-           <normaloff>:/icons/schedule.ico</normaloff>:/icons/schedule.ico</iconset>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>TAB_WEB_CONTROL</string>
-         </property>
-         <property name="icon">
-          <iconset resource="ltorrent.qrc">
-           <normaloff>:/icons/webControll.ico</normaloff>:/icons/webControll.ico</iconset>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>TAB_SEARCH</string>
-         </property>
-         <property name="icon">
-          <iconset resource="ltorrent.qrc">
-           <normaloff>:/icons/search.ico</normaloff>:/icons/search.ico</iconset>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>330</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
       </item>
      </layout>
     </widget>

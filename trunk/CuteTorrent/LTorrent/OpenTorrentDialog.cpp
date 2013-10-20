@@ -426,7 +426,16 @@ void OpenTorrentDialog::SetData(QString filename)
 					}
 				}
 				if (selected>=0)
-				GroupComboBox->setCurrentIndex(selected);
+                {
+                    GroupComboBox->setCurrentIndex(selected);
+                }
+                else
+                {
+                    QApplicationSettings* settings=QApplicationSettings::getInstance();
+                    QString lastDir=settings->valueString("System","LastSaveTorrentDir");
+                    pathEdit->setText(lastDir);
+                    QApplicationSettings::FreeInstance();
+                }
 				//qDebug() << "QApplicationSettings::FreeInstance from OpenTorrentDialog::SetData";
 				QApplicationSettings::FreeInstance();
 			} 
@@ -445,7 +454,7 @@ void OpenTorrentDialog::BrowseButton()
 {
 	//qDebug() << "QApplicationSettings::getInstance from OpenTorrentDialog::BrowseButton";
 	QApplicationSettings* settings=QApplicationSettings::getInstance();
-	QString lastDir=settings->valueString("System","LastSaveTorrentDir");
+    QString lastDir=pathEdit->text();
 	QString dir = QFileDialog::getExistingDirectory(this, tr("DIALOF_OPEN_DIR"),
                                              lastDir,
                                              QFileDialog::ShowDirsOnly

@@ -25,8 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #define VERSION_MAJOR		0
 #define VERSION_MINOR		9
-#define VERSION_REVISION	0
-#define VERSION_TAG			9
+#define VERSION_REVISION	1
+#define VERSION_TAG			3
 
 
 #define QU(x) #x

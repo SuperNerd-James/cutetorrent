@@ -186,6 +186,12 @@ std::vector<torrent_status> TorrentManager::GetTorrents()
 }
 void TorrentManager::handle_alert(alert* a)
 {
+    QString dataDir;
+#ifdef Q_WS_MAC
+    dataDir="/Library/CuteTorrent/";
+#else
+    dataDir = QApplication::applicationDirPath()+QDir::separator();
+#endif
 	switch(a->type())
 	{
 		case torrent_finished_alert::alert_type:
@@ -206,7 +212,7 @@ void TorrentManager::handle_alert(alert* a)
 			{
 				std::vector<char> out;
 				bencode(std::back_inserter(out), *p->resume_data);
-				save_file( combine_path("CT_DATA", to_hex(h.info_hash().to_string()) + ".resume"), out);
+                save_file( combine_path((dataDir+"CT_DATA").toStdString(), to_hex(h.info_hash().to_string()) + ".resume"), out);
 			}
 			break;
 		}
@@ -258,7 +264,7 @@ void TorrentManager::handle_alert(alert* a)
 				{
 					torrent_info const& ti = h.get_torrent_info();
 					create_torrent ct(ti);
-					std::ofstream out(complete(combine_path("CT_DATA",to_hex(ti.info_hash().to_string()) + ".torrent")).c_str(), std::ios_base::binary);
+                    std::ofstream out(complete(combine_path((dataDir+"CT_DATA").toStdString(),to_hex(ti.info_hash().to_string()) + ".torrent")).c_str(), std::ios_base::binary);
 					bencode(std::ostream_iterator<char>(out), ct.generate());
 				}
 				catch (...)
@@ -618,6 +624,7 @@ void TorrentManager::writeSettings()
 }
 void TorrentManager::onClose()
 {
+
 	writeSettings();
 	int num_outstanding_resume_data = 0;
 	std::vector<torrent_status> temp;
@@ -645,7 +652,12 @@ void TorrentManager::onClose()
 		
 	}
 	//qDebug() << "waiting for resume data " << num_outstanding_resume_data << "\n";
-
+    QString dataDir;
+#ifdef Q_WS_MAC
+    dataDir="/Library/CuteTorrent/";
+#else
+    dataDir = QApplication::applicationDirPath()+QDir::separator();
+#endif
 	while (num_outstanding_resume_data > 0)
 	{
         alert const* a = ses->wait_for_alert(seconds(10));
@@ -682,7 +694,7 @@ void TorrentManager::onClose()
 			std::vector<char> out;
 			bencode(std::back_inserter(out), *rd->resume_data);
 			//qDebug() << "Saving fast resume for "+QString::fromStdString(h.name());
-			save_file( combine_path("CT_DATA", to_hex(h.info_hash().to_string()) + ".resume"), out);
+            save_file( combine_path((dataDir+"CT_DATA").toStdString(), to_hex(h.info_hash().to_string()) + ".resume"), out);
 		}
 	}
 
@@ -693,7 +705,7 @@ void TorrentManager::onClose()
 
 		std::vector<char> out;
 		bencode(std::back_inserter(out), session_state);
-		save_file("CT_DATA/actual.state", out);
+        save_file((dataDir+"CT_DATA").toStdString()+"/actual.state", out);
 	}
     UpdatePathResumeAndLinks();
     ses->abort();
