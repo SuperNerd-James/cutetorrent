@@ -270,21 +270,20 @@ void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionVie
     }
 	
     QIcon::Mode im;
-    /*if( isPaused || !(option.state & QStyle::State_Enabled ) ) im = QIcon::Disabled;
+    if( isPaused || !(option.state & QStyle::State_Enabled ) ) im = QIcon::Disabled;
     else if( option.state & QStyle::State_Selected ) im = QIcon::Selected;
-    else*/ im = QIcon::Normal;
+    else im = QIcon::Normal;
 
     QIcon::State qs;
-   /* if( isPaused ) qs = QIcon::Off;
-    else*/ qs = QIcon::On;
+    if( isPaused ) qs = QIcon::Off;
+    else qs = QIcon::On;
 
     QPalette::ColorGroup cg = QPalette::Normal;
-   /* if( isPaused || !(option.state & QStyle::State_Enabled ) ) cg = QPalette::Disabled;
-    if( cg == QPalette::Normal && !(option.state & QStyle::State_Active ) ) cg = QPalette::Inactive;*/
+    if( isPaused || !(option.state & QStyle::State_Enabled ) ) cg = QPalette::Disabled;
+    if( cg == QPalette::Normal && !(option.state & QStyle::State_Active ) ) cg = QPalette::Inactive;
 
     QPalette::ColorRole cr;
-/*    if( option.state & QStyle::State_Selected ) cr = QPalette::HighlightedText;
-    else */cr = QPalette::Text;
+    cr = QPalette::Text;
 
     QStyle::State progressBarState( option.state );
     if( isPaused ) progressBarState = QStyle::State_None;
@@ -332,7 +331,7 @@ void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionVie
             // Customize style using style-sheet..
 
     QString stylestr = "QProgressBar { border: 1px solid #909090; ; }";
-    stylestr += QString("QProgressBar::chunk { background-color: #") + ( progressPercentage < 100 ? "51D331" : "3291d4" )+ "; width: 20px; }";
+    stylestr += QString("QProgressBar::chunk { background-color: #") + (isPaused ? "ACACAC" : ( progressPercentage < 100 ? "51D331" : "3291d4" ) )+ "; width: 20px; }";
     myProgressBarStyle->resize(barArea.size());
 
     myProgressBarStyle->setValue(progressPercentage);
@@ -341,6 +340,7 @@ void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionVie
 
     painter->translate(barArea.topLeft());
     myProgressBarStyle->render(painter);
+
 
     /*myProgressBarStyle->rect = barArea;
 	if ( tor.isDownloading() ) {

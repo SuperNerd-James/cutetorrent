@@ -161,6 +161,7 @@ void CuteTorrent::setupTabelWidgets()
 {
     trackerTableWidget->verticalHeader()->hide();
     trackerTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+    trackerTableWidget->setColumnWidth(0,420);
     trackerTableWidget->setColumnWidth(2,120);
     trackerTableWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
     addTracker = new QAction(QIcon(":/MenuIcons/addTorrent.ico"),tr("ADD_TRACKER"),trackerTableWidget);
@@ -185,6 +186,7 @@ void CuteTorrent::setupTabelWidgets()
     peerTableWidget->verticalHeader()->hide();
     peerTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     peerTableWidget->setSortingEnabled(true);
+    peerTableWidget->setColumnWidth(2,50);
     peerTableWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
     addPeer = new QAction(QIcon(":/MenuIcons/addTorrent.ico"),tr("ADD_PEER"),peerTableWidget);
     QObject::connect(addPeer,SIGNAL(triggered()),this,SLOT(AddPeer()));
@@ -888,7 +890,7 @@ void CuteTorrent::setupFileTabel()
     fileTableView->setItemDelegateForColumn(2,new ProgressItemDelegate(this));
     fileTableView->setItemDelegateForColumn(3,new PriorityItemDelegate(this));
     fileTableView->setSortingEnabled(true);
-    fileTableView->setColumnWidth(0,300);
+    fileTableView->setColumnWidth(0,480);
     fileTableView->setColumnWidth(1,65);
     fileTableView->setColumnWidth(2,65);
     fileTableView->setColumnWidth(3,70);

@@ -167,14 +167,14 @@ void QTorrentDisplayModel::contextualMenu(const QPoint & point)
 		{
 			
 			
-            /*if (!torrent->isDaemonToolsMountable() || !torrent->isSeeding())
+            if (!torrent->isDaemonToolsMountable() || !torrent->isSeeding())
 			{
 				DTmount->setEnabled(false);
 			}
 			else
-            {*/
+            {
 				DTmount->setEnabled(true);
-            //}
+            }
 			if (!torrent->isSuperSeed())
 			{
 				superSeed->setChecked(false);

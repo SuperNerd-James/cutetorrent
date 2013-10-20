@@ -29,5 +29,5 @@ void MetaDataDownloadWaiter::run()
 	{
         _tManager->AddMagnet(h,QString::fromStdString(h.save_path()),"",QMap<QString,qint32>());
 	}
-	this->deleteLater();
+    //this->deleteLater();
 }

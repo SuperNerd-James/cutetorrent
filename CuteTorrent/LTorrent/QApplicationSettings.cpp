@@ -303,10 +303,16 @@ void QApplicationSettings::setSearchSources(QList<SearchItem> searchSources)
 
 void QApplicationSettings::SaveSchedullerQueue( QList<SchedulerTask> &tasks)
 {
-	QFile file("CT_DATA/schedulertasks.xml");
+    QString dataDir;
+#ifdef Q_WS_MAC
+    dataDir="/Library/CuteTorrent/";
+#else
+    dataDir = QApplication::applicationDirPath()+QDir::separator();
+#endif
+    QFile file(dataDir+"CT_DATA/schedulertasks.xml");
 	if (!file.open(QFile::WriteOnly))
 	{
-		QMessageBox::warning(NULL,"","Error open fro writing CT_DATA/schedulertasks.xml");
+        QMessageBox::warning(NULL,"","Error open for writing CT_DATA/schedulertasks.xml");
 		return;
 	}
 	QXmlStreamWriter xml(&file);
