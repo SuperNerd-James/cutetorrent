@@ -26,20 +26,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QString>
 #include <QStringList>
 #include <QMap>
+#include <QSettings>
 
 #define BOOST_ASIO_SEPARATE_COMPILATION
+#ifndef Q_MOC_RUN
 #include "libtorrent/config.hpp"
-#include <QSettings>
-#ifdef _MSC_VER
-#pragma warning(push, 1)
-#endif
+
 
 #include <boost/bind.hpp>
 #include <boost/unordered_set.hpp>
-
-#ifdef _MSC_VER
-#pragma warning(pop)
-#endif
 
 #include "libtorrent/extensions/metadata_transfer.hpp"
 #include "libtorrent/extensions/ut_metadata.hpp"
@@ -62,7 +57,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "libtorrent/create_torrent.hpp"
 #include "libtorrent/file_pool.hpp"
 using boost::bind;
-
+using namespace libtorrent;
+#endif
 #ifdef _WIN32
 
 #if defined(_MSC_VER)
@@ -85,7 +81,7 @@ using boost::bind;
 #endif
 
 
-using namespace libtorrent;
+
 
 #include "QApplicationSettings.h"
 #include "Torrent.h"

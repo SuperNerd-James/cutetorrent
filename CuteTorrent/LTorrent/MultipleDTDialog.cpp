@@ -74,7 +74,6 @@ void MultipleDTDialog::changeEvent( QEvent *event )
 
 void MultipleDTDialog::setupCustomWindow()
 {
-    setAttribute(Qt::WA_DeleteOnClose);
     setWindowFlags(Qt::CustomizeWindowHint);
     setWindowFlags(Qt::FramelessWindowHint);
 

@@ -31,6 +31,7 @@ MediaController::MediaController(Phonon::VideoWidget *parent) :
 QObject(parent)
 {
     m_media = new Phonon::MediaObject(this);
+    mediaController = new Phonon::MediaController(m_media);
 	connect(m_media,SIGNAL(stateChanged(Phonon::State, Phonon::State)),SLOT(updateStateStatus(Phonon::State, Phonon::State)));
 	connect(m_media,SIGNAL(aboutToFinish()),SLOT(forvard()));
 	m_AudioOutput = new Phonon::AudioOutput(Phonon::VideoCategory);
@@ -123,7 +124,7 @@ void MediaController::playSource(const Phonon::MediaSource &s)
 {
     m_media->setCurrentSource(s);
     m_media->play();
-	
+    qDebug() << "availableAudioChannels" << mediaController->availableAudioChannels() << "availableSubtitles" << mediaController->availableSubtitles();
 	
 }
 

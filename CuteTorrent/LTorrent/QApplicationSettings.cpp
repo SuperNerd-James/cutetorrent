@@ -122,6 +122,29 @@ int QApplicationSettings::valueInt(const QString group,const QString key,int def
 
 
 }
+
+QMap<QString, QVariant> QApplicationSettings::getGroupValues(QString group)
+{
+    settings->beginGroup(group);
+    QStringList keys = settings->childKeys();
+    QMap<QString, QVariant> result;
+    foreach(QString key,keys)
+    {
+        result.insert(key,settings->value(key));
+    }
+    settings->endGroup();
+    return result;
+}
+void QApplicationSettings::setGroupValues(QString group,QMap<QString, QVariant> values)
+{
+    settings->beginGroup(group);
+    QStringList keys = values.keys();
+    foreach(QString key,keys)
+    {
+        settings->setValue(key,values[key]);
+    }
+    settings->endGroup();
+}
 QString	QApplicationSettings::valueString(const QString group,const QString key,QString defalt)
 {
 	QVariant val=value(group,key,defalt);

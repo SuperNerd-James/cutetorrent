@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMouseEvent>
 #include <QPainter>
 #define PIXELS_TO_ACT 2
-OpenTorrentDialog::OpenTorrentDialog(QWidget *parent, Qt::WFlags flags) : useGroup(false)
+OpenTorrentDialog::OpenTorrentDialog(QWidget *parent, Qt::WindowFlags flags) : useGroup(false)
 {
 	setupUi(this);
 	setupGroupComboBox();
@@ -36,7 +36,7 @@ OpenTorrentDialog::OpenTorrentDialog(QWidget *parent, Qt::WFlags flags) : useGro
 	QTextCodec *wantUnicode = QTextCodec::codecForName("UTF-8");
 	/*QTextCodec::setCodecForTr(wantUnicode);
 	QTextCodec::setCodecForLocale(wantUnicode);*/
-	QTextCodec::setCodecForCStrings(wantUnicode);
+    QTextCodec::setCodecForLocale(wantUnicode);
 	
 }
 void OpenTorrentDialog::setupGroupComboBox()

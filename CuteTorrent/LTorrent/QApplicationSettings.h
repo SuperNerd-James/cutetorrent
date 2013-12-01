@@ -56,6 +56,8 @@ public:
 	void SaveSchedullerQueue(QList<SchedulerTask>&);
 	void setValue(const QString group, const QString key, const QVariant &value);
 	int valueInt(const QString group,const QString key, int defalt = 0);
+    QMap<QString,QVariant> getGroupValues(QString group);
+    void setGroupValues(QString group,QMap<QString,QVariant> values);
 	QString valueString(const QString group,const QString key,QString defalt = "");
 	bool valueBool(const QString group,const QString key,bool defalt=true);
 

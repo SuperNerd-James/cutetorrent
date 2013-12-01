@@ -17,6 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "QTorrentDisplayModel.h"
+#include <QClipboard>
 #include "QApplicationSettings.h"
 #include <QProcess>
 #include <QItemSelectionModel>
@@ -28,15 +29,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "MultipleDTDialog.h"
 #include "VideoPlayer/VideoPlayerWindow.h"
 #include "DT_mounter.h"
+#include "CuteTorrent.h"
 
-
-QTorrentDisplayModel::QTorrentDisplayModel(QListView* _parrent,QObject* __parrent):QAbstractListModel(__parrent)
+QTorrentDisplayModel::QTorrentDisplayModel(CuteTorrent* _mainWindow,QListView* _parrent,QObject* __parrent):QAbstractListModel(__parrent)
 {
+    mainWindow = _mainWindow;
 	parrent=_parrent;
 	mgr = TorrentManager::getInstance();
 	torrents = TorrentStorrage::getInstance();
-	auto_id=0;
-	selectedRow=-1;
+    selectedRow=-1;
 	setupContextMenu();
 	
 	locker = new QMutex();
@@ -169,29 +170,29 @@ void QTorrentDisplayModel::contextualMenu(const QPoint & point)
 			
             if (!torrent->isDaemonToolsMountable() || !torrent->isSeeding())
 			{
-				DTmount->setEnabled(false);
+                DTmount->setEnabled(false);
 			}
 			else
             {
-				DTmount->setEnabled(true);
+                DTmount->setEnabled(true);
             }
 			if (!torrent->isSuperSeed())
 			{
-				superSeed->setChecked(false);
+                superSeed->setChecked(false);
 			}
 			else
 			{
-				superSeed->setChecked(true);
+                superSeed->setChecked(true);
 			}
 			if (!torrent->hasMediaFiles())
 			{
-				PlayInPlayer->setEnabled(false);
+                PlayInPlayer->setEnabled(false);
 			}
 			else
 			{
-				if (!PlayInPlayer->isEnabled())
+                if (!PlayInPlayer->isEnabled())
 				{
-					PlayInPlayer->setEnabled(true);
+                    PlayInPlayer->setEnabled(true);
 				}
 			}
 
@@ -205,7 +206,7 @@ void QTorrentDisplayModel::contextualMenu(const QPoint & point)
                 }
             }
 
-			setSequentual->setChecked(torrent->isSquential());
+            setSequentual->setChecked(torrent->isSquential());
 			menu->exec(parrent->mapToGlobal(point));
 		}
 	}
@@ -456,7 +457,7 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 						clipboardData+=torrent->generateMagnetLink();
 						clipboardData+="\n";
 					}
-					QApplication::clipboard()->setText(clipboardData);
+                    QApplication::clipboard()->setText(clipboardData);
 					break;
 				}
 			}
@@ -510,26 +511,27 @@ bool QTorrentDisplayModel::removeRow(int row, bool delFiles)
 	locker->lock();
 	if (torrents->at(row)==CurrentTorrent)
 		CurrentTorrent=NULL;
-    torrents->at( row )->RemoveTorrent(mgr,delFiles);
-  //  torrents->erase(torrents->begin() + row);
+    torrents->at( row )->RemoveTorrent(delFiles);
+
 	locker->unlock();
     return true;
 }
 
 bool QTorrentDisplayModel::removeRows(int row, int count, const QModelIndex &parent)
 {
-    Q_UNUSED(parent);
     if ((row+count > torrents->count()) || (row < 0))
         return false;
     if (rowCount()==0)
         return false;
     selectedRow=-1;
     parrent->selectionModel()->reset();
+    beginRemoveRows(parent,row,row+count);
     for  (int i=row;i<row+count;i++)
     {
         torrents->at( i )->RemoveTorrent(mgr);
-  //    torrents->erase(torrents->begin() + i);
+
     }
+    endRemoveRows();
     return true;
 }
 
@@ -542,17 +544,17 @@ QTorrentDisplayModel::~QTorrentDisplayModel()
 
 void QTorrentDisplayModel::retranslate()
 {
-	openDir->setText(tr("ACTION_OPEN_FOLDER"));
-	DTmount->setText(tr("ACTION_DT_MOUNT"));
-	DelAll->setText(tr("ACTION_DELETE_ALL"));
-	DelTorrentOnly->setText(tr("ACTION_DELETE_TORRENT"));
-	HashRecheck->setText(tr("ACTION_REHASH"));
-	setSequentual->setText(tr("ACTION_SET_SEQUENTIAL"));
-	updateTrackers->setText(tr("ACTION_UPDATE_TRACKERS"));
-	MoveStorrage->setText(tr("ACTION_MOVE_STORRAGE"));
-	PlayInPlayer->setText(tr("ACTION_PLAY_IN_PLAYER"));
-	superSeed->setText(tr("ACTION_SET_SUPERSEED"));
-	GenerateMagnet->setText(tr("ACTION_GENERATE_MAGNET"));
+    openDir->setText(tr("ACTION_OPEN_FOLDER"));
+    DTmount->setText(tr("ACTION_DT_MOUNT"));
+    DelAll->setText(tr("ACTION_DELETE_ALL"));
+    DelTorrentOnly->setText(tr("ACTION_DELETE_TORRENT"));
+    HashRecheck->setText(tr("ACTION_REHASH"));
+    setSequentual->setText(tr("ACTION_SET_SEQUENTIAL"));
+    updateTrackers->setText(tr("ACTION_UPDATE_TRACKERS"));
+    MoveStorrage->setText(tr("ACTION_MOVE_STORRAGE"));
+    PlayInPlayer->setText(tr("ACTION_PLAY_IN_PLAYER"));
+    superSeed->setText(tr("ACTION_SET_SUPERSEED"));
+    GenerateMagnet->setText(tr("ACTION_GENERATE_MAGNET"));
     groupsMenu->setTitle(tr("ACTION_CHANGE_GROUP"));
 }
 
@@ -577,9 +579,9 @@ void QTorrentDisplayModel::playInPlayer()
 {
 	try 
 	{
-		VideoPlayerWindow* vpw = new VideoPlayerWindow(parrent);
+        VideoPlayerWindow* vpw = new VideoPlayerWindow(parrent);
 		vpw->openFile(CurrentTorrent->GetSavePath()+QString::fromStdString(CurrentTorrent->GetFileDownloadInfo().storrage.at(0).path));
-    	vpw->show();
+        vpw->show();
 	
 	}
 	catch(...)
@@ -589,47 +591,58 @@ void QTorrentDisplayModel::playInPlayer()
 void QTorrentDisplayModel::setupContextMenu()
 {
 	menu = new QMenu(parrent);
-	openDir = new QAction(QIcon(":/MenuIcons/open-folder"),tr("ACTION_OPEN_FOLDER"),parrent);
-	QObject::connect(openDir, SIGNAL(triggered()), this, SLOT(OpenDirSelected()));
-	openDir->setShortcut(QKeySequence("Enter"));
-	menu->addAction(openDir);
-	menu->addSeparator();
-    DTmount = new QAction(QIcon(":/icons/my-iso.ico"),tr("ACTION_DT_MOUNT"), parrent);
-	QObject::connect(DTmount, SIGNAL(triggered()), this, SLOT(MountDT()));
-	menu->addAction(DTmount);
-	PlayInPlayer = new QAction(QIcon(":/MenuIcons/play.ico"),tr("ACTION_PLAY_IN_PLAYER"), parrent);
-	QObject::connect(PlayInPlayer, SIGNAL(triggered()), this, SLOT(playInPlayer()));
-	menu->addAction(PlayInPlayer);
-	MoveStorrage = new QAction(QIcon(":/MenuIcons/move-folder.iso"),tr("ACTION_MOVE_STORRAGE"), parrent);
-	QObject::connect(MoveStorrage, SIGNAL(triggered()), this, SLOT(moveStorrage()));
-	menu->addAction(MoveStorrage);
-	menu->addSeparator();
-	superSeed = new QAction(QIcon(":/MenuIcons/super-seed.ico"),tr("ACTION_SET_SUPERSEED"),parrent);
-	superSeed->setCheckable(true);
-	QObject::connect(superSeed, SIGNAL(triggered()), this, SLOT(SetSuperSeed()));
-	menu->addAction(superSeed);
-	HashRecheck = new QAction(QIcon(":/MenuIcons/re-hash.iso"),tr("ACTION_REHASH"), parrent);
-	QObject::connect(HashRecheck, SIGNAL(triggered()), this, SLOT(Rehash()));
-	menu->addAction(HashRecheck);
-	updateTrackers = new QAction(QIcon(":/MenuIcons/update-trackers.ico"),tr("ACTION_UPDATE_TRACKERS"), parrent);
-	QObject::connect(updateTrackers, SIGNAL(triggered()), this, SLOT(UpdateTrackers()));
-	menu->addAction(updateTrackers);
-	setSequentual = new QAction(QIcon(":/MenuIcons/sequntioal-dl.ico"),tr("ACTION_SET_SEQUENTIAL"), parrent);
-	setSequentual->setCheckable(true);
-	QObject::connect(setSequentual, SIGNAL(triggered()), this, SLOT(setSequentualDL()));
-	menu->addAction(setSequentual);
-	GenerateMagnet = new QAction(QIcon(":/MenuIcons/addUrl.ico"),tr("ACTION_GENERATE_MAGNET"), parrent);
-	QObject::connect(GenerateMagnet, SIGNAL(triggered()), this, SLOT(generateMagnetLink()));
-	menu->addAction(GenerateMagnet);
-	menu->addSeparator();
-	DelAll = new QAction(QIcon(":/MenuIcons/delete.ico"),tr("ACTION_DELETE_ALL"), parrent);
-	QObject::connect(DelAll, SIGNAL(triggered()), this, SLOT(DellAll()));
-	DelAll->setShortcut(QKeySequence("Shift+Del"));
-	menu->addAction(DelAll);
-	DelTorrentOnly = new QAction(QIcon(":/MenuIcons/delete.ico"),tr("ACTION_DELETE_TORRENT"), parrent);
-	QObject::connect(DelTorrentOnly, SIGNAL(triggered()), this, SLOT(DellTorrentOnly()));
-	DelTorrentOnly->setShortcut(QKeySequence("Del"));
-	menu->addAction(DelTorrentOnly);
+    openDir = new QAction(QIcon(":/MenuIcons/open-folder"),tr("ACTION_OPEN_FOLDER"),this);
+    openDir->setObjectName("ACTION_OPEN_DIR");
+    QObject::connect(openDir, SIGNAL(triggered()), this, SLOT(OpenDirSelected()));
+    openDir->setShortcut(Qt::Key_Enter);
+    menu->addAction(openDir);
+    menu->addSeparator();
+    DTmount = new QAction(QIcon(":/icons/my-iso.ico"),tr("ACTION_DT_MOUNT"), this);
+    DTmount->setObjectName("ACTION_DT_MOUNT");
+    QObject::connect(DTmount, SIGNAL(triggered()), this, SLOT(MountDT()));
+    menu->addAction(DTmount);
+    PlayInPlayer = new QAction(QIcon(":/MenuIcons/play.ico"),tr("ACTION_PLAY_IN_PLAYER"), this);
+    PlayInPlayer->setObjectName("ACTION_PLAY");
+    QObject::connect(PlayInPlayer, SIGNAL(triggered()), this, SLOT(playInPlayer()));
+    menu->addAction(PlayInPlayer);
+    MoveStorrage = new QAction(QIcon(":/MenuIcons/move-folder.iso"),tr("ACTION_MOVE_STORRAGE"), this);
+    MoveStorrage->setObjectName("ACTION_MOVE_STORRAGE");
+    QObject::connect(MoveStorrage, SIGNAL(triggered()), this, SLOT(moveStorrage()));
+    menu->addAction(MoveStorrage);
+    menu->addSeparator();
+    superSeed = new QAction(QIcon(":/MenuIcons/super-seed.ico"),tr("ACTION_SET_SUPERSEED"),this);
+    superSeed->setObjectName("ACTION_SUPER_SEED");
+    superSeed->setCheckable(true);
+    QObject::connect(superSeed, SIGNAL(triggered()), this, SLOT(SetSuperSeed()));
+    menu->addAction(superSeed);
+    HashRecheck = new QAction(QIcon(":/MenuIcons/re-hash.iso"),tr("ACTION_REHASH"), this);
+    HashRecheck->setObjectName("ACTION_RECHECK");
+    QObject::connect(HashRecheck, SIGNAL(triggered()), this, SLOT(Rehash()));
+    menu->addAction(HashRecheck);
+    updateTrackers = new QAction(QIcon(":/MenuIcons/update-trackers.ico"),tr("ACTION_UPDATE_TRACKERS"), this);
+    updateTrackers->setObjectName("ACTION_UPDATE_TRACKERS");
+    QObject::connect(updateTrackers, SIGNAL(triggered()), this, SLOT(UpdateTrackers()));
+    menu->addAction(updateTrackers);
+    setSequentual = new QAction(QIcon(":/MenuIcons/sequntioal-dl.ico"),tr("ACTION_SET_SEQUENTIAL"), this);
+    setSequentual->setObjectName("ACTION_SET_SEQUNTIAL");
+    setSequentual->setCheckable(true);
+    QObject::connect(setSequentual, SIGNAL(triggered()), this, SLOT(setSequentualDL()));
+    menu->addAction(setSequentual);
+    GenerateMagnet = new QAction(QIcon(":/MenuIcons/addUrl.ico"),tr("ACTION_GENERATE_MAGNET"), this);
+    GenerateMagnet->setObjectName("ACTION_GENERATE_MAGNET");
+    QObject::connect(GenerateMagnet, SIGNAL(triggered()), this, SLOT(generateMagnetLink()));
+    menu->addAction(GenerateMagnet);
+    menu->addSeparator();
+    DelAll = new QAction(QIcon(":/MenuIcons/delete.ico"),tr("ACTION_DELETE_ALL"), this);
+    DelAll->setObjectName("ACTION_DEL_ALL");
+    QObject::connect(DelAll, SIGNAL(triggered()), this, SLOT(DellAll()));
+    DelAll->setShortcut(Qt::Key_Shift|Qt::Key_Delete);
+    menu->addAction(DelAll);
+    DelTorrentOnly = new QAction(QIcon(":/MenuIcons/delete.ico"),tr("ACTION_DELETE_TORRENT"), this);
+    DelTorrentOnly->setObjectName("ACTION_DEL_TORRENT");
+    QObject::connect(DelTorrentOnly, SIGNAL(triggered()), this, SLOT(DellTorrentOnly()));
+    DelTorrentOnly->setShortcut(Qt::Key_Delete);
+    menu->addAction(DelTorrentOnly);
     groupsMenu = new QMenu(tr("ACTION_CHANGE_GROUP"),menu);
     groupsMenu->setIcon(QIcon(":/icons/groups.ico"));
 	//qDebug() << "QApplicationSettings::getInstance from QTorrentDisplayModel::setupContextMenu";
@@ -640,6 +653,7 @@ void QTorrentDisplayModel::setupContextMenu()
     for(int i=0;i<filters.size();i++)
     {
         QAction* changeGroupAction = new QAction(StaticHelpers::guessMimeIcon(filters[i].Extensions().split('|')[0],type),filters[i].Name(),groupsMenu);
+        changeGroupAction->setObjectName(filters[i].Name());
         QObject::connect(changeGroupAction, SIGNAL(triggered()), this, SLOT(changeGroup()));
         changeGroupAction->setCheckable(true);
         groupsMenu->addAction(changeGroupAction);

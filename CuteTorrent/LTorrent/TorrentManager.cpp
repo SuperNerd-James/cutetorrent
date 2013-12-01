@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "TorrentManager.h"
-#include "MetaDataDownloadWaiter.h"
+
 #include <QMessageBox>
 #include <QApplication>
 #include  <QFile>
@@ -26,10 +26,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTextStream>
 #include <QDebug>
 #include <QTimer>
+#ifndef Q_MOC_RUN
+#include "MetaDataDownloadWaiter.h"
 #include <boost/bind.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
 #include <boost/filesystem/fstream.hpp>
+#endif
 using namespace libtorrent;
 
 TorrentManager::TorrentManager()
@@ -156,7 +159,7 @@ void TorrentManager::initSession()
 	for (QStringList::iterator i=torrentFiles.begin();i!=torrentFiles.end();i++)
 	{
 		
-		torrent_info* t= new torrent_info(dir.filePath(*i).toAscii().data(),ec);
+        torrent_info* t= new torrent_info(dir.filePath(*i).toLatin1().data(),ec);
 		if (!ec)
 		if (save_path_data.contains(to_hex(t->info_hash().to_string()).c_str()))
 		{
@@ -451,7 +454,7 @@ bool TorrentManager::AddTorrent(QString path, QString save_path,error_code& ec,Q
 		p.storage_mode = storage_mode_sparse;
 		p.flags |= add_torrent_params::flag_paused;
 		p.flags |= add_torrent_params::flag_duplicate_is_error;
-		p.userdata = (void*)strdup(path.toAscii().data());
+        p.userdata = (void*)strdup(path.toLatin1().data());
 		torrent_handle h=ses->add_torrent(p,ec);
 		
 	
@@ -470,10 +473,10 @@ bool TorrentManager::AddTorrent(QString path, QString save_path,error_code& ec,Q
 			current->seqensialDownload();
 		h.set_max_connections(max_connections_per_torrent);
      
-        QFile::copy(path,combine_path((dataDir).toAscii().data(),combine_path("CT_DATA",(to_hex(t->info_hash().to_string())+".torrent").c_str()).c_str()).c_str());
-        if (QFile::exists(combine_path((dataDir+"CT_DATA").toAscii().data(),((t->name())+".torrent").c_str()).c_str()))
+        QFile::copy(path,combine_path((dataDir).toLatin1().data(),combine_path("CT_DATA",(to_hex(t->info_hash().to_string())+".torrent").c_str()).c_str()).c_str());
+        if (QFile::exists(combine_path((dataDir+"CT_DATA").toLatin1().data(),((t->name())+".torrent").c_str()).c_str()))
 		{
-            QFile::remove(combine_path((dataDir+"CT_DATA").toAscii().data(),((t->name())+".torrent").c_str()).c_str());
+            QFile::remove(combine_path((dataDir+"CT_DATA").toLatin1().data(),((t->name())+".torrent").c_str()).c_str());
 		}
 
 		if (save_path_data.contains(to_hex(h.info_hash().to_string()).c_str()))
@@ -492,11 +495,16 @@ session_settings TorrentManager::readSettings()
 {
 
 	session_settings s_settings=high_performance_seed();
-	
+    QString dataDir;
+#ifdef Q_WS_MAC
+    dataDir="/Library/CuteTorrent/";
+#else
+    dataDir = QApplication::applicationDirPath()+QDir::separator();
+#endif
 	QString baseDir=torrentSettings->valueString("System","BaseDir");
 	if (baseDir.isEmpty())
 	{
-		baseDir=QDir::currentPath();
+        baseDir=dataDir;
 		torrentSettings->setValue("System","BaseDir",baseDir);
 	}
 	QDir::setCurrent(QDir::toNativeSeparators (baseDir));
@@ -518,7 +526,7 @@ session_settings TorrentManager::readSettings()
 	s_settings.max_peerlist_size = torrentSettings->valueInt("Torrent","max_peerlist_size",4000);
 	s_settings.max_paused_peerlist_size = torrentSettings->valueInt("Torrent","max_paused_peerlist_size",4000);
 	ipFilterFileName = torrentSettings->valueString("Torrent","ip_filter_filename","");
-	FILE* filter = fopen(ipFilterFileName.toAscii().data(), "r");
+    FILE* filter = fopen(ipFilterFileName.toLatin1().data(), "r");
 	if (filter)
 	{
 		ip_filter fil;

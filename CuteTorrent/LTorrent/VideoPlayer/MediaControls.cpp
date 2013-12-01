@@ -26,8 +26,8 @@ MediaControls::MediaControls(MediaController* m_mediaController,QWidget* parrent
 	m_mediaControl=m_mediaController;
 	ui->volumeSlider->setAudioOutput(m_mediaController->audioOutput());
 	ui->seekSlider->setMediaObject(m_mediaController->mediaObject());
-	bg = new QPixmap(":/PlayerControlImages/ControlBar.png");
-	setMask(bg->scaled(size(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation).mask());
+    bg = new QPixmap(":/PlayerControlImages/ControlBar.png");
+    setMask(bg->scaled(size(),Qt::IgnoreAspectRatio,Qt::SmoothTransformation).mask());
 	setupConnections();
 	setMouseTracking(true);
 	ui->currentTimeLabel->installEventFilter(this);
@@ -35,6 +35,8 @@ MediaControls::MediaControls(MediaController* m_mediaController,QWidget* parrent
 
 MediaControls::~MediaControls(void)
 {
+    delete ui;
+    delete bg;
 }
 
 

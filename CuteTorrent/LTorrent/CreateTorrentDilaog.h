@@ -69,7 +69,7 @@ class CreateTorrentDialog : public QDialog , private Ui::CreateTorrentDialog
 
 public:
     enum TitleMode { CleanTitle = 0, OnlyCloseButton, MenuOff, MaxMinOff, FullScreenMode, MaximizeModeOff, MinimizeModeOff, FullTitle };
-    CreateTorrentDialog(QWidget *parent = 0, Qt::WFlags flags = 0);
+    CreateTorrentDialog(QWidget *parent = 0, Qt::WindowFlags flags = 0);
     ~CreateTorrentDialog();
 
 private:

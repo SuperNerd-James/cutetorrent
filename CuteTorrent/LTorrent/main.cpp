@@ -30,26 +30,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTextCodec>
 #include "CuteTorentStyle.h"
 #ifdef DEBUG
-
 void myMessageOutput(QtMsgType type, const char *msg)
 {
 
-	fflush(stderr);
-	switch (type) {
-	 case QtDebugMsg:
-		 fprintf(stderr, "Debug: %s\n", msg);
-		 break;
-	 case QtWarningMsg:
-		 fprintf(stderr, "Warning: %s\n", msg);
-		 break;
-	 case QtCriticalMsg:
-		 fprintf(stderr, "Critical: %s\n", msg);
-		 break;
-	 case QtFatalMsg:
-		 fprintf(stderr, "Fatal: %s\n", msg);
-		 abort();
-	}
+        fflush(stderr);
+        switch (type) {
+         case QtDebugMsg:
+                 fprintf(stderr, "Debug: %s\n", msg);
+                 break;
+         case QtWarningMsg:
+                 fprintf(stderr, "Warning: %s\n", msg);
+                 break;
+         case QtCriticalMsg:
+                 fprintf(stderr, "Critical: %s\n", msg);
+                 break;
+         case QtFatalMsg:
+                 fprintf(stderr, "Fatal: %s\n", msg);
+                 abort();
+        }
 }
+
 #endif // DEBUG
 
 void loadStyleSheet(Application* a)
@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
 
 
 	FILE * fp=freopen("ct_debug.log","a+",stderr);
-	qInstallMsgHandler(myMessageOutput);
+    qInstallMsgHandler(myMessageOutput);
 #endif // DEBUG
     Application a(argc, argv);
     a.setWindowIcon(QIcon(":/icons/app.ico"));
@@ -79,7 +79,7 @@ int main(int argc, char *argv[])
     QTextCodec *wantUnicode = QTextCodec::codecForName("UTF-8");
 	/*QTextCodec::setCodecForTr(wantUnicode);
 	QTextCodec::setCodecForLocale(wantUnicode);*/
-	QTextCodec::setCodecForCStrings(wantUnicode);
+    QTextCodec::setCodecForLocale(wantUnicode);
 	bool minimize=false,consoleWarint=false;
 	QString file2open;
 

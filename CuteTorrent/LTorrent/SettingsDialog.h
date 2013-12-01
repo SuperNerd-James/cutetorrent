@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "searchitem.h"
 #include <QMouseEvent>
 #include "tracker/torrentracker.h"
-#include "RconWebService.h"
+#include "webControll/RconWebService.h"
 class SettingsDialog : public QDialog , private Ui::SettingsDialog
 {
 	Q_OBJECT
@@ -121,6 +121,7 @@ private:
 	void FillHDDTab();
 	void FillDTTab();
 	void FillWebUITab();
+    void FillKeyMapTab();
 	void SetupSchedullerTab();
     void FillSearchTab();
     void setupCustomeWindow();
@@ -134,6 +135,7 @@ signals:
 	void needRetranslate();
 	void tasksChanged();
 private slots:
+    void chooseAction(QAbstractButton * button);
 	void ApplyAndClose();
 	void ApplySettings();
 	void addGroup();

@@ -256,25 +256,25 @@
          <property name="title">
           <string>MENU_FILE</string>
          </property>
-         <addaction name="actionOpenTorrent"/>
-         <addaction name="action_magnet"/>
+         <addaction name="ACTION_OPEN_TORRENT"/>
+         <addaction name="ACTION_OPEN_MAGNET"/>
          <addaction name="separator"/>
-         <addaction name="actionCreateTorrent"/>
+         <addaction name="ACTION_CREATE"/>
          <addaction name="separator"/>
-         <addaction name="actionExit"/>
+         <addaction name="ACTION_EXIT"/>
         </widget>
         <widget class="QMenu" name="menu_2">
          <property name="title">
           <string>MENU_SETTINGS</string>
          </property>
-         <addaction name="actionSettings"/>
+         <addaction name="ACTION_SETTINGS"/>
         </widget>
         <widget class="QMenu" name="menu_CuteTorrent">
          <property name="title">
           <string>MENU_HELP</string>
          </property>
-         <addaction name="actionAboutCuteTorrent"/>
-         <addaction name="actionCheckUpdate"/>
+         <addaction name="ACTION_ABAUT_CT"/>
+         <addaction name="ACTION_CHECK_UPDATE"/>
         </widget>
         <addaction name="menu"/>
         <addaction name="menu_2"/>
@@ -309,10 +309,10 @@ padding-right:2px;
         <property name="movable">
          <bool>false</bool>
         </property>
-        <addaction name="actionStart"/>
-        <addaction name="actionPause"/>
-        <addaction name="actionRemove"/>
-        <addaction name="actionSettings_2"/>
+        <addaction name="ACTION_START"/>
+        <addaction name="ACTION_PAUSE"/>
+        <addaction name="ACTION_REMOVE"/>
+        <addaction name="ACTION_SETTINGS_2"/>
        </widget>
       </item>
       <item row="2" column="0">
@@ -338,9 +338,7 @@ padding-right:2px;
            <bool>true</bool>
           </property>
           <property name="styleSheet">
-           <string notr="true">QListView::item {
-    border-bottom: 1px solid #909090;
-}</string>
+           <string notr="true"/>
           </property>
          </widget>
         </item>
@@ -743,10 +741,7 @@ padding-right:2px;
       <item row="3" column="0">
        <widget class="QStatusBar" name="mystatusBar">
         <property name="styleSheet">
-         <string notr="true">#mystatusBar{
-margin:1px;
-background-color: #f0f0f0;
-}</string>
+         <string notr="true"/>
         </property>
        </widget>
       </item>
@@ -754,7 +749,7 @@ background-color: #f0f0f0;
     </widget>
    </item>
   </layout>
-  <action name="actionClose">
+  <action name="ACTION_CLOSE">
    <property name="text">
     <string>Close</string>
    </property>
@@ -762,7 +757,7 @@ background-color: #f0f0f0;
     <string>Ctrl+Q</string>
    </property>
   </action>
-  <action name="actionOpenTorrent">
+  <action name="ACTION_OPEN_TORRENT">
    <property name="icon">
     <iconset resource="../ltorrent.qrc">
      <normaloff>:/MenuIcons/addTorrent.ico</normaloff>:/MenuIcons/addTorrent.ico</iconset>
@@ -780,7 +775,7 @@ background-color: #f0f0f0;
     <enum>QAction::NoSoftKey</enum>
    </property>
   </action>
-  <action name="action_magnet">
+  <action name="ACTION_OPEN_MAGNET">
    <property name="icon">
     <iconset resource="../ltorrent.qrc">
      <normaloff>:/MenuIcons/addUrl.ico</normaloff>:/MenuIcons/addUrl.ico</iconset>
@@ -792,7 +787,7 @@ background-color: #f0f0f0;
     <string>Ctrl+M</string>
    </property>
   </action>
-  <action name="actionCreateTorrent">
+  <action name="ACTION_CREATE">
    <property name="icon">
     <iconset resource="../ltorrent.qrc">
      <normaloff>:/MenuIcons/createTorrent.ico</normaloff>:/MenuIcons/createTorrent.ico</iconset>
@@ -801,10 +796,10 @@ background-color: #f0f0f0;
     <string>MENU_CREATE_TORRENT</string>
    </property>
    <property name="shortcut">
-    <string>Ctrl+C</string>
+    <string>Ctrl+N</string>
    </property>
   </action>
-  <action name="actionExit">
+  <action name="ACTION_EXIT">
    <property name="icon">
     <iconset resource="../ltorrent.qrc">
      <normaloff>:/images/app_close.ico</normaloff>:/images/app_close.ico</iconset>
@@ -819,7 +814,7 @@ background-color: #f0f0f0;
     <enum>QAction::QuitRole</enum>
    </property>
   </action>
-  <action name="actionSettings">
+  <action name="ACTION_SETTINGS">
    <property name="icon">
     <iconset resource="../ltorrent.qrc">
      <normaloff>:/MenuIcons/preferencies.ico</normaloff>:/MenuIcons/preferencies.ico</iconset>
@@ -834,7 +829,7 @@ background-color: #f0f0f0;
     <enum>QAction::PreferencesRole</enum>
    </property>
   </action>
-  <action name="actionPause">
+  <action name="ACTION_PAUSE">
    <property name="icon">
     <iconset resource="../ltorrent.qrc">
      <normaloff>:/icons/pause.png</normaloff>:/icons/pause.png</iconset>
@@ -846,7 +841,7 @@ background-color: #f0f0f0;
     <string>HINT_PAUSE</string>
    </property>
   </action>
-  <action name="actionStart">
+  <action name="ACTION_START">
    <property name="icon">
     <iconset resource="../ltorrent.qrc">
      <normaloff>:/icons/play.png</normaloff>:/icons/play.png</iconset>
@@ -858,7 +853,7 @@ background-color: #f0f0f0;
     <string>HINT_RESUME</string>
    </property>
   </action>
-  <action name="actionRemove">
+  <action name="ACTION_REMOVE">
    <property name="icon">
     <iconset resource="../ltorrent.qrc">
      <normaloff>:/icons/delete.png</normaloff>:/icons/delete.png</iconset>
@@ -873,7 +868,7 @@ background-color: #f0f0f0;
     <string>STR_REMOVE</string>
    </property>
   </action>
-  <action name="actionAboutCuteTorrent">
+  <action name="ACTION_ABAUT_CT">
    <property name="icon">
     <iconset resource="../ltorrent.qrc">
      <normaloff>:/MenuIcons/about.ico</normaloff>:/MenuIcons/about.ico</iconset>
@@ -888,7 +883,7 @@ background-color: #f0f0f0;
     <enum>QAction::AboutRole</enum>
    </property>
   </action>
-  <action name="actionCheckUpdate">
+  <action name="ACTION_CHECK_UPDATE">
    <property name="icon">
     <iconset resource="../ltorrent.qrc">
      <normaloff>:/MenuIcons/update-trackers.ico</normaloff>:/MenuIcons/update-trackers.ico</iconset>
@@ -900,7 +895,7 @@ background-color: #f0f0f0;
     <string>Ctrl+U</string>
    </property>
   </action>
-  <action name="actionSettings_2">
+  <action name="ACTION_SETTINGS_2">
    <property name="icon">
     <iconset resource="../ltorrent.qrc">
      <normaloff>:/icons/options.png</normaloff>:/icons/options.png</iconset>
@@ -916,7 +911,7 @@ background-color: #f0f0f0;
  </resources>
  <connections>
   <connection>
-   <sender>actionClose</sender>
+   <sender>ACTION_CLOSE</sender>
    <signal>triggered()</signal>
    <receiver>CustomWindow</receiver>
    <slot>close()</slot>
@@ -932,7 +927,7 @@ background-color: #f0f0f0;
    </hints>
   </connection>
   <connection>
-   <sender>actionCreateTorrent</sender>
+   <sender>ACTION_CREATE</sender>
    <signal>triggered()</signal>
    <receiver>CustomWindow</receiver>
    <slot>ShowCreateTorrentDialog()</slot>
@@ -948,7 +943,7 @@ background-color: #f0f0f0;
    </hints>
   </connection>
   <connection>
-   <sender>actionOpenTorrent</sender>
+   <sender>ACTION_OPEN_TORRENT</sender>
    <signal>triggered()</signal>
    <receiver>CustomWindow</receiver>
    <slot>ShowOpenTorrentDialog()</slot>
@@ -964,7 +959,7 @@ background-color: #f0f0f0;
    </hints>
   </connection>
   <connection>
-   <sender>actionStart</sender>
+   <sender>ACTION_START</sender>
    <signal>triggered()</signal>
    <receiver>CustomWindow</receiver>
    <slot>ResumeSelected()</slot>
@@ -980,7 +975,7 @@ background-color: #f0f0f0;
    </hints>
   </connection>
   <connection>
-   <sender>actionPause</sender>
+   <sender>ACTION_PAUSE</sender>
    <signal>triggered()</signal>
    <receiver>CustomWindow</receiver>
    <slot>PauseSelected()</slot>
@@ -996,7 +991,7 @@ background-color: #f0f0f0;
    </hints>
   </connection>
   <connection>
-   <sender>actionRemove</sender>
+   <sender>ACTION_REMOVE</sender>
    <signal>triggered()</signal>
    <receiver>CustomWindow</receiver>
    <slot>DeleteSelected()</slot>
@@ -1012,7 +1007,7 @@ background-color: #f0f0f0;
    </hints>
   </connection>
   <connection>
-   <sender>actionSettings</sender>
+   <sender>ACTION_SETTINGS</sender>
    <signal>triggered()</signal>
    <receiver>CustomWindow</receiver>
    <slot>OpenSettingsDialog()</slot>
@@ -1028,7 +1023,7 @@ background-color: #f0f0f0;
    </hints>
   </connection>
   <connection>
-   <sender>actionCheckUpdate</sender>
+   <sender>ACTION_CHECK_UPDATE</sender>
    <signal>triggered()</signal>
    <receiver>CustomWindow</receiver>
    <slot>CheckForUpdates()</slot>
@@ -1044,7 +1039,7 @@ background-color: #f0f0f0;
    </hints>
   </connection>
   <connection>
-   <sender>actionAboutCuteTorrent</sender>
+   <sender>ACTION_ABAUT_CT</sender>
    <signal>triggered()</signal>
    <receiver>CustomWindow</receiver>
    <slot>ShowAbout()</slot>
@@ -1060,7 +1055,7 @@ background-color: #f0f0f0;
    </hints>
   </connection>
   <connection>
-   <sender>action_magnet</sender>
+   <sender>ACTION_OPEN_MAGNET</sender>
    <signal>triggered()</signal>
    <receiver>CustomWindow</receiver>
    <slot>ProcessMagnet()</slot>
@@ -1076,7 +1071,7 @@ background-color: #f0f0f0;
    </hints>
   </connection>
   <connection>
-   <sender>actionSettings_2</sender>
+   <sender>ACTION_SETTINGS_2</sender>
    <signal>triggered()</signal>
    <receiver>CustomWindow</receiver>
    <slot>OpenSettingsDialog()</slot>
