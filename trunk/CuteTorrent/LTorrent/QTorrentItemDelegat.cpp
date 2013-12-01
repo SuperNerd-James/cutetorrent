@@ -229,7 +229,9 @@ QString QTorrentItemDelegat::GetStatusString(const Torrent& tor) const
 void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionViewItem& option, const Torrent& tor, int row ) const
 {
 
-    const QStyle * style( QApplication::style( ) );
+    QStyleOptionViewItemV4 opt(option);
+    QStyle *style = opt.widget ? opt.widget->style() : QApplication::style();
+
     const int iconSize( style->pixelMetric( QStyle::PM_LargeIconSize ) );
     QFont nameFont( option.font );
     nameFont.setWeight( QFont::Bold );
@@ -255,20 +257,28 @@ void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionVie
 
 	
     painter->save( );
-	
-	/*if (row & 1) 
-	{
-		painter->fillRect(option.rect, );
-	}*/
-    if (option.state & QStyle::State_Selected) {
+    painter->setRenderHint(QPainter::Antialiasing);
+
+    style->drawPrimitive(QStyle::PE_PanelItemViewItem, &opt, painter, opt.widget);
+
+   /* if (option.state & QStyle::State_Selected) {
         QPalette::ColorGroup cg = option.state & QStyle::State_Enabled
-                                  ? QPalette::Normal : QPalette::Disabled;
+                ? QPalette::Active : QPalette::Disabled;
         if (cg == QPalette::Normal && !(option.state & QStyle::State_Active))
             cg = QPalette::Inactive;
 
-        painter->fillRect(option.rect, QColor(216, 216, 216));
+
+       // painter->fillRect(option.rect, option.palette.color(cg, QPalette::Highlight));
+    }*/
+  //  style->drawControl(QStyle::CE_ItemViewItem,&option,painter);
+
+    if (option.state & QStyle::State_MouseOver) {
+        QPalette::ColorGroup cg = option.state & QStyle::State_Enabled
+                ? QPalette::Active : QPalette::Disabled;
+        painter->fillRect(option.rect, opt.backgroundBrush);
     }
-	
+
+
     QIcon::Mode im;
     if( isPaused || !(option.state & QStyle::State_Enabled ) ) im = QIcon::Disabled;
     else if( option.state & QStyle::State_Selected ) im = QIcon::Selected;
@@ -283,11 +293,10 @@ void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionVie
     if( cg == QPalette::Normal && !(option.state & QStyle::State_Active ) ) cg = QPalette::Inactive;
 
     QPalette::ColorRole cr;
+ //   if( option.state & QStyle::State_Selected ) cr = QPalette::HighlightedText;
     cr = QPalette::Text;
 
-    QStyle::State progressBarState( option.state );
-    if( isPaused ) progressBarState = QStyle::State_None;
-    progressBarState |= QStyle::State_Small;
+
 
     // layout
     const QSize m( margin( *style ) );
@@ -320,18 +329,18 @@ void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionVie
         painter->setPen( option.palette.color( cg, cr ) );
 	mimeIcon.paint( painter, iconArea, Qt::AlignCenter, im, qs );
     painter->setFont( nameFont );
-    painter->drawText( nameArea, 0, nameFM.elidedText( nameStr, Qt::ElideRight, nameArea.width() ) );
- 	painter->setFont( statusFont );
-	painter->drawText( statusArea, Qt::AlignRight, statusFM.elidedText( statusStr, Qt::ElideRight, statusArea.width( ) ) );
+    style->drawItemText(painter, nameArea, Qt::AlignLeft,option.palette,option.state & QStyle::State_Enabled,nameStr,cr);
+    painter->setFont( statusFont );
+    style->drawItemText(painter,  statusArea, Qt::AlignRight, option.palette,option.state & QStyle::State_Enabled,statusStr,cr );
 	painter->setFont( progressFont );
-	painter->drawText( progArea, 0, progressFM.elidedText( progressStr, Qt::ElideLeft, progArea.width( ) ) );
+    style->drawItemText(painter, progArea, Qt::AlignLeft, option.palette,option.state & QStyle::State_Enabled, progressStr, cr );
 
     int progressPercentage = tor.GetProgress();
 
             // Customize style using style-sheet..
 
     QString stylestr = "QProgressBar { border: 1px solid #909090; ; }";
-    stylestr += QString("QProgressBar::chunk { background-color: #") + (isPaused ? "ACACAC" : ( progressPercentage < 100 ? "51D331" : "3291d4" ) )+ "; width: 20px; }";
+    stylestr += QString("QProgressBar::chunk { background-color: qlineargradient(spread:reflect, x1:0.994318, y1:1, x2:1, y2:0.488636, stop:0.0397727 rgba(255, 255, 255, 255), stop:0.431818 rgba(") + (isPaused ? "172,172,172" : ( progressPercentage < 100 ? "81,211,49" : "50,145,212" ) )+ ",255));  width: 10px; margin: 0.5px; }";
     myProgressBarStyle->resize(barArea.size());
 
     myProgressBarStyle->setValue(progressPercentage);

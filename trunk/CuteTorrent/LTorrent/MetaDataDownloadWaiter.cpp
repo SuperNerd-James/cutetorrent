@@ -1,5 +1,6 @@
+#ifndef Q_MOC_RUN
 #include "MetaDataDownloadWaiter.h"
-
+#endif
 
 
 MetaDataDownloadWaiter::MetaDataDownloadWaiter( QString metaLink,QObject* parrent/*=NULL*/, bool autoAdd/*=false*/ ) : QThread(parrent)

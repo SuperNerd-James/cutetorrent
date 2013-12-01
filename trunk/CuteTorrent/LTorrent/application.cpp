@@ -60,8 +60,8 @@ void Application::loadTranslations(const QDir& dir)
 
 		if (translator->load(file.absoluteFilePath()))
 		{
-            QString locale = translator->translate("Application","__LANGNAME__");
-            qDebug() << locale;
+            QString locale = language + "_" + country;
+             qDebug() << "New Application langugae found" <<locale;
 			translators.insert(locale, translator);
 		}
 	}
@@ -92,7 +92,7 @@ void Application::loadTranslationsQt(const QDir& dir)
         if (translator->load(file.absoluteFilePath()))
         {
             QString locale = language + "_" + country;
-
+            qDebug() << "New Qt langugae found" <<locale;
             qt_translators.insert(locale, translator);
         }
     }
@@ -105,6 +105,7 @@ QString Application::currentLocale()
 const QStringList Application::availableLanguages()
 {
 	// the content won't get copied thanks to implicit sharing and constness
+    qDebug() << translators.keys();
     return QStringList(translators.keys());
 }
 
@@ -134,7 +135,7 @@ void Application::setLanguage(const QString& locale)
 	current_locale=locale;
 	// install new
 	
-	current = translators.value(locale, 0);
+    current = translators.value(locale);
 	if (current)
 	{
 		installTranslator(current);
@@ -143,6 +144,7 @@ void Application::setLanguage(const QString& locale)
 
 void Application::setLanguageQt(const QString &locale)
 {
+     qDebug() << "Application::setLanguageQt" << locale;
     if (currentQt)
     {
         removeTranslator(currentQt);
@@ -150,7 +152,7 @@ void Application::setLanguageQt(const QString &locale)
     current_locale_qt=locale;
     // install new
 
-    currentQt = qt_translators.value(locale, 0);
+    currentQt = qt_translators.value(locale);
     if (currentQt)
     {
         installTranslator(currentQt);

@@ -304,7 +304,7 @@ QString Torrent::GetStatusString() const
 
 	try
 	{
-		return tr(state_str.at(cur_torrent.status().state).toAscii().data()) + (cur_torrent.is_sequential_download() ? (" [S]"):"");
+		return tr(state_str.at(cur_torrent.status().state).toLatin1().data()) + (cur_torrent.is_sequential_download() ? (" [S]"):"");
 	}
 	catch (...)
 	{
@@ -461,10 +461,11 @@ void Torrent::seqensialDownload()
 
 }
 
-void Torrent::RemoveTorrent(TorrentManager *mgr,bool delfiles)
+void Torrent::RemoveTorrent(bool delfiles)
 {
 	//qDebug() << "Torrent::RemoveTorrent " << cur_torrent.name().c_str();
-	mgr->RemoveTorrent(cur_torrent,delfiles);
+    TorrentManager::getInstance()->RemoveTorrent(cur_torrent,delfiles);
+    TorrentManager::freeInstance();
 }
 void Torrent::pause()
 {
@@ -499,7 +500,7 @@ QString Torrent::GetSavePath()
 {
 	try
 	{
-        return QDir(QString::fromUtf8(cur_torrent.save_path().c_str())).absolutePath()/*+GetName()*/;
+        return QDir::toNativeSeparators(QString::fromUtf8(cur_torrent.save_path().c_str()));
 	}
 	catch (...)
 	{

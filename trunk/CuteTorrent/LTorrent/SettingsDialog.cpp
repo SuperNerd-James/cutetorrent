@@ -28,15 +28,16 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QIntValidator>
 #include "application.h"
 #include "Scheduller.h"
-#include "RconWebService.h"
+#include "webControll/RconWebService.h"
 #include <QPainter>
 #include <QDesktopServices>
 #include <QUrl>
+#include "qkeyedit.h"
 #define PIXELS_TO_ACT 2
 #ifdef Q_WS_WIN //file association for windows
 #include <windows.h>
 #include <tchar.h>
-
+#include <QScrollArea>
 typedef BOOL (WINAPI *LPFN_ISWOW64PROCESS) (HANDLE, PBOOL);
 
 LPFN_ISWOW64PROCESS fnIsWow64Process;
@@ -78,6 +79,7 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	FillWebUITab();
 	SetupSchedullerTab();
     FillSearchTab();
+    FillKeyMapTab();
     setupCustomeWindow();
 	//OS_SPECIFICK////
     int current=0;
@@ -98,8 +100,9 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 	foreach (QString avail, Application::availableLanguages())
 	{
 
-
-        localeComboBox->addItem(avail);
+        qDebug() << avail << QLocale(avail);
+        QLocale language =QLocale(avail);
+        localeComboBox->addItem(QLocale::languageToString(language.language()),avail);
 
         if (avail==curLoc)
 			localeComboBox->setCurrentIndex(current);
@@ -260,6 +263,22 @@ void SettingsDialog::minimizeBtnClicked()
     else
     {
         setWindowState(windowState() | Qt::WindowMinimized);
+    }
+}
+
+void SettingsDialog::chooseAction(QAbstractButton *button)
+{
+    switch(buttonBox->standardButton(button)){
+        case QDialogButtonBox::Ok:
+                ApplyAndClose();
+                break;
+        case QDialogButtonBox::Cancel:
+                reject();
+                break;
+        case QDialogButtonBox::Apply:
+                ApplySettings();
+                break;
+
     }
 }
 void SettingsDialog::resizeWindow(QMouseEvent *e)
@@ -642,11 +661,19 @@ void SettingsDialog::ApplySettings()
     }
     FillWebUITab();
 	int curLocaleIndex=localeComboBox->currentIndex();
-    Application::setLanguage(localeComboBox->currentText());
-    Application::setLanguageQt("qt_"+localeComboBox->currentText());
-    settings->setValue("System","Lang",localeComboBox->currentText());
-	//retranslateUi(this);
-	calendarWidget->setLocale(localeComboBox->currentIndex()==0 ? QLocale(QLocale::English) : QLocale(QLocale::Russian));
+    QString choosenLanguage = localeComboBox->itemData(curLocaleIndex).toString();
+    Application::setLanguage(choosenLanguage);
+    Application::setLanguageQt(choosenLanguage);
+    settings->setValue("System","Lang",choosenLanguage);
+    QList<QKeyEdit*> keyEdits = keyMapContainer->findChildren<QKeyEdit*>();
+    QMap<QString,QVariant> keyMap;
+    foreach(QKeyEdit* keyEdit,keyEdits) {
+        keyMap.insert(keyEdit->objectName(),keyEdit->text());
+    }
+    settings->setGroupValues("KeyMap",keyMap);
+    FillKeyMapTab();
+    calendarWidget->setLocale(QLocale(choosenLanguage));
+    buttonBox->setLocale(QLocale(choosenLanguage));
 }
 void SettingsDialog::ApplySettingsToSession()
 {
@@ -869,6 +896,36 @@ void SettingsDialog::SetupSchedullerTab()
 	Scheduller* scheduller=Scheduller::getInstance();
 	QObject::connect(this,SIGNAL(tasksChanged()),scheduller,SLOT(UpdateTasks()));
     Scheduller::freeInstance();
+}
+
+
+void SettingsDialog::FillKeyMapTab()
+{
+    QMap<QString, QVariant> keyMappings=settings->getGroupValues("KeyMap");
+    qDebug() << "FillKeyMapTab";
+    qDeleteAll(keyMapContainer->findChildren<QWidget*>());
+    QLayout* origLayout = keyMapContainer->layout();
+    QGridLayout* layout =origLayout ? (QGridLayout*)origLayout :  new QGridLayout(keyMapContainer);
+
+    int index = 0;
+    for (QMap<QString, QVariant>::iterator i=keyMappings.begin();
+         i!=keyMappings.end();i++, index++)
+    {
+        int row = index / 2;
+        int column = (index & 1) ? 0 : 2;
+        QLabel* describtion = new QLabel(keyMapContainer);
+        describtion->setText(trUtf8(i.key().toUtf8()));
+        layout->addWidget(describtion,row,column++);
+        describtion->show();
+        QKeyEdit* keyEdit=new QKeyEdit(keyMapContainer);
+        layout->addWidget(keyEdit,row,column);
+        keyEdit->setText(i.value().toString());
+        keyEdit->show();
+        keyEdit->setObjectName(i.key());
+
+    }
+    keyMapContainer->setLayout(layout);
+
 }
 
 void SettingsDialog::FillSearchTab()

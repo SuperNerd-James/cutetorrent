@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>CuteTorrentStyle.css</file>
+        <file>GloccyStyle.css</file>
     </qresource>
     <qresource prefix="/icons">
         <file alias="schedule.ico">Resources/schedule.ico</file>
@@ -27,6 +28,7 @@
         <file alias="active.ico">Resources/activ.ico</file>
         <file alias="dt-settings.ico">Resources/dt-settings.ico</file>
         <file alias="torrent-settings.ico">Resources/torrent-settings.ico</file>
+        <file alias="keyboaard.ico">Resources/keboard.ico</file>
     </qresource>
     <qresource prefix="/treeview">
         <file alias="branch-closed.png">Resources/treeview/stylesheet-branch-closed.png</file>
@@ -36,8 +38,8 @@
         <file alias="vline.png">Resources/treeview/stylesheet-vline.png</file>
     </qresource>
     <qresource prefix="/translations">
-        <file>cutetorrent_russian.qm</file>
-        <file>cutetorrent_english.qm</file>
+        <file alias="cutetorrent_ru_Ru.qm">cutetorrent_russian.qm</file>
+        <file alias="cutetorrent_en_Us.qm">cutetorrent_english.qm</file>
     </qresource>
     <qresource prefix="/PlayerControlImages">
         <file alias="ControlBar.png">Resources/playerImages/ControlBar.png</file>
@@ -82,6 +84,6 @@
         <file alias="copy-to-clipboard.ico">Resources/copy-to-clipboard.ico</file>
     </qresource>
     <qresource prefix="/translations_qt">
-        <file alias="qt_Русский.qm">C:/Qt/4.8.5/translations/qt_ru.qm</file>
+        <file alias="qt_ru_Ru.qm">C:/Qt/4.8.5/translations/qt_ru.qm</file>
     </qresource>
 </RCC>

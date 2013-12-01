@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QStringList>
 #include <phonon/AudioOutput>
 #include <phonon/VideoWidget>
+#include <phonon/MediaController>
 namespace Phonon
 {
 class MediaObject;
@@ -37,8 +38,9 @@ class MediaController : public QObject
 public:
 	explicit MediaController(Phonon::VideoWidget *parent = 0);
     void playFile(QString file);
+
     Phonon::MediaObject *mediaObject() const;
-	Phonon::AudioOutput *audioOutput() const;
+    Phonon::AudioOutput *audioOutput() const;
 	bool isPlaying();
 public slots:
 	void play();
@@ -55,8 +57,9 @@ private:
 	QStringList m_playList;
 	int m_playListPosition;
 	QString m_LastDir;
+    Phonon::MediaController*  mediaController;
     Phonon::MediaObject *m_media;
-	Phonon::AudioOutput *m_AudioOutput;
+    Phonon::AudioOutput *m_AudioOutput;
 	bool m_playing;
 	void playSource(const Phonon::MediaSource &);
 

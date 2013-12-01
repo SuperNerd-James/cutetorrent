@@ -54,7 +54,7 @@ QIcon StaticHelpers::guessMimeIcon(QString suffix,QString& type)
 				"nrg", "pdi", "isz" };
 		for( int i=0, n=sizeof(disk_types)/sizeof(disk_types[0]); i<n; ++i )
 		{
-			suffixes[DISK] << QString::fromAscii(disk_types[i]);
+            suffixes[DISK] << QString::fromLatin1(disk_types[i]);
 		}
 		fileIcons[DISK]= QIcon( ":/icons/my-iso.ico");
 	
@@ -63,7 +63,7 @@ QIcon StaticHelpers::guessMimeIcon(QString suffix,QString& type)
 	            "ods", "odt", "pdf", "ppt", "ps",  "rtf", "tex", "txt", "xml" };
 	    for( int i=0, n=sizeof(doc_types)/sizeof(doc_types[0]); i<n; ++i )
 		{
-			suffixes[DOCUMENT] << QString::fromAscii(doc_types[i] );
+            suffixes[DOCUMENT] << QString::fromLatin1(doc_types[i] );
 		}
 		fileIcons[DOCUMENT] = QIcon( ":/icons/my-doc.ico" );
 	
@@ -71,7 +71,7 @@ QIcon StaticHelpers::guessMimeIcon(QString suffix,QString& type)
             "bmp", "gif", "jpg", "jpeg", "pcx", "png", "psd", "ras", "tga","ico", "tiff" };
 	    for( int i=0, n=sizeof(pic_types)/sizeof(pic_types[0]); i<n; ++i )
 		{
-			suffixes[PICTURE] << QString::fromAscii(pic_types[i]);
+            suffixes[PICTURE] << QString::fromLatin1(pic_types[i]);
 		}
 	    fileIcons[PICTURE]  = QIcon( ":/icons/my-picture.ico" );
 	
@@ -80,7 +80,7 @@ QIcon StaticHelpers::guessMimeIcon(QString suffix,QString& type)
 	            "ogm", "ogv", "qt", "rm", "wmv" , "m2ts" };
 	    for( int i=0, n=sizeof(vid_types)/sizeof(vid_types[0]); i<n; ++i )
 		{
-			suffixes[VIDEO] << QString::fromAscii(vid_types[i]);
+            suffixes[VIDEO] << QString::fromLatin1(vid_types[i]);
 		}
         fileIcons[VIDEO] = QIcon( ":/icons/my-movie.ico") ;
 
@@ -88,7 +88,7 @@ QIcon StaticHelpers::guessMimeIcon(QString suffix,QString& type)
 	            "7z", "ace", "bz2", "cbz", "gz", "gzip", "lzma", "rar", "sft", "tar", "zip" };
 	    for( int i=0, n=sizeof(arc_types)/sizeof(arc_types[0]); i<n; ++i )
 		{
-			suffixes[ARCHIVE] << QString::fromAscii(arc_types[i]);
+            suffixes[ARCHIVE] << QString::fromLatin1(arc_types[i]);
 		}
         fileIcons[ARCHIVE]  = QIcon( ":/icons/my-archive.ico" );
 
@@ -97,14 +97,14 @@ QIcon StaticHelpers::guessMimeIcon(QString suffix,QString& type)
 	            "mp3", "mpc", "nsf", "oga", "ogg", "ra", "ram", "shn", "voc", "wav", "wma" };
 	    for( int i=0, n=sizeof(aud_types)/sizeof(aud_types[0]); i<n; ++i )
 		{
-			suffixes[AUDIO] << QString::fromAscii(aud_types[i]);
+            suffixes[AUDIO] << QString::fromLatin1(aud_types[i]);
 		}
 	    fileIcons[AUDIO] = QIcon( ":/icons/my-audio.ico" );
 	
 	    const char * exe_types[] = { "bat", "cmd", "com", "exe" };
 	    for( int i=0, n=sizeof(exe_types)/sizeof(exe_types[0]); i<n; ++i )
 		{
-			suffixes[APP] << QString::fromAscii(exe_types[i]);
+            suffixes[APP] << QString::fromLatin1(exe_types[i]);
 		}
 	    fileIcons[APP] = QIcon::fromTheme( "application-x-executable", fallback );
 	}

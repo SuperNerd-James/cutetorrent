@@ -31,6 +31,7 @@ along with this program.  If not, see .
 #include <QMutex>
 #include <QThread>
 #include <TorrentStorrage.h>
+class CuteTorrent;
 class Torrent;
 class TorrentManager;
 class QTorrentDisplayModel:public QAbstractListModel 
@@ -58,10 +59,11 @@ TorrentManager *mgr;
 Torrent *CurrentTorrent;
 QTimer *timer;
 QMutex *locker;
+CuteTorrent* mainWindow;
 private:
 	void setupContextMenu();
 public:
-	QTorrentDisplayModel(QListView * parrent, QObject * __parrent);
+    QTorrentDisplayModel(CuteTorrent*,QListView *, QObject *);
 	~QTorrentDisplayModel();
 	enum action { stop, pause, resume, remove, remove_all, move_storrage,
 		set_sequntial, set_superseed, generate_magmet, update_trackers,

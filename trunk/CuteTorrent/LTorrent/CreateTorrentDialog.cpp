@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "CreateTorrentDilaog.h"
 #include <QDebug>
 #include <QPainter>
-CreateTorrentDialog::CreateTorrentDialog(QWidget *parent, Qt::WFlags flags) : QDialog(parent,flags)
+CreateTorrentDialog::CreateTorrentDialog(QWidget *parent, Qt::WindowFlags flags) : QDialog(parent,flags)
 {
 	setupUi(this);
 	
@@ -622,7 +622,7 @@ void torrentCreatorThread::run() {
 		t.set_comment((const char*)comment.toLocal8Bit());
 		t.set_priv(is_private);
 		if(abort) return;
-        qDebug() << save_path.toAscii().data();
+        qDebug() << save_path.toLatin1().data();
 		// create the torrent and print it to out
     #ifdef _MSC_VER
         wchar_t *wsave_path = new wchar_t[save_path.length()+1];

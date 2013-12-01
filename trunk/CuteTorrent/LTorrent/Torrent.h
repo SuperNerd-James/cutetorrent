@@ -96,7 +96,7 @@ public :
 	QString GetProgresString() const;
 	QString GetDwonloadSpeed() const;
 	QString GetUploadSpeed() const;
-	void RemoveTorrent(TorrentManager* mgr,bool delfiles=false);
+    void RemoveTorrent(bool delfiles=false);
 	std::vector<peer_info> GetPeerInfo();
 	std::vector<announce_entry> GetTrackerInfo();
 	void announceRehash();
