@@ -25,7 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <phonon/MediaSource>
 #include <phonon/VideoWidget>
 
-
+#include "messagebox.h"
 #include <QContextMenuEvent>
 #include <QFileDialog>
 #include <QMenu>
@@ -64,7 +64,7 @@ QMainWindow(parent),isFullScr(false)
 	}
 	catch (...)
 	{
-		QMessageBox::warning(this,"Exception","VideoPlayerWindow::VideoPlayerWindow()\n");
+        MyMessageBox::warning(this,"Exception","VideoPlayerWindow::VideoPlayerWindow()\n");
 	}
 }
 
@@ -121,7 +121,7 @@ void VideoPlayerWindow::openFile( QString path )
 	}
 	catch (...)
 	{
-		QMessageBox::warning(this,"ERROR","VideoPlayerWindow::openFile()");
+        MyMessageBox::warning(this,"ERROR","VideoPlayerWindow::openFile()");
 	}
 	
 }

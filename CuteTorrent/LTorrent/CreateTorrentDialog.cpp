@@ -19,17 +19,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "CreateTorrentDilaog.h"
 #include <QDebug>
 #include <QPainter>
+#include "messagebox.h"
+#include "StyleEngene.h"
 CreateTorrentDialog::CreateTorrentDialog(QWidget *parent, Qt::WindowFlags flags) : QDialog(parent,flags)
 {
 	setupUi(this);
 	
 	setupCustomWindow();
+    setupWindowIcons();
     settings = QApplicationSettings::getInstance();
 	creator  = new torrentCreatorThread(this);
 	//qDebug() << "new torrentCreatorThread";
 	mgr = TorrentManager::getInstance();
+    StyleEngene* style = StyleEngene::getInstance();
+    QObject::connect(style,SIGNAL(styleChanged()),this,SLOT(setupWindowIcons()));
 }
 
+void CreateTorrentDialog::setupWindowIcons()
+{
+    StyleEngene* style = StyleEngene::getInstance();
+    pbMin->setIcon(style->getIcon("app_min"));
+    pbClose->setIcon(style->getIcon("app_close"));
+
+}
 void CreateTorrentDialog::setupCustomWindow()
 {
 	setAttribute(Qt::WA_DeleteOnClose);
@@ -442,9 +454,10 @@ void CreateTorrentDialog::BrowseFile()
 }
 void CreateTorrentDialog::BeginCreate()
 {
+    path = pathEdit->text();
 	if ((QFileInfo(path).isDir() && listFolder(path)==0) || (!QFileInfo(path).isDir() && QFileInfo(path).size()==0))
 	{
-		QMessageBox::warning(this, tr("ERROR_STR"),
+        MyMessageBox::warning(this, tr("ERROR_STR"),
 			tr("ERROR_EMPTY_DIR"));
 		return;
 	}
@@ -455,7 +468,7 @@ void CreateTorrentDialog::BeginCreate()
 	QStringList webseeds=webSeedEdit->toPlainText().split('\n');
 	
 	if (path.length()==0)
-	{	QMessageBox::information(this, tr("ERROR_STR"),
+    {	MyMessageBox::information(this, tr("ERROR_STR"),
 		tr("ERROR_NO_FILE_OR_FOLDER_NAME"));
 		//delete creator;
 		createButton->setEnabled(true);
@@ -470,7 +483,7 @@ void CreateTorrentDialog::BeginCreate()
 			trackers.removeOne(*i);
 	}
 	if (trackers.count()==0)
-	{	if (QMessageBox::No == QMessageBox::information(this, tr("ERROR_STR"),
+    {	if (QMessageBox::No == MyMessageBox::information(this, tr("ERROR_STR"),
 		tr("ERROR_NO_TRACKERS"),
 		QMessageBox::Yes | QMessageBox::No))
 		{
@@ -517,7 +530,7 @@ void CreateTorrentDialog::ShowCreationSucces(QString filename)
 {
     if (!filename.isNull())
 	{
-		QMessageBox::information(this,tr("CREATE_TORRENT_DIALOG"),
+        MyMessageBox::information(this,tr("CREATE_TORRENT_DIALOG"),
 			tr("CREATE_TORRENT_SUCCES_SAVED %1").arg(filename));
 	}
 	progressBar->setValue(0);
@@ -527,7 +540,7 @@ void CreateTorrentDialog::ShowCreationSucces(QString filename)
 }
 void CreateTorrentDialog::ShowCreationFailture(QString msg)
 {
-	QMessageBox::information(this, tr("CREATE_TORRENT_DIALOG"),
+    MyMessageBox::critical(this, tr("CREATE_TORRENT_DIALOG"),
 		tr("CREATE_TORRENT_FILE_ERROR\n %1").arg(msg));
 	progressBar->setValue(0);
 	createButton->setEnabled(true);

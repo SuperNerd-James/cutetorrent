@@ -25,7 +25,7 @@
     <number>1</number>
    </property>
    <property name="topMargin">
-    <number>0</number>
+    <number>1</number>
    </property>
    <property name="rightMargin">
     <number>1</number>
@@ -109,7 +109,7 @@
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">color: rgb(0, 0, 0);</string>
+         <string notr="true"/>
         </property>
         <property name="text">
          <string>DT_MOUNT_DILAOG</string>
@@ -132,10 +132,6 @@
           <width>22</width>
           <height>22</height>
          </size>
-        </property>
-        <property name="icon">
-         <iconset resource="ltorrent.qrc">
-          <normaloff>:/images/app_min.ico</normaloff>:/images/app_min.ico</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -161,10 +157,6 @@
           <width>22</width>
           <height>22</height>
          </size>
-        </property>
-        <property name="icon">
-         <iconset resource="ltorrent.qrc">
-          <normaloff>:/images/app_close.ico</normaloff>:/images/app_close.ico</iconset>
         </property>
         <property name="iconSize">
          <size>

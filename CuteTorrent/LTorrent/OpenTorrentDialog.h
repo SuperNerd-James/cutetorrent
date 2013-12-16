@@ -22,7 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDialog>
 #include <QFile>
 #include <QString>
-#include <QMessageBox>
+#include "messagebox.h"
 #include <QFileDialog>
 #include <QTreeWidgetItem>
 #include "ui_OpenTorrentDialog.h"
@@ -130,9 +130,9 @@ private:
     void resizeWindow(QMouseEvent *e);
 
     void moveWindow(QMouseEvent *e);
-	void setupGroupComboBox();
     void setupCustomeWindow();
 private slots:
+    void setupWindowIcons();
     virtual void reject();
 	void BrowseButton();
 	void AccepTorrent();

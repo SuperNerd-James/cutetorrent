@@ -152,6 +152,6 @@ private slots:
     void searchItemChanged(int index);
     void addSearchitem();
     void removeSearchItem();
-
-    void on_pushButton_clicked();
+    void setupWindowIcons();
+    void OpenWebUI();
 };

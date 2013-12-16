@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "CuteTorrent.h"
 #include "Scheduller.h"
 
-#include <QMessageBox>
+#include "messagebox.h"
 #include <QComboBox>
 #include <QDateTime>
 #include <QAbstractItemView>
@@ -41,15 +41,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTreeWidgetItem>
 #include <QDesktopServices>
 #include <QShortcut>
+#include "messagebox.h"
+
 CuteTorrent::CuteTorrent(QWidget *parent)
     : QWidget(parent)
 {
     settings=QApplicationSettings::getInstance();
 
-    Application::setLanguage(settings->valueString("System","Lang",QLocale::system().name().toLower()));
-    Application::setLanguageQt(settings->valueString("System","Lang",QLocale::system().name().toLower()));
+    Application::setLanguage(settings->valueString("System","Lang","ru_RU"));
+    Application::setLanguageQt(settings->valueString("System","Lang","ru_RU"));
+
+    styleEngine = StyleEngene::getInstance();
+    styleEngine->setStyle(settings->valueString("System","Style","CuteTorrent"));
+
     setupCustomeWindow();
-    //ui->setupUi(this);
+
+
 
     //qDebug() << "QApplicationSettings::getInstance from CuteTorrent::CuteTorrent";
 
@@ -70,6 +77,7 @@ CuteTorrent::CuteTorrent(QWidget *parent)
     setupGroupTreeWidget();
     setupConnections();
     setupKeyMappings();
+    initWindowIcons();
     tracker = TorrentTracker::getInstance();
 
 
@@ -97,11 +105,7 @@ CuteTorrent::CuteTorrent(QWidget *parent)
     tManager->initSession();
     torrents = TorrentStorrage::getInstance();
     QTimer::singleShot(10000,this,SLOT(CheckForUpdates()));
-    //	QTimer::singleShot(3000,this,SLOT(enableNitifyShow()));
     Scheduller* sch=Scheduller::getInstance();
-
-
-
 }
 void CuteTorrent::CheckForUpdates()
 {
@@ -110,7 +114,7 @@ void CuteTorrent::CheckForUpdates()
 }
 void CuteTorrent::ShowAbout()
 {
-    QMessageBox::about(this,tr("ABAUT_TITLE"),tr("ABAUT_TEXT").arg(CT_VERSION));
+    MyMessageBox::about(this,tr("ABAUT_TITLE"),tr("ABAUT_TEXT").arg(CT_VERSION));
 }
 void CuteTorrent::ShowUpdateNitify(const QString& newVersion)
 {
@@ -120,16 +124,21 @@ void CuteTorrent::ShowUpdateNitify(const QString& newVersion)
                              5* 1000);
 
 }
+void CuteTorrent::initStatusBarIcons() {
+    upLabel->setPixmap(styleEngine->getIcon("status_bar_upload").pixmap(16,16));
+    downLabel->setPixmap(styleEngine->getIcon("status_bar_download").pixmap(16,16));
+}
 
 void CuteTorrent::setupStatusBar()
 {
+
     upLabel = new QLabel(this);
     upLabelText = new QLabel(this);
     upLabelText->setMinimumWidth(140);
-    upLabel->setPixmap(QPixmap(QString::fromUtf8(":/icons/upload.ico")).scaled(16,16,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+
 
     downLabel = new QLabel(this);
-    downLabel->setPixmap(QPixmap(QString::fromUtf8(":/icons/download.ico")).scaled(16,16,Qt::IgnoreAspectRatio,Qt::SmoothTransformation));
+
     downLabelText = new QLabel(this);
     downLabel->setToolTip(tr("STATUS_DWONLOAD"));
     downLabelText->setToolTip(tr("STATUS_DWONLOAD"));
@@ -144,7 +153,7 @@ void CuteTorrent::setupStatusBar()
 
     pieceView = new PeiceDisplayWidget(this);
     gridLayout_4->addWidget(pieceView, 0, 0, 1, 5);
-
+    initStatusBarIcons();
 }
 void CuteTorrent::setupListView()
 {
@@ -162,7 +171,7 @@ void CuteTorrent::setupTabelWidgets()
     trackerTableWidget->setColumnWidth(2,120);
     trackerTableWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
     addTracker = new QAction(QIcon(":/MenuIcons/addTorrent.ico"),tr("ADD_TRACKER"),trackerTableWidget);
-    addTracker->setObjectName("ACTION_ADD_TRACKER");
+    addTracker->setObjectName("ACTION_OTHER_ADD_TRACKER");
     QObject::connect(addTracker,SIGNAL(triggered()),this,SLOT(AddTracker()));
     trackerTableWidget->addAction(addTracker);
     /*
@@ -187,15 +196,22 @@ void CuteTorrent::setupTabelWidgets()
     peerTableWidget->setColumnWidth(2,50);
     peerTableWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
     addPeer = new QAction(QIcon(":/MenuIcons/addTorrent.ico"),tr("ADD_PEER"),peerTableWidget);
-    addPeer->setObjectName("ACTION_ADD_PPER");
+    addPeer->setObjectName("ACTION_OTHER_ADD_PPER");
     QObject::connect(addPeer,SIGNAL(triggered()),this,SLOT(AddPeer()));
     peerTableWidget->addAction(addPeer);
 
 
 }
+void CuteTorrent::initToolbarIcons() {
+    ACTION_TOOLBAR_START->setIcon(styleEngine->getIcon("toolbar_start"));
+    ACTION_TOOLBAR_PAUSE->setIcon(styleEngine->getIcon("toolbar_pause"));
+    ACTION_TOOLBAR_REMOVE->setIcon(styleEngine->getIcon("toolbar_remove"));
+    ACTION_TOOLBAR_SETTINGS->setIcon(styleEngine->getIcon("toolbar_settings"));
+}
+
 void CuteTorrent::setupToolBar()
 {
-
+    initToolbarIcons();
     searchSource = new QComboBox(this);
     searchSources = settings->GetSearchSources();
     for(int i=0;i<searchSources.size();i++)
@@ -244,7 +260,7 @@ void CuteTorrent::setupConnections()
     QObject::connect(listView,SIGNAL(customContextMenuRequested(const QPoint &)),model,SLOT(contextualMenu(const QPoint &)));
     QObject::connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
                      this, SLOT(IconActivated(QSystemTrayIcon::ActivationReason)));
-    QObject::connect(ACTION_EXIT, SIGNAL(triggered()), qApp, SLOT(quit()));
+    QObject::connect(ACTION_MENU_EXIT, SIGNAL(triggered()), qApp, SLOT(quit()));
     QObject::connect(tabWidget,SIGNAL(currentChanged(int)),this,SLOT(UpdateTabWidget(int)));
     QObject::connect(model,SIGNAL(updateTabSender(int)),this,SLOT(UpdateTabWidget(int)));
     QObject::connect(tManager,SIGNAL(TorrentError(const QString&,const QString&)),this,SLOT(ShowTorrentError(const QString&,const QString&)));
@@ -259,6 +275,8 @@ void CuteTorrent::setupConnections()
     QObject::connect(tManager,SIGNAL(initCompleted()),model,SLOT(initSessionFinished()));
     QObject::connect(model,SIGNAL(initCompleted()),this,SLOT(EnableNitifyShow()));
     QObject::connect(groupTreeWidget,SIGNAL(itemSelectionChanged()),this,SLOT(ChnageTorrentFilter()));
+    QObject::connect(styleEngine,SIGNAL(styleChanged()),this,SLOT(initWindowIcons()));
+    QObject::connect(styleEngine,SIGNAL(styleChanged()),model,SLOT(setupContextMenu()));
 }
 void CuteTorrent::FileTabContextMenu(const QPoint & point)
 {
@@ -412,7 +430,7 @@ void CuteTorrent::UpdateTabWidget(int tab)
     }
     catch (std::exception e)
     {
-        QMessageBox::warning(this,"Error",QString("CuteTorrent::updateTabWidget()\n")+e.what());
+        MyMessageBox::warning(this,"Error",QString("CuteTorrent::updateTabWidget()\n")+e.what());
     }
 
 }
@@ -608,24 +626,24 @@ void CuteTorrent::createTrayIcon()
 }
 void CuteTorrent::createActions()
 {
-    minimizeAction = new QAction(QIcon(":/images/app_min.ico"),tr("ACTION_HIDE"), this);
-    minimizeAction->setObjectName("ACTION_MINIMIZE");
+    minimizeAction = new QAction(styleEngine->getIcon("app_min"),tr("ACTION_HIDE"), this);
+    minimizeAction->setObjectName("ACTION_TRAY_MINIMIZE");
     connect(minimizeAction, SIGNAL(triggered()), this, SLOT(hide()));
 
-    maximizeAction = new QAction(QIcon(":/images/app_max.ico"),tr("ACTION_MAXIMIZE_FULLSCREEN"), this);
-    maximizeAction->setObjectName("ACTION_MAXIMIZE");
+    maximizeAction = new QAction(styleEngine->getIcon("app_max"),tr("ACTION_MAXIMIZE_FULLSCREEN"), this);
+    maximizeAction->setObjectName("ACTION_TRAY_MAXIMIZE");
     connect(maximizeAction, SIGNAL(triggered()), this, SLOT(showMaximized()));
 
-    restoreAction = new QAction(QIcon(":/images/app_max.ico"),tr("ACTION_MAXIMIZE"), this);
-    restoreAction->setObjectName("ACTION_RESTORE");
+    restoreAction = new QAction(styleEngine->getIcon("app_max"),tr("ACTION_MAXIMIZE"), this);
+    restoreAction->setObjectName("ACTION_TRAY_RESTORE");
     connect(restoreAction, SIGNAL(triggered()), this, SLOT(showNormal()));
 
-    quitAction = new QAction(QIcon(":/images/app_close.ico"),tr("ACTION_EXIT"), this);
-    quitAction->setObjectName("ACTION_EXIT");
+    quitAction = new QAction(styleEngine->getIcon("app_close"),tr("ACTION_EXIT"), this);
+    quitAction->setObjectName("ACTION_TRAY_EXIT");
     connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
 
-    copyContext = new QAction(QIcon(":/MenuIcons/copy-to-clipboard.ico"),tr("ACTION_COPY"),describtionLabel);
-    copyContext->setObjectName("ACTION_COPY_DISCRIBTION");
+    copyContext = new QAction(styleEngine->getIcon("copy"),tr("ACTION_COPY"),describtionLabel);
+    copyContext->setObjectName("ACTION_OTHER_DISCRIBTION");
     connect(copyContext, SIGNAL(triggered()), this, SLOT(CopyDiscribtion()));
     describtionLabel->addAction(copyContext);
 
@@ -904,35 +922,35 @@ void CuteTorrent::setupFileTabelContextMenu()
 {
     fileTabMenu = new QMenu(this);
     openFile = new QAction(tr("FILETAB_OPEN_FILE"), fileTabMenu);
-    openFile->setObjectName("ACTION_OPEN_FILE");
+    openFile->setObjectName("ACTION_FILETAB_OPEN_FILE");
     QObject::connect(openFile, SIGNAL(triggered()), this, SLOT(OpenFileSelected()));
     fileTabMenu->addAction(openFile);
     openDir = new QAction(tr("FILETAB_OPEN_FOLDER"), this);
-    openDir->setObjectName("ACTION_OPEN_DIR");
+    openDir->setObjectName("ACTION_FILETAB_OPEN_DIR");
     QObject::connect(openDir, SIGNAL(triggered()), this, SLOT(OpenDirSelected()));
     fileTabMenu->addAction(openDir);
     fileTabMenu->addSeparator();
     priority = new QMenu(fileTabMenu);
     priority->setTitle(tr("FILETAB_PRIORITY"));
     lowPriority = new QAction(tr("FILETAB_PRIORITY_LOW"), fileTabMenu);
-    lowPriority->setObjectName("ACTION_LOW_PRIORITY");
+    lowPriority->setObjectName("ACTION_FILETAB_LOW_PRIORITY");
     lowPriority->setCheckable(true);
     QObject::connect(lowPriority, SIGNAL(triggered()), this, SLOT(SetLowForCurrentFile()));
     priority->addAction(lowPriority);
     mediumPriority = new QAction(tr("FILETAB_PRIORITY_MEDIUM"), fileTabMenu);
-    mediumPriority->setObjectName("ACTION_MEDIUM_PRIORITY");
+    mediumPriority->setObjectName("ACTION_FILETAB_MEDIUM_PRIORITY");
     mediumPriority->setCheckable(true);
     QObject::connect(mediumPriority, SIGNAL(triggered()), this, SLOT(SetMediumForCurrentFile()));
     priority->addAction(mediumPriority);
     highPriority = new QAction(tr("FILETAB_PRIORITY_HIGH"), fileTabMenu);
-    highPriority->setObjectName("ACTION_HIGH_PRIORITY");
+    highPriority->setObjectName("ACTION_FILETAB_HIGH_PRIORITY");
     highPriority->setCheckable(true);
     QObject::connect(highPriority, SIGNAL(triggered()), this, SLOT(SetHighForCurrentFile()));
     priority->addAction(highPriority);
     fileTabMenu->addMenu(priority);
     fileTabMenu->addSeparator();
     dontDownload = new QAction(tr("FILETAB_PRIORITY_ZERO"), fileTabMenu);
-    dontDownload->setObjectName("ACTION_ZERO_PRIORITY");
+    dontDownload->setObjectName("ACTION_FILETAB_ZERO_PRIORITY");
     dontDownload->setCheckable(true);
     QObject::connect(dontDownload, SIGNAL(triggered()), this, SLOT(SetNotDownloadForCurrentFile()));
     fileTabMenu->addAction(dontDownload);
@@ -1058,7 +1076,7 @@ void CuteTorrent::ShowTorrentInfoNotyfy( const QString name,const QString info)
 
 void CuteTorrent::keyPressEvent( QKeyEvent * event )
 {
-    if (focusWidget()!=listView)
+    if (!isVisible())
     {
         QWidget::keyPressEvent(event);
         return;
@@ -1187,7 +1205,7 @@ void CuteTorrent::AddPeer()
                 }
 
             }
-            QMessageBox::critical(this,tr("PEER_ERR"),tr("INVALID_IP_STRING"));
+            MyMessageBox::critical(this,tr("PEER_ERR"),tr("INVALID_IP_STRING"));
         }
     }
 }
@@ -1233,20 +1251,14 @@ void CuteTorrent::setupGroupTreeWidget()
 {
 
     groupTreeWidget->clear();
-    QIcon icon12;
-    icon12.addFile(QString::fromUtf8(":/MenuIcons/super-seed.ico"), QSize(), QIcon::Normal, QIcon::Off);
-    QIcon icon13;
-    icon13.addFile(QString::fromUtf8(":/icons/download.ico"), QSize(), QIcon::Normal, QIcon::Off);
-    QIcon icon14;
-    icon14.addFile(QString::fromUtf8(":/icons/upload.ico"), QSize(), QIcon::Normal, QIcon::Off);
-    QIcon icon15;
-    icon15.addFile(QString::fromUtf8(":/icons/completed.ico"), QSize(), QIcon::Normal, QIcon::Off);
-    QIcon icon16;
-    icon16.addFile(QString::fromUtf8(":/icons/active.ico"), QSize(), QIcon::Normal, QIcon::Off);
+    QIcon icon12 = styleEngine->getIcon("torrents");
+    QIcon icon13 = styleEngine->getIcon("downloading");
+    QIcon icon14 = styleEngine->getIcon("uploading");
+    QIcon icon15 = styleEngine->getIcon("completed");
+    QIcon icon16 = styleEngine->getIcon("active");
+    QIcon icon17 = styleEngine->getIcon("groups");
     QIcon icon18(icon16.pixmap(QSize(16,16), QIcon::Disabled, QIcon::On));
 
-    QIcon icon17;
-    icon17.addFile(QString::fromUtf8(":/icons/groups.ico"), QSize(), QIcon::Normal, QIcon::Off);
     __qtreewidgetitem = new QTreeWidgetItem(groupTreeWidget);
     __qtreewidgetitem->setIcon(0, icon12);
     __qtreewidgetitem->setText(0,tr("TORRENTS_ACTIVITY"));
@@ -1285,7 +1297,7 @@ void CuteTorrent::setupGroupTreeWidget()
         QTreeWidgetItem* item=new QTreeWidgetItem(__qtreewidgetitem6);
         item->setText(0,groups[i].Name());
 
-        item->setIcon(0,StaticHelpers::guessMimeIcon(groups[i].Extensions().split('|')[0],type));
+        item->setIcon(0, styleEngine->guessMimeIcon(groups[i].Extensions().split('|')[0],type));
         item->setText(1,groups[i].Name());
 
     }
@@ -1309,16 +1321,35 @@ void CuteTorrent::ChnageTorrentFilter()
     }
     model->updateVisibleTorrents();
 }
+void CuteTorrent::initMainMenuIcons(){
+    ACTION_MENU_ABAUT_CT->setIcon(styleEngine->getIcon("about"));
+    ACTION_MENU_CHECK_UPDATE->setIcon(styleEngine->getIcon("check_update"));
+    ACTION_MENU_CREATE->setIcon(styleEngine->getIcon("create_torrent"));
+    ACTION_MENU_EXIT->setIcon(styleEngine->getIcon("menu_exit"));
+    ACTION_MENU_OPEN_MAGNET->setIcon(styleEngine->getIcon("magnet"));
+    ACTION_MENU_OPEN_TORRENT->setIcon(styleEngine->getIcon("add_torrent"));
+    ACTION_MENU_SETTINGS->setIcon(styleEngine->getIcon("menu_settings"));
+}
 
+void CuteTorrent::initWindowIcons() {
+    pbMin->setIcon(styleEngine->getIcon("app_min"));
+    pbMax->setIcon(styleEngine->getIcon("app_max"));
+    pbClose->setIcon(styleEngine->getIcon("app_close"));
+    setupGroupTreeWidget();
+    initToolbarIcons();
+    initStatusBarIcons();
+    initMainMenuIcons();
+}
 void CuteTorrent::setupCustomeWindow()
 {
     setupUi(this);
-    //	tbMenu->setIcon(QIcon(":/icons/app.ico"));
 
-    setWindowFlags(Qt::CustomizeWindowHint);
+
+
     setWindowFlags(Qt::FramelessWindowHint);
-    //setAttribute(Qt::WA_DeleteOnClose);
     setMouseTracking(true);
+
+
     titleBar->setMouseTracking(true);
     LTitle->setMouseTracking(true);
     tbMenu->setMouseTracking(true);
@@ -1332,7 +1363,7 @@ void CuteTorrent::setupCustomeWindow()
     /*centralLayout = new QHBoxLayout(centralWidget);
     centralLayout->setContentsMargins(9,9,9,9);*/
 
-    addAction(ACTION_CLOSE);
+
 
     connect(pbMin, SIGNAL(clicked()), this, SLOT(minimizeBtnClicked()));
     connect(pbMax, SIGNAL(clicked()), this, SLOT(maximizeBtnClicked()));
@@ -1350,17 +1381,17 @@ void CuteTorrent::setupCustomeWindow()
 
 
 
-    QRect geo = settings->value("Window","geometry").toRect();
+    QRect geo = settings->value("Window","geometry",QRect(0,0,683,643)).toRect();
 
     if (geo.height() > 0 && geo.x() < QApplication::desktop()->width() && geo.width() > 0 && geo.y() < QApplication::desktop()->height())
         setGeometry(geo);
 
-    if (settings->value("Window","maximized").toBool())
+    if (settings->value("Window","maximized",false).toBool())
     {
         showMaximized();
-        pbMax->setIcon(QIcon(":/images/app_rest.ico"));
+        pbMax->setIcon(styleEngine->getIcon("app_rest"));
     }
-    int selectedTab = settings->valueInt("Window","selected_tab");
+    int selectedTab = settings->valueInt("Window","selected_tab",0);
     if (selectedTab>=0 && selectedTab < tabWidget->count())
     {
         tabWidget->setCurrentIndex(selectedTab);
@@ -1546,12 +1577,12 @@ void CuteTorrent::maximizeBtnClicked()
 {
     if (isFullScreen()||isMaximized())
     {
-        pbMax->setIcon(QIcon(":/images/app_max.ico"));
+        pbMax->setIcon(styleEngine->getIcon("app_max"));
         showNormal();
     }
     else
     {
-        pbMax->setIcon(QIcon(":/images/app_rest.ico"));
+        pbMax->setIcon(styleEngine->getIcon("app_reset"));
         showMaximized();
     }
 }

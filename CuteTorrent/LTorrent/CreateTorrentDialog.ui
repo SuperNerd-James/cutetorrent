@@ -40,7 +40,7 @@
     <number>1</number>
    </property>
    <property name="topMargin">
-    <number>0</number>
+    <number>1</number>
    </property>
    <property name="rightMargin">
     <number>1</number>
@@ -124,7 +124,7 @@
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">color: rgb(0, 0, 0);</string>
+         <string notr="true"/>
         </property>
         <property name="text">
          <string>DIALOG_TORRENT_CREATION</string>
@@ -147,10 +147,6 @@
           <width>22</width>
           <height>22</height>
          </size>
-        </property>
-        <property name="icon">
-         <iconset resource="ltorrent.qrc">
-          <normaloff>:/images/app_min.ico</normaloff>:/images/app_min.ico</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -176,10 +172,6 @@
           <width>22</width>
           <height>22</height>
          </size>
-        </property>
-        <property name="icon">
-         <iconset resource="ltorrent.qrc">
-          <normaloff>:/images/app_close.ico</normaloff>:/images/app_close.ico</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -268,6 +260,9 @@ QProgressBar::chunk { background-color: #51D331; width: 20px; }</string>
         <layout class="QGridLayout" name="gridLayout_2">
          <item row="0" column="0">
           <widget class="QCheckBox" name="startSeedCheckBox">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="text">
             <string>CREATE_TORRENT_START_SEEDING</string>
            </property>
@@ -308,6 +303,9 @@ QProgressBar::chunk { background-color: #51D331; width: 20px; }</string>
          </item>
          <item row="1" column="0" colspan="2">
           <widget class="QCheckBox" name="saveOrderCheckBox">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="text">
             <string>CREATE_TORRENT_SAVE_FILE_ORDER</string>
            </property>

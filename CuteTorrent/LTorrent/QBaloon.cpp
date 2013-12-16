@@ -2,6 +2,8 @@
 #include <QtGui>
 #include "QBaloon.h"
 #include <QPropertyAnimation>
+#include "StyleEngene.h"
+
 static QBalloonTip *theSolitaryBalloonTip = 0;
 
 QWidget *QBalloonTip::showBalloon(const QString& title,
@@ -60,7 +62,7 @@ QBalloonTip::QBalloonTip(const QString& title, const QString& message,QBaloonTyp
 	currentData=data;
 	setWindowFlags(windowFlags() | Qt::FramelessWindowHint);
     setObjectName("QBalloonTip" );
-    setStyleSheet(" QWidget#QBalloonTip	{border: 1px solid #909090;	background-color:#f0f0f0;	}");
+
 	cuurentIcon=icon;
    
 
@@ -74,7 +76,7 @@ QBalloonTip::QBalloonTip(const QString& title, const QString& message,QBaloonTyp
 
 	QPushButton *closeButton = new QPushButton;
     closeButton->setObjectName("closeBaloon");
-	closeButton->setIcon(style()->standardIcon(QStyle::SP_DockWidgetCloseButton));
+    closeButton->setIcon(StyleEngene::getInstance()->getIcon("app_close"));
 	closeButton->setIconSize(QSize(18, 18));
 	closeButton->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 	closeButton->setFixedSize(18, 18);

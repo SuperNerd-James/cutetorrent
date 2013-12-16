@@ -30,7 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "VideoPlayer/VideoPlayerWindow.h"
 #include "DT_mounter.h"
 #include "CuteTorrent.h"
-
+#include "StyleEngene.h"
 QTorrentDisplayModel::QTorrentDisplayModel(CuteTorrent* _mainWindow,QListView* _parrent,QObject* __parrent):QAbstractListModel(__parrent)
 {
     mainWindow = _mainWindow;
@@ -242,7 +242,7 @@ void QTorrentDisplayModel::UpdateSelectedIndex(const QItemSelection & index)
 	}
 	catch (std::exception e)
 	{
-		QMessageBox::warning(0,"UpdateSelectedIndex",e.what());
+        MyMessageBox::warning(0,"UpdateSelectedIndex",e.what());
 	}
 
 
@@ -305,7 +305,7 @@ int QTorrentDisplayModel::rowCount( const QModelIndex& parent ) const
 	}
 	catch (std::exception e)
 	{
-		QMessageBox::warning(0,"rowCount",e.what());
+        MyMessageBox::warning(0,"rowCount",e.what());
 	}
 	return 0;
 
@@ -335,12 +335,13 @@ Torrent* QTorrentDisplayModel::GetSelectedTorrent()
 	}
 	catch (std::exception e)
 	{
-		QMessageBox::warning(0,"GetSelectedTorrent",e.what());
+        MyMessageBox::warning(0,"GetSelectedTorrent",e.what());
 	}
 	
 	return NULL;
 
 }
+
 void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 {
 	
@@ -381,6 +382,7 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 				
 			case remove:
 				{
+                    if  (QMessageBox::Cancel != MyMessageBox::warning(parrent,tr("TORRENT_DELITION"),tr("TORRENT_DELITION_MSG"),QMessageBox::Ok | QMessageBox::Cancel))
 					foreach(int row,rows)
 					{
 						//qDebug() << "removing row " << row;
@@ -390,7 +392,7 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 				break;
 			case remove_all:
 				{
-					
+                    if  (QMessageBox::Cancel != MyMessageBox::warning(parrent,tr("TORRENT_DELITION"),tr("TORRENT_ALL_DELITION_MSG"),QMessageBox::Ok | QMessageBox::Cancel))
 					foreach(int row,rows)
 					{
 						//qDebug() << "removing row " << row;
@@ -464,7 +466,7 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 	}
 	catch (std::exception e)
 	{
-		QMessageBox::warning(0,"ActionOnSelectedItem",e.what());
+        MyMessageBox::warning(0,"ActionOnSelectedItem",e.what());
 	}
 
 
@@ -591,60 +593,61 @@ void QTorrentDisplayModel::playInPlayer()
 void QTorrentDisplayModel::setupContextMenu()
 {
 	menu = new QMenu(parrent);
-    openDir = new QAction(QIcon(":/MenuIcons/open-folder"),tr("ACTION_OPEN_FOLDER"),this);
-    openDir->setObjectName("ACTION_OPEN_DIR");
+    StyleEngene* style = StyleEngene::getInstance();
+    openDir = new QAction(style->getIcon("open_folder"),tr("ACTION_OPEN_FOLDER"),this);
+    openDir->setObjectName("ACTION_TORRENTLIST_OPEN_DIR");
     QObject::connect(openDir, SIGNAL(triggered()), this, SLOT(OpenDirSelected()));
     openDir->setShortcut(Qt::Key_Enter);
     menu->addAction(openDir);
     menu->addSeparator();
-    DTmount = new QAction(QIcon(":/icons/my-iso.ico"),tr("ACTION_DT_MOUNT"), this);
-    DTmount->setObjectName("ACTION_DT_MOUNT");
+    DTmount = new QAction(style->getIcon("daemon_tools"),tr("ACTION_DT_MOUNT"), this);
+    DTmount->setObjectName("ACTION_TORRENTLIST_DT_MOUNT");
     QObject::connect(DTmount, SIGNAL(triggered()), this, SLOT(MountDT()));
     menu->addAction(DTmount);
-    PlayInPlayer = new QAction(QIcon(":/MenuIcons/play.ico"),tr("ACTION_PLAY_IN_PLAYER"), this);
-    PlayInPlayer->setObjectName("ACTION_PLAY");
+    PlayInPlayer = new QAction(style->getIcon("play"),tr("ACTION_PLAY_IN_PLAYER"), this);
+    PlayInPlayer->setObjectName("ACTION_TORRENTLIST_PLAY");
     QObject::connect(PlayInPlayer, SIGNAL(triggered()), this, SLOT(playInPlayer()));
     menu->addAction(PlayInPlayer);
-    MoveStorrage = new QAction(QIcon(":/MenuIcons/move-folder.iso"),tr("ACTION_MOVE_STORRAGE"), this);
-    MoveStorrage->setObjectName("ACTION_MOVE_STORRAGE");
+    MoveStorrage = new QAction(style->getIcon("move_folder"),tr("ACTION_MOVE_STORRAGE"), this);
+    MoveStorrage->setObjectName("ACTION_TORRENTLIST_MOVE_STORRAGE");
     QObject::connect(MoveStorrage, SIGNAL(triggered()), this, SLOT(moveStorrage()));
     menu->addAction(MoveStorrage);
     menu->addSeparator();
-    superSeed = new QAction(QIcon(":/MenuIcons/super-seed.ico"),tr("ACTION_SET_SUPERSEED"),this);
-    superSeed->setObjectName("ACTION_SUPER_SEED");
+    superSeed = new QAction(style->getIcon("super_seed"),tr("ACTION_SET_SUPERSEED"),this);
+    superSeed->setObjectName("ACTION_TORRENTLIST_SUPER_SEED");
     superSeed->setCheckable(true);
     QObject::connect(superSeed, SIGNAL(triggered()), this, SLOT(SetSuperSeed()));
     menu->addAction(superSeed);
-    HashRecheck = new QAction(QIcon(":/MenuIcons/re-hash.iso"),tr("ACTION_REHASH"), this);
-    HashRecheck->setObjectName("ACTION_RECHECK");
+    HashRecheck = new QAction(style->getIcon("recheck"),tr("ACTION_REHASH"), this);
+    HashRecheck->setObjectName("ACTION_TORRENTLIST_RECHECK");
     QObject::connect(HashRecheck, SIGNAL(triggered()), this, SLOT(Rehash()));
     menu->addAction(HashRecheck);
-    updateTrackers = new QAction(QIcon(":/MenuIcons/update-trackers.ico"),tr("ACTION_UPDATE_TRACKERS"), this);
-    updateTrackers->setObjectName("ACTION_UPDATE_TRACKERS");
+    updateTrackers = new QAction(style->getIcon("update_trackers"),tr("ACTION_UPDATE_TRACKERS"), this);
+    updateTrackers->setObjectName("ACTION_TORRENTLIST_UPDATE_TRACKERS");
     QObject::connect(updateTrackers, SIGNAL(triggered()), this, SLOT(UpdateTrackers()));
     menu->addAction(updateTrackers);
-    setSequentual = new QAction(QIcon(":/MenuIcons/sequntioal-dl.ico"),tr("ACTION_SET_SEQUENTIAL"), this);
-    setSequentual->setObjectName("ACTION_SET_SEQUNTIAL");
+    setSequentual = new QAction(style->getIcon("sequential"),tr("ACTION_SET_SEQUENTIAL"), this);
+    setSequentual->setObjectName("ACTION_TORRENTLIST_SET_SEQUNTIAL");
     setSequentual->setCheckable(true);
     QObject::connect(setSequentual, SIGNAL(triggered()), this, SLOT(setSequentualDL()));
     menu->addAction(setSequentual);
-    GenerateMagnet = new QAction(QIcon(":/MenuIcons/addUrl.ico"),tr("ACTION_GENERATE_MAGNET"), this);
-    GenerateMagnet->setObjectName("ACTION_GENERATE_MAGNET");
+    GenerateMagnet = new QAction(style->getIcon("magnet"),tr("ACTION_GENERATE_MAGNET"), this);
+    GenerateMagnet->setObjectName("ACTION_TORRENTLIST_GENERATE_MAGNET");
     QObject::connect(GenerateMagnet, SIGNAL(triggered()), this, SLOT(generateMagnetLink()));
     menu->addAction(GenerateMagnet);
     menu->addSeparator();
-    DelAll = new QAction(QIcon(":/MenuIcons/delete.ico"),tr("ACTION_DELETE_ALL"), this);
-    DelAll->setObjectName("ACTION_DEL_ALL");
+    DelAll = new QAction(style->getIcon("delete"),tr("ACTION_DELETE_ALL"), this);
+    DelAll->setObjectName("ACTION_TORRENTLIST_DEL_ALL");
     QObject::connect(DelAll, SIGNAL(triggered()), this, SLOT(DellAll()));
     DelAll->setShortcut(Qt::Key_Shift|Qt::Key_Delete);
     menu->addAction(DelAll);
-    DelTorrentOnly = new QAction(QIcon(":/MenuIcons/delete.ico"),tr("ACTION_DELETE_TORRENT"), this);
-    DelTorrentOnly->setObjectName("ACTION_DEL_TORRENT");
+    DelTorrentOnly = new QAction(style->getIcon("delete"),tr("ACTION_DELETE_TORRENT"), this);
+    DelTorrentOnly->setObjectName("ACTION_TORRENTLIST_DEL_TORRENT");
     QObject::connect(DelTorrentOnly, SIGNAL(triggered()), this, SLOT(DellTorrentOnly()));
     DelTorrentOnly->setShortcut(Qt::Key_Delete);
     menu->addAction(DelTorrentOnly);
     groupsMenu = new QMenu(tr("ACTION_CHANGE_GROUP"),menu);
-    groupsMenu->setIcon(QIcon(":/icons/groups.ico"));
+    groupsMenu->setIcon(style->getIcon("groups"));
 	//qDebug() << "QApplicationSettings::getInstance from QTorrentDisplayModel::setupContextMenu";
     QList<GroupForFileFiltering> filters = QApplicationSettings::getInstance()->GetFileFilterGroups();
 	//qDebug() << "QApplicationSettings::FreeInstance from QTorrentDisplayModel::setupContextMenu";
@@ -652,7 +655,7 @@ void QTorrentDisplayModel::setupContextMenu()
     QString type;
     for(int i=0;i<filters.size();i++)
     {
-        QAction* changeGroupAction = new QAction(StaticHelpers::guessMimeIcon(filters[i].Extensions().split('|')[0],type),filters[i].Name(),groupsMenu);
+        QAction* changeGroupAction = new QAction(style->guessMimeIcon(filters[i].Extensions().split('|')[0],type),filters[i].Name(),groupsMenu);
         changeGroupAction->setObjectName(filters[i].Name());
         QObject::connect(changeGroupAction, SIGNAL(triggered()), this, SLOT(changeGroup()));
         changeGroupAction->setCheckable(true);

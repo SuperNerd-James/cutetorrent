@@ -8,20 +8,13 @@ void CommandsApiController::service( HttpRequest& request, HttpResponse& respons
 	//qDebug() << request.getParameterMap();
 	if (requireAuth)
 	{
-		if (request.getHeader("Authorization").isEmpty())
-		{
-			//qDebug() << "header: " << request.getHeaderMap()<<  "parametrs: "  << request.getParameterMap();
-			response.setStatus(401,"Not authoriarised");
-			response.setHeader("WWW-Authenticate","Digest realm=\"realm@host.com\",qop=\"auth,auth-int\",nonce=\"dcd98b7102dd2f0e8b11d0f600bfb0c093\",opaque=\"5ccc069c403ebaf9f0171e9517f40e41\"");
-		}
-		else
-		{
+
 			//qDebug() << "Authorization" << request.getHeader("Authorization");
 			if (!CheckCreditinals(request,response))
 			{
 				return;
 			}
-		}
+
 	}
 	if (request.getMethod().toUpper()=="POST")
 	{

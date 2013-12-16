@@ -17,7 +17,7 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "QApplicationSettings.h"
-#include <QMessageBox>
+#include "messagebox.h"
 #include <QDebug>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
@@ -43,7 +43,7 @@ QApplicationSettings::QApplicationSettings()
 	}
 	catch(std::exception ex)
 	{
-		QMessageBox::warning(0,"Error",QString("QApplicationSettings::QApplicationSettings()")+ex.what());
+        MyMessageBox::warning(0,"Error",QString("QApplicationSettings::QApplicationSettings()")+ex.what());
 	}
 	
 }
@@ -84,28 +84,29 @@ QStringList QApplicationSettings::GetGroupNames()
 
 void QApplicationSettings::setValue(const QString group,const QString key,const QVariant &value)
 {
-	locker->lock();
+
 	settings->beginGroup(group);
 	settings->setValue(key,value);
 	settings->endGroup();
 	//qDebug() << "QApplicationSettings::setValue " << group << " " << key << " " << value;
-	locker->unlock();
+
 	WriteSettings();
 }
 
 QVariant QApplicationSettings::value(const QString group,const QString key,QVariant defaultVal)
 {
-	locker->lock();
+    locker->lock();
 	QVariant res = QVariant();
 	settings->beginGroup(group);
 	res = settings->value(key);
+    settings->endGroup();
     if (!res.isValid() &&  defaultVal.isValid())
 	{
         settings->setValue(key,defaultVal);
         res=defaultVal;
 	}
-	settings->endGroup();
-	locker->unlock();
+    locker->unlock();
+
 	return res;
 }
 int QApplicationSettings::valueInt(const QString group,const QString key,int defalt)
@@ -125,6 +126,7 @@ int QApplicationSettings::valueInt(const QString group,const QString key,int def
 
 QMap<QString, QVariant> QApplicationSettings::getGroupValues(QString group)
 {
+    locker->lock();
     settings->beginGroup(group);
     QStringList keys = settings->childKeys();
     QMap<QString, QVariant> result;
@@ -133,10 +135,12 @@ QMap<QString, QVariant> QApplicationSettings::getGroupValues(QString group)
         result.insert(key,settings->value(key));
     }
     settings->endGroup();
+    locker->unlock();
     return result;
 }
 void QApplicationSettings::setGroupValues(QString group,QMap<QString, QVariant> values)
 {
+    locker->lock();
     settings->beginGroup(group);
     QStringList keys = values.keys();
     foreach(QString key,keys)
@@ -144,6 +148,7 @@ void QApplicationSettings::setGroupValues(QString group,QMap<QString, QVariant> 
         settings->setValue(key,values[key]);
     }
     settings->endGroup();
+    locker->unlock();
 }
 QString	QApplicationSettings::valueString(const QString group,const QString key,QString defalt)
 {
@@ -335,7 +340,7 @@ void QApplicationSettings::SaveSchedullerQueue( QList<SchedulerTask> &tasks)
     QFile file(dataDir+"CT_DATA/schedulertasks.xml");
 	if (!file.open(QFile::WriteOnly))
 	{
-        QMessageBox::warning(NULL,"","Error open for writing CT_DATA/schedulertasks.xml");
+        MyMessageBox::warning(NULL,"","Error open for writing CT_DATA/schedulertasks.xml");
 		return;
 	}
 	QXmlStreamWriter xml(&file);

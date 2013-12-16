@@ -1,5 +1,5 @@
 #include "DT_mounter.h"
-#include <QMessageBox>
+#include "messagebox.h"
 #include "QApplicationSettings.h"
 #include <QProcess>
 #include "QTorrentDisplayModel.h"
@@ -13,7 +13,7 @@ void DT_mounter::mountImage( QString path )
 	{
 		//qDebug() << "QApplicationSettings::FreeInstance from DT_mounter::mountImage";
 		QApplicationSettings::FreeInstance();
-		QMessageBox::warning(NULL,"DT Mounter",QTorrentDisplayModel::tr("DT_PATH_NOT_SET"));
+        MyMessageBox::warning(NULL,"DT Mounter",QTorrentDisplayModel::tr("DT_PATH_NOT_SET"));
 		return;
 	}
 	bool useCustomCmd = settings->valueBool("DT","UseCustomCommand");
@@ -28,7 +28,7 @@ void DT_mounter::mountImage( QString path )
 	QApplicationSettings::FreeInstance();
 	if (!dt->waitForStarted(5000))
 	{
-		QMessageBox::warning(NULL,"DT Mounter",QTorrentDisplayModel::tr("LAUNCH_ERROR")+exe);
+        MyMessageBox::warning(NULL,"DT Mounter",QTorrentDisplayModel::tr("LAUNCH_ERROR")+exe);
 		return;
 	}
 

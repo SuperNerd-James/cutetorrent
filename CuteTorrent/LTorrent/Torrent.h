@@ -26,10 +26,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QList>
 #include <QVector>
 #include <QFileIconProvider>
-#include <QMessageBox>
+#include "messagebox.h"
+#include "StyleEngene.h"
 #include <QHostAddress>
 class TorrentManager;
 class StaticHelpers;
+
 #include "defs.h"
 class Torrent : public QObject
 {

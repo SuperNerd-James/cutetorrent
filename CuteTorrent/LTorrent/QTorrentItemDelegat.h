@@ -43,7 +43,7 @@ protected:
      QSize margin( const QStyle& style ) const;
 	 virtual QSize sizeHint( const QStyleOptionViewItem&, const Torrent& ) const;
 
-	 virtual void drawTorrent( QPainter* painter, const QStyleOptionViewItem& option,const Torrent& , int row) const;
+     virtual void drawTorrent( QPainter* painter, const QStyleOptionViewItem& option,const Torrent& , QModelIndex index) const;
 private:
 	QString GetStatusString(const Torrent& tor) const;
 	QString GetProgressString(const Torrent& tor) const;
@@ -57,7 +57,7 @@ public:
 	 virtual ~QTorrentItemDelegat( );
 	
 	 QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const;
-	 void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
+     void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const;
 };
 
 Q_DECLARE_METATYPE(QTorrentItemDelegat)

@@ -26,10 +26,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 #include <QDateTime>
 #include "application.h"
-#include <QMessageBox>
+#include "messagebox.h"
 #include <QTextCodec>
 #include "CuteTorentStyle.h"
+#include  "StyleEngene.h"
 #ifdef DEBUG
+
 void myMessageOutput(QtMsgType type, const char *msg)
 {
 
@@ -52,27 +54,12 @@ void myMessageOutput(QtMsgType type, const char *msg)
 
 #endif // DEBUG
 
-void loadStyleSheet(Application* a)
-{
 
-    QFile file(":/CuteTorrentStyle.css");
-    if (file.open(QFile::ReadOnly))
-    {
-        a->setStyleSheet(file.readAll());
-        file.close();
-    }
-}
 
 int main(int argc, char *argv[])
 {
 	
-#ifdef DEBUG
-    //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF|_CRTDBG_LEAK_CHECK_DF);
 
-
-	FILE * fp=freopen("ct_debug.log","a+",stderr);
-    qInstallMsgHandler(myMessageOutput);
-#endif // DEBUG
     Application a(argc, argv);
     a.setWindowIcon(QIcon(":/icons/app.ico"));
 
@@ -80,11 +67,11 @@ int main(int argc, char *argv[])
 	/*QTextCodec::setCodecForTr(wantUnicode);
 	QTextCodec::setCodecForLocale(wantUnicode);*/
     QTextCodec::setCodecForLocale(wantUnicode);
-	bool minimize=false,consoleWarint=false;
+    bool minimize=false,nodebug=false;
 	QString file2open;
 
-    loadStyleSheet(&a);
-	
+
+    qsrand(time(NULL));
 	if (a.isRunning())
 	{
 		if (argc>=2)
@@ -107,14 +94,13 @@ int main(int argc, char *argv[])
 			{
 				if (argv[i][0]=='-')
 				{
-					switch (argv[i][1])
-					{
-						case 'm' :
-							minimize=true;
-							break;
-						default	 :
-							break;
-					}
+                    if (!strcmp(argv[i],"-m")) {
+                        minimize = true;
+                    } else
+                        if (!strcmp(argv[i],"-nodebug")) {
+                           nodebug = true;
+
+                    }
 					
 
 				}
@@ -126,7 +112,12 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
-	
+    FILE * fp;
+    if (!nodebug) {
+
+       fp = freopen("ct_debug.log","a+",stderr);
+       qInstallMsgHandler(myMessageOutput);
+    }
 	a.loadTranslations(":/translations");
     a.loadTranslationsQt(":/translations_qt");
 	a.addLibraryPath(QCoreApplication::applicationDirPath ()+"/plugins");
@@ -153,8 +144,9 @@ int main(int argc, char *argv[])
     a.setActiveWindow(&w);
 	int res=a.exec();
 	
-#ifdef DEBUG
-//	fclose(fp);
-#endif // DEBUG
+    if (!nodebug && !fp) {
+        fclose(fp);
+    }
+
 	return res;
 }

@@ -24,12 +24,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMovie>
 #include <QMouseEvent>
 #include <QPainter>
+#include "StyleEngene.h"
 #define PIXELS_TO_ACT 2
 OpenTorrentDialog::OpenTorrentDialog(QWidget *parent, Qt::WindowFlags flags) : useGroup(false)
 {
 	setupUi(this);
-	setupGroupComboBox();
     setupCustomeWindow();
+    setupWindowIcons();
 	mgr=TorrentManager::getInstance();
 	validTorrent=true;
 	model=NULL;
@@ -37,11 +38,15 @@ OpenTorrentDialog::OpenTorrentDialog(QWidget *parent, Qt::WindowFlags flags) : u
 	/*QTextCodec::setCodecForTr(wantUnicode);
 	QTextCodec::setCodecForLocale(wantUnicode);*/
     QTextCodec::setCodecForLocale(wantUnicode);
+    StyleEngene* style = StyleEngene::getInstance();
+    QObject::connect(style,SIGNAL(styleChanged()),this,SLOT(setupWindowIcons()));
 	
 }
-void OpenTorrentDialog::setupGroupComboBox()
+void OpenTorrentDialog::setupWindowIcons()
 {
-
+    StyleEngene* style = StyleEngene::getInstance();
+    pbMin->setIcon(style->getIcon("app_min"));
+    pbClose->setIcon(style->getIcon("app_close"));
 
 }
 
@@ -370,7 +375,7 @@ void OpenTorrentDialog::SetData(QString filename)
 		qRegisterMetaType<openmagnet_info>("openmagnet_info");
 		MetaDataDownloadWaiter* magnetWaiter = new MetaDataDownloadWaiter(filename);
 		if (!QObject::connect(magnetWaiter,SIGNAL(DownloadCompleted(openmagnet_info)),this,SLOT(DownloadMetadataCompleted(openmagnet_info))))
-			QMessageBox::critical(this,"ERROR","NOT_CONNECTID");
+            MyMessageBox::critical(this,"ERROR","NOT_CONNECTID");
 		magnetWaiter->start(QThread::HighPriority);
 		yesButton->setEnabled(false);
 	}
@@ -492,7 +497,7 @@ void OpenTorrentDialog::AccepTorrent()
 		}
 		if (ec)
 		{
-			QMessageBox::critical(this,"Adding torrent Error",QString::fromStdString(ec.message()));
+            MyMessageBox::critical(this,"Adding torrent Error",QString::fromStdString(ec.message()));
 			return;
 		}
 	}

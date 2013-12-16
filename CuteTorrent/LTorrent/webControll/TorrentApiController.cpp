@@ -11,10 +11,10 @@ TorrentApiController::TorrentApiController( QObject* parent/*=0*/ ): HttpRequest
 
 void TorrentApiController::service( HttpRequest& request, HttpResponse& response )
 {
-	/*if (!CheckCreditinals(request,response))
+    /*if (!CheckCreditinals(request,response))
 	{
 		return;
-	}*/
+    }*/
 	QMultiMap<QByteArray,QByteArray> parametrs=request.getParameterMap();
 	//qDebug() << parametrs;
 	if (request.getMethod().toUpper()=="GET")

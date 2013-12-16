@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFileDialog>
 #include <QString>
 #include <QDir>
-#include <QMessageBox>
+#include "messagebox.h"
 #include "TorrentManager.h"
 #include <QDebug>
 #include <QTranslator>
@@ -33,11 +33,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDesktopServices>
 #include <QUrl>
 #include "qkeyedit.h"
+#include <QScrollArea>
+#include <QFormLayout>
+#include "StyleEngene.h"
 #define PIXELS_TO_ACT 2
 #ifdef Q_WS_WIN //file association for windows
 #include <windows.h>
 #include <tchar.h>
-#include <QScrollArea>
+
 typedef BOOL (WINAPI *LPFN_ISWOW64PROCESS) (HANDLE, PBOOL);
 
 LPFN_ISWOW64PROCESS fnIsWow64Process;
@@ -81,6 +84,7 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
     FillSearchTab();
     FillKeyMapTab();
     setupCustomeWindow();
+    setupWindowIcons();
 	//OS_SPECIFICK////
     int current=0;
 #ifdef Q_WS_WIN
@@ -109,9 +113,26 @@ SettingsDialog::SettingsDialog(QWidget* parrent,int flags)
 		current++;
 
 	}
-	
+    StyleEngene* style = StyleEngene::getInstance();
+    QObject::connect(style,SIGNAL(styleChanged()),this,SLOT(setupWindowIcons()));
 	
 	//tabWidget->removeTab(5);
+}
+void SettingsDialog::setupWindowIcons() {
+    StyleEngene* style = StyleEngene::getInstance();
+    pbMin->setIcon(style->getIcon("app_min"));
+    pbClose->setIcon(style->getIcon("app_close"));
+
+    RunningLabel->setPixmap(style->getIcon("active").pixmap(32,32));
+
+    listWidget->item(0)->setIcon(style->getIcon("settings_torrent"));
+    listWidget->item(1)->setIcon(style->getIcon("settings_hdd"));
+    listWidget->item(2)->setIcon(style->getIcon("settings_filter"));
+    listWidget->item(3)->setIcon(style->getIcon("settings_dt"));
+    listWidget->item(4)->setIcon(style->getIcon("settings_scheduler"));
+    listWidget->item(5)->setIcon(style->getIcon("settings_web_controll"));
+    listWidget->item(6)->setIcon(style->getIcon("settings_search"));
+    listWidget->item(7)->setIcon(style->getIcon("settings_hotkeys"));
 }
 
 void SettingsDialog::mouseMoveEvent(QMouseEvent *e)
@@ -461,7 +482,15 @@ void SettingsDialog::FillTorrentTab()
 	}
     trackerGroupBox->setChecked(settings->valueBool("TorrentTracker","enabled",false));
     trackerPortEdit->setText(settings->valueString("TorrentTracker","port","6996"));
-
+    StyleEngene* styleEngine = StyleEngene::getInstance();
+    QList<StyleInfo> styleInfos = styleEngine->getAvaliableStyles();
+    StyleInfo currentStyle = styleEngine->getCuurentStyle();
+    for (int i=0;i<styleInfos.size();i++) {
+        styleComboBox->addItem(styleInfos[i].DisplayName,styleInfos[i].InternalName);
+        if (styleInfos[i] == currentStyle) {
+            styleComboBox->setCurrentIndex(i);
+        }
+    }
 }
 
 void SettingsDialog::FillFilteringGroups()
@@ -500,6 +529,7 @@ void SettingsDialog::FillWebUITab()
 	ipFilterTextEdit->setText(settings->valueString("WebControl","ipfilter"));
 
     bool isRunning=rcon->isRunning();
+
     RunningLabel->setEnabled(isRunning && enabled);
     startRconButton->setEnabled(!isRunning && enabled);
     stopRconButton->setEnabled(isRunning && enabled);
@@ -666,12 +696,17 @@ void SettingsDialog::ApplySettings()
     Application::setLanguageQt(choosenLanguage);
     settings->setValue("System","Lang",choosenLanguage);
     QList<QKeyEdit*> keyEdits = keyMapContainer->findChildren<QKeyEdit*>();
+    qDebug()  << keyEdits;
     QMap<QString,QVariant> keyMap;
     foreach(QKeyEdit* keyEdit,keyEdits) {
         keyMap.insert(keyEdit->objectName(),keyEdit->text());
     }
     settings->setGroupValues("KeyMap",keyMap);
     FillKeyMapTab();
+    int styleIndex = styleComboBox->currentIndex();
+    QString currentStyle = styleComboBox->itemData(styleIndex).toString();
+    settings->setValue("System","Style",currentStyle);
+    StyleEngene::getInstance()->setStyle(currentStyle);
     calendarWidget->setLocale(QLocale(choosenLanguage));
     buttonBox->setLocale(QLocale(choosenLanguage));
 }
@@ -710,27 +745,27 @@ void SettingsDialog::addGroup()
 	QString name=newGroupNameEdit->text();
 	if (name.isEmpty())
 	{
-		QMessageBox::warning(this,tr("STR_SETTINGS"),
+        MyMessageBox::warning(this,tr("STR_SETTINGS"),
 			tr("ERROR_GROUP_NAME_NOT_SET"));
 		return;
 	}
 	QString extensions=extensionsEdit->toPlainText();
 	if (extensions.isEmpty())
 	{
-		QMessageBox::warning(this,tr("STR_SETTINGS"),
+        MyMessageBox::warning(this,tr("STR_SETTINGS"),
 			tr("ERROR_NO_EXTENSIONS"));
 		return;
 	}
 	QString dir=groupSavePathEdit->text();
 	if (dir.isEmpty())
 	{
-		QMessageBox::warning(this,tr("STR_SETTINGS"),
+        MyMessageBox::warning(this,tr("STR_SETTINGS"),
 			tr("ERROR_NO_PATH"));
 		return;
 	}
 	if (!QDir(dir).exists())
 	{
-		QMessageBox::warning(this,tr("STR_SETTINGS"),
+        MyMessageBox::warning(this,tr("STR_SETTINGS"),
 			tr("ERROR_PATH_NOT_EXISTS"));
 		return;
 	}
@@ -746,7 +781,7 @@ void SettingsDialog::addGroup()
 	}
 	if (foundRow >= 0)
 	{
-		if (QMessageBox::No==QMessageBox::warning(this,tr("STR_SETTINGS"),
+        if (QMessageBox::No==MyMessageBox::warning(this,tr("STR_SETTINGS"),
 			tr("SHURE_IN_CHANGING_GROUP %1").arg(name),
 			QMessageBox::No | QMessageBox::Yes))
 		return;
@@ -787,7 +822,7 @@ void SettingsDialog::removeGroup()
             }
             else
             {
-                QMessageBox::warning(this,"Error",QString(tr("Unable to find %1")).arg(name));
+                MyMessageBox::warning(this,"Error",QString(tr("Unable to find %1")).arg(name));
             }
         }
    }
@@ -866,12 +901,12 @@ void SettingsDialog::AddTask()
 	}
 	if (SchedulerTask::UNKNOWN==type)
 	{
-		QMessageBox::warning(this,tr("ERROR_SRT"),tr("SCHEDULLER_UNKNOWN_TYPE"));
+        MyMessageBox::warning(this,tr("ERROR_SRT"),tr("SCHEDULLER_UNKNOWN_TYPE"));
 		return;
 	}
 	if (name.length()==0)
 	{
-		QMessageBox::warning(this,tr("ERROR_SRT"),tr("SCHEDULLER_NO_NAME"));
+        MyMessageBox::warning(this,tr("ERROR_SRT"),tr("SCHEDULLER_NO_NAME"));
 		return;
 	}
 	SchedulerTask newTask(name,type,limitVal,beginDateTimeEdit->dateTime());
@@ -903,29 +938,71 @@ void SettingsDialog::FillKeyMapTab()
 {
     QMap<QString, QVariant> keyMappings=settings->getGroupValues("KeyMap");
     qDebug() << "FillKeyMapTab";
-    qDeleteAll(keyMapContainer->findChildren<QWidget*>());
+    qDeleteAll(keyMapContainer->findChildren<QGroupBox*>());
     QLayout* origLayout = keyMapContainer->layout();
     QGridLayout* layout =origLayout ? (QGridLayout*)origLayout :  new QGridLayout(keyMapContainer);
-
+    QMap<QString,QMap<QString,QString>> grouppedKeyMap;
     int index = 0;
     for (QMap<QString, QVariant>::iterator i=keyMappings.begin();
          i!=keyMappings.end();i++, index++)
     {
-        int row = index / 2;
-        int column = (index & 1) ? 0 : 2;
-        QLabel* describtion = new QLabel(keyMapContainer);
-        describtion->setText(trUtf8(i.key().toUtf8()));
-        layout->addWidget(describtion,row,column++);
-        describtion->show();
-        QKeyEdit* keyEdit=new QKeyEdit(keyMapContainer);
-        layout->addWidget(keyEdit,row,column);
-        keyEdit->setText(i.value().toString());
-        keyEdit->show();
-        keyEdit->setObjectName(i.key());
+        QString groupName  = i.key().split('_')[1];
+        grouppedKeyMap[groupName][i.key()] = i.value().toString();
+    }
+    int size = keyMappings.size();
+    int rightColumns =  size/ 2;
+    if (size & 1)
+        rightColumns++;
+    int leftColumns =  size/ 2;
+    int rightIndex=0,leftIndex=0;
+    qDebug() << grouppedKeyMap;
+    QStringList keys = grouppedKeyMap.keys();
+    for(int i = 0; i<keys.length();i++){
+        for(int j = 0; j<keys.length();j++){
+            if (keys[i] != keys[j]) {
+                if (grouppedKeyMap[keys[i]].size() > grouppedKeyMap[keys[j]].size()) {
+                    qSwap(keys[i],keys[j]);
+                }
+            }
+        }
+    }
+
+    foreach(QString groupName,keys) {
+
+        QMap<QString,QString> keyMap = grouppedKeyMap[groupName];
+        qDebug() << groupName <<  keyMap.size();
+        QGroupBox* groupBox = new  QGroupBox(keyMapContainer);
+        groupBox->setTitle(trUtf8(groupName.toUpper().toUtf8()));
+        QFormLayout* groupLayout = new QFormLayout(groupBox);
+        for (QMap<QString, QString>::iterator i=keyMap.begin();
+             i!=keyMap.end();i++, index++)
+        {
+            QKeyEdit* keyEdit=new QKeyEdit(keyMapContainer);
+            keyEdit->setText(i.value());
+            keyEdit->show();
+            keyEdit->setObjectName(i.key());
+            qDebug() << "translating " << i.key();
+            groupLayout->addRow(trUtf8(i.key().toUtf8()),keyEdit);
+        }
+        groupBox->setLayout(groupLayout);
+        int keMapSize = keyMap.size();
+        qDebug() << "rightColumns " << rightColumns << " keMapSize"<< keMapSize;
+        qDebug() << "leftColumns " << leftColumns << " keMapSize"<< keMapSize;
+        if (rightColumns - keMapSize >= 0) {
+            rightColumns -= keMapSize;
+            layout->addWidget(groupBox,rightIndex,0,keMapSize > size/4 - 2 ? 2 : 1,1);
+            rightIndex++;
+            if (keMapSize > size/4) {
+                rightIndex++;
+            }
+        } else {
+            leftColumns  -= keMapSize;
+            layout->addWidget(groupBox,leftIndex,1);
+            leftIndex++;
+
+        }
 
     }
-    keyMapContainer->setLayout(layout);
-
 }
 
 void SettingsDialog::FillSearchTab()
@@ -999,12 +1076,12 @@ void SettingsDialog::addSearchitem()
     QString pattern = searchItemPatternLineEdit->text();
     if (name.length()==0)
     {
-        QMessageBox::warning(this,tr("ERROR_SRT"),tr("SEARCH_ITEM_NO_NAME"));
+        MyMessageBox::warning(this,tr("ERROR_SRT"),tr("SEARCH_ITEM_NO_NAME"));
         return;
     }
     if (pattern.length()==0)
     {
-        QMessageBox::warning(this,tr("ERROR_SRT"),tr("SEARCH_ITEM_NO_PATTERN"));
+        MyMessageBox::warning(this,tr("ERROR_SRT"),tr("SEARCH_ITEM_NO_PATTERN"));
         return;
     }
     for(int i=0;i<searchSources.size();i++)
@@ -1017,7 +1094,7 @@ void SettingsDialog::addSearchitem()
     }
     if (foundIndex > 0)
     {
-        if (QMessageBox::No==QMessageBox::warning(this,tr("STR_SETTINGS"),
+        if (QMessageBox::No==MyMessageBox::warning(this,tr("STR_SETTINGS"),
             tr("SHURE_IN_CHANGING_SEARCH_ITEM %1").arg(name),
             QMessageBox::No | QMessageBox::Yes))
         return;
@@ -1061,7 +1138,7 @@ void SettingsDialog::searchItemChanged(int index)
 }
 
 
-void SettingsDialog::on_pushButton_clicked()
+void SettingsDialog::OpenWebUI()
 {
     RconWebService* svc = RconWebService::getInstance();
     if (svc->isRunning())
