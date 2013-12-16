@@ -9,7 +9,7 @@
 #include <QDateTime>
 #include <QCryptographicHash>
 #include <QApplication>
-#include <QMessageBox>
+#include "messagebox.h"
 StaticFileController::StaticFileController(QObject* parent)
     :HttpRequestHandler("WebControl",parent)
 {

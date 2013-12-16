@@ -113,4 +113,5 @@ private:
 public slots:
     void MountSelectedFILE();
     void minimizeBtnClicked();
+    void setupWindowIcons();
 };

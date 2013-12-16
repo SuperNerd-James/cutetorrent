@@ -88,8 +88,9 @@ void HttpConnectionHandler::handleConnection(int socketDescriptor) {
 		{
 			for (int i=0;i<notAllowedIP.length();i++)
 			{
-				if (currentIP >= notAllowedIP[i].first && currentIP <=notAllowedIP[i].second)
+                if (currentIP <= notAllowedIP[i].first && currentIP >=notAllowedIP[i].second)
 				{
+                    allowed=true;
 					break;
 				}
 			}

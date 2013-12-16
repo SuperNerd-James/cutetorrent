@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QTranslator>
 #include <QFileOpenEvent>
 #include "application.h"
-#include <QMessageBox>
+#include "messagebox.h"
 #include <QDebug>
 QTranslator* Application::current = 0;
 QTranslator* Application::currentQt = 0;
@@ -29,6 +29,7 @@ Translators Application::translators;
 Translators Application::qt_translators;
 QString Application::current_locale="";
 QString Application::current_locale_qt="";
+QString Application::default_locale="ru_RU";
 Application::Application(int& argc, char* argv[])
 	: QtSingleApplication(argc, argv)
 {}
@@ -114,7 +115,7 @@ bool Application::event(QEvent *event)
     if (event->type()==QEvent::FileOpen)
     {
         QFileOpenEvent* fileOpenEvent = static_cast<QFileOpenEvent*>(event);
-        QMessageBox::warning(NULL,"",fileOpenEvent->file());
+        MyMessageBox::warning(NULL,"",fileOpenEvent->file());
         if (fileOpenEvent->file().endsWith(".torrent",Qt::CaseInsensitive))
         {
             emit OpenTorrent(fileOpenEvent->file());
@@ -124,7 +125,7 @@ bool Application::event(QEvent *event)
     return QtSingleApplication::event(event);
 }
 
-void Application::setLanguage(const QString& locale)
+void Application::setLanguage(QString& locale)
 {
     qDebug() << "Application::setLanguage" << locale;
 	// remove previous
@@ -132,9 +133,12 @@ void Application::setLanguage(const QString& locale)
 	{
 		removeTranslator(current);
 	}
+
+    if (!translators.contains(locale))
+        locale = default_locale;
 	current_locale=locale;
 	// install new
-	
+
     current = translators.value(locale);
 	if (current)
 	{
@@ -142,13 +146,15 @@ void Application::setLanguage(const QString& locale)
     }
 }
 
-void Application::setLanguageQt(const QString &locale)
+void Application::setLanguageQt(QString &locale)
 {
      qDebug() << "Application::setLanguageQt" << locale;
     if (currentQt)
     {
         removeTranslator(currentQt);
     }
+    if (!translators.contains(locale))
+        locale = default_locale;
     current_locale_qt=locale;
     // install new
 

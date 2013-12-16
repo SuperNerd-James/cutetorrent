@@ -20,7 +20,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define LTORRENT_H
 
 #include <QtGui/QMainWindow>
-#include <QMessageBox>
+#include "messagebox.h"
 #include <QFileDialog>
 #include <QSpinBox>
 #include <QMenuBar>
@@ -51,6 +51,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "TorrentStorrage.h"
 #include "searchitem.h"
 #include "peicedisplaywidget.h"
+#include "StyleEngene.h"
 #include "ui_CustomWindow.h"
 #define PIXELS_TO_ACT 2
 Q_DECLARE_METATYPE(QHostAddress)
@@ -153,7 +154,10 @@ private:
     void resizeWindow(QMouseEvent *e);
 
     void moveWindow(QMouseEvent *e);
-
+    void initToolbarIcons();
+    void initStatusBarIcons();
+    void initMainMenuIcons();
+    StyleEngene* styleEngine;
     QList<SearchItem> searchSources;
     QComboBox* searchSource;
     TorrentStorrage* torrents;
@@ -256,8 +260,7 @@ public slots:
     void PeformSearch();
     void CopyDiscribtion();
     void ClearPieceDisplay();
-
-
+    void initWindowIcons();
     void AddTracker();
     void AddPeer();
     void ChnageTorrentFilter();

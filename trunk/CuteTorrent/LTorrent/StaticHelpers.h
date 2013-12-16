@@ -37,12 +37,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class StaticHelpers
 {
 public:
-	enum { DISK=0, DOCUMENT=1, PICTURE=2, VIDEO=3, ARCHIVE=4, AUDIO=5, APP=6, TYPE_COUNT=7 };
-	static const char* EnumStrings[];
-	static QSet<QString> suffixes[TYPE_COUNT];
-	static QIcon fileIcons[TYPE_COUNT];
+
 	static QString toKbMbGb(libtorrent::size_type size);
-	static QIcon guessMimeIcon(QString path,QString& type);
+
 	static void dellDir(QString path);
 	static QString toTimeString(int seconds);
 	static QString filePriorityToString(int priority);

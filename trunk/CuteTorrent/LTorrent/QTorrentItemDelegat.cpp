@@ -29,7 +29,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPixmap>
 #include <QPixmapCache>
 #include <QStyleOptionProgressBarV2>
-#include <QMessageBox>
+#include "messagebox.h"
 #include "QTorrentDisplayModel.h"
 #include "Torrent.h"
 #include <QDebug>
@@ -179,7 +179,9 @@ QTorrentItemDelegat::paint( QPainter                    * painter,
 		Torrent*  tor( index.data( QTorrentDisplayModel::TorrentRole ).value<Torrent*>() );
 		painter->save( );
 		painter->setClipRect( option.rect );
-		drawTorrent( painter, option, *tor, index.row());
+
+
+        drawTorrent( painter, option, *tor, index);
 	}
 	catch (...)
 	{
@@ -226,17 +228,20 @@ QString QTorrentItemDelegat::GetStatusString(const Torrent& tor) const
 	}
 	return status;
 }
-void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionViewItem& option, const Torrent& tor, int row ) const
+void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionViewItem& option, const Torrent& tor, QModelIndex index ) const
 {
 
-    QStyleOptionViewItemV4 opt(option);
+    QStyleOptionViewItemV4 opt=option;
+
+    initStyleOption(&opt,index);
+
     QStyle *style = opt.widget ? opt.widget->style() : QApplication::style();
 
     const int iconSize( style->pixelMetric( QStyle::PM_LargeIconSize ) );
     QFont nameFont( option.font );
     nameFont.setWeight( QFont::Bold );
     const QFontMetrics nameFM( nameFont );
-	const bool isSeeding(tor.isSeeding());
+
 	const QIcon mimeIcon(tor.GetMimeTypeIcon());
 	const QString nameStr( tor.GetName() );
 	QSize nameSize( nameFM.size( 0, nameStr ) );
@@ -252,8 +257,7 @@ void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionVie
 	
     const QFontMetrics progressFM( progressFont );
 	const QString progressStr( GetProgressString(tor) );
-	QFont sizeFont( statusFont );
-	bool isPaused(tor.isPaused());
+    bool isPaused(tor.isPaused());
 
 	
     painter->save( );
@@ -268,17 +272,9 @@ void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionVie
             cg = QPalette::Inactive;
 
 
-       // painter->fillRect(option.rect, option.palette.color(cg, QPalette::Highlight));
+       painter->fillRect(option.rect, opt.backgroundBrush);
     }*/
-  //  style->drawControl(QStyle::CE_ItemViewItem,&option,painter);
-
-    if (option.state & QStyle::State_MouseOver) {
-        QPalette::ColorGroup cg = option.state & QStyle::State_Enabled
-                ? QPalette::Active : QPalette::Disabled;
-        painter->fillRect(option.rect, opt.backgroundBrush);
-    }
-
-
+    //style->drawControl(QStyle::CE_ItemViewItem,&option,painter);
     QIcon::Mode im;
     if( isPaused || !(option.state & QStyle::State_Enabled ) ) im = QIcon::Disabled;
     else if( option.state & QStyle::State_Selected ) im = QIcon::Selected;
@@ -293,9 +289,8 @@ void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionVie
     if( cg == QPalette::Normal && !(option.state & QStyle::State_Active ) ) cg = QPalette::Inactive;
 
     QPalette::ColorRole cr;
- //   if( option.state & QStyle::State_Selected ) cr = QPalette::HighlightedText;
+    if( option.state & QStyle::State_Selected ) cr = QPalette::HighlightedText;
     cr = QPalette::Text;
-
 
 
     // layout
@@ -326,21 +321,19 @@ void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionVie
     if( tor.hasError( ) )
         painter->setPen( QColor( "red" ) );
     else
-        painter->setPen( option.palette.color( cg, cr ) );
+        painter->setPen( opt.palette.color( cg, cr ) );
 	mimeIcon.paint( painter, iconArea, Qt::AlignCenter, im, qs );
     painter->setFont( nameFont );
-    style->drawItemText(painter, nameArea, Qt::AlignLeft,option.palette,option.state & QStyle::State_Enabled,nameStr,cr);
+    style->drawItemText(painter, nameArea, Qt::AlignLeft,opt.palette,option.state & QStyle::State_Enabled,nameStr);
     painter->setFont( statusFont );
-    style->drawItemText(painter,  statusArea, Qt::AlignRight, option.palette,option.state & QStyle::State_Enabled,statusStr,cr );
-	painter->setFont( progressFont );
-    style->drawItemText(painter, progArea, Qt::AlignLeft, option.palette,option.state & QStyle::State_Enabled, progressStr, cr );
-
+    style->drawItemText(painter,  statusArea, Qt::AlignRight, opt.palette,option.state & QStyle::State_Enabled,statusStr );
+    painter->setFont( progressFont );
+    style->drawItemText(painter, progArea, Qt::AlignLeft, opt.palette,option.state & QStyle::State_Enabled, progressStr );
     int progressPercentage = tor.GetProgress();
 
             // Customize style using style-sheet..
 
-    QString stylestr = "QProgressBar { border: 1px solid #909090; ; }";
-    stylestr += QString("QProgressBar::chunk { background-color: qlineargradient(spread:reflect, x1:0.994318, y1:1, x2:1, y2:0.488636, stop:0.0397727 rgba(255, 255, 255, 255), stop:0.431818 rgba(") + (isPaused ? "172,172,172" : ( progressPercentage < 100 ? "81,211,49" : "50,145,212" ) )+ ",255));  width: 10px; margin: 0.5px; }";
+    QString stylestr = QString("QProgressBar::chunk { background-color: qlineargradient(spread:reflect, x1:0.994318, y1:1, x2:1, y2:0.488636, stop:0.0397727 rgba(255, 255, 255, 255), stop:0.431818 rgba(") + (isPaused ? "172,172,172" : ( progressPercentage < 100 ? "81,211,49" : "50,145,212" ) )+ ",255));}";
     myProgressBarStyle->resize(barArea.size());
 
     myProgressBarStyle->setValue(progressPercentage);

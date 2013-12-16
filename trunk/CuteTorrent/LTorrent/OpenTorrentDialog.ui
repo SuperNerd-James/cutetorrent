@@ -27,7 +27,16 @@
    <property name="spacing">
     <number>0</number>
    </property>
-   <property name="margin">
+   <property name="leftMargin">
+    <number>1</number>
+   </property>
+   <property name="topMargin">
+    <number>1</number>
+   </property>
+   <property name="rightMargin">
+    <number>1</number>
+   </property>
+   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
@@ -106,7 +115,7 @@
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">color: rgb(0, 0, 0);</string>
+         <string notr="true"/>
         </property>
         <property name="text">
          <string>DIALOG_OPEN_TORRENT</string>
@@ -129,10 +138,6 @@
           <width>22</width>
           <height>22</height>
          </size>
-        </property>
-        <property name="icon">
-         <iconset resource="ltorrent.qrc">
-          <normaloff>:/images/app_min.ico</normaloff>:/images/app_min.ico</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -158,10 +163,6 @@
           <width>22</width>
           <height>22</height>
          </size>
-        </property>
-        <property name="icon">
-         <iconset resource="ltorrent.qrc">
-          <normaloff>:/images/app_close.ico</normaloff>:/images/app_close.ico</iconset>
         </property>
         <property name="iconSize">
          <size>

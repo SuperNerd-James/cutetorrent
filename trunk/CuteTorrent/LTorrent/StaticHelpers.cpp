@@ -21,9 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDebug>
 
 
-QIcon StaticHelpers::fileIcons[TYPE_COUNT];
-QSet<QString> StaticHelpers::suffixes[TYPE_COUNT];
-const char* StaticHelpers::EnumStrings[] = { "iso","doc","picture","movie","archive","audio","app" };
 QString StaticHelpers::toKbMbGb(libtorrent::size_type size)
 {
 	float val=size;
@@ -36,92 +33,6 @@ QString StaticHelpers::toKbMbGb(libtorrent::size_type size)
 	QString str=QString::number(dblSByte,'f',i==0? 0 : 2);
 	str.append(Suffix[i]);
 	return str;
-}
-
-QIcon StaticHelpers::guessMimeIcon(QString suffix,QString& type)
-{
-	
-	static QIcon fallback;
-	
-	suffix=suffix.toLower();
-	
-	if( fileIcons[0].isNull( ) )
-	{
-	
-		fallback = QIcon(QString::fromUtf8(":/icons/my-folder.ico"));
-		const char * disk_types[] = {
-				"mdx", "mds", "mdf", "iso", "b5t", "b6t", "bwt", "ccd", "cdi",
-				"nrg", "pdi", "isz" };
-		for( int i=0, n=sizeof(disk_types)/sizeof(disk_types[0]); i<n; ++i )
-		{
-            suffixes[DISK] << QString::fromLatin1(disk_types[i]);
-		}
-		fileIcons[DISK]= QIcon( ":/icons/my-iso.ico");
-	
-	    const char * doc_types[] = {
-	            "abw", "csv", "doc", "dvi", "htm", "html", "ini", "log", "odp",
-	            "ods", "odt", "pdf", "ppt", "ps",  "rtf", "tex", "txt", "xml" };
-	    for( int i=0, n=sizeof(doc_types)/sizeof(doc_types[0]); i<n; ++i )
-		{
-            suffixes[DOCUMENT] << QString::fromLatin1(doc_types[i] );
-		}
-		fileIcons[DOCUMENT] = QIcon( ":/icons/my-doc.ico" );
-	
-	    const char * pic_types[] = {
-            "bmp", "gif", "jpg", "jpeg", "pcx", "png", "psd", "ras", "tga","ico", "tiff" };
-	    for( int i=0, n=sizeof(pic_types)/sizeof(pic_types[0]); i<n; ++i )
-		{
-            suffixes[PICTURE] << QString::fromLatin1(pic_types[i]);
-		}
-	    fileIcons[PICTURE]  = QIcon( ":/icons/my-picture.ico" );
-	
-	    const char * vid_types[] = {
-	            "3gp", "asf", "avi", "mov", "mpeg", "mpg", "mp4", "mkv", "mov",
-	            "ogm", "ogv", "qt", "rm", "wmv" , "m2ts" };
-	    for( int i=0, n=sizeof(vid_types)/sizeof(vid_types[0]); i<n; ++i )
-		{
-            suffixes[VIDEO] << QString::fromLatin1(vid_types[i]);
-		}
-        fileIcons[VIDEO] = QIcon( ":/icons/my-movie.ico") ;
-
-	    const char * arc_types[] = {
-	            "7z", "ace", "bz2", "cbz", "gz", "gzip", "lzma", "rar", "sft", "tar", "zip" };
-	    for( int i=0, n=sizeof(arc_types)/sizeof(arc_types[0]); i<n; ++i )
-		{
-            suffixes[ARCHIVE] << QString::fromLatin1(arc_types[i]);
-		}
-        fileIcons[ARCHIVE]  = QIcon( ":/icons/my-archive.ico" );
-
-        const char * aud_types[] = {
-	            "aac", "ac3", "aiff", "ape", "au", "flac", "m3u", "m4a", "mid", "midi", "mp2",
-	            "mp3", "mpc", "nsf", "oga", "ogg", "ra", "ram", "shn", "voc", "wav", "wma" };
-	    for( int i=0, n=sizeof(aud_types)/sizeof(aud_types[0]); i<n; ++i )
-		{
-            suffixes[AUDIO] << QString::fromLatin1(aud_types[i]);
-		}
-	    fileIcons[AUDIO] = QIcon( ":/icons/my-audio.ico" );
-	
-	    const char * exe_types[] = { "bat", "cmd", "com", "exe" };
-	    for( int i=0, n=sizeof(exe_types)/sizeof(exe_types[0]); i<n; ++i )
-		{
-            suffixes[APP] << QString::fromLatin1(exe_types[i]);
-		}
-	    fileIcons[APP] = QIcon::fromTheme( "application-x-executable", fallback );
-	}
-	if (!suffix.isEmpty())
-	{
-		for( int i=0; i<TYPE_COUNT; ++i )
-		{
-			if( suffixes[i].contains(suffix))
-			{
-				type=EnumStrings[i];
-				return fileIcons[i];
-			}
-		}
-	}
-	
-	
-	return fallback;
 }
 
 void StaticHelpers::dellDir(QString dirName)
@@ -212,12 +123,12 @@ QString StaticHelpers::GetBaseSuffix( libtorrent::file_storage storrage )
 	for (iter;iter!=storrage.end();iter++)
 	{
 		QFileInfo curfile(QString::fromUtf8(storrage.file_path(*iter).c_str()));
-		if (suffixes[DISK].contains(curfile.suffix()))
+        if (StyleEngene::suffixes[StyleEngene::DISK].contains(curfile.suffix()))
 		{
 			base_suffix=curfile.suffix();
 			break;
 		}
-		if (suffixes[VIDEO].contains(curfile.suffix()))
+        if (StyleEngene::suffixes[StyleEngene::VIDEO].contains(curfile.suffix()))
 		{
 			base_suffix=curfile.suffix();
 			break;

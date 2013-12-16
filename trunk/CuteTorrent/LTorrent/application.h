@@ -43,13 +43,14 @@ public:
 protected:
     bool event(QEvent* event);
 public slots:
-	static void setLanguage(const QString& locale);
-    static void setLanguageQt(const QString& locale);
+    static void setLanguage(QString& locale);
+    static void setLanguageQt(QString& locale);
 	static QString currentLocale();
 signals:
     void OpenTorrent(QString);
 private:
     static QString current_locale,current_locale_qt;
+    static QString default_locale;
 	static QTranslator* current;
     static QTranslator* currentQt;
 	static Translators translators;

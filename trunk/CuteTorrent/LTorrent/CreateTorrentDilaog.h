@@ -21,7 +21,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define CTD_H
 #define PIXELS_TO_ACT 2
 #include <QDialog>
-#include <QMessageBox>
+#include "messagebox.h"
 #include "ui_CreateTorrentDialog.h"
 #include "TorrentManager.h"
 #include <QThread>
@@ -167,6 +167,7 @@ private slots:
     void BeginCreate();
     void Cancel();
     void minimizeBtnClicked();
+    void setupWindowIcons();
 
 
 

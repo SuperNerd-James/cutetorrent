@@ -21,13 +21,13 @@
     <number>0</number>
    </property>
    <property name="leftMargin">
-    <number>0</number>
+    <number>1</number>
    </property>
    <property name="topMargin">
-    <number>0</number>
+    <number>1</number>
    </property>
    <property name="rightMargin">
-    <number>0</number>
+    <number>1</number>
    </property>
    <property name="bottomMargin">
     <number>2</number>
@@ -98,17 +98,8 @@
           <height>22</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <family>Arial</family>
-          <pointsize>8</pointsize>
-          <weight>50</weight>
-          <bold>false</bold>
-          <stylestrategy>PreferDefault</stylestrategy>
-         </font>
-        </property>
         <property name="styleSheet">
-         <string notr="true">color: rgb(0, 0, 0);</string>
+         <string notr="true"/>
         </property>
         <property name="text">
          <string>CuteTorrent</string>
@@ -131,10 +122,6 @@
           <width>22</width>
           <height>22</height>
          </size>
-        </property>
-        <property name="icon">
-         <iconset resource="../ltorrent.qrc">
-          <normaloff>:/images/app_min.ico</normaloff>:/images/app_min.ico</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -161,10 +148,6 @@
           <height>22</height>
          </size>
         </property>
-        <property name="icon">
-         <iconset resource="../ltorrent.qrc">
-          <normaloff>:/images/app_max.ico</normaloff>:/images/app_max.ico</iconset>
-        </property>
         <property name="iconSize">
          <size>
           <width>22</width>
@@ -189,10 +172,6 @@
           <width>22</width>
           <height>22</height>
          </size>
-        </property>
-        <property name="icon">
-         <iconset resource="../ltorrent.qrc">
-          <normaloff>:/images/app_close.ico</normaloff>:/images/app_close.ico</iconset>
         </property>
         <property name="iconSize">
          <size>
@@ -256,25 +235,25 @@
          <property name="title">
           <string>MENU_FILE</string>
          </property>
-         <addaction name="ACTION_OPEN_TORRENT"/>
-         <addaction name="ACTION_OPEN_MAGNET"/>
+         <addaction name="ACTION_MENU_OPEN_TORRENT"/>
+         <addaction name="ACTION_MENU_OPEN_MAGNET"/>
          <addaction name="separator"/>
-         <addaction name="ACTION_CREATE"/>
+         <addaction name="ACTION_MENU_CREATE"/>
          <addaction name="separator"/>
-         <addaction name="ACTION_EXIT"/>
+         <addaction name="ACTION_MENU_EXIT"/>
         </widget>
         <widget class="QMenu" name="menu_2">
          <property name="title">
           <string>MENU_SETTINGS</string>
          </property>
-         <addaction name="ACTION_SETTINGS"/>
+         <addaction name="ACTION_MENU_SETTINGS"/>
         </widget>
         <widget class="QMenu" name="menu_CuteTorrent">
          <property name="title">
           <string>MENU_HELP</string>
          </property>
-         <addaction name="ACTION_ABAUT_CT"/>
-         <addaction name="ACTION_CHECK_UPDATE"/>
+         <addaction name="ACTION_MENU_ABAUT_CT"/>
+         <addaction name="ACTION_MENU_CHECK_UPDATE"/>
         </widget>
         <addaction name="menu"/>
         <addaction name="menu_2"/>
@@ -309,10 +288,10 @@ padding-right:2px;
         <property name="movable">
          <bool>false</bool>
         </property>
-        <addaction name="ACTION_START"/>
-        <addaction name="ACTION_PAUSE"/>
-        <addaction name="ACTION_REMOVE"/>
-        <addaction name="ACTION_SETTINGS_2"/>
+        <addaction name="ACTION_TOOLBAR_START"/>
+        <addaction name="ACTION_TOOLBAR_PAUSE"/>
+        <addaction name="ACTION_TOOLBAR_REMOVE"/>
+        <addaction name="ACTION_TOOLBAR_SETTINGS"/>
        </widget>
       </item>
       <item row="2" column="0">
@@ -749,19 +728,7 @@ padding-right:2px;
     </widget>
    </item>
   </layout>
-  <action name="ACTION_CLOSE">
-   <property name="text">
-    <string>Close</string>
-   </property>
-   <property name="shortcut">
-    <string>Ctrl+Q</string>
-   </property>
-  </action>
-  <action name="ACTION_OPEN_TORRENT">
-   <property name="icon">
-    <iconset resource="../ltorrent.qrc">
-     <normaloff>:/MenuIcons/addTorrent.ico</normaloff>:/MenuIcons/addTorrent.ico</iconset>
-   </property>
+  <action name="ACTION_MENU_OPEN_TORRENT">
    <property name="text">
     <string>MENU_OPEN_TORRENT</string>
    </property>
@@ -775,11 +742,7 @@ padding-right:2px;
     <enum>QAction::NoSoftKey</enum>
    </property>
   </action>
-  <action name="ACTION_OPEN_MAGNET">
-   <property name="icon">
-    <iconset resource="../ltorrent.qrc">
-     <normaloff>:/MenuIcons/addUrl.ico</normaloff>:/MenuIcons/addUrl.ico</iconset>
-   </property>
+  <action name="ACTION_MENU_OPEN_MAGNET">
    <property name="text">
     <string>MENU_OPEN_MAGNET</string>
    </property>
@@ -787,11 +750,7 @@ padding-right:2px;
     <string>Ctrl+M</string>
    </property>
   </action>
-  <action name="ACTION_CREATE">
-   <property name="icon">
-    <iconset resource="../ltorrent.qrc">
-     <normaloff>:/MenuIcons/createTorrent.ico</normaloff>:/MenuIcons/createTorrent.ico</iconset>
-   </property>
+  <action name="ACTION_MENU_CREATE">
    <property name="text">
     <string>MENU_CREATE_TORRENT</string>
    </property>
@@ -799,11 +758,7 @@ padding-right:2px;
     <string>Ctrl+N</string>
    </property>
   </action>
-  <action name="ACTION_EXIT">
-   <property name="icon">
-    <iconset resource="../ltorrent.qrc">
-     <normaloff>:/images/app_close.ico</normaloff>:/images/app_close.ico</iconset>
-   </property>
+  <action name="ACTION_MENU_EXIT">
    <property name="text">
     <string>MENU_EXIT</string>
    </property>
@@ -814,11 +769,7 @@ padding-right:2px;
     <enum>QAction::QuitRole</enum>
    </property>
   </action>
-  <action name="ACTION_SETTINGS">
-   <property name="icon">
-    <iconset resource="../ltorrent.qrc">
-     <normaloff>:/MenuIcons/preferencies.ico</normaloff>:/MenuIcons/preferencies.ico</iconset>
-   </property>
+  <action name="ACTION_MENU_SETTINGS">
    <property name="text">
     <string>MENU_CONFIGURATION</string>
    </property>
@@ -829,11 +780,7 @@ padding-right:2px;
     <enum>QAction::PreferencesRole</enum>
    </property>
   </action>
-  <action name="ACTION_PAUSE">
-   <property name="icon">
-    <iconset resource="../ltorrent.qrc">
-     <normaloff>:/icons/pause.png</normaloff>:/icons/pause.png</iconset>
-   </property>
+  <action name="ACTION_TOOLBAR_PAUSE">
    <property name="text">
     <string>STR_PAUSE</string>
    </property>
@@ -841,11 +788,7 @@ padding-right:2px;
     <string>HINT_PAUSE</string>
    </property>
   </action>
-  <action name="ACTION_START">
-   <property name="icon">
-    <iconset resource="../ltorrent.qrc">
-     <normaloff>:/icons/play.png</normaloff>:/icons/play.png</iconset>
-   </property>
+  <action name="ACTION_TOOLBAR_START">
    <property name="text">
     <string>STR_START</string>
    </property>
@@ -853,11 +796,7 @@ padding-right:2px;
     <string>HINT_RESUME</string>
    </property>
   </action>
-  <action name="ACTION_REMOVE">
-   <property name="icon">
-    <iconset resource="../ltorrent.qrc">
-     <normaloff>:/icons/delete.png</normaloff>:/icons/delete.png</iconset>
-   </property>
+  <action name="ACTION_TOOLBAR_REMOVE">
    <property name="text">
     <string>STR_REMOVE</string>
    </property>
@@ -868,11 +807,7 @@ padding-right:2px;
     <string>STR_REMOVE</string>
    </property>
   </action>
-  <action name="ACTION_ABAUT_CT">
-   <property name="icon">
-    <iconset resource="../ltorrent.qrc">
-     <normaloff>:/MenuIcons/about.ico</normaloff>:/MenuIcons/about.ico</iconset>
-   </property>
+  <action name="ACTION_MENU_ABAUT_CT">
    <property name="text">
     <string>MENU_ABAUT</string>
    </property>
@@ -883,11 +818,7 @@ padding-right:2px;
     <enum>QAction::AboutRole</enum>
    </property>
   </action>
-  <action name="ACTION_CHECK_UPDATE">
-   <property name="icon">
-    <iconset resource="../ltorrent.qrc">
-     <normaloff>:/MenuIcons/update-trackers.ico</normaloff>:/MenuIcons/update-trackers.ico</iconset>
-   </property>
+  <action name="ACTION_MENU_CHECK_UPDATE">
    <property name="text">
     <string>MENU_CHECK_UPDATES</string>
    </property>
@@ -895,11 +826,7 @@ padding-right:2px;
     <string>Ctrl+U</string>
    </property>
   </action>
-  <action name="ACTION_SETTINGS_2">
-   <property name="icon">
-    <iconset resource="../ltorrent.qrc">
-     <normaloff>:/icons/options.png</normaloff>:/icons/options.png</iconset>
-   </property>
+  <action name="ACTION_TOOLBAR_SETTINGS">
    <property name="text">
     <string>STR_SETTINGS</string>
    </property>
@@ -911,23 +838,7 @@ padding-right:2px;
  </resources>
  <connections>
   <connection>
-   <sender>ACTION_CLOSE</sender>
-   <signal>triggered()</signal>
-   <receiver>CustomWindow</receiver>
-   <slot>close()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>-1</x>
-     <y>-1</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>69</x>
-     <y>61</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>ACTION_CREATE</sender>
+   <sender>ACTION_MENU_CREATE</sender>
    <signal>triggered()</signal>
    <receiver>CustomWindow</receiver>
    <slot>ShowCreateTorrentDialog()</slot>
@@ -943,7 +854,7 @@ padding-right:2px;
    </hints>
   </connection>
   <connection>
-   <sender>ACTION_OPEN_TORRENT</sender>
+   <sender>ACTION_MENU_OPEN_TORRENT</sender>
    <signal>triggered()</signal>
    <receiver>CustomWindow</receiver>
    <slot>ShowOpenTorrentDialog()</slot>
@@ -959,7 +870,7 @@ padding-right:2px;
    </hints>
   </connection>
   <connection>
-   <sender>ACTION_START</sender>
+   <sender>ACTION_TOOLBAR_START</sender>
    <signal>triggered()</signal>
    <receiver>CustomWindow</receiver>
    <slot>ResumeSelected()</slot>
@@ -975,7 +886,7 @@ padding-right:2px;
    </hints>
   </connection>
   <connection>
-   <sender>ACTION_PAUSE</sender>
+   <sender>ACTION_TOOLBAR_PAUSE</sender>
    <signal>triggered()</signal>
    <receiver>CustomWindow</receiver>
    <slot>PauseSelected()</slot>
@@ -991,7 +902,7 @@ padding-right:2px;
    </hints>
   </connection>
   <connection>
-   <sender>ACTION_REMOVE</sender>
+   <sender>ACTION_TOOLBAR_REMOVE</sender>
    <signal>triggered()</signal>
    <receiver>CustomWindow</receiver>
    <slot>DeleteSelected()</slot>
@@ -1007,7 +918,7 @@ padding-right:2px;
    </hints>
   </connection>
   <connection>
-   <sender>ACTION_SETTINGS</sender>
+   <sender>ACTION_MENU_SETTINGS</sender>
    <signal>triggered()</signal>
    <receiver>CustomWindow</receiver>
    <slot>OpenSettingsDialog()</slot>
@@ -1023,7 +934,7 @@ padding-right:2px;
    </hints>
   </connection>
   <connection>
-   <sender>ACTION_CHECK_UPDATE</sender>
+   <sender>ACTION_MENU_CHECK_UPDATE</sender>
    <signal>triggered()</signal>
    <receiver>CustomWindow</receiver>
    <slot>CheckForUpdates()</slot>
@@ -1039,7 +950,7 @@ padding-right:2px;
    </hints>
   </connection>
   <connection>
-   <sender>ACTION_ABAUT_CT</sender>
+   <sender>ACTION_MENU_ABAUT_CT</sender>
    <signal>triggered()</signal>
    <receiver>CustomWindow</receiver>
    <slot>ShowAbout()</slot>
@@ -1055,7 +966,7 @@ padding-right:2px;
    </hints>
   </connection>
   <connection>
-   <sender>ACTION_OPEN_MAGNET</sender>
+   <sender>ACTION_MENU_OPEN_MAGNET</sender>
    <signal>triggered()</signal>
    <receiver>CustomWindow</receiver>
    <slot>ProcessMagnet()</slot>
@@ -1071,7 +982,7 @@ padding-right:2px;
    </hints>
   </connection>
   <connection>
-   <sender>ACTION_SETTINGS_2</sender>
+   <sender>ACTION_TOOLBAR_SETTINGS</sender>
    <signal>triggered()</signal>
    <receiver>CustomWindow</receiver>
    <slot>OpenSettingsDialog()</slot>

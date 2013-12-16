@@ -18,13 +18,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #include "Torrent.h"
 #include <QStringList>
-#include <QMessageBox>
+#include "messagebox.h"
 #include <QTimer>
 #include <QDateTime>
 #include <QMap>
 #include <QFileInfo>
 #include <vector>
 #include <QDebug>
+
 bool Torrent::hasError() const
 {
 	try
@@ -192,7 +193,7 @@ QStringList& Torrent::GetImageFiles()
 	for (libtorrent::file_storage::iterator i=bg;i!=end;i++)
 	{
 		QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));
-		if (cur_torrent.file_priority(storrgae.file_index(*i)) > 0 && StaticHelpers::suffixes[StaticHelpers::DISK].contains(curfile.suffix().toLower()) )
+        if (cur_torrent.file_priority(storrgae.file_index(*i)) > 0 && StyleEngene::suffixes[StyleEngene::DISK].contains(curfile.suffix().toLower()) )
 		{
 			imageFiles << QString::fromUtf8(cur_torrent.save_path().c_str())+QString::fromUtf8(storrgae.file_path(*i).c_str());
 		}
@@ -206,17 +207,17 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus,QString group)
 	libtorrent::file_storage::iterator bg=storrgae.begin(),
 		end=storrgae.end();
 	this->group=group;
-    StaticHelpers::guessMimeIcon(base_suffix,type);
+    StyleEngene::getInstance()->guessMimeIcon(base_suffix,type);
 	for (libtorrent::file_storage::iterator i=bg;i!=end;i++)
 	{
 		QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));
-		if (cur_torrent.file_priority(storrgae.file_index(*i)) > 0 && StaticHelpers::suffixes[StaticHelpers::DISK].contains(curfile.suffix().toLower()))
+        if (cur_torrent.file_priority(storrgae.file_index(*i)) > 0 && StyleEngene::suffixes[StyleEngene::DISK].contains(curfile.suffix().toLower()))
 		{
 			imageFiles << QString::fromUtf8(cur_torrent.save_path().c_str())+QString::fromUtf8(storrgae.file_path(*i).c_str());
 		}
 		if (cur_torrent.file_priority(storrgae.file_index(*i)) > 0)
 		{
-			if (StaticHelpers::suffixes[StaticHelpers::VIDEO].contains(curfile.suffix().toLower()) || StaticHelpers::suffixes[StaticHelpers::AUDIO].contains(curfile.suffix().toLower()))
+            if (StyleEngene::suffixes[StyleEngene::VIDEO].contains(curfile.suffix().toLower()) || StyleEngene::suffixes[StyleEngene::AUDIO].contains(curfile.suffix().toLower()))
 				m_hasMedia=true;
 			size+=storrgae.file_size(*i);
 		}
@@ -227,7 +228,7 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus,QString group)
 	if (!base_suffix.isEmpty())
 	{
 				
-		icon=StaticHelpers::guessMimeIcon(base_suffix,type);
+        icon=StyleEngene::getInstance()->guessMimeIcon(base_suffix,type);
 		
 	}
 	else
@@ -247,13 +248,13 @@ Torrent::Torrent( const Torrent &other )
 	for (libtorrent::file_storage::iterator i=bg;i!=end;i++)
 	{
 		QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));
-		if (cur_torrent.file_priority(storrgae.file_index(*i)) > 0 && StaticHelpers::suffixes[StaticHelpers::DISK].contains(curfile.suffix().toLower()))
+        if (cur_torrent.file_priority(storrgae.file_index(*i)) > 0 && StyleEngene::suffixes[StyleEngene::DISK].contains(curfile.suffix().toLower()))
 		{
 			imageFiles << QString::fromUtf8(cur_torrent.save_path().c_str())+QString::fromUtf8(storrgae.file_path(*i).c_str());
 		}
 		if (cur_torrent.file_priority(storrgae.file_index(*i)) > 0)
 		{
-			if (StaticHelpers::suffixes[StaticHelpers::VIDEO].contains(curfile.suffix().toLower()) || StaticHelpers::suffixes[StaticHelpers::AUDIO].contains(curfile.suffix().toLower()))
+            if (StyleEngene::suffixes[StyleEngene::VIDEO].contains(curfile.suffix().toLower()) || StyleEngene::suffixes[StyleEngene::AUDIO].contains(curfile.suffix().toLower()))
 				m_hasMedia=true;
 			size+=storrgae.file_size(*i);
 		}
@@ -264,11 +265,11 @@ Torrent::Torrent( const Torrent &other )
 	if (!base_suffix.isEmpty())
 	{
 
-		icon=StaticHelpers::guessMimeIcon(base_suffix,type);
+        icon=StyleEngene::getInstance()->guessMimeIcon(base_suffix,type);
 	}
 	else
 	{
-		icon = QIcon(":/icons/my-folder.ico");
+        icon = StyleEngene::getInstance()->getIcon("folder");
 		type="folder";
 	}
 }
@@ -417,12 +418,12 @@ int Torrent::GetActivePeerCount()
 QIcon Torrent::GetMimeTypeIcon() const
 {
 
-	return icon;
+    return StyleEngene::getInstance()->guessMimeIcon(base_suffix);
 }
 QIcon Torrent::GetMimeTypeIcon()
 {
 
-	return icon;
+    return StyleEngene::getInstance()->guessMimeIcon(base_suffix,type);
 }
 
 void Torrent::announceRehash()

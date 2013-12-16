@@ -47,9 +47,13 @@ public:
 	
 	bool CheckCreditinals(HttpRequest& request,HttpResponse& response);
 private:
+    QMap<quint32,QString> nonceContainer;
     QString serverName;
 	void initSettings();
-
+    QString _generateNonce(const int len);
+    QString _getAuthentificateHeader();
+    QString _getOpaque(QString realm,QString nonce);
+    QString realm,authMethod ,nonce;
 };
 
 #endif // HTTPREQUESTHANDLER_H

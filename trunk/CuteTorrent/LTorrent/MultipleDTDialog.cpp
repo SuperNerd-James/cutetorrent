@@ -29,10 +29,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QPainter>
 #include <QStyleOption>
 #include <QStyle>
+#include "StyleEngene.h"
 MultipleDTDialog::MultipleDTDialog(QStringList& _files,QWidget* parrent/* =0 */,int flags/* =0 */)
 {
 	setupUi(this);
     setupCustomWindow();
+    setupWindowIcons();
 	QObject::connect(okButton, SIGNAL(clicked()), this, SLOT(MountSelectedFILE()));
 	files.append(_files);
 	
@@ -44,14 +46,23 @@ MultipleDTDialog::MultipleDTDialog(QStringList& _files,QWidget* parrent/* =0 */,
 	listView->setModel(model);
 	listView->setSelectionMode(QAbstractItemView::SingleSelection);
 	QString temp; 
-	QIcon iso = StaticHelpers::guessMimeIcon("iso",temp);
+    QIcon iso = StyleEngene::getInstance()->guessMimeIcon("iso",temp);
 	for (int i=0;i<files.count();i++)
 	{
 		QStandardItem * item = new QStandardItem(iso,files.at(i));
 		model->setItem(i,item);
 	}
+     StyleEngene* style = StyleEngene::getInstance();
+     QObject::connect(style,SIGNAL(styleChanged()),this,SLOT(setupWindowIcons()));
 }
 
+void MultipleDTDialog::setupWindowIcons()
+{
+    StyleEngene* style = StyleEngene::getInstance();
+    pbMin->setIcon(style->getIcon("app_min"));
+    pbClose->setIcon(style->getIcon("app_close"));
+
+}
 void MultipleDTDialog::MountSelectedFILE()
 {
 	int selectedRow=listView->selectionModel()->selectedIndexes().first().row();
