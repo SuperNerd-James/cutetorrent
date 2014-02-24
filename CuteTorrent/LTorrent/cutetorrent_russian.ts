@@ -2,13 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="ru_RU">
 <context>
-    <name>Application</name>
-    <message>
-        <source>__LANGNAME__</source>
-        <translation type="obsolete">Русский</translation>
-    </message>
-</context>
-<context>
     <name>CreateTorrentDialog</name>
     <message>
         <location filename="CreateTorrentDialog.ui" line="26"/>
@@ -17,97 +10,97 @@
         <translation>Создание торрента</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="314"/>
+        <location filename="CreateTorrentDialog.ui" line="320"/>
         <source>CREATE_TORRENT_SETTINGS</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="409"/>
+        <location filename="CreateTorrentDialog.ui" line="415"/>
         <source>CREATE_TORRENT_TRACKERS</source>
         <translation>Трекеры</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="419"/>
+        <location filename="CreateTorrentDialog.ui" line="425"/>
         <source>CREATE_TORRENT_WEBSEEDS</source>
         <translation>Web-сиды</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="472"/>
+        <location filename="CreateTorrentDialog.ui" line="478"/>
         <source>CREATE_TORRENT_DESCRIBTION</source>
         <translation>Описание</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="402"/>
+        <location filename="CreateTorrentDialog.ui" line="408"/>
         <source>CREATE_TORRENT_PIECE_SIZE</source>
         <translation>Размер части</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="334"/>
+        <location filename="CreateTorrentDialog.ui" line="340"/>
         <source>PIECE_SIZE_AUTODETECT</source>
         <translation>Автоопределение</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="339"/>
+        <location filename="CreateTorrentDialog.ui" line="345"/>
         <source>16Mb</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="344"/>
+        <location filename="CreateTorrentDialog.ui" line="350"/>
         <source>8Mb</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="349"/>
+        <location filename="CreateTorrentDialog.ui" line="355"/>
         <source>4Mb</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="354"/>
+        <location filename="CreateTorrentDialog.ui" line="360"/>
         <source>2Mb</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="359"/>
+        <location filename="CreateTorrentDialog.ui" line="365"/>
         <source>1Mb</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="364"/>
+        <location filename="CreateTorrentDialog.ui" line="370"/>
         <source>512Kb</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="369"/>
+        <location filename="CreateTorrentDialog.ui" line="375"/>
         <source>256Kb</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="374"/>
+        <location filename="CreateTorrentDialog.ui" line="380"/>
         <source>128Kb</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="379"/>
+        <location filename="CreateTorrentDialog.ui" line="385"/>
         <source>64Kb</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="384"/>
+        <location filename="CreateTorrentDialog.ui" line="390"/>
         <source>32Kb</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="389"/>
+        <location filename="CreateTorrentDialog.ui" line="395"/>
         <source>16Kb</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="394"/>
+        <location filename="CreateTorrentDialog.ui" line="400"/>
         <source>8Kb</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="534"/>
+        <location filename="CreateTorrentDialog.ui" line="540"/>
         <source>close</source>
         <translation></translation>
     </message>
@@ -117,17 +110,17 @@
         <translation>Дополнительные настройки</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="264"/>
+        <location filename="CreateTorrentDialog.ui" line="267"/>
         <source>CREATE_TORRENT_START_SEEDING</source>
         <translation>Запустить торрент</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="284"/>
+        <location filename="CreateTorrentDialog.ui" line="287"/>
         <source>CREATE_TORRENT_PIVATE_TORRENT</source>
         <translation>Приватный торрент</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="304"/>
+        <location filename="CreateTorrentDialog.ui" line="310"/>
         <source>CREATE_TORRENT_SAVE_FILE_ORDER</source>
         <translation>Сохранить порядок файлов</translation>
     </message>
@@ -142,22 +135,22 @@
         <translation>Отмена</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="482"/>
+        <location filename="CreateTorrentDialog.ui" line="488"/>
         <source>CREATE_TORRENT_SOURCE</source>
         <translation>Источник</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="501"/>
+        <location filename="CreateTorrentDialog.ui" line="507"/>
         <source>CREATE_TORRENT_FILE</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="508"/>
+        <location filename="CreateTorrentDialog.ui" line="514"/>
         <source>CREATE_TORRENT_FOLDER</source>
         <translation>Папка</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="515"/>
+        <location filename="CreateTorrentDialog.ui" line="521"/>
         <source>CREATE_TORRENT_EXCLUDE</source>
         <translation>исключить</translation>
     </message>
@@ -228,266 +221,272 @@
 <context>
     <name>CustomWindow</name>
     <message>
-        <source>MainWindow</source>
-        <translation type="obsolete">VideoPlayer</translation>
-    </message>
-    <message>
         <location filename="customWindow/CustomWindow.ui" line="14"/>
         <location filename="customWindow/CustomWindow.ui" line="105"/>
         <source>CuteTorrent</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="236"/>
+        <location filename="customWindow/CustomWindow.ui" line="242"/>
         <source>MENU_FILE</source>
         <translation>Файл</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="247"/>
+        <location filename="customWindow/CustomWindow.ui" line="253"/>
         <source>MENU_SETTINGS</source>
         <translation>Настройки</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="253"/>
+        <location filename="customWindow/CustomWindow.ui" line="259"/>
         <source>MENU_HELP</source>
         <translation>Справка</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="277"/>
+        <location filename="customWindow/CustomWindow.ui" line="266"/>
+        <source>MENU_TOOLS</source>
+        <translation>Утилиты</translation>
+    </message>
+    <message>
+        <location filename="customWindow/CustomWindow.ui" line="296"/>
         <source>toolBar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="392"/>
+        <location filename="customWindow/CustomWindow.ui" line="362"/>
         <source>TAB_INFO</source>
         <translation>Информация</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="398"/>
+        <location filename="customWindow/CustomWindow.ui" line="368"/>
         <source>INFO_PEER_COUNT</source>
         <translation>Пиров:</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="412"/>
+        <location filename="customWindow/CustomWindow.ui" line="382"/>
         <source>INFO_UPLOADED</source>
         <translation>Отданно</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="432"/>
+        <location filename="customWindow/CustomWindow.ui" line="402"/>
         <source>INFO_SEED_COUNT</source>
         <translation>Сидов:</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="453"/>
+        <location filename="customWindow/CustomWindow.ui" line="423"/>
         <source>INFO_DESCRIBTION</source>
         <translation>Описание</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="474"/>
+        <location filename="customWindow/CustomWindow.ui" line="444"/>
         <source>INFO_PATH</source>
         <translation>Путь</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="498"/>
+        <location filename="customWindow/CustomWindow.ui" line="468"/>
         <source>INFO_REMAININF_TIME</source>
         <translation>Осталось</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="512"/>
+        <location filename="customWindow/CustomWindow.ui" line="482"/>
         <source>INFO_DOWNLOADED</source>
         <translation>Загружено</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="519"/>
+        <location filename="customWindow/CustomWindow.ui" line="489"/>
         <source>INFO_ACTIVE_TIME</source>
         <translation>Прошло</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="533"/>
+        <location filename="customWindow/CustomWindow.ui" line="503"/>
         <source>INFO_DOWNLOAD_SPEED</source>
         <translation>Загрузка</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="547"/>
+        <location filename="customWindow/CustomWindow.ui" line="517"/>
         <source>INFO_TOTAL_SIZE</source>
         <translation>Размер</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="561"/>
+        <location filename="customWindow/CustomWindow.ui" line="531"/>
         <source>INFO_UPLOAD_SPEED</source>
         <translation>Отдача</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="569"/>
+        <location filename="customWindow/CustomWindow.ui" line="539"/>
         <source>TAB_PEERS</source>
         <translation>Пиры</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="606"/>
+        <location filename="customWindow/CustomWindow.ui" line="576"/>
         <source>PEER_IP</source>
         <translation>IP</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="611"/>
+        <location filename="customWindow/CustomWindow.ui" line="581"/>
         <source>PEER_CLIENT_NAME</source>
         <translation>Клиент</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="616"/>
+        <location filename="customWindow/CustomWindow.ui" line="586"/>
         <source>PEER_%</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="621"/>
+        <location filename="customWindow/CustomWindow.ui" line="591"/>
         <source>PEER_DOWNLOAD_SPEED</source>
         <translation>Загрузка</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="626"/>
+        <location filename="customWindow/CustomWindow.ui" line="596"/>
         <source>PEER_UPLOAD_SPEED</source>
         <translation>Отдача</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="631"/>
+        <location filename="customWindow/CustomWindow.ui" line="601"/>
         <source>PEER_DOWNLOADED</source>
         <translation>Загружено</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="636"/>
+        <location filename="customWindow/CustomWindow.ui" line="606"/>
         <source>PEER_UPLOADED</source>
         <translation>Отдано</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="645"/>
+        <location filename="customWindow/CustomWindow.ui" line="615"/>
         <source>TAB_TRACKERS</source>
         <translation>Трекеры</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="682"/>
+        <location filename="customWindow/CustomWindow.ui" line="652"/>
         <source>TRACKER_URL</source>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="687"/>
+        <location filename="customWindow/CustomWindow.ui" line="657"/>
         <source>TRACKER_STATUS</source>
         <translation>Состояние</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="692"/>
+        <location filename="customWindow/CustomWindow.ui" line="662"/>
         <source>TRACKER_NEXT_ANNOUNCE</source>
         <translation>Обновление через</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="701"/>
+        <location filename="customWindow/CustomWindow.ui" line="671"/>
         <source>TAB_FILES</source>
         <translation>Файлы</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="733"/>
+        <location filename="customWindow/CustomWindow.ui" line="760"/>
         <source>MENU_OPEN_TORRENT</source>
         <translation>Открыть торрент</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="736"/>
+        <location filename="customWindow/CustomWindow.ui" line="763"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="747"/>
+        <location filename="customWindow/CustomWindow.ui" line="774"/>
         <source>MENU_OPEN_MAGNET</source>
         <translation>Открыть magnet сслыку</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="750"/>
+        <location filename="customWindow/CustomWindow.ui" line="777"/>
         <source>Ctrl+M</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="755"/>
+        <location filename="customWindow/CustomWindow.ui" line="782"/>
         <source>MENU_CREATE_TORRENT</source>
         <translation>Создать  торрент</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="758"/>
+        <location filename="customWindow/CustomWindow.ui" line="785"/>
         <source>Ctrl+N</source>
         <oldsource>Ctrl+C</oldsource>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="763"/>
+        <location filename="customWindow/CustomWindow.ui" line="790"/>
         <source>MENU_EXIT</source>
         <translation>Выход</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="766"/>
+        <location filename="customWindow/CustomWindow.ui" line="793"/>
         <source>Alt+X</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="774"/>
+        <location filename="customWindow/CustomWindow.ui" line="801"/>
         <source>MENU_CONFIGURATION</source>
         <translation>Конфигурация</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="777"/>
+        <location filename="customWindow/CustomWindow.ui" line="804"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="785"/>
+        <location filename="customWindow/CustomWindow.ui" line="812"/>
         <source>STR_PAUSE</source>
         <translation>Пауза</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="788"/>
+        <location filename="customWindow/CustomWindow.ui" line="815"/>
         <source>HINT_PAUSE</source>
         <translation>Пауза</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="793"/>
+        <location filename="customWindow/CustomWindow.ui" line="820"/>
         <source>STR_START</source>
         <translation>Возобновить</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="796"/>
+        <location filename="customWindow/CustomWindow.ui" line="823"/>
         <source>HINT_RESUME</source>
         <translation>Возобновить</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="801"/>
-        <location filename="customWindow/CustomWindow.ui" line="807"/>
+        <location filename="customWindow/CustomWindow.ui" line="828"/>
+        <location filename="customWindow/CustomWindow.ui" line="834"/>
         <source>STR_REMOVE</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="804"/>
+        <location filename="customWindow/CustomWindow.ui" line="831"/>
         <source>HINT_REMOVE</source>
         <translation>Удалить</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="812"/>
+        <location filename="customWindow/CustomWindow.ui" line="839"/>
         <source>MENU_ABAUT</source>
         <translation>O CuteTorrent</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="815"/>
+        <location filename="customWindow/CustomWindow.ui" line="842"/>
         <source>F1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="823"/>
+        <location filename="customWindow/CustomWindow.ui" line="850"/>
         <source>MENU_CHECK_UPDATES</source>
         <translation>Проверить обновления</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="826"/>
+        <location filename="customWindow/CustomWindow.ui" line="853"/>
         <source>Ctrl+U</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="831"/>
+        <location filename="customWindow/CustomWindow.ui" line="858"/>
         <source>STR_SETTINGS</source>
         <translation>Настройки</translation>
+    </message>
+    <message>
+        <location filename="customWindow/CustomWindow.ui" line="863"/>
+        <source>TOOLS_BACKUP</source>
+        <translation>Резервное копирование</translation>
     </message>
 </context>
 <context>
@@ -536,10 +535,6 @@
         <location filename="CuteTorrent.cpp" line="363"/>
         <source>CT_DOWNLOAD_COMPLETE %1</source>
         <translation>Завершилась загрузка торрента %1</translation>
-    </message>
-    <message>
-        <source>Òîððåíò ôàéëû (*.torrent);;Any File (*.*)</source>
-        <translation type="obsolete">Торент файл (*.torrent);;Any File (*.*)</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="824"/>
@@ -708,11 +703,6 @@
         <translation>Трекер:</translation>
     </message>
     <message>
-        <source>F&amp;ILETAB_OPEN_FILE</source>
-        <oldsource>FILETAB_OPEN_FILE</oldsource>
-        <translation type="obsolete">Открыть  файл</translation>
-    </message>
-    <message>
         <location filename="CuteTorrent.cpp" line="554"/>
         <location filename="CuteTorrent.cpp" line="928"/>
         <source>FILETAB_OPEN_FOLDER</source>
@@ -747,194 +737,6 @@
         <location filename="CuteTorrent.cpp" line="952"/>
         <source>FILETAB_PRIORITY_ZERO</source>
         <translation>Не загружать</translation>
-    </message>
-</context>
-<context>
-    <name>CuteTorrentClass</name>
-    <message>
-        <source>TAB_INFO</source>
-        <translation type="obsolete">Информация</translation>
-    </message>
-    <message>
-        <source>INFO_DESCRIBTION</source>
-        <translation type="obsolete">Описание</translation>
-    </message>
-    <message>
-        <source>INFO_SEED_COUNT</source>
-        <translation type="obsolete">Сидов:</translation>
-    </message>
-    <message>
-        <source>INFO_UPLOAD_SPEED</source>
-        <translation type="obsolete">Отдача</translation>
-    </message>
-    <message>
-        <source>INFO_PEER_COUNT</source>
-        <translation type="obsolete">Пиров:</translation>
-    </message>
-    <message>
-        <source>INFO_DOWNLOADED</source>
-        <translation type="obsolete">Загружено</translation>
-    </message>
-    <message>
-        <source>INFO_DOWNLOAD_SPEED</source>
-        <translation type="obsolete">Загрузка</translation>
-    </message>
-    <message>
-        <source>INFO_REMAININF_TIME</source>
-        <translation type="obsolete">Осталось</translation>
-    </message>
-    <message>
-        <source>INFO_PATH</source>
-        <translation type="obsolete">Путь</translation>
-    </message>
-    <message>
-        <source>INFO_TOTAL_SIZE</source>
-        <translation type="obsolete">Размер</translation>
-    </message>
-    <message>
-        <source>INFO_ACTIVE_TIME</source>
-        <translation type="obsolete">Прошло</translation>
-    </message>
-    <message>
-        <source>INFO_UPLOADED</source>
-        <translation type="obsolete">Отданно</translation>
-    </message>
-    <message>
-        <source>TAB_PEERS</source>
-        <translation type="obsolete">Пиры</translation>
-    </message>
-    <message>
-        <source>PEER_IP</source>
-        <translation type="obsolete">IP</translation>
-    </message>
-    <message>
-        <source>PEER_CLIENT_NAME</source>
-        <translation type="obsolete">Клиент</translation>
-    </message>
-    <message>
-        <source>PEER_%</source>
-        <translation type="obsolete">%</translation>
-    </message>
-    <message>
-        <source>PEER_DOWNLOAD_SPEED</source>
-        <translation type="obsolete">Загрузка</translation>
-    </message>
-    <message>
-        <source>PEER_UPLOAD_SPEED</source>
-        <translation type="obsolete">Отдача</translation>
-    </message>
-    <message>
-        <source>PEER_DOWNLOADED</source>
-        <translation type="obsolete">Загружено</translation>
-    </message>
-    <message>
-        <source>PEER_UPLOADED</source>
-        <translation type="obsolete">Отдано</translation>
-    </message>
-    <message>
-        <source>TAB_TRACKERS</source>
-        <translation type="obsolete">Трекеры</translation>
-    </message>
-    <message>
-        <source>TRACKER_URL</source>
-        <translation type="obsolete">URL</translation>
-    </message>
-    <message>
-        <source>TRACKER_STATUS</source>
-        <translation type="obsolete">Состояние</translation>
-    </message>
-    <message>
-        <source>TRACKER_NEXT_ANNOUNCE</source>
-        <translation type="obsolete">Обновление через</translation>
-    </message>
-    <message>
-        <source>TAB_FILES</source>
-        <translation type="obsolete">Файлы</translation>
-    </message>
-    <message>
-        <source>FILES_PATH</source>
-        <translation type="obsolete">Путь</translation>
-    </message>
-    <message>
-        <source>FILES_SIZE</source>
-        <translation type="obsolete">Размер</translation>
-    </message>
-    <message>
-        <source>FILES_READY</source>
-        <translation type="obsolete">Готово</translation>
-    </message>
-    <message>
-        <source>FILES_PRIORITY</source>
-        <translation type="obsolete">Приоритет</translation>
-    </message>
-    <message>
-        <source>MENU_FILE</source>
-        <translation type="obsolete">Файл</translation>
-    </message>
-    <message>
-        <source>MENU_SETTINGS</source>
-        <translation type="obsolete">Настройки</translation>
-    </message>
-    <message>
-        <source>MENU_HELP</source>
-        <translation type="obsolete">Справка</translation>
-    </message>
-    <message>
-        <source>MENU_OPEN_TORRENT</source>
-        <translation type="obsolete">Открыть торрент</translation>
-    </message>
-    <message>
-        <source>MENU_OPEN_MAGNET</source>
-        <translation type="obsolete">Открыть magnet сслыку</translation>
-    </message>
-    <message>
-        <source>MENU_CREATE_TORRENT</source>
-        <translation type="obsolete">Создать  торрент</translation>
-    </message>
-    <message>
-        <source>MENU_EXIT</source>
-        <translation type="obsolete">Выход</translation>
-    </message>
-    <message>
-        <source>MENU_CONFIGURATION</source>
-        <translation type="obsolete">Конфигурация</translation>
-    </message>
-    <message>
-        <source>STR_PAUSE</source>
-        <translation type="obsolete">Пауза</translation>
-    </message>
-    <message>
-        <source>STR_START</source>
-        <translation type="obsolete">Возобновить</translation>
-    </message>
-    <message>
-        <source>STR_SETTINGS</source>
-        <translation type="obsolete">Настройки</translation>
-    </message>
-    <message>
-        <source>HINT_PAUSE</source>
-        <translation type="obsolete">Пауза</translation>
-    </message>
-    <message>
-        <source>HINT_RESUME</source>
-        <translation type="obsolete">Возобновить</translation>
-    </message>
-    <message>
-        <source>STR_REMOVE</source>
-        <oldsource>remove</oldsource>
-        <translation type="obsolete">Удалить</translation>
-    </message>
-    <message>
-        <source>HINT_REMOVE</source>
-        <translation type="obsolete">Удалить</translation>
-    </message>
-    <message>
-        <source>MENU_ABAUT</source>
-        <translation type="obsolete">O CuteTorrent</translation>
-    </message>
-    <message>
-        <source>MENU_CHECK_UPDATES</source>
-        <translation type="obsolete">Проверить обновления</translation>
     </message>
 </context>
 <context>
@@ -1044,28 +846,6 @@
         <location filename="messagebox.ui" line="180"/>
         <source>TextLabel</source>
         <translation></translation>
-    </message>
-</context>
-<context>
-    <name>MultipleDTDialog</name>
-    <message>
-        <source>ERROR_DT_PATH_NOT_SET</source>
-        <translation type="obsolete">Не указан путь к DaemonTools</translation>
-    </message>
-    <message>
-        <source>LAUNCH_ERROR</source>
-        <translation type="obsolete">Не удалось запустить </translation>
-    </message>
-</context>
-<context>
-    <name>OpenMagnetDialog</name>
-    <message>
-        <source>MGNET_OPEN_DIALOG</source>
-        <translation type="obsolete">Magnet сслыка</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Отмена</translation>
     </message>
 </context>
 <context>
@@ -1446,10 +1226,6 @@
         <translation>Размер Кеша</translation>
     </message>
     <message>
-        <source>0</source>
-        <translation type="obsolete">0</translation>
-    </message>
-    <message>
         <location filename="SettingsDialog.ui" line="650"/>
         <source>ALOW_REORDERED_OPERATIONS</source>
         <translation>Разрешать неупордоченные операции</translation>
@@ -1496,10 +1272,6 @@
         <translation>Добавить</translation>
     </message>
     <message>
-        <source>fFILE_EXTENSIONS(FORMAT: jpg|png|bmp)</source>
-        <translation type="obsolete">Расширения(формат: jpg|png|bmp)</translation>
-    </message>
-    <message>
         <location filename="SettingsDialog.ui" line="748"/>
         <source>GROUP_SAVE_PATH</source>
         <translation>Куда сохранять</translation>
@@ -1540,10 +1312,6 @@
         <translation>Ограничение скорочти отдачи в Кб\с</translation>
     </message>
     <message>
-        <source>UPLOAD_SPEED_LIMIT</source>
-        <translation type="obsolete">Отдача</translation>
-    </message>
-    <message>
         <location filename="SettingsDialog.ui" line="442"/>
         <source>ACTIVE_TORRENTS_LIMIT_WIT</source>
         <translation>Ограничение колличества активных торрентов</translation>
@@ -1552,10 +1320,6 @@
         <location filename="SettingsDialog.ui" line="459"/>
         <source>DOWNLOAD_SPEED_LIMIT_WIT</source>
         <translation>Ограничение скорости загрузки</translation>
-    </message>
-    <message>
-        <source>DOWNLOAD_SPEED_LIMIT</source>
-        <translation type="obsolete">Скорость загрузки</translation>
     </message>
     <message>
         <location filename="SettingsDialog.ui" line="469"/>
@@ -1688,10 +1452,6 @@
         <translation>Остановить</translation>
     </message>
     <message>
-        <source>RCON_PORT</source>
-        <translation type="obsolete">Rcon порт </translation>
-    </message>
-    <message>
         <location filename="SettingsDialog.ui" line="617"/>
         <source>DISK_IO_CASH_MODE_WIT</source>
         <translation>Использовать ли кеш операционной системы.</translation>
@@ -1764,10 +1524,6 @@
         <location filename="SettingsDialog.ui" line="1023"/>
         <source>LIMIT_UPLOAD</source>
         <translation>Огрничтить отдачу</translation>
-    </message>
-    <message>
-        <source>REPETEAD_ACTION</source>
-        <translation type="obsolete">Повторяющееся действие</translation>
     </message>
     <message>
         <location filename="SettingsDialog.ui" line="647"/>
@@ -1976,80 +1732,6 @@ p, li { white-space: pre-wrap; }
         <translation> </translation>
     </message>
     <message>
-        <source>DAEMONTOOLS_USE_CUSTOM_COMMAND_WIT</source>
-        <translation type="obsolete">Возможность изменить команду для монтирования.
-%1   номер привода.
-%2 - путь к образу.</translation>
-    </message>
-    <message>
-        <source>DAEMONTOOLS_USE_CUSTOM_COMMAND</source>
-        <translation type="obsolete">Использовать свою команду для монтирования</translation>
-    </message>
-    <message>
-        <source>DAEMONTOOLS_COMMAND</source>
-        <translation type="obsolete">Команда</translation>
-    </message>
-    <message>
-        <source>TAB_TRACKER_SEARCH</source>
-        <translation type="obsolete">Поиск по трекерам</translation>
-    </message>
-    <message>
-        <source>TRACKER_CURRENT</source>
-        <translation type="obsolete">Текущий трекер</translation>
-    </message>
-    <message>
-        <source>SEARCH_ADD_TRACKER</source>
-        <translation type="obsolete">Добавление трекера</translation>
-    </message>
-    <message>
-        <source>SEARCH_METHOD</source>
-        <translation type="obsolete">Метод</translation>
-    </message>
-    <message>
-        <source>SEARCH_REQUEST</source>
-        <translation type="obsolete">Запрос</translation>
-    </message>
-    <message>
-        <source>SEARCH_ADD</source>
-        <translation type="obsolete">Добавить</translation>
-    </message>
-    <message>
-        <source>SEARCH_USE_AUTH</source>
-        <translation type="obsolete">Использовать авторизацию</translation>
-    </message>
-    <message>
-        <source>AUTH_DATA</source>
-        <translation type="obsolete">Данные для авторизации</translation>
-    </message>
-    <message>
-        <source>AUTH_NAME</source>
-        <translation type="obsolete">Имя пользователя</translation>
-    </message>
-    <message>
-        <source>AUTH_METHOD</source>
-        <translation type="obsolete">Метод</translation>
-    </message>
-    <message>
-        <source>AUTH_PASSWORD</source>
-        <translation type="obsolete">Пароль</translation>
-    </message>
-    <message>
-        <source>AUTH_REQUEST</source>
-        <translation type="obsolete">Запрос</translation>
-    </message>
-    <message>
-        <source>SETTINGS_CANCEL_BUTTON</source>
-        <translation type="obsolete">Отмена</translation>
-    </message>
-    <message>
-        <source>SETTINGS_OK_BITTON</source>
-        <translation type="obsolete">ОК</translation>
-    </message>
-    <message>
-        <source>SETTINGS_ACCEPT_BUTTON</source>
-        <translation type="obsolete">Применить</translation>
-    </message>
-    <message>
         <location filename="SettingsDialog.cpp" line="629"/>
         <source>Torrent file</source>
         <translation>Торрент файл</translation>
@@ -2141,10 +1823,6 @@ p, li { white-space: pre-wrap; }
         <location filename="SettingsDialog.cpp" line="1098"/>
         <source>SHURE_IN_CHANGING_SEARCH_ITEM %1</source>
         <translation>Вы уверенны что хотите изменить %1</translation>
-    </message>
-    <message>
-        <source>Óêàçàòü ïàïêó ñ DaemonTools</source>
-        <translation type="obsolete">Укажите путь к DaemonTools</translation>
     </message>
     <message>
         <source>ACTION_FILETAB_HIGH_PRIORITY</source>
@@ -2335,14 +2013,6 @@ p, li { white-space: pre-wrap; }
         <translation>Не найден файл path.resume. Если это первый запуск просто нажмите OK.</translation>
     </message>
     <message>
-        <source>added</source>
-        <translation type="obsolete">добавлен</translation>
-    </message>
-    <message>
-        <source>ERROR_UNABLE_SAVE_DAT_RESUME</source>
-        <translation type="obsolete">Не удалось сохранить информация дл быстрого возобновлени торрента.</translation>
-    </message>
-    <message>
         <location filename="TorrentManager.cpp" line="257"/>
         <source>MOVE_STORRAGE_COMPLETED_TO:
 %1</source>
@@ -2362,17 +2032,6 @@ p, li { white-space: pre-wrap; }
         <location filename="UpdateNotyfier.cpp" line="49"/>
         <source>ERROR_GETTING_VERSION_STR</source>
         <translation>Ошибка получения информации о текущей версии</translation>
-    </message>
-</context>
-<context>
-    <name>VideoPlayerWindow</name>
-    <message>
-        <source>MainWindow</source>
-        <translation type="obsolete">VideoPlayer</translation>
-    </message>
-    <message>
-        <source>00:00:00</source>
-        <translation type="obsolete">00:00:00</translation>
     </message>
 </context>
 </TS>

@@ -2,13 +2,6 @@
 <!DOCTYPE TS>
 <TS version="2.0" language="en_US">
 <context>
-    <name>Application</name>
-    <message>
-        <source>__LANGNAME__</source>
-        <translation type="obsolete">English</translation>
-    </message>
-</context>
-<context>
     <name>CreateTorrentDialog</name>
     <message>
         <location filename="CreateTorrentDialog.ui" line="26"/>
@@ -17,97 +10,97 @@
         <translation>Torrent Creation </translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="314"/>
+        <location filename="CreateTorrentDialog.ui" line="320"/>
         <source>CREATE_TORRENT_SETTINGS</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="409"/>
+        <location filename="CreateTorrentDialog.ui" line="415"/>
         <source>CREATE_TORRENT_TRACKERS</source>
         <translation>Trackers</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="419"/>
+        <location filename="CreateTorrentDialog.ui" line="425"/>
         <source>CREATE_TORRENT_WEBSEEDS</source>
         <translation>Web seeds</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="472"/>
+        <location filename="CreateTorrentDialog.ui" line="478"/>
         <source>CREATE_TORRENT_DESCRIBTION</source>
         <translation>Discripbtion</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="402"/>
+        <location filename="CreateTorrentDialog.ui" line="408"/>
         <source>CREATE_TORRENT_PIECE_SIZE</source>
         <translation>Piece size</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="334"/>
+        <location filename="CreateTorrentDialog.ui" line="340"/>
         <source>PIECE_SIZE_AUTODETECT</source>
         <translation>Autodetect</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="339"/>
+        <location filename="CreateTorrentDialog.ui" line="345"/>
         <source>16Mb</source>
         <translation>16Mb</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="344"/>
+        <location filename="CreateTorrentDialog.ui" line="350"/>
         <source>8Mb</source>
         <translation>8Mb</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="349"/>
+        <location filename="CreateTorrentDialog.ui" line="355"/>
         <source>4Mb</source>
         <translation>4Mb</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="354"/>
+        <location filename="CreateTorrentDialog.ui" line="360"/>
         <source>2Mb</source>
         <translation>2Mb</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="359"/>
+        <location filename="CreateTorrentDialog.ui" line="365"/>
         <source>1Mb</source>
         <translation>1Mb</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="364"/>
+        <location filename="CreateTorrentDialog.ui" line="370"/>
         <source>512Kb</source>
         <translation>512Kb</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="369"/>
+        <location filename="CreateTorrentDialog.ui" line="375"/>
         <source>256Kb</source>
         <translation>256Kb</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="374"/>
+        <location filename="CreateTorrentDialog.ui" line="380"/>
         <source>128Kb</source>
         <translation>128Kb</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="379"/>
+        <location filename="CreateTorrentDialog.ui" line="385"/>
         <source>64Kb</source>
         <translation>64Kb</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="384"/>
+        <location filename="CreateTorrentDialog.ui" line="390"/>
         <source>32Kb</source>
         <translation>32Kb</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="389"/>
+        <location filename="CreateTorrentDialog.ui" line="395"/>
         <source>16Kb</source>
         <translation>16Kb</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="394"/>
+        <location filename="CreateTorrentDialog.ui" line="400"/>
         <source>8Kb</source>
         <translation>8Kb</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="534"/>
+        <location filename="CreateTorrentDialog.ui" line="540"/>
         <source>close</source>
         <translation></translation>
     </message>
@@ -117,17 +110,17 @@
         <translation>Advanced Settings</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="264"/>
+        <location filename="CreateTorrentDialog.ui" line="267"/>
         <source>CREATE_TORRENT_START_SEEDING</source>
         <translation>Start seeding</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="284"/>
+        <location filename="CreateTorrentDialog.ui" line="287"/>
         <source>CREATE_TORRENT_PIVATE_TORRENT</source>
         <translation>Is private</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="304"/>
+        <location filename="CreateTorrentDialog.ui" line="310"/>
         <source>CREATE_TORRENT_SAVE_FILE_ORDER</source>
         <translation>Save file order</translation>
     </message>
@@ -142,22 +135,22 @@
         <translation>Cancel</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="482"/>
+        <location filename="CreateTorrentDialog.ui" line="488"/>
         <source>CREATE_TORRENT_SOURCE</source>
         <translation>Source</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="501"/>
+        <location filename="CreateTorrentDialog.ui" line="507"/>
         <source>CREATE_TORRENT_FILE</source>
         <translation>File</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="508"/>
+        <location filename="CreateTorrentDialog.ui" line="514"/>
         <source>CREATE_TORRENT_FOLDER</source>
         <translation>Folder</translation>
     </message>
     <message>
-        <location filename="CreateTorrentDialog.ui" line="515"/>
+        <location filename="CreateTorrentDialog.ui" line="521"/>
         <source>CREATE_TORRENT_EXCLUDE</source>
         <translation>Exclude</translation>
     </message>
@@ -228,266 +221,272 @@ Are you shure?</translation>
 <context>
     <name>CustomWindow</name>
     <message>
-        <source>MainWindow</source>
-        <translation type="obsolete">VideoPlayer</translation>
-    </message>
-    <message>
         <location filename="customWindow/CustomWindow.ui" line="14"/>
         <location filename="customWindow/CustomWindow.ui" line="105"/>
         <source>CuteTorrent</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="236"/>
+        <location filename="customWindow/CustomWindow.ui" line="242"/>
         <source>MENU_FILE</source>
         <translation>File</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="247"/>
+        <location filename="customWindow/CustomWindow.ui" line="253"/>
         <source>MENU_SETTINGS</source>
         <translation>Settings</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="253"/>
+        <location filename="customWindow/CustomWindow.ui" line="259"/>
         <source>MENU_HELP</source>
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="277"/>
+        <location filename="customWindow/CustomWindow.ui" line="266"/>
+        <source>MENU_TOOLS</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="customWindow/CustomWindow.ui" line="296"/>
         <source>toolBar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="392"/>
+        <location filename="customWindow/CustomWindow.ui" line="362"/>
         <source>TAB_INFO</source>
         <translation>Information</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="398"/>
+        <location filename="customWindow/CustomWindow.ui" line="368"/>
         <source>INFO_PEER_COUNT</source>
         <translation>Peers</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="412"/>
+        <location filename="customWindow/CustomWindow.ui" line="382"/>
         <source>INFO_UPLOADED</source>
         <translation>Uploaded</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="432"/>
+        <location filename="customWindow/CustomWindow.ui" line="402"/>
         <source>INFO_SEED_COUNT</source>
         <translation>Seeds</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="453"/>
+        <location filename="customWindow/CustomWindow.ui" line="423"/>
         <source>INFO_DESCRIBTION</source>
         <translation>Describtion</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="474"/>
+        <location filename="customWindow/CustomWindow.ui" line="444"/>
         <source>INFO_PATH</source>
         <translation>Save Path</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="498"/>
+        <location filename="customWindow/CustomWindow.ui" line="468"/>
         <source>INFO_REMAININF_TIME</source>
         <translation>Time Left</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="512"/>
+        <location filename="customWindow/CustomWindow.ui" line="482"/>
         <source>INFO_DOWNLOADED</source>
         <translation>Downladed</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="519"/>
+        <location filename="customWindow/CustomWindow.ui" line="489"/>
         <source>INFO_ACTIVE_TIME</source>
         <translation>Active Time</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="533"/>
+        <location filename="customWindow/CustomWindow.ui" line="503"/>
         <source>INFO_DOWNLOAD_SPEED</source>
         <translation>Download Speed</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="547"/>
+        <location filename="customWindow/CustomWindow.ui" line="517"/>
         <source>INFO_TOTAL_SIZE</source>
         <translation>Total Size</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="561"/>
+        <location filename="customWindow/CustomWindow.ui" line="531"/>
         <source>INFO_UPLOAD_SPEED</source>
         <translation>Upload Speed</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="569"/>
+        <location filename="customWindow/CustomWindow.ui" line="539"/>
         <source>TAB_PEERS</source>
         <translation>Peers</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="606"/>
+        <location filename="customWindow/CustomWindow.ui" line="576"/>
         <source>PEER_IP</source>
         <translation>IP</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="611"/>
+        <location filename="customWindow/CustomWindow.ui" line="581"/>
         <source>PEER_CLIENT_NAME</source>
         <translation>Client</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="616"/>
+        <location filename="customWindow/CustomWindow.ui" line="586"/>
         <source>PEER_%</source>
         <translation>%</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="621"/>
+        <location filename="customWindow/CustomWindow.ui" line="591"/>
         <source>PEER_DOWNLOAD_SPEED</source>
         <translation>Download speed</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="626"/>
+        <location filename="customWindow/CustomWindow.ui" line="596"/>
         <source>PEER_UPLOAD_SPEED</source>
         <translation>Upload speed</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="631"/>
+        <location filename="customWindow/CustomWindow.ui" line="601"/>
         <source>PEER_DOWNLOADED</source>
         <translation>Downloaded</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="636"/>
+        <location filename="customWindow/CustomWindow.ui" line="606"/>
         <source>PEER_UPLOADED</source>
         <translation>Uploaded</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="645"/>
+        <location filename="customWindow/CustomWindow.ui" line="615"/>
         <source>TAB_TRACKERS</source>
         <translation>Trackers</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="682"/>
+        <location filename="customWindow/CustomWindow.ui" line="652"/>
         <source>TRACKER_URL</source>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="687"/>
+        <location filename="customWindow/CustomWindow.ui" line="657"/>
         <source>TRACKER_STATUS</source>
         <translation>State</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="692"/>
+        <location filename="customWindow/CustomWindow.ui" line="662"/>
         <source>TRACKER_NEXT_ANNOUNCE</source>
         <translation>Next Announce in</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="701"/>
+        <location filename="customWindow/CustomWindow.ui" line="671"/>
         <source>TAB_FILES</source>
         <translation>Files </translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="733"/>
+        <location filename="customWindow/CustomWindow.ui" line="760"/>
         <source>MENU_OPEN_TORRENT</source>
         <translation>Open torrent</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="736"/>
+        <location filename="customWindow/CustomWindow.ui" line="763"/>
         <source>Ctrl+O</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="747"/>
+        <location filename="customWindow/CustomWindow.ui" line="774"/>
         <source>MENU_OPEN_MAGNET</source>
         <translation>Open magnet link</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="750"/>
+        <location filename="customWindow/CustomWindow.ui" line="777"/>
         <source>Ctrl+M</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="755"/>
+        <location filename="customWindow/CustomWindow.ui" line="782"/>
         <source>MENU_CREATE_TORRENT</source>
         <translation>Create torrent</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="758"/>
+        <location filename="customWindow/CustomWindow.ui" line="785"/>
         <source>Ctrl+N</source>
         <oldsource>Ctrl+C</oldsource>
         <translation>Ctrl+N</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="763"/>
+        <location filename="customWindow/CustomWindow.ui" line="790"/>
         <source>MENU_EXIT</source>
         <translation>Exit</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="766"/>
+        <location filename="customWindow/CustomWindow.ui" line="793"/>
         <source>Alt+X</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="774"/>
+        <location filename="customWindow/CustomWindow.ui" line="801"/>
         <source>MENU_CONFIGURATION</source>
         <translation>Configuration</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="777"/>
+        <location filename="customWindow/CustomWindow.ui" line="804"/>
         <source>Ctrl+S</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="785"/>
+        <location filename="customWindow/CustomWindow.ui" line="812"/>
         <source>STR_PAUSE</source>
         <translation>Pause</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="788"/>
+        <location filename="customWindow/CustomWindow.ui" line="815"/>
         <source>HINT_PAUSE</source>
         <translation>Pause</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="793"/>
+        <location filename="customWindow/CustomWindow.ui" line="820"/>
         <source>STR_START</source>
         <translation>Resume</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="796"/>
+        <location filename="customWindow/CustomWindow.ui" line="823"/>
         <source>HINT_RESUME</source>
         <translation>Resume</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="801"/>
-        <location filename="customWindow/CustomWindow.ui" line="807"/>
+        <location filename="customWindow/CustomWindow.ui" line="828"/>
+        <location filename="customWindow/CustomWindow.ui" line="834"/>
         <source>STR_REMOVE</source>
         <translation>Remove</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="804"/>
+        <location filename="customWindow/CustomWindow.ui" line="831"/>
         <source>HINT_REMOVE</source>
         <translation>Remove</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="812"/>
+        <location filename="customWindow/CustomWindow.ui" line="839"/>
         <source>MENU_ABAUT</source>
         <translation>Abaut CuteTorrent</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="815"/>
+        <location filename="customWindow/CustomWindow.ui" line="842"/>
         <source>F1</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="823"/>
+        <location filename="customWindow/CustomWindow.ui" line="850"/>
         <source>MENU_CHECK_UPDATES</source>
         <translation>Check for updates</translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="826"/>
+        <location filename="customWindow/CustomWindow.ui" line="853"/>
         <source>Ctrl+U</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="customWindow/CustomWindow.ui" line="831"/>
+        <location filename="customWindow/CustomWindow.ui" line="858"/>
         <source>STR_SETTINGS</source>
         <translation>Preferencies</translation>
+    </message>
+    <message>
+        <location filename="customWindow/CustomWindow.ui" line="863"/>
+        <source>TOOLS_BACKUP</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -537,10 +536,6 @@ If you have paid money for this software demand a refund</translation>
         <location filename="CuteTorrent.cpp" line="363"/>
         <source>CT_DOWNLOAD_COMPLETE %1</source>
         <translation>Complited downloading %1</translation>
-    </message>
-    <message>
-        <source>Òîððåíò ôàéëû (*.torrent);;Any File (*.*)</source>
-        <translation type="obsolete">Torrent File (*.torrent);;Any File (*.*)</translation>
     </message>
     <message>
         <location filename="CuteTorrent.cpp" line="824"/>
@@ -746,197 +741,6 @@ If you have paid money for this software demand a refund</translation>
     </message>
 </context>
 <context>
-    <name>CuteTorrentClass</name>
-    <message utf8="true">
-        <source>СuteTorrent</source>
-        <translation type="obsolete">CuteTorrent</translation>
-    </message>
-    <message>
-        <source>TAB_INFO</source>
-        <translation type="obsolete">Information</translation>
-    </message>
-    <message>
-        <source>INFO_DESCRIBTION</source>
-        <translation type="obsolete">Describtion</translation>
-    </message>
-    <message>
-        <source>INFO_SEED_COUNT</source>
-        <translation type="obsolete">Seeds</translation>
-    </message>
-    <message>
-        <source>INFO_UPLOAD_SPEED</source>
-        <translation type="obsolete">Upload Speed</translation>
-    </message>
-    <message>
-        <source>INFO_PEER_COUNT</source>
-        <translation type="obsolete">Peers</translation>
-    </message>
-    <message>
-        <source>INFO_DOWNLOADED</source>
-        <translation type="obsolete">Downladed</translation>
-    </message>
-    <message>
-        <source>INFO_DOWNLOAD_SPEED</source>
-        <translation type="obsolete">Download Speed</translation>
-    </message>
-    <message>
-        <source>INFO_REMAININF_TIME</source>
-        <translation type="obsolete">Time Left</translation>
-    </message>
-    <message>
-        <source>INFO_PATH</source>
-        <translation type="obsolete">Save Path</translation>
-    </message>
-    <message>
-        <source>INFO_TOTAL_SIZE</source>
-        <translation type="obsolete">Total Size</translation>
-    </message>
-    <message>
-        <source>INFO_ACTIVE_TIME</source>
-        <translation type="obsolete">Active Time</translation>
-    </message>
-    <message>
-        <source>INFO_UPLOADED</source>
-        <translation type="obsolete">Uploaded</translation>
-    </message>
-    <message>
-        <source>TAB_PEERS</source>
-        <translation type="obsolete">Peers</translation>
-    </message>
-    <message>
-        <source>PEER_IP</source>
-        <translation type="obsolete">IP</translation>
-    </message>
-    <message>
-        <source>PEER_CLIENT_NAME</source>
-        <translation type="obsolete">Client</translation>
-    </message>
-    <message>
-        <source>PEER_%</source>
-        <translation type="obsolete">%</translation>
-    </message>
-    <message>
-        <source>PEER_DOWNLOAD_SPEED</source>
-        <translation type="obsolete">Download speed</translation>
-    </message>
-    <message>
-        <source>PEER_UPLOAD_SPEED</source>
-        <translation type="obsolete">Upload speed</translation>
-    </message>
-    <message>
-        <source>PEER_DOWNLOADED</source>
-        <translation type="obsolete">Downloaded</translation>
-    </message>
-    <message>
-        <source>PEER_UPLOADED</source>
-        <translation type="obsolete">Uploaded</translation>
-    </message>
-    <message>
-        <source>TAB_TRACKERS</source>
-        <translation type="obsolete">Trackers</translation>
-    </message>
-    <message>
-        <source>TRACKER_URL</source>
-        <translation type="obsolete">URL</translation>
-    </message>
-    <message>
-        <source>TRACKER_STATUS</source>
-        <translation type="obsolete">State</translation>
-    </message>
-    <message>
-        <source>TRACKER_NEXT_ANNOUNCE</source>
-        <translation type="obsolete">Next Announce in</translation>
-    </message>
-    <message>
-        <source>TAB_FILES</source>
-        <translation type="obsolete">Files </translation>
-    </message>
-    <message>
-        <source>FILES_PATH</source>
-        <translation type="obsolete">Path</translation>
-    </message>
-    <message>
-        <source>FILES_SIZE</source>
-        <translation type="obsolete">Size</translation>
-    </message>
-    <message>
-        <source>FILES_READY</source>
-        <translation type="obsolete">Ready</translation>
-    </message>
-    <message>
-        <source>FILES_PRIORITY</source>
-        <translation type="obsolete">Priority</translation>
-    </message>
-    <message>
-        <source>MENU_FILE</source>
-        <translation type="obsolete">File</translation>
-    </message>
-    <message>
-        <source>MENU_SETTINGS</source>
-        <translation type="obsolete">Settings</translation>
-    </message>
-    <message>
-        <source>MENU_HELP</source>
-        <translation type="obsolete">Help</translation>
-    </message>
-    <message>
-        <source>MENU_OPEN_TORRENT</source>
-        <translation type="obsolete">Open torrent</translation>
-    </message>
-    <message>
-        <source>MENU_OPEN_MAGNET</source>
-        <translation type="obsolete">Open magnet link</translation>
-    </message>
-    <message>
-        <source>MENU_CREATE_TORRENT</source>
-        <translation type="obsolete">Create torrent</translation>
-    </message>
-    <message>
-        <source>MENU_EXIT</source>
-        <translation type="obsolete">Exit</translation>
-    </message>
-    <message>
-        <source>MENU_CONFIGURATION</source>
-        <translation type="obsolete">Configuration</translation>
-    </message>
-    <message>
-        <source>STR_PAUSE</source>
-        <translation type="obsolete">Pause</translation>
-    </message>
-    <message>
-        <source>STR_START</source>
-        <translation type="obsolete">Resume</translation>
-    </message>
-    <message>
-        <source>STR_REMOVE</source>
-        <translation type="obsolete">Remove</translation>
-    </message>
-    <message>
-        <source>STR_SETTINGS</source>
-        <translation type="obsolete">Preferencies</translation>
-    </message>
-    <message>
-        <source>HINT_PAUSE</source>
-        <translation type="obsolete">Pause</translation>
-    </message>
-    <message>
-        <source>HINT_RESUME</source>
-        <translation type="obsolete">Resume</translation>
-    </message>
-    <message>
-        <source>HINT_REMOVE</source>
-        <translation type="obsolete">Remove</translation>
-    </message>
-    <message>
-        <source>MENU_ABAUT</source>
-        <translation type="obsolete">Abaut CuteTorrent</translation>
-    </message>
-    <message>
-        <source>MENU_CHECK_UPDATES</source>
-        <translation type="obsolete">Check for updates</translation>
-    </message>
-</context>
-<context>
     <name>DTMountDialog</name>
     <message>
         <location filename="multipleDt.ui" line="14"/>
@@ -996,21 +800,6 @@ If you have paid money for this software demand a refund</translation>
     </message>
 </context>
 <context>
-    <name>LTorrentClass</name>
-    <message>
-        <source>rutracker.org</source>
-        <translation type="obsolete">rutracker.org</translation>
-    </message>
-    <message>
-        <source>thepiratebay.se</source>
-        <translation type="obsolete">thepiratebay.se</translation>
-    </message>
-    <message>
-        <source>rutor.org</source>
-        <translation type="obsolete">rutor.org</translation>
-    </message>
-</context>
-<context>
     <name>MediaController</name>
     <message>
         <location filename="VideoPlayer/mediacontroller.cpp" line="49"/>
@@ -1058,32 +847,6 @@ If you have paid money for this software demand a refund</translation>
         <location filename="messagebox.ui" line="180"/>
         <source>TextLabel</source>
         <translation></translation>
-    </message>
-</context>
-<context>
-    <name>MultipleDTDialog</name>
-    <message>
-        <source>ERROR_DT_PATH_NOT_SET</source>
-        <translation type="obsolete">Path to DaemonTools not set.</translation>
-    </message>
-    <message>
-        <source>LAUNCH_ERROR</source>
-        <translation type="obsolete">Unable to launch </translation>
-    </message>
-</context>
-<context>
-    <name>OpenMagnetDialog</name>
-    <message>
-        <source>MGNET_OPEN_DIALOG</source>
-        <translation type="obsolete">Mgnet link</translation>
-    </message>
-    <message>
-        <source>OK</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
-        <source>Cancel</source>
-        <translation type="obsolete">Cancel</translation>
     </message>
 </context>
 <context>
@@ -1353,10 +1116,6 @@ If you have paid money for this software demand a refund</translation>
         <translation>i2p</translation>
     </message>
     <message>
-        <source>fFILE_EXTENSIONS(FORMAT: jpg|png|bmp)</source>
-        <translation type="obsolete">File extensions (format: jpg|png|bmp|)</translation>
-    </message>
-    <message>
         <location filename="SettingsDialog.ui" line="1396"/>
         <source>TAB_DAEMONTOOLS</source>
         <oldsource>DaemonTools</oldsource>
@@ -1506,10 +1265,6 @@ If you have paid money for this software demand a refund</translation>
         <translation>Lmit the uploadspeed to the chosen value.</translation>
     </message>
     <message>
-        <source>UPLOAD_SPEED_LIMIT</source>
-        <translation type="obsolete">The value of maximum upload speed.</translation>
-    </message>
-    <message>
         <location filename="SettingsDialog.ui" line="442"/>
         <source>ACTIVE_TORRENTS_LIMIT_WIT</source>
         <translation>The maximum namber of one in time active torrrents.</translation>
@@ -1518,10 +1273,6 @@ If you have paid money for this software demand a refund</translation>
         <location filename="SettingsDialog.ui" line="459"/>
         <source>DOWNLOAD_SPEED_LIMIT_WIT</source>
         <translation>The limitation of download speed.</translation>
-    </message>
-    <message>
-        <source>DOWNLOAD_SPEED_LIMIT</source>
-        <translation type="obsolete">The value of maximum download speed.</translation>
     </message>
     <message>
         <location filename="SettingsDialog.ui" line="469"/>
@@ -1674,10 +1425,6 @@ If you have paid money for this software demand a refund</translation>
         <translation>Stop WebUI</translation>
     </message>
     <message>
-        <source>RCON_PORT</source>
-        <translation type="obsolete">Rcon port</translation>
-    </message>
-    <message>
         <location filename="SettingsDialog.ui" line="617"/>
         <source>DISK_IO_CASH_MODE_WIT</source>
         <translation>Allow using of OS cashe
@@ -1732,10 +1479,6 @@ If you have paid money for this software demand a refund</translation>
         <translation>Task Name</translation>
     </message>
     <message>
-        <source>ACTION_END</source>
-        <translation type="obsolete">Ending Time</translation>
-    </message>
-    <message>
         <location filename="SettingsDialog.ui" line="965"/>
         <source>ACTION_BEGIN</source>
         <translation>Start Time</translation>
@@ -1761,14 +1504,6 @@ If you have paid money for this software demand a refund</translation>
         <location filename="SettingsDialog.ui" line="1023"/>
         <source>LIMIT_UPLOAD</source>
         <translation>Limit Upload</translation>
-    </message>
-    <message>
-        <source>REPETEAD_ACTION</source>
-        <translation type="obsolete">Repeated Action</translation>
-    </message>
-    <message>
-        <source>0</source>
-        <translation type="obsolete">0</translation>
     </message>
     <message>
         <location filename="SettingsDialog.ui" line="793"/>
@@ -2000,88 +1735,6 @@ p, li { white-space: pre-wrap; }
         <translation> </translation>
     </message>
     <message>
-        <source>DAEMONTOOLS_USE_CUSTOM_COMMAND_WIT</source>
-        <translation type="obsolete">Allow to use a custom command for mounting.
-%1 -path to image.
-%2 -drive number.</translation>
-    </message>
-    <message>
-        <source>DAEMONTOOLS_USE_CUSTOM_COMMAND</source>
-        <translation type="obsolete">Use custom command for mouting</translation>
-    </message>
-    <message>
-        <source>DAEMONTOOLS_COMMAND</source>
-        <translation type="obsolete">Command</translation>
-    </message>
-    <message>
-        <source>TAB_TRACKER_SEARCH</source>
-        <translation type="obsolete">Tracker search</translation>
-    </message>
-    <message>
-        <source>TRACKER_CURRENT</source>
-        <translation type="obsolete">Tracker</translation>
-    </message>
-    <message>
-        <source>SEARCH_ADD_TRACKER</source>
-        <translation type="obsolete">Add tracker</translation>
-    </message>
-    <message>
-        <source>SEARCH_METHOD</source>
-        <translation type="obsolete">Method</translation>
-    </message>
-    <message>
-        <source>SEARCH_REQUEST</source>
-        <translation type="obsolete">Request</translation>
-    </message>
-    <message>
-        <source>SEARCH_ADD</source>
-        <translation type="obsolete">Add</translation>
-    </message>
-    <message>
-        <source>SEARCH_USE_AUTH</source>
-        <translation type="obsolete">Use auntefication</translation>
-    </message>
-    <message>
-        <source>AUTH_DATA</source>
-        <translation type="obsolete">Autefication data</translation>
-    </message>
-    <message>
-        <source>AUTH_NAME</source>
-        <translation type="obsolete">Username</translation>
-    </message>
-    <message>
-        <source>AUTH_METHOD</source>
-        <translation type="obsolete">Method</translation>
-    </message>
-    <message>
-        <source>AUTH_PASSWORD</source>
-        <translation type="obsolete">Password</translation>
-    </message>
-    <message>
-        <source>AUTH_REQUEST</source>
-        <translation type="obsolete">Request</translation>
-    </message>
-    <message>
-        <source>SETTINGS_CANCEL_BUTTON</source>
-        <translation type="obsolete">Cancel</translation>
-    </message>
-    <message>
-        <source>SETTINGS_OK_BITTON</source>
-        <translation type="obsolete">OK</translation>
-    </message>
-    <message>
-        <source>SETTINGS_ACCEPT_BUTTON</source>
-        <translation type="obsolete">Apply</translation>
-    </message>
-    <message>
-        <source>GET</source>
-        <translation type="obsolete">GET</translation>
-    </message>
-    <message>
-        <source>POST</source>
-        <translation type="obsolete">POST</translation>
-    </message>
-    <message>
         <location filename="SettingsDialog.cpp" line="629"/>
         <source>Torrent file</source>
         <translation>Torrent file</translation>
@@ -2173,10 +1826,6 @@ p, li { white-space: pre-wrap; }
         <location filename="SettingsDialog.cpp" line="1098"/>
         <source>SHURE_IN_CHANGING_SEARCH_ITEM %1</source>
         <translation>Are you shure changing %1</translation>
-    </message>
-    <message>
-        <source>Óêàçàòü ïàïêó ñ DaemonTools</source>
-        <translation type="obsolete">Chose DaemonTools install path</translation>
     </message>
     <message>
         <source>ACTION_FILETAB_HIGH_PRIORITY</source>
@@ -2320,13 +1969,6 @@ p, li { white-space: pre-wrap; }
     </message>
 </context>
 <context>
-    <name>ToolButtons</name>
-    <message>
-        <source>Form</source>
-        <translation type="obsolete">Form</translation>
-    </message>
-</context>
-<context>
     <name>Torrent</name>
     <message>
         <location filename="Torrent.cpp" line="297"/>
@@ -2374,10 +2016,6 @@ p, li { white-space: pre-wrap; }
         <translation>Couldn&apos;t find file path.resume. If it is first lunch than just press OK button.</translation>
     </message>
     <message>
-        <source>ERROR_UNABLE_SAVE_DAT_RESUME</source>
-        <translation type="obsolete">Unable to save resume data for torrent.</translation>
-    </message>
-    <message>
         <location filename="TorrentManager.cpp" line="257"/>
         <source>MOVE_STORRAGE_COMPLETED_TO:
 %1</source>
@@ -2396,29 +2034,6 @@ p, li { white-space: pre-wrap; }
         <location filename="UpdateNotyfier.cpp" line="49"/>
         <source>ERROR_GETTING_VERSION_STR</source>
         <translation>Error getting actual version information.</translation>
-    </message>
-</context>
-<context>
-    <name>VideoPlayerWindow</name>
-    <message>
-        <source>MainWindow</source>
-        <translation type="obsolete">VideoPlayer</translation>
-    </message>
-    <message>
-        <source>00:00:00</source>
-        <translation type="obsolete">00:00:00</translation>
-    </message>
-    <message utf8="true">
-        <source>Файл</source>
-        <translation type="obsolete">File</translation>
-    </message>
-    <message utf8="true">
-        <source>Выход</source>
-        <translation type="obsolete">Exit</translation>
-    </message>
-    <message utf8="true">
-        <source>Открыть</source>
-        <translation type="obsolete">Open</translation>
     </message>
 </context>
 </TS>

@@ -208,7 +208,7 @@ private:
     void setupTabelWidgets();
     void setupStatusBar();
     void setupFileTabel();
-    void setupGroupTreeWidget();
+    void setupGroupTreeWidget(bool initial=false);
     void setupFileTabelContextMenu();
     void fillPieceDisplay(QSize);
     void setFilePriority(int);
@@ -219,6 +219,7 @@ public slots:
     /**
          * @brief maximizeBtnClicked Maximizes or restores the window depending on the last status.
          */
+
     void maximizeBtnClicked();
     /**
          * @brief minimizeBtnClicked Minimizes or restores the window depending on the last status.
