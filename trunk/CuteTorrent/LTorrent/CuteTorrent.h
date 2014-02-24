@@ -265,7 +265,7 @@ public slots:
     void AddTracker();
     void AddPeer();
     void ChnageTorrentFilter();
-
+    void startBackUpWizard();
 
 
 };
