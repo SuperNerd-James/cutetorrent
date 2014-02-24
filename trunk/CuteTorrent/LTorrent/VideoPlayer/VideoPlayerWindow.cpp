@@ -128,6 +128,7 @@ void VideoPlayerWindow::openFile( QString path )
 
 void VideoPlayerWindow::mouseMoveEvent( QMouseEvent *event )
 {
+    setCursor(QCursor(Qt::ArrowCursor));
 	controls->show();
 	animationTimerID=startTimer(3000);
 }
@@ -138,6 +139,7 @@ void VideoPlayerWindow::timerEvent( QTimerEvent * event )
 	{
 		killTimer(animationTimerID);
 		controls->hide();
+        setCursor(QCursor(Qt::BlankCursor));
 	}
 }
 

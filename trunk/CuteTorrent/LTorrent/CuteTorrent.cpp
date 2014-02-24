@@ -66,7 +66,7 @@ CuteTorrent::CuteTorrent(QWidget *parent)
     mayShowNotifies = false;
 
 
-
+    spliiter->setSizes(QList<int>() << 130 << 538);
     setAcceptDrops(true);
     setupStatusBar();
     setupTray();
@@ -1247,7 +1247,7 @@ void CuteTorrent::setFilePriority( int priority)
     }
 }
 
-void CuteTorrent::setupGroupTreeWidget()
+void CuteTorrent::setupGroupTreeWidget(bool initial)
 {
 
     groupTreeWidget->clear();
@@ -1357,8 +1357,8 @@ void CuteTorrent::setupCustomeWindow()
     pbMax->setMouseTracking(true);
     pbClose->setMouseTracking(true);
     centralWidget->setMouseTracking(true);
-    listView->setMouseTracking(true);
-    groupTreeWidget->setMouseTracking(true);
+//    listView->setMouseTracking(true);
+//    groupTreeWidget->setMouseTracking(true);
     tabWidget->setMouseTracking(true);
     /*centralLayout = new QHBoxLayout(centralWidget);
     centralLayout->setContentsMargins(9,9,9,9);*/

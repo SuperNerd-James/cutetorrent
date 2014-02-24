@@ -84,25 +84,28 @@ QStringList QApplicationSettings::GetGroupNames()
 
 void QApplicationSettings::setValue(const QString group,const QString key,const QVariant &value)
 {
-
+    if (!settings->group().isEmpty()) settings->endGroup();
 	settings->beginGroup(group);
 	settings->setValue(key,value);
 	settings->endGroup();
-	//qDebug() << "QApplicationSettings::setValue " << group << " " << key << " " << value;
+    qDebug() << "QApplicationSettings::setValue " << group << " " << key << " " << value;
 
 	WriteSettings();
 }
 
 QVariant QApplicationSettings::value(const QString group,const QString key,QVariant defaultVal)
 {
+     qDebug() << "QApplicationSettings::value " << group << " " << key << " " << defaultVal;
     locker->lock();
-	QVariant res = QVariant();
+    if (!settings->group().isEmpty()) settings->endGroup();
 	settings->beginGroup(group);
-	res = settings->value(key);
+    QVariant res = settings->value(key);
     settings->endGroup();
     if (!res.isValid() &&  defaultVal.isValid())
 	{
+        settings->beginGroup(group);
         settings->setValue(key,defaultVal);
+        settings->endGroup();
         res=defaultVal;
 	}
     locker->unlock();
@@ -127,6 +130,7 @@ int QApplicationSettings::valueInt(const QString group,const QString key,int def
 QMap<QString, QVariant> QApplicationSettings::getGroupValues(QString group)
 {
     locker->lock();
+    if (!settings->group().isEmpty()) settings->endGroup();
     settings->beginGroup(group);
     QStringList keys = settings->childKeys();
     QMap<QString, QVariant> result;
@@ -141,6 +145,7 @@ QMap<QString, QVariant> QApplicationSettings::getGroupValues(QString group)
 void QApplicationSettings::setGroupValues(QString group,QMap<QString, QVariant> values)
 {
     locker->lock();
+    if (!settings->group().isEmpty()) settings->endGroup();
     settings->beginGroup(group);
     QStringList keys = values.keys();
     foreach(QString key,keys)
@@ -182,6 +187,7 @@ QList<GroupForFileFiltering> QApplicationSettings::GetFileFilterGroups()
 {
 	QList<GroupForFileFiltering> res;
 	locker->lock();
+    if (!settings->group().isEmpty()) settings->endGroup();
 	settings->beginGroup("FileFiltering");
 	QStringList groupNames=settings->childKeys();
 	for (int i=0;i<groupNames.count();i++)
