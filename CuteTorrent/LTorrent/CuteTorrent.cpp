@@ -42,6 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QDesktopServices>
 #include <QShortcut>
 #include "messagebox.h"
+#include "backupwizard/backupwizard.h"
 
 CuteTorrent::CuteTorrent(QWidget *parent)
     : QWidget(parent)
@@ -1320,6 +1321,12 @@ void CuteTorrent::ChnageTorrentFilter()
         torrents->setFilter(newFilter);
     }
     model->updateVisibleTorrents();
+}
+
+void CuteTorrent::startBackUpWizard()
+{
+    BackupWizard* wizard = new BackupWizard(this);
+    wizard->show();
 }
 void CuteTorrent::initMainMenuIcons(){
     ACTION_MENU_ABAUT_CT->setIcon(styleEngine->getIcon("about"));

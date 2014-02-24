@@ -1029,6 +1029,22 @@ padding-right:2px;
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>ACTION_TOOLS_BACKUP</sender>
+   <signal>triggered()</signal>
+   <receiver>CustomWindow</receiver>
+   <slot>startBackUpWizard()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>341</x>
+     <y>321</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>FillTorrentDetails(Torrent*)</signal>
@@ -1043,5 +1059,6 @@ padding-right:2px;
   <slot>ProcessMagnet()</slot>
   <slot>copyDiscribtion()</slot>
   <slot>StopSelected()</slot>
+  <slot>startBackUpWizard()</slot>
  </slots>
 </ui>
