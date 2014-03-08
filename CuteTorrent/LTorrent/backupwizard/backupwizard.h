@@ -8,7 +8,7 @@ class BackupWizard : public QWizard
     Q_OBJECT
 public:
     explicit BackupWizard(QWidget *parent = 0);
-    enum { Page_Intro, Page_CreateBakup, Page_ApplyBakup, Page_Finish };
+    enum { Page_Intro , Page_CreateBakup , Page_ApplyBakup , Page_Finish };
 signals:
 
 public slots:
@@ -16,11 +16,6 @@ public slots:
 private:
     QRadioButton *careateRadioButton;
     QRadioButton *applyRadioButton;
-    int nextId () const;
-    QWizardPage* createIntroPage();
-    QWizardPage* createCreateBakupPage();
-    QWizardPage* createApplyBakupPage();
-    QWizardPage* createFinishPage();
 };
 
 #endif // BACKUPWIZARD_H

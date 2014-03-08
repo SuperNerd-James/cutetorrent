@@ -1826,143 +1826,143 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>ACTION_FILETAB_HIGH_PRIORITY</source>
-        <translation type="obsolete">Высокий</translation>
+        <translation>Высокий</translation>
     </message>
     <message>
         <source>ACTION_FILETAB_LOW_PRIORITY</source>
-        <translation type="obsolete">Низкий</translation>
+        <translation>Низкий</translation>
     </message>
     <message>
         <source>ACTION_FILETAB_MEDIUM_PRIORITY</source>
-        <translation type="obsolete">Средний</translation>
+        <translation>Средний</translation>
     </message>
     <message>
         <source>ACTION_FILETAB_OPEN_DIR</source>
-        <translation type="obsolete">Открыть папку</translation>
+        <translation>Открыть папку</translation>
     </message>
     <message>
         <source>ACTION_FILETAB_OPEN_FILE</source>
-        <translation type="obsolete">Открыть файл</translation>
+        <translation>Открыть файл</translation>
     </message>
     <message>
         <source>ACTION_FILETAB_ZERO_PRIORITY</source>
-        <translation type="obsolete">Не загружать</translation>
+        <translation>Не загружать</translation>
     </message>
     <message>
         <source>ACTION_MENU_ABAUT_CT</source>
-        <translation type="obsolete">О CuteTorrent</translation>
+        <translation>О CuteTorrent</translation>
     </message>
     <message>
         <source>ACTION_MENU_CHECK_UPDATE</source>
-        <translation type="obsolete">Проверить обновления</translation>
+        <translation>Проверить обновления</translation>
     </message>
     <message>
         <source>ACTION_MENU_CREATE</source>
-        <translation type="obsolete">Создать торрент</translation>
+        <translation>Создать торрент</translation>
     </message>
     <message>
         <source>ACTION_MENU_EXIT</source>
-        <translation type="obsolete">Выход</translation>
+        <translation>Выход</translation>
     </message>
     <message>
         <source>ACTION_MENU_OPEN_MAGNET</source>
-        <translation type="obsolete">Открыть magnet сслыку</translation>
+        <translation>Открыть magnet сслыку</translation>
     </message>
     <message>
         <source>ACTION_MENU_OPEN_TORRENT</source>
-        <translation type="obsolete">Открыть торрент</translation>
+        <translation>Открыть торрент</translation>
     </message>
     <message>
         <source>ACTION_MENU_SETTINGS</source>
-        <translation type="obsolete">Настройки</translation>
+        <translation>Настройки</translation>
     </message>
     <message>
         <source>ACTION_OTHER_ADD_PPER</source>
-        <translation type="obsolete">Добавить пир</translation>
+        <translation>Добавить пир</translation>
     </message>
     <message>
         <source>ACTION_OTHER_ADD_TRACKER</source>
-        <translation type="obsolete">Добавление трекера</translation>
+        <translation>Добавление трекера</translation>
     </message>
     <message>
         <source>ACTION_OTHER_DISCRIBTION</source>
-        <translation type="obsolete">Копировать(описание торрента)</translation>
+        <translation>Копировать(описание торрента)</translation>
     </message>
     <message>
         <source>ACTION_TOOLBAR_PAUSE</source>
-        <translation type="obsolete">Приостановить</translation>
+        <translation>Приостановить</translation>
     </message>
     <message>
         <source>ACTION_TOOLBAR_REMOVE</source>
-        <translation type="obsolete">Удалить торрент</translation>
+        <translation>Удалить торрент</translation>
     </message>
     <message>
         <source>ACTION_TOOLBAR_SETTINGS</source>
-        <translation type="obsolete">Настройки</translation>
+        <translation>Настройки</translation>
     </message>
     <message>
         <source>ACTION_TOOLBAR_START</source>
-        <translation type="obsolete">Возобновить</translation>
+        <translation>Возобновить</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_DEL_ALL</source>
-        <translation type="obsolete">Удалить все</translation>
+        <translation>Удалить все</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_DEL_TORRENT</source>
-        <translation type="obsolete">Удалить торрент</translation>
+        <translation>Удалить торрент</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_DT_MOUNT</source>
-        <translation type="obsolete">Смонтировать в DaemonTools</translation>
+        <translation>Смонтировать в DaemonTools</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_GENERATE_MAGNET</source>
-        <translation type="obsolete">Сгенерировать магнет-ссылку</translation>
+        <translation>Сгенерировать магнет-ссылку</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_MOVE_STORRAGE</source>
-        <translation type="obsolete">Переместить в...</translation>
+        <translation>Переместить в...</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_OPEN_DIR</source>
-        <translation type="obsolete">Открыть папку</translation>
+        <translation>Открыть папку</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_PLAY</source>
-        <translation type="obsolete">Проиграть во встроенном плеере</translation>
+        <translation>Проиграть во встроенном плеере</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_RECHECK</source>
-        <translation type="obsolete">Перепроверить</translation>
+        <translation>Перепроверить</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_SET_SEQUNTIAL</source>
-        <translation type="obsolete">Последовательная загрузка</translation>
+        <translation>Последовательная загрузка</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_SUPER_SEED</source>
-        <translation type="obsolete">Супер-сид</translation>
+        <translation>Супер-сид</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_UPDATE_TRACKERS</source>
-        <translation type="obsolete">Обновить трекеры</translation>
+        <translation>Обновить трекеры</translation>
     </message>
     <message>
         <source>ACTION_TRAY_EXIT</source>
-        <translation type="obsolete">Выход</translation>
+        <translation>Выход</translation>
     </message>
     <message>
         <source>ACTION_TRAY_MAXIMIZE</source>
-        <translation type="obsolete">Развернуть</translation>
+        <translation>Развернуть</translation>
     </message>
     <message>
         <source>ACTION_TRAY_MINIMIZE</source>
-        <translation type="obsolete">Свернуть</translation>
+        <translation>Свернуть</translation>
     </message>
     <message>
         <source>ACTION_TRAY_RESTORE</source>
-        <translation type="obsolete">Восстановить</translation>
+        <translation>Восстановить</translation>
     </message>
 </context>
 <context>

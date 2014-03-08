@@ -1,34 +1,43 @@
 #include "intropage.h"
+#include "backupwizard.h"
+#include <QDebug>
 
-IntroPage::IntroPage(QWidget *parent) :
-    QWizardPage (parent)
+IntroPage::IntroPage(QWidget *parent)
+    : QWizardPage(parent)
 {
-}
+    setTitle(tr("Introduction"));
+    setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/watermark.png"));
 
+    topLabel = new QLabel(tr("This wizard will help you register your copy of "
+                             "<i>Super Product One</i>&trade; or start "
+                             "evaluating the product."));
+    topLabel->setWordWrap(true);
 
-void IntroPage::initializePage()
-{
-    setTitle("BAKUP_INTRO_TITLE");
+    registerRadioButton = new QRadioButton(tr("&Register your copy"));
+    evaluateRadioButton = new QRadioButton(tr("&Evaluate the product for 30 "
+                                              "days"));
+    registerRadioButton->setChecked(true);
 
-    QLabel *label = new QLabel("BACKUP_INTRO_MESSAGE");
-    label->setWordWrap(true);
-    QRadioButton *careateRadioButton = new QRadioButton("CREATE_BAKUP");
-    QRadioButton *applyRadioButton  = new QRadioButton("APPLY_BAKUP");
     QVBoxLayout *layout = new QVBoxLayout;
-    registerField("create",careateRadioButton);
-    registerField("apply",applyRadioButton);
-    layout->addWidget(label);
-    layout->addWidget(careateRadioButton);
-    layout->addWidget(applyRadioButton);
+    layout->addWidget(topLabel);
+    layout->addWidget(registerRadioButton);
+    layout->addWidget(evaluateRadioButton);
     setLayout(layout);
 }
 
-void IntroPage::cleanupPage()
+int IntroPage::nextId() const
 {
 
+    if (registerRadioButton->isChecked()) {
+        return BackupWizard::Page_CreateBakup;
+    } else {
+        return BackupWizard::Page_ApplyBakup;
+    }
 }
+
+
 
 bool IntroPage::validatePage()
 {
-    return field("create").toBool() || field("apply").toBool();
+    return true;
 }
