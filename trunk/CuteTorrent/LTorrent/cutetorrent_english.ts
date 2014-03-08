@@ -1829,143 +1829,143 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <source>ACTION_FILETAB_HIGH_PRIORITY</source>
-        <translation type="obsolete">High</translation>
+        <translation>High</translation>
     </message>
     <message>
         <source>ACTION_FILETAB_LOW_PRIORITY</source>
-        <translation type="obsolete">Low</translation>
+        <translation>Low</translation>
     </message>
     <message>
         <source>ACTION_FILETAB_MEDIUM_PRIORITY</source>
-        <translation type="obsolete">Medium</translation>
+        <translation>Medium</translation>
     </message>
     <message>
         <source>ACTION_FILETAB_OPEN_DIR</source>
-        <translation type="obsolete">Open folder</translation>
+        <translation>Open folder</translation>
     </message>
     <message>
         <source>ACTION_FILETAB_OPEN_FILE</source>
-        <translation type="obsolete">Open file</translation>
+        <translation>Open file</translation>
     </message>
     <message>
         <source>ACTION_FILETAB_ZERO_PRIORITY</source>
-        <translation type="obsolete">Don&apos;t download</translation>
+        <translation>Don&apos;t download</translation>
     </message>
     <message>
         <source>ACTION_MENU_ABAUT_CT</source>
-        <translation type="obsolete">About CuteTorrent</translation>
+        <translation>About CuteTorrent</translation>
     </message>
     <message>
         <source>ACTION_MENU_CHECK_UPDATE</source>
-        <translation type="obsolete">Check for updates</translation>
+        <translation>Check for updates</translation>
     </message>
     <message>
         <source>ACTION_MENU_CREATE</source>
-        <translation type="obsolete">Create torrent</translation>
+        <translation>Create torrent</translation>
     </message>
     <message>
         <source>ACTION_MENU_EXIT</source>
-        <translation type="obsolete">Exit</translation>
+        <translation>Exit</translation>
     </message>
     <message>
         <source>ACTION_MENU_OPEN_MAGNET</source>
-        <translation type="obsolete">Open magnet link</translation>
+        <translation>Open magnet link</translation>
     </message>
     <message>
         <source>ACTION_MENU_OPEN_TORRENT</source>
-        <translation type="obsolete">Open torrent</translation>
+        <translation>Open torrent</translation>
     </message>
     <message>
         <source>ACTION_MENU_SETTINGS</source>
-        <translation type="obsolete">Settings</translation>
+        <translation>Settings</translation>
     </message>
     <message>
         <source>ACTION_OTHER_ADD_PPER</source>
-        <translation type="obsolete">Add peer</translation>
+        <translation>Add peer</translation>
     </message>
     <message>
         <source>ACTION_OTHER_ADD_TRACKER</source>
-        <translation type="obsolete">Add tracker</translation>
+        <translation>Add tracker</translation>
     </message>
     <message>
         <source>ACTION_OTHER_DISCRIBTION</source>
-        <translation type="obsolete">Copy(Torrent description)</translation>
+        <translation>Copy(Torrent description)</translation>
     </message>
     <message>
         <source>ACTION_TOOLBAR_PAUSE</source>
-        <translation type="obsolete">Pause</translation>
+        <translation>Pause</translation>
     </message>
     <message>
         <source>ACTION_TOOLBAR_REMOVE</source>
-        <translation type="obsolete">Remove</translation>
+        <translation>Remove</translation>
     </message>
     <message>
         <source>ACTION_TOOLBAR_SETTINGS</source>
-        <translation type="obsolete">Settings</translation>
+        <translation>Settings</translation>
     </message>
     <message>
         <source>ACTION_TOOLBAR_START</source>
-        <translation type="obsolete">Start</translation>
+        <translation>Start</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_DEL_ALL</source>
-        <translation type="obsolete">Delete all</translation>
+        <translation>Delete all</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_DEL_TORRENT</source>
-        <translation type="obsolete">Delete torrent</translation>
+        <translation>Delete torrent</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_DT_MOUNT</source>
-        <translation type="obsolete">Mount to Daemon Tools</translation>
+        <translation>Mount to Daemon Tools</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_GENERATE_MAGNET</source>
-        <translation type="obsolete">Generate magnet URI</translation>
+        <translation>Generate magnet URI</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_MOVE_STORRAGE</source>
-        <translation type="obsolete">Move to...</translation>
+        <translation>Move to...</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_OPEN_DIR</source>
-        <translation type="obsolete">Open folder</translation>
+        <translation>Open folder</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_PLAY</source>
-        <translation type="obsolete">Play in player</translation>
+        <translation>Play in player</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_RECHECK</source>
-        <translation type="obsolete">Recheck</translation>
+        <translation>Recheck</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_SET_SEQUNTIAL</source>
-        <translation type="obsolete">Sequential download</translation>
+        <translation>Sequential download</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_SUPER_SEED</source>
-        <translation type="obsolete">Supper-seed</translation>
+        <translation>Supper-seed</translation>
     </message>
     <message>
         <source>ACTION_TORRENTLIST_UPDATE_TRACKERS</source>
-        <translation type="obsolete">Update trackers</translation>
+        <translation>Update trackers</translation>
     </message>
     <message>
         <source>ACTION_TRAY_EXIT</source>
-        <translation type="obsolete">Exit</translation>
+        <translation>Exit</translation>
     </message>
     <message>
         <source>ACTION_TRAY_MAXIMIZE</source>
-        <translation type="obsolete">Maximize</translation>
+        <translation>Maximize</translation>
     </message>
     <message>
         <source>ACTION_TRAY_MINIMIZE</source>
-        <translation type="obsolete">Maximize</translation>
+        <translation>Maximize</translation>
     </message>
     <message>
         <source>ACTION_TRAY_RESTORE</source>
-        <translation type="obsolete">Restore</translation>
+        <translation>Restore</translation>
     </message>
 </context>
 <context>

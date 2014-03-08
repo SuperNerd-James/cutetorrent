@@ -5,7 +5,7 @@
 TEMPLATE = app
 TARGET = CuteTorrent
 DESTDIR = ../Win32/Release
-QT += core gui network phonon
+QT += core gui network phonon gui-private
 greaterThan(QT_MAJOR_VERSION, 4) {
   QT += widgets
   DEFINES += HAVE_QT5
@@ -23,7 +23,7 @@ LIBS += -L"../../../../libtorrent-rasterbar-0.16.8/lib" \
     -L"../../../../boost_1_53_0/stage/lib" \
 
 
-LIBS += -llibtorrent.x64 \
+LIBS += -llibtorrent \
 
 
 DEPENDPATH += .

@@ -192,10 +192,10 @@ void StyleEngene::loadStyleSheet(QString path)
     {
         QString relativePath = _currentStyle.imageDir;
         qDebug() << "ImageDir=" << relativePath;
-        qDebug() << "Stylesheet  dump:";
+     //   qDebug() << "Stylesheet  dump:";
 
         QString styleSheet = QString(file.readAll()).replace("$[STYLE_DIR]",relativePath);
-        qDebug() << styleSheet;
+      //  qDebug() << styleSheet;
 
         static_cast<QApplication*>(QApplication::instance())->setStyleSheet(styleSheet);
         file.close();

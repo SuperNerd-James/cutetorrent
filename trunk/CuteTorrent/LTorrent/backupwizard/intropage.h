@@ -7,18 +7,14 @@ class IntroPage : public QWizardPage
 {
     Q_OBJECT
 public:
-    explicit IntroPage(QWidget *parent = 0);
-
-signals:
-
-public slots:
-
-
-    // QWizardPage interface
-public:
-    void initializePage();
-    void cleanupPage();
+    IntroPage(QWidget *parent = 0);
     bool validatePage();
+    int nextId() const;
+
+private:
+    QLabel *topLabel;
+    QRadioButton *registerRadioButton;
+    QRadioButton *evaluateRadioButton;
 };
 
 #endif // INTROPAGE_H

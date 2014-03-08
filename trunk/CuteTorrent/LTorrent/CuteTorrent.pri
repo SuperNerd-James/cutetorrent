@@ -71,7 +71,10 @@ HEADERS += ./application.h \
     ./messagebox.h \
     ./StyleEngene.h \
     ./backupwizard/backupwizard.h \
-    ./backupwizard/intropage.h
+    ./backupwizard/intropage.h \
+    ./backupwizard/createbackuppage.h \
+    ./backupwizard/applybackuppage.h \
+    ./backupwizard/finishpage.h
 SOURCES += ./application.cpp \
     ./DT_mounter.cpp \
     ./GroupForFileFiltering.cpp \
@@ -135,7 +138,10 @@ SOURCES += ./application.cpp \
     ./messagebox.cpp \
     ./StyleEngene.cpp \
     ./backupwizard/backupwizard.cpp \
-    ./backupwizard/intropage.cpp
+    ./backupwizard/intropage.cpp \
+    ./backupwizard/createbackuppage.cpp \
+    ./backupwizard/applybackuppage.cpp \
+    ./backupwizard/finishpage.cpp
 FORMS += ./CreateTorrentDialog.ui \
     ./customWindow/CustomWindow.ui \
     ./VideoPlayer/MediaControls.ui \

@@ -937,7 +937,6 @@ void SettingsDialog::SetupSchedullerTab()
 void SettingsDialog::FillKeyMapTab()
 {
     QMap<QString, QVariant> keyMappings=settings->getGroupValues("KeyMap");
-    qDebug() << "FillKeyMapTab";
     qDeleteAll(keyMapContainer->findChildren<QGroupBox*>());
     QLayout* origLayout = keyMapContainer->layout();
     QGridLayout* layout =origLayout ? (QGridLayout*)origLayout :  new QGridLayout(keyMapContainer);
@@ -981,24 +980,18 @@ void SettingsDialog::FillKeyMapTab()
             keyEdit->setText(i.value());
             keyEdit->show();
             keyEdit->setObjectName(i.key());
-            qDebug() << "translating " << i.key();
             groupLayout->addRow(trUtf8(i.key().toUtf8()),keyEdit);
         }
         groupBox->setLayout(groupLayout);
         int keMapSize = keyMap.size();
-        qDebug() << "rightColumns " << rightColumns << " keMapSize"<< keMapSize;
-        qDebug() << "leftColumns " << leftColumns << " keMapSize"<< keMapSize;
         if (rightColumns - keMapSize >= 0) {
             rightColumns -= keMapSize;
-            layout->addWidget(groupBox,rightIndex,0,keMapSize > size/4 - 2 ? 2 : 1,1);
-            rightIndex++;
-            if (keMapSize > size/4) {
-                rightIndex++;
-            }
+            layout->addWidget(groupBox,rightIndex,0,keMapSize,1);
+            rightIndex+=keMapSize;
         } else {
             leftColumns  -= keMapSize;
-            layout->addWidget(groupBox,leftIndex,1);
-            leftIndex++;
+            layout->addWidget(groupBox,leftIndex,1,keMapSize,1);
+            leftIndex += keMapSize;
 
         }
 
