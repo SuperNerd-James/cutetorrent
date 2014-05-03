@@ -12,12 +12,6 @@ public:
 signals:
 
 public slots:
-
-
-    // QWizardPage interface
-public:
-    void initializePage();
-
 private:
     QLabel *messageLabel;
     QVBoxLayout *layout;

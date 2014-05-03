@@ -120,7 +120,7 @@ QString StaticHelpers::GetBaseSuffix( libtorrent::file_storage storrage )
 	int maxSuffix=0;
 	QMap<QString,int> suffixesCount;
 	libtorrent::file_storage::iterator iter=storrage.begin();
-	for (iter;iter!=storrage.end();iter++)
+	for (iter;iter!=storrage.end();++iter)
 	{
 		QFileInfo curfile(QString::fromUtf8(storrage.file_path(*iter).c_str()));
         if (StyleEngene::suffixes[StyleEngene::DISK].contains(curfile.suffix()))

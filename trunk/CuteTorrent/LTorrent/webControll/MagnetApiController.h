@@ -15,5 +15,5 @@ public:
 	void service( HttpRequest& request, HttpResponse& response );
 	~MagnetApiController(void);
 public slots:
-	void DownloadMetadataCompleted(openmagnet_info info);
+    void DownloadMetadataCompleted(const openmagnet_info& info);
 };

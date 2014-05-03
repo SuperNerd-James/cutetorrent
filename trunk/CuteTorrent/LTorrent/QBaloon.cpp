@@ -7,7 +7,7 @@
 static QBalloonTip *theSolitaryBalloonTip = 0;
 
 QWidget *QBalloonTip::showBalloon(const QString& title,
-								  const QString& message,QBaloonType type, QVariant data,const QSystemTrayIcon::MessageIcon& icon,
+								  const QString& message,QBaloonType type, const QVariant& data,const QSystemTrayIcon::MessageIcon& icon,
 								  int timeout, bool showArrow,QWidget* parent)
 {
 	//qDebug() << "Creating baloon" << title << message;

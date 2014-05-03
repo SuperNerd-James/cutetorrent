@@ -22,7 +22,7 @@ public:
 	int rowCount( const QModelIndex &parent = QModelIndex( ) ) const;
 	int columnCount( const QModelIndex &parent = QModelIndex( ) ) const;
 	QVariant data( const QModelIndex &index, int role = Qt::DisplayRole ) const;
-    void setDataSource(files_info storage);
+    void setDataSource(const files_info& storage);
 	QVariant headerData(int section, Qt::Orientation orientation,
 		int role = Qt::DisplayRole) const;
 	bool setHeaderData(int section, Qt::Orientation orientation, const QVariant &value,

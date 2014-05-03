@@ -143,7 +143,7 @@ bool FileViewModel::setHeaderData( int section, Qt::Orientation orientation, con
 	return true;
 }
 
-void FileViewModel::setDataSource( files_info storage )
+void FileViewModel::setDataSource(const files_info& storage )
 {
 	
 	if(dataSource.storrage.is_valid())

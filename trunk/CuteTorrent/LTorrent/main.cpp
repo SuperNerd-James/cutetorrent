@@ -62,11 +62,12 @@ int main(int argc, char *argv[])
 
     Application a(argc, argv);
     a.setWindowIcon(QIcon(":/icons/app.ico"));
-
-    QTextCodec *wantUnicode = QTextCodec::codecForName("UTF-8");
-	/*QTextCodec::setCodecForTr(wantUnicode);
-	QTextCodec::setCodecForLocale(wantUnicode);*/
+#ifdef Q_WS_WIN
+    QTextCodec *wantUnicode = QTextCodec::codecForName("Windows-1251");
+    QTextCodec::setCodecForTr(wantUnicode);
     QTextCodec::setCodecForLocale(wantUnicode);
+    QTextCodec::setCodecForCStrings(wantUnicode);
+#endif
     bool minimize=false,nodebug=false;
 	QString file2open;
 
@@ -79,7 +80,7 @@ int main(int argc, char *argv[])
 		{
 			if (argv[i][0]!='-')
 			{
-				a.sendMessage(QString::fromLocal8Bit(argv[i]));
+                a.sendMessage(QString::fromLocal8Bit(argv[i]));
 				
 			}
 			
@@ -106,7 +107,7 @@ int main(int argc, char *argv[])
 				}
 				else
 				{
-					file2open=QString::fromLocal8Bit(argv[i]);
+                    file2open=QString::fromLocal8Bit(argv[i]);
 				}
 			
 			}
@@ -144,7 +145,7 @@ int main(int argc, char *argv[])
     a.setActiveWindow(&w);
 	int res=a.exec();
 	
-    if (!nodebug && !fp) {
+    if (!nodebug && fp) {
         fclose(fp);
     }
 

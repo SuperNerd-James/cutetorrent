@@ -127,13 +127,16 @@ private:
 	bool useProxy;
 	libtorrent::proxy_settings ps;
 //settingsData end
-	void onClose();
+    void onClose();
+
 public:
 	
 	void initSession();
 	libtorrent::upnp* GetUpnp();
 	libtorrent::session_settings readSettings();
-	void updateSettings(libtorrent::session_settings settings);
+    libtorrent::pe_settings readEncSettings();
+    void updateEncSettings(const libtorrent::pe_settings& settings);
+    void updateSettings(const libtorrent::session_settings& settings);
 	QString GetSessionDownloadSpeed();
 	QString GetSessionUploadSpeed();
 	QString GetSessionDownloaded();
@@ -143,7 +146,7 @@ public:
 	static void freeInstance();
 	std::vector<torrent_status> GetTorrents();
 	opentorrent_info* GetTorrentInfo(QString filename);
-	openmagnet_info* GetTorrentInfo(torrent_handle handle);
+	openmagnet_info* GetTorrentInfo(const torrent_handle& handle);
 	void RemoveTorrent(QString InfoHash);
     bool AddMagnet( torrent_handle h,QString SavePath,QString group, QMap< QString , qint32 > filepriorities );
     bool AddTorrent(QString path, QString save_path,error_code& ec,QMap< QString , qint32 > filepriorities,QString group="",bool sequntial=false );
@@ -157,7 +160,7 @@ public:
 	void SetDlLimit(int val);
 	int GetDownloadLimit();
 	int GetUploadLimit();
-	Torrent* GetTorrentByInfoHash(sha1_hash hash);
+	Torrent* GetTorrentByInfoHash(const sha1_hash& hash);
 	Torrent* GetTorrentByInfoHash(QString hash);
 private slots:
     void HandleGroupChange(QString,QString);

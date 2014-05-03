@@ -41,6 +41,8 @@ public:
 	int columnCount(const QModelIndex &parent = QModelIndex()) const;
 	void addPath(QString path,QString size);
 	QMap<QString,int> getFilePiorites();
+    QStringList getUnickPathes();
+    void getUnickPathes(FileTreeItem*, QList<FileTreeItem *> &);
 private:
 	void GetFilePrioritiesInternal(FileTreeItem* current,QMap<QString,int>* priorities);
 

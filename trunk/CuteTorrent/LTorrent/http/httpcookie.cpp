@@ -11,7 +11,7 @@ HttpCookie::HttpCookie() {
     secure=false;
 }
 
-HttpCookie::HttpCookie(const QByteArray name, const QByteArray value, const int maxAge, const QByteArray path, const QByteArray comment, const QByteArray domain, const bool secure) {
+HttpCookie::HttpCookie(const QByteArray& name, const QByteArray& value, const int maxAge, const QByteArray& path, const QByteArray& comment, const QByteArray& domain, const bool secure) {
     this->name=name;
     this->value=value;
     this->maxAge=maxAge;
@@ -22,7 +22,7 @@ HttpCookie::HttpCookie(const QByteArray name, const QByteArray value, const int 
     this->version=1;
 }
 
-HttpCookie::HttpCookie(const QByteArray source) {
+HttpCookie::HttpCookie(const QByteArray& source) {
     version=1;
     maxAge=0;
     secure=false;
@@ -30,44 +30,44 @@ HttpCookie::HttpCookie(const QByteArray source) {
     foreach(QByteArray part, list) {
 
         // Split the part into name and value
-        QByteArray name;
-        QByteArray value;
+        QByteArray _name;
+        QByteArray _value;
         int posi=part.indexOf('=');
         if (posi) {
-            name=part.left(posi).trimmed();
-            value=part.mid(posi+1).trimmed();
+            _name=part.left(posi).trimmed();
+            _value=part.mid(posi+1).trimmed();
         }
         else {
-            name=part.trimmed();
-            value="";
+            _name=part.trimmed();
+            _value="";
         }
 
         // Set fields
-        if (name=="Comment") {
-            comment=value;
+        if (_name=="Comment") {
+            comment=_value;
         }
-        else if (name=="Domain") {
-            domain=value;
+        else if (_name=="Domain") {
+            domain=_value;
         }
-        else if (name=="Max-Age") {
-            maxAge=value.toInt();
+        else if (_name=="Max-Age") {
+            maxAge=_value.toInt();
         }
-        else if (name=="Path") {
-            path=value;
+        else if (_name=="Path") {
+            path=_value;
         }
-        else if (name=="Secure") {
+        else if (_name=="Secure") {
             secure=true;
         }
-        else if (name=="Version") {
-            version=value.toInt();
+        else if (_name=="Version") {
+            version=_value.toInt();
         }
         else {
             if (this->name.isEmpty()) {
-                this->name=name;
-                this->value=value;
+                this->name=_name;
+                this->value=_value;
             }
             else {
-                qWarning("HttpCookie: Ignoring unknown %s=%s",name.data(),value.data());
+                qWarning("HttpCookie: Ignoring unknown %s=%s",_name.data(),_value.data());
             }
         }
     }
@@ -101,19 +101,19 @@ QByteArray HttpCookie::toByteArray() const  {
     return buffer;
 }
 
-void HttpCookie::setName(const QByteArray name){
+void HttpCookie::setName(const QByteArray& name){
     this->name=name;
 }
 
-void HttpCookie::setValue(const QByteArray value){
+void HttpCookie::setValue(const QByteArray& value){
     this->value=value;
 }
 
-void HttpCookie::setComment(const QByteArray comment){
+void HttpCookie::setComment(const QByteArray& comment){
     this->comment=comment;
 }
 
-void HttpCookie::setDomain(const QByteArray domain){
+void HttpCookie::setDomain(const QByteArray& domain){
     this->domain=domain;
 }
 
@@ -121,7 +121,7 @@ void HttpCookie::setMaxAge(const int maxAge){
     this->maxAge=maxAge;
 }
 
-void HttpCookie::setPath(const QByteArray path){
+void HttpCookie::setPath(const QByteArray& path){
     this->path=path;
 }
 
@@ -161,7 +161,7 @@ int HttpCookie::getVersion() const {
     return version;
 }
 
-QList<QByteArray> HttpCookie::splitCSV(const QByteArray source) {
+QList<QByteArray> HttpCookie::splitCSV(const QByteArray& source) {
     bool inString=false;
     QList<QByteArray> list;
     QByteArray buffer;

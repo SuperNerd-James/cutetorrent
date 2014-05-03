@@ -72,7 +72,7 @@ HttpSession HttpSessionStore::getSession(HttpRequest& request, HttpResponse& res
     return HttpSession();
 }
 
-HttpSession HttpSessionStore::getSession(const QByteArray id) {
+HttpSession HttpSessionStore::getSession(const QByteArray& id) {
     mutex.lock();
     HttpSession session=sessions.value(id);
     mutex.unlock();
@@ -100,7 +100,7 @@ void HttpSessionStore::timerEvent() {
 
 
 /** Delete a session */
-void HttpSessionStore::removeSession(HttpSession session) {
+void HttpSessionStore::removeSession(const HttpSession& session) {
     mutex.lock();
     sessions.remove(session.getId());
     mutex.unlock();

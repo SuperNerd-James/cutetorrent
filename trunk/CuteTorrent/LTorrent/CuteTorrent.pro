@@ -23,7 +23,8 @@ LIBS += -L"../../../../libtorrent-rasterbar-0.16.8/lib" \
     -L"../../../../boost_1_53_0/stage/lib" \
 
 
-LIBS += -llibtorrent \
+LIBS += -llibtorrent.x64 \
+
 
 
 DEPENDPATH += .
@@ -38,8 +39,29 @@ QMAKE_LFLAGS += /MANIFESTUAC:"level='requireAdministrator'"
 QMAKE_MOC += -DBOOST_MPL_IF_HPP_INCLUDED
 win32 {
     RC_FILE = CuteTorrent.rc
-
 }
+
+win32-msvc* {
+    # Works when you build for Visual Studio already
+    vsproj.spec = $$basename(QMAKESPEC)
+} else {
+    # Works when you're not building for Visual Studio (say, using mingw)
+    # The configuration you want to build the VS project for (win32-msvc[2005|2008|2010|2012])
+    vsproj.spec = win32-msvc2008
+}
+# Sets the project file name appropriately to selected Visual Studio version.
+contains(vsproj.spec, win32-msvc201): vsproj.target = $${TARGET}.vcxproj
+else: vsproj.target = $${TARGET}.vcproj
+# The qmake command to make the Visual Studio project file
+vsproj.commands = qmake -tp vc $${_PRO_FILE_} -spec $${vsproj.spec}
+# The VS project depends on the .pro file
+vsproj.depends = $${_PRO_FILE_}
+# Set the above as a target in the makefile.
+QMAKE_EXTRA_TARGETS += vsproj
+# Make the main target (the executable/library) depend on it,
+# so that it gets built.
+PRE_TARGETDEPS += $${vsproj.target}
+
 
 
 

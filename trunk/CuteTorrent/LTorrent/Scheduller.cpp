@@ -60,7 +60,7 @@ void Scheduller::UpdateTasks()
 void Scheduller::checkTasks()
 {
 	QDateTime now = QDateTime::currentDateTime();
-	for (QList<SchedulerTask>::iterator i=tasks.begin();i!=tasks.end();i++)
+	for (QList<SchedulerTask>::iterator i=tasks.begin();i!=tasks.end();++i)
 	{
 	
 		//qDebug() << i->startTime() << now;

@@ -103,6 +103,13 @@ QString Application::currentLocale()
 {
 	return current_locale;
 }
+
+
+QString Application::currentLocaleQt()
+{
+    return current_locale_qt;
+}
+
 const QStringList Application::availableLanguages()
 {
 	// the content won't get copied thanks to implicit sharing and constness

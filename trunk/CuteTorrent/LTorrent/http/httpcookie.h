@@ -32,13 +32,13 @@ public:
       @param domain Optional domain for that the cookie will be sent. Defaults to the current domain
       @param secure If true, the cookie will only be sent on secure connections
     */
-    HttpCookie(const QByteArray name, const QByteArray value, const int maxAge, const QByteArray path="/", const QByteArray comment=QByteArray(), const QByteArray domain=QByteArray(), const bool secure=false);
+    HttpCookie(const QByteArray& name, const QByteArray& value, const int maxAge, const QByteArray& path="/", const QByteArray& comment=QByteArray(), const QByteArray&  domain=QByteArray(), const bool secure=false);
 
     /**
       Create a cookie from a string.
       @param source String as received in a HTTP Cookie2 header.
     */
-    HttpCookie(const QByteArray source);
+    HttpCookie(const QByteArray& source);
 
     /** Convert this cookie to a string that may be used in a Set-Cookie2 header. */
     QByteArray toByteArray() const ;
@@ -47,25 +47,25 @@ public:
       Split a string list into parts, where each part is delimited by semicolon.
       Semicolons within double quotes are skipped. Double quotes are removed.
     */
-    static QList<QByteArray> splitCSV(const QByteArray source);
+    static QList<QByteArray> splitCSV(const QByteArray& source);
 
     /** Set the name of this cookie */
-    void setName(const QByteArray name);
+    void setName(const QByteArray& name);
 
     /** Set the value of this cookie */
-    void setValue(const QByteArray value);
+    void setValue(const QByteArray& value);
 
     /** Set the comment of this cookie */
-    void setComment(const QByteArray comment);
+    void setComment(const QByteArray& comment);
 
     /** Set the domain of this cookie */
-    void setDomain(const QByteArray domain);
+    void setDomain(const QByteArray& domain);
 
     /** Set the maximum age of this cookie in seconds. 0=discard immediately */
     void setMaxAge(const int maxAge);
 
     /** Set the path for that the cookie will be sent, default="/" which means the whole domain */
-    void setPath(const QByteArray path);
+    void setPath(const QByteArray& path);
 
     /** Set secure mode, so that the cokkie will only be sent on secure connections */
     void setSecure(const bool secure);

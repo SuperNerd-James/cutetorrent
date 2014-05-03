@@ -15,7 +15,7 @@ public:
 		Info
 	};
 	static QWidget *showBalloon(const QString& title,
-		const QString& msg,QBaloonType type, QVariant data,const QSystemTrayIcon::MessageIcon& icon=QSystemTrayIcon::Information ,
+        const QString& msg,QBaloonType type,const QVariant& data,const QSystemTrayIcon::MessageIcon& icon=QSystemTrayIcon::Information ,
 		int timeout=0, bool showArrow = true,QWidget* parrent=0);
 	static void hideBalloon();
 	

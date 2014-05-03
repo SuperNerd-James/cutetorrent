@@ -302,7 +302,7 @@ QHostAddress HttpRequest::getSource()
     return source;
 }
 
-QByteArray HttpRequest::urlDecode(const QByteArray source) {
+QByteArray HttpRequest::urlDecode(const QByteArray& source) {
     QByteArray buffer(source);
     buffer.replace('+',' ');
     int percentChar=buffer.indexOf('%');
@@ -426,7 +426,7 @@ HttpRequest::~HttpRequest() {
     }
 }
 
-QTemporaryFile* HttpRequest::getUploadedFile(const QByteArray fieldName) {
+QTemporaryFile* HttpRequest::getUploadedFile(const QByteArray& fieldName) {
     return uploadedFiles.value(fieldName);
 }
 

@@ -168,9 +168,6 @@
    </item>
    <item>
     <widget class="QWidget" name="centralWidget" native="true">
-     <property name="styleSheet">
-      <string notr="true"/>
-     </property>
      <layout class="QGridLayout" name="gridLayout_4">
       <property name="leftMargin">
        <number>6</number>
@@ -202,43 +199,10 @@ border-left:none;
 }</string>
         </property>
         <property name="currentIndex">
-         <number>5</number>
+         <number>1</number>
         </property>
         <widget class="QWidget" name="torrentTab">
          <layout class="QGridLayout" name="gridLayout_22">
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_8">
-            <property name="text">
-             <string>LANGUAGE</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="2">
-           <widget class="QLabel" name="label">
-            <property name="layoutDirection">
-             <enum>Qt::LeftToRight</enum>
-            </property>
-            <property name="autoFillBackground">
-             <bool>false</bool>
-            </property>
-            <property name="text">
-             <string>LISTEN_PORT</string>
-            </property>
-            <property name="alignment">
-             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QComboBox" name="localeComboBox">
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="3">
-           <widget class="QLineEdit" name="portEdit"/>
-          </item>
           <item row="3" column="0" colspan="2">
            <widget class="QCheckBox" name="asociationCheckBox">
             <property name="whatsThis">
@@ -246,6 +210,13 @@ border-left:none;
             </property>
             <property name="text">
              <string>TORRENT_FILES_ASSOCIATION</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="localeComboBox">
+            <property name="styleSheet">
+             <string notr="true"/>
             </property>
            </widget>
           </item>
@@ -279,7 +250,197 @@ border-left:none;
             </property>
            </widget>
           </item>
-          <item row="2" column="0" colspan="2">
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>LANGUAGE</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="0" colspan="3">
+           <widget class="QGroupBox" name="groupBox_2">
+            <property name="title">
+             <string>RESTRICTIONS</string>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_3">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_6">
+               <property name="whatsThis">
+                <string>UPLOAD_SPEED_LIMIT_WIT</string>
+               </property>
+               <property name="text">
+                <string>UPLOAD_SPEED_LIMIT(Kb/s)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="label_15">
+               <property name="whatsThis">
+                <string>ACTIVE_TORRENTS_LIMIT_WIT</string>
+               </property>
+               <property name="text">
+                <string>ACTIVE_TORRENTS_LIMIT</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLineEdit" name="activeLimitEdit">
+               <property name="whatsThis">
+                <string>ACTIVE_TORRENTS_LIMIT</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_7">
+               <property name="whatsThis">
+                <string>DOWNLOAD_SPEED_LIMIT_WIT</string>
+               </property>
+               <property name="text">
+                <string>DOWNLOAD_SPEED_LIMIT(Kb/s)</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="label_16">
+               <property name="whatsThis">
+                <string>ACTIVE_SEEDS_LIMIT_WIT</string>
+               </property>
+               <property name="text">
+                <string>ACTIVE_SEEDS_LIMIT</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QLineEdit" name="activeSeedLimitEdit">
+               <property name="whatsThis">
+                <string>ACTIVE_SEEDS_LIMIT</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="label_17">
+               <property name="whatsThis">
+                <string>ACTIVE_DOWNLOADS_LIMIT_WIT</string>
+               </property>
+               <property name="text">
+                <string>ACTIVE_DOWNLOADS_LIMIT</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <widget class="QLineEdit" name="activeDownloadLimitEdit">
+               <property name="whatsThis">
+                <string>ACTIVE_DOWNLOADS_LIMIT</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QSpinBox" name="uploadLimitEdit">
+               <property name="specialValueText">
+                <string>None</string>
+               </property>
+               <property name="suffix">
+                <string> Kb\s</string>
+               </property>
+               <property name="prefix">
+                <string/>
+               </property>
+               <property name="maximum">
+                <number>99999</number>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QSpinBox" name="downloadLimitEdit">
+               <property name="specialValueText">
+                <string>None</string>
+               </property>
+               <property name="suffix">
+                <string> Kb\s</string>
+               </property>
+               <property name="prefix">
+                <string/>
+               </property>
+               <property name="maximum">
+                <number>99999</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="styleComboBox"/>
+          </item>
+          <item row="0" column="2" rowspan="2">
+           <widget class="QGroupBox" name="trackerGroupBox">
+            <property name="title">
+             <string>START_TRACKER</string>
+            </property>
+            <property name="checkable">
+             <bool>true</bool>
+            </property>
+            <property name="checked">
+             <bool>false</bool>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_2">
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_23">
+               <property name="text">
+                <string>TRACKER_PORT</string>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QLineEdit" name="trackerPortEdit"/>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_26">
+            <property name="text">
+             <string>STYLE</string>
+            </property>
+           </widget>
+          </item>
+          <item row="2" column="3">
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+         </layout>
+        </widget>
+        <widget class="QWidget" name="page">
+         <layout class="QGridLayout" name="gridLayout_20">
+          <item row="0" column="2">
+           <widget class="QLineEdit" name="portEdit"/>
+          </item>
+          <item row="0" column="0" colspan="2">
+           <widget class="QLabel" name="label">
+            <property name="layoutDirection">
+             <enum>Qt::LeftToRight</enum>
+            </property>
+            <property name="autoFillBackground">
+             <bool>false</bool>
+            </property>
+            <property name="text">
+             <string>LISTEN_PORT</string>
+            </property>
+            <property name="alignment">
+             <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0" colspan="3">
            <widget class="QGroupBox" name="proxyGroupBox">
             <property name="enabled">
              <bool>true</bool>
@@ -395,152 +556,124 @@ border-left:none;
             </layout>
            </widget>
           </item>
-          <item row="3" column="3" rowspan="2">
-           <widget class="QGroupBox" name="trackerGroupBox">
+          <item row="2" column="0">
+           <spacer name="verticalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Vertical</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>20</width>
+              <height>40</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item row="0" column="3" rowspan="2">
+           <widget class="QGroupBox" name="groupBox_10">
             <property name="title">
-             <string>START_TRACKER</string>
+             <string>NET_ENC</string>
             </property>
             <property name="checkable">
-             <bool>true</bool>
-            </property>
-            <property name="checked">
              <bool>false</bool>
             </property>
-            <layout class="QGridLayout" name="gridLayout_2">
+            <layout class="QGridLayout" name="gridLayout_28">
              <item row="0" column="0">
-              <widget class="QLabel" name="label_23">
+              <widget class="QLabel" name="label_27">
                <property name="text">
-                <string>TRACKER_PORT</string>
+                <string>IN_ENC_POLICITY</string>
                </property>
               </widget>
              </item>
-             <item row="0" column="1">
-              <widget class="QLineEdit" name="trackerPortEdit"/>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item row="2" column="2" colspan="2">
-           <widget class="QGroupBox" name="groupBox_2">
-            <property name="title">
-             <string>RESTRICTIONS</string>
-            </property>
-            <layout class="QGridLayout" name="gridLayout_3">
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_6">
-               <property name="whatsThis">
-                <string>UPLOAD_SPEED_LIMIT_WIT</string>
+             <item row="0" column="1" colspan="2">
+              <widget class="QComboBox" name="inEncPolicyComboBox">
+               <property name="currentIndex">
+                <number>0</number>
                </property>
+               <item>
+                <property name="text">
+                 <string>FORCED</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>ENABLED</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>DISABLED</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="label_28">
                <property name="text">
-                <string>UPLOAD_SPEED_LIMIT(Kb/s)</string>
+                <string>OUT_ENC_POLICITY</string>
                </property>
               </widget>
              </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="label_15">
-               <property name="whatsThis">
-                <string>ACTIVE_TORRENTS_LIMIT_WIT</string>
-               </property>
+             <item row="2" column="0" colspan="2">
+              <widget class="QLabel" name="label_29">
                <property name="text">
-                <string>ACTIVE_TORRENTS_LIMIT</string>
+                <string>ENCRYPTION_LEVEL</string>
                </property>
               </widget>
              </item>
-             <item row="3" column="1">
-              <widget class="QLineEdit" name="activeLimitEdit">
-               <property name="whatsThis">
-                <string>ACTIVE_TORRENTS_LIMIT</string>
+             <item row="2" column="2">
+              <widget class="QComboBox" name="encLevelComboBox">
+               <property name="currentIndex">
+                <number>2</number>
                </property>
+               <item>
+                <property name="text">
+                 <string>PROTOCOL_ENC_ONLY</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>FULL_ENC</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>BOTH</string>
+                </property>
+               </item>
               </widget>
              </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="label_7">
-               <property name="whatsThis">
-                <string>DOWNLOAD_SPEED_LIMIT_WIT</string>
-               </property>
+             <item row="3" column="0" colspan="3">
+              <widget class="QCheckBox" name="preferFullEncCheckBox">
                <property name="text">
-                <string>DOWNLOAD_SPEED_LIMIT(Kb/s)</string>
+                <string>PREFER_FULL_ENCRYPTION</string>
                </property>
               </widget>
              </item>
-             <item row="4" column="0">
-              <widget class="QLabel" name="label_16">
-               <property name="whatsThis">
-                <string>ACTIVE_SEEDS_LIMIT_WIT</string>
+             <item row="1" column="1" colspan="2">
+              <widget class="QComboBox" name="outEncPolicyComboBox">
+               <property name="currentIndex">
+                <number>0</number>
                </property>
-               <property name="text">
-                <string>ACTIVE_SEEDS_LIMIT</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="1">
-              <widget class="QLineEdit" name="activeSeedLimitEdit">
-               <property name="whatsThis">
-                <string>ACTIVE_SEEDS_LIMIT</string>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="0">
-              <widget class="QLabel" name="label_17">
-               <property name="whatsThis">
-                <string>ACTIVE_DOWNLOADS_LIMIT_WIT</string>
-               </property>
-               <property name="text">
-                <string>ACTIVE_DOWNLOADS_LIMIT</string>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="1">
-              <widget class="QLineEdit" name="activeDownloadLimitEdit">
-               <property name="whatsThis">
-                <string>ACTIVE_DOWNLOADS_LIMIT</string>
-               </property>
-              </widget>
-             </item>
-             <item row="0" column="1">
-              <widget class="QSpinBox" name="uploadLimitEdit">
-               <property name="specialValueText">
-                <string>None</string>
-               </property>
-               <property name="suffix">
-                <string> Kb\s</string>
-               </property>
-               <property name="prefix">
-                <string/>
-               </property>
-               <property name="maximum">
-                <number>99999</number>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="1">
-              <widget class="QSpinBox" name="downloadLimitEdit">
-               <property name="specialValueText">
-                <string>None</string>
-               </property>
-               <property name="suffix">
-                <string> Kb\s</string>
-               </property>
-               <property name="prefix">
-                <string/>
-               </property>
-               <property name="maximum">
-                <number>99999</number>
-               </property>
+               <item>
+                <property name="text">
+                 <string>FORCED</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>ENABLED</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>DISABLED</string>
+                </property>
+               </item>
               </widget>
              </item>
             </layout>
            </widget>
-          </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_26">
-            <property name="text">
-             <string>STYLE</string>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QComboBox" name="styleComboBox"/>
           </item>
          </layout>
         </widget>
@@ -1319,8 +1452,8 @@ p, li { white-space: pre-wrap; }
               <rect>
                <x>0</x>
                <y>0</y>
-               <width>550</width>
-               <height>274</height>
+               <width>98</width>
+               <height>28</height>
               </rect>
              </property>
              <layout class="QGridLayout" name="gridLayout_19"/>
@@ -1369,8 +1502,13 @@ min-height:30px;
           <string>TAB_TORRENT</string>
          </property>
          <property name="icon">
-          <iconset resource="ltorrent.qrc">
+          <iconset>
            <normaloff>:/icons/torrent-settings.ico</normaloff>:/icons/torrent-settings.ico</iconset>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>TAB_NETWORK</string>
          </property>
         </item>
         <item>
@@ -1378,7 +1516,7 @@ min-height:30px;
           <string>TAB_HDD</string>
          </property>
          <property name="icon">
-          <iconset resource="ltorrent.qrc">
+          <iconset>
            <normaloff>:/icons/hdd.ico</normaloff>:/icons/hdd.ico</iconset>
          </property>
         </item>
@@ -1387,7 +1525,7 @@ min-height:30px;
           <string>TAB_TORRENT_FILTERING</string>
          </property>
          <property name="icon">
-          <iconset resource="ltorrent.qrc">
+          <iconset>
            <normaloff>:/icons/filtering.ico</normaloff>:/icons/filtering.ico</iconset>
          </property>
         </item>
@@ -1396,7 +1534,7 @@ min-height:30px;
           <string>TAB_DAEMONTOOLS</string>
          </property>
          <property name="icon">
-          <iconset resource="ltorrent.qrc">
+          <iconset>
            <normaloff>:/icons/dt-settings.ico</normaloff>:/icons/dt-settings.ico</iconset>
          </property>
         </item>
@@ -1405,7 +1543,7 @@ min-height:30px;
           <string>TAB_SCEDULER</string>
          </property>
          <property name="icon">
-          <iconset resource="ltorrent.qrc">
+          <iconset>
            <normaloff>:/icons/schedule.ico</normaloff>:/icons/schedule.ico</iconset>
          </property>
         </item>
@@ -1414,7 +1552,7 @@ min-height:30px;
           <string>TAB_WEB_CONTROL</string>
          </property>
          <property name="icon">
-          <iconset resource="ltorrent.qrc">
+          <iconset>
            <normaloff>:/icons/webControll.ico</normaloff>:/icons/webControll.ico</iconset>
          </property>
         </item>
@@ -1423,7 +1561,7 @@ min-height:30px;
           <string>TAB_SEARCH</string>
          </property>
          <property name="icon">
-          <iconset resource="ltorrent.qrc">
+          <iconset>
            <normaloff>:/icons/search.ico</normaloff>:/icons/search.ico</iconset>
          </property>
         </item>
@@ -1432,7 +1570,7 @@ min-height:30px;
           <string>TAB_KEY_MAPPINGS</string>
          </property>
          <property name="icon">
-          <iconset resource="ltorrent.qrc">
+          <iconset>
            <normaloff>:/icons/keyboaard.ico</normaloff>:/icons/keyboaard.ico</iconset>
          </property>
         </item>
@@ -1473,10 +1611,6 @@ min-height:30px;
   </layout>
  </widget>
  <tabstops>
-  <tabstop>proxyHostEdit</tabstop>
-  <tabstop>proxyUsernameEdit</tabstop>
-  <tabstop>proxyPwdEdit</tabstop>
-  <tabstop>proxyTypeComboBox</tabstop>
   <tabstop>activeLimitEdit</tabstop>
   <tabstop>activeSeedLimitEdit</tabstop>
   <tabstop>activeDownloadLimitEdit</tabstop>

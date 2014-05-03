@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFileIconProvider>
 #include <QFileInfo>
 #include <QTemporaryFile>
+#include <QQueue>
 FileTreeModel::~FileTreeModel()
 {
 	delete rootItem;
@@ -41,7 +42,31 @@ QMap<QString,int> FileTreeModel::getFilePiorites()
 	QMap<QString,int> res;
 	FileTreeItem* iterator = rootItem;
 	GetFilePrioritiesInternal(iterator,&res);
-	return res;
+    return res;
+}
+
+QStringList FileTreeModel::getUnickPathes()
+{
+    QList<FileTreeItem*> ends;
+    getUnickPathes(rootItem,ends);
+    QStringList result;
+    foreach (FileTreeItem* item, ends) {
+        result.append(item->getPath());
+    }
+    return result;
+}
+
+void FileTreeModel::getUnickPathes(FileTreeItem *current, QList<FileTreeItem*> &ends)
+{
+    if (current && current->childCount() == 0) {
+        ends.append(current);
+        return;
+    } else {
+        for(int i=0;i<current->childCount();i++) {
+            FileTreeItem* child = current->child(i);
+            getUnickPathes(child,ends);
+        }
+    }
 }
 void FileTreeModel::GetFilePrioritiesInternal(FileTreeItem* current,QMap<QString,int>* priorities)
 {

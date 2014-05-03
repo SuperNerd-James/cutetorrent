@@ -213,8 +213,10 @@ void CreateTorrentDialog::mouseReleaseEvent(QMouseEvent *e)
 
 void CreateTorrentDialog::mouseDoubleClickEvent(QMouseEvent *e)
 {
-	if (e->pos().x() < tbMenu->geometry().right()&&e->pos().y() < tbMenu->geometry().bottom()
-		&&e->pos().x() >=  tbMenu->geometry().x()&&e->pos().y() >= tbMenu->geometry().y()
+	QPoint pos = e->pos();
+	QRect geometry = tbMenu->geometry();
+	if (pos.x() < geometry.right()&&pos.y() < geometry.bottom()
+		&&pos.x() >=  geometry.x()&&pos.y() >= geometry.y()
 		&&tbMenu->isVisible())
 		close();
 	e->accept();
@@ -477,7 +479,7 @@ void CreateTorrentDialog::BeginCreate()
 	
 
 	
-	for (QStringList::iterator i=trackers.begin();i!=trackers.end();i++)
+	for (QStringList::iterator i=trackers.begin();i!=trackers.end();++i)
 	{
 		if ((*i).isEmpty())
 			trackers.removeOne(*i);
@@ -493,7 +495,7 @@ void CreateTorrentDialog::BeginCreate()
 		}
 	}
 	//qDebug() << "before removing web seeds";
-	for (QStringList::iterator i=webseeds.begin();i!=webseeds.end();i++)
+	for (QStringList::iterator i=webseeds.begin();i!=webseeds.end();++i)
 	{
 		if ((*i).isEmpty())
 			webseeds.removeOne(*i);

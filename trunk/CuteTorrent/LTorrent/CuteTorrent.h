@@ -242,8 +242,8 @@ public slots:
     void Retranslate();
     void ShowTorrentError(const QString&,const QString&);
     void EnableNitifyShow();
-    void ShowTorrentCompletedNotyfy(const QString,const QString);
-    void ShowTorrentInfoNotyfy(const QString,const QString);
+    void ShowTorrentCompletedNotyfy(const QString&,const QString&);
+    void ShowTorrentInfoNotyfy(const QString&,const QString&);
     void ShowCreateTorrentDialog();
     void ShowOpenTorrentDialog();
     void PauseSelected();

@@ -117,7 +117,7 @@ public:
       @param source The url encoded strings
       @see QUrl::toPercentEncoding for the reverse direction
     */
-    static QByteArray urlDecode(const QByteArray source);
+    static QByteArray urlDecode(const QByteArray& source);
 
     /**
       Get an uploaded file. The file is already open. It will
@@ -127,7 +127,7 @@ public:
       For uploaded files, the method getParameters() returns
       the original fileName as provided by the calling web browser.
     */
-    QTemporaryFile* getUploadedFile(const QByteArray fieldName);
+    QTemporaryFile* getUploadedFile(const QByteArray& fieldName);
 
     /**
       Get the value of a cookie

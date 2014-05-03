@@ -156,7 +156,7 @@ void TorrentManager::initSession()
 
     }
     error_code ec;
-    for (QStringList::iterator i=torrentFiles.begin();i!=torrentFiles.end();i++)
+    for (QStringList::iterator i=torrentFiles.begin();i!=torrentFiles.end();++i)
     {
 
         torrent_info* t= new torrent_info(dir.filePath(*i).toLatin1().data(),ec);
@@ -171,7 +171,7 @@ void TorrentManager::initSession()
     }
     std::deque<alert*> alerts;
     ses->pop_alerts(&alerts);
-    std::string now = time_now_string();
+//    std::string now = time_now_string();
     for (std::deque<alert*>::iterator i = alerts.begin()
          , end(alerts.end()); i != end; ++i)
     {
@@ -370,7 +370,7 @@ void TorrentManager::handle_alert(alert* a)
     default:
     {
         QString information = QString::fromStdString(a->message());
-        if (a->category() & alert::error_notification==alert::error_notification)
+        if ((a->category() & alert::error_notification)==alert::error_notification)
         {
             emit TorrentError("",information);
         }
@@ -390,7 +390,7 @@ void TorrentManager::PostTorrentUpdate()
 {
     std::deque<alert*> alerts;
     ses->pop_alerts(&alerts);
-    std::string now = time_now_string();
+
     for (std::deque<alert*>::iterator i = alerts.begin()
          , end(alerts.end()); i != end; ++i)
     {
@@ -443,7 +443,7 @@ bool TorrentManager::AddTorrent(QString path, QString save_path,error_code& ec,Q
     {
         std::vector<boost::uint8_t>* filepriorities = new std::vector<boost::uint8_t>();
         file_storage storrage = t->files();
-        for (file_storage::iterator i=storrage.begin();i!=storrage.end();i++)
+        for (file_storage::iterator i=storrage.begin();i!=storrage.end();++i)
         {
 
             if (filePriorities.contains(QDir::toNativeSeparators(storrage.file_path(*i).c_str())))
@@ -477,7 +477,7 @@ bool TorrentManager::AddTorrent(QString path, QString save_path,error_code& ec,Q
     torrents->append(current);
     QObject::connect(current,SIGNAL(groupChanged(QString,QString)),this,SLOT(HandleGroupChange(QString,QString)));
     emit AddTorrentGui(current);
-    QFileInfo file(path);
+
     if (sequntial)
         current->seqensialDownload();
     h.set_max_connections(max_connections_per_torrent);
@@ -584,7 +584,17 @@ session_settings TorrentManager::readSettings()
 
     return s_settings;
 }
-void TorrentManager::updateSettings(libtorrent::session_settings settings)
+
+libtorrent::pe_settings TorrentManager::readEncSettings()
+{
+    return ses->get_pe_settings();
+}
+
+void TorrentManager::updateEncSettings(const libtorrent::pe_settings& settings) {
+    ses->set_pe_settings(settings);
+}
+
+void TorrentManager::updateSettings(const libtorrent::session_settings& settings)
 {
     ses->set_settings(settings);
 
@@ -638,6 +648,12 @@ void TorrentManager::writeSettings()
     torrentSettings->setValue("Torrent","active_downloads",s_settings.active_downloads);
     torrentSettings->setValue("Torrent","active_limit",s_settings.active_limit);
     torrentSettings->setValue("Torrent","active_seeds",s_settings.active_seeds);
+
+    pe_settings enc_settings = ses->get_pe_settings();
+    torrentSettings->setValue("Torrent","in_enc_policy",enc_settings.in_enc_policy);
+    torrentSettings->setValue("Torrent","out_enc_policy",enc_settings.out_enc_policy);
+    torrentSettings->setValue("Torrent","allowed_enc_level",enc_settings.allowed_enc_level - 1);
+    torrentSettings->setValue("Torrent","prefer_rc4",enc_settings.prefer_rc4);
 }
 void TorrentManager::onClose()
 {
@@ -682,7 +698,7 @@ void TorrentManager::onClose()
 
         std::deque<alert*> alerts;
         ses->pop_alerts(&alerts);
-        std::string now = time_now_string();
+
         for (std::deque<alert*>::iterator i = alerts.begin()
              , end(alerts.end()); i != end; ++i)
         {
@@ -754,7 +770,7 @@ void TorrentManager::UpdatePathResumeAndLinks()
     QFile pathDataFile(dataDir+"CT_DATA/path.resume");
     if (pathDataFile.open(QFile::WriteOnly))
     {
-        for (QMap<QString,QPair<QString,QString> >::iterator i=save_path_data.begin();i!=save_path_data.end();i++)
+        for (QMap<QString,QPair<QString,QString> >::iterator i=save_path_data.begin();i!=save_path_data.end();++i)
         {
             pathDataFile.write((i.key()+"|"+i.value().first+"|"+i.value().second+"\n").toUtf8());
         }
@@ -819,7 +835,7 @@ opentorrent_info* TorrentManager::GetTorrentInfo(QString filename)
     return info;
 }
 
-openmagnet_info* TorrentManager::GetTorrentInfo( torrent_handle handle )
+openmagnet_info* TorrentManager::GetTorrentInfo(const torrent_handle& handle )
 {
     error_code ec;
 
@@ -948,7 +964,6 @@ torrent_handle TorrentManager::ProcessMagnetLink(QString link,error_code& ec)
         MyMessageBox::critical(0,"Error",QString::fromStdString(ec.message()));
         return h;
     }
-    QString infohash=to_hex(h.info_hash().to_string()).c_str();
     lazy_entry resume_data;
     QString dataDir;
 #ifdef Q_WS_MAC
@@ -989,7 +1004,7 @@ void TorrentManager::CancelMagnetLink(QString link)
     add_torrent_params add_info;
     error_code ec;
     parse_magnet_uri(link.toStdString(),add_info,ec);
-    QString infoHash=QString::fromStdString(to_hex(add_info.info_hash.to_string()));
+    
     torrent_handle h = ses->find_torrent(add_info.info_hash);
     QString dataDir;
 #ifdef Q_WS_MAC
@@ -1015,7 +1030,7 @@ bool TorrentManager::AddMagnet( torrent_handle h,QString SavePath,QString group,
     {
         std::vector<int> filepriorities;
         file_storage storrage = h.get_torrent_info().files();
-        for (file_storage::iterator i=storrage.begin();i!=storrage.end();i++)
+        for (file_storage::iterator i=storrage.begin();i!=storrage.end();++i)
         {
 
             if (filePriorities.contains(QDir::toNativeSeparators(storrage.file_path(*i).c_str())))
@@ -1125,7 +1140,7 @@ int TorrentManager::GetUploadLimit()
     return ses->upload_rate_limit();
 }
 
-Torrent* TorrentManager::GetTorrentByInfoHash( sha1_hash hash )
+Torrent* TorrentManager::GetTorrentByInfoHash(const sha1_hash& hash )
 {
     QString infoHash =QString::fromStdString(to_hex(hash.to_string()));
 

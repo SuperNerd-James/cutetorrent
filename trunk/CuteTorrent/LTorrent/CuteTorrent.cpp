@@ -44,6 +44,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "messagebox.h"
 #include "backupwizard/backupwizard.h"
 
+Q_DECLARE_METATYPE(QList<int>)
+
 CuteTorrent::CuteTorrent(QWidget *parent)
     : QWidget(parent)
 {
@@ -67,7 +69,7 @@ CuteTorrent::CuteTorrent(QWidget *parent)
     mayShowNotifies = false;
 
 
-    spliiter->setSizes(QList<int>() << 130 << 538);
+
     setAcceptDrops(true);
     setupStatusBar();
     setupTray();
@@ -357,7 +359,7 @@ void CuteTorrent::ShowTorrentError(const QString& name,const QString& error)
 
 
 }
-void CuteTorrent::ShowTorrentCompletedNotyfy(const QString name,QString path)
+void CuteTorrent::ShowTorrentCompletedNotyfy(const QString& name,const QString& path)
 {
     if (!mayShowNotifies)
         return;
@@ -741,8 +743,13 @@ void CuteTorrent::UpdatePeerTab()
         peerTableWidget->setRowCount(peerInfos.size());
         for(int i=0;i<peerInfos.size();i++)
         {
+            QString client = QString::fromStdString(peerInfos[i].client);
+         /*   if (peerInfos[i].flags & peer_info::rc4_encrypted == peer_info::rc4_encrypted
+                    || peerInfos[i].flags & peer_info::plaintext_encrypted == peer_info::plaintext_encrypted) {*/
+                client = client.append(QChar(0x1F510));
+            //}
             peerTableWidget->setItem(i,0,new MyTableWidgetItem(QString::fromStdString(peerInfos[i].ip.address().to_string())));
-            peerTableWidget->setItem(i,1,new MyTableWidgetItem(QString::fromUtf8(peerInfos[i].client.c_str())));
+            peerTableWidget->setItem(i,1,new MyTableWidgetItem(client));
             peerTableWidget->setItem(i,2,new MyTableWidgetItem(QString::number(peerInfos[i].progress_ppm/10000.f,'f',1) + "%"));
             peerTableWidget->setItem(i,3,new MyTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].down_speed)+"/s"));
             peerTableWidget->setItem(i,4,new MyTableWidgetItem(StaticHelpers::toKbMbGb(peerInfos[i].up_speed)+"/s"));
@@ -886,6 +893,8 @@ CuteTorrent::~CuteTorrent()
     settings->setValue("Window","geometry", geometry());
     settings->setValue("Window","maximized", isMaximized());
     settings->setValue("Window","selected_tab", tabWidget->currentIndex());
+    settings->setValue("Window","horizontal_sizes",QVariant::fromValue(spliiter1->sizes()));
+    settings->setValue("Window","vertical_sizes",QVariant::fromValue(spliiter->sizes()));
     //qDebug() << "CuteTorrent::~CuteTorrent";
     TorrentTracker::freeInstance();
     RconWebService::freeInstance();
@@ -1065,7 +1074,7 @@ void CuteTorrent::resizeEvent( QResizeEvent * event )
     fillPieceDisplay(event->size());
 }
 
-void CuteTorrent::ShowTorrentInfoNotyfy( const QString name,const QString info)
+void CuteTorrent::ShowTorrentInfoNotyfy( const QString& name,const const QString& info)
 {
 #ifndef Q_WS_MAC
     QBalloonTip::showBalloon("CuteTorrent", QString("%1\n%2").arg(name).arg(info),QBalloonTip::Info,qVariantFromValue(0),
@@ -1399,10 +1408,22 @@ void CuteTorrent::setupCustomeWindow()
         pbMax->setIcon(styleEngine->getIcon("app_rest"));
     }
     int selectedTab = settings->valueInt("Window","selected_tab",0);
-    if (selectedTab>=0 && selectedTab < tabWidget->count())
+    if (selectedTab >=0 && selectedTab < tabWidget->count())
     {
         tabWidget->setCurrentIndex(selectedTab);
     }
+
+    QList<int> horizontal_sizes = settings->value("Window","horizontal_sizes", qVariantFromValue(QList<int>() << 130 << 538)).value<QList<int>>();
+    if (horizontal_sizes.size() > 0){
+        spliiter1->setSizes(horizontal_sizes);
+    }
+
+    QList<int> vertical_sizes = settings->value("Window","vertical_sizes",qVariantFromValue(QList<int>() << 530 << 195)).value<QList<int>>();
+    if (vertical_sizes.size() > 0) {
+        spliiter->setSizes(vertical_sizes);
+    }
+
+
 }
 
 void CuteTorrent::setupKeyMappings()
@@ -1550,12 +1571,14 @@ void CuteTorrent::mouseReleaseEvent(QMouseEvent *e)
 
 void CuteTorrent::mouseDoubleClickEvent(QMouseEvent *e)
 {
-    if (e->pos().x() < tbMenu->geometry().right()&&e->pos().y() < tbMenu->geometry().bottom()
-            &&e->pos().x() >=  tbMenu->geometry().x()&&e->pos().y() >= tbMenu->geometry().y()
+	QPoint position = e->pos();
+	QRect geometry = tbMenu->geometry();
+    if (position.x() < geometry.right()&&position.y() < geometry.bottom()
+            &&position.x() >=  geometry.x()&&position.y() >= geometry.y()
             &&tbMenu->isVisible())
         close();
-    else if (e->pos().x() < titleBar->geometry().width()
-             &&e->pos().y() < titleBar->geometry().height()
+    else if (position.x() < titleBar->geometry().width()
+             &&position.y() < titleBar->geometry().height()
              &&m_titleMode != FullScreenMode)
         maximizeBtnClicked();
     e->accept();

@@ -110,7 +110,7 @@ void StyleEngene::init()
 
 void StyleEngene::initIcons()
 {
-    QString iconsRoot = _currentStyle.rootPath;
+ 
     QString confPath = _currentStyle.rootPath+QDir::separator()+"style.ini";
     QSettings* styleSettings =new QSettings(confPath,QSettings::IniFormat);
     styleSettings->beginGroup("Icons");

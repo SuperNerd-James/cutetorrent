@@ -31,7 +31,7 @@ bool Torrent::hasError() const
     try
     {
 
-        QString errorString="";
+ //       QString errorString="";
         bool hasErr=false;
         if (cur_torrent.status(torrent_handle::query_accurate_download_counters).error.length()>0)
         {
@@ -190,7 +190,7 @@ QStringList& Torrent::GetImageFiles()
     libtorrent::file_storage::iterator bg=storrgae.begin(),
             end=storrgae.end();
 
-    for (libtorrent::file_storage::iterator i=bg;i!=end;i++)
+    for (libtorrent::file_storage::iterator i=bg;i!=end;++i)
     {
         QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));
         if (cur_torrent.file_priority(storrgae.file_index(*i)) > 0 && StyleEngene::suffixes[StyleEngene::DISK].contains(curfile.suffix().toLower()) )
@@ -208,7 +208,7 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus,QString group)
             end=storrgae.end();
     this->group=group;
     StyleEngene::getInstance()->guessMimeIcon(base_suffix,type);
-    for (libtorrent::file_storage::iterator i=bg;i!=end;i++)
+    for (libtorrent::file_storage::iterator i=bg;i!=end;++i)
     {
         QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));
         if (cur_torrent.file_priority(storrgae.file_index(*i)) > 0 && StyleEngene::suffixes[StyleEngene::DISK].contains(curfile.suffix().toLower()))
@@ -245,7 +245,7 @@ Torrent::Torrent( const Torrent &other )
     libtorrent::file_storage::iterator bg=storrgae.begin(),
             end=storrgae.end();
 
-    for (libtorrent::file_storage::iterator i=bg;i!=end;i++)
+    for (libtorrent::file_storage::iterator i=bg;i!=end;++i)
     {
         QFileInfo curfile(QString::fromUtf8(storrgae.file_path(*i).c_str()));
         if (cur_torrent.file_priority(storrgae.file_index(*i)) > 0 && StyleEngene::suffixes[StyleEngene::DISK].contains(curfile.suffix().toLower()))
@@ -725,7 +725,7 @@ QVector<int> Torrent::GetDownloadingPieces()
 
         std::vector<partial_piece_info> pieces;
         cur_torrent.get_download_queue(pieces);
-        for (std::vector<partial_piece_info>::iterator i=pieces.begin();i!=pieces.end();i++)
+        for (std::vector<partial_piece_info>::iterator i=pieces.begin();i!=pieces.end();++i)
         {
             if (i->finished+i->writing > 0)
             {
@@ -836,7 +836,7 @@ bool Torrent::isStoped() const
     return false;//m_stoped;
 }
 
-bool Torrent::operator<(const Torrent other) const
+bool Torrent::operator<(const Torrent& other) const
 {
 
     return GetName() < other.GetName();

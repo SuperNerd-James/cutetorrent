@@ -16,8 +16,7 @@ public slots:
 
     // QWizardPage interface
 public:
-    void initializePage();
-    bool validatePage();
+     bool validatePage();
 
 private:
     QLabel *messageLabel;
