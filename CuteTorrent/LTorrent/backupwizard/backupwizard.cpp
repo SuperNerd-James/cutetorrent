@@ -12,9 +12,8 @@ BackupWizard::BackupWizard(QWidget *parent) :
     setPage(Page_Intro,new IntroPage);
     setPage(Page_Finish,new FinishPage);
     setStartId(Page_Intro);
-  /*  setOption(QWizard::NoBackButtonOnLastPage,true);
-    setOption(QWizard::NoCancelButton,true);*/
-  //  setWizardStyle(MacStyle);
-  //setPixmap(BackgroundPixmap,QPixmap(":/images/resources/bacground.png"));
+    setWizardStyle(ClassicStyle);
+    setOption(NoBackButtonOnLastPage);
+    setOption(QWizard::NoCancelButton);
 }
 

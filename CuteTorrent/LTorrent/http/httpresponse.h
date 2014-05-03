@@ -110,14 +110,16 @@ private:
     /** HTTP status code description */
     QByteArray statusText;
 
+	/** Cookies */
+	QMap<QByteArray,HttpCookie> cookies;
+
     /** Indicator whether headers have been sent */
     bool sentHeaders;
 
     /** Indicator whether the body has been sent completely */
     bool sentLastPart;
 
-    /** Cookies */
-    QMap<QByteArray,HttpCookie> cookies;
+   
 
     /** Write raw data to the socket. This method blocks until all bytes have been passed to the TCP buffer */
     bool writeToSocket(QByteArray data);

@@ -5,39 +5,32 @@
 IntroPage::IntroPage(QWidget *parent)
     : QWizardPage(parent)
 {
-    setTitle(tr("Introduction"));
-    setPixmap(QWizard::WatermarkPixmap, QPixmap(":/images/watermark.png"));
+    setTitle("BAKUP_INTRO_TITLE");
 
-    topLabel = new QLabel(tr("This wizard will help you register your copy of "
-                             "<i>Super Product One</i>&trade; or start "
-                             "evaluating the product."));
-    topLabel->setWordWrap(true);
-
-    registerRadioButton = new QRadioButton(tr("&Register your copy"));
-    evaluateRadioButton = new QRadioButton(tr("&Evaluate the product for 30 "
-                                              "days"));
-    registerRadioButton->setChecked(true);
-
+    QLabel *label = new QLabel("BACKUP_INTRO_MESSAGE");
+    label->setWordWrap(true);
+    careateRadioButton = new QRadioButton("CREATE_BAKUP");
+    applyRadioButton  = new QRadioButton("APPLY_BAKUP");
+    careateRadioButton->setChecked(true);
     QVBoxLayout *layout = new QVBoxLayout;
-    layout->addWidget(topLabel);
-    layout->addWidget(registerRadioButton);
-    layout->addWidget(evaluateRadioButton);
+    layout->addWidget(label);
+    layout->addWidget(careateRadioButton);
+    layout->addWidget(applyRadioButton);
     setLayout(layout);
 }
 
 int IntroPage::nextId() const
 {
 
-    if (registerRadioButton->isChecked()) {
+    if (careateRadioButton->isChecked()) {
         return BackupWizard::Page_CreateBakup;
     } else {
         return BackupWizard::Page_ApplyBakup;
     }
 }
 
-
-
 bool IntroPage::validatePage()
 {
-    return true;
+    return careateRadioButton->isChecked() || applyRadioButton->isChecked();
 }
+

@@ -114,7 +114,7 @@ void TrackerRequestHandler::ProcessAnnounceRequest(HttpRequest &request, HttpRes
     ReplyWithPeerList(response,announceRequest);
 }
 
-void TrackerRequestHandler::ReplyWithPeerList(HttpResponse &response, AnnounceRequest announceRequest)
+void TrackerRequestHandler::ReplyWithPeerList(HttpResponse &response, AnnounceRequest& announceRequest)
 {
     entry::dictionary_type reply_dict;
     reply_dict["interval"] = entry(1800);

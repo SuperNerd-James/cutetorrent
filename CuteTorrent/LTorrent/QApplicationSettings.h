@@ -44,7 +44,7 @@ private:
 	
 	
 public:
-    QVariant value(const QString group,const QString key,QVariant defaultVal=QVariant(QVariant::Invalid));
+    QVariant value(const QString& group,const QString& key,const QVariant& defaultVal=QVariant(QVariant::Invalid));
 	void SaveFilterGropups(QList<GroupForFileFiltering>);
 	QList<GroupForFileFiltering> GetFileFilterGroups();
 	static void FreeInstance();
@@ -54,12 +54,12 @@ public:
     QList<SearchItem> GetSearchSources();
     void setSearchSources(QList<SearchItem> searchSources);
 	void SaveSchedullerQueue(QList<SchedulerTask>&);
-	void setValue(const QString group, const QString key, const QVariant &value);
-	int valueInt(const QString group,const QString key, int defalt = 0);
+    void setValue(const QString& group, const QString& key, const QVariant &value);
+    int valueInt(const QString& group,const QString& key,const int& defalt = 0);
     QMap<QString,QVariant> getGroupValues(QString group);
     void setGroupValues(QString group,QMap<QString,QVariant> values);
-	QString valueString(const QString group,const QString key,QString defalt = "");
-	bool valueBool(const QString group,const QString key,bool defalt=true);
+    QString valueString(const QString& group,const QString& key,const QString& defalt = "");
+    bool valueBool(const QString& group,const QString& key,bool defalt=true);
 
 };
 

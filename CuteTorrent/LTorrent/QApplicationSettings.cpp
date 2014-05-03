@@ -82,7 +82,7 @@ QStringList QApplicationSettings::GetGroupNames()
 	return res;
 }
 
-void QApplicationSettings::setValue(const QString group,const QString key,const QVariant &value)
+void QApplicationSettings::setValue(const QString& group,const QString& key,const QVariant &value)
 {
     if (!settings->group().isEmpty()) settings->endGroup();
 	settings->beginGroup(group);
@@ -93,7 +93,7 @@ void QApplicationSettings::setValue(const QString group,const QString key,const 
 	WriteSettings();
 }
 
-QVariant QApplicationSettings::value(const QString group,const QString key,QVariant defaultVal)
+QVariant QApplicationSettings::value(const QString& group,const QString& key,const QVariant& defaultVal)
 {
      qDebug() << "QApplicationSettings::value " << group << " " << key << " " << defaultVal;
     locker->lock();
@@ -112,7 +112,7 @@ QVariant QApplicationSettings::value(const QString group,const QString key,QVari
 
 	return res;
 }
-int QApplicationSettings::valueInt(const QString group,const QString key,int defalt)
+int QApplicationSettings::valueInt(const QString& group,const QString& key,const int& defalt)
 {
 	try
 	{
@@ -155,13 +155,13 @@ void QApplicationSettings::setGroupValues(QString group,QMap<QString, QVariant> 
     settings->endGroup();
     locker->unlock();
 }
-QString	QApplicationSettings::valueString(const QString group,const QString key,QString defalt)
+QString	QApplicationSettings::valueString(const QString& group,const QString& key,const QString& defalt)
 {
 	QVariant val=value(group,key,defalt);
 	return val.toString();
 }
 
-bool QApplicationSettings::valueBool(const QString group,const QString key,bool defalt)
+bool QApplicationSettings::valueBool(const QString& group,const QString& key,const bool defalt)
 {
 	QVariant val=value(group,key,defalt);
 	return val.toBool();
@@ -355,7 +355,7 @@ void QApplicationSettings::SaveSchedullerQueue( QList<SchedulerTask> &tasks)
 	//qDebug() << tasks.count();
 	qSort(tasks);
 	xml.writeStartElement("tasks");
-	for (QQueue<SchedulerTask>::iterator i = tasks.begin();i!=tasks.end();i++)
+	for (QQueue<SchedulerTask>::iterator i = tasks.begin();i!=tasks.end();++i)
 	{
 		xml.writeStartElement("task");
 		//qDebug() << i->startTime().toString("dd:MM:yyyy hh:mm:ss");

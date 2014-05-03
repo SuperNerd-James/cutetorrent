@@ -125,10 +125,12 @@ private:
 	void SetupSchedullerTab();
     void FillSearchTab();
     void setupCustomeWindow();
+    void FillNetworkTab();
 public:
     SettingsDialog(QWidget* parent=0,int flags=0);
 	~SettingsDialog();
     void ApplySettingsToSession();
+    void instance(QString currentStyle);
 public slots:
     void minimizeBtnClicked();
 signals:

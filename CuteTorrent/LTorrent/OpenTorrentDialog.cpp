@@ -393,7 +393,7 @@ void OpenTorrentDialog::SetData(QString filename)
 			QStringList files;
 			for (libtorrent::file_storage::iterator i = info->files.begin(); 
 				i != info->files.end();
-				i++)
+				++i)
 			{
 				files << QString::fromUtf8(info->files.file_path(*i).c_str())+"|"+StaticHelpers::toKbMbGb(info->files.file_size(*i));
 			}
@@ -483,7 +483,7 @@ void OpenTorrentDialog::AccepTorrent()
 {
 	if (validTorrent)
 	{
-		QFile file(torrentFilename);
+		
 		QMap<QString,int> filePriorities=model->getFilePiorites();
 		error_code ec;
 		QString group=useGroup ? filters[GroupComboBox->currentIndex()].Name(): "" ;
@@ -531,7 +531,7 @@ void OpenTorrentDialog::DownloadMetadataCompleted(openmagnet_info info)
 	//qDebug() << "building file lsit";
 	for (libtorrent::file_storage::iterator i = info.files.begin(); 
 		i != info.files.end();
-		i++)
+		++i)
 	{
 		files << QString::fromUtf8(info.files.file_path(*i).c_str())+"|"+StaticHelpers::toKbMbGb(info.files.file_size(*i));
 	}

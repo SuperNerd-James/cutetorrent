@@ -8,13 +8,16 @@ class IntroPage : public QWizardPage
     Q_OBJECT
 public:
     IntroPage(QWidget *parent = 0);
-    bool validatePage();
+ // bool validatePage();
     int nextId() const;
 
 private:
-    QLabel *topLabel;
-    QRadioButton *registerRadioButton;
-    QRadioButton *evaluateRadioButton;
+   QRadioButton *careateRadioButton;
+   QRadioButton *applyRadioButton;
+
+   // QWizardPage interface
+public:
+   bool validatePage();
 };
 
 #endif // INTROPAGE_H

@@ -53,7 +53,7 @@ QString GroupForFileFiltering::Name() const
 QString GroupForFileFiltering::Extensions() const
 {
 	QString res;
-	for(QSet<QString>::ConstIterator i=extensions.begin();i!=extensions.end();i++)
+	for(QSet<QString>::ConstIterator i=extensions.begin();i!=extensions.end();++i)
 	{
 		res=res.append(*i);
 		res=res.append("|");

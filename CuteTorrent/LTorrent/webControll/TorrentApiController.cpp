@@ -15,7 +15,7 @@ void TorrentApiController::service( HttpRequest& request, HttpResponse& response
 	{
 		return;
     }*/
-	QMultiMap<QByteArray,QByteArray> parametrs=request.getParameterMap();
+//	QMultiMap<QByteArray,QByteArray> parametrs=request.getParameterMap();
 	//qDebug() << parametrs;
 	if (request.getMethod().toUpper()=="GET")
 	{
@@ -89,7 +89,7 @@ void TorrentApiController::service( HttpRequest& request, HttpResponse& response
 						QtJson::JsonArray files;
                         files_info fileinfo=curret->GetFileDownloadInfo();
                         int counter=0;
-                        for (file_storage::iterator j=fileinfo.storrage.begin();j!=fileinfo.storrage.end();j++)
+                        for (file_storage::iterator j=fileinfo.storrage.begin();j!=fileinfo.storrage.end();++j)
 						{
 							QtJson::JsonObject file;
 

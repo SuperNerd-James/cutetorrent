@@ -16,7 +16,7 @@ private:
      QMap<QString,PeerList> torrents;
      QMap<int,char*> failtureText;
      void ProcessAnnounceRequest(HttpRequest& request, HttpResponse& response);
-     void ReplyWithPeerList(HttpResponse& response,AnnounceRequest announceRequest);
+     void ReplyWithPeerList(HttpResponse& response,AnnounceRequest& announceRequest);
      void ReplyError(int code,HttpResponse& response);
 signals:
     

@@ -228,7 +228,7 @@ QString QTorrentItemDelegat::GetStatusString(const Torrent& tor) const
 	}
 	return status;
 }
-void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionViewItem& option, const Torrent& tor, QModelIndex index ) const
+void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionViewItem& option, const Torrent& tor,const QModelIndex& index ) const
 {
 
     QStyleOptionViewItemV4 opt=option;

@@ -3,23 +3,28 @@
 
 
 #include <QtGui>
+#include <private/qzipreader_p.h>
 class ApplyBackupPage : public QWizardPage
 {
     Q_OBJECT
 public:
     explicit ApplyBackupPage(QWidget *parent = 0);
     int	nextId () const;
-signals:
-
-public slots:
-
-
-    // QWizardPage interface
-public:
-    void initializePage();
 private:
     QLabel *messageLabel;
-    QVBoxLayout *layout;
+    QGridLayout *gridLayout;
+    QLineEdit *backupPathLineEdit;
+    QPushButton *browsePushButton;
+    QCheckBox *drivesCheckBox;
+    QComboBox *drivesComboBox;
+    QGroupBox *changePathGroupBox;
+    QGridLayout *gridLayout_2;
+    QTableWidget *tableWidget;
+    QString GetLongestCommonSubstr(QString a,QString  b);
+    bool parseData(QZipReader& reader);
+    QStringList GetLongestCommonSubstr(QStringList strings);
+public slots:
+    void browseButtonClicked();
 };
 
 #endif // APPLYBACKUPPAGE_H

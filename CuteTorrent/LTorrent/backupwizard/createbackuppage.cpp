@@ -4,7 +4,26 @@
 CreateBackupPage::CreateBackupPage(QWidget *parent) :
     QWizardPage(parent)
 {
-    layout =  NULL;
+    setTitle("CREATE_BAKUP_TITLE");
+    layout = new QGridLayout;
+    messageLabel = new QLabel("BACKUP_CREATE_BAKUP_MESSAGE");
+    messageLabel->setWordWrap(true);
+
+
+    layout->addWidget(messageLabel,0,0,1,2);
+
+    savePathEdit = new QLineEdit(this);
+    savePathEdit->setEnabled(false);
+    savePathEdit->setObjectName(QString::fromUtf8("savePathEdit"));
+    savePathEdit->setMaximumWidth(200);
+    layout->addWidget(savePathEdit, 1, 0, 1, 1);
+
+    browseButton = new QPushButton(this);
+    browseButton->setObjectName(QString::fromUtf8("browseButton"));
+    browseButton->setText("Browse");
+    QObject::connect(browseButton,SIGNAL(clicked()),this,SLOT(browseButtonClick()));
+    layout->addWidget(browseButton, 1, 1, 1, 1);
+    setLayout(layout);
 }
 
 int CreateBackupPage::nextId() const
@@ -18,32 +37,6 @@ void CreateBackupPage::browseButtonClick()
     savePathEdit->setText(QFileDialog::getSaveFileName(this,tr("BACKUP_SAVE"),QApplication::applicationDirPath()+QDir::separator()+"CuteTorrent.backup"));
 }
 
-void CreateBackupPage::initializePage()
-{
-    setTitle("CREATE_BAKUP_TITLE");
-
-    if (!layout) {
-        layout = new QGridLayout;
-        messageLabel = new QLabel("BACKUP_CREATE_BAKUP_MESSAGE");
-        messageLabel->setWordWrap(true);
-
-
-        layout->addWidget(messageLabel,0,0,1,2);
-
-        savePathEdit = new QLineEdit(this);
-        savePathEdit->setObjectName(QString::fromUtf8("savePathEdit"));
-
-        layout->addWidget(savePathEdit, 1, 0, 1, 1);
-
-        browseButton = new QPushButton(this);
-        browseButton->setObjectName(QString::fromUtf8("browseButton"));
-        browseButton->setText("Browse");
-        QObject::connect(browseButton,SIGNAL(clicked()),this,SLOT(browseButtonClick()));
-        layout->addWidget(browseButton, 1, 1, 1, 1);
-        setLayout(layout);
-    }
-
-}
 
 bool CreateBackupPage::validatePage()
 {

@@ -40,6 +40,7 @@ public:
     static const QStringList availableLanguages();
     static void loadTranslationsQt(const QString& dir);
     static void loadTranslationsQt(const QDir &dir);
+    QString currentLocaleQt();
 protected:
     bool event(QEvent* event);
 public slots:

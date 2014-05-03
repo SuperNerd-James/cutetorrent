@@ -115,7 +115,7 @@ public :
     void setGroup(QString group);
 	int GetDownloadLimit();
 	int GetUploadLimit();
-	bool operator<(const Torrent) const;
+    bool operator<(const Torrent&) const;
 	bool operator<(Torrent*);
 	void SuperSeed();
 	bool isSuperSeed();

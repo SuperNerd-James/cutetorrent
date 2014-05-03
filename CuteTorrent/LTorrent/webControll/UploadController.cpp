@@ -15,7 +15,7 @@ void UploadController::service( HttpRequest& request, HttpResponse& response )
 	}
 	if (request.getMethod()=="POST")
 	{
-		std::map<QByteArray,QByteArray> parametrs=request.getParameterMap().toStdMap();
+		//std::map<QByteArray,QByteArray> parametrs=request.getParameterMap().toStdMap();
 		//qDebug() << request.getParameterMap();
 		QString save_path = request.getParameter("savePath");
 		QTemporaryFile* tfile=request.getUploadedFile("files[]");

@@ -46,7 +46,7 @@ void MagnetApiController::service( HttpRequest& request, HttpResponse& response 
 	}
 }
 
-void MagnetApiController::DownloadMetadataCompleted( openmagnet_info _info )
+void MagnetApiController::DownloadMetadataCompleted(const openmagnet_info& _info )
 {
     tManager->AddMagnet(_info.handle,savePathMap[_info.link],"",QMap<QString,int>());
 }

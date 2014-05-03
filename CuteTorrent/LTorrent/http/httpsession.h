@@ -93,11 +93,11 @@ private:
 
     struct HttpSessionData {
 
-        /** Unique ID */
+		/** Timestamp of last access, set by the HttpSessionStore */
+		qint64 lastAccess;
+        
+		/** Unique ID */
         QByteArray id;
-
-        /** Timestamp of last access, set by the HttpSessionStore */
-        qint64 lastAccess;
 
         /** Reference counter */
         int refCount;
