@@ -164,8 +164,10 @@ void MyMessageBox::mousePressEvent(QMouseEvent *e)
 {
     if (e->button() == Qt::LeftButton)
     {
-        if (e->pos().x() >= PIXELS_TO_ACT&&e->pos().x() < ui->titleBar->geometry().width()
-                 &&e->pos().y() >= PIXELS_TO_ACT&&e->pos().y() < ui->titleBar->geometry().height())
+		QPoint pos = e->pos();
+		QRect geometry = ui->titleBar->geometry();
+        if (pos.x() >= PIXELS_TO_ACT&&pos.x() < geometry.width()
+                 &&pos.y() >= PIXELS_TO_ACT&&pos.y() < geometry.height())
         {
             moveWidget = true;
             dragPosition = e->globalPos() - frameGeometry().topLeft();
@@ -195,8 +197,10 @@ void MyMessageBox::mouseReleaseEvent(QMouseEvent *e)
 
 void MyMessageBox::mouseDoubleClickEvent(QMouseEvent *e)
 {
-    if (e->pos().x() < ui->tbMenu->geometry().right()&&e->pos().y() < ui->tbMenu->geometry().bottom()
-            &&e->pos().x() >=  ui->tbMenu->geometry().x()&&e->pos().y() >= ui->tbMenu->geometry().y()
+	QPoint pos = e->pos();
+	QRect geometry = ui->tbMenu->geometry();
+    if (pos.x() < geometry.right()&&pos.y() < geometry.bottom()
+            &&pos.x() >=  geometry.x()&&pos.y() >= geometry.y()
             && ui->tbMenu->isVisible())
         done(QDialog::Rejected);
     e->accept();

@@ -79,15 +79,16 @@ void Scheduller::timerEvent( QTimerEvent *event )
 	if (event->timerId()==cuurentTimerID)
 	{
 		QSystemTrayIcon::MessageIcon icon = QSystemTrayIcon::Information;
-		QBalloonTip::showBalloon("CuteTorrent", tr("CT_PEFORMING_TASK %1").arg(tasks.first().name()),QBalloonTip::Info,qVariantFromValue(0), icon,
+		SchedulerTask first = tasks.first();
+		QBalloonTip::showBalloon("CuteTorrent", tr("CT_PEFORMING_TASK %1").arg(first.name()),QBalloonTip::Info,qVariantFromValue(0), icon,
 			5* 1000);
-		tasks.first().pefromTask();
+		first.pefromTask();
 		tasks.removeFirst();
 		killTimer(cuurentTimerID);
 		if (!tasks.isEmpty())
 		{
 			QDateTime now = QDateTime::currentDateTime();
-			uint toNextTask = tasks.first().startTime().toTime_t()-now.toTime_t();
+			uint toNextTask = first.startTime().toTime_t()-now.toTime_t();
 			cuurentTimerID=startTimer(toNextTask*1000);
 		}
 		settings->SaveSchedullerQueue(tasks);

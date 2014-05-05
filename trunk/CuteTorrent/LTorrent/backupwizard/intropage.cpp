@@ -5,12 +5,12 @@
 IntroPage::IntroPage(QWidget *parent)
     : QWizardPage(parent)
 {
-    setTitle("BAKUP_INTRO_TITLE");
+    setTitle(tr("BAKUP_INTRO_TITLE"));
 
-    QLabel *label = new QLabel("BACKUP_INTRO_MESSAGE");
+    QLabel *label = new QLabel(tr("BACKUP_INTRO_MESSAGE"));
     label->setWordWrap(true);
-    careateRadioButton = new QRadioButton("CREATE_BAKUP");
-    applyRadioButton  = new QRadioButton("APPLY_BAKUP");
+    careateRadioButton = new QRadioButton(tr("CREATE_BAKUP"));
+    applyRadioButton  = new QRadioButton(tr("APPLY_BAKUP"));
     careateRadioButton->setChecked(true);
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(label);

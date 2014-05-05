@@ -74,7 +74,8 @@ HEADERS += ./application.h \
     ./backupwizard/intropage.h \
     ./backupwizard/createbackuppage.h \
     ./backupwizard/applybackuppage.h \
-    ./backupwizard/finishpage.h
+    ./backupwizard/finishpage.h \
+    backupwizard/patheditor.h
 SOURCES += ./application.cpp \
     ./DT_mounter.cpp \
     ./GroupForFileFiltering.cpp \
@@ -141,7 +142,8 @@ SOURCES += ./application.cpp \
     ./backupwizard/intropage.cpp \
     ./backupwizard/createbackuppage.cpp \
     ./backupwizard/applybackuppage.cpp \
-    ./backupwizard/finishpage.cpp
+    ./backupwizard/finishpage.cpp \
+    backupwizard/patheditor.cpp
 FORMS += ./CreateTorrentDialog.ui \
     ./customWindow/CustomWindow.ui \
     ./VideoPlayer/MediaControls.ui \

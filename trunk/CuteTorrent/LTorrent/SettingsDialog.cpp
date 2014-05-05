@@ -208,24 +208,25 @@ void SettingsDialog::mousePressEvent(QMouseEvent *e)
 {
     if (e->button() == Qt::LeftButton)
     {
+		QPoint pos = e->pos();
         if (inResizeZone)
         {
             //allowToResize = true;
 
-            if (e->pos().y() <= PIXELS_TO_ACT)
+            if (pos.y() <= PIXELS_TO_ACT)
             {
-                if (e->pos().x() <= PIXELS_TO_ACT)
+                if (pos.x() <= PIXELS_TO_ACT)
                     resizeDiagSupEsq = true;
-                else if (e->pos().x() >= geometry().width() - PIXELS_TO_ACT)
+                else if (pos.x() >= geometry().width() - PIXELS_TO_ACT)
                     resizeDiagSupDer = true;
                 else
                     resizeVerSup = true;
             }
-            else if (e->pos().x() <= PIXELS_TO_ACT)
+            else if (pos.x() <= PIXELS_TO_ACT)
                 resizeHorEsq = true;
         }
-        else if (e->pos().x() >= PIXELS_TO_ACT&&e->pos().x() < titleBar->geometry().width()
-                 &&e->pos().y() >= PIXELS_TO_ACT&&e->pos().y() < titleBar->geometry().height())
+        else if (pos.x() >= PIXELS_TO_ACT&&pos.x() < titleBar->geometry().width()
+                 &&pos.y() >= PIXELS_TO_ACT&&pos.y() < titleBar->geometry().height())
         {
             moveWidget = true;
             dragPosition = e->globalPos() - frameGeometry().topLeft();
@@ -550,9 +551,10 @@ void SettingsDialog::showSelectedGroup(int row)
     }
     if (row <0)
         return;
-    newGroupNameEdit->setText(filterGroups.at(row).Name());
-    extensionsEdit->setText(filterGroups.at(row).Extensions());
-    groupSavePathEdit->setText(filterGroups.at(row).SavePath());
+	GroupForFileFiltering currentGroup = filterGroups.at(row);
+    newGroupNameEdit->setText(currentGroup.Name());
+    extensionsEdit->setText(currentGroup.Extensions());
+    groupSavePathEdit->setText(currentGroup.SavePath());
 
 }
 SettingsDialog::~SettingsDialog() 
@@ -742,7 +744,7 @@ void SettingsDialog::ApplySettingsToSession()
     current.use_read_cache		= useReadCasheCheckBox->isChecked();
     current.lock_files			= lockFilesCheckBox->isChecked();
     current.disk_io_write_mode  = diskIOCasheModeComboBox->currentIndex();
-    current.disk_io_read_mode   = diskIOCasheModeComboBox->currentIndex();
+    current.disk_io_read_mode   = current.disk_io_write_mode;
     current.low_prio_disk		= lowPrioDiskCheckBox->isChecked();
 
     current.allow_reordered_disk_operations = alowReorderedOpsCheckBox->isChecked();
@@ -1006,9 +1008,9 @@ void SettingsDialog::FillKeyMapTab()
 
         QMap<QString,QString> keyMap = grouppedKeyMap[groupName];
         qDebug() << groupName <<  keyMap.size();
-        QGroupBox* groupBox = new  QGroupBox(keyMapContainer);
-        groupBox->setTitle(trUtf8(groupName.toUpper().toUtf8()));
-        QFormLayout* groupLayout = new QFormLayout(groupBox);
+        QGroupBox* _groupBox = new  QGroupBox(keyMapContainer);
+        _groupBox->setTitle(trUtf8(groupName.toUpper().toUtf8()));
+        QFormLayout* groupLayout = new QFormLayout(_groupBox);
         for (QMap<QString, QString>::iterator i=keyMap.begin();
              i!=keyMap.end();++i, ++index)
         {
@@ -1018,15 +1020,15 @@ void SettingsDialog::FillKeyMapTab()
             keyEdit->setObjectName(i.key());
             groupLayout->addRow(trUtf8(i.key().toUtf8()),keyEdit);
         }
-        groupBox->setLayout(groupLayout);
+        _groupBox->setLayout(groupLayout);
         int keMapSize = keyMap.size();
         if (rightColumns - keMapSize >= 0) {
             rightColumns -= keMapSize;
-            layout->addWidget(groupBox,rightIndex,0,keMapSize,1);
+            layout->addWidget(_groupBox,rightIndex,0,keMapSize,1);
             rightIndex+=keMapSize;
         } else {
             leftColumns  -= keMapSize;
-            layout->addWidget(groupBox,leftIndex,1,keMapSize,1);
+            layout->addWidget(_groupBox,leftIndex,1,keMapSize,1);
             leftIndex += keMapSize;
 
         }

@@ -188,24 +188,25 @@ void MultipleDTDialog::mousePressEvent(QMouseEvent *e)
 {
     if (e->button() == Qt::LeftButton)
     {
+		QPoint pos = e->pos();
         if (inResizeZone)
         {
             //allowToResize = true;
 
-            if (e->pos().y() <= PIXELS_TO_ACT)
+            if (pos.y() <= PIXELS_TO_ACT)
             {
-                if (e->pos().x() <= PIXELS_TO_ACT)
+                if (pos.x() <= PIXELS_TO_ACT)
                     resizeDiagSupEsq = true;
-                else if (e->pos().x() >= geometry().width() - PIXELS_TO_ACT)
+                else if (pos.x() >= geometry().width() - PIXELS_TO_ACT)
                     resizeDiagSupDer = true;
                 else
                     resizeVerSup = true;
             }
-            else if (e->pos().x() <= PIXELS_TO_ACT)
+            else if (pos.x() <= PIXELS_TO_ACT)
                 resizeHorEsq = true;
         }
-        else if (e->pos().x() >= PIXELS_TO_ACT&&e->pos().x() < titleBar->geometry().width()
-            &&e->pos().y() >= PIXELS_TO_ACT&&e->pos().y() < titleBar->geometry().height())
+        else if (pos.x() >= PIXELS_TO_ACT&&pos.x() < titleBar->geometry().width()
+            &&pos.y() >= PIXELS_TO_ACT&&pos.y() < titleBar->geometry().height())
         {
             moveWidget = true;
             dragPosition = e->globalPos() - frameGeometry().topLeft();
@@ -229,8 +230,10 @@ void MultipleDTDialog::mouseReleaseEvent(QMouseEvent *e)
 
 void MultipleDTDialog::mouseDoubleClickEvent(QMouseEvent *e)
 {
-    if (e->pos().x() < tbMenu->geometry().right()&&e->pos().y() < tbMenu->geometry().bottom()
-        &&e->pos().x() >=  tbMenu->geometry().x()&&e->pos().y() >= tbMenu->geometry().y()
+	QRect geometry = tbMenu->geometry();
+	QPoint point = e->pos();
+    if (point.x() < geometry.right()&&point.y() < geometry.bottom()
+        &&point.x() >=  geometry.x()&&point.y() >= geometry.y()
         &&tbMenu->isVisible())
         close();
     e->accept();

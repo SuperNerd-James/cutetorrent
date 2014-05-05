@@ -2,11 +2,11 @@
 FinishPage::FinishPage(QWidget *parent) :
     QWizardPage(parent)
 {
-    setTitle("BAKUP_FINISH_TITLE");
+    setTitle(tr("BAKUP_FINISH_TITLE"));
 
 
         layout = new QVBoxLayout;
-        messageLabel = new QLabel("BACKUP_FINISH_MESSAGE");
+        messageLabel = new QLabel(tr("BACKUP_FINISH_MESSAGE"));
         messageLabel->setWordWrap(true);
         layout->addWidget(messageLabel);
         setLayout(layout);

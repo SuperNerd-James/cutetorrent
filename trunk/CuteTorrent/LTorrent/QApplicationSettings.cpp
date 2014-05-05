@@ -238,7 +238,7 @@ QList<SchedulerTask> QApplicationSettings::GetSchedullerQueue()
 			continue;
 		QXmlStreamAttributes atribbutes=xml.attributes();
 		SchedulerTask::TaskType type=SchedulerTask::UNKNOWN;
-		int limit;
+		int limit = 0;
 		QDateTime begin,end;
 		QString name;
 		if (atribbutes.hasAttribute("TYPE"))

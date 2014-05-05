@@ -367,7 +367,7 @@ void CuteTorrent::ShowTorrentCompletedNotyfy(const QString& name,const QString& 
                              QSystemTrayIcon::Information,15000,false);
 
 }
-void CuteTorrent::UpdateTabWidget(int tab)
+void CuteTorrent::UpdateTabWidget(int tabIndex)
 {
     //qDebug() << "updateTabWidget(" << tab << ");";
 
@@ -376,18 +376,18 @@ void CuteTorrent::UpdateTabWidget(int tab)
     if (this->isMinimized())
         return;
     bool udapteLimits = false;
-    if (tab < 0)
+    if (tabIndex < 0)
     {
-        if (tab==-2)
+        if (tabIndex==-2)
             udapteLimits = true;
-        tab=tabWidget->currentIndex();
+        tabIndex=tabWidget->currentIndex();
     }
     //qDebug() << "udapteLimits =" << udapteLimits << ";";
 
 
     try
     {
-        switch(tab)
+        switch(tabIndex)
         {
         case 0:
 
@@ -495,7 +495,7 @@ public:
                         speed2*=1024*1024*1024;
                         break;
                     case 't':
-                        speed2*=1024*1024*1024*1024;
+                        speed2*=1024*1024*1024*1024.0;
                         break;
                     case 'b':
                         break;
@@ -663,6 +663,7 @@ void CuteTorrent::HandleNewTorrent(const QString & path)
     OpenTorrentDialog dlg(this);
     dlg.SetData(path);
     dlg.execConditional();
+    QApplication::alert(&dlg);
 
 }
 void CuteTorrent::ShowCreateTorrentDialog(void)
@@ -710,7 +711,9 @@ void CuteTorrent::UpdateInfoTab()
         totalSizeLabel->setText(tor->GetTotalSize());
         seedCoutLabel->setText(tor->GetSeedString());
         peerCoutLabel->setText(tor->GetPeerString());
-        describtionLabel->setText(tor->GetDiscribtion());
+        QFontMetrics metrics(describtionLabel->font());
+        QString elidedText = metrics.elidedText(tor->GetDiscribtion(), Qt::ElideRight, describtionLabel->width());
+        describtionLabel->setText(elidedText);
         timeleftLabel->setText(tor->GetRemainingTime());
     }
     else
@@ -744,10 +747,10 @@ void CuteTorrent::UpdatePeerTab()
         for(int i=0;i<peerInfos.size();i++)
         {
             QString client = QString::fromStdString(peerInfos[i].client);
-         /*   if (peerInfos[i].flags & peer_info::rc4_encrypted == peer_info::rc4_encrypted
-                    || peerInfos[i].flags & peer_info::plaintext_encrypted == peer_info::plaintext_encrypted) {*/
-                client = client.append(QChar(0x1F510));
-            //}
+            if ((peerInfos[i].flags & peer_info::rc4_encrypted) == peer_info::rc4_encrypted
+                    || (peerInfos[i].flags & peer_info::plaintext_encrypted) == peer_info::plaintext_encrypted) {
+                client = client.append(" *");
+            }
             peerTableWidget->setItem(i,0,new MyTableWidgetItem(QString::fromStdString(peerInfos[i].ip.address().to_string())));
             peerTableWidget->setItem(i,1,new MyTableWidgetItem(client));
             peerTableWidget->setItem(i,2,new MyTableWidgetItem(QString::number(peerInfos[i].progress_ppm/10000.f,'f',1) + "%"));
@@ -1074,7 +1077,7 @@ void CuteTorrent::resizeEvent( QResizeEvent * event )
     fillPieceDisplay(event->size());
 }
 
-void CuteTorrent::ShowTorrentInfoNotyfy( const QString& name,const const QString& info)
+void CuteTorrent::ShowTorrentInfoNotyfy( const QString& name,const QString& info)
 {
 #ifndef Q_WS_MAC
     QBalloonTip::showBalloon("CuteTorrent", QString("%1\n%2").arg(name).arg(info),QBalloonTip::Info,qVariantFromValue(0),
@@ -1239,7 +1242,7 @@ void CuteTorrent::StopSelected()
     model->ActionOnSelectedItem(QTorrentDisplayModel::stop);
 }
 
-void CuteTorrent::setFilePriority( int priority)
+void CuteTorrent::setFilePriority( int priorityToSet)
 {
     Torrent* tor= model->GetSelectedTorrent();
     if (tor!=NULL)
@@ -1250,14 +1253,14 @@ void CuteTorrent::setFilePriority( int priority)
         dontDownload->setChecked(false);
         int file_num=fileTableView->selectionModel()->currentIndex().row();
         int file_index = proxymodel->index(file_num,0).data(Qt::UserRole).toInt();
-        tor->SetFilePriority(file_index,priority);
+        tor->SetFilePriority(file_index,priorityToSet);
         files_info info = tor->GetFileDownloadInfo();
         fileViewModel->setDataSource(info);
 
     }
 }
 
-void CuteTorrent::setupGroupTreeWidget(bool initial)
+void CuteTorrent::setupGroupTreeWidget()
 {
 
     groupTreeWidget->clear();
@@ -1524,34 +1527,29 @@ void CuteTorrent::mousePressEvent(QMouseEvent *e)
 {
     if (e->button() == Qt::LeftButton)
     {
-        if (inResizeZone)
-        {
-            allowToResize = true;
+		QPoint pos = e->pos();
+		if (inResizeZone)
+		{
+			allowToResize = true;
 
-            if (e->pos().y() <= PIXELS_TO_ACT)
-            {
-                if (e->pos().x() <= PIXELS_TO_ACT)
-                    resizeDiagSupEsq = true;
-                else if (e->pos().x() >= geometry().width() - PIXELS_TO_ACT)
-                    resizeDiagSupDer = true;
-                else
-                    resizeVerSup = true;
-            }
-            else if (e->pos().x() <= PIXELS_TO_ACT)
-                resizeHorEsq = true;
-        }
-        else if (e->pos().x() >= PIXELS_TO_ACT&&e->pos().x() < titleBar->geometry().width()
-                 &&e->pos().y() >= PIXELS_TO_ACT&&e->pos().y() < titleBar->geometry().height())
-        {
-            moveWidget = true;
-            dragPosition = e->globalPos() - frameGeometry().topLeft();
-    /*        if (isMaximized())
-            {
-                QRect desktopRect = QApplication::desktop()->availableGeometry();
-
-                dragPosition.setX((desktopRect.width()-normalGeometry().width())/2);
-            }*/
-        }
+			if (pos.y() <= PIXELS_TO_ACT)
+			{
+				if (pos.x() <= PIXELS_TO_ACT)
+					resizeDiagSupEsq = true;
+				else if (pos.x() >= geometry().width() - PIXELS_TO_ACT)
+					resizeDiagSupDer = true;
+				else
+					resizeVerSup = true;
+			}
+			else if (pos.x() <= PIXELS_TO_ACT)
+				resizeHorEsq = true;
+		}
+		else if (pos.x() >= PIXELS_TO_ACT&&pos.x() < titleBar->geometry().width()
+			&&pos.y() >= PIXELS_TO_ACT&&pos.y() < titleBar->geometry().height())
+		{
+			moveWidget = true;
+			dragPosition = e->globalPos() - frameGeometry().topLeft();
+		}
     }
 
     e->accept();

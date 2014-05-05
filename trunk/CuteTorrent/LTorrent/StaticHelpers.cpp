@@ -44,7 +44,7 @@ void StaticHelpers::dellDir(QString dirName)
 	}
 	catch (...)
 	{
-		//qDebug() << " exception caught int deldir";
+		qDebug() << " exception caught int deldir";
 	}
 	
 	
@@ -114,7 +114,7 @@ QString StaticHelpers::SchedulerTypeToString( SchedulerTask::TaskType type )
 	return "";
 }
 
-QString StaticHelpers::GetBaseSuffix( libtorrent::file_storage storrage )
+QString StaticHelpers::GetBaseSuffix(const libtorrent::file_storage& storrage )
 {
 	QString base_suffix;
 	int maxSuffix=0;

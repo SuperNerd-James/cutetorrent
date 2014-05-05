@@ -27,7 +27,7 @@ public:
     static StyleEngene *getInstance();
     QList<StyleInfo> getAvaliableStyles();
     void setStyle(QString internalName);
-    QIcon guessMimeIcon(QString suffix,QString& type=QString(""));
+    QIcon guessMimeIcon(const QString& suffix, QString &type=QString(""));
     StyleInfo getCuurentStyle();
     QIcon getIcon(QString name);
 private:

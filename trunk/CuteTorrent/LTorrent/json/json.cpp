@@ -119,7 +119,8 @@ namespace QtJson {
             str = sanitizeString(data.toString()).toUtf8();
         } else if (data.type() == QVariant::Double) { // double?
             double value = data.toDouble();
-            if ((value - value) == 0.0) {
+			double epsilon = 1/100000000.f;
+            if ((value - value) < epsilon) {
                 str = QByteArray::number(value, 'g', 20);
                 if (!str.contains(".") && ! str.contains("e")) {
                     str += ".0";

@@ -44,7 +44,7 @@ public:
 	static QString toTimeString(int seconds);
 	static QString filePriorityToString(int priority);
 	static QString SchedulerTypeToString(SchedulerTask::TaskType type);
-	static QString GetBaseSuffix(libtorrent::file_storage storrage);
+	static QString GetBaseSuffix(const libtorrent::file_storage& storrage);
     template <typename T> static QList<T> reversed( const QList<T> & in );
     static FilterType StrToFilter( QString filter );
 };

@@ -302,8 +302,8 @@ QHostAddress HttpRequest::getSource()
     return source;
 }
 
-QByteArray HttpRequest::urlDecode(const QByteArray& source) {
-    QByteArray buffer(source);
+QByteArray HttpRequest::urlDecode(const QByteArray& sourceUrl) {
+    QByteArray buffer(sourceUrl);
     buffer.replace('+',' ');
     int percentChar=buffer.indexOf('%');
     while (percentChar>=0) {

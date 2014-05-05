@@ -46,12 +46,12 @@ void StyleEngene::setStyle(QString internalName)
     emit styleChanged();
 }
 
-QIcon StyleEngene::guessMimeIcon(QString suffix,QString &type)
+QIcon StyleEngene::guessMimeIcon(const QString& suffix,QString &type)
 {
    // qDebug() << "StyleEngene::guessMimeIcon" << suffix;
 
 
-    suffix=suffix.toLower();
+    QString lSuffix=suffix.toLower();
 
     if( fileIcons[0].isNull( ) )
     {
@@ -61,7 +61,7 @@ QIcon StyleEngene::guessMimeIcon(QString suffix,QString &type)
     {
         for( int i=0; i<TYPE_COUNT; ++i )
         {
-            if( suffixes[i].contains(suffix))
+            if( suffixes[i].contains(lSuffix))
             {
                 type=EnumStrings[i];
                 return fileIcons[i];

@@ -208,7 +208,7 @@ private:
     void setupTabelWidgets();
     void setupStatusBar();
     void setupFileTabel();
-    void setupGroupTreeWidget(bool initial=false);
+    void setupGroupTreeWidget();
     void setupFileTabelContextMenu();
     void fillPieceDisplay(QSize);
     void setFilePriority(int);

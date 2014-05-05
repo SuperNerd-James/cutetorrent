@@ -41,7 +41,7 @@ StaticFileController::StaticFileController(QObject* parent)
 	}
 	catch (...)
 	{
-		
+		qDebug() << "Exception in StaticFileController::StaticFileController";
 	}
 	
     
