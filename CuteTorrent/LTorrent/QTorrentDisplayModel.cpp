@@ -126,7 +126,7 @@ void QTorrentDisplayModel::updateVisibleTorrents()
 	}
 	catch (...)
 	{
-
+		qDebug() << "Exception in QTorrentDisplayModel::updateVisibleTorrents";
 	}
 	locker->unlock();
 }
@@ -393,10 +393,12 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 			case remove_all:
 				{
                     if  (QMessageBox::Cancel != MyMessageBox::warning(parrent,tr("TORRENT_DELITION"),tr("TORRENT_ALL_DELITION_MSG"),QMessageBox::Ok | QMessageBox::Cancel))
-					foreach(int row,rows)
 					{
-						//qDebug() << "removing row " << row;
-						removeRow(row,true);
+						foreach(int row,rows)
+						{
+							//qDebug() << "removing row " << row;
+							removeRow(row,true);
+						}
 					}
 					break;
 				}
@@ -587,7 +589,9 @@ void QTorrentDisplayModel::playInPlayer()
 	
 	}
 	catch(...)
-	{}
+	{
+		qDebug() << "Exception in QTorrentDisplayModel::playInPlayer";
+	}
 }
 
 void QTorrentDisplayModel::setupContextMenu()
@@ -715,7 +719,7 @@ void QTorrentDisplayModel::changeGroup()
     }
     catch(...)
     {
-
+		qDebug() << "Exception in QTorrentDisplayModel::changeGroup";
     }
 
 

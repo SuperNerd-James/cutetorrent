@@ -45,10 +45,10 @@ QMap<QString,int> FileTreeModel::getFilePiorites()
     return res;
 }
 
-QStringList FileTreeModel::getUnickPathes()
+QStringList FileTreeModel::getUnicPathes()
 {
     QList<FileTreeItem*> ends;
-    getUnickPathes(rootItem,ends);
+    getUnicPathes(rootItem,ends);
     QStringList result;
     foreach (FileTreeItem* item, ends) {
         result.append(item->getPath());
@@ -56,7 +56,7 @@ QStringList FileTreeModel::getUnickPathes()
     return result;
 }
 
-void FileTreeModel::getUnickPathes(FileTreeItem *current, QList<FileTreeItem*> &ends)
+void FileTreeModel::getUnicPathes(FileTreeItem *current, QList<FileTreeItem*> &ends)
 {
     if (current && current->childCount() == 0) {
         ends.append(current);
@@ -64,7 +64,7 @@ void FileTreeModel::getUnickPathes(FileTreeItem *current, QList<FileTreeItem*> &
     } else {
         for(int i=0;i<current->childCount();i++) {
             FileTreeItem* child = current->child(i);
-            getUnickPathes(child,ends);
+            getUnicPathes(child,ends);
         }
     }
 }

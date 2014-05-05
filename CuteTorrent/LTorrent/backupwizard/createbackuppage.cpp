@@ -4,9 +4,9 @@
 CreateBackupPage::CreateBackupPage(QWidget *parent) :
     QWizardPage(parent)
 {
-    setTitle("CREATE_BAKUP_TITLE");
+    setTitle(tr("CREATE_BAKUP_TITLE"));
     layout = new QGridLayout;
-    messageLabel = new QLabel("BACKUP_CREATE_BAKUP_MESSAGE");
+    messageLabel = new QLabel(tr("BACKUP_CREATE_BAKUP_MESSAGE"));
     messageLabel->setWordWrap(true);
 
 
@@ -20,7 +20,7 @@ CreateBackupPage::CreateBackupPage(QWidget *parent) :
 
     browseButton = new QPushButton(this);
     browseButton->setObjectName(QString::fromUtf8("browseButton"));
-    browseButton->setText("Browse");
+    browseButton->setText(tr("Browse"));
     QObject::connect(browseButton,SIGNAL(clicked()),this,SLOT(browseButtonClick()));
     layout->addWidget(browseButton, 1, 1, 1, 1);
     setLayout(layout);

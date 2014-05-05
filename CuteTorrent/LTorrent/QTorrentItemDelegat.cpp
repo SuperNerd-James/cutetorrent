@@ -139,7 +139,7 @@ try
                   m.height()*3 + nameFM.lineSpacing() /*+ statusFM.lineSpacing()*/ +2* GUI_PAD + progressFM.lineSpacing() );
 }catch(...)
 {
-	//qDebug() << "exception in size hint";
+	qDebug() << "exception in size hint";
 }
 return QSize(0,0);
 }
@@ -162,7 +162,7 @@ QTorrentItemDelegat::sizeHint( const QStyleOptionViewItem  & option,
 	}
 	catch(...)
 	{
-		
+		qDebug() << "Exception in QTorrentItemDelegat::sizeHint";
 	}
 	return QSize(0,0);
     
@@ -185,7 +185,7 @@ QTorrentItemDelegat::paint( QPainter                    * painter,
 	}
 	catch (...)
 	{
-
+		qDebug() << "Excepion in QTorrentItemDelegat::paint";
 	}
     painter->restore( );
 
@@ -235,7 +235,12 @@ void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionVie
 
     initStyleOption(&opt,index);
 
-    QStyle *style = opt.widget ? opt.widget->style() : QApplication::style();
+    QStyle *style;
+	if (opt.widget != NULL) {
+		style = opt.widget->style();
+	}else {
+		style = QApplication::style();
+	}
 
     const int iconSize( style->pixelMetric( QStyle::PM_LargeIconSize ) );
     QFont nameFont( option.font );
