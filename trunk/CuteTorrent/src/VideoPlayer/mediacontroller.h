@@ -45,7 +45,6 @@ public:
 	Phonon::MediaController* mediaController() const;
 	bool isPlaying();
 public slots:
-	void contextMenuRequested(QPoint point);
 	void play();
 	void pause();
     void openFile();

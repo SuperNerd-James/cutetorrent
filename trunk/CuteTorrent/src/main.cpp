@@ -71,7 +71,7 @@ int main(int argc, char *argv[])
     bool minimize=false,debug=false;
 	QString file2open;
 
-
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     qsrand(time(NULL));
 	if (a.isRunning())
 	{
@@ -154,6 +154,6 @@ int main(int argc, char *argv[])
     if (debug && fp) {
         fclose(fp);
     }
-
+	_CrtDumpMemoryLeaks();
 	return res;
 }

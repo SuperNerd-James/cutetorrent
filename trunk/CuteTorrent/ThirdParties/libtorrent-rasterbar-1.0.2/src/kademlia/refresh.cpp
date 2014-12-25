@@ -43,20 +43,7 @@ namespace libtorrent { namespace dht
 	TORRENT_DECLARE_LOG(traversal);
 #endif
 
-refresh::refresh(
-	node_impl& node
-	, node_id target
-	, done_callback const& callback)
-	: get_peers(node, target, get_peers::data_callback(), callback, false)
-{
-}
-
-char const* refresh::name() const
-{
-	return "refresh";
-}
-
-observer_ptr refresh::new_observer(void* ptr
+observer_ptr bootstrap::new_observer(void* ptr
 	, udp::endpoint const& ep, node_id const& id)
 {
 	observer_ptr o(new (ptr) get_peers_observer(this, ep, id));
@@ -66,13 +53,17 @@ observer_ptr refresh::new_observer(void* ptr
 	return o;
 }
 
-bool refresh::invoke(observer_ptr o)
+bool bootstrap::invoke(observer_ptr o)
 {
 	entry e;
 	e["y"] = "q";
-	e["q"] = "find_node";
 	entry& a = e["a"];
-	a["target"] = target().to_string();
+
+	e["q"] = "get_peers";
+	a["info_hash"] = target().to_string();
+
+//	e["q"] = "find_node";
+//	a["target"] = target().to_string();
 	return m_node.m_rpc.invoke(e, o->target_ep(), o);
 }
 
@@ -80,7 +71,7 @@ bootstrap::bootstrap(
 	node_impl& node
 	, node_id target
 	, done_callback const& callback)
-	: refresh(node, target, callback)
+	: get_peers(node, target, get_peers::data_callback(), callback, false)
 {
 	// make it more resilient to nodes not responding.
 	// we don't want to terminate early when we're bootstrapping
@@ -88,6 +79,15 @@ bootstrap::bootstrap(
 }
 
 char const* bootstrap::name() const { return "bootstrap"; }
+
+void bootstrap::trim_seed_nodes()
+{
+	// when we're bootstrapping, we want to start as far away from our ID as
+	// possible, to cover as much as possible of the ID space. So, remove all
+	// nodes except for the 32 that are farthest away from us
+	if (m_results.size() > 32)
+		m_results.erase(m_results.begin(), m_results.end() - 32);
+}
 
 void bootstrap::done()
 {
@@ -103,7 +103,7 @@ void bootstrap::done()
 		// this will send a ping
 		m_node.add_node((*i)->target_ep());
 	}
-	refresh::done();
+	get_peers::done();
 }
 
 } } // namespace libtorrent::dht

@@ -266,11 +266,11 @@ void QBalloonTip::mousePressEvent(QMouseEvent *e)
 			}
 		case UpdateNotyfy :
 			{
-				QDesktopServices desctopService;
-				desctopService.openUrl(QUrl("https://code.google.com/p/cutetorrent/downloads/list"));
+				QDesktopServices::openUrl(QUrl("http://cutetorrent.info/downloads/"));
 				break;
 			}
 	}
+	e->accept();
 	finished=true;
 	close();
 	return;

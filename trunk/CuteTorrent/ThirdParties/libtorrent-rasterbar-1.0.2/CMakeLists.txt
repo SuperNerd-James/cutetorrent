@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 2.6)
 project(libtorrent)
+set (SOVERSION "8")
+set (VERSION "1.0.3")
 
 set(sources
 	web_connection_base
@@ -132,7 +134,6 @@ option(exceptions "build with exception support" ON)
 option(logging "build with logging" OFF)
 option(verbose-logging "build with verbose logging" OFF)
 option(build_tests "build tests" OFF)
-option(build_examples "build examples" ON)
 
 set(CMAKE_CONFIGURATION_TYPES Debug Release RelWithDebInfo)
 
@@ -152,6 +153,8 @@ if (build_tests)
 	# DLL interface, for the tests to access
 	add_definitions(-DTORRENT_EXPORT_EXTRA)
 endif (build_tests)
+
+include_directories(${includes})
 
 if (encryption)
 	list(APPEND sources pe_crypto asio_ssl)
@@ -233,8 +236,10 @@ endif()
 
 if (WIN32)
 	target_link_libraries(torrent-rasterbar wsock32 ws2_32)
-	add_definitions(-D_WIN32_WINNT=0x0500)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP") # multicore compilation
+	add_definitions(-D_WIN32_WINNT=0x0600)
+	if (MSVC)
+		set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /MP") # multicore compilation
+	endif()
 endif()
 
 if (encryption)
@@ -293,17 +298,16 @@ add_definitions(-D_FILE_OFFSET_BITS=64)
 add_definitions(-DBOOST_EXCEPTION_DISABLE)
 add_definitions(-DBOOST_ASIO_ENABLE_CANCELIO)
 
+if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+	add_definitions(-fcolor-diagnostics)
+endif()
+
 if (tcmalloc)
 	target_link_libraries(torrent-rasterbar tcmalloc)
 endif()
 
-include_directories(${includes})
-
 set_target_properties(torrent-rasterbar PROPERTIES
-	SOVERSION 1
-	VERSION 1)
-
-set (VERSION "1.0.2")
+	SOVERSION ${SOVERSION})
 
 get_property (COMPILETIME_OPTIONS_LIST
 	DIRECTORY ${CMAKE_CURRENT_SOURCE_DIRECTORY}
@@ -313,9 +317,7 @@ foreach (s ${COMPILETIME_OPTIONS_LIST})
 	set (COMPILETIME_OPTIONS "${COMPILETIME_OPTIONS} -D${s}")
 endforeach (s)
 
-if (MSVC)
-	configure_file(libtorrent-rasterbar-cmake.pc.in libtorrent-rasterbar.pc)
-endif()
+configure_file(libtorrent-rasterbar-cmake.pc.in libtorrent-rasterbar.pc)
 
 string (COMPARE EQUAL "${CMAKE_SIZEOF_VOID_P}" "8" IS64BITS)
 
@@ -325,23 +327,16 @@ else()
 	set (LIBDIR "lib")
 endif()
 
-install(TARGETS torrent-rasterbar DESTINATION ${LIBDIR} CONFIGURATIONS release)
+install(TARGETS torrent-rasterbar DESTINATION ${LIBDIR})
 install(DIRECTORY include/libtorrent
 	DESTINATION include
 	PATTERN ".svn" EXCLUDE)
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/libtorrent-rasterbar.pc DESTINATION ${LIBDIR}/pkgconfig)
 
-# === build examples ===
-if(build_examples)
-	FILE(GLOB examples RELATIVE "${PROJECT_SOURCE_DIR}" "examples/*.cpp")
-	foreach(s ${examples})
-		get_filename_component (sn ${s} NAME_WE)
-		add_executable(${sn} ${s})
-		target_link_libraries(${sn} torrent-rasterbar)
-	endforeach(s)
-
-	include_directories(${Boost_INCLUDE_DIR})
-endif()
+# === set up examples directory as an independent project ===
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/examples)
+configure_file(examples/run_cmake.sh.in examples/run_cmake.sh)
+# to build the examples, run examples/run_cmake.sh after building libtorrent
 
 # === build tests ===
 if(build_tests)

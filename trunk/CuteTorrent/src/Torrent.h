@@ -38,7 +38,7 @@ class Torrent : public QObject
 		
 private:
 	bool m_hasMedia;
-	torrent_handle cur_torrent;
+	torrent_handle m_hTorrent;
 	libtorrent::size_type size;
 	QIcon icon;
 	QString ErrorString;
@@ -72,7 +72,7 @@ public :
 	QString GetType();
 	QString GetDiscribtion();
 	int GetStatus();
-	//QString GetHashString() const;
+	torrent_handle& GetInternalHandle();
 	QString GetInfoHash();
 	int GetProgress() const;
 	int GetPeerCount();

@@ -66,7 +66,7 @@ BOOL IsWow64()
 }
 
 #endif
-SettingsDialog::SettingsDialog(QWidget* parrent, int flags) : BaseWindow(BaseWindow::OnlyCloseButton,BaseWindow::NoResize)
+SettingsDialog::SettingsDialog(QWidget* parrent, int flags) : BaseWindow(BaseWindow::OnlyCloseButton, BaseWindow::NoResize)
 {
     setupUi(this);
     previousFocuse=NULL;
@@ -892,8 +892,7 @@ void SettingsDialog::OpenWebUI()
     RconWebService* svc = RconWebService::getInstance();
     if (svc->isRunning())
     {
-        QDesktopServices desctopService;
-        desctopService.openUrl(QUrl("http://localhost:"+webPortLineEdit->text()+"/"));
+        QDesktopServices::openUrl(QUrl("http://localhost:"+webPortLineEdit->text()+"/"));
     }
     RconWebService::freeInstance();
 }

@@ -128,12 +128,13 @@ am__EXEEXT_1 = test_bitfield$(EXEEXT) test_file$(EXEEXT) \
 	test_string$(EXEEXT) test_primitives$(EXEEXT) \
 	test_http_parser$(EXEEXT) test_magnet$(EXEEXT) \
 	test_packet_buffer$(EXEEXT) test_read_piece$(EXEEXT) \
-	test_rss$(EXEEXT) test_ssl$(EXEEXT) test_storage$(EXEEXT) \
-	test_swarm$(EXEEXT) test_threads$(EXEEXT) \
-	test_torrent$(EXEEXT) test_torrent_parse$(EXEEXT) \
-	test_tracker$(EXEEXT) test_trackers_extension$(EXEEXT) \
-	test_transfer$(EXEEXT) test_upnp$(EXEEXT) enum_if$(EXEEXT) \
-	test_utp$(EXEEXT) test_session$(EXEEXT) test_web_seed$(EXEEXT) \
+	test_resume$(EXEEXT) test_rss$(EXEEXT) test_ssl$(EXEEXT) \
+	test_storage$(EXEEXT) test_swarm$(EXEEXT) \
+	test_threads$(EXEEXT) test_torrent$(EXEEXT) \
+	test_torrent_parse$(EXEEXT) test_tracker$(EXEEXT) \
+	test_trackers_extension$(EXEEXT) test_transfer$(EXEEXT) \
+	test_upnp$(EXEEXT) enum_if$(EXEEXT) test_utp$(EXEEXT) \
+	test_session$(EXEEXT) test_web_seed$(EXEEXT) \
 	test_url_seed$(EXEEXT) test_remap_files$(EXEEXT) \
 	test_gzip$(EXEEXT) test_utf8$(EXEEXT) test_socket_io$(EXEEXT) \
 	test_sliding_average$(EXEEXT)
@@ -286,6 +287,11 @@ test_remap_files_OBJECTS = $(am_test_remap_files_OBJECTS)
 test_remap_files_LDADD = $(LDADD)
 test_remap_files_DEPENDENCIES = libtest.la \
 	$(top_builddir)/src/libtorrent-rasterbar.la
+am_test_resume_OBJECTS = test_resume.$(OBJEXT)
+test_resume_OBJECTS = $(am_test_resume_OBJECTS)
+test_resume_LDADD = $(LDADD)
+test_resume_DEPENDENCIES = libtest.la \
+	$(top_builddir)/src/libtorrent-rasterbar.la
 am_test_rss_OBJECTS = test_rss.$(OBJEXT)
 test_rss_OBJECTS = $(am_test_rss_OBJECTS)
 test_rss_LDADD = $(LDADD)
@@ -437,17 +443,17 @@ SOURCES = $(libtest_la_SOURCES) $(enum_if_SOURCES) \
 	$(test_peer_priority_SOURCES) $(test_pex_SOURCES) \
 	$(test_piece_picker_SOURCES) $(test_primitives_SOURCES) \
 	$(test_privacy_SOURCES) $(test_read_piece_SOURCES) \
-	$(test_remap_files_SOURCES) $(test_rss_SOURCES) \
-	$(test_session_SOURCES) $(test_sliding_average_SOURCES) \
-	$(test_socket_io_SOURCES) $(test_ssl_SOURCES) \
-	$(test_storage_SOURCES) $(test_string_SOURCES) \
-	$(test_swarm_SOURCES) $(test_threads_SOURCES) \
-	$(test_torrent_SOURCES) $(test_torrent_parse_SOURCES) \
-	$(test_tracker_SOURCES) $(test_trackers_extension_SOURCES) \
-	$(test_transfer_SOURCES) $(test_upnp_SOURCES) \
-	$(test_url_seed_SOURCES) $(test_utf8_SOURCES) \
-	$(test_utp_SOURCES) $(test_web_seed_SOURCES) \
-	$(test_xml_SOURCES)
+	$(test_remap_files_SOURCES) $(test_resume_SOURCES) \
+	$(test_rss_SOURCES) $(test_session_SOURCES) \
+	$(test_sliding_average_SOURCES) $(test_socket_io_SOURCES) \
+	$(test_ssl_SOURCES) $(test_storage_SOURCES) \
+	$(test_string_SOURCES) $(test_swarm_SOURCES) \
+	$(test_threads_SOURCES) $(test_torrent_SOURCES) \
+	$(test_torrent_parse_SOURCES) $(test_tracker_SOURCES) \
+	$(test_trackers_extension_SOURCES) $(test_transfer_SOURCES) \
+	$(test_upnp_SOURCES) $(test_url_seed_SOURCES) \
+	$(test_utf8_SOURCES) $(test_utp_SOURCES) \
+	$(test_web_seed_SOURCES) $(test_xml_SOURCES)
 DIST_SOURCES = $(libtest_la_SOURCES) $(enum_if_SOURCES) \
 	$(test_auto_unchoke_SOURCES) $(test_bandwidth_limiter_SOURCES) \
 	$(test_bdecode_performance_SOURCES) $(test_bencoding_SOURCES) \
@@ -463,17 +469,17 @@ DIST_SOURCES = $(libtest_la_SOURCES) $(enum_if_SOURCES) \
 	$(test_peer_priority_SOURCES) $(test_pex_SOURCES) \
 	$(test_piece_picker_SOURCES) $(test_primitives_SOURCES) \
 	$(test_privacy_SOURCES) $(test_read_piece_SOURCES) \
-	$(test_remap_files_SOURCES) $(test_rss_SOURCES) \
-	$(test_session_SOURCES) $(test_sliding_average_SOURCES) \
-	$(test_socket_io_SOURCES) $(test_ssl_SOURCES) \
-	$(test_storage_SOURCES) $(test_string_SOURCES) \
-	$(test_swarm_SOURCES) $(test_threads_SOURCES) \
-	$(test_torrent_SOURCES) $(test_torrent_parse_SOURCES) \
-	$(test_tracker_SOURCES) $(test_trackers_extension_SOURCES) \
-	$(test_transfer_SOURCES) $(test_upnp_SOURCES) \
-	$(test_url_seed_SOURCES) $(test_utf8_SOURCES) \
-	$(test_utp_SOURCES) $(test_web_seed_SOURCES) \
-	$(test_xml_SOURCES)
+	$(test_remap_files_SOURCES) $(test_resume_SOURCES) \
+	$(test_rss_SOURCES) $(test_session_SOURCES) \
+	$(test_sliding_average_SOURCES) $(test_socket_io_SOURCES) \
+	$(test_ssl_SOURCES) $(test_storage_SOURCES) \
+	$(test_string_SOURCES) $(test_swarm_SOURCES) \
+	$(test_threads_SOURCES) $(test_torrent_SOURCES) \
+	$(test_torrent_parse_SOURCES) $(test_tracker_SOURCES) \
+	$(test_trackers_extension_SOURCES) $(test_transfer_SOURCES) \
+	$(test_upnp_SOURCES) $(test_url_seed_SOURCES) \
+	$(test_utf8_SOURCES) $(test_utp_SOURCES) \
+	$(test_web_seed_SOURCES) $(test_xml_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -891,6 +897,7 @@ test_programs = \
   test_magnet                \
   test_packet_buffer         \
   test_read_piece            \
+  test_resume                \
   test_rss                   \
   test_ssl                   \
   test_storage               \
@@ -1006,6 +1013,7 @@ test_packet_buffer_SOURCES = test_packet_buffer.cpp
 test_read_piece_SOURCES = test_read_piece.cpp
 test_storage_SOURCES = test_storage.cpp
 test_swarm_SOURCES = test_swarm.cpp
+test_resume_SOURCES = test_resume.cpp
 test_rss_SOURCES = test_rss.cpp
 test_ssl_SOURCES = test_ssl.cpp
 test_threads_SOURCES = test_threads.cpp
@@ -1204,6 +1212,10 @@ test_remap_files$(EXEEXT): $(test_remap_files_OBJECTS) $(test_remap_files_DEPEND
 	@rm -f test_remap_files$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_remap_files_OBJECTS) $(test_remap_files_LDADD) $(LIBS)
 
+test_resume$(EXEEXT): $(test_resume_OBJECTS) $(test_resume_DEPENDENCIES) $(EXTRA_test_resume_DEPENDENCIES) 
+	@rm -f test_resume$(EXEEXT)
+	$(AM_V_CXXLD)$(CXXLINK) $(test_resume_OBJECTS) $(test_resume_LDADD) $(LIBS)
+
 test_rss$(EXEEXT): $(test_rss_OBJECTS) $(test_rss_DEPENDENCIES) $(EXTRA_test_rss_DEPENDENCIES) 
 	@rm -f test_rss$(EXEEXT)
 	$(AM_V_CXXLD)$(CXXLINK) $(test_rss_OBJECTS) $(test_rss_LDADD) $(LIBS)
@@ -1323,6 +1335,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_privacy.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_read_piece.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_remap_files.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_resume.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_rss.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_session.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test_sliding_average.Po@am__quote@
@@ -1761,6 +1774,13 @@ test_packet_buffer.log: test_packet_buffer$(EXEEXT)
 test_read_piece.log: test_read_piece$(EXEEXT)
 	@p='test_read_piece$(EXEEXT)'; \
 	b='test_read_piece'; \
+	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
+	--log-file $$b.log --trs-file $$b.trs \
+	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \
+	"$$tst" $(AM_TESTS_FD_REDIRECT)
+test_resume.log: test_resume$(EXEEXT)
+	@p='test_resume$(EXEEXT)'; \
+	b='test_resume'; \
 	$(am__check_pre) $(LOG_DRIVER) --test-name "$$f" \
 	--log-file $$b.log --trs-file $$b.trs \
 	$(am__common_driver_flags) $(AM_LOG_DRIVER_FLAGS) $(LOG_DRIVER_FLAGS) -- $(LOG_COMPILE) \

@@ -74,7 +74,9 @@ HEADERS += ./application.h \
     ./backupwizard/intropage.h \
     ./backupwizard/createbackuppage.h \
     ./backupwizard/applybackuppage.h \
-    ./backupwizard/finishpage.h
+    ./backupwizard/finishpage.h \
+    $$PWD/FileViewSortProxyModel.h \
+    $$PWD/FileViewTreeItem.h
 
 SOURCES += ./application.cpp \
     ./DT_mounter.cpp \
@@ -122,7 +124,6 @@ SOURCES += ./application.cpp \
     ./OpenTorrentDialog.cpp \
     ./peicedisplaywidget.cpp \
     ./QBaloon.cpp \
-    ./QTorrentListView.cpp \
     ./SettingsDialog.cpp \
     ./FileSizeItemDelegate.cpp \
     ./PriorityItemDelegate.cpp \
@@ -142,7 +143,9 @@ SOURCES += ./application.cpp \
     ./backupwizard/intropage.cpp \
     ./backupwizard/createbackuppage.cpp \
     ./backupwizard/applybackuppage.cpp \
-    ./backupwizard/finishpage.cpp
+    ./backupwizard/finishpage.cpp \
+    $$PWD/FileViewSortProxyModel.cpp \
+    $$PWD/FileViewTreeItem.cpp
 FORMS += ./CreateTorrentDialog.ui \
     ./customWindow/CustomWindow.ui \
     ./VideoPlayer/MediaControls.ui \

@@ -518,6 +518,10 @@ bool TorrentManager::AddTorrent(QString path, QString save_path, QString name, e
 		{
 			group = QString::fromStdString(i->string());
 		}
+		if (entry* i = e.find_key("save_path"))
+		{
+			save_path = QString::fromStdString(i->string());
+		}
     }
     if (!filePriorities.isEmpty())
     {
@@ -750,6 +754,7 @@ void TorrentManager::onClose()
     writeSettings();
     int num_outstanding_resume_data = 0;
     std::vector<torrent_status> temp;
+	ses->pause();
     ses->get_torrent_status(&temp, &yes, 0);
     for (std::vector<torrent_status>::iterator i = temp.begin();
          i != temp.end(); ++i)
@@ -773,7 +778,7 @@ void TorrentManager::onClose()
         printf("\r%d  ", num_outstanding_resume_data);
 
     }
-    //qDebug() << "waiting for resume data " << num_outstanding_resume_data << "\n";
+    qDebug() << "waiting for resume data " << num_outstanding_resume_data << "\n";
     QString dataDir;
 #ifdef Q_WS_MAC
     dataDir="/Library/CuteTorrent/";

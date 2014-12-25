@@ -42,11 +42,6 @@ QObject(parent)
 }
 
 
-void MediaController::contextMenuRequested(QPoint point)
-{
-
-}
-
 Phonon::MediaObject *MediaController::mediaObject() const
 {
     return m_pMedia;
@@ -179,25 +174,28 @@ void MediaController::playFile( QString file )
 		if (m_LastDir != dir.absolutePath())
 		{
 			m_LastDir = dir.absolutePath();
-			QStringList namefilters;
-			namefilters << "*.mkv";
-			namefilters << "*.avi";
-			namefilters << "*.mp4";
-			namefilters << "*.m2ts";
-			namefilters << "*.mpg";
-			namefilters << "*.mpeg";
-			namefilters << "*.mp3";
-			namefilters << "*.aac";
-			namefilters << "*.ac3";
-			namefilters << "*.aiff";
-			namefilters << "*.flac";
-			namefilters << "*.m4a";
-			namefilters << "*.mpc";
-			namefilters << "*.nsf";
-			namefilters << "*.oga";
-			namefilters << "*.ogg";
-			namefilters << "*.wav";
-			namefilters << "*.wma";
+			static QStringList namefilters;
+			if (namefilters.empty())
+			{
+				namefilters << "*.mkv";
+				namefilters << "*.avi";
+				namefilters << "*.mp4";
+				namefilters << "*.m2ts";
+				namefilters << "*.mpg";
+				namefilters << "*.mpeg";
+				namefilters << "*.mp3";
+				namefilters << "*.aac";
+				namefilters << "*.ac3";
+				namefilters << "*.aiff";
+				namefilters << "*.flac";
+				namefilters << "*.m4a";
+				namefilters << "*.mpc";
+				namefilters << "*.nsf";
+				namefilters << "*.oga";
+				namefilters << "*.ogg";
+				namefilters << "*.wav";
+				namefilters << "*.wma";
+			}
 			m_playList = dir.entryList(namefilters);
 			m_playListPosition = m_playList.indexOf(QFileInfo(file).fileName());
 			if (m_playListPosition < 0)

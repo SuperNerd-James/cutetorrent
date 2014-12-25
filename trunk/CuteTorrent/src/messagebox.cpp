@@ -117,7 +117,7 @@ QMessageBox::StandardButton MyMessageBox::showNewMessageBox(QWidget *parent, QMe
                                                           QMessageBox::StandardButtons buttons,
                                                           QMessageBox::StandardButton defaultButton)
 {
-    MyMessageBox msgBox  =  MyMessageBox(icon,title,text,buttons);
+	MyMessageBox msgBox = MyMessageBox(icon, title, text, buttons, parent);
     msgBox.showDialog();
     return msgBox._clickedButton();
 }

@@ -34,8 +34,6 @@ FileTreeModel::FileTreeModel(QObject *parent)
 {
 	QPair<QString,QString> rootData=qMakePair(tr("Имя") ,tr("Размер"));
 	rootItem = new FileTreeItem(rootData);
-	
-	//setupModelData(data.split(QString("\n")), rootItem);
 }
 QMap<QString,qint8> FileTreeModel::getFilePiorites()
 {

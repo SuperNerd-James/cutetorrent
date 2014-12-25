@@ -23,7 +23,7 @@ if $(BOOST_ROOT)
 	use-project /boost : $(BOOST_ROOT) ;
 }
 
-VERSION = 1.0.2 ;
+VERSION = 1.0.3 ;
 
 rule coverage ( properties * )
 {
@@ -86,6 +86,8 @@ rule linking ( properties * )
 		&& ( <variant>debug in $(properties)
 			|| <asserts>on in $(properties)
 			|| <asserts>production in $(properties)
+			|| <pool-allocators>debug in $(properties)
+			|| <allocator>debug in $(properties)
 			|| <asio-debugging>on in $(properties) )
 	{
 		result += <library>dbghelp ;
@@ -159,8 +161,11 @@ rule linking ( properties * )
 		&& ( <variant>debug in $(properties)
 			|| <asserts>on in $(properties)
 			|| <asserts>production in $(properties)
+			|| <pool-allocators>debug in $(properties)
+			|| <allocator>debug in $(properties)
 			|| <asio-debugging>on in $(properties) )
 	{
+		ECHO $(properties) ;
 		# for backtraces in assertion failures
 		# which only works on ELF targets with gcc
 		result += <linkflags>-export-dynamic <cxxflags>-rdynamic ;
@@ -184,7 +189,9 @@ rule linking ( properties * )
 				result += <library>/boost/system//boost_system/<link>static ;
 			}
 
-			if <toolset>gcc in $(properties) && <link>shared in $(properties)
+			if <toolset>gcc in $(properties)
+				&& ! <target-os>windows in $(properties)
+				&& <link>shared in $(properties)
 			{
 				result += <fpic>on ;
 			}
@@ -279,7 +286,7 @@ rule building ( properties * )
 		result += <source>src/sha1.cpp ;
 	}
 
-	if ! ( <encryption>off in $(properties) )
+	if ! <encryption>off in $(properties)
 	{
 		result += <source>src/pe_crypto.cpp ;
 	}
@@ -358,8 +365,8 @@ feature iconv : auto on off : composite propagated ;
 feature.compose <iconv>on : <define>TORRENT_USE_ICONV=1 ;
 feature.compose <iconv>off : <define>TORRENT_USE_ICONV=0 ;
 
-feature valgrind : off on : composite propagated link-incompatible ;
-feature.compose <valgrind>on : <define>TORRENT_USE_VALGRIND=1 ;
+feature use-valgrind : off on : composite propagated link-incompatible ;
+feature.compose <use-valgrind>on : <define>TORRENT_USE_VALGRIND=1 ;
 
 feature full-stats : on off : composite propagated link-incompatible ;
 feature.compose <full-stats>off : <define>TORRENT_DISABLE_FULL_STATS ;
@@ -458,6 +465,27 @@ feature.compose <fpic>off : <toolset>darwin:<cflags>-mdynamic-no-pic ;
 # controls whether or not to export some internal
 # libtorrent functions. Used for unit testing
 feature export-extra : off on : composite propagated ;
+
+
+# this is a trick to get filename paths to targets to become shorter
+# making it possible to build on windows, especially mingw seems particular
+variant test_release
+	: release : <asserts>production <debug-symbols>on
+	  <invariant-checks>full <boost-link>shared
+	  <export-extra>on <debug-iterators>on <boost>source <threading>multi
+	;
+variant test_debug : debug
+	: <encryption>openssl <statistics>on <logging>verbose <disk-stats>on
+	  <dht>logging <request-log>on <allocator>debug <debug-iterators>on
+	  <invariant-checks>full <boost-link>shared
+	  <export-extra>on <debug-iterators>on <boost>source <threading>multi
+	;
+variant test_barebones : debug
+	: <ipv6>off <dht>off <extensions>off <logging>none <boost-link>shared
+	  <deprecated-functions>off <invariant-checks>off
+	  <export-extra>on <debug-iterators>on <boost>source <threading>multi
+	;
+
 
 # required for openssl on windows
 lib ssleay32 : : <name>ssleay32 ;
@@ -660,6 +688,9 @@ local usage-requirements =
 # disable some warnings for gcc
 	<toolset>gcc:<cflags>-fno-strict-aliasing
 	<toolset>gcc:<cflags>-Wno-missing-braces
+# suppress warnings caused by boost using c++11 features even when not
+# in c++11 mode
+	<toolset>darwin:<cxxflags>-Wno-c++11-extensions
 # assert on integer overflow
 	<boost>system:<cxxflags>$(CXXFLAGS)
 	<boost>system:<linkflags>$(LDFLAGS)

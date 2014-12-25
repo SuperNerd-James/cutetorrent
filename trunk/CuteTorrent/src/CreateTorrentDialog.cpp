@@ -379,3 +379,4 @@ void torrentCreatorThread::run() {
 	//qDebug() << "torrentCreatorThread finished";
 }
 
+//#include "moc_CreateTorrentDialog.cpp"

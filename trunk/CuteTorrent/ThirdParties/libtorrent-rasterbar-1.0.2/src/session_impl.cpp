@@ -709,9 +709,9 @@ namespace aux {
 		memset(m_redundant_bytes, 0, sizeof(m_redundant_bytes));
 		m_udp_socket.set_rate_limit(m_settings.dht_upload_rate_limit);
 
-		m_udp_socket.subscribe(&m_tracker_manager);
 		m_udp_socket.subscribe(&m_utp_socket_manager);
 		m_udp_socket.subscribe(this);
+		m_udp_socket.subscribe(&m_tracker_manager);
 
 		m_disk_queues[0] = 0;
 		m_disk_queues[1] = 0;
@@ -1972,7 +1972,7 @@ namespace aux {
 		{
 			error_code ec;
 
-#if TORRENT_USE_IPV6
+#if TORRENT_USE_IPV6 && defined IPV6_TCLASS
 			if (m_udp_socket.local_endpoint(ec).address().is_v6())
 				m_udp_socket.set_option(traffic_class(s.peer_tos), ec);
 			else
@@ -2397,7 +2397,7 @@ retry:
 
 		if (m_settings.peer_tos != 0) {
 
-#if TORRENT_USE_IPV6
+#if TORRENT_USE_IPV6 && defined IPV6_TCLASS
 			if (m_udp_socket.local_endpoint(ec).address().is_v6())
 				m_udp_socket.set_option(traffic_class(m_settings.peer_tos), ec);
 			else
@@ -4140,8 +4140,10 @@ retry:
 	{
 		TORRENT_ASSERT(m_dht);
 		m_dht_torrents.push_back(t);
-		// trigger a DHT announce right away if we just
-		// added a new torrent and there's no back-log
+		// trigger a DHT announce right away if we just added a new torrent and
+		// there's no back-log. in the timer handler, as long as there are more
+		// high priority torrents to be announced to the DHT, it will keep the
+		// timer interval short until all torrents have been announced.
 		if (m_dht_torrents.size() == 1)
 		{
 #if defined TORRENT_ASIO_DEBUGGING

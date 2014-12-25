@@ -42,13 +42,11 @@ DOCS_IMAGES = \
   docs/utp_stack.diagram          \
   docs/utp_stack.png              \
   docs/style.css                  \
-  docs/base.css                   \
   docs/rst.css                    \
   docs/img/bg.png                 \
   docs/img/blue_bottom.png        \
   docs/img/blue_top.png           \
   docs/img/dotline.gif            \
-  docs/img/logo.png               \
   docs/img/minus.gif              \
   docs/img/orange.png
 
@@ -71,6 +69,7 @@ DOCS_PAGES = \
   docs/troubleshooting.html       \
   docs/udp_tracker_protocol.html  \
   docs/utp.html                   \
+  docs/streaming.html             \
   docs/building.rst               \
   docs/client_test.rst            \
   docs/contributing.rst           \
@@ -89,6 +88,7 @@ DOCS_PAGES = \
   docs/troubleshooting.rst        \
   docs/udp_tracker_protocol.rst   \
   docs/utp.rst                    \
+  docs/streaming.rst              \
   docs/reference-Alerts.html      \
   docs/reference-Bencoding.html   \
   docs/reference-Core.html        \
@@ -120,11 +120,8 @@ EXTRA_DIST = \
   Jamfile \
   Jamroot.jam \
   CMakeLists.txt \
+  setup.py \
   LICENSE \
-  bindings/python/compile_flags  \
-  bindings/python/link_flags  \
-  libtorrent-rasterbar.pc  \
-  libtorrent-rasterbar-cmake.pc  \
   $(DOCS_PAGES) \
   $(DOCS_IMAGES) \
   $(ED25519_SOURCE)

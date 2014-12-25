@@ -156,10 +156,14 @@ BOOST_STATIC_ASSERT((libtorrent::file::rw_mask & libtorrent::file::attribute_mas
 BOOST_STATIC_ASSERT((libtorrent::file::no_buffer & libtorrent::file::attribute_mask) == 0);
 #endif
 
-#ifdef TORRENT_WINDOWS
-#if defined UNICODE && !TORRENT_USE_WSTRING
-#warning wide character support not available. Files will be saved using narrow string names
+#if defined TORRENT_WINDOWS && defined UNICODE && !TORRENT_USE_WSTRING
+
+#ifdef _MSC_VER
+#pragma message ( "wide character support not available. Files will be saved using narrow string names" )
+#else
+#warning "wide character support not available. Files will be saved using narrow string names"
 #endif
+
 #endif // TORRENT_WINDOWS
 
 namespace libtorrent
@@ -1927,6 +1931,9 @@ typedef struct _FILE_ALLOCATED_RANGE_BUFFER {
 		fm.fiemap.fm_extent_count = 1;
 
 		if (ioctl(m_fd, FS_IOC_FIEMAP, &fm) == -1)
+			return 0;
+
+		if (fm.fiemap.fm_mapped_extents != 1)
 			return 0;
 
 		if (fm.fiemap.fm_extents[0].fe_flags & FIEMAP_EXTENT_UNKNOWN)
