@@ -178,7 +178,7 @@ def main():
         port=6881
       , max_download_rate=0
       , max_upload_rate=0
-      , save_path='./'
+      , save_path='.'
       , allocation_mode='compact'
       , proxy_host=''
     )
@@ -229,8 +229,7 @@ def main():
         if f.startswith('magnet:') or f.startswith('http://') or f.startswith('https://'):
             atp["url"] = f
         else:
-            e = lt.bdecode(open(f, 'rb').read())
-            info = lt.torrent_info(e)
+            info = lt.torrent_info(f)
             print('Adding \'%s\'...' % info.name())
 
             try:

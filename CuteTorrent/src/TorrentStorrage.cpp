@@ -316,8 +316,10 @@ void TorrentStorrage::filterByGroup()
 {
     for(int i=0;i<torrents.count();i++)
 	{
+		qDebug() << torrents[i].value()->GetName() << torrents[i].value()->GetGroup() << groupFilter;
         if (torrents[i].value()->GetGroup().compare (groupFilter,Qt::CaseInsensitive)==0)
 		{
+			qDebug() << "chosen";
 			filteredTorrents.append(torrents[i]);
 		}
     }

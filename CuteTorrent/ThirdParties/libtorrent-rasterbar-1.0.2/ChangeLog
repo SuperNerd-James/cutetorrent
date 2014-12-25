@@ -1,3 +1,25 @@
+1.0.3 release
+
+	* python binding build fix for boost-1.57.0
+	* add --enable-export-all option to configure script, to export all symbols
+	  from libtorrent
+	* fix if_nametoindex build error on windows
+	* handle overlong utf-8 sequences
+	* fix link order bug in makefile for python binding
+	* fix bug in interest calculation, causing premature disconnects
+	* tweak flag_override_resume_data semantics to make more sense (breaks
+	  backwards compatibility of edge-cases)
+	* improve DHT bootstrapping and periodic refresh
+	* improve DHT maintanence performance (by pinging instead of full lookups)
+	* fix bug in DHT routing table node-id prefix optimization
+	* fix incorrect behavior of flag_use_resume_save_path
+	* fix protocol race-condition in super seeding mode
+	* support read-only DHT nodes
+	* remove unused partial hash DHT lookups
+	* remove potentially privacy leaking extension (non-anonymous mode)
+	* peer-id connection ordering fix in anonymous mode
+	* mingw fixes
+
 1.0.2 release
 
 	* added missing force_proxy to python binding
@@ -76,8 +98,15 @@
 	* fix uTP edge case where udp socket buffer fills up
 	* fix nagle implementation in uTP
 
+	* fix bug in error handling in protocol encryption
+
 0.16.18 release
 
+	* fix uninitialized values in DHT DOS mitigation
+	* fix error handling in file::phys_offset
+	* fix bug in HTTP scrape response parsing
+	* enable TCP keepalive for socks5 connection for UDP associate
+	* fix python3 support
 	* fix bug in lt_donthave extension
 	* expose i2p_alert to python. cleaning up of i2p connection code
 	* fixed overflow and download performance issue when downloading at high rates

@@ -211,7 +211,63 @@
       <property name="spacing">
        <number>0</number>
       </property>
-      <item row="0" column="0">
+      <item row="2" column="0">
+       <widget class="QToolBar" name="mainToolbar">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <kerning>true</kerning>
+         </font>
+        </property>
+        <property name="contextMenuPolicy">
+         <enum>Qt::NoContextMenu</enum>
+        </property>
+        <property name="windowTitle">
+         <string>toolBar</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QToolBar {
+border-bottom: none;
+border-top: none;
+spacing:3px;
+padding-right:2px;
+}
+</string>
+        </property>
+        <property name="movable">
+         <bool>false</bool>
+        </property>
+        <property name="toolButtonStyle">
+         <enum>Qt::ToolButtonIconOnly</enum>
+        </property>
+        <addaction name="ACTION_TOOLBAR_START"/>
+        <addaction name="ACTION_TOOLBAR_PAUSE"/>
+        <addaction name="ACTION_TOOLBAR_REMOVE"/>
+        <addaction name="ACTION_TOOLBAR_SETTINGS"/>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QStatusBar" name="mystatusBar">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>19</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
        <widget class="QMenuBar" name="mainMenuBar">
         <property name="enabled">
          <bool>true</bool>
@@ -276,56 +332,13 @@
         <addaction name="menu_CuteTorrent"/>
        </widget>
       </item>
-      <item row="1" column="0">
-       <widget class="QToolBar" name="mainToolbar">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <kerning>true</kerning>
-         </font>
-        </property>
-        <property name="contextMenuPolicy">
-         <enum>Qt::NoContextMenu</enum>
-        </property>
-        <property name="windowTitle">
-         <string>toolBar</string>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QToolBar {
-border-bottom: none;
-border-top: none;
-spacing:3px;
-padding-right:2px;
-}
-</string>
-        </property>
-        <property name="movable">
-         <bool>false</bool>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonIconOnly</enum>
-        </property>
-        <addaction name="ACTION_TOOLBAR_START"/>
-        <addaction name="ACTION_TOOLBAR_PAUSE"/>
-        <addaction name="ACTION_TOOLBAR_REMOVE"/>
-        <addaction name="ACTION_TOOLBAR_SETTINGS"/>
-       </widget>
-      </item>
-      <item row="2" column="0">
+      <item row="3" column="0">
        <layout class="QGridLayout" name="gridLayout_6">
         <property name="leftMargin">
-         <number>3</number>
+         <number>0</number>
         </property>
         <property name="rightMargin">
-         <number>3</number>
+         <number>0</number>
         </property>
         <property name="spacing">
          <number>0</number>
@@ -730,7 +743,7 @@ padding-right:2px;
             </attribute>
             <layout class="QGridLayout" name="gridLayout_5">
              <item row="0" column="0">
-              <widget class="QTableView" name="fileTableView">
+              <widget class="QTreeView" name="fileTableView">
                <property name="maximumSize">
                 <size>
                  <width>16777215</width>
@@ -745,19 +758,6 @@ padding-right:2px;
          </widget>
         </item>
        </layout>
-      </item>
-      <item row="3" column="0">
-       <widget class="QStatusBar" name="mystatusBar">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>19</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-       </widget>
       </item>
      </layout>
     </widget>

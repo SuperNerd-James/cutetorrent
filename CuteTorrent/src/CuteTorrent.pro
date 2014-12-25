@@ -11,15 +11,15 @@ DEFINES += QT_LARGEFILE_SUPPORT QT_DLL QT_PHONON_LIB
 INCLUDEPATH += ./qtsingleapplication/src \
     ../ThirdParties/boost_1_55_0 \
     ../ThirdParties/libtorrent-rasterbar-1.0.2/include \
-    ../build-CuteTorrent-Desktop-Release/GeneratedFiles \
+    ../build-CuteTorrent-Desktop-Release/GeneratedFiles/Release \
     . \
     ../build-CuteTorrent-Desktop-Release/GeneratedFiles/Release
-LIBS += -L"../ThirdParties/libtorrent-rasterbar-1.0.2/lib.x86" \
-    -L"../ThirdParties/boost_1_55_0/stage/lib.x86" \
+LIBS += -L"../ThirdParties/libtorrent-rasterbar-1.0.2/lib.x64" \
+    -L"../ThirdParties/boost_1_55_0/stage/lib.x64" \
 
 
 LIBS += -llibtorrent \
-
+        -lUser32
 
 
 DEPENDPATH += .

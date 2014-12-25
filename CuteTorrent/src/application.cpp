@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QFileOpenEvent>
 #include "application.h"
 #include <QDebug>
+#include <Windows.h>
 QTranslator* Application::current = 0;
 QTranslator* Application::currentQt = 0;
 Translators Application::translators;
@@ -168,4 +169,16 @@ void Application::setLanguageQt(QString &locale)
     {
         installTranslator(currentQt);
     }
+}
+
+bool Application::winEventFilter(MSG *message, long *result)
+{
+	UINT& msg = message->message;
+	if (msg == WM_QUERYENDSESSION || msg == WM_ENDSESSION)
+	{
+		*result = 1;
+		quit();
+		return true;
+	}
+	return QApplication::winEventFilter(message, result);
 }

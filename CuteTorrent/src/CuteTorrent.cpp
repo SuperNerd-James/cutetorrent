@@ -40,7 +40,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QShortcut>
 #include "messagebox.h"
 #include "backupwizard/backupwizard.h"
-
+#include "SearchEngine.h"
 Q_DECLARE_METATYPE(QList<int>)
 
 CuteTorrent::CuteTorrent(QWidget *parent)
@@ -52,6 +52,7 @@ CuteTorrent::CuteTorrent(QWidget *parent)
     Application::setLanguageQt(settings->valueString("System","Lang","ru_RU"));
 
     styleEngine = StyleEngene::getInstance();
+	m_pSearchEngine = new SearchEngine();
     styleEngine->setStyle(settings->valueString("System","Style","CuteTorrent"));
 	setWindowModality(Qt::NonModal);
     setupCustomeWindow();
@@ -70,10 +71,10 @@ CuteTorrent::CuteTorrent(QWidget *parent)
     setAcceptDrops(true);
     setupStatusBar();
     setupTray();
+	setupFileTabel();
     setupToolBar();
     setupListView();
     setupTabelWidgets();
-    setupFileTabel();
     setupGroupTreeWidget();
     setupConnections();
     setupKeyMappings();
@@ -105,6 +106,7 @@ CuteTorrent::CuteTorrent(QWidget *parent)
     torrents = TorrentStorrage::getInstance();
     QTimer::singleShot(10000,this,SLOT(CheckForUpdates()));
     Scheduller* sch=Scheduller::getInstance();
+	m_pSearchEngine->DoSerach(QString("sao"), Anime, 1);
 }
 void CuteTorrent::CheckForUpdates()
 {
@@ -166,8 +168,21 @@ void CuteTorrent::setupTabelWidgets()
 {
     trackerTableWidget->verticalHeader()->hide();
     trackerTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
-    trackerTableWidget->setColumnWidth(0,420);
-    trackerTableWidget->setColumnWidth(2,120);
+	QList<int> tracker_column_sizes = settings->value("Window", "trackers_sizes").value<QList<int>>();
+	if (tracker_column_sizes.count() > 0)
+	{
+		for (int i = 0; i < tracker_column_sizes.count(); i++)
+		{
+			trackerTableWidget->setColumnWidth(i, tracker_column_sizes.at(i));
+		}
+	}
+	else 
+	{
+		trackerTableWidget->setColumnWidth(0, 420);
+		trackerTableWidget->setColumnWidth(2, 120);
+
+	}
+
     trackerTableWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
     addTracker = new QAction(QIcon(":/MenuIcons/addTorrent.ico"),tr("ADD_TRACKER"),trackerTableWidget);
     addTracker->setObjectName("ACTION_OTHER_ADD_TRACKER");
@@ -176,7 +191,18 @@ void CuteTorrent::setupTabelWidgets()
     peerTableWidget->verticalHeader()->hide();
     peerTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
     peerTableWidget->setSortingEnabled(true);
-    peerTableWidget->setColumnWidth(2,50);
+	QList<int> peer_column_sizes = settings->value("Window", "peers_sizes").value<QList<int>>();
+	if (peer_column_sizes.count() > 0)
+	{
+		for (int i = 0; i < peer_column_sizes.count(); i++)
+		{
+			peerTableWidget->setColumnWidth(i, peer_column_sizes.at(i));
+		}
+	}
+	else
+	{
+		peerTableWidget->setColumnWidth(2, 50);
+	}
     peerTableWidget->setContextMenuPolicy(Qt::ActionsContextMenu);
     addPeer = new QAction(QIcon(":/MenuIcons/addTorrent.ico"),tr("ADD_PEER"),peerTableWidget);
     addPeer->setObjectName("ACTION_OTHER_ADD_PPER");
@@ -252,75 +278,14 @@ void CuteTorrent::setupConnections()
     //QObject::connect(mng,SIGNAL(AddTorrentGui(Torrent*)),model,SLOT(AddTorrent(Torrent*)));
     QObject::connect(notyfire,SIGNAL(showUpdateNitify(const QString &)),this,SLOT(ShowUpdateNitify(const QString &)));
     QObject::connect(notyfire,SIGNAL(showNoUpdateNitify(const QString &)),this,SLOT(ShowNoUpdateNitify(const QString &)));
-    QObject::connect(fileTableView,SIGNAL(customContextMenuRequested ( const QPoint &)),this,SLOT(FileTabContextMenu(const QPoint &)));
+    QObject::connect(fileTableView,SIGNAL(customContextMenuRequested ( const QPoint &)),fileViewModel,SLOT(FileTabContextMenu(const QPoint &)));
     QObject::connect(tManager,SIGNAL(initCompleted()),model,SLOT(initSessionFinished()));
     QObject::connect(model,SIGNAL(initCompleted()),this,SLOT(EnableNitifyShow()));
     QObject::connect(groupTreeWidget,SIGNAL(itemSelectionChanged()),this,SLOT(ChnageTorrentFilter()));
     QObject::connect(styleEngine,SIGNAL(styleChanged()),this,SLOT(initWindowIcons()));
     QObject::connect(styleEngine,SIGNAL(styleChanged()),model,SLOT(setupContextMenu()));
 	QObject::connect(listView, SIGNAL(doubleClicked(const QModelIndex &)), model, SLOT(OpenDirSelected()));
-}
-void CuteTorrent::FileTabContextMenu(const QPoint & point)
-{
-
-    QModelIndex qmi=fileTableView->indexAt(point);
-    if (qmi.isValid())
-    {
-        Torrent* tor = model->GetSelectedTorrent();
-        if (tor!=NULL)
-        {
-            files_info fileInfos = tor->GetFileDownloadInfo();
-            QModelIndex priorityIndex=proxymodel->index(qmi.row(),3);
-            int currentPriority=priorityIndex.data().toInt();
-            //qDebug() << qmi;
-            //qDebug() << qmi.data();
-            switch(currentPriority)
-            {
-            case 1:
-            case 2:
-                lowPriority->setChecked(true);
-                mediumPriority->setChecked(false);
-                highPriority->setChecked(false);
-                dontDownload->setChecked(false);
-                break;
-            case 3:
-            case 4:
-            case 5:
-                lowPriority->setChecked(false);
-                mediumPriority->setChecked(true);
-                highPriority->setChecked(false);
-                dontDownload->setChecked(false);
-                break;
-            case 6:
-            case 7:
-                lowPriority->setChecked(false);
-                mediumPriority->setChecked(false);
-                highPriority->setChecked(true);
-                dontDownload->setChecked(false);
-                break;
-            case 0:
-                highPriority->setChecked(false);
-                mediumPriority->setChecked(false);
-                highPriority->setChecked(false);
-                dontDownload->setChecked(true);
-                break;
-            default:
-                highPriority->setChecked(false);
-                mediumPriority->setChecked(false);
-                highPriority->setChecked(false);
-                dontDownload->setChecked(false);
-                break;
-            }
-            fileTabMenu->exec(fileTableView->mapToGlobal(point));
-        }
-
-    }
-    else
-    {
-
-        fileTableView->selectionModel()->reset();
-
-    }
+	QObject::connect(m_pSearchEngine, SIGNAL(GotResults()), this, SLOT(OnGotSerachResults()));
 }
 void CuteTorrent::ShowNoUpdateNitify(const QString & ver)
 {
@@ -499,9 +464,13 @@ void CuteTorrent::UpdateFileTab()
     Torrent* tor = model->GetSelectedTorrent();
     if (tor!=NULL)
     {
-        files_info infos = tor->GetFileDownloadInfo();
-        fileViewModel->setDataSource(infos);
-    }
+		if (fileViewModel->setDataSource(tor->GetInternalHandle())){
+			fileTableView->expand(proxymodel->index(0, 0));
+		}
+	}
+	else {
+		fileViewModel->setDataSource(torrent_handle());
+	}
 
 
 }
@@ -532,14 +501,6 @@ void CuteTorrent::changeEvent(QEvent *event)
     {
         retranslateUi(this);
 
-        openFile->setText(tr("FILETAB_OPEN_FILE"));
-        openDir->setText(tr("FILETAB_OPEN_FOLDER"));
-        priority->setTitle(tr("FILETAB_PRIORITY"));
-        lowPriority->setText(tr("FILETAB_PRIORITY_LOW"));
-        mediumPriority->setText(tr("FILETAB_PRIORITY_MEDIUM"));
-        highPriority->setText(tr("FILETAB_PRIORITY_HIGH"));
-        dontDownload->setText(tr("FILETAB_PRIORITY_ZERO"));
-
         minimizeAction->setText(tr("ACTION_HIDE"));
         maximizeAction->setText(tr("ACTION_MAXIMIZE_FULLSCREEN"));
         restoreAction->setText(tr("ACTION_MAXIMIZE"));
@@ -557,13 +518,13 @@ void CuteTorrent::changeEvent(QEvent *event)
         addTracker->setText(tr("ADD_TRACKER"));
         addPeer->setText(tr("ADD_PEER"));
 
-        __qtreewidgetitem->setText(0,tr("TORRENTS_ACTIVITY"));
-        __qtreewidgetitem1->setText(0,tr("DOWNLOADING_FLTR"));
-        __qtreewidgetitem2->setText(0,tr("SEEDING_FLTR"));
-        __qtreewidgetitem3->setText(0,tr("COMPLETED_FLTR"));
-        __qtreewidgetitem4->setText(0,tr("ACTIVE_FLTR"));
-        __qtreewidgetitem5->setText(0,tr("NOT_ACTIVE_FLTR"));
-        __qtreewidgetitem6->setText(0,tr("TORRENT_GROUPS"));
+        torrentTreeItem->setText(0,tr("TORRENTS_ACTIVITY"));
+        dlTreeItem->setText(0,tr("DOWNLOADING_FLTR"));
+        ulTreeItem->setText(0,tr("SEEDING_FLTR"));
+        completedTreeItem->setText(0,tr("COMPLETED_FLTR"));
+        activeTreeItem->setText(0,tr("ACTIVE_FLTR"));
+        inactiveTreeItem->setText(0,tr("NOT_ACTIVE_FLTR"));
+        groupsTreeItem->setText(0,tr("TORRENT_GROUPS"));
         ul->setSpecialValueText(tr("None"));
         dl->setSpecialValueText(tr("None"));
         fileViewModel->retranslateUI();
@@ -884,6 +845,24 @@ CuteTorrent::~CuteTorrent()
     settings->setValue("Window","selected_tab", tabWidget->currentIndex());
     settings->setValue("Window","horizontal_sizes",QVariant::fromValue(spliiter1->sizes()));
     settings->setValue("Window","vertical_sizes",QVariant::fromValue(spliiter->sizes()));
+	QList<int> peer_columns_sizes;
+	for (int i = 0; i < peerTableWidget->columnCount(); i++)
+	{
+		peer_columns_sizes.append(peerTableWidget->columnWidth(i));
+	}
+	settings->setValue("Window", "peers_sizes", QVariant::fromValue(peer_columns_sizes));
+	QList<int> tracker_columns_sizes;
+	for (int i = 0; i < trackerTableWidget->columnCount(); i++)
+	{
+		tracker_columns_sizes.append(trackerTableWidget->columnWidth(i));
+	}
+	settings->setValue("Window", "trackers_sizes", QVariant::fromValue(tracker_columns_sizes));
+	QList<int> file_columns_sizes;
+	for (int i = 0; i < 4; i++)
+	{
+		file_columns_sizes.append(fileTableView->columnWidth(i));
+	}
+	settings->setValue("Window", "files_sizes", QVariant::fromValue(file_columns_sizes));
     //qDebug() << "CuteTorrent::~CuteTorrent";
     TorrentTracker::freeInstance();
     RconWebService::freeInstance();
@@ -900,127 +879,40 @@ CuteTorrent::~CuteTorrent()
 
 void CuteTorrent::setupFileTabel()
 {
-    fileViewModel = new FileViewModel(this);
-    proxymodel = new QSortFilterProxyModel(this);
-    proxymodel->setSourceModel(fileViewModel);
+	
+	proxymodel = new FileViewSortProxyModel(this);
     fileTableView->setModel(proxymodel);
-    fileTableView->setShowGrid(false);
+	fileViewModel = new FileViewModel(fileTableView, this);
+	proxymodel->setSourceModel(fileViewModel);
+//    fileTableView->setShowGrid(false);
     fileTableView->setContextMenuPolicy(Qt::CustomContextMenu);
     fileTableView->setSelectionBehavior(QAbstractItemView::SelectRows);
     fileTableView->setItemDelegateForColumn(1,new FileSizeItemDelegate(this));
     fileTableView->setItemDelegateForColumn(2,new ProgressItemDelegate(this));
     fileTableView->setItemDelegateForColumn(3,new PriorityItemDelegate(this));
     fileTableView->setSortingEnabled(true);
-    fileTableView->setColumnWidth(0,480);
-    fileTableView->setColumnWidth(1,65);
-    fileTableView->setColumnWidth(2,65);
-    fileTableView->setColumnWidth(3,70);
-    setupFileTabelContextMenu();
-}
-void CuteTorrent::setupFileTabelContextMenu()
-{
-    fileTabMenu = new QMenu(this);
-    openFile = new QAction(tr("FILETAB_OPEN_FILE"), fileTabMenu);
-    openFile->setObjectName("ACTION_FILETAB_OPEN_FILE");
-    QObject::connect(openFile, SIGNAL(triggered()), this, SLOT(OpenFileSelected()));
-    fileTabMenu->addAction(openFile);
-    openDir = new QAction(tr("FILETAB_OPEN_FOLDER"), this);
-    openDir->setObjectName("ACTION_FILETAB_OPEN_DIR");
-    QObject::connect(openDir, SIGNAL(triggered()), this, SLOT(OpenDirSelected()));
-    fileTabMenu->addAction(openDir);
-    fileTabMenu->addSeparator();
-    priority = new QMenu(fileTabMenu);
-    priority->setTitle(tr("FILETAB_PRIORITY"));
-    lowPriority = new QAction(tr("FILETAB_PRIORITY_LOW"), fileTabMenu);
-    lowPriority->setObjectName("ACTION_FILETAB_LOW_PRIORITY");
-    lowPriority->setCheckable(true);
-    QObject::connect(lowPriority, SIGNAL(triggered()), this, SLOT(SetLowForCurrentFile()));
-    priority->addAction(lowPriority);
-    mediumPriority = new QAction(tr("FILETAB_PRIORITY_MEDIUM"), fileTabMenu);
-    mediumPriority->setObjectName("ACTION_FILETAB_MEDIUM_PRIORITY");
-    mediumPriority->setCheckable(true);
-    QObject::connect(mediumPriority, SIGNAL(triggered()), this, SLOT(SetMediumForCurrentFile()));
-    priority->addAction(mediumPriority);
-    highPriority = new QAction(tr("FILETAB_PRIORITY_HIGH"), fileTabMenu);
-    highPriority->setObjectName("ACTION_FILETAB_HIGH_PRIORITY");
-    highPriority->setCheckable(true);
-    QObject::connect(highPriority, SIGNAL(triggered()), this, SLOT(SetHighForCurrentFile()));
-    priority->addAction(highPriority);
-    fileTabMenu->addMenu(priority);
-    fileTabMenu->addSeparator();
-    dontDownload = new QAction(tr("FILETAB_PRIORITY_ZERO"), fileTabMenu);
-    dontDownload->setObjectName("ACTION_FILETAB_ZERO_PRIORITY");
-    dontDownload->setCheckable(true);
-    QObject::connect(dontDownload, SIGNAL(triggered()), this, SLOT(SetNotDownloadForCurrentFile()));
-    fileTabMenu->addAction(dontDownload);
 
-}
+	QList<int> file_column_sizes = settings->value("Window", "files_sizes").value<QList<int>>();
+	if (file_column_sizes.count() > 0)
+	{
+		for (int i = 0; i < file_column_sizes.count(); i++)
+		{
+			fileTableView->setColumnWidth(i, file_column_sizes.at(i));
+		}
+	}
+	else
+	{
+		fileTableView->setColumnWidth(0, 480);
+		fileTableView->setColumnWidth(1, 65);
+		fileTableView->setColumnWidth(2, 65);
+		fileTableView->setColumnWidth(3, 70);
+	}
+    
+	fileTableView->header()->setDefaultAlignment(Qt::AlignCenter);
+	fileTableView->header()->setSortIndicatorShown(true); // optional
+	fileTableView->header()->setClickable(true);
+ }
 
-void CuteTorrent::OpenFileSelected()
-{
-    Torrent* tor= model->GetSelectedTorrent();
-    if (tor!=NULL)
-    {
-        files_info info = tor->GetFileDownloadInfo();
-        int file_num=fileTableView->selectionModel()->currentIndex().row();
-        QDesktopServices desctopService;
-
-        QString path=QString::fromStdString(combine_path(tor->GetSavePath().toStdString(),info.storrage.file_path(file_num)));
-
-        desctopService.openUrl(QUrl("file:///"+path));
-    }
-}
-
-void CuteTorrent::OpenDirSelected()
-{
-    Torrent* tor= model->GetSelectedTorrent();
-    if (tor!=NULL)
-    {
-        int file_num=fileTableView->selectionModel()->currentIndex().row();
-        QModelIndex file_index = proxymodel->index(file_num,0);
-        QString path = QFileInfo(QDir::toNativeSeparators(tor->GetSavePath()+file_index.data().toString())).absoluteFilePath();
-
-#ifdef Q_WS_MAC
-        QStringList args;
-        args << "-e";
-        args << "tell application \"Finder\"";
-        args << "-e";
-        args << "activate";
-        args << "-e";
-        args << "select POSIX file \""+path+"\"";
-        args << "-e";
-        args << "end tell";
-        QProcess::startDetached("osascript", args);
-#endif
-
-#ifdef Q_WS_WIN
-        QStringList args;
-        args << "/select," << QDir::toNativeSeparators(path);
-        QProcess::startDetached("explorer", args);
-#endif
-
-    }
-}
-
-void CuteTorrent::SetLowForCurrentFile()
-{
-    setFilePriority(2);
-}
-
-void CuteTorrent::SetMediumForCurrentFile()
-{
-    setFilePriority(5);
-}
-
-void CuteTorrent::SetHighForCurrentFile()
-{
-    setFilePriority(7);
-}
-
-void CuteTorrent::SetNotDownloadForCurrentFile()
-{
-    setFilePriority(0);
-}
 
 void CuteTorrent::ProcessMagnet()
 {
@@ -1050,8 +942,7 @@ void CuteTorrent::PeformSearch()
         }
         else
         {
-            QDesktopServices desctopService;
-            desctopService.openUrl(QUrl(item.getPattern().arg(QString(QUrl::toPercentEncoding(searchText)))));
+            QDesktopServices::openUrl(QUrl(item.getPattern().arg(QString(QUrl::toPercentEncoding(searchText)))));
         }
     }
 
@@ -1059,8 +950,7 @@ void CuteTorrent::PeformSearch()
 
 void CuteTorrent::resizeEvent( QResizeEvent * event )
 {
-   // QTorrentItemDelegat::max_width=event->size().width()-QApplication::style( )->pixelMetric( QStyle::PM_MessageBoxIconSize )-35-(listView->verticalScrollBar()->isVisible() ? listView->autoScrollMargin() : 0)-groupTreeWidget->width();
-    fillPieceDisplay(event->size());
+   fillPieceDisplay(pieceView->size());
 }
 
 void CuteTorrent::ShowTorrentInfoNotyfy( const QString& name,const QString& info)
@@ -1215,24 +1105,6 @@ void CuteTorrent::StopSelected()
     model->ActionOnSelectedItem(QTorrentDisplayModel::stop);
 }
 
-void CuteTorrent::setFilePriority( int priorityToSet)
-{
-    Torrent* tor= model->GetSelectedTorrent();
-    if (tor!=NULL)
-    {
-        //qDebug() << " CuteTorrent::setHighForCurrentFile";
-        lowPriority->setChecked(false);
-        mediumPriority->setChecked(false);
-        dontDownload->setChecked(false);
-        int file_num=fileTableView->selectionModel()->currentIndex().row();
-        int file_index = proxymodel->index(file_num,0).data(Qt::UserRole).toInt();
-        tor->SetFilePriority(file_index,priorityToSet);
-        files_info info = tor->GetFileDownloadInfo();
-        fileViewModel->setDataSource(info);
-
-    }
-}
-
 void CuteTorrent::setupGroupTreeWidget()
 {
 
@@ -1245,42 +1117,42 @@ void CuteTorrent::setupGroupTreeWidget()
     QIcon icon17 = styleEngine->getIcon("groups");
     QIcon icon18(icon16.pixmap(QSize(16,16), QIcon::Disabled, QIcon::On));
 
-    __qtreewidgetitem = new QTreeWidgetItem(groupTreeWidget);
-    __qtreewidgetitem->setIcon(0, icon12);
-    __qtreewidgetitem->setText(0,tr("TORRENTS_ACTIVITY"));
-    __qtreewidgetitem->setText(1,"NONE");
-    __qtreewidgetitem1 = new QTreeWidgetItem(__qtreewidgetitem);
-    __qtreewidgetitem1->setIcon(0, icon13);
-    __qtreewidgetitem1->setText(0,tr("DOWNLOADING_FLTR"));
-    __qtreewidgetitem1->setText(1,"DWONLOADING");
-    __qtreewidgetitem2 = new QTreeWidgetItem(__qtreewidgetitem);
-    __qtreewidgetitem2->setIcon(0, icon14);
-    __qtreewidgetitem2->setText(0,tr("SEEDING_FLTR"));
-    __qtreewidgetitem2->setText(1,"SEEDING");
-    __qtreewidgetitem3 = new QTreeWidgetItem(__qtreewidgetitem);
-    __qtreewidgetitem3->setIcon(0, icon15);
-    __qtreewidgetitem3->setText(0,tr("COMPLETED_FLTR"));
-    __qtreewidgetitem3->setText(1,"COMPLETED");
-    __qtreewidgetitem4 = new QTreeWidgetItem(__qtreewidgetitem);
-    __qtreewidgetitem4->setIcon(0, icon16);
-    __qtreewidgetitem4->setText(0,tr("ACTIVE_FLTR"));
-    __qtreewidgetitem4->setText(1,"ACTIVE");
-    __qtreewidgetitem5 = new QTreeWidgetItem(__qtreewidgetitem);
-    __qtreewidgetitem5->setIcon(0, icon18);
-    __qtreewidgetitem5->setText(0,tr("NOT_ACTIVE_FLTR"));
-    __qtreewidgetitem5->setText(1,"NOT_ACTIVE");
+    torrentTreeItem = new QTreeWidgetItem(groupTreeWidget);
+    torrentTreeItem->setIcon(0, icon12);
+    torrentTreeItem->setText(0,tr("TORRENTS_ACTIVITY"));
+    torrentTreeItem->setText(1,"NONE");
+    dlTreeItem = new QTreeWidgetItem(torrentTreeItem);
+    dlTreeItem->setIcon(0, icon13);
+    dlTreeItem->setText(0,tr("DOWNLOADING_FLTR"));
+    dlTreeItem->setText(1,"DWONLOADING");
+    ulTreeItem = new QTreeWidgetItem(torrentTreeItem);
+    ulTreeItem->setIcon(0, icon14);
+    ulTreeItem->setText(0,tr("SEEDING_FLTR"));
+    ulTreeItem->setText(1,"SEEDING");
+    completedTreeItem = new QTreeWidgetItem(torrentTreeItem);
+    completedTreeItem->setIcon(0, icon15);
+    completedTreeItem->setText(0,tr("COMPLETED_FLTR"));
+    completedTreeItem->setText(1,"COMPLETED");
+    activeTreeItem = new QTreeWidgetItem(torrentTreeItem);
+    activeTreeItem->setIcon(0, icon16);
+    activeTreeItem->setText(0,tr("ACTIVE_FLTR"));
+    activeTreeItem->setText(1,"ACTIVE");
+    inactiveTreeItem = new QTreeWidgetItem(torrentTreeItem);
+    inactiveTreeItem->setIcon(0, icon18);
+    inactiveTreeItem->setText(0,tr("NOT_ACTIVE_FLTR"));
+    inactiveTreeItem->setText(1,"NOT_ACTIVE");
 
-    __qtreewidgetitem6 = new QTreeWidgetItem(groupTreeWidget);
-    __qtreewidgetitem6->setText(0,tr("TORRENT_GROUPS"));
-    __qtreewidgetitem6->setText(1,"NONE");
-    __qtreewidgetitem6->setIcon(0, icon17);
+    groupsTreeItem = new QTreeWidgetItem(groupTreeWidget);
+    groupsTreeItem->setText(0,tr("TORRENT_GROUPS"));
+    groupsTreeItem->setText(1,"NONE");
+	groupsTreeItem->setIcon(0, icon17);
 
     QList<GroupForFileFiltering> groups = settings->GetFileFilterGroups();
     QString type;
     groupTreeWidget->setSelectionMode(QAbstractItemView::SingleSelection );
     for (int i=0;i<groups.count();i++)
     {
-        QTreeWidgetItem* item=new QTreeWidgetItem(__qtreewidgetitem6);
+        QTreeWidgetItem* item=new QTreeWidgetItem(groupsTreeItem);
         item->setText(0,groups[i].Name());
 
         item->setIcon(0, styleEngine->guessMimeIcon(groups[i].Extensions().split('|')[0],type));
@@ -1289,6 +1161,10 @@ void CuteTorrent::setupGroupTreeWidget()
     }
     groupTreeWidget->resizeColumnToContents(0);
     groupTreeWidget->expandAll();
+
+	rssTreeItem = new QTreeWidgetItem(groupTreeWidget);
+	rssTreeItem->setText(0, tr("RSS_CHANELS"));
+	rssTreeItem->setText(1, "NONE");
 }
 
 
@@ -1438,4 +1314,9 @@ void CuteTorrent::maximizeBtnClicked()
 void CuteTorrent::minimizeBtnClicked()
 {
 	BaseWindow::minimizeBtnClicked();
+}
+
+void CuteTorrent::OnGotSerachResults()
+{
+	//ToDo: implement showing of search results
 }

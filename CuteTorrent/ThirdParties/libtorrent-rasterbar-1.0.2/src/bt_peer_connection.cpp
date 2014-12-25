@@ -798,6 +798,13 @@ namespace libtorrent
 		ptr += 20;
 
 #ifdef TORRENT_VERBOSE_LOGGING
+		{
+			char hex_pid[41];
+			to_hex((char const*)&m_our_peer_id[0], 20, hex_pid);
+			hex_pid[40] = 0;
+			peer_log(">>> sent peer_id: %s client: %s"
+				, hex_pid, identify_client(m_our_peer_id).c_str());
+		}
 		peer_log("==> HANDSHAKE [ ih: %s ]", to_hex(ih.to_string()).c_str());
 #endif
 		send_buffer(handshake, sizeof(handshake));
@@ -1999,7 +2006,7 @@ namespace libtorrent
 			if (piece >= 0) superseed_piece(-1, piece);
 			return;
 		}
-		else if (m_supports_fast && t->is_seed())
+		else if (m_supports_fast && t->is_seed() && !m_ses.settings().lazy_bitfields)
 		{
 			write_have_all();
 			send_allowed_set();
@@ -2179,18 +2186,6 @@ namespace libtorrent
 		if (m_ses.m_settings.support_share_mode
 			&& t->share_mode())
 			handshake["share_mode"] = 1;
-
-		if (!m_ses.m_settings.anonymous_mode)
-		{
-			tcp::endpoint ep = m_ses.get_ipv6_interface();
-			if (!is_any(ep.address()))
-			{
-				std::string ipv6_address;
-				std::back_insert_iterator<std::string> out(ipv6_address);
-				detail::write_address(ep.address(), out);
-				handshake["ipv6"] = ipv6_address;
-			}
-		}
 
 		// loop backwards, to make the first extension be the last
 		// to fill in the handshake (i.e. give the first extensions priority)
@@ -2434,7 +2429,7 @@ namespace libtorrent
 			if (is_disconnecting()) return;
 			
 			// read dh key, generate shared secret
-			if (m_dh_key_exchange->compute_secret(recv_buffer.begin) == -1)
+			if (m_dh_key_exchange->compute_secret(recv_buffer.begin) != 0)
 			{
 				disconnect(errors::no_memory);
 				return;
@@ -2715,7 +2710,7 @@ namespace libtorrent
 
 			recv_buffer = receive_buffer();
 			
-			int crypto_field = detail::read_int32(recv_buffer.begin);
+			boost::uint32_t crypto_field = detail::read_uint32(recv_buffer.begin);
 
 #ifdef TORRENT_VERBOSE_LOGGING
 			peer_log("*** crypto %s : [%s%s ]"
@@ -2728,13 +2723,13 @@ namespace libtorrent
 			{
 				// select a crypto method
 				int allowed_encryption = m_ses.get_pe_settings().allowed_enc_level;
-				int crypto_select = crypto_field & allowed_encryption;
+				boost::uint32_t crypto_select = crypto_field & allowed_encryption;
 	
 				// when prefer_rc4 is set, keep the most significant bit
 				// otherwise keep the least significant one
 				if (m_ses.get_pe_settings().prefer_rc4)
 				{
-					int mask = INT_MAX;
+					boost::uint32_t mask = (std::numeric_limits<boost::uint32_t>::max)();
 					while (crypto_select & (mask << 1))
 					{
 						mask <<= 1;
@@ -2743,7 +2738,7 @@ namespace libtorrent
 				}
 				else
 				{
-					int mask = INT_MAX;
+					boost::uint32_t mask = (std::numeric_limits<boost::uint32_t>::max)();
 					while (crypto_select & (mask >> 1))
 					{
 						mask >>= 1;
@@ -3130,7 +3125,7 @@ namespace libtorrent
 					if (is_print(recv_buffer.begin[i])) ascii_pid[i] = recv_buffer.begin[i];
 					else ascii_pid[i] = '.';
 				}
-				peer_log("<<< received peer_id: %s client: %s\nas ascii: %s\n"
+				peer_log("<<< received peer_id: %s client: %s ascii: \"%s\""
 					, hex_pid, identify_client(peer_id(recv_buffer.begin)).c_str(), ascii_pid);
 			}
 #endif
@@ -3154,7 +3149,7 @@ namespace libtorrent
 					// initiate connections. So, if our peer-id is greater than
 					// the others, we should close the incoming connection,
 					// if not, we should close the outgoing one.
-					if (pid < m_ses.get_peer_id() && is_outgoing())
+					if (pid < m_our_peer_id && is_outgoing())
 					{
 						(*i)->connection->disconnect(errors::duplicate_peer_id);
 					}
@@ -3168,7 +3163,7 @@ namespace libtorrent
 
 			// disconnect if the peer has the same peer-id as ourself
 			// since it most likely is ourself then
-			if (pid == m_ses.get_peer_id())
+			if (pid == m_our_peer_id)
 			{
 				if (peer_info_struct()) t->get_policy().ban_peer(peer_info_struct());
 				disconnect(errors::self_connection, 1);

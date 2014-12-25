@@ -42,7 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMutex>
 #include <QtNetwork/QHostAddress>
 #include <QScrollBar>
-#include <QSortFilterProxyModel>
+#include "FileViewSortProxyModel.h"
 #include "tracker/torrentracker.h"
 #include "webControll/RconWebService.h"
 #include "FileViewModel.h"
@@ -52,7 +52,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "StyleEngene.h"
 #include "CustomWindow.h"
 #include "ui_CustomWindow.h"
-
+#include "SearchEngine.h"
 Q_DECLARE_METATYPE(QHostAddress)
 class CuteTorrent : public BaseWindow<QWidget> , private Ui::CustomWindow
 {
@@ -80,7 +80,7 @@ private:
     QComboBox* searchSource;
     TorrentStorrage* torrents;
     PeiceDisplayWidget* pieceView;
-    QSortFilterProxyModel* proxymodel;
+	FileViewSortProxyModel* proxymodel;
     FileViewModel* fileViewModel;
     TorrentTracker* tracker;
     QApplicationSettings* settings;
@@ -101,22 +101,16 @@ private:
     QLabel* downLabelText, *downLabel;
     QTorrentDisplayModel* model;
     TorrentManager* tManager;
-    QMenu* fileTabMenu;
-    QAction* openFile;
-    QAction* openDir;
-    QMenu* priority;
-    QAction* lowPriority;
-    QAction* mediumPriority;
-    QAction* highPriority;
-    QAction* dontDownload;
     QLineEdit* searchEdit;
-    QTreeWidgetItem *__qtreewidgetitem;
-    QTreeWidgetItem *__qtreewidgetitem1;
-    QTreeWidgetItem *__qtreewidgetitem2;
-    QTreeWidgetItem *__qtreewidgetitem3;
-    QTreeWidgetItem *__qtreewidgetitem4;
-    QTreeWidgetItem *__qtreewidgetitem5;
-    QTreeWidgetItem *__qtreewidgetitem6;
+    QTreeWidgetItem *torrentTreeItem;
+    QTreeWidgetItem *dlTreeItem;
+    QTreeWidgetItem *ulTreeItem;
+    QTreeWidgetItem *completedTreeItem;
+    QTreeWidgetItem *activeTreeItem;
+    QTreeWidgetItem *inactiveTreeItem;
+    QTreeWidgetItem *groupsTreeItem;
+	QTreeWidgetItem *rssTreeItem;
+	SearchEngine* m_pSearchEngine;
     void createTrayIcon();
     void createActions();
     void setupTray();
@@ -127,9 +121,7 @@ private:
     void setupStatusBar();
     void setupFileTabel();
     void setupGroupTreeWidget();
-    void setupFileTabelContextMenu();
     void fillPieceDisplay(QSize);
-    void setFilePriority(int);
     void setupCustomeWindow();
     void setupKeyMappings();
 	void resizeWindow(QMouseEvent *e);
@@ -144,13 +136,6 @@ public slots:
     void HandleNewTorrent(const QString &);
     void UpdateUL(int);
     void UpdateDL(int);
-    void OpenFileSelected();
-    void OpenDirSelected();
-    void SetLowForCurrentFile();
-    void SetMediumForCurrentFile();
-    void SetHighForCurrentFile();
-    void SetNotDownloadForCurrentFile();
-    void FileTabContextMenu(const QPoint &);
     void ShowAbout();
     void CheckForUpdates();
     void ShowUpdateNitify(const QString&);
@@ -182,7 +167,7 @@ public slots:
     void AddPeer();
     void ChnageTorrentFilter();
     void startBackUpWizard();
-
+	void OnGotSerachResults();
 	void maximizeBtnClicked();
 	void minimizeBtnClicked();
 

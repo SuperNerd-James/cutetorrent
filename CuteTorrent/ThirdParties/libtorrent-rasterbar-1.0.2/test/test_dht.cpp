@@ -315,7 +315,7 @@ void announce_immutable_items(node_impl& node, udp::endpoint const* eps
 				{ "y", lazy_entry::string_t, 1, 0},
 			};
 
-			lazy_entry const* parsed[5];
+			lazy_entry const* parsed[6];
 			char error_string[200];
 
 //			fprintf(stderr, "msg: %s\n", print_entry(response).c_str());
@@ -625,6 +625,20 @@ int test_main()
 		fprintf(stderr, "   invalid get_peers response: %s\n", error_string);
 	}
 
+	// ====== test node ID testing =====
+
+	{
+		node_id rnd = generate_secret_id();
+		TEST_CHECK(verify_secret_id(rnd));
+
+		rnd[19] ^= 0x55;
+		TEST_CHECK(!verify_secret_id(rnd));
+
+		rnd = generate_random_id();
+		make_id_secret(rnd);
+		TEST_CHECK(verify_secret_id(rnd));
+	}
+
 	// ====== test node ID enforcement ======
 
 	// enable node_id enforcement
@@ -791,7 +805,7 @@ int test_main()
 
 		TEST_CHECK(ret);
 
-		std::pair<const char*, int> salt(NULL, 0);
+		std::pair<const char*, int> salt((char*)0, 0);
 		if (with_salt)
 			salt = std::pair<char const*, int>("foobar", 6);
 
@@ -1141,10 +1155,12 @@ int test_main()
 	// test node-id functions
 	using namespace libtorrent::dht;
 
+	TEST_EQUAL(generate_prefix_mask(0), to_hash("0000000000000000000000000000000000000000"));
 	TEST_EQUAL(generate_prefix_mask(1), to_hash("8000000000000000000000000000000000000000"));
 	TEST_EQUAL(generate_prefix_mask(2), to_hash("c000000000000000000000000000000000000000"));
 	TEST_EQUAL(generate_prefix_mask(11), to_hash("ffe0000000000000000000000000000000000000"));
 	TEST_EQUAL(generate_prefix_mask(17), to_hash("ffff800000000000000000000000000000000000"));
+	TEST_EQUAL(generate_prefix_mask(160), to_hash("ffffffffffffffffffffffffffffffffffffffff"));
 
 	// test kademlia functions
 
@@ -1383,7 +1399,8 @@ int test_main()
 		{"q", lazy_entry::string_t, 9, 0},
 		{"a", lazy_entry::dict_t, 0, key_desc_t::parse_children},
 			{"id", lazy_entry::string_t, 20, 0},
-			{"target", lazy_entry::string_t, 20, key_desc_t::last_child},
+			{"target", lazy_entry::string_t, 20, key_desc_t::optional},
+			{"info_hash", lazy_entry::string_t, 20, key_desc_t::optional | key_desc_t::last_child},
 	};
 
 	dht::key_desc_t get_peers_desc[] = {
@@ -1406,6 +1423,7 @@ int test_main()
 
 	// bootstrap
 
+	g_sent_packets.clear();
 	do
 	{
 		dht::node_impl node(&ad, &s, sett, node_id::min(), ext, 0);
@@ -1420,12 +1438,16 @@ int test_main()
 		TEST_EQUAL(g_sent_packets.front().first, initial_node);
 
 		lazy_from_entry(g_sent_packets.front().second, response);
-		ret = verify_message(&response, find_node_desc, parsed, 6, error_string, sizeof(error_string));
+		ret = verify_message(&response, find_node_desc, parsed, 7, error_string, sizeof(error_string));
 		if (ret)
 		{
 			TEST_EQUAL(parsed[0]->string_value(), "q");
-			TEST_EQUAL(parsed[2]->string_value(), "find_node");
-			if (parsed[0]->string_value() != "q" || parsed[2]->string_value() != "find_node") break;
+			TEST_CHECK(parsed[2]->string_value() == "find_node"
+				|| parsed[2]->string_value() == "get_peers");
+
+			if (parsed[0]->string_value() != "q"
+				|| (parsed[2]->string_value() != "find_node"
+					&& parsed[2]->string_value() != "get_peers")) break;
 		}
 		else
 		{
@@ -1445,12 +1467,14 @@ int test_main()
 		TEST_EQUAL(g_sent_packets.front().first, found_node);
 
 		lazy_from_entry(g_sent_packets.front().second, response);
-		ret = verify_message(&response, find_node_desc, parsed, 6, error_string, sizeof(error_string));
+		ret = verify_message(&response, find_node_desc, parsed, 7, error_string, sizeof(error_string));
 		if (ret)
 		{
 			TEST_EQUAL(parsed[0]->string_value(), "q");
-			TEST_EQUAL(parsed[2]->string_value(), "find_node");
-			if (parsed[0]->string_value() != "q" || parsed[2]->string_value() != "find_node") break;
+			TEST_CHECK(parsed[2]->string_value() == "find_node"
+				|| parsed[2]->string_value() == "get_peers");
+			if (parsed[0]->string_value() != "q" || (parsed[2]->string_value() != "find_node"
+					&& parsed[2]->string_value() == "get_peers")) break;
 		}
 		else
 		{
@@ -1468,6 +1492,7 @@ int test_main()
 
 	// get_peers
 
+	g_sent_packets.clear();
 	do
 	{
 		dht::node_id target = to_hash("1234876923549721020394873245098347598635");
@@ -1559,6 +1584,7 @@ int test_main()
 
 	// immutable get
 
+	g_sent_packets.clear();
 	do
 	{
 		dht::node_impl node(&ad, &s, sett, node_id::min(), ext, 0);
@@ -1603,6 +1629,7 @@ int test_main()
 
 	// mutable get
 
+	g_sent_packets.clear();
 	do
 	{
 		dht::node_impl node(&ad, &s, sett, node_id::min(), ext, 0);
@@ -1677,7 +1704,7 @@ int test_main()
 	};
 
 	// immutable put
-
+	g_sent_packets.clear();
 	do
 	{
 		dht::node_impl node(&ad, &s, sett, node_id::min(), ext, 0);
@@ -1757,7 +1784,7 @@ int test_main()
 	} while (false);
 
 	// mutable put
-
+	g_sent_packets.clear();
 	do
 	{
 		dht::node_impl node(&ad, &s, sett, node_id::min(), ext, 0);

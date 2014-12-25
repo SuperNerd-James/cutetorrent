@@ -59,6 +59,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "libtorrent/peer_info.hpp"
 #include "libtorrent/bt_peer_connection.hpp"
 #include "libtorrent/error.hpp"
+#include "libtorrent/kademlia/node_id.hpp"
 
 #ifdef TORRENT_DEBUG
 #include <set>
@@ -486,7 +487,7 @@ namespace libtorrent
 				peer_log(">>> SET_TOS[ tos: %d e: %s ]", m_ses.settings().peer_tos, ec.message().c_str());
 #endif
 			}
-#if TORRENT_USE_IPV6
+#if TORRENT_USE_IPV6 && defined IPV6_TCLASS
 			else if (m_remote.address().is_v6() && m_ses.settings().peer_tos != 0)
 			{
 				m_socket->set_option(traffic_class(m_ses.settings().peer_tos), ec);
@@ -1112,6 +1113,17 @@ namespace libtorrent
 				peer_log("   %s", to_hex(i->second->torrent_file().info_hash().to_string()).c_str());
 			}
 #endif
+
+#ifndef TORRENT_DISABLE_DHT
+			if (dht::verify_secret_id(ih))
+			{
+				// this means the hash was generated from our generate_secret_id()
+				// as part of DHT traffic. The fact that we got an incoming
+				// connection on this info-hash, means the other end, making this
+				// connection fished it out of the DHT chatter. That's suspicious.
+				m_ses.m_ip_filter.add_rule(m_remote.address(), m_remote.address(), 0);
+			}
+#endif
 			disconnect(errors::invalid_info_hash, 1);
 			return;
 		}
@@ -1262,7 +1274,7 @@ namespace libtorrent
 		{
 			// if the peer is not in parole mode, clear the queued
 			// up block requests
-			if (!t->is_seed())
+			if (t->has_picker())
 			{
 				piece_picker& p = t->picker();
 				for (std::vector<pending_block>::const_iterator i = m_request_queue.begin()
@@ -1583,13 +1595,6 @@ namespace libtorrent
 				m_ses.m_unchoke_time_scaler = 0;
 			}
 		}
-
-		if (t->super_seeding())
-		{
-			// maybe we need to try another piece, to see if the peer
-			// is interested in us then
-			superseed_piece(-1, t->get_piece_to_super_seed(m_have_piece));
-		}
 	}
 
 	// -----------------------------
@@ -1706,15 +1711,19 @@ namespace libtorrent
 			t->seen_complete();
 			t->get_policy().set_seed(m_peer_info, true);
 			m_upload_only = true;
-			disconnect_if_redundant();
-			if (is_disconnecting()) return;
 		}
 
+		// it's important to update whether we're intersted in this peer before
+		// calling disconnect_if_redundant, otherwise we may disconnect even if
+		// we are interested
 		if (!t->have_piece(index)
 			&& !t->is_seed()
 			&& !is_interesting()
 			&& t->picker().piece_priority(index) != 0)
 			t->get_policy().peer_is_interesting(*this);
+
+		disconnect_if_redundant();
+		if (is_disconnecting()) return;
 
 		// if we're super seeding, this might mean that somebody
 		// forwarded this piece. In which case we need to give
@@ -1870,6 +1879,8 @@ namespace libtorrent
 			m_have_piece.set_all();
 			m_num_pieces = num_pieces;
 			t->peer_has_all(this);
+			
+			// this will cause us to send the INTERESTED message
 			if (!t->is_upload_only())
 				t->get_policy().peer_is_interesting(*this);
 
@@ -1881,16 +1892,12 @@ namespace libtorrent
 		// let the torrent know which pieces the
 		// peer has
 		// if we're a seed, we don't keep track of piece availability
-		bool interesting = false;
 		t->peer_has(bits, this);
 
 		m_have_piece = bits;
 		m_num_pieces = num_pieces;
 
-		if (interesting) t->get_policy().peer_is_interesting(*this);
-		else if (upload_only()
-			&& can_disconnect(error_code(errors::upload_upload_connection, get_libtorrent_category())))
-			disconnect(errors::upload_upload_connection);
+		update_interest();
 	}
 
 	void peer_connection::disconnect_if_redundant()
@@ -1914,6 +1921,9 @@ namespace libtorrent
 		if (m_upload_only && t->is_upload_only())
 		{
 			if (!can_disconnect(error_code(errors::upload_upload_connection, get_libtorrent_category()))) return;
+#ifdef TORRENT_VERBOSE_LOGGING
+			peer_log("*** the peer is upload-only and our torrent is also upload-only");
+#endif
 			disconnect(errors::upload_upload_connection);
 			return;
 		}
@@ -1924,6 +1934,9 @@ namespace libtorrent
 			&& t->are_files_checked())
 		{
 			if (!can_disconnect(error_code(errors::uninteresting_upload_peer, get_libtorrent_category()))) return;
+#ifdef TORRENT_VERBOSE_LOGGING
+			peer_log("*** the peer is upload-only and we're not interested in it");
+#endif
 			disconnect(errors::uninteresting_upload_peer);
 			return;
 		}
@@ -4164,6 +4177,15 @@ namespace libtorrent
 			send_block_requests();
 		}
 
+		if (t->super_seeding()
+			&& !m_peer_interested
+			&& m_became_uninterested + seconds(10) < now)
+		{
+			// maybe we need to try another piece, to see if the peer
+			// become interested in us then
+			superseed_piece(-1, t->get_piece_to_super_seed(m_have_piece));
+		}
+
 		on_tick();
 
 #ifndef TORRENT_DISABLE_EXTENSIONS
@@ -5597,7 +5619,7 @@ namespace libtorrent
 			peer_log(">>> SET_TOS[ tos: %d e: %s ]", m_ses.settings().peer_tos, ec.message().c_str());
 #endif
 		}
-#if TORRENT_USE_IPV6
+#if TORRENT_USE_IPV6 && defined IPV6_TCLASS
 		else if (m_remote.address().is_v6() && m_ses.settings().peer_tos != 0)
 		{
 			m_socket->set_option(traffic_class(m_ses.settings().peer_tos), ec);

@@ -198,6 +198,7 @@ void VideoPlayerWindow::mouseMoveEvent( QMouseEvent *event )
     setCursor(QCursor(Qt::ArrowCursor));
 	controls->show();
 	animationTimerID=startTimer(3000);
+	event->accept();
 }
 
 void VideoPlayerWindow::timerEvent( QTimerEvent * event )

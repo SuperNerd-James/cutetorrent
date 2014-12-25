@@ -164,7 +164,7 @@ void QTorrentDisplayModel::contextualMenu(const QPoint & point)
 	QModelIndex qmi=parrent->indexAt(point);
 	if (qmi.isValid())
 	{
-		Torrent* torrent=GetSelectedTorrent();
+		Torrent* torrent = qmi.data(TorrentRole).value<Torrent*>();
 		if (torrent!=NULL)
 		{
 			
@@ -198,14 +198,13 @@ void QTorrentDisplayModel::contextualMenu(const QPoint & point)
 			}
 
             QString group = torrent->GetGroup();
-            if (!group.isEmpty())
+            
+            QList<QAction*> actions = groupsMenu->actions();
+            for(int i=0;i<actions.size();i++)
             {
-                QList<QAction*> actions = groupsMenu->actions();
-                for(int i=0;i<actions.size();i++)
-                {
-                    actions[i]->setChecked(actions[i]->text()==group);
-                }
+                actions[i]->setChecked(actions[i]->text()==group);
             }
+            
 
             setSequentual->setChecked(torrent->isSquential());
 			menu->exec(parrent->mapToGlobal(point));

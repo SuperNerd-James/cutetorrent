@@ -52,14 +52,18 @@ void StaticHelpers::dellDir(QString dirName)
 QString StaticHelpers::filePriorityToString(int priority)
 {
 	static char* priority_str[] = {"FILETAB_PRIORITY_ZERO","FILETAB_PRIORITY_LOW","FILETAB_PRIORITY_MEDIUM","FILETAB_PRIORITY_HIGH"};
-	if (priority==0)
-		return CuteTorrent::tr(priority_str[0]);
-	if (priority < 3)
-		return CuteTorrent::tr(priority_str[1]);
-	if (priority >=3 && priority < 6)
-		return CuteTorrent::tr(priority_str[2]);
-	if (priority >=6)
-		return CuteTorrent::tr(priority_str[3]);
+	if (priority > 0)
+	{
+		if (priority == 0)
+			return CuteTorrent::tr(priority_str[0]);
+		if (priority < 3)
+			return CuteTorrent::tr(priority_str[1]);
+		if (priority >= 3 && priority < 6)
+			return CuteTorrent::tr(priority_str[2]);
+		if (priority >= 6)
+			return CuteTorrent::tr(priority_str[3]);
+
+	}
 	return "";
 }
 

@@ -145,7 +145,7 @@ QPushButton* BaseWindow<T>::getMinBtn()
 }
 
 template <class T>
-BaseWindow<T>::BaseWindow(TitleMode titleMode,ResizeMode resizeMode)
+BaseWindow<T>::BaseWindow(TitleMode titleMode, ResizeMode resizeMode) :T()
 {
 	m_titleMode = titleMode;
 	m_resizeMode = resizeMode;

@@ -33,6 +33,7 @@ POSSIBILITY OF SUCH DAMAGE.
 #include "libtorrent/config.hpp"
 #include "libtorrent/lazy_entry.hpp"
 #include <cstring>
+#include <limits> // for numeric_limits
 
 namespace
 {
@@ -83,14 +84,14 @@ namespace libtorrent
 				ec = bdecode_errors::expected_string;
 				return start;
 			}
-			if (val > INT64_MAX / 10)
+			if (val > (std::numeric_limits<boost::int64_t>::max)() / 10)
 			{
 				ec = bdecode_errors::overflow;
 				return start;
 			}
 			val *= 10;
 			int digit = *start - '0';
-			if (val > INT64_MAX - digit)
+			if (val > (std::numeric_limits<boost::int64_t>::max)() - digit)
 			{
 				ec = bdecode_errors::overflow;
 				return start;
@@ -384,6 +385,13 @@ namespace libtorrent
 		return e;
 	}
 
+	lazy_entry const* lazy_entry::dict_find_dict(std::string const& name) const
+	{
+		lazy_entry const* e = dict_find(name);
+		if (e == 0 || e->type() != lazy_entry::dict_t) return 0;
+		return e;
+	}
+
 	lazy_entry const* lazy_entry::dict_find_list(char const* name) const
 	{
 		lazy_entry const* e = dict_find(name);
@@ -398,6 +406,19 @@ namespace libtorrent
 		{
 			lazy_dict_entry& e = m_data.dict[i];
 			if (string_equal(name, e.name, e.val.m_begin - e.name))
+				return &e.val;
+		}
+		return 0;
+	}
+
+	lazy_entry* lazy_entry::dict_find(std::string const& name)
+	{
+		TORRENT_ASSERT(m_type == dict_t);
+		for (int i = 0; i < int(m_size); ++i)
+		{
+			lazy_dict_entry& e = m_data.dict[i];
+			if (name.size() != e.val.m_begin - e.name) continue;
+			if (std::equal(name.begin(), name.end(), e.name))
 				return &e.val;
 		}
 		return 0;
@@ -521,6 +542,60 @@ namespace libtorrent
 		return line_len;
 	}
 
+	void escape_string(std::string& ret, char const* str, int len)
+	{
+		for (int i = 0; i < len; ++i)
+		{
+			if (str[i] >= 32 && str[i] < 127)
+			{
+				ret += str[i];
+			}
+			else
+			{
+				char tmp[5];
+				snprintf(tmp, sizeof(tmp), "\\x%02x", (unsigned char)str[i]);
+				ret += tmp;
+			}
+		}
+	}
+
+	void print_string(std::string& ret, char const* str, int len, bool single_line)
+	{
+		bool printable = true;
+		for (int i = 0; i < len; ++i)
+		{
+			char c = str[i];
+			if (c >= 32 && c < 127) continue;
+			printable = false;
+			break;
+		}
+		ret += "'";
+		if (printable)
+		{
+			if (single_line && len > 30)
+			{
+				ret.append(str, 14);
+				ret += "...";
+				ret.append(str + len-14, 14);
+			}
+			else
+				ret.append(str, len);
+			ret += "'";
+			return;
+		}
+		if (single_line && len > 20)
+		{
+			escape_string(ret, str, 9);
+			ret += "...";
+			escape_string(ret, str + len - 9, 9);
+		}
+		else
+		{
+			escape_string(ret, str, len);
+		}
+		ret += "'";
+	}
+
 	std::string print_entry(lazy_entry const& e, bool single_line, int indent)
 	{
 		char indent_str[200];
@@ -541,56 +616,7 @@ namespace libtorrent
 			}
 			case lazy_entry::string_t:
 			{
-				bool printable = true;
-				char const* str = e.string_ptr();
-				for (int i = 0; i < e.string_length(); ++i)
-				{
-					char c = str[i];
-					if (c >= 32 && c < 127) continue;
-					printable = false;
-					break;
-				}
-				ret += "'";
-				if (printable)
-				{
-					if (single_line && e.string_length() > 30)
-					{
-						ret.append(e.string_ptr(), 14);
-						ret += "...";
-						ret.append(e.string_ptr() + e.string_length()-14, 14);
-					}
-					else
-						ret.append(e.string_ptr(), e.string_length());
-					ret += "'";
-					return ret;
-				}
-				if (single_line && e.string_length() > 20)
-				{
-					for (int i = 0; i < 9; ++i)
-					{
-						char tmp[5];
-						snprintf(tmp, sizeof(tmp), "%02x", (unsigned char)str[i]);
-						ret += tmp;
-					}
-					ret += "...";
-					for (int i = e.string_length() - 9
-						, len(e.string_length()); i < len; ++i)
-					{
-						char tmp[5];
-						snprintf(tmp, sizeof(tmp), "%02x", (unsigned char)str[i]);
-						ret += tmp;
-					}
-				}
-				else
-				{
-					for (int i = 0; i < e.string_length(); ++i)
-					{
-						char tmp[5];
-						snprintf(tmp, sizeof(tmp), "%02x", (unsigned char)str[i]);
-						ret += tmp;
-					}
-				}
-				ret += "'";
+				print_string(ret, e.string_ptr(), e.string_length(), single_line);
 				return ret;
 			}
 			case lazy_entry::list_t:
@@ -619,9 +645,8 @@ namespace libtorrent
 				{
 					if (i == 0 && one_liner) ret += " ";
 					std::pair<std::string, lazy_entry const*> ent = e.dict_at(i);
-					ret += "'";
-					ret += ent.first;
-					ret += "': ";
+					print_string(ret, ent.first.c_str(), ent.first.size(), true);
+					ret += ": ";
 					ret += print_entry(*ent.second, single_line, indent + 2);
 					if (i < e.dict_size() - 1) ret += (one_liner?", ":indent_str);
 					else ret += (one_liner?" ":indent_str+1);
