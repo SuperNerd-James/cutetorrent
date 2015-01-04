@@ -31,34 +31,34 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "CustomWindow.h"
 class OpenTorrentDialog : public BaseWindow<QDialog> , private Ui::OpenTorrentDialog
 {
-	Q_OBJECT
+    Q_OBJECT
 protected:
-	void changeEvent(QEvent *event);
+    void changeEvent(QEvent* event);
 public:
-    
-    OpenTorrentDialog(QWidget *parent = 0, Qt::WindowFlags flags = 0);
-	~OpenTorrentDialog();
-	void SetData(QString filename);
-	
+
+    OpenTorrentDialog(QWidget* parent = 0, Qt::WindowFlags flags = 0);
+    ~OpenTorrentDialog();
+    void SetData(QString filename);
+
     int execConditional();
 private:
-	bool useGroup;
-	QList<GroupForFileFiltering> filters;
-	bool validTorrent;
-	TorrentManager* mgr;
-	QString torrentFilename;
-	openmagnet_info _info;
-	FileTreeModel* model;
-	QPushButton* getCloseBtn() override;
-	QWidget* getTitleBar() override;
-	QWidget* centralWidget() override;
-	QLabel* getTitleLabel() override;
-	QLabel* getTitleIcon() override;
+    bool useGroup;
+    QList<GroupForFileFiltering> filters;
+    bool validTorrent;
+    TorrentManager* mgr;
+    QString torrentFilename;
+    openmagnet_info _info;
+    FileTreeModel* model;
+    QPushButton* getCloseBtn() override;
+    QWidget* getTitleBar() override;
+    QWidget* centralWidget() override;
+    QLabel* getTitleLabel() override;
+    QLabel* getTitleIcon() override;
 private slots:
     virtual void reject();
-	void BrowseButton();
-	void AccepTorrent();
-	void ChangeGroup();
-	void DownloadMetadataCompleted(openmagnet_info);
+    void BrowseButton();
+    void AccepTorrent();
+    void ChangeGroup();
+    void DownloadMetadataCompleted(openmagnet_info);
 };
 

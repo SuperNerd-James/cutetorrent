@@ -33,7 +33,8 @@
   a progress bar.
 */
 
-class HttpResponse {
+class HttpResponse
+{
     Q_DISABLE_COPY(HttpResponse)
 public:
 
@@ -58,15 +59,15 @@ public:
     void setHeader(QByteArray name, int value);
 
     /** Get the map of HTTP response headers */
-    QMap<QByteArray,QByteArray>& getHeaders();
+    QMap<QByteArray, QByteArray>& getHeaders();
 
     /** Get the map of cookies */
-    QMap<QByteArray,HttpCookie>& getCookies();
+    QMap<QByteArray, HttpCookie>& getCookies();
 
     /**
       Set status code and description. The default is 200,OK.
     */
-    void setStatus(int statusCode, QByteArray description=QByteArray());
+    void setStatus(int statusCode, QByteArray description = QByteArray());
 
     /**
       Write body data to the socket.
@@ -82,7 +83,7 @@ public:
       @param data Data bytes of the body
       @param lastPart Indicator, if this is the last part of the response.
     */
-    void write(QByteArray data, bool lastPart=false);
+    void write(QByteArray data, bool lastPart = false);
 
     /**
       Indicates wheter the body has been sent completely. Used by the connection
@@ -98,7 +99,7 @@ public:
 
 private:
 
-	/** Write raw data to the socket. This method blocks until all bytes have been passed to the TCP buffer */
+    /** Write raw data to the socket. This method blocks until all bytes have been passed to the TCP buffer */
     bool writeToSocket(QByteArray data);
 
     /**
@@ -109,27 +110,27 @@ private:
     void writeHeaders();
 
     /** Request headers */
-    QMap<QByteArray,QByteArray> headers;
+    QMap<QByteArray, QByteArray> headers;
 
-	/** Cookies */
-	QMap<QByteArray,HttpCookie> cookies;
+    /** Cookies */
+    QMap<QByteArray, HttpCookie> cookies;
 
-	/** Socket for writing output */
-	QTcpSocket* socket;
+    /** Socket for writing output */
+    QTcpSocket* socket;
 
-	/** HTTP status code description */
-	QByteArray statusText;
-	
-	/** HTTP status code*/
-	int statusCode;
+    /** HTTP status code description */
+    QByteArray statusText;
 
-	/** Indicator whether headers have been sent */
+    /** HTTP status code*/
+    int statusCode;
+
+    /** Indicator whether headers have been sent */
     bool sentHeaders;
 
     /** Indicator whether the body has been sent completely */
     bool sentLastPart;
 
-    
+
 
 };
 

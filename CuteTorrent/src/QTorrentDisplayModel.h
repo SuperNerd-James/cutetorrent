@@ -34,64 +34,65 @@ along with this program.  If not, see .
 class CuteTorrent;
 class Torrent;
 class TorrentManager;
-class QTorrentDisplayModel:public QAbstractListModel 
+class QTorrentDisplayModel: public QAbstractListModel
 {
     Q_OBJECT
 private:
-    TorrentStorrage * torrents;
+    TorrentStorrage* torrents;
     int auto_id;
-    QListView *parrent;
+    QListView* parrent;
     int selectedRow;
-    QMenu *menu;
-    QMenu *groupsMenu;
-    QAction *openDir;
-    QAction *superSeed;
-    QAction *DTmount;
-    QAction *HashRecheck;
-    QAction *DelAll;
-    QAction *DelTorrentOnly;
-    QAction *setSequentual;
-    QAction *updateTrackers;
-    QAction *MoveStorrage;
-    QAction *PlayInPlayer;
-    QAction *GenerateMagnet;
-    TorrentManager *mgr;
-    Torrent *CurrentTorrent;
-    QTimer *timer;
-    QMutex *locker;
+    QMenu* menu;
+    QMenu* groupsMenu;
+    QAction* openDir;
+    QAction* superSeed;
+    QAction* DTmount;
+    QAction* HashRecheck;
+    QAction* DelAll;
+    QAction* DelTorrentOnly;
+    QAction* setSequentual;
+    QAction* updateTrackers;
+    QAction* MoveStorrage;
+    QAction* PlayInPlayer;
+    QAction* GenerateMagnet;
+    TorrentManager* mgr;
+    Torrent* CurrentTorrent;
+    QTimer* timer;
+    QMutex* locker;
     CuteTorrent* mainWindow;
 
 
 public:
-    QTorrentDisplayModel(CuteTorrent*,QListView *, QObject *);
+    QTorrentDisplayModel(CuteTorrent*, QListView*, QObject*);
     ~QTorrentDisplayModel();
     enum action { stop, pause, resume, remove, remove_all, move_storrage,
                   set_sequntial, set_superseed, generate_magmet, update_trackers,
-                  rehash,change_group };
+                  rehash, change_group
+                };
     void ActionOnSelectedItem(action wtf);
     //void ChangeData(int row);
-    QTorrentDisplayModel(QObject * parrent = NULL);
+    QTorrentDisplayModel(QObject* parrent = NULL);
     //int hasTorrent(const QString & InfoHash) const;
     //void clear();
     void retranslate();
 
-    virtual int rowCount(const QModelIndex & parent = QModelIndex())const;
-    virtual QVariant data(const QModelIndex & index, int role =	Qt::DisplayRole) const;
+    virtual int rowCount(const QModelIndex& parent = QModelIndex()) const;
+    virtual QVariant data(const QModelIndex& index, int role =	Qt::DisplayRole) const;
     bool removeRow(int row, bool delFiles);
     virtual bool removeRows(int row, int count,
-                            const QModelIndex & parent = QModelIndex());
+                            const QModelIndex& parent = QModelIndex());
     enum Role { TorrentRole = Qt::UserRole };
-    Torrent *GetSelectedTorrent();
+    Torrent* GetSelectedTorrent();
 signals:
     void initCompleted();
     void updateTabSender(int);
 public slots:
     //void AddTorrent(Torrent *);
     void onTorrentRemove(QString);
-    void UpdateSelectedIndex(const QItemSelection &);
+    void UpdateSelectedIndex(const QItemSelection&);
     /*	void TorrentErrorProxy(const QString &);
     void TorrentCompletedProxy(const QString);*/
-    void contextualMenu(const QPoint &);
+    void contextualMenu(const QPoint&);
     void OpenDirSelected();
     void DellTorrentOnly();
     void Rehash();

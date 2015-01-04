@@ -32,7 +32,8 @@ public:
       @param domain Optional domain for that the cookie will be sent. Defaults to the current domain
       @param secure If true, the cookie will only be sent on secure connections
     */
-    HttpCookie(const QByteArray& name, const QByteArray& value, const int maxAge, const QByteArray& path="/", const QByteArray& comment=QByteArray(), const QByteArray&  domain=QByteArray(), const bool secure=false);
+    HttpCookie(const QByteArray& name, const QByteArray& value, const int maxAge, const QByteArray& path = "/", const QByteArray& comment = QByteArray(), const QByteArray&  domain = QByteArray(),
+               const bool secure = false);
 
     /**
       Create a cookie from a string.

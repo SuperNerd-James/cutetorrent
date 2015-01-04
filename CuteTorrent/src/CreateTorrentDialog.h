@@ -27,7 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QMouseEvent>
 #include <QApplicationSettings.h>
 class CreateTorrentDialog;
-class torrentCreatorThread : public QThread {
+class torrentCreatorThread : public QThread
+{
     Q_OBJECT
 
     QString input_path;
@@ -38,18 +39,20 @@ class torrentCreatorThread : public QThread {
     bool is_private;
     qint64 piece_size;
     bool abort;
-    CreateTorrentDialog *parent;
+    CreateTorrentDialog* parent;
     QString filter;
 
 public:
-    torrentCreatorThread(CreateTorrentDialog *_parent) {
+    torrentCreatorThread(CreateTorrentDialog* _parent)
+    {
         parent = _parent;
     }
-    ~torrentCreatorThread() {
+    ~torrentCreatorThread()
+    {
         abort = true;
         wait();
     }
-    void create(QString _input_path, QString _save_path,QString _filter, QStringList _trackers, QStringList _url_seeds, QString _comment, bool _is_private, qint64 _piece_size);
+    void create(QString _input_path, QString _save_path, QString _filter, QStringList _trackers, QStringList _url_seeds, QString _comment, bool _is_private, qint64 _piece_size);
     void sendProgressSignal(int progress);
 
 
@@ -67,18 +70,18 @@ class CreateTorrentDialog : public BaseWindow<QDialog> , private Ui::CreateTorre
     Q_OBJECT
 
 public:
-    CreateTorrentDialog(QWidget *parent = 0, Qt::WindowFlags flags = 0);
+    CreateTorrentDialog(QWidget* parent = 0, Qt::WindowFlags flags = 0);
     ~CreateTorrentDialog();
 protected:
-	
-	QPushButton* getCloseBtn() override;
-	QWidget* getTitleBar() override;
-	QWidget* centralWidget() override;
-	QLabel* getTitleLabel() override;
-	QLabel* getTitleIcon() override;
+
+    QPushButton* getCloseBtn() override;
+    QWidget* getTitleBar() override;
+    QWidget* centralWidget() override;
+    QLabel* getTitleLabel() override;
+    QLabel* getTitleIcon() override;
 private:
     QString path;
-    quint64 listFolder ( QString path );
+    quint64 listFolder(QString path);
     torrentCreatorThread* creator;
     TorrentManager* mgr;
     QApplicationSettings* settings;
@@ -94,7 +97,7 @@ private slots:
     void BeginCreate();
     void Cancel();
 
-	
+
 
 };
 #endif

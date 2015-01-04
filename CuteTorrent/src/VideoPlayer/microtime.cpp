@@ -21,5 +21,5 @@
 #include "microtime.h"
 
 MicroTime::MicroTime(qint64 time)
-        :QTime(get_hours(time) % 60, get_minutes(time) % 60, get_seconds(time) % 60 )
+    : QTime(get_hours(time) % 60, get_minutes(time) % 60, get_seconds(time) % 60)
 {}

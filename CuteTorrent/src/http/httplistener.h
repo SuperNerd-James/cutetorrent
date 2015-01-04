@@ -33,7 +33,8 @@
   @see HttpRequest for description of config settings maxRequestSize and maxMultiPartSize
 */
 
-class HttpListener : public QTcpServer {
+class HttpListener : public QTcpServer
+{
     Q_OBJECT
     Q_DISABLE_COPY(HttpListener)
 public:
@@ -45,10 +46,10 @@ public:
       @param parent Parent object.
     */
 
-    HttpListener(QString name,HttpRequestHandler* requestHandler, QObject* parent = 0);
-	void Start();
+    HttpListener(QString name, HttpRequestHandler* requestHandler, QObject* parent = 0);
+    void Start();
 
-	/** Destructor */
+    /** Destructor */
     virtual ~HttpListener();
 
 protected:

@@ -60,17 +60,17 @@ class CuteTorrent : public BaseWindow<QWidget> , private Ui::CustomWindow
 {
     Q_OBJECT
 public:
-	CuteTorrent(QWidget *parent = 0);
-	void ConnectMessageReceved(Application* a);
-	~CuteTorrent();
+    CuteTorrent(QWidget* parent = 0);
+    void ConnectMessageReceved(Application* a);
+    ~CuteTorrent();
 protected:
-	bool eventFilter(QObject *obj, QEvent *event);
-    void changeEvent(QEvent *event);
-    void resizeEvent ( QResizeEvent * event );
+    bool eventFilter(QObject* obj, QEvent* event);
+    void changeEvent(QEvent* event);
+    void resizeEvent(QResizeEvent* event);
     void closeEvent(QCloseEvent* ce);
-    void dragEnterEvent(QDragEnterEvent *event);
-    void dropEvent(QDropEvent *event);
-    void keyPressEvent ( QKeyEvent * event );
+    void dragEnterEvent(QDragEnterEvent* event);
+    void dropEvent(QDropEvent* event);
+    void keyPressEvent(QKeyEvent* event);
 
 private:
     void initToolbarIcons();
@@ -81,41 +81,41 @@ private:
     QComboBox* searchSource;
     TorrentStorrage* torrents;
     PeiceDisplayWidget* pieceView;
-	FileViewSortProxyModel* proxymodel;
+    FileViewSortProxyModel* proxymodel;
     FileViewModel* fileViewModel;
     TorrentTracker* tracker;
     QApplicationSettings* settings;
     RconWebService* rcon;
     UpdateNotifier* notyfire;
     bool mayShowNotifies;
-    QSystemTrayIcon *trayIcon;
-    QSpinBox* ul,*dl;
-    QMenu *trayIconMenu;
+    QSystemTrayIcon* trayIcon;
+    QSpinBox* ul, *dl;
+    QMenu* trayIconMenu;
     QAction* minimizeAction;
     QAction* maximizeAction;
     QAction* restoreAction;
     QAction* quitAction;
     QAction* copyContext;
-    QAction* addPeer,* addTracker;
-    QLabel *upLabelText, *upLabel,*title;
-    QLabel *uploadLimit, *downloadLimit;
+    QAction* addPeer, * addTracker;
+    QLabel* upLabelText, *upLabel, *title;
+    QLabel* uploadLimit, *downloadLimit;
     QLabel* downLabelText, *downLabel;
     QTorrentDisplayModel* m_pTorrentDisplayModel;
-	QTorrentItemDelegat* m_pTorrentItemDelegate;
-	QSearchDisplayModel* m_pSearchDisplayModel;
-	QSearchItemDelegate* m_pSearchItemDelegate;
+    QTorrentItemDelegat* m_pTorrentItemDelegate;
+    QSearchDisplayModel* m_pSearchDisplayModel;
+    QSearchItemDelegate* m_pSearchItemDelegate;
     TorrentManager* tManager;
     QLineEdit* searchEdit;
-    QTreeWidgetItem *torrentTreeItem;
-    QTreeWidgetItem *dlTreeItem;
-    QTreeWidgetItem *ulTreeItem;
-    QTreeWidgetItem *completedTreeItem;
-    QTreeWidgetItem *activeTreeItem;
-    QTreeWidgetItem *inactiveTreeItem;
-    QTreeWidgetItem *groupsTreeItem;
-	QTreeWidgetItem *rssTreeItem;
-	QTreeWidgetItem *searchTreeItem;
-	SearchEngine* m_pSearchEngine;
+    QTreeWidgetItem* torrentTreeItem;
+    QTreeWidgetItem* dlTreeItem;
+    QTreeWidgetItem* ulTreeItem;
+    QTreeWidgetItem* completedTreeItem;
+    QTreeWidgetItem* activeTreeItem;
+    QTreeWidgetItem* inactiveTreeItem;
+    QTreeWidgetItem* groupsTreeItem;
+    QTreeWidgetItem* rssTreeItem;
+    QTreeWidgetItem* searchTreeItem;
+    SearchEngine* m_pSearchEngine;
     void createTrayIcon();
     void createActions();
     void setupTray();
@@ -129,19 +129,19 @@ private:
     void fillPieceDisplay(QSize);
     void setupCustomeWindow();
     void setupKeyMappings();
-	void switchToTorrentsModel();
-	void switchToSearchModel();
-	void switchToRssModel();
-	void resizeWindow(QMouseEvent *e);
-	virtual QPushButton* getMinBtn() override;
-	virtual QPushButton* getMaxBtn() override;
-	virtual QPushButton* getCloseBtn() override;
-	virtual QWidget* getTitleBar() override;
-	virtual QWidget* centralWidget() override;
-	virtual QLabel* getTitleLabel() override;
-	virtual QLabel* getTitleIcon() override;
+    void switchToTorrentsModel();
+    void switchToSearchModel();
+    void switchToRssModel();
+    void resizeWindow(QMouseEvent* e);
+    virtual QPushButton* getMinBtn() override;
+    virtual QPushButton* getMaxBtn() override;
+    virtual QPushButton* getCloseBtn() override;
+    virtual QWidget* getTitleBar() override;
+    virtual QWidget* centralWidget() override;
+    virtual QLabel* getTitleLabel() override;
+    virtual QLabel* getTitleIcon() override;
 public slots:
-    void HandleNewTorrent(const QString &);
+    void HandleNewTorrent(const QString&);
     void UpdateUL(int);
     void UpdateDL(int);
     void ShowAbout();
@@ -149,10 +149,10 @@ public slots:
     void ShowUpdateNitify(const QString&);
     void ShowNoUpdateNitify(const QString&);
     void Retranslate();
-    void ShowTorrentError(const QString&,const QString&);
+    void ShowTorrentError(const QString&, const QString&);
     void EnableNitifyShow();
-    void ShowTorrentCompletedNotyfy(const QString&,const QString&);
-    void ShowTorrentInfoNotyfy(const QString&,const QString&);
+    void ShowTorrentCompletedNotyfy(const QString&, const QString&);
+    void ShowTorrentInfoNotyfy(const QString&, const QString&);
     void ShowCreateTorrentDialog();
     void ShowOpenTorrentDialog();
     void PauseSelected();
@@ -175,9 +175,9 @@ public slots:
     void AddPeer();
     void ChnageTorrentFilter();
     void startBackUpWizard();
-	void OnGotSerachResults();
-	void maximizeBtnClicked();
-	void minimizeBtnClicked();
+    void OnGotSerachResults();
+    void maximizeBtnClicked();
+    void minimizeBtnClicked();
 
 
 

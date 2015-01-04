@@ -23,38 +23,38 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "mediacontroller.h"
 class MediaControls : public QWidget
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	MediaControls(MediaController* m_mediaController,QWidget* parrent=NULL);
-	~MediaControls(void);
-	
-	
+    MediaControls(MediaController* m_mediaController, QWidget* parrent = NULL);
+    ~MediaControls(void);
+
+
 public slots:
-	void updateTime( qint64 time );
-	void updateTotalTime( qint64 time );
-	void updateMedaiObject();
+    void updateTime(qint64 time);
+    void updateTotalTime(qint64 time);
+    void updateMedaiObject();
 signals:
-	void forvard();
-	void reverse();
-	void play();
-	void openFile();
-	void openURL();
-	void pause();
-	void setVolume(int value);
-	void setPosition(int value);
-	void toggleFullScreen();
+    void forvard();
+    void reverse();
+    void play();
+    void openFile();
+    void openURL();
+    void pause();
+    void setVolume(int value);
+    void setPosition(int value);
+    void toggleFullScreen();
 private:
-	qint64 totalTime;
-	bool reverseTime;
-	bool hidingEnabled;
-	Ui::MediaControls* ui;
-	MediaController* m_mediaControl;
-	QPixmap* bg;
-	void setupConnections();
-	
+    qint64 totalTime;
+    bool reverseTime;
+    bool hidingEnabled;
+    Ui::MediaControls* ui;
+    MediaController* m_mediaControl;
+    QPixmap* bg;
+    void setupConnections();
+
 protected:
-    void paintEvent(QPaintEvent *event);
-    bool eventFilter(QObject *obj, QEvent *event);
+    void paintEvent(QPaintEvent* event);
+    bool eventFilter(QObject* obj, QEvent* event);
 
 };
 

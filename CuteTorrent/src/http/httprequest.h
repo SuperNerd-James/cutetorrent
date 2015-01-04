@@ -31,7 +31,8 @@
   The body is always a little larger than the file itself.
 */
 
-class HttpRequest {
+class HttpRequest
+{
     Q_DISABLE_COPY(HttpRequest)
     friend class HttpSessionStore;
 public:
@@ -87,7 +88,7 @@ public:
     QList<QByteArray> getHeaders(const QByteArray& name) const;
 
     /** Get all HTTP request headers */
-    QMultiMap<QByteArray,QByteArray> getHeaderMap() const;
+    QMultiMap<QByteArray, QByteArray> getHeaderMap() const;
 
     /**
       Get the value of a HTTP request parameter.
@@ -104,7 +105,7 @@ public:
     QList<QByteArray> getParameters(const QByteArray& name) const;
 
     /** Get all HTTP request parameters */
-    QMultiMap<QByteArray,QByteArray> getParameterMap() const;
+    QMultiMap<QByteArray, QByteArray> getParameterMap() const;
 
     /** Get the HTTP request body  */
     QByteArray getBody() const;
@@ -136,21 +137,21 @@ public:
     QByteArray getCookie(const QByteArray& name) const;
 
     /** Get the map of cookies */
-    QMap<QByteArray,QByteArray>& getCookieMap();
+    QMap<QByteArray, QByteArray>& getCookieMap();
 
 private:
 
     /** Request headers */
-    QMultiMap<QByteArray,QByteArray> headers;
+    QMultiMap<QByteArray, QByteArray> headers;
 
     /** Parameters of the request */
-    QMultiMap<QByteArray,QByteArray> parameters;
+    QMultiMap<QByteArray, QByteArray> parameters;
 
     /** Uploaded files of the request, key is the field name. */
-    QMap<QByteArray,QTemporaryFile*> uploadedFiles;
+    QMap<QByteArray, QTemporaryFile*> uploadedFiles;
 
     /** Received cookies */
-    QMap<QByteArray,QByteArray> cookies;
+    QMap<QByteArray, QByteArray> cookies;
 
     /** Storage for raw body data */
     QByteArray bodyData;

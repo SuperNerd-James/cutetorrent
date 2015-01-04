@@ -19,7 +19,7 @@ QSgmlTag.h  Copyright (C) 2010  Andreas Lehmann
 This program comes with ABSOLUTELY NO WARRANTY.
 This is free software, and you are welcome to redistribute it
 under certain conditions.
-------------------------------------------------------------------------------------------*/ 
+------------------------------------------------------------------------------------------*/
 
 #ifndef QSGMLTAG_CPP
 #define QSGMLTAG_CPP
@@ -30,56 +30,56 @@ under certain conditions.
 class QSgmlTag
 {
 public:
-   typedef QList<QSgmlTag*>         QSgmlTaglist;
-   typedef QHash<QString,QString>   QSgmlAtrHash;
+    typedef QList<QSgmlTag*>         QSgmlTaglist;
+    typedef QHash<QString, QString>   QSgmlAtrHash;
 
-   enum TagType
-   {
-      eVirtualBeginTag,
-      eVirtualEndTag,
-      eStartTag,
-      eEndTag,
-      eStandalone,
-      eDoctype,
-      eCdata,
-      eComment,
-      eStartEmpty,
-      eNoTag,
-   };
+    enum TagType
+    {
+        eVirtualBeginTag,
+        eVirtualEndTag,
+        eStartTag,
+        eEndTag,
+        eStandalone,
+        eDoctype,
+        eCdata,
+        eComment,
+        eStartEmpty,
+        eNoTag,
+    };
 
-   int Level;
+    int Level;
 
-   QSgmlTag* Parent;
-   QSgmlTaglist Children;
+    QSgmlTag* Parent;
+    QSgmlTaglist Children;
 
-   QSgmlAtrHash Attributes;
-   QString Name;
-   QString Value;
-   TagType Type;
-   int StartTagPos;
-   int StartTagLength;
-   int EndTagPos;
-   int EndTagLength;
+    QSgmlAtrHash Attributes;
+    QString Name;
+    QString Value;
+    TagType Type;
+    int StartTagPos;
+    int StartTagLength;
+    int EndTagPos;
+    int EndTagLength;
 
-   QSgmlTag(void);
-   QSgmlTag(const QString &InnerTag);
-   QSgmlTag(const QString &InnerTag,TagType eType,QSgmlTag *tParent);
-   ~QSgmlTag(void);
+    QSgmlTag(void);
+    QSgmlTag(const QString& InnerTag);
+    QSgmlTag(const QString& InnerTag, TagType eType, QSgmlTag* tParent);
+    ~QSgmlTag(void);
 
-   bool checkAttribute(QString AtrName,QString AtrValue);
-   QSgmlTag& getNextSibling(void);
-   QSgmlTag& getPreviousSibling(void);
-   QSgmlTag& getNextElement(void);
-   QSgmlTag& getPreviousElement(void);
-   QString getAttributeValue(QString Key);
-   void resetLevel(void);
-   bool hasAttribute(QString AtrName);
+    bool checkAttribute(QString AtrName, QString AtrValue);
+    QSgmlTag& getNextSibling(void);
+    QSgmlTag& getPreviousSibling(void);
+    QSgmlTag& getNextElement(void);
+    QSgmlTag& getPreviousElement(void);
+    QString getAttributeValue(QString Key);
+    void resetLevel(void);
+    bool hasAttribute(QString AtrName);
 
-   QSgmlTag* addChild(QString InnerTag, TagType eType);
+    QSgmlTag* addChild(QString InnerTag, TagType eType);
 
 private:
-   void SetType(const QString &InnerTag);
-   void SetNameAttributes(const QString &InnerTag);
+    void SetType(const QString& InnerTag);
+    void SetNameAttributes(const QString& InnerTag);
 };
 
 extern QSgmlTag NoTag;

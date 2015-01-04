@@ -16,78 +16,102 @@
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
-static const uint qt_meta_data_TorrentStorrage[] = {
+static const uint qt_meta_data_TorrentStorrage[] =
+{
 
- // content:
-       6,       // revision
-       0,       // classname
-       0,    0, // classinfo
-       1,   14, // methods
-       0,    0, // properties
-       0,    0, // enums/sets
-       0,    0, // constructors
-       0,       // flags
-       0,       // signalCount
+// content:
+    6,       // revision
+    0,       // classname
+    0,    0, // classinfo
+    1,   14, // methods
+    0,    0, // properties
+    0,    0, // enums/sets
+    0,    0, // constructors
+    0,       // flags
+    0,       // signalCount
 
- // slots: signature, parameters, type, tag, flags
-      17,   16,   16,   16, 0x08,
+// slots: signature, parameters, type, tag, flags
+    17,   16,   16,   16, 0x08,
 
-       0        // eod
+    0        // eod
 };
 
-static const char qt_meta_stringdata_TorrentStorrage[] = {
+static const char qt_meta_stringdata_TorrentStorrage[] =
+{
     "TorrentStorrage\0\0filterData()\0"
 };
 
-void TorrentStorrage::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void TorrentStorrage::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
 {
-    if (_c == QMetaObject::InvokeMetaMethod) {
+    if(_c == QMetaObject::InvokeMetaMethod)
+    {
         Q_ASSERT(staticMetaObject.cast(_o));
-        TorrentStorrage *_t = static_cast<TorrentStorrage *>(_o);
-        switch (_id) {
-        case 0: _t->filterData(); break;
-        default: ;
+        TorrentStorrage* _t = static_cast<TorrentStorrage*>(_o);
+
+        switch(_id)
+        {
+            case 0:
+                _t->filterData();
+                break;
+
+            default:
+                ;
         }
     }
+
     Q_UNUSED(_a);
 }
 
-const QMetaObjectExtraData TorrentStorrage::staticMetaObjectExtraData = {
-    0,  qt_static_metacall 
+const QMetaObjectExtraData TorrentStorrage::staticMetaObjectExtraData =
+{
+    0,  qt_static_metacall
 };
 
-const QMetaObject TorrentStorrage::staticMetaObject = {
-    { &QObject::staticMetaObject, qt_meta_stringdata_TorrentStorrage,
-      qt_meta_data_TorrentStorrage, &staticMetaObjectExtraData }
+const QMetaObject TorrentStorrage::staticMetaObject =
+{
+    {
+        &QObject::staticMetaObject, qt_meta_stringdata_TorrentStorrage,
+        qt_meta_data_TorrentStorrage, &staticMetaObjectExtraData
+    }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
-const QMetaObject &TorrentStorrage::getStaticMetaObject() { return staticMetaObject; }
+const QMetaObject& TorrentStorrage::getStaticMetaObject()
+{
+    return staticMetaObject;
+}
 #endif //Q_NO_DATA_RELOCATION
 
-const QMetaObject *TorrentStorrage::metaObject() const
+const QMetaObject* TorrentStorrage::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
 }
 
-void *TorrentStorrage::qt_metacast(const char *_clname)
+void* TorrentStorrage::qt_metacast(const char* _clname)
 {
-    if (!_clname) return 0;
-    if (!strcmp(_clname, qt_meta_stringdata_TorrentStorrage))
-        return static_cast<void*>(const_cast< TorrentStorrage*>(this));
+    if(!_clname) { return 0; }
+
+    if(!strcmp(_clname, qt_meta_stringdata_TorrentStorrage))
+    { return static_cast<void*>(const_cast< TorrentStorrage*>(this)); }
+
     return QObject::qt_metacast(_clname);
 }
 
-int TorrentStorrage::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int TorrentStorrage::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
 {
     _id = QObject::qt_metacall(_c, _id, _a);
-    if (_id < 0)
-        return _id;
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
-            qt_static_metacall(this, _c, _id, _a);
+
+    if(_id < 0)
+    { return _id; }
+
+    if(_c == QMetaObject::InvokeMetaMethod)
+    {
+        if(_id < 1)
+        { qt_static_metacall(this, _c, _id, _a); }
+
         _id -= 1;
     }
+
     return _id;
 }
 QT_END_MOC_NAMESPACE

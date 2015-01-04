@@ -28,24 +28,25 @@ QT_BEGIN_NAMESPACE
 class Ui_DTMountDialog
 {
 public:
-    QVBoxLayout *verticalLayout;
-    QWidget *titleBar;
-    QHBoxLayout *horizontalLayout;
-    QLabel *tbMenu;
-    QLabel *LTitle;
-    QPushButton *pbClose;
-    QWidget *m_centralWidget;
-    QGridLayout *gridLayout;
-    QListView *listView;
-    QVBoxLayout *vboxLayout;
-    QPushButton *okButton;
-    QPushButton *cancelButton;
-    QSpacerItem *spacerItem;
+    QVBoxLayout* verticalLayout;
+    QWidget* titleBar;
+    QHBoxLayout* horizontalLayout;
+    QLabel* tbMenu;
+    QLabel* LTitle;
+    QPushButton* pbClose;
+    QWidget* m_centralWidget;
+    QGridLayout* gridLayout;
+    QListView* listView;
+    QVBoxLayout* vboxLayout;
+    QPushButton* okButton;
+    QPushButton* cancelButton;
+    QSpacerItem* spacerItem;
 
-    void setupUi(QWidget *DTMountDialog)
+    void setupUi(QWidget* DTMountDialog)
     {
-        if (DTMountDialog->objectName().isEmpty())
-            DTMountDialog->setObjectName(QString::fromUtf8("DTMountDialog"));
+        if(DTMountDialog->objectName().isEmpty())
+        { DTMountDialog->setObjectName(QString::fromUtf8("DTMountDialog")); }
+
         DTMountDialog->resize(357, 196);
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/icons/app.ico"), QSize(), QIcon::Normal, QIcon::Off);
@@ -68,9 +69,7 @@ public:
         tbMenu->setMaximumSize(QSize(15, 15));
         tbMenu->setPixmap(QPixmap(QString::fromUtf8(":/icons/app.ico")));
         tbMenu->setScaledContents(true);
-
         horizontalLayout->addWidget(tbMenu);
-
         LTitle = new QLabel(titleBar);
         LTitle->setObjectName(QString::fromUtf8("LTitle"));
         LTitle->setMinimumSize(QSize(100, 22));
@@ -84,21 +83,15 @@ public:
         LTitle->setFont(font);
         LTitle->setStyleSheet(QString::fromUtf8(""));
         LTitle->setTextFormat(Qt::AutoText);
-
         horizontalLayout->addWidget(LTitle);
-
         pbClose = new QPushButton(titleBar);
         pbClose->setObjectName(QString::fromUtf8("pbClose"));
         pbClose->setMinimumSize(QSize(22, 22));
         pbClose->setMaximumSize(QSize(22, 22));
         pbClose->setIconSize(QSize(22, 22));
         pbClose->setFlat(true);
-
         horizontalLayout->addWidget(pbClose);
-
-
         verticalLayout->addWidget(titleBar);
-
         m_centralWidget = new QWidget(DTMountDialog);
         m_centralWidget->setObjectName(QString::fromUtf8("m_centralWidget"));
         gridLayout = new QGridLayout(m_centralWidget);
@@ -106,9 +99,7 @@ public:
         listView = new QListView(m_centralWidget);
         listView->setObjectName(QString::fromUtf8("listView"));
         listView->setEditTriggers(QAbstractItemView::NoEditTriggers);
-
         gridLayout->addWidget(listView, 0, 0, 1, 1);
-
         vboxLayout = new QVBoxLayout();
 #ifndef Q_OS_MAC
         vboxLayout->setSpacing(6);
@@ -117,32 +108,20 @@ public:
         vboxLayout->setObjectName(QString::fromUtf8("vboxLayout"));
         okButton = new QPushButton(m_centralWidget);
         okButton->setObjectName(QString::fromUtf8("okButton"));
-
         vboxLayout->addWidget(okButton);
-
         cancelButton = new QPushButton(m_centralWidget);
         cancelButton->setObjectName(QString::fromUtf8("cancelButton"));
-
         vboxLayout->addWidget(cancelButton);
-
         spacerItem = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
-
         vboxLayout->addItem(spacerItem);
-
-
         gridLayout->addLayout(vboxLayout, 0, 1, 1, 1);
-
-
         verticalLayout->addWidget(m_centralWidget);
-
-
         retranslateUi(DTMountDialog);
         QObject::connect(cancelButton, SIGNAL(clicked()), DTMountDialog, SLOT(reject()));
-
         QMetaObject::connectSlotsByName(DTMountDialog);
     } // setupUi
 
-    void retranslateUi(QWidget *DTMountDialog)
+    void retranslateUi(QWidget* DTMountDialog)
     {
         DTMountDialog->setWindowTitle(QApplication::translate("DTMountDialog", "DT_MOUNT_DILAOG", 0, QApplication::UnicodeUTF8));
         tbMenu->setText(QString());
@@ -153,8 +132,9 @@ public:
 
 };
 
-namespace Ui {
-    class DTMountDialog: public Ui_DTMountDialog {};
+namespace Ui
+{
+class DTMountDialog: public Ui_DTMountDialog {};
 } // namespace Ui
 
 QT_END_NAMESPACE

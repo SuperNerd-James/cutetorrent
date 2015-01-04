@@ -27,7 +27,8 @@
   @see HttpRequest for description of config settings maxRequestSize and maxMultiPartSize
 */
 
-class HttpConnectionHandlerPool : public QObject {
+class HttpConnectionHandlerPool : public QObject
+{
     Q_OBJECT
     Q_DISABLE_COPY(HttpConnectionHandlerPool)
 public:
@@ -39,7 +40,7 @@ public:
       @warning The requestMapper gets deleted by the destructor of this pool
     */
 
-    HttpConnectionHandlerPool(QString name,HttpRequestHandler* requestHandler);
+    HttpConnectionHandlerPool(QString name, HttpRequestHandler* requestHandler);
 
     /** Destructor */
     virtual ~HttpConnectionHandlerPool();

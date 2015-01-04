@@ -53,7 +53,7 @@ public:
     enum LockMode { NoLock = 0, ReadLock, WriteLock };
 
     QtLockedFile();
-    QtLockedFile(const QString &name);
+    QtLockedFile(const QString& name);
     ~QtLockedFile();
 
     bool open(OpenMode mode);

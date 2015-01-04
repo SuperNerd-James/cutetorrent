@@ -16,78 +16,102 @@
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
-static const uint qt_meta_data_SearchItemsStorrage[] = {
+static const uint qt_meta_data_SearchItemsStorrage[] =
+{
 
- // content:
-       6,       // revision
-       0,       // classname
-       0,    0, // classinfo
-       1,   14, // methods
-       0,    0, // properties
-       0,    0, // enums/sets
-       0,    0, // constructors
-       0,       // flags
-       1,       // signalCount
+// content:
+    6,       // revision
+    0,       // classname
+    0,    0, // classinfo
+    1,   14, // methods
+    0,    0, // properties
+    0,    0, // enums/sets
+    0,    0, // constructors
+    0,       // flags
+    1,       // signalCount
 
- // signals: signature, parameters, type, tag, flags
-      21,   20,   20,   20, 0x05,
+// signals: signature, parameters, type, tag, flags
+    21,   20,   20,   20, 0x05,
 
-       0        // eod
+    0        // eod
 };
 
-static const char qt_meta_stringdata_SearchItemsStorrage[] = {
+static const char qt_meta_stringdata_SearchItemsStorrage[] =
+{
     "SearchItemsStorrage\0\0reset()\0"
 };
 
-void SearchItemsStorrage::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void SearchItemsStorrage::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
 {
-    if (_c == QMetaObject::InvokeMetaMethod) {
+    if(_c == QMetaObject::InvokeMetaMethod)
+    {
         Q_ASSERT(staticMetaObject.cast(_o));
-        SearchItemsStorrage *_t = static_cast<SearchItemsStorrage *>(_o);
-        switch (_id) {
-        case 0: _t->reset(); break;
-        default: ;
+        SearchItemsStorrage* _t = static_cast<SearchItemsStorrage*>(_o);
+
+        switch(_id)
+        {
+            case 0:
+                _t->reset();
+                break;
+
+            default:
+                ;
         }
     }
+
     Q_UNUSED(_a);
 }
 
-const QMetaObjectExtraData SearchItemsStorrage::staticMetaObjectExtraData = {
-    0,  qt_static_metacall 
+const QMetaObjectExtraData SearchItemsStorrage::staticMetaObjectExtraData =
+{
+    0,  qt_static_metacall
 };
 
-const QMetaObject SearchItemsStorrage::staticMetaObject = {
-    { &QObject::staticMetaObject, qt_meta_stringdata_SearchItemsStorrage,
-      qt_meta_data_SearchItemsStorrage, &staticMetaObjectExtraData }
+const QMetaObject SearchItemsStorrage::staticMetaObject =
+{
+    {
+        &QObject::staticMetaObject, qt_meta_stringdata_SearchItemsStorrage,
+        qt_meta_data_SearchItemsStorrage, &staticMetaObjectExtraData
+    }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
-const QMetaObject &SearchItemsStorrage::getStaticMetaObject() { return staticMetaObject; }
+const QMetaObject& SearchItemsStorrage::getStaticMetaObject()
+{
+    return staticMetaObject;
+}
 #endif //Q_NO_DATA_RELOCATION
 
-const QMetaObject *SearchItemsStorrage::metaObject() const
+const QMetaObject* SearchItemsStorrage::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
 }
 
-void *SearchItemsStorrage::qt_metacast(const char *_clname)
+void* SearchItemsStorrage::qt_metacast(const char* _clname)
 {
-    if (!_clname) return 0;
-    if (!strcmp(_clname, qt_meta_stringdata_SearchItemsStorrage))
-        return static_cast<void*>(const_cast< SearchItemsStorrage*>(this));
+    if(!_clname) { return 0; }
+
+    if(!strcmp(_clname, qt_meta_stringdata_SearchItemsStorrage))
+    { return static_cast<void*>(const_cast< SearchItemsStorrage*>(this)); }
+
     return QObject::qt_metacast(_clname);
 }
 
-int SearchItemsStorrage::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int SearchItemsStorrage::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
 {
     _id = QObject::qt_metacall(_c, _id, _a);
-    if (_id < 0)
-        return _id;
-    if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
-            qt_static_metacall(this, _c, _id, _a);
+
+    if(_id < 0)
+    { return _id; }
+
+    if(_c == QMetaObject::InvokeMetaMethod)
+    {
+        if(_id < 1)
+        { qt_static_metacall(this, _c, _id, _a); }
+
         _id -= 1;
     }
+
     return _id;
 }
 

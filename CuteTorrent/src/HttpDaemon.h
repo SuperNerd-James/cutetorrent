@@ -6,18 +6,18 @@
 #include <QFile>
 class HttpDaemon : public QTcpServer
 {
-	Q_OBJECT
+    Q_OBJECT
 public:
-	HttpDaemon(quint16 port,QString baseFolder, QObject* parent = 0);
-	
-	void incomingConnection(int socket);
-	void pause();
-	void resume();
+    HttpDaemon(quint16 port, QString baseFolder, QObject* parent = 0);
+
+    void incomingConnection(int socket);
+    void pause();
+    void resume();
 private slots:
-	void readClient();
-	void discardClient();
+    void readClient();
+    void discardClient();
 private:
-	bool disabled;
-	QString baseDir;
-	QMutex locker;
+    bool disabled;
+    QString baseDir;
+    QMutex locker;
 };

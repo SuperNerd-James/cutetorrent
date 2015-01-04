@@ -29,7 +29,8 @@
   </pre></code>
 */
 
-class HttpSessionStore : public QObject {
+class HttpSessionStore : public QObject
+{
     Q_OBJECT
     Q_DISABLE_COPY(HttpSessionStore)
 public:
@@ -61,7 +62,7 @@ public:
        @return If autoCreate is disabled, the function returns a null session if there is no session.
        @see HttpSession::isNull()
     */
-    HttpSession getSession(HttpRequest& request, HttpResponse& response, bool allowCreate=true);
+    HttpSession getSession(HttpRequest& request, HttpResponse& response, bool allowCreate = true);
 
     /**
        Get a HTTP session by it's ID number.
@@ -81,7 +82,7 @@ private:
     QSettings* settings;
 
     /** Storage for the sessions */
-    QMap<QByteArray,HttpSession> sessions;
+    QMap<QByteArray, HttpSession> sessions;
 
     /** Timer to remove expired sessions */
     QTimer cleanupTimer;

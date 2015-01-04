@@ -388,7 +388,7 @@ padding-right:2px;
            <property name="opaqueResize">
             <bool>true</bool>
            </property>
-           <widget class="QTreeWidget" name="groupTreeWidget">
+           <widget class="QTreeWidget" name="m_pGroupTreeWidget">
             <property name="headerHidden">
              <bool>true</bool>
             </property>
@@ -398,7 +398,7 @@ padding-right:2px;
              </property>
             </column>
            </widget>
-           <widget class="QListView" name="listView"/>
+           <widget class="QListView" name="m_pTorrentListView"/>
           </widget>
           <widget class="QTabWidget" name="tabWidget">
            <property name="sizePolicy">

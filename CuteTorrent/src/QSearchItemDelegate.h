@@ -5,15 +5,15 @@
 class QSearchItemDelegate : public QStyledItemDelegate
 {
 private:
-	StyleEngene* m_pStyleEngine;
+    StyleEngene* m_pStyleEngine;
 public:
-	QSearchItemDelegate();
-	~QSearchItemDelegate();
-	static int max_width;
-	virtual void paint(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const override;
+    QSearchItemDelegate();
+    ~QSearchItemDelegate();
+    static int max_width;
+    virtual void paint(QPainter* painter, const QStyleOptionViewItem& option, const QModelIndex& index) const override;
 
-	virtual QSize sizeHint(const QStyleOptionViewItem &option, const QModelIndex &index) const override;
-	QSize margin(const QStyle& style) const;
-	QString GetPeersStr(const SearchResult* res) const;
+    virtual QSize sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const override;
+    QSize margin(const QStyle& style) const;
+    QString GetPeersStr(const SearchResult* res) const;
 };
 

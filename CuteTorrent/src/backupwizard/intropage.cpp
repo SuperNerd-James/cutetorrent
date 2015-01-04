@@ -2,17 +2,16 @@
 #include "backupwizard.h"
 #include <QDebug>
 
-IntroPage::IntroPage(QWidget *parent)
+IntroPage::IntroPage(QWidget* parent)
     : QWizardPage(parent)
 {
     setTitle(tr("BAKUP_INTRO_TITLE"));
-
-    QLabel *label = new QLabel(tr("BACKUP_INTRO_MESSAGE"));
+    QLabel* label = new QLabel(tr("BACKUP_INTRO_MESSAGE"));
     label->setWordWrap(true);
     careateRadioButton = new QRadioButton(tr("CREATE_BAKUP"));
     applyRadioButton  = new QRadioButton(tr("APPLY_BAKUP"));
     careateRadioButton->setChecked(true);
-    QVBoxLayout *layout = new QVBoxLayout;
+    QVBoxLayout* layout = new QVBoxLayout;
     layout->addWidget(label);
     layout->addWidget(careateRadioButton);
     layout->addWidget(applyRadioButton);
@@ -21,10 +20,12 @@ IntroPage::IntroPage(QWidget *parent)
 
 int IntroPage::nextId() const
 {
-
-    if (careateRadioButton->isChecked()) {
+    if(careateRadioButton->isChecked())
+    {
         return BackupWizard::Page_CreateBakup;
-    } else {
+    }
+    else
+    {
         return BackupWizard::Page_ApplyBakup;
     }
 }

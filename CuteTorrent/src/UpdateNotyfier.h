@@ -22,20 +22,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <QNetworkReply>
 class UpdateNotifier : public QObject
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	UpdateNotifier();
-	~UpdateNotifier();
-	void fetch(); 
+    UpdateNotifier();
+    ~UpdateNotifier();
+    void fetch();
 signals:
-	void showUpdateNitify(const QString&);
-	void showNoUpdateNitify(const QString&);
-	public slots:
+    void showUpdateNitify(const QString&);
+    void showNoUpdateNitify(const QString&);
+public slots:
 
-		void replyFinished(QNetworkReply*);
+    void replyFinished(QNetworkReply*);
 
 private:
-	QNetworkAccessManager* m_manager;
+    QNetworkAccessManager* m_manager;
 };
 #endif

@@ -2,14 +2,14 @@
 #include "http/httprequesthandler.h"
 #include "QApplicationSettings.h"
 class SettingsAPiController :
-	public HttpRequestHandler
+    public HttpRequestHandler
 {
-	Q_OBJECT
-	Q_DISABLE_COPY(SettingsAPiController)
+    Q_OBJECT
+    Q_DISABLE_COPY(SettingsAPiController)
 private:
-	QApplicationSettings* settings;
+    QApplicationSettings* settings;
 public:
-	SettingsAPiController(QObject*);
-	void service(HttpRequest& request,HttpResponse& response);
-	~SettingsAPiController(void);
+    SettingsAPiController(QObject*);
+    void service(HttpRequest& request, HttpResponse& response);
+    ~SettingsAPiController(void);
 };

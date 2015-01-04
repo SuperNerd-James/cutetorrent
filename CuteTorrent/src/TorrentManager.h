@@ -99,72 +99,72 @@ class TorrentStorrage;
 
 class TorrentManager : public QObject
 {
-	Q_OBJECT
+    Q_OBJECT
 signals:
-	void AddTorrentGui(Torrent*);
-	void TorrentError(const QString&,const QString&);
-	void TorrentCompleted(const QString&,const QString&);
-	void TorrentInfo(const QString&,const QString&);
-	void initCompleted();
+    void AddTorrentGui(Torrent*);
+    void TorrentError(const QString&, const QString&);
+    void TorrentCompleted(const QString&, const QString&);
+    void TorrentInfo(const QString&, const QString&);
+    void initCompleted();
     void TorrentRemove(QString);
 protected:
-	TorrentManager();
-	~TorrentManager();
-	static TorrentManager* _instance;
-	static int _instanceCount;
+    TorrentManager();
+    ~TorrentManager();
+    static TorrentManager* _instance;
+    static int _instanceCount;
 
 
 private:
-	void handle_alert(alert*);
-	void writeSettings();
-	TorrentStorrage* torrents;
+    void handle_alert(alert*);
+    void writeSettings();
+    TorrentStorrage* torrents;
     libtorrent::session* ses;
-	libtorrent::upnp* m_upnp;
-	QApplicationSettings* torrentSettings;
-	int save_file(std::string const& filename, std::vector<char>& v);
+    libtorrent::upnp* m_upnp;
+    QApplicationSettings* torrentSettings;
+    int save_file(std::string const& filename, std::vector<char>& v);
 //settingsData TODO implement a container
-	QString DTInstallPath;
-	int max_connections_per_torrent;
-	int listen_port;
-	QString ipFilterFileName;
-	bool useProxy;
-	libtorrent::proxy_settings ps;
+    QString DTInstallPath;
+    int max_connections_per_torrent;
+    int listen_port;
+    QString ipFilterFileName;
+    bool useProxy;
+    libtorrent::proxy_settings ps;
 //settingsData end
     void onClose();
 
 public:
-	
-	void initSession();
-	libtorrent::session_settings readSettings();
+
+    void initSession();
+    libtorrent::session_settings readSettings();
     libtorrent::pe_settings readEncSettings();
     void updateEncSettings(const libtorrent::pe_settings& settings);
     void updateSettings(const libtorrent::session_settings& settings);
-	QString GetSessionDownloadSpeed();
-	QString GetSessionUploadSpeed();
-	QString GetSessionDownloaded();
-	QString GetSessionUploaded();
-	QString GetSessionDHTstate();
-	static TorrentManager* getInstance();
-	static void freeInstance();
-	std::vector<torrent_status> GetTorrents();
-	opentorrent_info* GetTorrentInfo(QString filename);
-	openmagnet_info* GetTorrentInfo(const torrent_handle& handle);
-	void RemoveTorrent(QString InfoHash);
-	bool AddMagnet(torrent_handle h,  QString SavePath, QString group, QMap< QString, qint8>& filepriorities);
-	bool AddTorrent(QString path, QString name, QString save_path, error_code& ec, QMap<QString, qint8>& filepriorities, QString group = "", bool sequntial = false);
-	void AddPortMapping(session::protocol_type type, ushort sourcePoert, ushort destPort);
-	void PostTorrentUpdate();
-	void RemoveTorrent(torrent_handle h,bool dellfiles=false);
-    torrent_handle ProcessMagnetLink(QString link,error_code& ec);
+    QString GetSessionDownloadSpeed();
+    QString GetSessionUploadSpeed();
+    QString GetSessionDownloaded();
+    QString GetSessionUploaded();
+    QString GetSessionDHTstate();
+    static TorrentManager* getInstance();
+    static void freeInstance();
+    std::vector<torrent_status> GetTorrents();
+    opentorrent_info* GetTorrentInfo(QString filename);
+    openmagnet_info* GetTorrentInfo(const torrent_handle& handle);
+    void RemoveTorrent(QString InfoHash);
+    bool AddMagnet(torrent_handle h,  QString SavePath, QString group, QMap< QString, qint8>& filepriorities);
+    bool AddTorrent(QString path, QString name, QString save_path, error_code& ec, QMap<QString, qint8>& filepriorities, QString group = "", bool sequntial = false);
+    void AddPortMapping(session::protocol_type type, ushort sourcePoert, ushort destPort);
+    void PostTorrentUpdate();
+    void RemoveTorrent(torrent_handle h, bool dellfiles = false);
+    torrent_handle ProcessMagnetLink(QString link, error_code& ec);
     void CancelMagnetLink(QString link);
-	void StartAllTorrents();
-	void PauseAllTorrents();
-	void SetUlLimit(int val);
-	void SetDlLimit(int val);
-	int GetDownloadLimit();
-	int GetUploadLimit();
-	Torrent* GetTorrentByInfoHash(const sha1_hash& hash);
-	Torrent* GetTorrentByInfoHash(QString hash);
+    void StartAllTorrents();
+    void PauseAllTorrents();
+    void SetUlLimit(int val);
+    void SetDlLimit(int val);
+    int GetDownloadLimit();
+    int GetUploadLimit();
+    Torrent* GetTorrentByInfoHash(const sha1_hash& hash);
+    Torrent* GetTorrentByInfoHash(QString hash);
 };
 Q_DECLARE_METATYPE(opentorrent_info);
 

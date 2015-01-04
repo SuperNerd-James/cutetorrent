@@ -29,7 +29,8 @@
   @see HttpRequest for description of config settings maxRequestSize and maxMultiPartSize
 */
 
-class HttpConnectionHandler : public QThread {
+class HttpConnectionHandler : public QThread
+{
     Q_OBJECT
     Q_DISABLE_COPY(HttpConnectionHandler)
 public:
@@ -39,7 +40,7 @@ public:
       @param settings Configuration settings of the HTTP webserver
       @param requestHandler handler that will process each incomin HTTP request
     */
-    HttpConnectionHandler( HttpRequestHandler* requestHandler);
+    HttpConnectionHandler(HttpRequestHandler* requestHandler);
 
     /** Destructor */
     virtual ~HttpConnectionHandler();
@@ -49,9 +50,9 @@ public:
 
     /** Mark this handler as busy */
     void setBusy();
-    static QList<QPair<uint,uint> > allowedIP,notAllowedIP;
+    static QList<QPair<uint, uint> > allowedIP, notAllowedIP;
 private:
-	bool blockClient;
+    bool blockClient;
     /** Configuration settings */
     QApplicationSettings* settings;
 

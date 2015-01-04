@@ -25,17 +25,17 @@ class MultipleDTDialog : public BaseWindow<QDialog>, Ui::DTMountDialog
 {
     Q_OBJECT
 protected:
-    void changeEvent(QEvent *event);
+    void changeEvent(QEvent* event);
 public:
-    MultipleDTDialog(QStringList& _files,QWidget* parrent=0,int flags=0);
+    MultipleDTDialog(QStringList& _files, QWidget* parrent = 0, int flags = 0);
 
 private:
-	QPushButton* getCloseBtn() override;
-	QWidget* getTitleBar() override;
-	QWidget* centralWidget() override;
-	QLabel* getTitleLabel() override;
-	QLabel* getTitleIcon() override;
-	QStringList files;
+    QPushButton* getCloseBtn() override;
+    QWidget* getTitleBar() override;
+    QWidget* centralWidget() override;
+    QLabel* getTitleLabel() override;
+    QLabel* getTitleIcon() override;
+    QStringList files;
     void Mount(QString filename);
 public slots:
     void MountSelectedFILE();

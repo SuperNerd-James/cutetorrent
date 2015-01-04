@@ -70,7 +70,7 @@
     argv are passed on to the QCoreAppliation constructor.
 */
 
-QtSingleCoreApplication::QtSingleCoreApplication(int &argc, char **argv)
+QtSingleCoreApplication::QtSingleCoreApplication(int& argc, char** argv)
     : QCoreApplication(argc, argv)
 {
     peer = new QtLocalPeer(this);
@@ -83,7 +83,7 @@ QtSingleCoreApplication::QtSingleCoreApplication(int &argc, char **argv)
     identifier \a appId. \a argc and \a argv are passed on to the
     QCoreAppliation constructor.
 */
-QtSingleCoreApplication::QtSingleCoreApplication(const QString &appId, int &argc, char **argv)
+QtSingleCoreApplication::QtSingleCoreApplication(const QString& appId, int& argc, char** argv)
     : QCoreApplication(argc, argv)
 {
     peer = new QtLocalPeer(this, appId);
@@ -122,7 +122,7 @@ bool QtSingleCoreApplication::isRunning()
     \sa isRunning(), messageReceived()
 */
 
-bool QtSingleCoreApplication::sendMessage(const QString &message, int timeout)
+bool QtSingleCoreApplication::sendMessage(const QString& message, int timeout)
 {
     return peer->sendMessage(message, timeout);
 }
