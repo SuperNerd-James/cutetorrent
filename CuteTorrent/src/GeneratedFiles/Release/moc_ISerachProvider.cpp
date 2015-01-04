@@ -31,15 +31,15 @@ static const uint qt_meta_data_ISerachProvider[] = {
 
  // signals: signature, parameters, type, tag, flags
       24,   17,   16,   16, 0x05,
-      63,   57,   16,   16, 0x05,
+      64,   58,   16,   16, 0x05,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_ISerachProvider[] = {
     "ISerachProvider\0\0result\0"
-    "SearchReady(QList<SearchResult>)\0error\0"
-    "Error(QString)\0"
+    "SearchReady(QList<SearchResult*>)\0"
+    "error\0Error(QString)\0"
 };
 
 void ISerachProvider::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -48,7 +48,7 @@ void ISerachProvider::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int 
         Q_ASSERT(staticMetaObject.cast(_o));
         ISerachProvider *_t = static_cast<ISerachProvider *>(_o);
         switch (_id) {
-        case 0: _t->SearchReady((*reinterpret_cast< QList<SearchResult>(*)>(_a[1]))); break;
+        case 0: _t->SearchReady((*reinterpret_cast< QList<SearchResult*>(*)>(_a[1]))); break;
         case 1: _t->Error((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }

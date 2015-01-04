@@ -71,7 +71,7 @@ public:
    QSgmlTag& getPreviousSibling(void);
    QSgmlTag& getNextElement(void);
    QSgmlTag& getPreviousElement(void);
-   QString getArgValue(QString Key);
+   QString getAttributeValue(QString Key);
    void resetLevel(void);
    bool hasAttribute(QString AtrName);
 

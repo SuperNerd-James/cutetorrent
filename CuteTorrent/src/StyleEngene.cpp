@@ -37,6 +37,7 @@ void StyleEngene::setStyle(QString internalName)
 {
     if (_styleMap.contains(internalName)) {
         _currentStyle = _styleMap[internalName];
+		m_iconCache.clear();
     } else {
         qDebug() << "No style found";
         return;
@@ -80,10 +81,19 @@ StyleInfo StyleEngene::getCuurentStyle()
 
 QIcon StyleEngene::getIcon(QString name)
 {
+	if (m_iconCache.contains(name))
+	{
+		return *m_iconCache[name];
+	}
     QString iconsRoot = _currentStyle.rootPath + "/icons/";
-    if (iconNamesMap.contains(name)) {
-        return QIcon(iconsRoot+iconNamesMap[name]);
-    } else {
+    if (iconNamesMap.contains(name)) 
+	{
+		QIcon * icon = new QIcon(iconsRoot + iconNamesMap[name]);
+		m_iconCache.insert(name, icon);
+		return *icon;
+    }
+	else 
+	{
         qDebug() << "No icon found for " << name;
         return QIcon();
     }

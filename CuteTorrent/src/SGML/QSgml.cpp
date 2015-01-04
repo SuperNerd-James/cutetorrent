@@ -609,3 +609,20 @@ QSgml::~QSgml(void)
 {
    delete DocTag;
 }
+
+QString QSgml::getInnerText(QSgmlTag* ptag)
+{
+	if (ptag->Type == QSgmlTag::eStandalone)
+	{
+		return "";
+	}
+
+	if (ptag->StartTagPos > 0 && ptag->EndTagPos > 0)
+	{
+		return sSgmlString.mid(ptag->StartTagPos + ptag->StartTagLength, ptag->EndTagPos  - ptag->StartTagPos - ptag->StartTagLength);
+	}
+	else 
+	{
+		return "";
+	}
+}

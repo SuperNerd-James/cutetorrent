@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 QString StaticHelpers::toKbMbGb(libtorrent::size_type size)
 {
 	float val=size;
-	char* Suffix[] = { " B\0", " KB\0", " MB\0", " GB\0", " TB\0" };
+	char* Suffix[] = { " B\0", " KB\0", " MB\0", " GB\0", " TB\0", " PB\0", " EB\0" , " ZB\0" };
     int i=0;
     float dblSByte=val;
 	if (size > 1024)
@@ -158,32 +158,4 @@ QString StaticHelpers::GetBaseSuffix(const libtorrent::file_storage& storrage )
 	return base_suffix;
 }
 
-FilterType StaticHelpers::StrToFilter( QString filter )
-{
-	if(filter=="NONE")
-	{
-		return NONE;
-	}
-	if (filter=="DWONLOADING")
-	{
-		return DWONLOADING;
-	}
-	if(filter=="SEEDING")
-	{
-		return SEEDING;
-	}
-	if(filter=="COMPLETED")
-	{
-		return COMPLETED;
-	}
-	if(filter=="ACTIVE")
-	{
-		return ACTIVE;
-	}
-	if(filter=="NOT_ACTIVE")
-	{
-		return NOT_ACTIVE;
-	}
-	return NONE;
-}
 
