@@ -34,19 +34,19 @@ void RconWebService::parseIpFilter(QString ipFilterStr)
 {
 	QStringList lines = ipFilterStr.split("\n");
 
-	//qDebug() << lines;
+	
 	foreach(QString line, lines)
 	{
-		//qDebug()<< "parsing line:" << line;
+		
 		if(line.trimmed().startsWith("#"))
 		{
-			//qDebug()<< "line:" << line << "is comment so skiping it";
+			
 			continue;
 		}
 
 		QStringList parts = line.trimmed().split(' ');
 
-		//qDebug() << "parts:" << parts;
+		
 		if(parts[0] == "allow" || parts[0] == "deny")
 		{
 			if(parts[0] == "allow")
@@ -68,7 +68,7 @@ void RconWebService::parseIpFilter(QString ipFilterStr)
 				}
 				else
 				{
-					//qDebug()<< "line:" << line << "not match parts[1].contains('*') && !parts[1].contains('-')";
+					
 				}
 
 				if(parts[1].contains('-') && !parts[1].contains('*'))
@@ -88,7 +88,7 @@ void RconWebService::parseIpFilter(QString ipFilterStr)
 				}
 				else
 				{
-					//qDebug()<< "line:" << line << "not match parts[1].contains('-') && !parts[1].contains('*')";
+					
 				}
 			}
 			else
@@ -109,7 +109,7 @@ void RconWebService::parseIpFilter(QString ipFilterStr)
 					QHostAddress start(startIP);
 					QHostAddress end(endIP);
 
-					//qDebug() << "deny: start: " << start << "end: " <<end;
+					
 					if(start.toIPv4Address() > end.toIPv4Address())
 					{
 						qSwap(start, end);
@@ -119,7 +119,7 @@ void RconWebService::parseIpFilter(QString ipFilterStr)
 				}
 				else
 				{
-					//qDebug()<< "line:" << line << "not match parts[1].contains('*') && !parts[1].contains('-')";
+					
 				}
 
 				if(parts[1].contains('-') && !parts[1].contains('*'))
@@ -139,20 +139,20 @@ void RconWebService::parseIpFilter(QString ipFilterStr)
 				}
 				else
 				{
-					//qDebug()<< "line:" << line << "not match parts[1].contains('-') && !parts[1].contains('*')";
+					
 				}
 			}
 		}
 		else
 		{
-			//qDebug()<< "line:" << line << "is invalid";
+			
 		}
 	}
 
 	HttpConnectionHandler::allowedIP = allowedIP;
 	HttpConnectionHandler::notAllowedIP = notAllowedIP;
-	//qDebug() << "notAllowedIP:" << notAllowedIP;
-	//qDebug() << "allowedIP:"    << allowedIP;
+	
+	
 }
 
 bool RconWebService::isRunning()

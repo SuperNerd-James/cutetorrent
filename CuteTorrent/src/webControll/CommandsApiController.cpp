@@ -5,10 +5,10 @@ CommandsApiController::CommandsApiController(QObject* parent/*=0*/) : HttpReques
 
 void CommandsApiController::service(HttpRequest& request, HttpResponse& response)
 {
-	//qDebug() << request.getParameterMap();
+	
 	if(requireAuth)
 	{
-		//qDebug() << "Authorization" << request.getHeader("Authorization");
+		
 		if(!CheckCreditinals(request, response))
 		{
 			return;
@@ -23,7 +23,7 @@ void CommandsApiController::service(HttpRequest& request, HttpResponse& response
 
 		if(tor != NULL)
 		{
-			//qDebug() << "Found torrent: " << tor->GetName();
+			
 			if(action == "pause")
 			{
 				tor->pause();
@@ -38,12 +38,12 @@ void CommandsApiController::service(HttpRequest& request, HttpResponse& response
 			}
 			else
 			{
-				//qDebug() << "Unknown action: " << action;
+				
 			}
 		}
 		else
 		{
-			//qDebug() << "Not found torrent";
+			
 		}
 	}
 	else

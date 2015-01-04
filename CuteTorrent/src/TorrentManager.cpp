@@ -111,7 +111,7 @@ TorrentManager::TorrentManager()
 	try
 	{
 		torrents = TorrentStorrage::getInstance();
-		//qDebug() << "QApplicationSettings::getInstance from TorrentManager::TorrentManager";
+		
 		torrentSettings = QApplicationSettings::getInstance();
 		ses = new session(fingerprint("CuT", VERSION_MAJOR , VERSION_MINOR, VERSION_REVISION , VERSION_TAG)
 		                  , session::start_default_features
@@ -405,44 +405,44 @@ void TorrentManager::handle_alert(alert* a)
 		    {
 		        case performance_alert::outstanding_disk_buffer_limit_reached:
 		        {
-		            //qDebug() << "max_queued_disk_bytes" << settings.max_queued_disk_bytes;
+		            
 		            settings.max_queued_disk_bytes+=settings.max_queued_disk_bytes/4;
 		            break;
 		        }
 		        case performance_alert::outstanding_request_limit_reached:
 		        {
-		            //qDebug() << "max_out_request_queue" << settings.max_out_request_queue;
+		            
 		            settings.max_out_request_queue+=settings.max_out_request_queue/4;
 		            break;
 		        }
 		        case performance_alert::upload_limit_too_low:
 		        {
-		            //qDebug() << "upload_rate_limit" << settings.upload_rate_limit;
+		            
 		            settings.upload_rate_limit+=settings.upload_rate_limit*5/100;
 		            break;
 		        }
 		        case performance_alert::download_limit_too_low:
 		        {
-		            //qDebug() << "download_rate_limit" << settings.download_rate_limit;
+		            
 		            settings.download_rate_limit+=settings.download_rate_limit*5/100;
 		            break;
 		        }
 		        case performance_alert::send_buffer_watermark_too_low:
 		        {
-		            //qDebug() << "send_buffer_watermark" << settings.send_buffer_watermark;
+		            
 		            settings.send_buffer_watermark+=settings.send_buffer_watermark/4;
 		            break;
 		        }
 		        case performance_alert::too_many_optimistic_unchoke_slots:
 		        {
-		            //qDebug() << "unchoke_slots_limit" << settings.unchoke_slots_limit;
+		            
 		            settings.unchoke_slots_limit+= settings.unchoke_slots_limit/4;
 		            break;
 		        }
 		        case performance_alert::too_high_disk_queue_limit:
 		        {
-		            //qDebug() << "max_queued_disk_bytes" << settings.max_queued_disk_bytes;
-		            //qDebug() << "cache_size" << settings.cache_size;
+		            
+		            
 		            if (settings.max_queued_disk_bytes-settings.max_queued_disk_bytes/4 < 16*1024)
 		            {
 		                settings.max_queued_disk_bytes=settings.max_queued_disk_bytes-settings.max_queued_disk_bytes/4;
@@ -963,10 +963,10 @@ void TorrentManager::UpdatePathResumeAndLinks()
 
 TorrentManager::~TorrentManager()
 {
-	//qDebug() << "TorrentManager::~TorrentManager";
+	
 	onClose();
 	TorrentStorrage::freeInstance();
-	//qDebug() << "free from TorrentManager::~TorrentManager";
+	
 	QApplicationSettings::FreeInstance();
 }
 
@@ -974,7 +974,7 @@ TorrentManager* TorrentManager::_instance = NULL;
 int TorrentManager::_instanceCount = 0;
 TorrentManager* TorrentManager::getInstance()
 {
-	//qDebug() << "TorrentManager::getInstance()";
+	
 	if(_instance == NULL)
 	{
 		_instance = new TorrentManager();
@@ -987,7 +987,7 @@ void TorrentManager::freeInstance()
 {
 	_instanceCount--;
 
-	//qDebug() << "TorrentManager::freeInstance()" << _instanceCount ;
+	
 	if(!_instanceCount)
 	{
 		_instance->~TorrentManager();
@@ -1069,7 +1069,7 @@ void TorrentManager::RemoveTorrent(torrent_handle h, bool delFiles)
 	/*if (save_path_data.contains(infoHash))
 	    save_path_data.remove(infoHash);
 	UpdatePathResumeAndLinks();*/
-	//qDebug() << "before ses->remove_torrent(h); h.is_valid()=" << h.is_valid();
+	
 	try
 	{
 		ses->remove_torrent(h, delFiles ? session::delete_files : 0);
@@ -1083,7 +1083,7 @@ void TorrentManager::RemoveTorrent(torrent_handle h, bool delFiles)
 		qDebug() << "Not a libtorrent exception caught";
 	}
 
-	//qDebug() << "after ses->remove_torrent(h)";
+	
 }
 QString TorrentManager::GetSessionDownloadSpeed()
 {
@@ -1289,13 +1289,13 @@ QString TorrentManager::GetSessionDHTstate()
 
 void TorrentManager::SetUlLimit(int val)
 {
-	//qDebug() << "TorrentManager::SetUlLimit" << val;
+	
 	ses->set_upload_rate_limit(val);
 }
 
 void TorrentManager::SetDlLimit(int val)
 {
-	//qDebug() << "TorrentManager::SetDlLimit" << val;
+	
 	ses->set_download_rate_limit(val);
 }
 

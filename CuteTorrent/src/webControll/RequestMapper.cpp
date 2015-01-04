@@ -17,30 +17,30 @@ void RequestMapper::service(HttpRequest& request, HttpResponse& response)
 {
 	QByteArray path = request.getPath();
 
-	//qDebug("RequestMapper: path=%s",path.data());
+	
 	if(path.startsWith("/magnet/api"))
 	{
-		//qDebug("RequestMapper: using magnetController");
+		
 		magnetController->service(request, response);
 	}
 	else if(path.startsWith("/settings/api"))
 	{
-		//qDebug("RequestMapper: using settingsController");
+		
 		settingsController->service(request, response);
 	}
 	else if(path.startsWith("/torrent/api"))
 	{
-		//qDebug("RequestMapper: using torrentController");
+		
 		torrentController->service(request, response);
 	}
 	else if(path.startsWith("/torrent/upload"))
 	{
-		//qDebug("RequestMapper: using uploadController");
+		
 		uploadController->service(request, response);
 	}
 	else if(path.startsWith("/torrent/action"))
 	{
-		//qDebug("RequestMapper: using commandsController");
+		
 		commandsController->service(request, response);
 	}
 	else
@@ -48,7 +48,7 @@ void RequestMapper::service(HttpRequest& request, HttpResponse& response)
 		staticFileController->service(request, response);
 	}
 
-	//qDebug("RequestMapper: finished request");
+	
 }
 
 RequestMapper::~RequestMapper()

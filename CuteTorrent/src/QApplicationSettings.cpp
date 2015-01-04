@@ -47,7 +47,7 @@ QApplicationSettings::QApplicationSettings()
 }
 QApplicationSettings::~QApplicationSettings()
 {
-	//qDebug() << "QApplicationSettings: object destruction";
+	
 	WriteSettings();
 }
 QApplicationSettings* QApplicationSettings::getInstance()
@@ -57,7 +57,7 @@ QApplicationSettings* QApplicationSettings::getInstance()
 		_instance = new QApplicationSettings();
 	}
 
-	//qDebug() << "QApplicationSettings giving " <<_instanceCount<< " instance " ;
+	
 	_instanceCount++;
 	return _instance;
 }
@@ -65,7 +65,7 @@ void QApplicationSettings::FreeInstance()
 {
 	_instanceCount--;
 
-	//qDebug() << "QApplicationSettings freeing " <<_instanceCount<< " instance " ;
+	
 	if(!_instanceCount)
 	{
 		_instance->~QApplicationSettings();
@@ -306,7 +306,7 @@ QList<SchedulerTask> QApplicationSettings::GetSchedullerQueue()
 			}
 			else
 			{
-				//qDebug() << "Unknown type " << val;
+				
 			}
 		}
 
@@ -339,7 +339,7 @@ QList<SchedulerTask> QApplicationSettings::GetSchedullerQueue()
 
 	if(xml.hasError())
 	{
-		//qDebug() << xml.errorString();
+		
 	}
 
 	file.close();
@@ -404,14 +404,14 @@ void QApplicationSettings::SaveSchedullerQueue(QList<SchedulerTask>& tasks)
 	QXmlStreamWriter xml(&file);
 	xml.setAutoFormatting(true);
 	xml.writeStartDocument();
-	//qDebug() << tasks.count();
+	
 	qSort(tasks);
 	xml.writeStartElement("tasks");
 
 	for(QQueue<SchedulerTask>::iterator i = tasks.begin(); i != tasks.end(); ++i)
 	{
 		xml.writeStartElement("task");
-		//qDebug() << i->startTime().toString("dd:MM:yyyy hh:mm:ss");
+		
 		xml.writeAttribute("TYPE", StaticHelpers::SchedulerTypeToString(i->type()));
 		xml.writeAttribute("NAME", i->name());
 		xml.writeAttribute("LIMIT", QString::number(i->limit()));

@@ -9,6 +9,6 @@ QString ProgressItemDelegate::displayText(const QVariant& value, const QLocale& 
 		return QString::number(value.toFloat(), 'f', 2) + " %";
 	}
 
-	//qDebug()<< "invalid value type" << value.type();
+	
 	return "";
 }

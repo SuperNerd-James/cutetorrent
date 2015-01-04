@@ -108,7 +108,7 @@ void MediaController::openFile()
 				m_playListPosition = m_playList.indexOf(file);
 			}
 
-			//qDebug() << m_playListPosition << m_playList;
+			
 		}
 
 		Phonon::MediaSource s(file);
@@ -222,7 +222,7 @@ void MediaController::playFile(QString file)
 				m_playListPosition = m_playList.indexOf(file);
 			}
 
-			//qDebug() << m_playListPosition << m_playList;
+			
 		}
 
 		Phonon::MediaSource s(file);
@@ -233,7 +233,7 @@ void MediaController::playFile(QString file)
 
 void MediaController::forvard()
 {
-	//qDebug() << "MediaController::forvard" << m_playListPosition;
+	
 	if(m_playListPosition + 1 < m_playList.length())
 	{
 		m_playListPosition++;
@@ -248,7 +248,7 @@ void MediaController::forvard()
 
 void MediaController::reverse()
 {
-	//qDebug() << "MediaController::reverse" << m_playListPosition;
+	
 	if(m_playListPosition - 1 >= 0)
 	{
 		m_playListPosition--;

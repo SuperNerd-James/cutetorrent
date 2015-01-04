@@ -6,7 +6,7 @@ int TorrentStorrage::m_nInstanceCount = 0;
 
 TorrentStorrage* TorrentStorrage::getInstance()
 {
-	//qDebug() << "TorrentStorrage::getInstance";
+	
 	if(m_pInstance == NULL)
 	{
 		m_pInstance = new TorrentStorrage();
@@ -18,7 +18,7 @@ TorrentStorrage* TorrentStorrage::getInstance()
 
 void TorrentStorrage::freeInstance()
 {
-	//qDebug() << "TorrentStorrage::freeInstance";
+	
 	m_nInstanceCount--;
 
 	if(m_nInstanceCount == 0)
@@ -41,7 +41,7 @@ void TorrentStorrage::append(Torrent* torrent)
 	}
 
 	locker->lock();
-	//qDebug() << "TorrentStorrage::append";
+	
 	QMap<QString, Torrent*>::Iterator it = m_torrentsMap.insert(infoHash, torrent);
 	m_torrents.append(it);
 
@@ -101,7 +101,7 @@ void TorrentStorrage::append(Torrent* torrent)
 void TorrentStorrage::remove(Torrent* torrent)
 {
 	locker->lock();
-	//qDebug() << "TorrentStorrage::remove(Torrent*)";
+	
 	remove(torrent->GetInfoHash());
 	locker->unlock();
 }
@@ -120,18 +120,18 @@ Torrent* TorrentStorrage::getTorrent(QString infoHash)
 
 void TorrentStorrage::remove(QString infoHash)
 {
-	//qDebug() << "TorrentStorrage::remove" << infoHash;
+	
 	QMap<QString, Torrent*>::Iterator it = m_torrentsMap.find(infoHash);
 	int index = m_torrents.indexOf(it);
 	int index2 = m_filteredTorrents.lastIndexOf(it);
 
-	//qDebug() << "Found " << index << it.value();
+	
 	if(index >= 0)
 	{
-		//qDebug() << "Before Removing" << torrentsMap.count();
+		
 		m_torrents.remove(index);
 		m_torrentsMap.remove(infoHash);
-		//qDebug() << "After Removing" << torrentsMap.count();
+		
 	}
 
 	if(index2 >= 0)
@@ -142,26 +142,26 @@ void TorrentStorrage::remove(QString infoHash)
 
 bool TorrentStorrage::hasTorrent(Torrent* tor)
 {
-	//qDebug() << "TorrentStorrage::hasTorrent(Torrent*)";
+	
 	return hasTorrent(tor->GetInfoHash());
 }
 
 bool TorrentStorrage::hasTorrent(QString infoHash)
 {
-	//qDebug() << "TorrentStorrage::hasTorrent(QString)";
+	
 	return m_torrentsMap.contains(infoHash);
 }
 
 TorrentStorrage::~TorrentStorrage(void)
 {
-	//qDebug() << "TorrentStorrage::~TorrentStorrage";
+	
 	qDeleteAll(m_torrentsMap);
 	qDeleteAll(m_torrents);
 }
 
 Torrent* TorrentStorrage::at(int index)
 {
-	//qDebug() << "TorrentStorrage::at";
+	
 	if(index < m_torrentsMap.size())
 	{
 		return m_filteredTorrents.at(index).value();
@@ -174,19 +174,19 @@ Torrent* TorrentStorrage::at(int index)
 
 QList<Torrent*>::iterator TorrentStorrage::begin()
 {
-	//qDebug() << "TorrentStorrage::begin";
+	
 	return m_torrentsMap.values().begin();
 }
 
 QList<Torrent*>::iterator TorrentStorrage::end()
 {
-	//qDebug() << "TorrentStorrage::end";
+	
 	return m_torrentsMap.values().end();
 }
 
 void TorrentStorrage::clear()
 {
-	//qDebug() << "TorrentStorrage::clear";
+	
 	m_torrentsMap.clear();
 	m_torrents.clear();
 	m_filteredTorrents.clear();
@@ -194,7 +194,7 @@ void TorrentStorrage::clear()
 
 int TorrentStorrage::count()
 {
-	//qDebug() << "TorrentStorrage::count";
+	
 	return m_filteredTorrents.count();
 }
 

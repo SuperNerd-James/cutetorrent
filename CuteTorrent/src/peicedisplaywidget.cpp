@@ -71,7 +71,7 @@ void PeiceDisplayWidget::setDowloadingParts(QVector<int> parts)
 
 	foreach(int piceNumber, parts)
 	{
-		//qDebug() << piceNumber << previusPicNumber;
+		
 		if(piceNumber - previusPicNumber == 1)
 		{
 			dowloadingParts.last().second = piceNumber;
@@ -84,8 +84,8 @@ void PeiceDisplayWidget::setDowloadingParts(QVector<int> parts)
 		previusPicNumber = piceNumber;
 	}
 
-	/*//qDebug() << parts;
-	//qDebug() << dowloadingParts;*/
+	/*
+	
 }
 
 void PeiceDisplayWidget::setDowloadedParts(QVector<int> parts)
@@ -95,7 +95,7 @@ void PeiceDisplayWidget::setDowloadedParts(QVector<int> parts)
 
 	foreach(int piceNumber, parts)
 	{
-		//qDebug() << piceNumber << previusPicNumber;
+		
 		if(piceNumber - previusPicNumber == 1)
 		{
 			dowloadedParts.last().second = piceNumber;
@@ -108,6 +108,6 @@ void PeiceDisplayWidget::setDowloadedParts(QVector<int> parts)
 		previusPicNumber = piceNumber;
 	}
 
-	/*//qDebug() << parts;
-	//qDebug() << dowloadedParts;*/
+	/*
+	
 }

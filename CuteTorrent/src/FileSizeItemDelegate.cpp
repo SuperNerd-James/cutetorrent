@@ -9,6 +9,6 @@ QString FileSizeItemDelegate::displayText(const QVariant& value, const QLocale& 
 		return StaticHelpers::toKbMbGb(value.toULongLong());
 	}
 
-	//qDebug()<< "invalid value type" << value.type();
+	
 	return "";
 }

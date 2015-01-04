@@ -17,7 +17,7 @@ HttpSession::HttpSession(bool canStore)
 		dataPtr->lastAccess = QDateTime::currentMSecsSinceEpoch();
 		dataPtr->id = QUuid::createUuid().toString().toLocal8Bit();
 #ifdef SUPERVERBOSE
-		//qDebug("HttpSession: created new session data with id %s",dataPtr->id.data());
+		
 #endif
 	}
 	else
@@ -35,7 +35,7 @@ HttpSession::HttpSession(const HttpSession& other)
 		dataPtr->lock.lockForWrite();
 		dataPtr->refCount++;
 #ifdef SUPERVERBOSE
-		//qDebug("HttpSession: refCount of %s is %i",dataPtr->id.data(),dataPtr->refCount);
+		
 #endif
 		dataPtr->lock.unlock();
 	}
@@ -51,7 +51,7 @@ HttpSession& HttpSession::operator= (const HttpSession& other)
 		dataPtr->lock.lockForWrite();
 		dataPtr->refCount++;
 #ifdef SUPERVERBOSE
-		//qDebug("HttpSession: refCount of %s is %i",dataPtr->id.data(),dataPtr->refCount);
+		
 #endif
 		dataPtr->lastAccess = QDateTime::currentMSecsSinceEpoch();
 		dataPtr->lock.unlock();
@@ -63,7 +63,7 @@ HttpSession& HttpSession::operator= (const HttpSession& other)
 		oldPtr->lock.lockForRead();
 		refCount = oldPtr->refCount--;
 #ifdef SUPERVERBOSE
-		//qDebug("HttpSession: refCount of %s is %i",oldPtr->id.data(),oldPtr->refCount);
+		
 #endif
 		oldPtr->lock.unlock();
 
@@ -84,13 +84,13 @@ HttpSession::~HttpSession()
 		dataPtr->lock.lockForRead();
 		refCount = --dataPtr->refCount;
 #ifdef SUPERVERBOSE
-		//qDebug("HttpSession: refCount of %s is %i",dataPtr->id.data(),dataPtr->refCount);
+		
 #endif
 		dataPtr->lock.unlock();
 
 		if(refCount == 0)
 		{
-			//qDebug("HttpSession: deleting data");
+			
 			delete dataPtr;
 		}
 	}

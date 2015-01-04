@@ -16,7 +16,7 @@ void TorrentApiController::service(HttpRequest& request, HttpResponse& response)
 		return;
 	}*/
 //	QMultiMap<QByteArray,QByteArray> parametrs=request.getParameterMap();
-	//qDebug() << parametrs;
+	
 	if(request.getMethod().toUpper() == "GET")
 	{
 		QtJson::JsonArray respJson;

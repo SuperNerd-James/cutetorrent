@@ -18,19 +18,19 @@ HttpRequestHandler::~HttpRequestHandler() {}
 
 void HttpRequestHandler::initSettings()
 {
-	//qDebug() << "QApplicationSettings::getInstance from HttpRequestHandler::initSettings";
+	
 	QApplicationSettings* settings = QApplicationSettings::getInstance();
 	requireAuth = settings->valueBool(serverName, "requireAuth", false);
 	account.username = settings->valueString(serverName, "webui_login", "admin");
 	account.password = settings->valueString(serverName, "webui_password", "admin");
-	//qDebug() << account.username << account.password;
-	//qDebug() << "QApplicationSettings::FreeInstance from HttpRequestHandler::initSettings";
+	
+	
 	QApplicationSettings::FreeInstance();
 }
 void HttpRequestHandler::service(HttpRequest& request, HttpResponse& response)
 {
 	qCritical("HttpRequestHandler: you need to override the dispatch() function");
-	//qDebug("HttpRequestHandler: request=%s %s %s",request.getMethod().data(),request.getPath().data(),request.getVersion().data());
+	
 	response.setStatus(501, "not implemented");
 	response.write("501 not implemented", true);
 }
@@ -67,12 +67,12 @@ bool HttpRequestHandler::CheckCreditinals(HttpRequest& request, HttpResponse& re
 		QMap<QString, QString>* parametrsMap = new QMap<QString, QString>();;
 		QStringList paremaetrsParts = parametrs.split(',');
 
-		//qDebug() << paremaetrsParts;
+		
 		for(int i = 0; i < paremaetrsParts.count(); i++)
 		{
 			QStringList keyValue = paremaetrsParts[i].split('=');
 
-			//qDebug() << keyValue;
+			
 			if(keyValue.count() == 2)
 			{
 				parametrsMap->insert(keyValue[0].trimmed(), keyValue[1].trimmed().replace("\"", ""));
@@ -90,14 +90,14 @@ bool HttpRequestHandler::CheckCreditinals(HttpRequest& request, HttpResponse& re
 
 				value = value.replace("\"", "");
 				parametrsMap->insert(key, value);
-				//qDebug() << key << value;
+				
 			}
 		}
 
 		if(parametrsMap->value("username") != account.username)
 		{
-			//qDebug() << parametrsMap->value("username") << account.username;
-			//qDebug() << "Username not match" ;
+			
+			
 			response.setStatus(401, "Unauthorized");
 			response.setHeader("WWW-Authenticate", "Digest realm=\"realm@host.com\",qop=\"auth,auth-int\",nonce=\"dcd98b7102dd2f0e8b11d0f600bfb0c093\",opaque=\"5ccc069c403ebaf9f0171e9517f40e41\"");
 			response.write("<BODY><H1>401 Unauthorized.</H1></BODY>");
@@ -115,16 +115,16 @@ bool HttpRequestHandler::CheckCreditinals(HttpRequest& request, HttpResponse& re
 
 		if(Response.toHex() != parametrsMap->value("response"))
 		{
-			//qDebug() << Response.toHex() << parametrsMap->value("response");
-			//qDebug() << "Password not match";
+			
+			
 			response.setStatus(401, "Unauthorized");
 			response.setHeader("WWW-Authenticate", "Digest realm=\"realm@host.com\",qop=\"auth,auth-int\",nonce=\"dcd98b7102dd2f0e8b11d0f600bfb0c093\",opaque=\"5ccc069c403ebaf9f0171e9517f40e41\"");
 			response.write("<BODY><H1>401 Unauthorized.</H1></BODY>");
 			return false;
 		}
 
-		//qDebug() << Response.toHex();
-		//qDebug() << *parametrsMap;
+		
+		
 		delete parametrsMap;
 	}
 

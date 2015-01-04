@@ -391,7 +391,7 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 				if(QMessageBox::Cancel != MyMessageBox::warning(parrent, tr("TORRENT_DELITION"), tr("TORRENT_DELITION_MSG"), QMessageBox::Ok | QMessageBox::Cancel))
 					foreach(int row, rows)
 					{
-						//qDebug() << "removing row " << row;
+						
 						removeRow(row, false);
 					}
 			}
@@ -403,7 +403,7 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 				{
 					foreach(int row, rows)
 					{
-						//qDebug() << "removing row " << row;
+						
 						removeRow(row, true);
 					}
 				}
@@ -691,9 +691,9 @@ void QTorrentDisplayModel::setupContextMenu()
 	menu->addAction(DelTorrentOnly);
 	groupsMenu = new QMenu(tr("ACTION_CHANGE_GROUP"), menu);
 	groupsMenu->setIcon(style->getIcon("groups"));
-	//qDebug() << "QApplicationSettings::getInstance from QTorrentDisplayModel::setupContextMenu";
+	
 	QList<GroupForFileFiltering> filters = QApplicationSettings::getInstance()->GetFileFilterGroups();
-	//qDebug() << "QApplicationSettings::FreeInstance from QTorrentDisplayModel::setupContextMenu";
+	
 	QApplicationSettings::FreeInstance();
 	QString type;
 

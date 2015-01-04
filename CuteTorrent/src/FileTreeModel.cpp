@@ -248,7 +248,7 @@ QVariant FileTreeModel::data(const QModelIndex& index, int role) const
 
 		if(!info.suffix().isEmpty() && item->childCount() == 0)
 		{
-			//qDebug() << info.suffix();
+			
 			QTemporaryFile tmpfile("tempFileXXXXXX." + info.suffix());
 			tmpfile.open();
 			tmpfile.close();
@@ -301,7 +301,7 @@ void FileTreeModel::addPath(QString path, QString size)
 
 	if(rootItem->childCount() == 0)
 	{
-		//qDebug() << "root item has no childs appending current path";
+		
 		FileTreeItem* curitem = rootItem;
 
 		for(int i = 0; i < pathparts.count(); i++)
@@ -320,10 +320,10 @@ void FileTreeModel::addPath(QString path, QString size)
 
 		for(int j = 0; j < iterator->childCount(); j++)
 		{
-			//qDebug() << iterator->child(j)->data(0) << " " << pathparts.at(i);
+			
 			if(iterator->child(j)->data(0).toString().compare(pathparts.at(i)) == 0)
 			{
-				//qDebug() <<"Found :" << iterator->child(j)->data(0) << " " << pathparts.at(i);
+				
 				foundnum = j;
 				break;
 			}
@@ -335,10 +335,10 @@ void FileTreeModel::addPath(QString path, QString size)
 		}
 		else
 		{
-			//qDebug() << "appending new child" << pathparts.at(i)  << " to "  << iterator->data(0) ;
+			
 			iterator->appendChild(new FileTreeItem(qMakePair(pathparts.at(i), i == pathparts.count() - 1 ? size : ""), iterator));
 			iterator = iterator->child(iterator->childCount() - 1);
-			//qDebug() << "new iterator value" << iterator->data(0) ;
+			
 		}
 	}
 
