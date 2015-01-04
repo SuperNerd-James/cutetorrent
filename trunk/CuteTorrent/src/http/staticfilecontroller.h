@@ -39,20 +39,21 @@
   received a related HTTP request.
 */
 
-class StaticFileController : public HttpRequestHandler  {
+class StaticFileController : public HttpRequestHandler
+{
     Q_OBJECT
     Q_DISABLE_COPY(StaticFileController);
 public:
 
     /** Constructor */
     StaticFileController(QObject* parent = 0);
-	~StaticFileController();
+    ~StaticFileController();
     /** Generates the response */
     void service(HttpRequest& request, HttpResponse& response);
 
 private:
 
-	QApplicationSettings* settings;
+    QApplicationSettings* settings;
     /** Encoding of text files */
     QString encoding;
 
@@ -60,17 +61,19 @@ private:
     QString docroot;
 
     /** Maximum age of files in the browser cache */
-    int maxAge;    
+    int maxAge;
 
-    struct CacheEntry {
+    struct CacheEntry
+    {
         QByteArray document;
         qint64 created;
     };
-	struct Creditionals{
-		QString username,password;
-	};
-	bool requireAuth;
-	Creditionals account;
+    struct Creditionals
+    {
+        QString username, password;
+    };
+    bool requireAuth;
+    Creditionals account;
     /** Timeout for each cached file */
     int cacheTimeout;
 
@@ -78,7 +81,7 @@ private:
     int maxCachedFileSize;
 
     /** Cache storage */
-    QCache<QString,CacheEntry> cache;
+    QCache<QString, CacheEntry> cache;
 
     /** Used to synchronize cache access for threads */
     QMutex mutex;

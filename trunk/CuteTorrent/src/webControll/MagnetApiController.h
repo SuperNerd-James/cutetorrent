@@ -3,17 +3,17 @@
 #include "TorrentManager.h"
 #include "defs.h"
 class MagnetApiController :
-	public HttpRequestHandler
+    public HttpRequestHandler
 {
-	Q_OBJECT
+    Q_OBJECT
 private:
-	QMap<QString,QString> savePathMap;
-	TorrentManager* tManager;
+    QMap<QString, QString> savePathMap;
+    TorrentManager* tManager;
 public:
-	MagnetApiController(QObject*);
+    MagnetApiController(QObject*);
 
-	void service( HttpRequest& request, HttpResponse& response );
-	~MagnetApiController(void);
+    void service(HttpRequest& request, HttpResponse& response);
+    ~MagnetApiController(void);
 public slots:
     void DownloadMetadataCompleted(const openmagnet_info& info);
 };

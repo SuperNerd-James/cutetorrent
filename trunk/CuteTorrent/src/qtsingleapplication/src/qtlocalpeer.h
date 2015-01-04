@@ -52,14 +52,16 @@ class QtLocalPeer : public QObject
     Q_OBJECT
 
 public:
-    QtLocalPeer(QObject *parent = 0, const QString &appId = QString());
+    QtLocalPeer(QObject* parent = 0, const QString& appId = QString());
     bool isClient();
-    bool sendMessage(const QString &message, int timeout);
+    bool sendMessage(const QString& message, int timeout);
     QString applicationId() const
-        { return id; }
+    {
+        return id;
+    }
 
 Q_SIGNALS:
-    void messageReceived(const QString &message);
+    void messageReceived(const QString& message);
 
 protected Q_SLOTS:
     void receiveConnection();

@@ -2,13 +2,13 @@
 #include <QDebug>
 
 
-QString ProgressItemDelegate::displayText( const QVariant &value, const QLocale &locale ) const
+QString ProgressItemDelegate::displayText(const QVariant& value, const QLocale& locale) const
 {
-	if (value.type()== QMetaType::Float)
-	{
-		return QString::number(value.toFloat(),'f',2)+" %";
+    if(value.type() == QMetaType::Float)
+    {
+        return QString::number(value.toFloat(), 'f', 2) + " %";
+    }
 
-	}
-	//qDebug()<< "invalid value type" << value.type();
-	return "";
+    //qDebug()<< "invalid value type" << value.type();
+    return "";
 }

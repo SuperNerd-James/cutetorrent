@@ -3,12 +3,12 @@
 #include "TorrentManager.h"
 class UploadController : public HttpRequestHandler
 {
-	Q_OBJECT
-	Q_DISABLE_COPY(UploadController)
+    Q_OBJECT
+    Q_DISABLE_COPY(UploadController)
 private:
-	TorrentManager* tManager;
+    TorrentManager* tManager;
 public:
-	UploadController(QObject*);
-	void service(HttpRequest& request, HttpResponse& response);
-	~UploadController();
+    UploadController(QObject*);
+    void service(HttpRequest& request, HttpResponse& response);
+    ~UploadController();
 };

@@ -21,18 +21,20 @@
    @see StaticFileController which delivers static local files.
 */
 
-class HttpRequestHandler : public QObject {
+class HttpRequestHandler : public QObject
+{
     Q_OBJECT
     Q_DISABLE_COPY(HttpRequestHandler)
 
 public:
-	struct Creditionals{
-		QString username,password;
-	};
-	bool requireAuth;
-	Creditionals account;
+    struct Creditionals
+    {
+        QString username, password;
+    };
+    bool requireAuth;
+    Creditionals account;
     /** Constructor */
-    HttpRequestHandler(QString name,QObject* parent=0);
+    HttpRequestHandler(QString name, QObject* parent = 0);
 
     /** Destructor */
     virtual ~HttpRequestHandler();
@@ -44,16 +46,16 @@ public:
       @warning This method must be thread safe
     */
     virtual void service(HttpRequest& request, HttpResponse& response);
-	
-	bool CheckCreditinals(HttpRequest& request,HttpResponse& response);
+
+    bool CheckCreditinals(HttpRequest& request, HttpResponse& response);
 private:
-    QMap<quint32,QString> nonceContainer;
+    QMap<quint32, QString> nonceContainer;
     QString serverName;
-	void initSettings();
+    void initSettings();
     QString _generateNonce(const int len);
     QString _getAuthentificateHeader();
-    QString _getOpaque(QString realm,QString nonce);
-    QString realm,authMethod ,nonce;
+    QString _getOpaque(QString realm, QString nonce);
+    QString realm, authMethod , nonce;
 };
 
 #endif // HTTPREQUESTHANDLER_H

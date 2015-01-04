@@ -7,10 +7,10 @@ class PeerInfo
 
 public:
     QString peer_id;
-	QHostAddress ip;
-	int port ;
+    QHostAddress ip;
+    int port ;
     QString getID();
-    libtorrent::entry toEntry(bool no_peer_id,bool compact);
+    libtorrent::entry toEntry(bool no_peer_id, bool compact);
 };
 class AnnounceRequest
 {
@@ -27,5 +27,5 @@ public:
     int numwant ;
     bool no_peer_id ;
     bool compact ;
-    PeerInfo &getPeerInfo();
+    PeerInfo& getPeerInfo();
 };

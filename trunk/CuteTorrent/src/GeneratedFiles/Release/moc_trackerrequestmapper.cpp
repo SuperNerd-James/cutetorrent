@@ -16,27 +16,29 @@
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
-static const uint qt_meta_data_TrackerRequestHandler[] = {
+static const uint qt_meta_data_TrackerRequestHandler[] =
+{
 
- // content:
-       6,       // revision
-       0,       // classname
-       0,    0, // classinfo
-       0,    0, // methods
-       0,    0, // properties
-       0,    0, // enums/sets
-       0,    0, // constructors
-       0,       // flags
-       0,       // signalCount
+// content:
+    6,       // revision
+    0,       // classname
+    0,    0, // classinfo
+    0,    0, // methods
+    0,    0, // properties
+    0,    0, // enums/sets
+    0,    0, // constructors
+    0,       // flags
+    0,       // signalCount
 
-       0        // eod
+    0        // eod
 };
 
-static const char qt_meta_stringdata_TrackerRequestHandler[] = {
+static const char qt_meta_stringdata_TrackerRequestHandler[] =
+{
     "TrackerRequestHandler\0"
 };
 
-void TrackerRequestHandler::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void TrackerRequestHandler::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
 {
     Q_UNUSED(_o);
     Q_UNUSED(_id);
@@ -44,37 +46,48 @@ void TrackerRequestHandler::qt_static_metacall(QObject *_o, QMetaObject::Call _c
     Q_UNUSED(_a);
 }
 
-const QMetaObjectExtraData TrackerRequestHandler::staticMetaObjectExtraData = {
-    0,  qt_static_metacall 
+const QMetaObjectExtraData TrackerRequestHandler::staticMetaObjectExtraData =
+{
+    0,  qt_static_metacall
 };
 
-const QMetaObject TrackerRequestHandler::staticMetaObject = {
-    { &HttpRequestHandler::staticMetaObject, qt_meta_stringdata_TrackerRequestHandler,
-      qt_meta_data_TrackerRequestHandler, &staticMetaObjectExtraData }
+const QMetaObject TrackerRequestHandler::staticMetaObject =
+{
+    {
+        &HttpRequestHandler::staticMetaObject, qt_meta_stringdata_TrackerRequestHandler,
+        qt_meta_data_TrackerRequestHandler, &staticMetaObjectExtraData
+    }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
-const QMetaObject &TrackerRequestHandler::getStaticMetaObject() { return staticMetaObject; }
+const QMetaObject& TrackerRequestHandler::getStaticMetaObject()
+{
+    return staticMetaObject;
+}
 #endif //Q_NO_DATA_RELOCATION
 
-const QMetaObject *TrackerRequestHandler::metaObject() const
+const QMetaObject* TrackerRequestHandler::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
 }
 
-void *TrackerRequestHandler::qt_metacast(const char *_clname)
+void* TrackerRequestHandler::qt_metacast(const char* _clname)
 {
-    if (!_clname) return 0;
-    if (!strcmp(_clname, qt_meta_stringdata_TrackerRequestHandler))
-        return static_cast<void*>(const_cast< TrackerRequestHandler*>(this));
+    if(!_clname) { return 0; }
+
+    if(!strcmp(_clname, qt_meta_stringdata_TrackerRequestHandler))
+    { return static_cast<void*>(const_cast< TrackerRequestHandler*>(this)); }
+
     return HttpRequestHandler::qt_metacast(_clname);
 }
 
-int TrackerRequestHandler::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int TrackerRequestHandler::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
 {
     _id = HttpRequestHandler::qt_metacall(_c, _id, _a);
-    if (_id < 0)
-        return _id;
+
+    if(_id < 0)
+    { return _id; }
+
     return _id;
 }
 QT_END_MOC_NAMESPACE

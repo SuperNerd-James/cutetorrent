@@ -35,44 +35,44 @@ class MicroTime : public QTime
 {
 public:
 
-   /**
-    * @param time время в милисекундах
-    */
+    /**
+     * @param time время в милисекундах
+     */
 
     MicroTime(qint64 time = 0);
 
 private:
 
-   /**
-    * Считает количество секунд
-    *
-    * @param time - время в милисекундах
-    * @return количество секунд
-    */
+    /**
+     * Считает количество секунд
+     *
+     * @param time - время в милисекундах
+     * @return количество секунд
+     */
 
     inline int get_seconds(qint64 time)
     {
-        return (time / 1000 );
+        return (time / 1000);
     }
 
-   /**
-    * Считает количество минут
-    *
-    * @param time - время в милисекундах
-    * @return количество минут
-    */
+    /**
+     * Считает количество минут
+     *
+     * @param time - время в милисекундах
+     * @return количество минут
+     */
 
     inline int get_minutes(qint64 time)
     {
         return (get_seconds(time) / 60);
     }
 
-   /**
-    * Считает количество часов
-    *
-    * @param time - время в милисекундах
-    * @return количество часов
-    */
+    /**
+     * Считает количество часов
+     *
+     * @param time - время в милисекундах
+     * @return количество часов
+     */
 
     inline int get_hours(qint64 time)
     {

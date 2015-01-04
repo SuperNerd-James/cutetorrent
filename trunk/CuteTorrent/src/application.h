@@ -29,33 +29,33 @@ typedef QHash<QString, QTranslator*> Translators;
 
 class Application : public QtSingleApplication
 {
-	Q_OBJECT
+    Q_OBJECT
 
 public:
-	explicit Application(int& argc, char* argv[]);
-	~Application();
+    explicit Application(int& argc, char* argv[]);
+    ~Application();
 
-	static void loadTranslations(const QString& dir);
-	static void loadTranslations(const QDir& dir);
+    static void loadTranslations(const QString& dir);
+    static void loadTranslations(const QDir& dir);
     static const QStringList availableLanguages();
     static void loadTranslationsQt(const QString& dir);
-    static void loadTranslationsQt(const QDir &dir);
+    static void loadTranslationsQt(const QDir& dir);
     QString currentLocaleQt();
-	bool winEventFilter(MSG *message, long *result);
+    bool winEventFilter(MSG* message, long* result);
 protected:
     bool event(QEvent* event);
 public slots:
     static void setLanguage(QString& locale);
     static void setLanguageQt(QString& locale);
-	static QString currentLocale();
+    static QString currentLocale();
 signals:
     void OpenTorrent(QString);
 private:
-    static QString current_locale,current_locale_qt;
+    static QString current_locale, current_locale_qt;
     static QString default_locale;
-	static QTranslator* current;
+    static QTranslator* current;
     static QTranslator* currentQt;
-	static Translators translators;
+    static Translators translators;
     static Translators qt_translators;
 };
 

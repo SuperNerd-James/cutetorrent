@@ -18,7 +18,8 @@
   @see HttpSessionStore should be used to create and get instances of this class.
 */
 
-class HttpSession {
+class HttpSession
+{
 
 public:
 
@@ -27,7 +28,7 @@ public:
       @param canStore The session can store data, if this parameter is true.
       Otherwise all calls to set() and remove() do not have any effect.
      */
-    HttpSession(bool canStore=false);
+    HttpSession(bool canStore = false);
 
     /**
       Copy constructor. Creates another HttpSession object that shares the
@@ -51,7 +52,7 @@ public:
     QByteArray getId() const;
 
     /**
-      Null sessions cannot store data. All calls to set() and remove() 
+      Null sessions cannot store data. All calls to set() and remove()
       do not have any effect.This method is thread safe.
     */
     bool isNull() const;
@@ -73,7 +74,7 @@ public:
       Changes to the session do not affect the copy and vice versa.
       This method is thread safe.
     */
-    QMap<QByteArray,QVariant> getAll() const;
+    QMap<QByteArray, QVariant> getAll() const;
 
     /**
       Get the timestamp of last access. That is the time when the last
@@ -91,12 +92,13 @@ public:
 
 private:
 
-    struct HttpSessionData {
+    struct HttpSessionData
+    {
 
-		/** Timestamp of last access, set by the HttpSessionStore */
-		qint64 lastAccess;
-        
-		/** Unique ID */
+        /** Timestamp of last access, set by the HttpSessionStore */
+        qint64 lastAccess;
+
+        /** Unique ID */
         QByteArray id;
 
         /** Reference counter */
@@ -106,7 +108,7 @@ private:
         QReadWriteLock lock;
 
         /** Storage for the key/value pairs; */
-        QMap<QByteArray,QVariant> values;
+        QMap<QByteArray, QVariant> values;
 
     };
 

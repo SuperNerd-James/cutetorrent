@@ -8,12 +8,12 @@ class TorrentTracker : public QObject
 {
     Q_OBJECT
 private:
-    static TorrentTracker *instance;
+    static TorrentTracker* instance;
     static int instanceCount;
     HttpListener* httpServer;
     TrackerRequestHandler* requestHandler;
 protected:
-    explicit TorrentTracker(QObject *parent = 0);
+    explicit TorrentTracker(QObject* parent = 0);
     ~TorrentTracker();
 public:
     static TorrentTracker* getInstance();
@@ -22,9 +22,9 @@ public:
     void start();
     void stop();
 signals:
-    
+
 public slots:
-    
+
 };
 
 #endif // TORRENTRACKER_H

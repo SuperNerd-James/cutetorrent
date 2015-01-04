@@ -97,7 +97,7 @@ QtLockedFile::QtLockedFile()
 
     \sa QFile::QFile()
 */
-QtLockedFile::QtLockedFile(const QString &name)
+QtLockedFile::QtLockedFile(const QString& name)
     : QFile(name)
 {
 #ifdef Q_OS_WIN
@@ -122,10 +122,12 @@ QtLockedFile::QtLockedFile(const QString &name)
 */
 bool QtLockedFile::open(OpenMode mode)
 {
-    if (mode & QIODevice::Truncate) {
+    if(mode & QIODevice::Truncate)
+    {
         qWarning("QtLockedFile::open(): Truncate mode not allowed.");
         return false;
     }
+
     return QFile::open(mode);
 }
 

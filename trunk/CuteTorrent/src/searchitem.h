@@ -11,9 +11,9 @@ public:
     void setName(QString newName);
     void setPattern(QString newPattern);
 private:
-    QString name,pattern;
+    QString name, pattern;
 
-    
+
 };
 
 #endif // SEARCHITEM_H

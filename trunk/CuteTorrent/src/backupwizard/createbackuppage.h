@@ -7,8 +7,8 @@ class CreateBackupPage : public QWizardPage
 {
     Q_OBJECT
 public:
-    explicit CreateBackupPage(QWidget *parent = 0);
-    int	nextId () const;
+    explicit CreateBackupPage(QWidget* parent = 0);
+    int	nextId() const;
 signals:
 
 public slots:
@@ -16,11 +16,11 @@ public slots:
 
     // QWizardPage interface
 public:
-     bool validatePage();
+    bool validatePage();
 
 private:
-    QLabel *messageLabel;
-    QGridLayout *layout;
+    QLabel* messageLabel;
+    QGridLayout* layout;
     QLineEdit* savePathEdit;
     QPushButton* browseButton;
     void createBackup() const;
