@@ -33,69 +33,69 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 MultipleDTDialog::MultipleDTDialog(QStringList& _files, QWidget* parrent/* =0 */, int flags/* =0 */) : BaseWindow(BaseWindow::OnlyCloseButton, BaseWindow::NoResize)
 {
-    setupUi(this);
-    setupCustomWindow();
-    setupWindowIcons();
-    QObject::connect(okButton, SIGNAL(clicked()), this, SLOT(MountSelectedFILE()));
-    files.append(_files);
-    //qDebug() << "files set";
-    QStandardItemModel* model = new QStandardItemModel(files.count(), 1);
-    listView->setModel(model);
-    listView->setSelectionMode(QAbstractItemView::SingleSelection);
-    QString temp;
-    QIcon iso = StyleEngene::getInstance()->guessMimeIcon("iso", temp);
+	setupUi(this);
+	setupCustomWindow();
+	setupWindowIcons();
+	QObject::connect(okButton, SIGNAL(clicked()), this, SLOT(MountSelectedFILE()));
+	files.append(_files);
+	//qDebug() << "files set";
+	QStandardItemModel* model = new QStandardItemModel(files.count(), 1);
+	listView->setModel(model);
+	listView->setSelectionMode(QAbstractItemView::SingleSelection);
+	QString temp;
+	QIcon iso = StyleEngene::getInstance()->guessMimeIcon("iso", temp);
 
-    for(int i = 0; i < files.count(); i++)
-    {
-        QStandardItem* item = new QStandardItem(iso, files.at(i));
-        model->setItem(i, item);
-    }
+	for(int i = 0; i < files.count(); i++)
+	{
+		QStandardItem* item = new QStandardItem(iso, files.at(i));
+		model->setItem(i, item);
+	}
 
-    StyleEngene* style = StyleEngene::getInstance();
-    QObject::connect(style, SIGNAL(styleChanged()), this, SLOT(setupWindowIcons()));
+	StyleEngene* style = StyleEngene::getInstance();
+	QObject::connect(style, SIGNAL(styleChanged()), this, SLOT(setupWindowIcons()));
 }
 
 void MultipleDTDialog::MountSelectedFILE()
 {
-    int selectedRow = listView->selectionModel()->selectedIndexes().first().row();
-    Mount(files.at(selectedRow));
+	int selectedRow = listView->selectionModel()->selectedIndexes().first().row();
+	Mount(files.at(selectedRow));
 }
 
 
 void MultipleDTDialog::Mount(QString filename)
 {
-    DT_mounter::mountImage(filename);
+	DT_mounter::mountImage(filename);
 }
 
 void MultipleDTDialog::changeEvent(QEvent* event)
 {
-    if(event->type() == QEvent::LanguageChange)
-    {
-        retranslateUi(this);
-    }
+	if(event->type() == QEvent::LanguageChange)
+	{
+		retranslateUi(this);
+	}
 }
 
 QPushButton* MultipleDTDialog::getCloseBtn()
 {
-    return pbClose;
+	return pbClose;
 }
 
 QWidget* MultipleDTDialog::getTitleBar()
 {
-    return titleBar;
+	return titleBar;
 }
 
 QWidget* MultipleDTDialog::centralWidget()
 {
-    return m_centralWidget;
+	return m_centralWidget;
 }
 
 QLabel* MultipleDTDialog::getTitleLabel()
 {
-    return LTitle;
+	return LTitle;
 }
 
 QLabel* MultipleDTDialog::getTitleIcon()
 {
-    return tbMenu;
+	return tbMenu;
 }

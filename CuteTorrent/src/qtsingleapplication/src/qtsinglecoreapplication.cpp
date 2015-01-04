@@ -71,10 +71,10 @@
 */
 
 QtSingleCoreApplication::QtSingleCoreApplication(int& argc, char** argv)
-    : QCoreApplication(argc, argv)
+	: QCoreApplication(argc, argv)
 {
-    peer = new QtLocalPeer(this);
-    connect(peer, SIGNAL(messageReceived(const QString&)), SIGNAL(messageReceived(const QString&)));
+	peer = new QtLocalPeer(this);
+	connect(peer, SIGNAL(messageReceived(const QString&)), SIGNAL(messageReceived(const QString&)));
 }
 
 
@@ -84,10 +84,10 @@ QtSingleCoreApplication::QtSingleCoreApplication(int& argc, char** argv)
     QCoreAppliation constructor.
 */
 QtSingleCoreApplication::QtSingleCoreApplication(const QString& appId, int& argc, char** argv)
-    : QCoreApplication(argc, argv)
+	: QCoreApplication(argc, argv)
 {
-    peer = new QtLocalPeer(this, appId);
-    connect(peer, SIGNAL(messageReceived(const QString&)), SIGNAL(messageReceived(const QString&)));
+	peer = new QtLocalPeer(this, appId);
+	connect(peer, SIGNAL(messageReceived(const QString&)), SIGNAL(messageReceived(const QString&)));
 }
 
 
@@ -104,7 +104,7 @@ QtSingleCoreApplication::QtSingleCoreApplication(const QString& appId, int& argc
 
 bool QtSingleCoreApplication::isRunning()
 {
-    return peer->isClient();
+	return peer->isClient();
 }
 
 
@@ -124,7 +124,7 @@ bool QtSingleCoreApplication::isRunning()
 
 bool QtSingleCoreApplication::sendMessage(const QString& message, int timeout)
 {
-    return peer->sendMessage(message, timeout);
+	return peer->sendMessage(message, timeout);
 }
 
 
@@ -135,7 +135,7 @@ bool QtSingleCoreApplication::sendMessage(const QString& message, int timeout)
 
 QString QtSingleCoreApplication::id() const
 {
-    return peer->applicationId();
+	return peer->applicationId();
 }
 
 

@@ -33,28 +33,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 void myMessageOutput(QtMsgType type, const char* msg)
 {
-    fflush(stdout);
+	fflush(stdout);
 
-    switch(type)
-    {
-        case QtDebugMsg:
-            printf("Debug: %s\n", msg);
-            break;
+	switch(type)
+	{
+		case QtDebugMsg:
+			printf("Debug: %s\n", msg);
+			break;
 
-        case QtWarningMsg:
-            printf("Warning: %s\n", msg);
-            break;
+		case QtWarningMsg:
+			printf("Warning: %s\n", msg);
+			break;
 
-        case QtCriticalMsg:
-            printf("Critical: %s\n", msg);
-            break;
+		case QtCriticalMsg:
+			printf("Critical: %s\n", msg);
+			break;
 
-        case QtFatalMsg:
-            printf("Fatal: %s\n", msg);
-            abort();
-    }
+		case QtFatalMsg:
+			printf("Fatal: %s\n", msg);
+			abort();
+	}
 
-    fflush(stdout);
+	fflush(stdout);
 }
 
 #endif // DEBUG
@@ -63,101 +63,101 @@ void myMessageOutput(QtMsgType type, const char* msg)
 
 int main(int argc, char* argv[])
 {
-    Application a(argc, argv);
-    a.setWindowIcon(QIcon(":/icons/app.ico"));
+	Application a(argc, argv);
+	a.setWindowIcon(QIcon(":/icons/app.ico"));
 #ifdef Q_WS_WIN
-    QTextCodec* wantUnicode = QTextCodec::codecForName("Windows-1251");
-    QTextCodec::setCodecForTr(wantUnicode);
-    QTextCodec::setCodecForLocale(wantUnicode);
-    QTextCodec::setCodecForCStrings(wantUnicode);
+	QTextCodec* wantUnicode = QTextCodec::codecForName("Windows-1251");
+	QTextCodec::setCodecForTr(wantUnicode);
+	QTextCodec::setCodecForLocale(wantUnicode);
+	QTextCodec::setCodecForCStrings(wantUnicode);
 #endif
-    bool minimize = false, debug = false;
-    QString file2open;
-    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
-    qsrand(time(NULL));
+	bool minimize = false, debug = false;
+	QString file2open;
+	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+	qsrand(time(NULL));
 
-    if(a.isRunning())
-    {
-        if(argc >= 2)
-            for(int i = 1; i < argc; i++)
-            {
-                if(argv[i][0] != '-')
-                {
-                    a.sendMessage(QString::fromLocal8Bit(argv[i]));
-                }
-            }
+	if(a.isRunning())
+	{
+		if(argc >= 2)
+			for(int i = 1; i < argc; i++)
+			{
+				if(argv[i][0] != '-')
+				{
+					a.sendMessage(QString::fromLocal8Bit(argv[i]));
+				}
+			}
 
-        return -1;
-    }
-    else
-    {
-        if(argc >= 2)
-        {
-            for(int i = 1; i < argc; i++)
-            {
-                if(argv[i][0] == '-')
-                {
-                    if(!strcmp(argv[i], "-m"))
-                    {
-                        minimize = true;
-                    }
-                    else if(!strcmp(argv[i], "-debug"))
-                    {
-                        debug = true;
-                    }
-                }
-                else
-                {
-                    file2open = QString::fromLocal8Bit(argv[i]);
-                }
-            }
-        }
-    }
+		return -1;
+	}
+	else
+	{
+		if(argc >= 2)
+		{
+			for(int i = 1; i < argc; i++)
+			{
+				if(argv[i][0] == '-')
+				{
+					if(!strcmp(argv[i], "-m"))
+					{
+						minimize = true;
+					}
+					else if(!strcmp(argv[i], "-debug"))
+					{
+						debug = true;
+					}
+				}
+				else
+				{
+					file2open = QString::fromLocal8Bit(argv[i]);
+				}
+			}
+		}
+	}
 
-    QString dataDir;
+	QString dataDir;
 #ifdef Q_WS_MAC
-    dataDir = "/Library/CuteTorrent/";
+	dataDir = "/Library/CuteTorrent/";
 #else
-    dataDir = QApplication::applicationDirPath() + QDir::separator();
+	dataDir = QApplication::applicationDirPath() + QDir::separator();
 #endif
-    FILE* fp;
+	FILE* fp;
 
-    if(debug)
-    {
-        QString logFileName = dataDir + "ct_debug.log";
-        fp = freopen(logFileName.toAscii().data(), "a+", stdout);
-        qInstallMsgHandler(myMessageOutput);
-    }
+	if(debug)
+	{
+		QString logFileName = dataDir + "ct_debug.log";
+		fp = freopen(logFileName.toAscii().data(), "a+", stdout);
+		qInstallMsgHandler(myMessageOutput);
+	}
 
-    a.loadTranslations(":/translations");
-    a.loadTranslationsQt(":/translations_qt");
-    a.addLibraryPath(QCoreApplication::applicationDirPath() + "/plugins");
-    CuteTorrent w;
-    a.setActivationWindow(&w);
-    a.setActiveWindow(&w);
-    w.ConnectMessageReceved(&a);
+	a.loadTranslations(":/translations");
+	a.loadTranslationsQt(":/translations_qt");
+	a.addLibraryPath(QCoreApplication::applicationDirPath() + "/plugins");
+	CuteTorrent w;
+	a.setActivationWindow(&w);
+	a.setActiveWindow(&w);
+	w.ConnectMessageReceved(&a);
 
-    if(minimize)
-    {
-        w.showMinimized();
-    }
-    else
-    {
-        w.showNormal();
-    }
+	if(minimize)
+	{
+		w.showMinimized();
+	}
+	else
+	{
+		w.showNormal();
+	}
 
-    if(!file2open.isEmpty())
-    {
-        w.HandleNewTorrent(file2open);
-    }
+	if(!file2open.isEmpty())
+	{
+		w.HandleNewTorrent(file2open);
+	}
 
-    int res = a.exec();
+	int res = a.exec();
 
-    if(debug && fp)
-    {
-        fclose(fp);
-    }
+	if(debug && fp)
+	{
+		fclose(fp);
+	}
 
-    _CrtDumpMemoryLeaks();
-    return res;
+	_CrtDumpMemoryLeaks();
+	return res;
 }

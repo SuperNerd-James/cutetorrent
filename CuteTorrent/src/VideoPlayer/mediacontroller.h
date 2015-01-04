@@ -35,36 +35,36 @@ class MediaSource;
 
 class MediaController : public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit MediaController(Phonon::VideoWidget* parent = 0);
-    void playFile(QString file);
+	explicit MediaController(Phonon::VideoWidget* parent = 0);
+	void playFile(QString file);
 
-    Phonon::MediaObject* mediaObject() const;
-    Phonon::AudioOutput* audioOutput() const;
-    Phonon::MediaController* mediaController() const;
-    bool isPlaying();
+	Phonon::MediaObject* mediaObject() const;
+	Phonon::AudioOutput* audioOutput() const;
+	Phonon::MediaController* mediaController() const;
+	bool isPlaying();
 public slots:
-    void play();
-    void pause();
-    void openFile();
-    void openURL();
-    void reverse();
-    void forvard();
-    void updateStateStatus(Phonon::State, Phonon::State);
+	void play();
+	void pause();
+	void openFile();
+	void openURL();
+	void reverse();
+	void forvard();
+	void updateStateStatus(Phonon::State, Phonon::State);
 
 signals:
-    void updateMediaObject();
-    void newFile(QString);
+	void updateMediaObject();
+	void newFile(QString);
 private:
-    QStringList m_playList;
-    int m_playListPosition;
-    QString m_LastDir;
-    Phonon::MediaController*  m_pMediaController;
-    Phonon::MediaObject* m_pMedia;
-    Phonon::AudioOutput* m_pAudioOutput;
-    bool m_playing;
-    void playSource(const Phonon::MediaSource&);
+	QStringList m_playList;
+	int m_playListPosition;
+	QString m_LastDir;
+	Phonon::MediaController*  m_pMediaController;
+	Phonon::MediaObject* m_pMedia;
+	Phonon::AudioOutput* m_pAudioOutput;
+	bool m_playing;
+	void playSource(const Phonon::MediaSource&);
 };
 
 #endif // MEDIACONTROLLER_H

@@ -35,100 +35,100 @@
 
 class HttpResponse
 {
-    Q_DISABLE_COPY(HttpResponse)
+	Q_DISABLE_COPY(HttpResponse)
 public:
 
-    /**
-      Constructor.
-      @param socket used to write the response
-    */
-    HttpResponse(QTcpSocket* socket);
+	/**
+	  Constructor.
+	  @param socket used to write the response
+	*/
+	HttpResponse(QTcpSocket* socket);
 
-    /**
-      Set a HTTP response header
-      @param name name of the header
-      @param value value of the header
-    */
-    void setHeader(QByteArray name, QByteArray value);
+	/**
+	  Set a HTTP response header
+	  @param name name of the header
+	  @param value value of the header
+	*/
+	void setHeader(QByteArray name, QByteArray value);
 
-    /**
-      Set a HTTP response header
-      @param name name of the header
-      @param value value of the header
-    */
-    void setHeader(QByteArray name, int value);
+	/**
+	  Set a HTTP response header
+	  @param name name of the header
+	  @param value value of the header
+	*/
+	void setHeader(QByteArray name, int value);
 
-    /** Get the map of HTTP response headers */
-    QMap<QByteArray, QByteArray>& getHeaders();
+	/** Get the map of HTTP response headers */
+	QMap<QByteArray, QByteArray>& getHeaders();
 
-    /** Get the map of cookies */
-    QMap<QByteArray, HttpCookie>& getCookies();
+	/** Get the map of cookies */
+	QMap<QByteArray, HttpCookie>& getCookies();
 
-    /**
-      Set status code and description. The default is 200,OK.
-    */
-    void setStatus(int statusCode, QByteArray description = QByteArray());
+	/**
+	  Set status code and description. The default is 200,OK.
+	*/
+	void setStatus(int statusCode, QByteArray description = QByteArray());
 
-    /**
-      Write body data to the socket.
-      <p>
-      The HTTP status line and headers are sent automatically before the first
-      byte of the body gets sent.
-      <p>
-      If the response contains only a single chunk (indicated by lastPart=true),
-      the response is transferred in traditional mode with a Content-Length
-      header, which is automatically added if not already set before.
-      <p>
-      Otherwise, each part is transferred in chunked mode.
-      @param data Data bytes of the body
-      @param lastPart Indicator, if this is the last part of the response.
-    */
-    void write(QByteArray data, bool lastPart = false);
+	/**
+	  Write body data to the socket.
+	  <p>
+	  The HTTP status line and headers are sent automatically before the first
+	  byte of the body gets sent.
+	  <p>
+	  If the response contains only a single chunk (indicated by lastPart=true),
+	  the response is transferred in traditional mode with a Content-Length
+	  header, which is automatically added if not already set before.
+	  <p>
+	  Otherwise, each part is transferred in chunked mode.
+	  @param data Data bytes of the body
+	  @param lastPart Indicator, if this is the last part of the response.
+	*/
+	void write(QByteArray data, bool lastPart = false);
 
-    /**
-      Indicates wheter the body has been sent completely. Used by the connection
-      handler to terminate the body automatically when necessary.
-    */
-    bool hasSentLastPart() const;
+	/**
+	  Indicates wheter the body has been sent completely. Used by the connection
+	  handler to terminate the body automatically when necessary.
+	*/
+	bool hasSentLastPart() const;
 
-    /**
-      Set a cookie. Cookies are sent together with the headers when the first
-      call to write() occurs.
-    */
-    void setCookie(const HttpCookie& cookie);
+	/**
+	  Set a cookie. Cookies are sent together with the headers when the first
+	  call to write() occurs.
+	*/
+	void setCookie(const HttpCookie& cookie);
 
 private:
 
-    /** Write raw data to the socket. This method blocks until all bytes have been passed to the TCP buffer */
-    bool writeToSocket(QByteArray data);
+	/** Write raw data to the socket. This method blocks until all bytes have been passed to the TCP buffer */
+	bool writeToSocket(QByteArray data);
 
-    /**
-      Write the response HTTP status and headers to the socket.
-      Calling this method is optional, because writeBody() calls
-      it automatically when required.
-    */
-    void writeHeaders();
+	/**
+	  Write the response HTTP status and headers to the socket.
+	  Calling this method is optional, because writeBody() calls
+	  it automatically when required.
+	*/
+	void writeHeaders();
 
-    /** Request headers */
-    QMap<QByteArray, QByteArray> headers;
+	/** Request headers */
+	QMap<QByteArray, QByteArray> headers;
 
-    /** Cookies */
-    QMap<QByteArray, HttpCookie> cookies;
+	/** Cookies */
+	QMap<QByteArray, HttpCookie> cookies;
 
-    /** Socket for writing output */
-    QTcpSocket* socket;
+	/** Socket for writing output */
+	QTcpSocket* socket;
 
-    /** HTTP status code description */
-    QByteArray statusText;
+	/** HTTP status code description */
+	QByteArray statusText;
 
-    /** HTTP status code*/
-    int statusCode;
+	/** HTTP status code*/
+	int statusCode;
 
-    /** Indicator whether headers have been sent */
-    bool sentHeaders;
+	/** Indicator whether headers have been sent */
+	bool sentHeaders;
 
-    /** Indicator whether the body has been sent completely */
-    bool sentLastPart;
+	/** Indicator whether the body has been sent completely */
+	bool sentLastPart;
 
 
 

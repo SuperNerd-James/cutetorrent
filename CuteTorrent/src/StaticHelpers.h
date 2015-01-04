@@ -38,23 +38,23 @@ class StaticHelpers
 {
 public:
 
-    static QString toKbMbGb(libtorrent::size_type size);
+	static QString toKbMbGb(libtorrent::size_type size);
 
-    static void dellDir(QString path);
-    static QString toTimeString(int seconds);
-    static QString filePriorityToString(int priority);
-    static QString SchedulerTypeToString(SchedulerTask::TaskType type);
-    static QString GetBaseSuffix(const libtorrent::file_storage& storrage);
-    template <typename T> static QList<T> reversed(const QList<T>& in);
+	static void dellDir(QString path);
+	static QString toTimeString(int seconds);
+	static QString filePriorityToString(int priority);
+	static QString SchedulerTypeToString(SchedulerTask::TaskType type);
+	static QString GetBaseSuffix(const libtorrent::file_storage& storrage);
+	template <typename T> static QList<T> reversed(const QList<T>& in);
 };
 
 template <typename T> QList<T>
 StaticHelpers::reversed(const QList<T>& in)
 {
-    QList<T> result;
-    result.reserve(in.size());    // reserve is new in Qt 4.7
-    std::reverse_copy(in.begin(), in.end(), std::back_inserter(result));
-    return result;
+	QList<T> result;
+	result.reserve(in.size());    // reserve is new in Qt 4.7
+	std::reverse_copy(in.begin(), in.end(), std::back_inserter(result));
+	return result;
 }
 
 #endif

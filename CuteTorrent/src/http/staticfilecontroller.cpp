@@ -10,194 +10,194 @@
 #include <QCryptographicHash>
 #include <QApplication>
 StaticFileController::StaticFileController(QObject* parent)
-    : HttpRequestHandler("WebControl", parent)
+	: HttpRequestHandler("WebControl", parent)
 {
-    //qDebug() << "QApplicationSettings::getInstance from StaticFileController::StaticFileController";
-    settings = QApplicationSettings::getInstance();
-    maxAge = settings->valueInt("WebControl", "maxAge", 60000);
-    encoding = settings->valueString("WebControl", "encoding", "UTF-8");
-    docroot = settings->valueString("WebControl", "path", "./webControll/");
+	//qDebug() << "QApplicationSettings::getInstance from StaticFileController::StaticFileController";
+	settings = QApplicationSettings::getInstance();
+	maxAge = settings->valueInt("WebControl", "maxAge", 60000);
+	encoding = settings->valueString("WebControl", "encoding", "UTF-8");
+	docroot = settings->valueString("WebControl", "path", "./webControll/");
 
-    if(QDir::isRelativePath(docroot))
-    {
-        QString dataDir = QApplication::applicationDirPath() + QDir::separator();
-        docroot = QDir::cleanPath(dataDir + docroot);
-    }
+	if(QDir::isRelativePath(docroot))
+	{
+		QString dataDir = QApplication::applicationDirPath() + QDir::separator();
+		docroot = QDir::cleanPath(dataDir + docroot);
+	}
 
-    //qDebug("StaticFileController: docroot=%s, encoding=%s, maxAge=%i",qPrintable(docroot),qPrintable(encoding),maxAge);
-    maxCachedFileSize = settings->valueInt("WebControl", "maxCachedFileSize", 65536);
-    //qDebug("StaticFileController: maxCachedFileSize=%i",maxCachedFileSize);
-    cache.setMaxCost(settings->valueInt("WebControl", "cacheSize", 1000000));
+	//qDebug("StaticFileController: docroot=%s, encoding=%s, maxAge=%i",qPrintable(docroot),qPrintable(encoding),maxAge);
+	maxCachedFileSize = settings->valueInt("WebControl", "maxCachedFileSize", 65536);
+	//qDebug("StaticFileController: maxCachedFileSize=%i",maxCachedFileSize);
+	cache.setMaxCost(settings->valueInt("WebControl", "cacheSize", 1000000));
 
-    //qDebug() << "cache.setMaxCost";
-    try
-    {
-        cacheTimeout = settings->valueInt("WebControl", "cacheTime", 60000);
-        //qDebug("StaticFileController: cache timeout=%i, size=%i",cacheTimeout,cache.maxCost());
-    }
-    catch(...)
-    {
-        qDebug() << "Exception in StaticFileController::StaticFileController";
-    }
+	//qDebug() << "cache.setMaxCost";
+	try
+	{
+		cacheTimeout = settings->valueInt("WebControl", "cacheTime", 60000);
+		//qDebug("StaticFileController: cache timeout=%i, size=%i",cacheTimeout,cache.maxCost());
+	}
+	catch(...)
+	{
+		qDebug() << "Exception in StaticFileController::StaticFileController";
+	}
 }
 
 
 void StaticFileController::service(HttpRequest& request, HttpResponse& response)
 {
-    QByteArray path = request.getPath();
+	QByteArray path = request.getPath();
 
-    // Forbid access to files outside the docroot directory
-    if(path.startsWith("/.."))
-    {
-        qWarning("StaticFileController: somebody attempted to access a file outside the docroot directory");
-        response.setStatus(403, "forbidden");
-        response.write("403 forbidden", true);
-    }
+	// Forbid access to files outside the docroot directory
+	if(path.startsWith("/.."))
+	{
+		qWarning("StaticFileController: somebody attempted to access a file outside the docroot directory");
+		response.setStatus(403, "forbidden");
+		response.write("403 forbidden", true);
+	}
 
-    if(!CheckCreditinals(request, response))
-    {
-        return;
-    }
+	if(!CheckCreditinals(request, response))
+	{
+		return;
+	}
 
-    // Check if we have the file in cache
-    qint64 now = QDateTime::currentMSecsSinceEpoch();
-    mutex.lock();
-    CacheEntry* entry = cache.object(path);
+	// Check if we have the file in cache
+	qint64 now = QDateTime::currentMSecsSinceEpoch();
+	mutex.lock();
+	CacheEntry* entry = cache.object(path);
 
-    if(entry && (cacheTimeout == 0 || entry->created > now - cacheTimeout) && QFileInfo(docroot + path).lastModified().toMSecsSinceEpoch() <= entry->created)
-    {
-        QByteArray document = entry->document; //copy the cached document, because other threads may destroy the cached entry immediately after mutex unlock.
-        mutex.unlock();
-        //qDebug("StaticFileController: Cache hit for %s",path.data());
-        setContentType(path, response);
-        response.setHeader("Cache-Control", "max-age=" + QByteArray::number(maxAge / 1000));
-        response.write(document);
-    }
-    else
-    {
-        mutex.unlock();
+	if(entry && (cacheTimeout == 0 || entry->created > now - cacheTimeout) && QFileInfo(docroot + path).lastModified().toMSecsSinceEpoch() <= entry->created)
+	{
+		QByteArray document = entry->document; //copy the cached document, because other threads may destroy the cached entry immediately after mutex unlock.
+		mutex.unlock();
+		//qDebug("StaticFileController: Cache hit for %s",path.data());
+		setContentType(path, response);
+		response.setHeader("Cache-Control", "max-age=" + QByteArray::number(maxAge / 1000));
+		response.write(document);
+	}
+	else
+	{
+		mutex.unlock();
 
-        //qDebug("StaticFileController: Cache miss for %s",path.data());
-        // The file is not in cache.
-        // If the filename is a directory, append index.html.
-        if(QFileInfo(docroot + path).isDir())
-        {
-            path += "/index.html";
-        }
+		//qDebug("StaticFileController: Cache miss for %s",path.data());
+		// The file is not in cache.
+		// If the filename is a directory, append index.html.
+		if(QFileInfo(docroot + path).isDir())
+		{
+			path += "/index.html";
+		}
 
-        QFile file(docroot + path);
+		QFile file(docroot + path);
 
-        if(file.exists())
-        {
-            //qDebug("StaticFileController: Open file %s",qPrintable(file.fileName()));
-            if(file.open(QIODevice::ReadOnly))
-            {
-                setContentType(path, response);
-                response.setHeader("Cache-Control", "max-age=" + QByteArray::number(maxAge / 1000));
+		if(file.exists())
+		{
+			//qDebug("StaticFileController: Open file %s",qPrintable(file.fileName()));
+			if(file.open(QIODevice::ReadOnly))
+			{
+				setContentType(path, response);
+				response.setHeader("Cache-Control", "max-age=" + QByteArray::number(maxAge / 1000));
 
-                if(file.size() <= maxCachedFileSize)
-                {
-                    // Return the file content and store it also in the cache
-                    entry = new CacheEntry();
+				if(file.size() <= maxCachedFileSize)
+				{
+					// Return the file content and store it also in the cache
+					entry = new CacheEntry();
 
-                    while(!file.atEnd() && !file.error())
-                    {
-                        QByteArray buffer = file.read(65536);
-                        response.write(buffer);
-                        entry->document.append(buffer);
-                    }
+					while(!file.atEnd() && !file.error())
+					{
+						QByteArray buffer = file.read(65536);
+						response.write(buffer);
+						entry->document.append(buffer);
+					}
 
-                    entry->created = now;
-                    mutex.lock();
+					entry->created = now;
+					mutex.lock();
 
-                    if(!cache.contains(path))
-                    {
-                        cache.insert(request.getPath(), entry, entry->document.size());
-                    }
-                    else
-                    {
-                        cache.remove(path);
-                        cache.insert(request.getPath(), entry, entry->document.size());
-                    }
+					if(!cache.contains(path))
+					{
+						cache.insert(request.getPath(), entry, entry->document.size());
+					}
+					else
+					{
+						cache.remove(path);
+						cache.insert(request.getPath(), entry, entry->document.size());
+					}
 
-                    mutex.unlock();
-                }
-                else
-                {
-                    // Return the file content, do not store in cache
-                    while(!file.atEnd() && !file.error())
-                    {
-                        response.write(file.read(65536));
-                    }
-                }
+					mutex.unlock();
+				}
+				else
+				{
+					// Return the file content, do not store in cache
+					while(!file.atEnd() && !file.error())
+					{
+						response.write(file.read(65536));
+					}
+				}
 
-                file.close();
-            }
-            else
-            {
-                qWarning("StaticFileController: Cannot open existing file %s for reading", qPrintable(file.fileName()));
-                response.setStatus(403, "forbidden");
-                response.write("403 forbidden", true);
-            }
-        }
-        else
-        {
-            response.setStatus(404, "not found");
-            response.write("404 not found", true);
-        }
-    }
+				file.close();
+			}
+			else
+			{
+				qWarning("StaticFileController: Cannot open existing file %s for reading", qPrintable(file.fileName()));
+				response.setStatus(403, "forbidden");
+				response.write("403 forbidden", true);
+			}
+		}
+		else
+		{
+			response.setStatus(404, "not found");
+			response.write("404 not found", true);
+		}
+	}
 }
 
 void StaticFileController::setContentType(QString fileName, HttpResponse& response) const
 {
-    if(fileName.endsWith(".png"))
-    {
-        response.setHeader("Content-Type", "image/png");
-    }
-    else if(fileName.endsWith(".jpg"))
-    {
-        response.setHeader("Content-Type", "image/jpeg");
-    }
-    else if(fileName.endsWith(".gif"))
-    {
-        response.setHeader("Content-Type", "image/gif");
-    }
-    else if(fileName.endsWith(".pdf"))
-    {
-        response.setHeader("Content-Type", "application/pdf");
-    }
-    else if(fileName.endsWith(".txt"))
-    {
-        response.setHeader("Content-Type", qPrintable("text/plain; charset=" + encoding));
-    }
-    else if(fileName.endsWith(".html") || fileName.endsWith(".htm"))
-    {
-        response.setHeader("Content-Type", qPrintable("text/html; charset=" + encoding));
-    }
-    else if(fileName.endsWith(".css"))
-    {
-        response.setHeader("Content-Type", "text/css");
-    }
-    else if(fileName.endsWith(".js"))
-    {
-        response.setHeader("Content-Type", "text/javascript");
-    }
-    else if(fileName.endsWith(".woff"))
-    {
-        response.setHeader("Content-Type", "application/font-woff");
-    }
-    else if(fileName.endsWith(".ico"))
-    {
-        response.setHeader("Content-Type", "image/x-icon");
-    }
+	if(fileName.endsWith(".png"))
+	{
+		response.setHeader("Content-Type", "image/png");
+	}
+	else if(fileName.endsWith(".jpg"))
+	{
+		response.setHeader("Content-Type", "image/jpeg");
+	}
+	else if(fileName.endsWith(".gif"))
+	{
+		response.setHeader("Content-Type", "image/gif");
+	}
+	else if(fileName.endsWith(".pdf"))
+	{
+		response.setHeader("Content-Type", "application/pdf");
+	}
+	else if(fileName.endsWith(".txt"))
+	{
+		response.setHeader("Content-Type", qPrintable("text/plain; charset=" + encoding));
+	}
+	else if(fileName.endsWith(".html") || fileName.endsWith(".htm"))
+	{
+		response.setHeader("Content-Type", qPrintable("text/html; charset=" + encoding));
+	}
+	else if(fileName.endsWith(".css"))
+	{
+		response.setHeader("Content-Type", "text/css");
+	}
+	else if(fileName.endsWith(".js"))
+	{
+		response.setHeader("Content-Type", "text/javascript");
+	}
+	else if(fileName.endsWith(".woff"))
+	{
+		response.setHeader("Content-Type", "application/font-woff");
+	}
+	else if(fileName.endsWith(".ico"))
+	{
+		response.setHeader("Content-Type", "image/x-icon");
+	}
 
-    // Todo: add all of your content types
+	// Todo: add all of your content types
 }
 
 StaticFileController::~StaticFileController()
 {
-    //qDebug() << "QApplicationSettings::FreeInstance() from StaticFileController::~StaticFileController";
-    QApplicationSettings::FreeInstance();
+	//qDebug() << "QApplicationSettings::FreeInstance() from StaticFileController::~StaticFileController";
+	QApplicationSettings::FreeInstance();
 }
 
 /*

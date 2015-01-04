@@ -23,39 +23,39 @@
 
 class HttpRequestHandler : public QObject
 {
-    Q_OBJECT
-    Q_DISABLE_COPY(HttpRequestHandler)
+	Q_OBJECT
+	Q_DISABLE_COPY(HttpRequestHandler)
 
 public:
-    struct Creditionals
-    {
-        QString username, password;
-    };
-    bool requireAuth;
-    Creditionals account;
-    /** Constructor */
-    HttpRequestHandler(QString name, QObject* parent = 0);
+	struct Creditionals
+	{
+		QString username, password;
+	};
+	bool requireAuth;
+	Creditionals account;
+	/** Constructor */
+	HttpRequestHandler(QString name, QObject* parent = 0);
 
-    /** Destructor */
-    virtual ~HttpRequestHandler();
+	/** Destructor */
+	virtual ~HttpRequestHandler();
 
-    /**
-      Generate a response for an incoming HTTP request.
-      @param request The received HTTP request
-      @param response Must be used to return the response
-      @warning This method must be thread safe
-    */
-    virtual void service(HttpRequest& request, HttpResponse& response);
+	/**
+	  Generate a response for an incoming HTTP request.
+	  @param request The received HTTP request
+	  @param response Must be used to return the response
+	  @warning This method must be thread safe
+	*/
+	virtual void service(HttpRequest& request, HttpResponse& response);
 
-    bool CheckCreditinals(HttpRequest& request, HttpResponse& response);
+	bool CheckCreditinals(HttpRequest& request, HttpResponse& response);
 private:
-    QMap<quint32, QString> nonceContainer;
-    QString serverName;
-    void initSettings();
-    QString _generateNonce(const int len);
-    QString _getAuthentificateHeader();
-    QString _getOpaque(QString realm, QString nonce);
-    QString realm, authMethod , nonce;
+	QMap<quint32, QString> nonceContainer;
+	QString serverName;
+	void initSettings();
+	QString _generateNonce(const int len);
+	QString _getAuthentificateHeader();
+	QString _getOpaque(QString realm, QString nonce);
+	QString realm, authMethod , nonce;
 };
 
 #endif // HTTPREQUESTHANDLER_H

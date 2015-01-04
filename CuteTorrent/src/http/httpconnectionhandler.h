@@ -31,67 +31,67 @@
 
 class HttpConnectionHandler : public QThread
 {
-    Q_OBJECT
-    Q_DISABLE_COPY(HttpConnectionHandler)
+	Q_OBJECT
+	Q_DISABLE_COPY(HttpConnectionHandler)
 public:
 
-    /**
-      Constructor.
-      @param settings Configuration settings of the HTTP webserver
-      @param requestHandler handler that will process each incomin HTTP request
-    */
-    HttpConnectionHandler(HttpRequestHandler* requestHandler);
+	/**
+	  Constructor.
+	  @param settings Configuration settings of the HTTP webserver
+	  @param requestHandler handler that will process each incomin HTTP request
+	*/
+	HttpConnectionHandler(HttpRequestHandler* requestHandler);
 
-    /** Destructor */
-    virtual ~HttpConnectionHandler();
+	/** Destructor */
+	virtual ~HttpConnectionHandler();
 
-    /** Returns true, if this handler is in use. */
-    bool isBusy();
+	/** Returns true, if this handler is in use. */
+	bool isBusy();
 
-    /** Mark this handler as busy */
-    void setBusy();
-    static QList<QPair<uint, uint> > allowedIP, notAllowedIP;
+	/** Mark this handler as busy */
+	void setBusy();
+	static QList<QPair<uint, uint> > allowedIP, notAllowedIP;
 private:
-    bool blockClient;
-    /** Configuration settings */
-    QApplicationSettings* settings;
+	bool blockClient;
+	/** Configuration settings */
+	QApplicationSettings* settings;
 
-    /** TCP socket of the current connection */
-    QTcpSocket socket;
+	/** TCP socket of the current connection */
+	QTcpSocket socket;
 
-    /** Time for read timeout detection */
-    QTimer readTimer;
+	/** Time for read timeout detection */
+	QTimer readTimer;
 
-    /** Storage for the current incoming HTTP request */
-    HttpRequest* currentRequest;
+	/** Storage for the current incoming HTTP request */
+	HttpRequest* currentRequest;
 
-    /** Dispatches received requests to services */
-    HttpRequestHandler* requestHandler;
+	/** Dispatches received requests to services */
+	HttpRequestHandler* requestHandler;
 
-    /** This shows the busy-state from a very early time */
-    bool busy;
+	/** This shows the busy-state from a very early time */
+	bool busy;
 
-    /** Executes the htreads own event loop */
-    void run();
+	/** Executes the htreads own event loop */
+	void run();
 
 public slots:
 
-    /**
-      Received from from the listener, when the handler shall start processing a new connection.
-      @param socketDescriptor references the accepted connection.
-    */
-    void handleConnection(int socketDescriptor);
+	/**
+	  Received from from the listener, when the handler shall start processing a new connection.
+	  @param socketDescriptor references the accepted connection.
+	*/
+	void handleConnection(int socketDescriptor);
 
 private slots:
 
-    /** Received from the socket when a read-timeout occured */
-    void readTimeout();
+	/** Received from the socket when a read-timeout occured */
+	void readTimeout();
 
-    /** Received from the socket when incoming data can be read */
-    void read();
+	/** Received from the socket when incoming data can be read */
+	void read();
 
-    /** Received from the socket when a connection has been closed */
-    void disconnected();
+	/** Received from the socket when a connection has been closed */
+	void disconnected();
 
 };
 

@@ -25,14 +25,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class GroupForFileFiltering
 {
 private:
-    QSet<QString> extensions;
-    QString name, path;
+	QSet<QString> extensions;
+	QString name, path;
 public:
-    GroupForFileFiltering(QString name, QString extensions, QString savepath);
-    bool Contains(QString extension) const;
-    QString SavePath() const;
-    QString Name() const;
-    QString Extensions() const;
+	GroupForFileFiltering(QString name, QString extensions, QString savepath);
+	bool Contains(QString extension) const;
+	QString SavePath() const;
+	QString Name() const;
+	QString Extensions() const;
 
 };
 

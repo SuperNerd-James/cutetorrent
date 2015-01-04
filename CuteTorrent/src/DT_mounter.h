@@ -23,6 +23,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 class DT_mounter
 {
 public:
-    static void mountImage(QString path);
+	static void mountImage(QString path);
 };
 #endif
