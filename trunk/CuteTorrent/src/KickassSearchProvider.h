@@ -12,7 +12,7 @@ public:
 	int SupportedCategories() override;
 	void PeformSearch(QString token,SearchCategories category, int page) override;
 signals:
-	void SearchReady(QList<SearchResult> result) override;
+	void SearchReady(QList<SearchResult*> result) override;
 	void Error(QString error) override;
 private:
 	QNetworkAccessManager* m_pNetworkManager;

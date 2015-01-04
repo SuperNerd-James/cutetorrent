@@ -75,7 +75,7 @@ public:
    void getElementsByName(QString Name,QString AtrName,QString AtrValue,QList<QSgmlTag*> *Elements);
    void getElementsByAtribute(QString AtrName,QList<QSgmlTag*> *Elements);
    void getElementsByAtribute(QString AtrName,QString AtrValue,QList<QSgmlTag*> *Elements);
-
+   QString getInnerText(QSgmlTag* ptag);
    void ExportString(QString *HtmlString);
    void ExportString(QString *HtmlString,char Optimze,int Tabsize);
    void String2Sgml(const QString SgmlString);

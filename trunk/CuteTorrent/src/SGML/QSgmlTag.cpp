@@ -225,7 +225,7 @@ QSgmlTag& QSgmlTag::getPreviousElement(void)
 }
 
 // get the value of an argument
-QString QSgmlTag::getArgValue(QString Key)
+QString QSgmlTag::getAttributeValue(QString Key)
 {
    return( Attributes.value(Key) );
 }

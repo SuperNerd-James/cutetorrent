@@ -23,16 +23,13 @@ struct openmagnet_info
 
 
 enum FilterType{
-    MY_GROUP_FILTER,
-    SEARCH,
-	ACTIVE,
-	NOT_ACTIVE,
-	SEEDING,
-	DWONLOADING,
-	COMPLETED,
+	GROUP_FILTER_TYPE,
+	SEARCH,
+	RSS_FEED,
+	TORRENT,
 	NONE
 };
-
+Q_DECLARE_METATYPE(FilterType)
 struct torrent_creation_info
 {
 	std::string path,filter,describtion;

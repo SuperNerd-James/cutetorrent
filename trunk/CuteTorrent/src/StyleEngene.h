@@ -1,6 +1,7 @@
 #ifndef STYLEENGENE_H
 #define STYLEENGENE_H
 #include <QtGui>
+#include <QCache>
 struct StyleInfo{
     QString DisplayName;
     QString InternalName;
@@ -34,6 +35,7 @@ private:
     void initIcons();
     void loadStyleInfo(QString path);
     void loadStyleSheet(QString path);
+	QCache<QString, QIcon> m_iconCache;
     QMap<QString,QString> iconNamesMap;
     QList<StyleInfo> _avaliableStyles;
     struct InternalStyleInfo {
@@ -41,6 +43,7 @@ private:
        QString imageDir;
        QString rootPath;
     };
+
     InternalStyleInfo _currentStyle;
     QMap<QString,InternalStyleInfo> _styleMap;
 signals:

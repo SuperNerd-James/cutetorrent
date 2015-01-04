@@ -46,7 +46,6 @@ public:
 	static QString SchedulerTypeToString(SchedulerTask::TaskType type);
 	static QString GetBaseSuffix(const libtorrent::file_storage& storrage);
     template <typename T> static QList<T> reversed( const QList<T> & in );
-    static FilterType StrToFilter( QString filter );
 };
 
 template <typename T> QList<T>

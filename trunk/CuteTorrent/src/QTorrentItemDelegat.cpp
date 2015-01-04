@@ -247,7 +247,7 @@ void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionVie
     const QFontMetrics nameFM( nameFont );
 
 	const QIcon mimeIcon(tor.GetMimeTypeIcon());
-	const QString nameStr( tor.GetName() );
+	QString nameStr( tor.GetName() );
 	QSize nameSize( nameFM.size( 0, nameStr ) );
 	if (nameSize.width()> max_width)
 	{
@@ -328,8 +328,10 @@ void QTorrentItemDelegat::drawTorrent( QPainter * painter, const QStyleOptionVie
         painter->setPen( opt.palette.color( cg, cr ) );
 	mimeIcon.paint( painter, iconArea, Qt::AlignCenter, im, qs );
     painter->setFont( nameFont );
+	nameStr = nameFM.elidedText(nameStr, Qt::ElideRight, nameArea.width());
     style->drawItemText(painter, nameArea, Qt::AlignLeft,opt.palette,option.state & QStyle::State_Enabled,nameStr);
     painter->setFont( statusFont );
+	
     style->drawItemText(painter,  statusArea, Qt::AlignRight, opt.palette,option.state & QStyle::State_Enabled,statusStr );
     painter->setFont( progressFont );
     style->drawItemText(painter, progArea, Qt::AlignLeft, opt.palette,option.state & QStyle::State_Enabled, progressStr );

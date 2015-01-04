@@ -53,17 +53,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "CustomWindow.h"
 #include "ui_CustomWindow.h"
 #include "SearchEngine.h"
+#include "QSearchDisplayModel.h"
+#include "QSearchItemDelegate.h"
 Q_DECLARE_METATYPE(QHostAddress)
 class CuteTorrent : public BaseWindow<QWidget> , private Ui::CustomWindow
 {
     Q_OBJECT
-
 public:
-    CuteTorrent(QWidget *parent = 0);
+	CuteTorrent(QWidget *parent = 0);
 	void ConnectMessageReceved(Application* a);
 	~CuteTorrent();
 protected:
-
+	bool eventFilter(QObject *obj, QEvent *event);
     void changeEvent(QEvent *event);
     void resizeEvent ( QResizeEvent * event );
     void closeEvent(QCloseEvent* ce);
@@ -99,7 +100,10 @@ private:
     QLabel *upLabelText, *upLabel,*title;
     QLabel *uploadLimit, *downloadLimit;
     QLabel* downLabelText, *downLabel;
-    QTorrentDisplayModel* model;
+    QTorrentDisplayModel* m_pTorrentDisplayModel;
+	QTorrentItemDelegat* m_pTorrentItemDelegate;
+	QSearchDisplayModel* m_pSearchDisplayModel;
+	QSearchItemDelegate* m_pSearchItemDelegate;
     TorrentManager* tManager;
     QLineEdit* searchEdit;
     QTreeWidgetItem *torrentTreeItem;
@@ -110,6 +114,7 @@ private:
     QTreeWidgetItem *inactiveTreeItem;
     QTreeWidgetItem *groupsTreeItem;
 	QTreeWidgetItem *rssTreeItem;
+	QTreeWidgetItem *searchTreeItem;
 	SearchEngine* m_pSearchEngine;
     void createTrayIcon();
     void createActions();
@@ -124,6 +129,9 @@ private:
     void fillPieceDisplay(QSize);
     void setupCustomeWindow();
     void setupKeyMappings();
+	void switchToTorrentsModel();
+	void switchToSearchModel();
+	void switchToRssModel();
 	void resizeWindow(QMouseEvent *e);
 	virtual QPushButton* getMinBtn() override;
 	virtual QPushButton* getMaxBtn() override;

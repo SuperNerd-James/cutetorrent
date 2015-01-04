@@ -30,7 +30,7 @@ QString KickassSearchProvider::BuildUrl(QString token, SearchCategories category
 	}
 	else
 	{
-		return QString("https://kickass.so/json.php?q=%1&field=seeders&order=desc&page=%3").arg(token, QString::number(page));
+		return QString("https://kickass.so/json.php?q=%1&field=seeders&order=desc&page=%2").arg(token, QString::number(page));
 	}
 }
 
@@ -55,7 +55,7 @@ void KickassSearchProvider::replyReady(QNetworkReply* pReply)
 	if (pReply->error() == QNetworkReply::NoError)
 	{
 		
-		QList<SearchResult> results;
+		QList<SearchResult*> results;
 		QString data = pReply->readAll();
 		bool isValidJson = false;
 		QtJson::JsonObject json = QtJson::parse(data, isValidJson).toMap();
@@ -71,8 +71,8 @@ void KickassSearchProvider::replyReady(QNetworkReply* pReply)
 				result->TorrentUrl = torrentInfo["torrentLink"].toString();
 				result->leechers = torrentInfo["leechs"].toInt();
 				result->seeders = torrentInfo["seeds"].toInt();
-				result->size = torrentInfo["size"].toInt();
-				results.append(*result);
+				result->size = torrentInfo["size"].toLongLong();
+				results.append(result);
 			}
 			emit SearchReady(results);
 		}
