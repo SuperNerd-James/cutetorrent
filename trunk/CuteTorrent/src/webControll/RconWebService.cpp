@@ -2,203 +2,203 @@
 #include <QApplication>
 RconWebService::RconWebService(void)
 {
-    mapper = new RequestMapper(this);
-    listener = new HttpListener("WebControl", mapper, this);
+	mapper = new RequestMapper(this);
+	listener = new HttpListener("WebControl", mapper, this);
 }
 
 RconWebService::~RconWebService(void)
 {
-    if(listener != NULL)
-    {
-        listener->close();
-    }
+	if(listener != NULL)
+	{
+		listener->close();
+	}
 
-    delete mapper;
+	delete mapper;
 }
 
 void RconWebService::Start()
 {
-    if(listener != NULL)
-    {
-        listener->close();
-        listener->Start();
-    }
-    else
-    {
-        listener = new HttpListener("WebControl", mapper, this);
-        listener->Start();
-    }
+	if(listener != NULL)
+	{
+		listener->close();
+		listener->Start();
+	}
+	else
+	{
+		listener = new HttpListener("WebControl", mapper, this);
+		listener->Start();
+	}
 }
 
 void RconWebService::parseIpFilter(QString ipFilterStr)
 {
-    QStringList lines = ipFilterStr.split("\n");
+	QStringList lines = ipFilterStr.split("\n");
 
-    //qDebug() << lines;
-    foreach(QString line, lines)
-    {
-        //qDebug()<< "parsing line:" << line;
-        if(line.trimmed().startsWith("#"))
-        {
-            //qDebug()<< "line:" << line << "is comment so skiping it";
-            continue;
-        }
+	//qDebug() << lines;
+	foreach(QString line, lines)
+	{
+		//qDebug()<< "parsing line:" << line;
+		if(line.trimmed().startsWith("#"))
+		{
+			//qDebug()<< "line:" << line << "is comment so skiping it";
+			continue;
+		}
 
-        QStringList parts = line.trimmed().split(' ');
+		QStringList parts = line.trimmed().split(' ');
 
-        //qDebug() << "parts:" << parts;
-        if(parts[0] == "allow" || parts[0] == "deny")
-        {
-            if(parts[0] == "allow")
-            {
-                if(parts[1].contains('*') && !parts[1].contains('-'))
-                {
-                    QString pattern = parts[1];
-                    QString startIP = pattern.replace("*", "1").trimmed();
-                    QString endIP = parts[1].replace("*", "255").trimmed();
-                    QHostAddress start(startIP);
-                    QHostAddress end(endIP);
+		//qDebug() << "parts:" << parts;
+		if(parts[0] == "allow" || parts[0] == "deny")
+		{
+			if(parts[0] == "allow")
+			{
+				if(parts[1].contains('*') && !parts[1].contains('-'))
+				{
+					QString pattern = parts[1];
+					QString startIP = pattern.replace("*", "1").trimmed();
+					QString endIP = parts[1].replace("*", "255").trimmed();
+					QHostAddress start(startIP);
+					QHostAddress end(endIP);
 
-                    if(start.toIPv4Address() > end.toIPv4Address())
-                    {
-                        qSwap(start, end);
-                    }
+					if(start.toIPv4Address() > end.toIPv4Address())
+					{
+						qSwap(start, end);
+					}
 
-                    allowedIP.append(QPair<uint, uint> (start.toIPv4Address(), end.toIPv4Address()));
-                }
-                else
-                {
-                    //qDebug()<< "line:" << line << "not match parts[1].contains('*') && !parts[1].contains('-')";
-                }
+					allowedIP.append(QPair<uint, uint> (start.toIPv4Address(), end.toIPv4Address()));
+				}
+				else
+				{
+					//qDebug()<< "line:" << line << "not match parts[1].contains('*') && !parts[1].contains('-')";
+				}
 
-                if(parts[1].contains('-') && !parts[1].contains('*'))
-                {
-                    QString pattern = parts[1];
-                    QString startIP = pattern.replace("*", "1").trimmed();
-                    QString endIP = parts[1].replace("*", "255").trimmed();
-                    QHostAddress start(startIP);
-                    QHostAddress end(endIP);
+				if(parts[1].contains('-') && !parts[1].contains('*'))
+				{
+					QString pattern = parts[1];
+					QString startIP = pattern.replace("*", "1").trimmed();
+					QString endIP = parts[1].replace("*", "255").trimmed();
+					QHostAddress start(startIP);
+					QHostAddress end(endIP);
 
-                    if(start.toIPv4Address() > end.toIPv4Address())
-                    {
-                        qSwap(start, end);
-                    }
+					if(start.toIPv4Address() > end.toIPv4Address())
+					{
+						qSwap(start, end);
+					}
 
-                    allowedIP.append(QPair<uint, uint> (start.toIPv4Address(), end.toIPv4Address()));
-                }
-                else
-                {
-                    //qDebug()<< "line:" << line << "not match parts[1].contains('-') && !parts[1].contains('*')";
-                }
-            }
-            else
-            {
-                if(parts[1] == "all")
-                {
-                    if(listener != NULL)
-                    {
-                        listener->close();
-                    }
-                }
+					allowedIP.append(QPair<uint, uint> (start.toIPv4Address(), end.toIPv4Address()));
+				}
+				else
+				{
+					//qDebug()<< "line:" << line << "not match parts[1].contains('-') && !parts[1].contains('*')";
+				}
+			}
+			else
+			{
+				if(parts[1] == "all")
+				{
+					if(listener != NULL)
+					{
+						listener->close();
+					}
+				}
 
-                if(parts[1].contains('*') && !parts[1].contains('-'))
-                {
-                    QString pattern = parts[1];
-                    QString startIP = pattern.replace("*", "1").trimmed();
-                    QString endIP = parts[1].replace("*", "255").trimmed();
-                    QHostAddress start(startIP);
-                    QHostAddress end(endIP);
+				if(parts[1].contains('*') && !parts[1].contains('-'))
+				{
+					QString pattern = parts[1];
+					QString startIP = pattern.replace("*", "1").trimmed();
+					QString endIP = parts[1].replace("*", "255").trimmed();
+					QHostAddress start(startIP);
+					QHostAddress end(endIP);
 
-                    //qDebug() << "deny: start: " << start << "end: " <<end;
-                    if(start.toIPv4Address() > end.toIPv4Address())
-                    {
-                        qSwap(start, end);
-                    }
+					//qDebug() << "deny: start: " << start << "end: " <<end;
+					if(start.toIPv4Address() > end.toIPv4Address())
+					{
+						qSwap(start, end);
+					}
 
-                    notAllowedIP.append(QPair<uint, uint> (start.toIPv4Address(), end.toIPv4Address()));
-                }
-                else
-                {
-                    //qDebug()<< "line:" << line << "not match parts[1].contains('*') && !parts[1].contains('-')";
-                }
+					notAllowedIP.append(QPair<uint, uint> (start.toIPv4Address(), end.toIPv4Address()));
+				}
+				else
+				{
+					//qDebug()<< "line:" << line << "not match parts[1].contains('*') && !parts[1].contains('-')";
+				}
 
-                if(parts[1].contains('-') && !parts[1].contains('*'))
-                {
-                    QString pattern = parts[1];
-                    QString startIP = pattern.replace("*", "1").trimmed();
-                    QString endIP = parts[1].replace("*", "255").trimmed();
-                    QHostAddress start(startIP);
-                    QHostAddress end(endIP);
+				if(parts[1].contains('-') && !parts[1].contains('*'))
+				{
+					QString pattern = parts[1];
+					QString startIP = pattern.replace("*", "1").trimmed();
+					QString endIP = parts[1].replace("*", "255").trimmed();
+					QHostAddress start(startIP);
+					QHostAddress end(endIP);
 
-                    if(start.toIPv4Address() > end.toIPv4Address())
-                    {
-                        qSwap(start, end);
-                    }
+					if(start.toIPv4Address() > end.toIPv4Address())
+					{
+						qSwap(start, end);
+					}
 
-                    notAllowedIP.append(QPair<uint, uint> (start.toIPv4Address(), end.toIPv4Address()));
-                }
-                else
-                {
-                    //qDebug()<< "line:" << line << "not match parts[1].contains('-') && !parts[1].contains('*')";
-                }
-            }
-        }
-        else
-        {
-            //qDebug()<< "line:" << line << "is invalid";
-        }
-    }
+					notAllowedIP.append(QPair<uint, uint> (start.toIPv4Address(), end.toIPv4Address()));
+				}
+				else
+				{
+					//qDebug()<< "line:" << line << "not match parts[1].contains('-') && !parts[1].contains('*')";
+				}
+			}
+		}
+		else
+		{
+			//qDebug()<< "line:" << line << "is invalid";
+		}
+	}
 
-    HttpConnectionHandler::allowedIP = allowedIP;
-    HttpConnectionHandler::notAllowedIP = notAllowedIP;
-    //qDebug() << "notAllowedIP:" << notAllowedIP;
-    //qDebug() << "allowedIP:"    << allowedIP;
+	HttpConnectionHandler::allowedIP = allowedIP;
+	HttpConnectionHandler::notAllowedIP = notAllowedIP;
+	//qDebug() << "notAllowedIP:" << notAllowedIP;
+	//qDebug() << "allowedIP:"    << allowedIP;
 }
 
 bool RconWebService::isRunning()
 {
-    if(listener != NULL)
-    {
-        return listener->isListening();
-    }
+	if(listener != NULL)
+	{
+		return listener->isListening();
+	}
 
-    return false;
+	return false;
 }
 
 void RconWebService::Stop()
 {
-    if(listener != NULL)
-    {
-        if(listener->isListening())
-        {
-            listener->close();
-        }
+	if(listener != NULL)
+	{
+		if(listener->isListening())
+		{
+			listener->close();
+		}
 
-        delete listener;
-        listener = NULL;
-    }
+		delete listener;
+		listener = NULL;
+	}
 }
 
 RconWebService* RconWebService::getInstance()
 {
-    if(instnce == NULL)
-    {
-        instnce = new RconWebService();
-    }
+	if(instnce == NULL)
+	{
+		instnce = new RconWebService();
+	}
 
-    intanceCount++;
-    return instnce;
+	intanceCount++;
+	return instnce;
 }
 
 void RconWebService::freeInstance()
 {
-    intanceCount--;
+	intanceCount--;
 
-    if(intanceCount == 0)
-    {
-        delete instnce;
-        instnce = NULL;
-    }
+	if(intanceCount == 0)
+	{
+		delete instnce;
+		instnce = NULL;
+	}
 }
 
 int RconWebService::intanceCount = 0;

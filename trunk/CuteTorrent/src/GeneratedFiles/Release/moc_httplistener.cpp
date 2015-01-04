@@ -20,113 +20,113 @@ static const uint qt_meta_data_HttpListener[] =
 {
 
 // content:
-    6,       // revision
-    0,       // classname
-    0,    0, // classinfo
-    1,   14, // methods
-    0,    0, // properties
-    0,    0, // enums/sets
-    0,    0, // constructors
-    0,       // flags
-    1,       // signalCount
+	6,       // revision
+	0,       // classname
+	0,    0, // classinfo
+	1,   14, // methods
+	0,    0, // properties
+	0,    0, // enums/sets
+	0,    0, // constructors
+	0,       // flags
+	1,       // signalCount
 
 // signals: signature, parameters, type, tag, flags
-    31,   14,   13,   13, 0x05,
+	31,   14,   13,   13, 0x05,
 
-    0        // eod
+	0        // eod
 };
 
 static const char qt_meta_stringdata_HttpListener[] =
 {
-    "HttpListener\0\0socketDescriptor\0"
-    "handleConnection(int)\0"
+	"HttpListener\0\0socketDescriptor\0"
+	"handleConnection(int)\0"
 };
 
 void HttpListener::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
 {
-    if(_c == QMetaObject::InvokeMetaMethod)
-    {
-        Q_ASSERT(staticMetaObject.cast(_o));
-        HttpListener* _t = static_cast<HttpListener*>(_o);
+	if(_c == QMetaObject::InvokeMetaMethod)
+	{
+		Q_ASSERT(staticMetaObject.cast(_o));
+		HttpListener* _t = static_cast<HttpListener*>(_o);
 
-        switch(_id)
-        {
-            case 0:
-                _t->handleConnection((*reinterpret_cast< int (*) > (_a[1])));
-                break;
+		switch(_id)
+		{
+			case 0:
+				_t->handleConnection((*reinterpret_cast< int (*) > (_a[1])));
+				break;
 
-            default:
-                ;
-        }
-    }
+			default:
+				;
+		}
+	}
 }
 
 const QMetaObjectExtraData HttpListener::staticMetaObjectExtraData =
 {
-    0,  qt_static_metacall
+	0,  qt_static_metacall
 };
 
 const QMetaObject HttpListener::staticMetaObject =
 {
-    {
-        &QTcpServer::staticMetaObject, qt_meta_stringdata_HttpListener,
-        qt_meta_data_HttpListener, &staticMetaObjectExtraData
-    }
+	{
+		&QTcpServer::staticMetaObject, qt_meta_stringdata_HttpListener,
+		qt_meta_data_HttpListener, &staticMetaObjectExtraData
+	}
 };
 
 #ifdef Q_NO_DATA_RELOCATION
 const QMetaObject& HttpListener::getStaticMetaObject()
 {
-    return staticMetaObject;
+	return staticMetaObject;
 }
 #endif //Q_NO_DATA_RELOCATION
 
 const QMetaObject* HttpListener::metaObject() const
 {
-    return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
+	return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
 }
 
 void* HttpListener::qt_metacast(const char* _clname)
 {
-    if(!_clname)
-    {
-        return 0;
-    }
+	if(!_clname)
+	{
+		return 0;
+	}
 
-    if(!strcmp(_clname, qt_meta_stringdata_HttpListener))
-    {
-        return static_cast<void*>(const_cast< HttpListener*>(this));
-    }
+	if(!strcmp(_clname, qt_meta_stringdata_HttpListener))
+	{
+		return static_cast<void*>(const_cast< HttpListener*>(this));
+	}
 
-    return QTcpServer::qt_metacast(_clname);
+	return QTcpServer::qt_metacast(_clname);
 }
 
 int HttpListener::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
 {
-    _id = QTcpServer::qt_metacall(_c, _id, _a);
+	_id = QTcpServer::qt_metacall(_c, _id, _a);
 
-    if(_id < 0)
-    {
-        return _id;
-    }
+	if(_id < 0)
+	{
+		return _id;
+	}
 
-    if(_c == QMetaObject::InvokeMetaMethod)
-    {
-        if(_id < 1)
-        {
-            qt_static_metacall(this, _c, _id, _a);
-        }
+	if(_c == QMetaObject::InvokeMetaMethod)
+	{
+		if(_id < 1)
+		{
+			qt_static_metacall(this, _c, _id, _a);
+		}
 
-        _id -= 1;
-    }
+		_id -= 1;
+	}
 
-    return _id;
+	return _id;
 }
 
 // SIGNAL 0
 void HttpListener::handleConnection(int _t1)
 {
-    void* _a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+	void* _a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+	QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 QT_END_MOC_NAMESPACE

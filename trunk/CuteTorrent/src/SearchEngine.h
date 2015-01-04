@@ -6,19 +6,19 @@
 class SearchItemsStorrage;
 class SearchEngine : public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    SearchEngine();
-    ~SearchEngine();
-    void DoSerach(QString& token, ISerachProvider::SearchCategories category, int page);
-    SearchItemsStorrage* GetResults();
-    QList<ISerachProvider*> GetSearchProviders();
+	SearchEngine();
+	~SearchEngine();
+	void DoSerach(QString& token, ISerachProvider::SearchCategories category, int page);
+	SearchItemsStorrage* GetResults();
+	QList<ISerachProvider*> GetSearchProviders();
 signals:
-    void GotResults();
+	void GotResults();
 private:
-    SearchItemsStorrage* m_result;
-    QList<ISerachProvider*> m_pSearchProviders;
+	SearchItemsStorrage* m_result;
+	QList<ISerachProvider*> m_pSearchProviders;
 
 private slots:
-    void OnSearchReady(QList<SearchResult*> result);
+	void OnSearchReady(QList<SearchResult*> result);
 };

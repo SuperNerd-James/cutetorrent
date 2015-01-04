@@ -28,58 +28,58 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "CustomWindow.h"
 class SettingsDialog : public BaseWindow<QDialog> , private Ui::SettingsDialog
 {
-    Q_OBJECT
+	Q_OBJECT
 protected:
-    void changeEvent(QEvent* event);
-    virtual QPushButton* getCloseBtn() override;
-    virtual QWidget* getTitleBar() override;
-    virtual QWidget* centralWidget() override;
-    virtual QLabel* getTitleLabel() override;
-    virtual QLabel* getTitleIcon() override;
+	void changeEvent(QEvent* event);
+	virtual QPushButton* getCloseBtn() override;
+	virtual QWidget* getTitleBar() override;
+	virtual QWidget* centralWidget() override;
+	virtual QLabel* getTitleLabel() override;
+	virtual QLabel* getTitleIcon() override;
 private:
-    QApplicationSettings* settings;
-    QList<SearchItem> searchSources;
-    QList<GroupForFileFiltering> filterGroups;
-    QList<SchedulerTask> tasks;
-    QDateTimeEdit* previousFocuse;
-    TorrentTracker* tracker;
-    RconWebService* rcon;
+	QApplicationSettings* settings;
+	QList<SearchItem> searchSources;
+	QList<GroupForFileFiltering> filterGroups;
+	QList<SchedulerTask> tasks;
+	QDateTimeEdit* previousFocuse;
+	TorrentTracker* tracker;
+	RconWebService* rcon;
 
-    void FillFilteringGroups();
-    void FillTorrentTab();
-    void FillHDDTab();
-    void FillDTTab();
-    void FillWebUITab();
-    void FillKeyMapTab();
-    void SetupSchedullerTab();
-    void FillSearchTab();
-    void FillNetworkTab();
+	void FillFilteringGroups();
+	void FillTorrentTab();
+	void FillHDDTab();
+	void FillDTTab();
+	void FillWebUITab();
+	void FillKeyMapTab();
+	void SetupSchedullerTab();
+	void FillSearchTab();
+	void FillNetworkTab();
 public:
-    SettingsDialog(QWidget* parent = 0, int flags = 0);
-    ~SettingsDialog();
-    void ApplySettingsToSession();
-    void instance(QString currentStyle);
+	SettingsDialog(QWidget* parent = 0, int flags = 0);
+	~SettingsDialog();
+	void ApplySettingsToSession();
+	void instance(QString currentStyle);
 signals:
-    void needRetranslate();
-    void tasksChanged();
+	void needRetranslate();
+	void tasksChanged();
 private slots:
-    void chooseAction(QAbstractButton* button);
-    void ApplyAndClose();
-    void ApplySettings();
-    void addGroup();
-    void removeGroup();
-    void browseSavepathGroup();
-    void browseDTPath();
-    void showSelectedGroup(int);
-    void SetDate(QDate date);
-    void AddTask();
-    void DeleteTask();
-    void UpdateSchedullerTab(int index);
-    void StartRcon();
-    void StopRcon();
-    void searchItemChanged(int index);
-    void addSearchitem();
-    void removeSearchItem();
-    void setupWindowIcons();
-    void OpenWebUI();
+	void chooseAction(QAbstractButton* button);
+	void ApplyAndClose();
+	void ApplySettings();
+	void addGroup();
+	void removeGroup();
+	void browseSavepathGroup();
+	void browseDTPath();
+	void showSelectedGroup(int);
+	void SetDate(QDate date);
+	void AddTask();
+	void DeleteTask();
+	void UpdateSchedullerTab(int index);
+	void StartRcon();
+	void StopRcon();
+	void searchItemChanged(int index);
+	void addSearchitem();
+	void removeSearchItem();
+	void setupWindowIcons();
+	void OpenWebUI();
 };

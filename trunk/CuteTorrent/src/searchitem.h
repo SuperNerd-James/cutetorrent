@@ -6,12 +6,12 @@
 class SearchItem
 {
 public:
-    QString getName();
-    QString getPattern();
-    void setName(QString newName);
-    void setPattern(QString newPattern);
+	QString getName();
+	QString getPattern();
+	void setName(QString newName);
+	void setPattern(QString newPattern);
 private:
-    QString name, pattern;
+	QString name, pattern;
 
 
 };

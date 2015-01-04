@@ -41,53 +41,53 @@
 
 class StaticFileController : public HttpRequestHandler
 {
-    Q_OBJECT
-    Q_DISABLE_COPY(StaticFileController);
+	Q_OBJECT
+	Q_DISABLE_COPY(StaticFileController);
 public:
 
-    /** Constructor */
-    StaticFileController(QObject* parent = 0);
-    ~StaticFileController();
-    /** Generates the response */
-    void service(HttpRequest& request, HttpResponse& response);
+	/** Constructor */
+	StaticFileController(QObject* parent = 0);
+	~StaticFileController();
+	/** Generates the response */
+	void service(HttpRequest& request, HttpResponse& response);
 
 private:
 
-    QApplicationSettings* settings;
-    /** Encoding of text files */
-    QString encoding;
+	QApplicationSettings* settings;
+	/** Encoding of text files */
+	QString encoding;
 
-    /** Root directory of documents */
-    QString docroot;
+	/** Root directory of documents */
+	QString docroot;
 
-    /** Maximum age of files in the browser cache */
-    int maxAge;
+	/** Maximum age of files in the browser cache */
+	int maxAge;
 
-    struct CacheEntry
-    {
-        QByteArray document;
-        qint64 created;
-    };
-    struct Creditionals
-    {
-        QString username, password;
-    };
-    bool requireAuth;
-    Creditionals account;
-    /** Timeout for each cached file */
-    int cacheTimeout;
+	struct CacheEntry
+	{
+		QByteArray document;
+		qint64 created;
+	};
+	struct Creditionals
+	{
+		QString username, password;
+	};
+	bool requireAuth;
+	Creditionals account;
+	/** Timeout for each cached file */
+	int cacheTimeout;
 
-    /** Maximum size of files in cache, larger files are not cached */
-    int maxCachedFileSize;
+	/** Maximum size of files in cache, larger files are not cached */
+	int maxCachedFileSize;
 
-    /** Cache storage */
-    QCache<QString, CacheEntry> cache;
+	/** Cache storage */
+	QCache<QString, CacheEntry> cache;
 
-    /** Used to synchronize cache access for threads */
-    QMutex mutex;
+	/** Used to synchronize cache access for threads */
+	QMutex mutex;
 
-    /** Set a content-type header in the response depending on the ending of the filename */
-    void setContentType(QString file, HttpResponse& response) const;
+	/** Set a content-type header in the response depending on the ending of the filename */
+	void setContentType(QString file, HttpResponse& response) const;
 
 };
 

@@ -20,81 +20,81 @@ static const uint qt_meta_data_QKeyEdit[] =
 {
 
 // content:
-    6,       // revision
-    0,       // classname
-    0,    0, // classinfo
-    0,    0, // methods
-    0,    0, // properties
-    0,    0, // enums/sets
-    0,    0, // constructors
-    0,       // flags
-    0,       // signalCount
+	6,       // revision
+	0,       // classname
+	0,    0, // classinfo
+	0,    0, // methods
+	0,    0, // properties
+	0,    0, // enums/sets
+	0,    0, // constructors
+	0,       // flags
+	0,       // signalCount
 
-    0        // eod
+	0        // eod
 };
 
 static const char qt_meta_stringdata_QKeyEdit[] =
 {
-    "QKeyEdit\0"
+	"QKeyEdit\0"
 };
 
 void QKeyEdit::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
 {
-    Q_UNUSED(_o);
-    Q_UNUSED(_id);
-    Q_UNUSED(_c);
-    Q_UNUSED(_a);
+	Q_UNUSED(_o);
+	Q_UNUSED(_id);
+	Q_UNUSED(_c);
+	Q_UNUSED(_a);
 }
 
 const QMetaObjectExtraData QKeyEdit::staticMetaObjectExtraData =
 {
-    0,  qt_static_metacall
+	0,  qt_static_metacall
 };
 
 const QMetaObject QKeyEdit::staticMetaObject =
 {
-    {
-        &QLineEdit::staticMetaObject, qt_meta_stringdata_QKeyEdit,
-        qt_meta_data_QKeyEdit, &staticMetaObjectExtraData
-    }
+	{
+		&QLineEdit::staticMetaObject, qt_meta_stringdata_QKeyEdit,
+		qt_meta_data_QKeyEdit, &staticMetaObjectExtraData
+	}
 };
 
 #ifdef Q_NO_DATA_RELOCATION
 const QMetaObject& QKeyEdit::getStaticMetaObject()
 {
-    return staticMetaObject;
+	return staticMetaObject;
 }
 #endif //Q_NO_DATA_RELOCATION
 
 const QMetaObject* QKeyEdit::metaObject() const
 {
-    return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
+	return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
 }
 
 void* QKeyEdit::qt_metacast(const char* _clname)
 {
-    if(!_clname)
-    {
-        return 0;
-    }
+	if(!_clname)
+	{
+		return 0;
+	}
 
-    if(!strcmp(_clname, qt_meta_stringdata_QKeyEdit))
-    {
-        return static_cast<void*>(const_cast< QKeyEdit*>(this));
-    }
+	if(!strcmp(_clname, qt_meta_stringdata_QKeyEdit))
+	{
+		return static_cast<void*>(const_cast< QKeyEdit*>(this));
+	}
 
-    return QLineEdit::qt_metacast(_clname);
+	return QLineEdit::qt_metacast(_clname);
 }
 
 int QKeyEdit::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
 {
-    _id = QLineEdit::qt_metacall(_c, _id, _a);
+	_id = QLineEdit::qt_metacall(_c, _id, _a);
 
-    if(_id < 0)
-    {
-        return _id;
-    }
+	if(_id < 0)
+	{
+		return _id;
+	}
 
-    return _id;
+	return _id;
 }
 QT_END_MOC_NAMESPACE

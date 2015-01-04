@@ -20,106 +20,106 @@ static const uint qt_meta_data_MagnetApiController[] =
 {
 
 // content:
-    6,       // revision
-    0,       // classname
-    0,    0, // classinfo
-    1,   14, // methods
-    0,    0, // properties
-    0,    0, // enums/sets
-    0,    0, // constructors
-    0,       // flags
-    0,       // signalCount
+	6,       // revision
+	0,       // classname
+	0,    0, // classinfo
+	1,   14, // methods
+	0,    0, // properties
+	0,    0, // enums/sets
+	0,    0, // constructors
+	0,       // flags
+	0,       // signalCount
 
 // slots: signature, parameters, type, tag, flags
-    26,   21,   20,   20, 0x0a,
+	26,   21,   20,   20, 0x0a,
 
-    0        // eod
+	0        // eod
 };
 
 static const char qt_meta_stringdata_MagnetApiController[] =
 {
-    "MagnetApiController\0\0info\0"
-    "DownloadMetadataCompleted(openmagnet_info)\0"
+	"MagnetApiController\0\0info\0"
+	"DownloadMetadataCompleted(openmagnet_info)\0"
 };
 
 void MagnetApiController::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
 {
-    if(_c == QMetaObject::InvokeMetaMethod)
-    {
-        Q_ASSERT(staticMetaObject.cast(_o));
-        MagnetApiController* _t = static_cast<MagnetApiController*>(_o);
+	if(_c == QMetaObject::InvokeMetaMethod)
+	{
+		Q_ASSERT(staticMetaObject.cast(_o));
+		MagnetApiController* _t = static_cast<MagnetApiController*>(_o);
 
-        switch(_id)
-        {
-            case 0:
-                _t->DownloadMetadataCompleted((*reinterpret_cast< const openmagnet_info(*) > (_a[1])));
-                break;
+		switch(_id)
+		{
+			case 0:
+				_t->DownloadMetadataCompleted((*reinterpret_cast< const openmagnet_info(*) > (_a[1])));
+				break;
 
-            default:
-                ;
-        }
-    }
+			default:
+				;
+		}
+	}
 }
 
 const QMetaObjectExtraData MagnetApiController::staticMetaObjectExtraData =
 {
-    0,  qt_static_metacall
+	0,  qt_static_metacall
 };
 
 const QMetaObject MagnetApiController::staticMetaObject =
 {
-    {
-        &HttpRequestHandler::staticMetaObject, qt_meta_stringdata_MagnetApiController,
-        qt_meta_data_MagnetApiController, &staticMetaObjectExtraData
-    }
+	{
+		&HttpRequestHandler::staticMetaObject, qt_meta_stringdata_MagnetApiController,
+		qt_meta_data_MagnetApiController, &staticMetaObjectExtraData
+	}
 };
 
 #ifdef Q_NO_DATA_RELOCATION
 const QMetaObject& MagnetApiController::getStaticMetaObject()
 {
-    return staticMetaObject;
+	return staticMetaObject;
 }
 #endif //Q_NO_DATA_RELOCATION
 
 const QMetaObject* MagnetApiController::metaObject() const
 {
-    return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
+	return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
 }
 
 void* MagnetApiController::qt_metacast(const char* _clname)
 {
-    if(!_clname)
-    {
-        return 0;
-    }
+	if(!_clname)
+	{
+		return 0;
+	}
 
-    if(!strcmp(_clname, qt_meta_stringdata_MagnetApiController))
-    {
-        return static_cast<void*>(const_cast< MagnetApiController*>(this));
-    }
+	if(!strcmp(_clname, qt_meta_stringdata_MagnetApiController))
+	{
+		return static_cast<void*>(const_cast< MagnetApiController*>(this));
+	}
 
-    return HttpRequestHandler::qt_metacast(_clname);
+	return HttpRequestHandler::qt_metacast(_clname);
 }
 
 int MagnetApiController::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
 {
-    _id = HttpRequestHandler::qt_metacall(_c, _id, _a);
+	_id = HttpRequestHandler::qt_metacall(_c, _id, _a);
 
-    if(_id < 0)
-    {
-        return _id;
-    }
+	if(_id < 0)
+	{
+		return _id;
+	}
 
-    if(_c == QMetaObject::InvokeMetaMethod)
-    {
-        if(_id < 1)
-        {
-            qt_static_metacall(this, _c, _id, _a);
-        }
+	if(_c == QMetaObject::InvokeMetaMethod)
+	{
+		if(_id < 1)
+		{
+			qt_static_metacall(this, _c, _id, _a);
+		}
 
-        _id -= 1;
-    }
+		_id -= 1;
+	}
 
-    return _id;
+	return _id;
 }
 QT_END_MOC_NAMESPACE

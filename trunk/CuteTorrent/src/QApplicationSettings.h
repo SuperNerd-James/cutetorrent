@@ -32,35 +32,35 @@ class QApplicationSettings
 {
 protected:
 
-    static QApplicationSettings* _instance;
-    static int _instanceCount;
-    QApplicationSettings();
-    ~QApplicationSettings();
+	static QApplicationSettings* _instance;
+	static int _instanceCount;
+	QApplicationSettings();
+	~QApplicationSettings();
 private:
-    QSettings* settings;
-    QMutex* locker;
+	QSettings* settings;
+	QMutex* locker;
 
-    void WriteSettings();
+	void WriteSettings();
 
 
 public:
-    void ReedSettings();
-    QVariant value(const QString& group, const QString& key, const QVariant& defaultVal = QVariant(QVariant::Invalid));
-    void SaveFilterGropups(QList<GroupForFileFiltering>);
-    QList<GroupForFileFiltering> GetFileFilterGroups();
-    static void FreeInstance();
-    static QApplicationSettings* getInstance();
-    QStringList GetGroupNames();
-    QList<SchedulerTask> GetSchedullerQueue();
-    QList<SearchItem> GetSearchSources();
-    void setSearchSources(QList<SearchItem> searchSources);
-    void SaveSchedullerQueue(QList<SchedulerTask>&);
-    void setValue(const QString& group, const QString& key, const QVariant& value);
-    int valueInt(const QString& group, const QString& key, const int& defalt = 0);
-    QMap<QString, QVariant> getGroupValues(QString group);
-    void setGroupValues(QString group, QMap<QString, QVariant> values);
-    QString valueString(const QString& group, const QString& key, const QString& defalt = "");
-    bool valueBool(const QString& group, const QString& key, bool defalt = true);
+	void ReedSettings();
+	QVariant value(const QString& group, const QString& key, const QVariant& defaultVal = QVariant(QVariant::Invalid));
+	void SaveFilterGropups(QList<GroupForFileFiltering>);
+	QList<GroupForFileFiltering> GetFileFilterGroups();
+	static void FreeInstance();
+	static QApplicationSettings* getInstance();
+	QStringList GetGroupNames();
+	QList<SchedulerTask> GetSchedullerQueue();
+	QList<SearchItem> GetSearchSources();
+	void setSearchSources(QList<SearchItem> searchSources);
+	void SaveSchedullerQueue(QList<SchedulerTask>&);
+	void setValue(const QString& group, const QString& key, const QVariant& value);
+	int valueInt(const QString& group, const QString& key, const int& defalt = 0);
+	QMap<QString, QVariant> getGroupValues(QString group);
+	void setGroupValues(QString group, QMap<QString, QVariant> values);
+	QString valueString(const QString& group, const QString& key, const QString& defalt = "");
+	bool valueBool(const QString& group, const QString& key, bool defalt = true);
 
 };
 

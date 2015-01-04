@@ -34,114 +34,114 @@ under certain conditions.
 class QSgml
 {
 public:
-    typedef QList<QString>           QSgmlStringlist;
+	typedef QList<QString>           QSgmlStringlist;
 
-    QSgmlTag* DocTag;
-    QSgmlTag* EndTag;
-    QString sSgmlString;
-    QSgmlStringlist tagExeption;
+	QSgmlTag* DocTag;
+	QSgmlTag* EndTag;
+	QString sSgmlString;
+	QSgmlStringlist tagExeption;
 
-    QSgml(void);
-    QSgml(const QString SgmlString);
-    QSgml(QFile& SgmlFile);
-    ~QSgml(void);
+	QSgml(void);
+	QSgml(const QString SgmlString);
+	QSgml(QFile& SgmlFile);
+	~QSgml(void);
 
-    class iterator
-    {
-    private:
-        QSgmlTag* pTag;
-    public:
-        iterator(void)
-        {
-            pTag = NULL;
-        }
-        iterator(QSgmlTag* oTag)
-        {
-            pTag = oTag;
-        }
-        ~iterator() {}
-        iterator& operator++()
-        {
-            pTag = &pTag->getNextElement();
-            return (*this);
-        }
-        iterator operator++ (int)
-        {
-            pTag = &pTag->getNextElement();
-            return (*this);
-        }
-        iterator& operator--()
-        {
-            pTag = &pTag->getPreviousElement();
-            return (*this);
-        }
-        iterator operator-- (int)
-        {
-            pTag = &pTag->getPreviousElement();
-            return (*this);
-        }
-        QSgmlTag& operator*() const
-        {
-            return (*pTag);
-        }
-        QSgmlTag* operator->() const
-        {
-            return (pTag);
-        }
-        bool operator== (iterator& x)
-        {
-            if(x.pTag == this->pTag)
-            {
-                return (true);
-            }
+	class iterator
+	{
+	private:
+		QSgmlTag* pTag;
+	public:
+		iterator(void)
+		{
+			pTag = NULL;
+		}
+		iterator(QSgmlTag* oTag)
+		{
+			pTag = oTag;
+		}
+		~iterator() {}
+		iterator& operator++()
+		{
+			pTag = &pTag->getNextElement();
+			return (*this);
+		}
+		iterator operator++ (int)
+		{
+			pTag = &pTag->getNextElement();
+			return (*this);
+		}
+		iterator& operator--()
+		{
+			pTag = &pTag->getPreviousElement();
+			return (*this);
+		}
+		iterator operator-- (int)
+		{
+			pTag = &pTag->getPreviousElement();
+			return (*this);
+		}
+		QSgmlTag& operator*() const
+		{
+			return (*pTag);
+		}
+		QSgmlTag* operator->() const
+		{
+			return (pTag);
+		}
+		bool operator== (iterator& x)
+		{
+			if(x.pTag == this->pTag)
+			{
+				return (true);
+			}
 
-            return (false);
-        }
-        bool operator!= (iterator& x)
-        {
-            if(x.pTag != this->pTag)
-            {
-                return (true);
-            }
+			return (false);
+		}
+		bool operator!= (iterator& x)
+		{
+			if(x.pTag != this->pTag)
+			{
+				return (true);
+			}
 
-            return (false);
-        }
-    };
+			return (false);
+		}
+	};
 
-    iterator& begin(void)
-    {
-        return (* (new iterator(&DocTag->getNextElement())));
-    }
-    iterator& end(void)
-    {
-        return (* (new iterator(EndTag)));
-    }
+	iterator& begin(void)
+	{
+		return (* (new iterator(&DocTag->getNextElement())));
+	}
+	iterator& end(void)
+	{
+		return (* (new iterator(EndTag)));
+	}
 
-    bool load(QString sFileName);
-    bool save(QString sFileName);
+	bool load(QString sFileName);
+	bool save(QString sFileName);
 
-    void getElementsByName(QString Name, QList<QSgmlTag*>* Elements);
-    void getElementsByName(QString Name, QString AtrName, QList<QSgmlTag*>* Elements);
-    void getElementsByName(QString Name, QString AtrName, QString AtrValue, QList<QSgmlTag*>* Elements);
-    void getElementsByAtribute(QString AtrName, QList<QSgmlTag*>* Elements);
-    void getElementsByAtribute(QString AtrName, QString AtrValue, QList<QSgmlTag*>* Elements);
-    QString getInnerText(QSgmlTag* ptag);
-    void ExportString(QString* HtmlString);
-    void ExportString(QString* HtmlString, char Optimze, int Tabsize);
-    void String2Sgml(const QString SgmlString);
+	void getElementsByName(QString Name, QList<QSgmlTag*>* Elements);
+	void getElementsByName(QString Name, QString AtrName, QList<QSgmlTag*>* Elements);
+	void getElementsByName(QString Name, QString AtrName, QString AtrValue, QList<QSgmlTag*>* Elements);
+	void getElementsByAtribute(QString AtrName, QList<QSgmlTag*>* Elements);
+	void getElementsByAtribute(QString AtrName, QString AtrValue, QList<QSgmlTag*>* Elements);
+	QString getInnerText(QSgmlTag* ptag);
+	void ExportString(QString* HtmlString);
+	void ExportString(QString* HtmlString, char Optimze, int Tabsize);
+	void String2Sgml(const QString SgmlString);
 protected:
-    QDir dirPath;
+	QDir dirPath;
 
-    void MoveChildren(QSgmlTag* Source, QSgmlTag* Dest);
-    void FindStart(const QString& HtmlString, int& iPos);
-    void FindEnd(const QString& HtmlString, int& iPos);
-    void FindEndComment(const QString& HtmlString, int& iPos);
-    void HandleCdata(QString SgmlString, QSgmlTag*& pLastTag, int& iStart, int& iEnd, int& iPos);
-    void HandleComment(QString SgmlString, QSgmlTag*& pLastTag, int& iStart, int& iEnd, int& iPos);
+	void MoveChildren(QSgmlTag* Source, QSgmlTag* Dest);
+	void FindStart(const QString& HtmlString, int& iPos);
+	void FindEnd(const QString& HtmlString, int& iPos);
+	void FindEndComment(const QString& HtmlString, int& iPos);
+	void HandleCdata(QString SgmlString, QSgmlTag*& pLastTag, int& iStart, int& iEnd, int& iPos);
+	void HandleComment(QString SgmlString, QSgmlTag*& pLastTag, int& iStart, int& iEnd, int& iPos);
 
-    void HandleDoctype(QString SgmlString, QSgmlTag*& pLastTag, int& iStart, int& iEnd, int& iPos);
-    void HandleEndTag(QString SgmlString, QSgmlTag*& pLastTag, int& iStart, int& iEnd, int& iPos);
-    void HandleStartTag(QString SgmlString, QSgmlTag*& pLastTag, int& iStart, int& iEnd, int& iPos);
+	void HandleDoctype(QString SgmlString, QSgmlTag*& pLastTag, int& iStart, int& iEnd, int& iPos);
+	void HandleEndTag(QString SgmlString, QSgmlTag*& pLastTag, int& iStart, int& iEnd, int& iPos);
+	void HandleStartTag(QString SgmlString, QSgmlTag*& pLastTag, int& iStart, int& iEnd, int& iPos);
 };
 
 #endif // QSGML_H

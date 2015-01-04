@@ -35,44 +35,44 @@
 
 class HttpListener : public QTcpServer
 {
-    Q_OBJECT
-    Q_DISABLE_COPY(HttpListener)
+	Q_OBJECT
+	Q_DISABLE_COPY(HttpListener)
 public:
 
-    /**
-      Constructor.
-      @param settings Configuration settings for the HTTP server. Must not be 0.
-      @param requestHandler Processes each received HTTP request, usually by dispatching to controller classes.
-      @param parent Parent object.
-    */
+	/**
+	  Constructor.
+	  @param settings Configuration settings for the HTTP server. Must not be 0.
+	  @param requestHandler Processes each received HTTP request, usually by dispatching to controller classes.
+	  @param parent Parent object.
+	*/
 
-    HttpListener(QString name, HttpRequestHandler* requestHandler, QObject* parent = 0);
-    void Start();
+	HttpListener(QString name, HttpRequestHandler* requestHandler, QObject* parent = 0);
+	void Start();
 
-    /** Destructor */
-    virtual ~HttpListener();
+	/** Destructor */
+	virtual ~HttpListener();
 
 protected:
 
-    /** Serves new incoming connection requests */
-    void incomingConnection(int socketDescriptor);
+	/** Serves new incoming connection requests */
+	void incomingConnection(int socketDescriptor);
 
 private:
 
-    QString serverName;
-    /** Configuration settings for the HTTP server */
-    QApplicationSettings* settings;
+	QString serverName;
+	/** Configuration settings for the HTTP server */
+	QApplicationSettings* settings;
 
-    /** Pool of connection handlers */
-    HttpConnectionHandlerPool* pool;
+	/** Pool of connection handlers */
+	HttpConnectionHandlerPool* pool;
 
 signals:
 
-    /**
-      Emitted when the connection handler shall process a new incoming onnection.
-      @param socketDescriptor references the accepted connection.
-    */
-    void handleConnection(int socketDescriptor);
+	/**
+	  Emitted when the connection handler shall process a new incoming onnection.
+	  @param socketDescriptor references the accepted connection.
+	*/
+	void handleConnection(int socketDescriptor);
 
 };
 

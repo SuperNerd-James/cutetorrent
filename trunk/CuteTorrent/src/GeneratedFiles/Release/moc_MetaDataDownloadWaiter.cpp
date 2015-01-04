@@ -20,113 +20,113 @@ static const uint qt_meta_data_MetaDataDownloadWaiter[] =
 {
 
 // content:
-    6,       // revision
-    0,       // classname
-    0,    0, // classinfo
-    1,   14, // methods
-    0,    0, // properties
-    0,    0, // enums/sets
-    0,    0, // constructors
-    0,       // flags
-    1,       // signalCount
+	6,       // revision
+	0,       // classname
+	0,    0, // classinfo
+	1,   14, // methods
+	0,    0, // properties
+	0,    0, // enums/sets
+	0,    0, // constructors
+	0,       // flags
+	1,       // signalCount
 
 // signals: signature, parameters, type, tag, flags
-    27,   24,   23,   23, 0x05,
+	27,   24,   23,   23, 0x05,
 
-    0        // eod
+	0        // eod
 };
 
 static const char qt_meta_stringdata_MetaDataDownloadWaiter[] =
 {
-    "MetaDataDownloadWaiter\0\0ti\0"
-    "DownloadCompleted(openmagnet_info)\0"
+	"MetaDataDownloadWaiter\0\0ti\0"
+	"DownloadCompleted(openmagnet_info)\0"
 };
 
 void MetaDataDownloadWaiter::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
 {
-    if(_c == QMetaObject::InvokeMetaMethod)
-    {
-        Q_ASSERT(staticMetaObject.cast(_o));
-        MetaDataDownloadWaiter* _t = static_cast<MetaDataDownloadWaiter*>(_o);
+	if(_c == QMetaObject::InvokeMetaMethod)
+	{
+		Q_ASSERT(staticMetaObject.cast(_o));
+		MetaDataDownloadWaiter* _t = static_cast<MetaDataDownloadWaiter*>(_o);
 
-        switch(_id)
-        {
-            case 0:
-                _t->DownloadCompleted((*reinterpret_cast< openmagnet_info(*) > (_a[1])));
-                break;
+		switch(_id)
+		{
+			case 0:
+				_t->DownloadCompleted((*reinterpret_cast< openmagnet_info(*) > (_a[1])));
+				break;
 
-            default:
-                ;
-        }
-    }
+			default:
+				;
+		}
+	}
 }
 
 const QMetaObjectExtraData MetaDataDownloadWaiter::staticMetaObjectExtraData =
 {
-    0,  qt_static_metacall
+	0,  qt_static_metacall
 };
 
 const QMetaObject MetaDataDownloadWaiter::staticMetaObject =
 {
-    {
-        &QThread::staticMetaObject, qt_meta_stringdata_MetaDataDownloadWaiter,
-        qt_meta_data_MetaDataDownloadWaiter, &staticMetaObjectExtraData
-    }
+	{
+		&QThread::staticMetaObject, qt_meta_stringdata_MetaDataDownloadWaiter,
+		qt_meta_data_MetaDataDownloadWaiter, &staticMetaObjectExtraData
+	}
 };
 
 #ifdef Q_NO_DATA_RELOCATION
 const QMetaObject& MetaDataDownloadWaiter::getStaticMetaObject()
 {
-    return staticMetaObject;
+	return staticMetaObject;
 }
 #endif //Q_NO_DATA_RELOCATION
 
 const QMetaObject* MetaDataDownloadWaiter::metaObject() const
 {
-    return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
+	return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
 }
 
 void* MetaDataDownloadWaiter::qt_metacast(const char* _clname)
 {
-    if(!_clname)
-    {
-        return 0;
-    }
+	if(!_clname)
+	{
+		return 0;
+	}
 
-    if(!strcmp(_clname, qt_meta_stringdata_MetaDataDownloadWaiter))
-    {
-        return static_cast<void*>(const_cast< MetaDataDownloadWaiter*>(this));
-    }
+	if(!strcmp(_clname, qt_meta_stringdata_MetaDataDownloadWaiter))
+	{
+		return static_cast<void*>(const_cast< MetaDataDownloadWaiter*>(this));
+	}
 
-    return QThread::qt_metacast(_clname);
+	return QThread::qt_metacast(_clname);
 }
 
 int MetaDataDownloadWaiter::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
 {
-    _id = QThread::qt_metacall(_c, _id, _a);
+	_id = QThread::qt_metacall(_c, _id, _a);
 
-    if(_id < 0)
-    {
-        return _id;
-    }
+	if(_id < 0)
+	{
+		return _id;
+	}
 
-    if(_c == QMetaObject::InvokeMetaMethod)
-    {
-        if(_id < 1)
-        {
-            qt_static_metacall(this, _c, _id, _a);
-        }
+	if(_c == QMetaObject::InvokeMetaMethod)
+	{
+		if(_id < 1)
+		{
+			qt_static_metacall(this, _c, _id, _a);
+		}
 
-        _id -= 1;
-    }
+		_id -= 1;
+	}
 
-    return _id;
+	return _id;
 }
 
 // SIGNAL 0
 void MetaDataDownloadWaiter::DownloadCompleted(openmagnet_info _t1)
 {
-    void* _a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
-    QMetaObject::activate(this, &staticMetaObject, 0, _a);
+	void* _a[] = { 0, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+	QMetaObject::activate(this, &staticMetaObject, 0, _a);
 }
 QT_END_MOC_NAMESPACE

@@ -5,19 +5,19 @@
 #include <QtGui>
 class IntroPage : public QWizardPage
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    IntroPage(QWidget* parent = 0);
+	IntroPage(QWidget* parent = 0);
 // bool validatePage();
-    int nextId() const;
+	int nextId() const;
 
 private:
-    QRadioButton* careateRadioButton;
-    QRadioButton* applyRadioButton;
+	QRadioButton* careateRadioButton;
+	QRadioButton* applyRadioButton;
 
-    // QWizardPage interface
+	// QWizardPage interface
 public:
-    bool validatePage();
+	bool validatePage();
 };
 
 #endif // INTROPAGE_H

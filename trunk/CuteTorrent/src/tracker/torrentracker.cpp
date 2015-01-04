@@ -4,63 +4,63 @@ TorrentTracker* TorrentTracker::instance = NULL;
 int TorrentTracker::instanceCount = 0;
 
 TorrentTracker::TorrentTracker(QObject* parent) :
-    QObject(parent)
+	QObject(parent)
 {
-    requestHandler = new TrackerRequestHandler(this);
-    httpServer = new HttpListener("TorrentTracker", requestHandler);
+	requestHandler = new TrackerRequestHandler(this);
+	httpServer = new HttpListener("TorrentTracker", requestHandler);
 }
 
 TorrentTracker::~TorrentTracker()
 {
-    stop();
-    delete httpServer;
-    delete requestHandler;
+	stop();
+	delete httpServer;
+	delete requestHandler;
 }
 
 TorrentTracker* TorrentTracker::getInstance()
 {
-    if(instance == NULL)
-    {
-        instance = new TorrentTracker();
-    }
+	if(instance == NULL)
+	{
+		instance = new TorrentTracker();
+	}
 
-    instanceCount++;
-    return instance;
+	instanceCount++;
+	return instance;
 }
 
 void TorrentTracker::freeInstance()
 {
-    instanceCount--;
+	instanceCount--;
 
-    if(instanceCount == 0)
-    {
-        delete instance;
-        instance = NULL;
-    }
+	if(instanceCount == 0)
+	{
+		delete instance;
+		instance = NULL;
+	}
 }
 
 bool TorrentTracker::isRunning()
 {
-    return httpServer->isListening();
+	return httpServer->isListening();
 }
 
 void TorrentTracker::start()
 {
-    if(httpServer != NULL)
-    {
-        stop();
-    }
+	if(httpServer != NULL)
+	{
+		stop();
+	}
 
-    httpServer->Start();
+	httpServer->Start();
 }
 
 void TorrentTracker::stop()
 {
-    if(httpServer != NULL)
-    {
-        if(httpServer->isListening())
-        {
-            httpServer->close();
-        }
-    }
+	if(httpServer != NULL)
+	{
+		if(httpServer->isListening())
+		{
+			httpServer->close();
+		}
+	}
 }

@@ -3,20 +3,20 @@
 
 QString SearchItem::getName()
 {
-    return name;
+	return name;
 }
 
 QString SearchItem::getPattern()
 {
-    return pattern;
+	return pattern;
 }
 
 void SearchItem::setName(QString newName)
 {
-    name = newName;
+	name = newName;
 }
 
 void SearchItem::setPattern(QString newPattern)
 {
-    pattern = newPattern;
+	pattern = newPattern;
 }

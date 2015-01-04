@@ -2,12 +2,12 @@
 #include <QStyledItemDelegate>
 
 class ProgressItemDelegate :
-    public QStyledItemDelegate
+	public QStyledItemDelegate
 {
 public:
-    ProgressItemDelegate(QObject* parent) : QStyledItemDelegate(parent) {};
+	ProgressItemDelegate(QObject* parent) : QStyledItemDelegate(parent) {};
 
-    QString displayText(const QVariant& value, const QLocale& locale) const;
+	QString displayText(const QVariant& value, const QLocale& locale) const;
 
 
 };

@@ -49,31 +49,31 @@
 
 class QtLocalPeer : public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 
 public:
-    QtLocalPeer(QObject* parent = 0, const QString& appId = QString());
-    bool isClient();
-    bool sendMessage(const QString& message, int timeout);
-    QString applicationId() const
-    {
-        return id;
-    }
+	QtLocalPeer(QObject* parent = 0, const QString& appId = QString());
+	bool isClient();
+	bool sendMessage(const QString& message, int timeout);
+	QString applicationId() const
+	{
+		return id;
+	}
 
 Q_SIGNALS:
-    void messageReceived(const QString& message);
+	void messageReceived(const QString& message);
 
 protected Q_SLOTS:
-    void receiveConnection();
+	void receiveConnection();
 
 protected:
-    QString id;
-    QString socketName;
-    QLocalServer* server;
-    QtLockedFile lockFile;
+	QString id;
+	QString socketName;
+	QLocalServer* server;
+	QtLockedFile lockFile;
 
 private:
-    static const char* ack;
+	static const char* ack;
 };
 
 #endif // QTLOCALPEER_H

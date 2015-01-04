@@ -5,25 +5,25 @@
 #include <QtGui>
 class CreateBackupPage : public QWizardPage
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit CreateBackupPage(QWidget* parent = 0);
-    int	nextId() const;
+	explicit CreateBackupPage(QWidget* parent = 0);
+	int	nextId() const;
 signals:
 
 public slots:
-    void browseButtonClick();
+	void browseButtonClick();
 
-    // QWizardPage interface
+	// QWizardPage interface
 public:
-    bool validatePage();
+	bool validatePage();
 
 private:
-    QLabel* messageLabel;
-    QGridLayout* layout;
-    QLineEdit* savePathEdit;
-    QPushButton* browseButton;
-    void createBackup() const;
+	QLabel* messageLabel;
+	QGridLayout* layout;
+	QLineEdit* savePathEdit;
+	QPushButton* browseButton;
+	void createBackup() const;
 };
 
 #endif // CREATEBACKUPPAGE_H

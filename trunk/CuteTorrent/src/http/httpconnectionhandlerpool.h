@@ -29,47 +29,47 @@
 
 class HttpConnectionHandlerPool : public QObject
 {
-    Q_OBJECT
-    Q_DISABLE_COPY(HttpConnectionHandlerPool)
+	Q_OBJECT
+	Q_DISABLE_COPY(HttpConnectionHandlerPool)
 public:
 
-    /**
-      Constructor.
-      @param settings Configuration settings for the HTTP server. Must not be 0.
-      @param requestHandler The handler that will process each received HTTP request.
-      @warning The requestMapper gets deleted by the destructor of this pool
-    */
+	/**
+	  Constructor.
+	  @param settings Configuration settings for the HTTP server. Must not be 0.
+	  @param requestHandler The handler that will process each received HTTP request.
+	  @warning The requestMapper gets deleted by the destructor of this pool
+	*/
 
-    HttpConnectionHandlerPool(QString name, HttpRequestHandler* requestHandler);
+	HttpConnectionHandlerPool(QString name, HttpRequestHandler* requestHandler);
 
-    /** Destructor */
-    virtual ~HttpConnectionHandlerPool();
+	/** Destructor */
+	virtual ~HttpConnectionHandlerPool();
 
-    /** Get a free connection handler, or 0 if not available. */
-    HttpConnectionHandler* getConnectionHandler();
+	/** Get a free connection handler, or 0 if not available. */
+	HttpConnectionHandler* getConnectionHandler();
 
 private:
-    QString serverName;
+	QString serverName;
 
-    /** Settings for this pool */
-    QApplicationSettings* settings;
+	/** Settings for this pool */
+	QApplicationSettings* settings;
 
-    /** Will be assigned to each Connectionhandler during their creation */
-    HttpRequestHandler* requestHandler;
+	/** Will be assigned to each Connectionhandler during their creation */
+	HttpRequestHandler* requestHandler;
 
-    /** Pool of connection handlers */
-    QList<HttpConnectionHandler*> pool;
+	/** Pool of connection handlers */
+	QList<HttpConnectionHandler*> pool;
 
-    /** Timer to clean-up unused connection handler */
-    QTimer cleanupTimer;
+	/** Timer to clean-up unused connection handler */
+	QTimer cleanupTimer;
 
-    /** Used to synchronize threads */
-    QMutex mutex;
+	/** Used to synchronize threads */
+	QMutex mutex;
 
 private slots:
 
-    /** Received from the clean-up timer.  */
-    void cleanup();
+	/** Received from the clean-up timer.  */
+	void cleanup();
 
 };
 

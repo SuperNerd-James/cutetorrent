@@ -52,47 +52,47 @@ class MediaController;
 
 class VideoPlayerWindow : public QMainWindow
 {
-    Q_OBJECT
+	Q_OBJECT
 public:
-    explicit VideoPlayerWindow(QWidget* parent = 0);
-    ~VideoPlayerWindow();
-    void SetupConnections();
-    void openFile(QString path);
+	explicit VideoPlayerWindow(QWidget* parent = 0);
+	~VideoPlayerWindow();
+	void SetupConnections();
+	void openFile(QString path);
 signals:
 
 public slots:
-    void goFullScreen();
-    void OnAvailableSubtitlesChanged();
-    void OnAvailableAudioChannelsChanged();
-    void OnCustomContextMenuRequested(QPoint);
-    void OnSubtitleChosen(int);
-    void OnAudioChannelChosen(int);
-    void updateWindowActiveState();
+	void goFullScreen();
+	void OnAvailableSubtitlesChanged();
+	void OnAvailableAudioChannelsChanged();
+	void OnCustomContextMenuRequested(QPoint);
+	void OnSubtitleChosen(int);
+	void OnAudioChannelChosen(int);
+	void updateWindowActiveState();
 
 protected:
-    void mouseMoveEvent(QMouseEvent* event);
-    void timerEvent(QTimerEvent* event);
-    void resizeEvent(QResizeEvent* event);
-    bool eventFilter(QObject* src, QEvent* event);
-    void keyPressEvent(QKeyEvent* keyEvent);
-    void BuildMenu();
+	void mouseMoveEvent(QMouseEvent* event);
+	void timerEvent(QTimerEvent* event);
+	void resizeEvent(QResizeEvent* event);
+	bool eventFilter(QObject* src, QEvent* event);
+	void keyPressEvent(QKeyEvent* keyEvent);
+	void BuildMenu();
 
 private:
-    bool m_bIsFullScr;
-    bool m_bMouseHideNeeded;
-    QTimer* m_windowActiveTimer;
-    MediaControls* controls;
-    MediaController* m_mediaControl;
-    Phonon::VideoWidget* m_pVideoWidget;
-    int animationTimerID;
-    QSignalMapper* m_pSubtitlesMapper;
-    QSignalMapper* m_pAudioChannelsMapper;
-    QMenu m_cMainMenu;
-    QMenu m_cAudioStreamsMenu;
-    QActionGroup* m_pAudioActions;
-    QMenu m_cSubtitleStreams;
-    QActionGroup* m_pSubtitlesActions;
-    Phonon::MediaController* m_pMediaController;
+	bool m_bIsFullScr;
+	bool m_bMouseHideNeeded;
+	QTimer* m_windowActiveTimer;
+	MediaControls* controls;
+	MediaController* m_mediaControl;
+	Phonon::VideoWidget* m_pVideoWidget;
+	int animationTimerID;
+	QSignalMapper* m_pSubtitlesMapper;
+	QSignalMapper* m_pAudioChannelsMapper;
+	QMenu m_cMainMenu;
+	QMenu m_cAudioStreamsMenu;
+	QActionGroup* m_pAudioActions;
+	QMenu m_cSubtitleStreams;
+	QActionGroup* m_pSubtitlesActions;
+	Phonon::MediaController* m_pMediaController;
 
 };
 

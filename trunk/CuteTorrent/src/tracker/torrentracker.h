@@ -6,21 +6,21 @@
 #include "trackerrequestmapper.h"
 class TorrentTracker : public QObject
 {
-    Q_OBJECT
+	Q_OBJECT
 private:
-    static TorrentTracker* instance;
-    static int instanceCount;
-    HttpListener* httpServer;
-    TrackerRequestHandler* requestHandler;
+	static TorrentTracker* instance;
+	static int instanceCount;
+	HttpListener* httpServer;
+	TrackerRequestHandler* requestHandler;
 protected:
-    explicit TorrentTracker(QObject* parent = 0);
-    ~TorrentTracker();
+	explicit TorrentTracker(QObject* parent = 0);
+	~TorrentTracker();
 public:
-    static TorrentTracker* getInstance();
-    static void freeInstance();
-    bool isRunning();
-    void start();
-    void stop();
+	static TorrentTracker* getInstance();
+	static void freeInstance();
+	bool isRunning();
+	void start();
+	void stop();
 signals:
 
 public slots:
