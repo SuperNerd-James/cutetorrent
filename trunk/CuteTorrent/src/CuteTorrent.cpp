@@ -55,7 +55,7 @@ CuteTorrent::CuteTorrent(QWidget* parent)
 	styleEngine->setStyle(settings->valueString("System", "Style", "CuteTorrent"));
 	setWindowModality(Qt::NonModal);
 	setupCustomeWindow();
-	//qDebug() << "QApplicationSettings::getInstance from CuteTorrent::CuteTorrent";
+	
 	m_pTorrentDisplayModel = new QTorrentDisplayModel(this, m_pTorrentListView, this);
 	m_pSearchDisplayModel = new QSearchDisplayModel(m_pSearchEngine);
 	m_pSearchItemDelegate = new QSearchItemDelegate();
@@ -311,7 +311,7 @@ void CuteTorrent::ShowTorrentCompletedNotyfy(const QString& name, const QString&
 }
 void CuteTorrent::UpdateTabWidget(int tabIndex)
 {
-	//qDebug() << "updateTabWidget(" << tab << ");";
+	
 	trayIcon->setToolTip("CuteTorrent "CT_VERSION"\nUpload: " + tManager->GetSessionUploadSpeed() + "\nDownload:" + tManager->GetSessionDownloadSpeed());
 
 	if(this->isMinimized())
@@ -331,7 +331,7 @@ void CuteTorrent::UpdateTabWidget(int tabIndex)
 		tabIndex = tabWidget->currentIndex();
 	}
 
-	//qDebug() << "udapteLimits =" << udapteLimits << ";";
+	
 	try
 	{
 		switch(tabIndex)
@@ -405,7 +405,7 @@ public:
 
 		if(!thisadr.isNull())
 		{
-			//qDebug() << "Ip Addresses" << text() << other.text();
+			
 			QHostAddress otheradr(other.text());
 			return thisadr.toIPv4Address() < otheradr.toIPv4Address();
 		}
@@ -443,7 +443,7 @@ public:
 						break;
 				}
 
-				//qDebug() << parts1 << speed1;
+				
 				switch(parts2[1][0].toLower().toLatin1())
 				{
 					case 'k':
@@ -466,13 +466,13 @@ public:
 						break;
 				}
 
-				//qDebug() << "Speed or size" << text() << other.text() << speed1 << speed2;
+				
 				return speed1 < speed2;
 			}
 		}
 		else if(text().endsWith('%'))
 		{
-			//qDebug() << "Percentage" << text() << other.text() ;
+			
 			QString perc1 = text().remove('%'), perc2 = other.text().remove('%');
 			return perc1.toDouble() < perc2.toDouble();
 		}
@@ -736,8 +736,6 @@ void CuteTorrent::UpadteTrackerTab()
 			trackerTableWidget->setItem(i, 1, new QTableWidgetItem(trackers[i].message.length() > 0 ? QString::fromUtf8(trackers[i].message.c_str()) : "Ok"));
 			trackerTableWidget->setItem(i, 2, new QTableWidgetItem(StaticHelpers::toTimeString(trackers[i].next_announce_in())));
 		}
-
-		//trackerTableWidget->resizeColumnsToContents();
 	}
 	else
 	{
@@ -790,10 +788,6 @@ void CuteTorrent::closeEvent(QCloseEvent* ce)
 
 void CuteTorrent::dragEnterEvent(QDragEnterEvent* event)
 {
-	/*foreach (const QString &mime, event->mimeData()->formats())
-	{
-	   //qDebug("mimeData: %s", mime.toLocal8Bit().data());
-	}*/
 	if(event->mimeData()->hasFormat(QString("text/plain")) || event->mimeData()->hasFormat(QString("text/uri-list")))
 	{
 		event->acceptProposedAction();
@@ -840,7 +834,7 @@ void CuteTorrent::dropEvent(QDropEvent* event)
 		}
 		else
 		{
-			//qDebug() << file;
+			
 		}
 	}
 }
@@ -875,7 +869,7 @@ CuteTorrent::~CuteTorrent()
 	}
 
 	settings->setValue("Window", "files_sizes", QVariant::fromValue(file_columns_sizes));
-	//qDebug() << "CuteTorrent::~CuteTorrent";
+	
 	TorrentTracker::freeInstance();
 	RconWebService::freeInstance();
 	trayIcon->hide();
@@ -886,7 +880,7 @@ CuteTorrent::~CuteTorrent()
 	delete m_pSearchItemDelegate;
 	delete m_pTorrentItemDelegate;
 	Scheduller::freeInstance();
-	//qDebug() << "QApplicationSettings::FreeInstance() from CuteTorrent::~CuteTorren";
+	
 	QApplicationSettings::FreeInstance();
 	delete notyfire;
 	delete trayIcon;
@@ -984,7 +978,7 @@ void CuteTorrent::keyPressEvent(QKeyEvent* event)
 	 qDebug() << keyMap;*/
 	foreach(QString key, keys)
 	{
-		//qDebug() << pressedKey << QKeySequence(keyMap[key].toString());
+		
 		if(QKeySequence(keyMap[key].toString()) == pressedKey)
 		{
 			QAction* action = this->findChild<QAction*> (key);
@@ -1038,7 +1032,7 @@ void CuteTorrent::ClearPieceDisplay()
 
 void CuteTorrent::UpdateUL(int kbps)
 {
-	//qDebug()<< "UpdateUL" << kbps*1024;
+	
 	Torrent* tor = m_pTorrentDisplayModel->GetSelectedTorrent();
 
 	if(tor != NULL)
@@ -1056,7 +1050,7 @@ void CuteTorrent::UpdateUL(int kbps)
 
 void CuteTorrent::UpdateDL(int kbps)
 {
-	//qDebug()<< "UpdateDL" << kbps*1024;
+	
 	Torrent* tor = m_pTorrentDisplayModel->GetSelectedTorrent();
 
 	if(tor != NULL)

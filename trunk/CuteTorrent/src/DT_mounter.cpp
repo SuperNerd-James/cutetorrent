@@ -6,13 +6,13 @@
 void DT_mounter::mountImage(QString path)
 {
 #ifdef Q_WS_WIN //file association for windows
-	//qDebug() << "QApplicationSettings::getInstance from DT_mounter::mountImage";
+	
 	QApplicationSettings* settings = QApplicationSettings::getInstance();
 	QString exe = settings->valueString("DT", "Executable");
 
 	if(exe.isEmpty())
 	{
-		//qDebug() << "QApplicationSettings::FreeInstance from DT_mounter::mountImage";
+		
 		QApplicationSettings::FreeInstance();
 		MyMessageBox::warning(NULL, "DT Mounter", QTorrentDisplayModel::tr("DT_PATH_NOT_SET"));
 		return;
@@ -25,7 +25,7 @@ void DT_mounter::mountImage(QString path)
 	QStringList args;
 	dt->setNativeArguments(command.arg(QString::number(driveNum)).arg(path));
 	dt->start(exe, args);
-	//qDebug() << "QApplicationSettings::FreeInstance from DT_mounter::mountImage";
+	
 	QApplicationSettings::FreeInstance();
 
 	if(!dt->waitForStarted(5000))

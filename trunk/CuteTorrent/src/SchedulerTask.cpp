@@ -13,7 +13,7 @@ SchedulerTask::SchedulerTask(QString name, TaskType type, QVariant limit, QDateT
 
 		if(!ok)
 		{
-			//qDebug() << "Unable to get limit value";
+			
 		}
 	}
 
@@ -43,27 +43,27 @@ SchedulerTask::TaskType SchedulerTask::type() const
 
 void SchedulerTask::pefromTask()
 {
-	//qDebug() << "Starting task" << _name;
+	
 	TorrentManager* tManager = TorrentManager::getInstance();
-	//qDebug() << "TorrentManager::getInstance()";
+	
 	libtorrent::session_settings current = tManager->readSettings();
 
-	//qDebug() << "tManager->readSettings()";
+	
 	switch(iType)
 	{
 		case START_ALL		:
-			//qDebug() <<"[Task]"<< _name << QDateTime::currentDateTime()<< _begin << "Starting all torrents";
+			
 			tManager->StartAllTorrents();
 			break;
 
 		case PAUSE_ALL		:
-			//qDebug() <<"[Task]"<< _name << QDateTime::currentDateTime()<< _begin << "Pausing all torrents";
+			
 			tManager->PauseAllTorrents();
 			break;
 
 		case LIMIT_UPLOAD	:
 		{
-			//qDebug() <<"[Task]"<< _name << QDateTime::currentDateTime()<< _begin << "Updating upload limit to " << _limit;
+			
 			current.upload_rate_limit = _limit;
 			tManager->updateSettings(current);
 		}
@@ -71,14 +71,14 @@ void SchedulerTask::pefromTask()
 
 		case LIMIT_DOWNLOAD	:
 		{
-			//qDebug() <<"[Task]"<< _name << QDateTime::currentDateTime()<< _begin << "Updating download limit to " << _limit;
+			
 			current.download_rate_limit = _limit;
 			tManager->updateSettings(current);
 		}
 		break;
 
 		default:
-			//qDebug() << "Unknown type of task";
+			
 			break;
 	}
 

@@ -17,8 +17,8 @@ TrackerRequestHandler::TrackerRequestHandler(QObject* parent) :
 
 void TrackerRequestHandler::service(HttpRequest& request, HttpResponse& response)
 {
-	//qDebug() << "ToorentTracker" << request.getParameterMap();
-	//qDebug() << "ToorentTracker" << request.getHeaderMap();
+	
+	
 	if(request.getMethod() != "GET")
 	{
 		response.setStatus(100, "Method Not Allowed");
@@ -42,15 +42,15 @@ void TrackerRequestHandler::ProcessAnnounceRequest(HttpRequest& request, HttpRes
 	announceRequest.ip = request.getSource();
 	announceRequest.info_hash = QString::fromStdString(to_hex(std::string(request.getParameter("info_hash").data())));
 
-	//qDebug() << announceRequest.info_hash;
+	
 	if(announceRequest.info_hash.length() == 0)
 	{
-		//qDebug() << "Missing info hash";
+		
 		ReplyError(101, response);
 		return;
 	}
 
-	//qDebug() << "info_hash.length()="<<announceRequest.info_hash.length();
+	
 	if(announceRequest.info_hash.length() != 40)
 	{
 		ReplyError(150, response);
@@ -61,12 +61,12 @@ void TrackerRequestHandler::ProcessAnnounceRequest(HttpRequest& request, HttpRes
 
 	if(announceRequest.peer_id.length() == 0)
 	{
-		//qDebug() << "Missing peer id";
+		
 		ReplyError(102, response);
 		return;
 	}
 
-	//qDebug() << "peer_id.length()="<<announceRequest.peer_id.length();
+	
 	if(announceRequest.peer_id.length() != 20)
 	{
 		ReplyError(151, response);
@@ -77,7 +77,7 @@ void TrackerRequestHandler::ProcessAnnounceRequest(HttpRequest& request, HttpRes
 
 	if(port.length() == 0)
 	{
-		//qDebug() << "Missing port";
+		
 		ReplyError(103, response);
 		return;
 	}
@@ -87,7 +87,7 @@ void TrackerRequestHandler::ProcessAnnounceRequest(HttpRequest& request, HttpRes
 
 	if(!ok || announceRequest.port < 1 || announceRequest.port > 65535)
 	{
-		//qDebug() << "Invalid port" << announceRequest.port << port;
+		
 		ReplyError(103, response);
 		return;
 	}
@@ -116,9 +116,9 @@ void TrackerRequestHandler::ProcessAnnounceRequest(HttpRequest& request, HttpRes
 	}
 
 	PeerList peers = torrents[announceRequest.info_hash];
-	//qDebug() << info.ip;
-	//qDebug() << info.peer_id;
-	//qDebug() << info.port;
+	
+	
+	
 	peers[info.getID()] = info;
 	qDebug("%s has %s peers", qPrintable(announceRequest.info_hash), qPrintable(QString::number(peers.count())));
 	torrents[announceRequest.info_hash] = peers;

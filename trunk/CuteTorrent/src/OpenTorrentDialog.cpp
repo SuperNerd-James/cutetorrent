@@ -115,7 +115,7 @@ void OpenTorrentDialog::SetData(QString filename)
 
 			if(!info->base_suffix.isEmpty())
 			{
-				//qDebug() << "QApplicationSettings::getInstance from OpenTorrentDialog::SetData";
+				
 				QApplicationSettings* instance = QApplicationSettings::getInstance();
 				filters = instance->GetFileFilterGroups();
 				int selected = -1;
@@ -144,7 +144,7 @@ void OpenTorrentDialog::SetData(QString filename)
 					QApplicationSettings::FreeInstance();
 				}
 
-				//qDebug() << "QApplicationSettings::FreeInstance from OpenTorrentDialog::SetData";
+				
 				QApplicationSettings::FreeInstance();
 			}
 
@@ -161,7 +161,7 @@ void OpenTorrentDialog::SetData(QString filename)
 
 void OpenTorrentDialog::BrowseButton()
 {
-	//qDebug() << "QApplicationSettings::getInstance from OpenTorrentDialog::BrowseButton";
+	
 	QApplicationSettings* settings = QApplicationSettings::getInstance();
 	QString lastDir = pathEdit->text();
 	QString dir = QFileDialog::getExistingDirectory(this, tr("DIALOF_OPEN_DIR"),
@@ -179,7 +179,7 @@ void OpenTorrentDialog::BrowseButton()
 		useGroup = false;
 	}
 
-	//qDebug() << "QApplicationSettings::FreeInstance from OpenTorrentDialog::BrowseButton";
+	
 	QApplicationSettings::FreeInstance();
 }
 
@@ -223,23 +223,23 @@ void OpenTorrentDialog::ChangeGroup()
 
 void OpenTorrentDialog::DownloadMetadataCompleted(openmagnet_info info)
 {
-	//qDebug() << "OpenTorrentDialog::DownloadMetadataCompleted";
+	
 	loaderGifLabel->hide();
 	loaderTextLabel->hide();
 	yesButton->setEnabled(true);
 	_info = info;
 	setUpdatesEnabled(false);
-	//qDebug() << "accesing info.name";
+	
 	labelNameData->setText(info.name);
-	//qDebug() << "accesing info.describtion";
+	
 	QFontMetrics metrics(labelComentData->font());
 	QString elidedText = metrics.elidedText(info.describtion, Qt::ElideRight, labelComentData->width());
 	labelComentData->setText(elidedText);
-	//qDebug() << "accesing info.size";
+	
 	labelSizeData->setText(StaticHelpers::toKbMbGb(info.size));
 	QStringList files;
 
-	//qDebug() << "building file lsit";
+	
 	for(libtorrent::file_storage::iterator i = info.files.begin();
 	        i != info.files.end();
 	        ++i)
@@ -248,12 +248,12 @@ void OpenTorrentDialog::DownloadMetadataCompleted(openmagnet_info info)
 	}
 
 	files.sort();
-	//qDebug() << "Creating file tree model";
+	
 	model = new FileTreeModel();
 
 	for(int i = 0; i < files.count(); i++)
 	{
-		//qDebug() << "Adding to file tree model "+files.at(i);
+		
 		QStringList parts = files.at(i).split('|');
 
 		if(parts.count() >= 1)
@@ -262,17 +262,17 @@ void OpenTorrentDialog::DownloadMetadataCompleted(openmagnet_info info)
 		}
 	}
 
-	//qDebug() << "Setting file tree model";
+	
 	torrentFilesTreeView->setModel(model);
 	torrentFilesTreeView->setColumnWidth(0, 300);
 	setUpdatesEnabled(true);
 
-	//qDebug() << "base_suffix stuf started";
+	
 	if(!info.base_suffix.isEmpty())
 	{
 		try
 		{
-			//qDebug() << "QApplicationSettings::getInstance from  OpenTorrentDialog::DownloadMetadataCompleted";
+			
 			QApplicationSettings* instance = QApplicationSettings::getInstance();
 			filters = instance->GetFileFilterGroups();
 			int selected = -1;
@@ -298,7 +298,7 @@ void OpenTorrentDialog::DownloadMetadataCompleted(openmagnet_info info)
 			qDebug() << ex.what();
 		}
 
-		//qDebug() << "QApplicationSettings::FreeInstance from  OpenTorrentDialog::DownloadMetadataCompleted";
+		
 		QApplicationSettings::FreeInstance();
 	}
 }

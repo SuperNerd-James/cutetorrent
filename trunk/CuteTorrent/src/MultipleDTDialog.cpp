@@ -38,7 +38,7 @@ MultipleDTDialog::MultipleDTDialog(QStringList& _files, QWidget* parrent/* =0 */
 	setupWindowIcons();
 	QObject::connect(okButton, SIGNAL(clicked()), this, SLOT(MountSelectedFILE()));
 	files.append(_files);
-	//qDebug() << "files set";
+	
 	QStandardItemModel* model = new QStandardItemModel(files.count(), 1);
 	listView->setModel(model);
 	listView->setSelectionMode(QAbstractItemView::SingleSelection);

@@ -109,7 +109,7 @@ void FileViewModel::SetNotDownloadForCurrentFile()
 
 void FileViewModel::setFilePriority(int priorityToSet)
 {
-	//qDebug() << " CuteTorrent::setHighForCurrentFile";
+	
 	QModelIndexList selection = m_pView->selectionModel()->selectedIndexes();
 
 	for each(QModelIndex index in selection)
@@ -177,8 +177,8 @@ void FileViewModel::FileTabContextMenu(const QPoint& point)
 		openFile->setEnabled(item->GetType() == FileViewTreeItem::FILE);
 		int currentPriority = data(index(qmi.row(), 3, qmi.parent())).toInt();
 
-		//qDebug() << qmi;
-		//qDebug() << qmi.data();
+		
+		
 		switch(currentPriority)
 		{
 			case 1:
@@ -483,10 +483,10 @@ void FileViewModel::AddPath(std::string path, file_entry fe)
 
 		for(int j = 0; j < nChildrenCounmt; j++)
 		{
-			//qDebug() << "Searching for " << pathparts.at(i) << "Current item is " <<iterator->GetNthChild(j)->GetName();
+			
 			if(iterator->GetNthChild(j)->GetName().compare(pathparts.at(i)) == 0)
 			{
-				//qDebug() <<"Found :" << iterator->child(j)->data(0) << " " << pathparts.at(i);
+				
 				foundnum = j;
 				break;
 			}
@@ -500,14 +500,14 @@ void FileViewModel::AddPath(std::string path, file_entry fe)
 		{
 			if(i != nPartsCount - 1)
 			{
-				//qDebug() << "appending new child" << pathparts.at(i) << " to " << iterator->GetName();
+				
 				fake_entery.path = (QString::fromStdString(iterator->GetFileEntery().path) + QDir::separator() + pathparts[i]).toStdString();
 				iterator->AddChild(new FileViewTreeItem(fake_entery, FileViewTreeItem::FOLDER, pathparts[i], iterator));
 				iterator = iterator->GetNthChild(iterator->GetChildrenCount() - 1);
 			}
 			else
 			{
-				//qDebug() << "appending new child" << pathparts.at(i) << " to " << iterator->GetName();
+				
 				iterator->AddChild(new FileViewTreeItem(fe, FileViewTreeItem::FILE, pathparts[i], iterator));
 				iterator = iterator->GetNthChild(iterator->GetChildrenCount() - 1);
 			}
