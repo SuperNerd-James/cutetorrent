@@ -45,7 +45,9 @@ MyMessageBox::MyMessageBox(QMessageBox::Icon icon, const QString& title, const Q
         mask <<= 1;
 
         if(!sb)
-        { continue; }
+        {
+            continue;
+        }
 
         QPushButton* button = ui->buttonBox->addButton((QDialogButtonBox::StandardButton) sb);
         QMessageBox::ButtonRole  role = (QMessageBox::ButtonRole) ui->buttonBox->buttonRole(button);
@@ -89,7 +91,9 @@ QPixmap MyMessageBox::standardIcon(QMessageBox::Icon icon)
     }
 
     if(!tmpIcon.isNull())
-    { return tmpIcon.pixmap(iconSize, iconSize); }
+    {
+        return tmpIcon.pixmap(iconSize, iconSize);
+    }
 
     return QPixmap();
 }

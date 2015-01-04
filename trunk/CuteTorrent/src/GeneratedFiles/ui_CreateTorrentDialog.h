@@ -79,7 +79,9 @@ public:
     void setupUi(QDialog* CreateTorrentDialog)
     {
         if(CreateTorrentDialog->objectName().isEmpty())
-        { CreateTorrentDialog->setObjectName(QString::fromUtf8("CreateTorrentDialog")); }
+        {
+            CreateTorrentDialog->setObjectName(QString::fromUtf8("CreateTorrentDialog"));
+        }
 
         CreateTorrentDialog->resize(406, 564);
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);

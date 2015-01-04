@@ -117,10 +117,14 @@ QtLocalPeer::QtLocalPeer(QObject* parent, const QString& appId)
 bool QtLocalPeer::isClient()
 {
     if(lockFile.isLocked())
-    { return false; }
+    {
+        return false;
+    }
 
     if(!lockFile.lock(QtLockedFile::WriteLock, false))
-    { return true; }
+    {
+        return true;
+    }
 
     bool res = server->listen(socketName);
 #if defined(Q_OS_UNIX) && (QT_VERSION >= QT_VERSION_CHECK(4,5,0))
@@ -135,7 +139,9 @@ bool QtLocalPeer::isClient()
 #endif
 
     if(!res)
-    { qWarning("QtSingleCoreApplication: listen on local socket failed, %s", qPrintable(server->errorString())); }
+    {
+        qWarning("QtSingleCoreApplication: listen on local socket failed, %s", qPrintable(server->errorString()));
+    }
 
     QObject::connect(server, SIGNAL(newConnection()), SLOT(receiveConnection()));
     return false;
@@ -145,7 +151,9 @@ bool QtLocalPeer::isClient()
 bool QtLocalPeer::sendMessage(const QString& message, int timeout)
 {
     if(!isClient())
-    { return false; }
+    {
+        return false;
+    }
 
     QLocalSocket socket;
     bool connOk = false;
@@ -157,7 +165,9 @@ bool QtLocalPeer::sendMessage(const QString& message, int timeout)
         connOk = socket.waitForConnected(timeout / 2);
 
         if(connOk || i)
-        { break; }
+        {
+            break;
+        }
 
         int ms = 250;
 #if defined(Q_OS_WIN)
@@ -169,7 +179,9 @@ bool QtLocalPeer::sendMessage(const QString& message, int timeout)
     }
 
     if(!connOk)
-    { return false; }
+    {
+        return false;
+    }
 
     QByteArray uMsg(message.toUtf8());
     QDataStream ds(&socket);
@@ -181,7 +193,9 @@ bool QtLocalPeer::sendMessage(const QString& message, int timeout)
         res &= socket.waitForReadyRead(timeout);   // wait for ack
 
         if(res)
-        { res &= (socket.read(qstrlen(ack)) == ack); }
+        {
+            res &= (socket.read(qstrlen(ack)) == ack);
+        }
     }
 
     return res;
@@ -193,10 +207,14 @@ void QtLocalPeer::receiveConnection()
     QLocalSocket* socket = server->nextPendingConnection();
 
     if(!socket)
-    { return; }
+    {
+        return;
+    }
 
     while(socket->bytesAvailable() < (int) sizeof(quint32))
-    { socket->waitForReadyRead(); }
+    {
+        socket->waitForReadyRead();
+    }
 
     QDataStream ds(socket);
     QByteArray uMsg;

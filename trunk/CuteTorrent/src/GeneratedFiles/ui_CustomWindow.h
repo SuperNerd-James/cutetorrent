@@ -109,7 +109,9 @@ public:
     void setupUi(QWidget* CustomWindow)
     {
         if(CustomWindow->objectName().isEmpty())
-        { CustomWindow->setObjectName(QString::fromUtf8("CustomWindow")); }
+        {
+            CustomWindow->setObjectName(QString::fromUtf8("CustomWindow"));
+        }
 
         CustomWindow->setWindowModality(Qt::ApplicationModal);
         CustomWindow->resize(532, 620);
@@ -373,7 +375,9 @@ public:
         peerTableWidget = new QTableWidget(tab_3);
 
         if(peerTableWidget->columnCount() < 7)
-        { peerTableWidget->setColumnCount(7); }
+        {
+            peerTableWidget->setColumnCount(7);
+        }
 
         QTableWidgetItem* __qtablewidgetitem = new QTableWidgetItem();
         peerTableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem);
@@ -409,7 +413,9 @@ public:
         trackerTableWidget = new QTableWidget(tab_2);
 
         if(trackerTableWidget->columnCount() < 3)
-        { trackerTableWidget->setColumnCount(3); }
+        {
+            trackerTableWidget->setColumnCount(3);
+        }
 
         QTableWidgetItem* __qtablewidgetitem7 = new QTableWidgetItem();
         trackerTableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem7);

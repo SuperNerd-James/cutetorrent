@@ -75,7 +75,9 @@ int FileTreeItem::childCount() const
 int FileTreeItem::row() const
 {
     if(parentItem)
-    { return parentItem->childItems.indexOf(const_cast<FileTreeItem*>(this)); }
+    {
+        return parentItem->childItems.indexOf(const_cast<FileTreeItem*>(this));
+    }
 
     return 0;
 }
@@ -87,12 +89,18 @@ int FileTreeItem::columnCount() const
 QVariant FileTreeItem::data(int column) const
 {
     if(column > 2)
-    { return QVariant(); }
+    {
+        return QVariant();
+    }
 
     if(column == 0)
-    { return itemData.first; }
+    {
+        return itemData.first;
+    }
     else
-    { return itemData.second; }
+    {
+        return itemData.second;
+    }
 }
 
 FileTreeItem* FileTreeItem::parent()

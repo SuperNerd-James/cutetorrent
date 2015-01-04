@@ -144,9 +144,9 @@ void Application::setLanguage(QString& locale)
     }
 
     if(!translators.contains(locale))
-    { 
-		locale = default_locale; 
-	}
+    {
+        locale = default_locale;
+    }
 
     current_locale = locale;
     // install new
@@ -168,7 +168,9 @@ void Application::setLanguageQt(QString& locale)
     }
 
     if(!translators.contains(locale))
-    { locale = default_locale; }
+    {
+        locale = default_locale;
+    }
 
     current_locale_qt = locale;
     // install new

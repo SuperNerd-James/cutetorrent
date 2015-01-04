@@ -71,7 +71,9 @@ void MediaController::openFile()
     if(!file.isEmpty())
     {
         if(!QFile::exists(file))
-        { file = m_LastDir + QDir::separator() + file; }
+        {
+            file = m_LastDir + QDir::separator() + file;
+        }
 
         QDir dir = QFileInfo(file).absoluteDir();
 
@@ -178,7 +180,9 @@ void MediaController::playFile(QString file)
     if(!file.isEmpty())
     {
         if(!QFile::exists(file))
-        { file = m_LastDir + QDir::separator() + file; }
+        {
+            file = m_LastDir + QDir::separator() + file;
+        }
 
         QDir dir = QFileInfo(file).absoluteDir();
 

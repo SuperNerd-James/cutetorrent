@@ -81,7 +81,9 @@ CuteTorrent::CuteTorrent(QWidget* parent)
         rcon->Start();
 
         if(settings->valueBool("WebControl", "enable_ipfilter", false))
-        { rcon->parseIpFilter(settings->valueString("WebControl", "ipfilter")); }
+        {
+            rcon->parseIpFilter(settings->valueString("WebControl", "ipfilter"));
+        }
 
         if(settings->valueBool("WebControl", "enable_upnp", false))
         {
@@ -290,7 +292,9 @@ void CuteTorrent::ShowNoUpdateNitify(const QString& ver)
 void CuteTorrent::ShowTorrentError(const QString& name, const QString& error)
 {
     if(!mayShowNotifies)
-    { return; }
+    {
+        return;
+    }
 
     QBalloonTip::showBalloon("CuteTorrent", tr("CT_ERROR %1\n%2").arg(name).arg(error), QBalloonTip::Error, qVariantFromValue(0),
                              QSystemTrayIcon::Critical, 15000, false);
@@ -298,7 +302,9 @@ void CuteTorrent::ShowTorrentError(const QString& name, const QString& error)
 void CuteTorrent::ShowTorrentCompletedNotyfy(const QString& name, const QString& path)
 {
     if(!mayShowNotifies)
-    { return; }
+    {
+        return;
+    }
 
     QBalloonTip::showBalloon("CuteTorrent", tr("CT_DOWNLOAD_COMPLETE %1").arg(name), QBalloonTip::TorrentCompleted, qVariantFromValue(path + name),
                              QSystemTrayIcon::Information, 15000, false);
@@ -309,14 +315,18 @@ void CuteTorrent::UpdateTabWidget(int tabIndex)
     trayIcon->setToolTip("CuteTorrent "CT_VERSION"\nUpload: " + tManager->GetSessionUploadSpeed() + "\nDownload:" + tManager->GetSessionDownloadSpeed());
 
     if(this->isMinimized())
-    { return; }
+    {
+        return;
+    }
 
     bool udapteLimits = false;
 
     if(tabIndex < 0)
     {
         if(tabIndex == -2)
-        { udapteLimits = true; }
+        {
+            udapteLimits = true;
+        }
 
         tabIndex = tabWidget->currentIndex();
     }
@@ -350,18 +360,26 @@ void CuteTorrent::UpdateTabWidget(int tabIndex)
             if(tor != NULL)
             {
                 if(ul->value() != tor->GetUploadLimit() / 1024)
-                { ul->setValue(tor->GetUploadLimit() / 1024); }
+                {
+                    ul->setValue(tor->GetUploadLimit() / 1024);
+                }
 
                 if(dl->value() != tor->GetDownloadLimit() / 1024)
-                { dl->setValue(tor->GetDownloadLimit() / 1024); }
+                {
+                    dl->setValue(tor->GetDownloadLimit() / 1024);
+                }
             }
             else
             {
                 if(ul->value() != tManager->GetUploadLimit() / 1024)
-                { ul->setValue(tManager->GetUploadLimit() / 1024); }
+                {
+                    ul->setValue(tManager->GetUploadLimit() / 1024);
+                }
 
                 if(dl->value() != tManager->GetDownloadLimit() / 1024)
-                { dl->setValue(tManager->GetDownloadLimit() / 1024); }
+                {
+                    dl->setValue(tManager->GetDownloadLimit() / 1024);
+                }
             }
         }
 
@@ -537,7 +555,9 @@ void CuteTorrent::IconActivated(QSystemTrayIcon::ActivationReason reason)
     {
         case QSystemTrayIcon::DoubleClick:
             if(isVisible())
-            { hide(); }
+            {
+                hide();
+            }
             else
             {
                 showNormal();
@@ -793,9 +813,13 @@ void CuteTorrent::dropEvent(QDropEvent* event)
             if(!url.isEmpty())
             {
                 if(url.scheme().compare("file", Qt::CaseInsensitive) == 0)
-                { files << url.toLocalFile(); }
+                {
+                    files << url.toLocalFile();
+                }
                 else
-                { files << url.toString(); }
+                {
+                    files << url.toString();
+                }
             }
         }
     }
@@ -967,7 +991,9 @@ void CuteTorrent::keyPressEvent(QKeyEvent* event)
 
             if(action != NULL)
                 // qDebug() << "Matched action:" << key;
-            { action->activate(QAction::Trigger); }
+            {
+                action->activate(QAction::Trigger);
+            }
         }
     }
 }
@@ -1257,7 +1283,9 @@ void CuteTorrent::setupCustomeWindow()
     QRect geo = settings->value("Window", "geometry", QRect(0, 0, 683, 643)).toRect();
 
     if(geo.height() > 0 && geo.x() < QApplication::desktop()->width() && geo.width() > 0 && geo.y() < QApplication::desktop()->height())
-    { setGeometry(geo); }
+    {
+        setGeometry(geo);
+    }
 
     if(settings->value("Window", "maximized", false).toBool())
     {

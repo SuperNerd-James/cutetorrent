@@ -100,7 +100,9 @@ void QSgml::ExportString(QString* HtmlString, char Optimze, int Tabsize)
     {
         // create spaces in front
         for(int j = 0 ; j < pTag->Level - 1 ; j++)
-        { sSpc += sTab; }
+        {
+            sSpc += sTab;
+        }
 
         switch(pTag->Type)
         {
@@ -186,7 +188,9 @@ void QSgml::ExportString(QString* HtmlString, char Optimze, int Tabsize)
                         sSpc = sWrap;
 
                         for(int i = 0 ; i < StartTags.last()->Level - 1 ; i++)
-                        { sSpc += sTab; }
+                        {
+                            sSpc += sTab;
+                        }
                     }
                     else
                     {
@@ -496,9 +500,13 @@ bool QSgml::save(QString sFileName)
     }
 
     if(s64_Count >= 0)
-    { return (true); }
+    {
+        return (true);
+    }
     else
-    { return (false); }
+    {
+        return (false);
+    }
 }
 
 // Constructor

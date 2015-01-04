@@ -30,7 +30,9 @@ QString StaticHelpers::toKbMbGb(libtorrent::size_type size)
 
     if(size > 1024)
         for(i ; (libtorrent::size_type)(val / 1024) > 0; i++, val /= 1024)
-        { dblSByte = val / 1024.f; }
+        {
+            dblSByte = val / 1024.f;
+        }
 
     QString str = QString::number(dblSByte, 'f', i == 0 ? 0 : 2);
     str.append(Suffix[i]);
@@ -56,16 +58,24 @@ QString StaticHelpers::filePriorityToString(int priority)
     if(priority > 0)
     {
         if(priority == 0)
-        { return CuteTorrent::tr(priority_str[0]); }
+        {
+            return CuteTorrent::tr(priority_str[0]);
+        }
 
         if(priority < 3)
-        { return CuteTorrent::tr(priority_str[1]); }
+        {
+            return CuteTorrent::tr(priority_str[1]);
+        }
 
         if(priority >= 3 && priority < 6)
-        { return CuteTorrent::tr(priority_str[2]); }
+        {
+            return CuteTorrent::tr(priority_str[2]);
+        }
 
         if(priority >= 6)
-        { return CuteTorrent::tr(priority_str[3]); }
+        {
+            return CuteTorrent::tr(priority_str[3]);
+        }
     }
 
     return "";
@@ -74,7 +84,9 @@ QString StaticHelpers::filePriorityToString(int priority)
 QString StaticHelpers::toTimeString(int seconds)
 {
     if(seconds < 0)
-    { return ""; }
+    {
+        return "";
+    }
 
     int min = 0, hour = 0, day = 0, Week = 0;
     Week = seconds / (7 * 24 * 60 * 60);

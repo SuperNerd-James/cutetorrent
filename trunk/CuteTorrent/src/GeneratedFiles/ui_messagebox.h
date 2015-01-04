@@ -43,7 +43,9 @@ public:
     void setupUi(QDialog* MessageBox)
     {
         if(MessageBox->objectName().isEmpty())
-        { MessageBox->setObjectName(QString::fromUtf8("MessageBox")); }
+        {
+            MessageBox->setObjectName(QString::fromUtf8("MessageBox"));
+        }
 
         MessageBox->setWindowModality(Qt::WindowModal);
         MessageBox->resize(400, 129);

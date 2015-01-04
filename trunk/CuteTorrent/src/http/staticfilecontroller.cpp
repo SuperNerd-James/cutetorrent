@@ -111,7 +111,9 @@ void StaticFileController::service(HttpRequest& request, HttpResponse& response)
                     mutex.lock();
 
                     if(!cache.contains(path))
-                    { cache.insert(request.getPath(), entry, entry->document.size()); }
+                    {
+                        cache.insert(request.getPath(), entry, entry->document.size());
+                    }
                     else
                     {
                         cache.remove(path);

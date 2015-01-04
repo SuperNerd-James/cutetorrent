@@ -32,12 +32,18 @@ int FileViewModel::rowCount(const QModelIndex& parent /*= QModelIndex( ) */) con
     FileViewTreeItem* parentItem;
 
     if(parent.column() > 0)
-    { return 0; }
+    {
+        return 0;
+    }
 
     if(!parent.isValid())
-    { parentItem = m_pRoot; }
+    {
+        parentItem = m_pRoot;
+    }
     else
-    { parentItem = static_cast<FileViewTreeItem*>(parent.internalPointer()); }
+    {
+        parentItem = static_cast<FileViewTreeItem*>(parent.internalPointer());
+    }
 
     return parentItem->GetChildrenCount();
 }
@@ -378,33 +384,47 @@ void FileViewModel::BuildTree()
 QModelIndex FileViewModel::index(int row, int column, const QModelIndex& parent /*= QModelIndex()*/) const
 {
     if(!hasIndex(row, column, parent))
-    { return QModelIndex(); }
+    {
+        return QModelIndex();
+    }
 
     FileViewTreeItem* parentItem;
 
     if(!parent.isValid())
-    { parentItem = m_pRoot; }
+    {
+        parentItem = m_pRoot;
+    }
     else
-    { parentItem = static_cast<FileViewTreeItem*>(parent.internalPointer()); }
+    {
+        parentItem = static_cast<FileViewTreeItem*>(parent.internalPointer());
+    }
 
     FileViewTreeItem* childItem = parentItem->GetNthChild(row);
 
     if(childItem != NULL)
-    { return createIndex(row, column, childItem); }
+    {
+        return createIndex(row, column, childItem);
+    }
     else
-    { return QModelIndex(); }
+    {
+        return QModelIndex();
+    }
 }
 
 QModelIndex FileViewModel::parent(const QModelIndex& child) const
 {
     if(!child.isValid())
-    { return QModelIndex(); }
+    {
+        return QModelIndex();
+    }
 
     FileViewTreeItem* childItem = static_cast<FileViewTreeItem*>(child.internalPointer());
     FileViewTreeItem* parentItem = childItem->GetParent();
 
     if(parentItem == m_pRoot)
-    { return QModelIndex(); }
+    {
+        return QModelIndex();
+    }
 
     int row = GetRow(parentItem);
     return createIndex(row, 0, parentItem);

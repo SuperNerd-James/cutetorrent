@@ -88,7 +88,10 @@ void QSearchItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& o
     QPalette::ColorGroup cg = QPalette::Normal;
     QPalette::ColorRole cr;
 
-    if(option.state & QStyle::State_Selected) { cr = QPalette::HighlightedText; }
+    if(option.state & QStyle::State_Selected)
+    {
+        cr = QPalette::HighlightedText;
+    }
 
     cr = QPalette::Text;
     // layout

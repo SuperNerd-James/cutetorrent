@@ -38,7 +38,9 @@ ApplyBackupPage::ApplyBackupPage(QWidget* parent) :
     tableWidget = new QTableWidget(changePathGroupBox);
 
     if(tableWidget->columnCount() < 2)
-    { tableWidget->setColumnCount(2); }
+    {
+        tableWidget->setColumnCount(2);
+    }
 
     QTableWidgetItem* __qtablewidgetitem1 = new QTableWidgetItem();
     __qtablewidgetitem1->setText(tr("PATH"));

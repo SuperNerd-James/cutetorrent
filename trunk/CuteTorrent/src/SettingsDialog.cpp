@@ -106,7 +106,9 @@ SettingsDialog::SettingsDialog(QWidget* parrent, int flags) : BaseWindow(BaseWin
         localeComboBox->addItem(QLocale::languageToString(language.language()), avail);
 
         if(avail == curLoc)
-        { localeComboBox->setCurrentIndex(current); }
+        {
+            localeComboBox->setCurrentIndex(current);
+        }
 
         current++;
     }
@@ -264,7 +266,9 @@ void SettingsDialog::showSelectedGroup(int row)
     }
 
     if(row < 0)
-    { return; }
+    {
+        return;
+    }
 
     GroupForFileFiltering currentGroup = filterGroups.at(row);
     newGroupNameEdit->setText(currentGroup.Name());
@@ -385,7 +389,9 @@ void SettingsDialog::ApplySettings()
         bootUpSettings.setValue("CuteTorrent", "\"" + base_dir + "\"" + (startMinimizedCheckBox->isChecked() ? " -m" : ""));
     }
     else
-    { bootUpSettings.remove("CuteTorrent"); }
+    {
+        bootUpSettings.remove("CuteTorrent");
+    }
 
 #endif
 
@@ -394,7 +400,9 @@ void SettingsDialog::ApplySettings()
         rcon->Start();
 
         if(settings->valueBool("WebControl", "enable_ipfilter", false))
-        { rcon->parseIpFilter(settings->valueString("WebControl", "ipfilter")); }
+        {
+            rcon->parseIpFilter(settings->valueString("WebControl", "ipfilter"));
+        }
     }
     else
     {
@@ -412,7 +420,9 @@ void SettingsDialog::ApplySettings()
     else
     {
         if(tracker->isRunning())
-        { tracker->stop(); }
+        {
+            tracker->stop();
+        }
     }
 
     int curLocaleIndex = localeComboBox->currentIndex();
@@ -526,7 +536,9 @@ void SettingsDialog::addGroup()
         if(QMessageBox::No == MyMessageBox::warning(this, tr("STR_SETTINGS"),
                 tr("SHURE_IN_CHANGING_GROUP %1").arg(name),
                 QMessageBox::No | QMessageBox::Yes))
-        { return; }
+        {
+            return;
+        }
     }
     else
     {
@@ -706,7 +718,9 @@ void SettingsDialog::FillKeyMapTab()
     int rightColumns =  size / 2;
 
     if(size & 1)
-    { rightColumns++; }
+    {
+        rightColumns++;
+    }
 
     int leftColumns =  size / 2;
     int rightIndex = 0, leftIndex = 0;
@@ -872,7 +886,9 @@ void SettingsDialog::addSearchitem()
         if(QMessageBox::No == MyMessageBox::warning(this, tr("STR_SETTINGS"),
                 tr("SHURE_IN_CHANGING_SEARCH_ITEM %1").arg(name),
                 QMessageBox::No | QMessageBox::Yes))
-        { return; }
+        {
+            return;
+        }
 
         searchSources[foundIndex].setPattern(pattern);
     }

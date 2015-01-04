@@ -90,13 +90,19 @@ public:
         }
         bool operator== (iterator& x)
         {
-            if(x.pTag == this->pTag) { return (true); }
+            if(x.pTag == this->pTag)
+            {
+                return (true);
+            }
 
             return (false);
         }
         bool operator!= (iterator& x)
         {
-            if(x.pTag != this->pTag) { return (true); }
+            if(x.pTag != this->pTag)
+            {
+                return (true);
+            }
 
             return (false);
         }

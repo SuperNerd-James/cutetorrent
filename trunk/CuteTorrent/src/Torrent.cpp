@@ -74,7 +74,9 @@ std::vector<announce_entry> Torrent::GetTrackerInfo()
     std::vector<announce_entry> trackers;
 
     if(m_hTorrent.is_valid())
-    { trackers = m_hTorrent.trackers(); }
+    {
+        trackers = m_hTorrent.trackers();
+    }
 
     return trackers;
 }
@@ -135,7 +137,10 @@ bool Torrent::isSeeding() const
 {
     if(m_hTorrent.is_valid())
     {
-        if(m_hTorrent.status().state == 4) { return true; }
+        if(m_hTorrent.status().state == 4)
+        {
+            return true;
+        }
 
         return m_hTorrent.is_seed();
     }
@@ -200,7 +205,9 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus, QString group)
         if(m_hTorrent.file_priority(storrgae.file_index(*i)) > 0)
         {
             if(StyleEngene::suffixes[StyleEngene::VIDEO].contains(currentSuffix) || StyleEngene::suffixes[StyleEngene::AUDIO].contains(currentSuffix))
-            { m_hasMedia = true; }
+            {
+                m_hasMedia = true;
+            }
 
             size += storrgae.file_size(*i);
         }
@@ -240,7 +247,9 @@ Torrent::Torrent(const Torrent& other)
         if(m_hTorrent.file_priority(storrgae.file_index(*i)) > 0)
         {
             if(StyleEngene::suffixes[StyleEngene::VIDEO].contains(currentSuffix) || StyleEngene::suffixes[StyleEngene::AUDIO].contains(currentSuffix))
-            { m_hasMedia = true; }
+            {
+                m_hasMedia = true;
+            }
 
             size += storrgae.file_size(*i);
         }
@@ -309,7 +318,9 @@ QString Torrent::GetHashString() const
 QString Torrent::GetName() const
 {
     if(m_hTorrent.is_valid())
-    { return QString::fromUtf8(m_hTorrent.name().c_str()); }
+    {
+        return QString::fromUtf8(m_hTorrent.name().c_str());
+    }
 
     return "";
 }
@@ -501,7 +512,9 @@ QString Torrent::GetRemainingTime()
         torrent_status status = m_hTorrent.status(torrent_handle::query_accurate_download_counters);
 
         if(status.download_rate < 1024 * 10)
-        { res.append(QChar(8734)); }
+        {
+            res.append(QChar(8734));
+        }
         else
         {
             int time = size * (1.0f - status.progress_ppm / 1000000.f) / status.download_rate;
@@ -593,7 +606,9 @@ QVector<int> Torrent::GetDownloadedPieces()
         for(int i = 0; i < max_num; i++)
         {
             if(m_hTorrent.have_piece(i))
-            { res.append(i); }
+            {
+                res.append(i);
+            }
         }
     }
 
