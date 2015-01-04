@@ -44,7 +44,9 @@ void RequestMapper::service(HttpRequest& request, HttpResponse& response)
         commandsController->service(request, response);
     }
     else
-    { staticFileController->service(request, response); }
+    {
+        staticFileController->service(request, response);
+    }
 
     //qDebug("RequestMapper: finished request");
 }

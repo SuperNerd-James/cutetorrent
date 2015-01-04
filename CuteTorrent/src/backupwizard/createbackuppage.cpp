@@ -45,7 +45,9 @@ void CreateBackupPage::createBackup() const
     QZipWriter zip(path);
 
     if(zip.status() != QZipWriter::NoError)
-    { return ; }
+    {
+        return ;
+    }
 
     zip.setCompressionPolicy(QZipWriter::AutoCompress);
     QString dataDir;
@@ -81,7 +83,9 @@ void CreateBackupPage::createBackup() const
             QFile file(file_path);
 
             if(!file.open(QIODevice::ReadOnly))
-            { continue; }
+            {
+                continue;
+            }
 
             zip.setCreationPermissions(QFile::permissions(file_path));
             QByteArray ba = file.readAll();

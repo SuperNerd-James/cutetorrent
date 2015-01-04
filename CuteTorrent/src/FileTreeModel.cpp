@@ -81,7 +81,9 @@ void FileTreeModel::GetFilePrioritiesInternal(FileTreeItem* current, QMap<QStrin
         qint8 prioryty = 0;
 
         if(curChild->Checked() == Qt::Checked)
-        { prioryty = 1; }
+        {
+            prioryty = 1;
+        }
 
         priorities->insert(curChild->getPath(), prioryty);
         GetFilePrioritiesInternal(curChild, priorities);
@@ -91,33 +93,47 @@ QModelIndex FileTreeModel::index(int row, int column, const QModelIndex& parent)
 const
 {
     if(!hasIndex(row, column, parent))
-    { return QModelIndex(); }
+    {
+        return QModelIndex();
+    }
 
     FileTreeItem* parentItem;
 
     if(!parent.isValid())
-    { parentItem = rootItem; }
+    {
+        parentItem = rootItem;
+    }
     else
-    { parentItem = static_cast<FileTreeItem*>(parent.internalPointer()); }
+    {
+        parentItem = static_cast<FileTreeItem*>(parent.internalPointer());
+    }
 
     FileTreeItem* childItem = parentItem->child(row);
 
     if(childItem)
-    { return createIndex(row, column, childItem); }
+    {
+        return createIndex(row, column, childItem);
+    }
     else
-    { return QModelIndex(); }
+    {
+        return QModelIndex();
+    }
 }
 
 QModelIndex FileTreeModel::parent(const QModelIndex& index) const
 {
     if(!index.isValid())
-    { return QModelIndex(); }
+    {
+        return QModelIndex();
+    }
 
     FileTreeItem* childItem = static_cast<FileTreeItem*>(index.internalPointer());
     FileTreeItem* parentItem = childItem->parent();
 
     if(parentItem == rootItem)
-    { return QModelIndex(); }
+    {
+        return QModelIndex();
+    }
 
     return createIndex(parentItem->row(), 0, parentItem);
 }
@@ -126,26 +142,38 @@ int FileTreeModel::rowCount(const QModelIndex& parent) const
     FileTreeItem* parentItem;
 
     if(parent.column() > 0)
-    { return 0; }
+    {
+        return 0;
+    }
 
     if(!parent.isValid())
-    { parentItem = rootItem; }
+    {
+        parentItem = rootItem;
+    }
     else
-    { parentItem = static_cast<FileTreeItem*>(parent.internalPointer()); }
+    {
+        parentItem = static_cast<FileTreeItem*>(parent.internalPointer());
+    }
 
     return parentItem->childCount();
 }
 int FileTreeModel::columnCount(const QModelIndex& parent) const
 {
     if(parent.isValid())
-    { return static_cast<FileTreeItem*>(parent.internalPointer())->columnCount(); }
+    {
+        return static_cast<FileTreeItem*>(parent.internalPointer())->columnCount();
+    }
     else
-    { return rootItem->columnCount(); }
+    {
+        return rootItem->columnCount();
+    }
 }
 bool FileTreeModel::setData(const QModelIndex& _index, const QVariant& value, int role)
 {
     if(!_index.isValid())
-    { return false; }
+    {
+        return false;
+    }
 
     FileTreeItem* item = static_cast<FileTreeItem*>(_index.internalPointer());
 
@@ -200,7 +228,9 @@ bool FileTreeModel::setData(const QModelIndex& _index, const QVariant& value, in
 QVariant FileTreeModel::data(const QModelIndex& index, int role) const
 {
     if(!index.isValid())
-    { return QVariant(); }
+    {
+        return QVariant();
+    }
 
     FileTreeItem* item = static_cast<FileTreeItem*>(index.internalPointer());
 
@@ -235,7 +265,9 @@ QVariant FileTreeModel::data(const QModelIndex& index, int role) const
     }
 
     if(role != Qt::DisplayRole)
-    { return QVariant(); }
+    {
+        return QVariant();
+    }
 
     return item->data(index.column());
 }
@@ -243,7 +275,9 @@ QVariant FileTreeModel::data(const QModelIndex& index, int role) const
 Qt::ItemFlags FileTreeModel::flags(const QModelIndex& index) const
 {
     if(!index.isValid())
-    { return 0; }
+    {
+        return 0;
+    }
 
     return Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsUserCheckable ;
 }
@@ -252,7 +286,9 @@ QVariant FileTreeModel::headerData(int section, Qt::Orientation orientation,
                                    int role) const
 {
     if(orientation == Qt::Horizontal && role == Qt::DisplayRole)
-    { return rootItem->data(section); }
+    {
+        return rootItem->data(section);
+    }
 
     return QVariant();
 }

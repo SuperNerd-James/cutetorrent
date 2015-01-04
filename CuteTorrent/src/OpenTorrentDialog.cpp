@@ -70,7 +70,9 @@ void OpenTorrentDialog::SetData(QString filename)
         MetaDataDownloadWaiter* magnetWaiter = new MetaDataDownloadWaiter(filename);
 
         if(!QObject::connect(magnetWaiter, SIGNAL(DownloadCompleted(openmagnet_info)), this, SLOT(DownloadMetadataCompleted(openmagnet_info))))
-        { MyMessageBox::critical(this, "ERROR", "NOT_CONNECTID"); }
+        {
+            MyMessageBox::critical(this, "ERROR", "NOT_CONNECTID");
+        }
 
         magnetWaiter->start(QThread::HighPriority);
         yesButton->setEnabled(false);
@@ -287,7 +289,9 @@ void OpenTorrentDialog::DownloadMetadataCompleted(openmagnet_info info)
             }
 
             if(selected >= 0)
-            { GroupComboBox->setCurrentIndex(selected); }
+            {
+                GroupComboBox->setCurrentIndex(selected);
+            }
         }
         catch(std::exception ex)
         {

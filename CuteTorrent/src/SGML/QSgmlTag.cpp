@@ -151,7 +151,9 @@ QSgmlTag& QSgmlTag::getNextSibling(void)
     for(i = 0 ; i < Parent->Children.count() ; i++)
     {
         if((Parent->Children[i]) == this)
-        { break; }
+        {
+            break;
+        }
     }
 
     if(i == (Parent->Children.count() - 1))
@@ -172,7 +174,9 @@ QSgmlTag& QSgmlTag::getPreviousSibling(void)
     for(i = 0 ; i < Parent->Children.count() ; i++)
     {
         if((Parent->Children[i]) == this)
-        { break; }
+        {
+            break;
+        }
     }
 
     if(i == 0)
@@ -314,9 +318,13 @@ QSgmlTag* QSgmlTag::addChild(QString InnerTag, TagType eType)
     if(tagRet != NULL)
     {
         if(Level == 0)
-        { this->Children.insert(Children.count() - 1, pnewTag); }
+        {
+            this->Children.insert(Children.count() - 1, pnewTag);
+        }
         else
-        { this->Children.append(pnewTag); }
+        {
+            this->Children.append(pnewTag);
+        }
     }
 
     return (tagRet);

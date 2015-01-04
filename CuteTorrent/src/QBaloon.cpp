@@ -21,7 +21,9 @@ QWidget* QBalloonTip::showBalloon(const QString& title,
         current = theSolitaryBalloonTip;
 
         if(timeout <= 0)
-        { timeout = 10000; } // по умолчанию исчезнет через 10 секунд
+        {
+            timeout = 10000;    // по умолчанию исчезнет через 10 секунд
+        }
 
         theSolitaryBalloonTip->balloon(timeout, showArrow);
     }
@@ -33,7 +35,9 @@ QWidget* QBalloonTip::showBalloon(const QString& title,
             current = theSolitaryBalloonTip;
 
             if(timeout <= 0)
-            { timeout = 10000; } // по умолчанию исчезнет через 10 секунд
+            {
+                timeout = 10000;    // по умолчанию исчезнет через 10 секунд
+            }
 
             theSolitaryBalloonTip->balloon(timeout, showArrow);
         }
@@ -51,7 +55,9 @@ void QBalloonTip::hideBalloon()
 {
     //qDebug() << "hiding current";
     if(!current)
-    { return; }
+    {
+        return;
+    }
 
     current->hide();
     delete current;
@@ -252,7 +258,9 @@ void QBalloonTip::balloon(int msecs, bool showArrow)
     path.arcTo(QRect(ml, mt, rc * 2, rc * 2), 180, -90);
 
     if(msecs > 0)
-    { timerId = startTimer(msecs); }
+    {
+        timerId = startTimer(msecs);
+    }
 
     show();
     QPropertyAnimation*  anim = new QPropertyAnimation(this, "windowOpacity");

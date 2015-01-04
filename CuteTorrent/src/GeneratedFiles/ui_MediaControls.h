@@ -40,7 +40,9 @@ public:
     void setupUi(QWidget* MediaControls)
     {
         if(MediaControls->objectName().isEmpty())
-        { MediaControls->setObjectName(QString::fromUtf8("MediaControls")); }
+        {
+            MediaControls->setObjectName(QString::fromUtf8("MediaControls"));
+        }
 
         MediaControls->resize(372, 66);
         MediaControls->setFocusPolicy(Qt::ClickFocus);

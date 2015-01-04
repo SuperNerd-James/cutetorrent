@@ -98,7 +98,10 @@ int load_file(std::string const& filename, std::vector<char>& v, libtorrent::err
 
     fclose(f);
 
-    if(r != s) { return -3; }
+    if(r != s)
+    {
+        return -3;
+    }
 
     return 0;
 }
@@ -122,7 +125,9 @@ TorrentManager::TorrentManager()
             lazy_entry e;
 
             if(lazy_bdecode(&in[0], &in[0] + in.size(), e, ec) == 0)
-            { ses->load_state(e); }
+            {
+                ses->load_state(e);
+            }
         }
 
         session_settings s_settings = readSettings();
@@ -168,7 +173,9 @@ TorrentManager::TorrentManager()
             ses->start_dht(e);
         }
         else
-        { ses->start_dht(); }
+        {
+            ses->start_dht();
+        }
 
         ses->set_settings(s_settings);
     }
@@ -209,12 +216,18 @@ void TorrentManager::initSession()
             QStringList parts = line.split("|");
 
             if(parts.count() > 3)
-            { continue; }
+            {
+                continue;
+            }
 
             if(parts.count() < 3)
-            { save_path_data.insert(parts.at(0), qMakePair(parts.at(1), QString(""))); }
+            {
+                save_path_data.insert(parts.at(0), qMakePair(parts.at(1), QString("")));
+            }
             else
-            { save_path_data.insert(parts.at(0), qMakePair(parts.at(1), parts.at(2))); }
+            {
+                save_path_data.insert(parts.at(0), qMakePair(parts.at(1), parts.at(2)));
+            }
         }
 
         path_infohashFile.close();
@@ -597,7 +610,9 @@ bool TorrentManager::AddTorrent(QString path, QString save_path, QString name, e
     emit AddTorrentGui(current);
 
     if(sequntial)
-    { current->seqensialDownload(); }
+    {
+        current->seqensialDownload();
+    }
 
     h.set_max_connections(max_connections_per_torrent);
     QFile::copy(path, combine_path((dataDir).toLatin1().data(), combine_path("CT_DATA", (to_hex(t->info_hash().to_string()) + ".torrent").c_str()).c_str()).c_str());
@@ -668,8 +683,14 @@ session_settings TorrentManager::readSettings()
             address_v4 start((a << 24) + (b << 16) + (c << 8) + d);
             address_v4 last((e << 24) + (f << 16) + (g << 8) + h);
 
-            if(flags <= 127) { flags = ip_filter::blocked; }
-            else { flags = 0; }
+            if(flags <= 127)
+            {
+                flags = ip_filter::blocked;
+            }
+            else
+            {
+                flags = 0;
+            }
 
             fil.add_rule(start, last, flags);
         }
@@ -814,7 +835,10 @@ void TorrentManager::onClose()
     {
         alert const* a = ses->wait_for_alert(seconds(10));
 
-        if(a == 0) { continue; }
+        if(a == 0)
+        {
+            continue;
+        }
 
         std::deque<alert*> alerts;
         ses->pop_alerts(&alerts);
@@ -838,11 +862,17 @@ void TorrentManager::onClose()
 
             save_resume_data_alert const* rd = alert_cast<save_resume_data_alert> (*i);
 
-            if(!rd) { continue; }
+            if(!rd)
+            {
+                continue;
+            }
 
             --num_outstanding_resume_data;
 
-            if(!rd->resume_data) { continue; }
+            if(!rd->resume_data)
+            {
+                continue;
+            }
 
             torrent_handle h = rd->handle;
             std::vector<char> out;
@@ -878,16 +908,28 @@ int TorrentManager::save_file(std::string const& filename, std::vector<char>& v)
     file f;
     error_code ec;
 
-    if(!f.open(filename, file::write_only, ec)) { return -1; }
+    if(!f.open(filename, file::write_only, ec))
+    {
+        return -1;
+    }
 
-    if(ec) { return -1; }
+    if(ec)
+    {
+        return -1;
+    }
 
     file::iovec_t b = {&v[0], v.size() };
     size_type written = f.writev(0, &b, 1, ec);
 
-    if(written != int (v.size())) { return -3; }
+    if(written != int (v.size()))
+    {
+        return -3;
+    }
 
-    if(ec) { return -3; }
+    if(ec)
+    {
+        return -3;
+    }
 
     return 0;
 }
@@ -934,7 +976,9 @@ TorrentManager* TorrentManager::getInstance()
 {
     //qDebug() << "TorrentManager::getInstance()";
     if(_instance == NULL)
-    { _instance = new TorrentManager(); }
+    {
+        _instance = new TorrentManager();
+    }
 
     _instanceCount++;
     return _instance;
@@ -1008,13 +1052,19 @@ void TorrentManager::RemoveTorrent(torrent_handle h, bool delFiles)
     QString magnet_path = dataDir + QString::fromStdString(combine_path("CT_DATA", info_hash + ".torrent"));
 
     if(QFile::exists(magnet_path))
-    { QFile::remove(magnet_path); }
+    {
+        QFile::remove(magnet_path);
+    }
 
     if(QFile::exists(torrent_path))
-    { QFile::remove(torrent_path); }
+    {
+        QFile::remove(torrent_path);
+    }
 
     if(QFile::exists(resume_path))
-    { QFile::remove(resume_path); }
+    {
+        QFile::remove(resume_path);
+    }
 
     /*if (save_path_data.contains(infoHash))
         save_path_data.remove(infoHash);
@@ -1138,7 +1188,9 @@ void TorrentManager::CancelMagnetLink(QString link)
     QString magnet_path = dataDir + QString::fromStdString(combine_path("CT_DATA", to_hex(h.info_hash().to_string()) + ".torrent"));
 
     if(QFile::exists(magnet_path))
-    { QFile::remove(magnet_path); }
+    {
+        QFile::remove(magnet_path);
+    }
 
     if(h.is_valid())
     {
@@ -1156,7 +1208,9 @@ bool TorrentManager::AddMagnet(torrent_handle h, QString SavePath, QString group
         for(file_storage::iterator i = storrage.begin(); i != storrage.end(); ++i)
         {
             if(filePriorities.contains(QDir::toNativeSeparators(storrage.file_path(*i).c_str())))
-            { filepriorities.push_back(filePriorities[storrage.file_path(*i).c_str()]); }
+            {
+                filepriorities.push_back(filePriorities[storrage.file_path(*i).c_str()]);
+            }
             else
             {
                 filepriorities.push_back(7);
@@ -1206,7 +1260,9 @@ void TorrentManager::StartAllTorrents()
         torrent_handle hTor = torrent_handels.at(i);
 
         if(hTor.is_valid() && hTor.is_paused())
-        { hTor.resume(); }
+        {
+            hTor.resume();
+        }
     }
 }
 
@@ -1258,14 +1314,18 @@ Torrent* TorrentManager::GetTorrentByInfoHash(const sha1_hash& hash)
     QString infoHash = QString::fromStdString(to_hex(hash.to_string()));
 
     if(torrents->hasTorrent(infoHash))
-    { return	(*torrents) [infoHash]; }
+    {
+        return	(*torrents) [infoHash];
+    }
 
     return NULL;
 }
 Torrent* TorrentManager::GetTorrentByInfoHash(QString infoHash)
 {
     if(torrents->hasTorrent(infoHash))
-    { return	(*torrents) [infoHash]; }
+    {
+        return	(*torrents) [infoHash];
+    }
 
     return NULL;
 }

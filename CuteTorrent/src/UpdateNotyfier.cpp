@@ -48,7 +48,9 @@ void UpdateNotifier::replyFinished(QNetworkReply* pReply)
     }
 
     if(!pReply->isFinished())
-    { QBalloonTip::showBalloon(tr("ERROR_STR"), pReply->errorString(), QBalloonTip::Error, QVariant(0), QSystemTrayIcon::Critical); }
+    {
+        QBalloonTip::showBalloon(tr("ERROR_STR"), pReply->errorString(), QBalloonTip::Error, QVariant(0), QSystemTrayIcon::Critical);
+    }
 
     int mul = 1000;
 
@@ -59,7 +61,9 @@ void UpdateNotifier::replyFinished(QNetworkReply* pReply)
     }
 
     if(recevedVersion > currentVersion)
-    { emit showUpdateNitify(str); }
+    {
+        emit showUpdateNitify(str);
+    }
 }
 
 UpdateNotifier::~UpdateNotifier()

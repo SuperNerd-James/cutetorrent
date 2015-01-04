@@ -9,7 +9,9 @@ RconWebService::RconWebService(void)
 RconWebService::~RconWebService(void)
 {
     if(listener != NULL)
-    { listener->close(); }
+    {
+        listener->close();
+    }
 
     delete mapper;
 }
@@ -94,7 +96,9 @@ void RconWebService::parseIpFilter(QString ipFilterStr)
                 if(parts[1] == "all")
                 {
                     if(listener != NULL)
-                    { listener->close(); }
+                    {
+                        listener->close();
+                    }
                 }
 
                 if(parts[1].contains('*') && !parts[1].contains('-'))
@@ -166,7 +170,9 @@ void RconWebService::Stop()
     if(listener != NULL)
     {
         if(listener->isListening())
-        { listener->close(); }
+        {
+            listener->close();
+        }
 
         delete listener;
         listener = NULL;

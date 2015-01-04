@@ -88,10 +88,15 @@ const QMetaObject* HttpListener::metaObject() const
 
 void* HttpListener::qt_metacast(const char* _clname)
 {
-    if(!_clname) { return 0; }
+    if(!_clname)
+    {
+        return 0;
+    }
 
     if(!strcmp(_clname, qt_meta_stringdata_HttpListener))
-    { return static_cast<void*>(const_cast< HttpListener*>(this)); }
+    {
+        return static_cast<void*>(const_cast< HttpListener*>(this));
+    }
 
     return QTcpServer::qt_metacast(_clname);
 }
@@ -101,12 +106,16 @@ int HttpListener::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
     _id = QTcpServer::qt_metacall(_c, _id, _a);
 
     if(_id < 0)
-    { return _id; }
+    {
+        return _id;
+    }
 
     if(_c == QMetaObject::InvokeMetaMethod)
     {
         if(_id < 1)
-        { qt_static_metacall(this, _c, _id, _a); }
+        {
+            qt_static_metacall(this, _c, _id, _a);
+        }
 
         _id -= 1;
     }

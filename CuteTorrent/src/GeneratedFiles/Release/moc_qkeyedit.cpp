@@ -73,10 +73,15 @@ const QMetaObject* QKeyEdit::metaObject() const
 
 void* QKeyEdit::qt_metacast(const char* _clname)
 {
-    if(!_clname) { return 0; }
+    if(!_clname)
+    {
+        return 0;
+    }
 
     if(!strcmp(_clname, qt_meta_stringdata_QKeyEdit))
-    { return static_cast<void*>(const_cast< QKeyEdit*>(this)); }
+    {
+        return static_cast<void*>(const_cast< QKeyEdit*>(this));
+    }
 
     return QLineEdit::qt_metacast(_clname);
 }
@@ -86,7 +91,9 @@ int QKeyEdit::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
     _id = QLineEdit::qt_metacall(_c, _id, _a);
 
     if(_id < 0)
-    { return _id; }
+    {
+        return _id;
+    }
 
     return _id;
 }

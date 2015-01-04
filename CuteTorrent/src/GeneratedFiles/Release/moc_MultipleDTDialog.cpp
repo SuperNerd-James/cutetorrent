@@ -89,13 +89,20 @@ const QMetaObject* MultipleDTDialog::metaObject() const
 
 void* MultipleDTDialog::qt_metacast(const char* _clname)
 {
-    if(!_clname) { return 0; }
+    if(!_clname)
+    {
+        return 0;
+    }
 
     if(!strcmp(_clname, qt_meta_stringdata_MultipleDTDialog))
-    { return static_cast<void*>(const_cast< MultipleDTDialog*>(this)); }
+    {
+        return static_cast<void*>(const_cast< MultipleDTDialog*>(this));
+    }
 
     if(!strcmp(_clname, "Ui::DTMountDialog"))
-    { return static_cast< Ui::DTMountDialog*>(const_cast< MultipleDTDialog*>(this)); }
+    {
+        return static_cast< Ui::DTMountDialog*>(const_cast< MultipleDTDialog*>(this));
+    }
 
     return BaseWindow<QDialog>::qt_metacast(_clname);
 }
@@ -105,12 +112,16 @@ int MultipleDTDialog::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
     _id = BaseWindow<QDialog>::qt_metacall(_c, _id, _a);
 
     if(_id < 0)
-    { return _id; }
+    {
+        return _id;
+    }
 
     if(_c == QMetaObject::InvokeMetaMethod)
     {
         if(_id < 1)
-        { qt_static_metacall(this, _c, _id, _a); }
+        {
+            qt_static_metacall(this, _c, _id, _a);
+        }
 
         _id -= 1;
     }

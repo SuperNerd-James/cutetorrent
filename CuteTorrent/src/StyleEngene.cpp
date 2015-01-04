@@ -142,7 +142,9 @@ void StyleEngene::initIcons()
     delete styleSettings;
 
     if(iconNamesMap.isEmpty())
-    { return; }
+    {
+        return;
+    }
 
     fallback = getIcon("folder");
     const char* disk_types[] =

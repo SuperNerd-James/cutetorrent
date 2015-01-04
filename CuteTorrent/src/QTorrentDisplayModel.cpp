@@ -85,7 +85,9 @@ void QTorrentDisplayModel::MountDT()
         if(tor->isDaemonToolsMountable() && (tor->isSeeding() || tor->isPaused()))
         {
             if(!tor->isPaused())
-            { tor->pause(); }
+            {
+                tor->pause();
+            }
 
             QStringList images = tor->GetImageFiles();
 
@@ -348,20 +350,28 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
         rows = StaticHelpers::reversed(rows);
 
         if(rowCount() == 0)
-        { return; }
+        {
+            return;
+        }
 
         if(selectedRow < 0)
-        { return; }
+        {
+            return;
+        }
 
         if(selectedRow >= rowCount())
-        { return; }
+        {
+            return;
+        }
 
         switch(wtf)
         {
             case stop:
             {
                 foreach(Torrent* torrent, selectedTorrents)
-                { torrent->stop(); }
+                {
+                    torrent->stop();
+                }
 
                 break;
             }
@@ -369,7 +379,9 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
             case pause:
             {
                 foreach(Torrent* torrent, selectedTorrents)
-                { torrent->pause(); }
+                {
+                    torrent->pause();
+                }
 
                 break;
             }
@@ -401,7 +413,9 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 
             case resume:
                 foreach(Torrent* torrent, selectedTorrents)
-                { torrent->resume(); }
+                {
+                    torrent->resume();
+                }
 
                 break;
 
@@ -489,7 +503,9 @@ QVariant QTorrentDisplayModel::data(const QModelIndex& index, int role) const
     const int row = index.row();
 
     if(row < 0 || row >= torrents->count())
-    { return QVariant(); }
+    {
+        return QVariant();
+    }
 
     Torrent* t = torrents->at(row);
 
@@ -517,16 +533,22 @@ QVariant QTorrentDisplayModel::data(const QModelIndex& index, int role) const
 bool QTorrentDisplayModel::removeRow(int row, bool delFiles)
 {
     if((row > torrents->count()) || (row < 0))
-    { return false; }
+    {
+        return false;
+    }
 
     if(rowCount() == 0)
-    { return false; }
+    {
+        return false;
+    }
 
     parrent->selectionModel()->reset();
     locker->lock();
 
     if(torrents->at(row) == CurrentTorrent)
-    { CurrentTorrent = NULL; }
+    {
+        CurrentTorrent = NULL;
+    }
 
     torrents->at(row)->RemoveTorrent(delFiles);
     locker->unlock();
@@ -536,10 +558,14 @@ bool QTorrentDisplayModel::removeRow(int row, bool delFiles)
 bool QTorrentDisplayModel::removeRows(int row, int count, const QModelIndex& parent)
 {
     if((row + count > torrents->count()) || (row < 0))
-    { return false; }
+    {
+        return false;
+    }
 
     if(rowCount() == 0)
-    { return false; }
+    {
+        return false;
+    }
 
     selectedRow = -1;
     parrent->selectionModel()->reset();

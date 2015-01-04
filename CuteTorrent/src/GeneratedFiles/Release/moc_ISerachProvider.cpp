@@ -94,10 +94,15 @@ const QMetaObject* ISerachProvider::metaObject() const
 
 void* ISerachProvider::qt_metacast(const char* _clname)
 {
-    if(!_clname) { return 0; }
+    if(!_clname)
+    {
+        return 0;
+    }
 
     if(!strcmp(_clname, qt_meta_stringdata_ISerachProvider))
-    { return static_cast<void*>(const_cast< ISerachProvider*>(this)); }
+    {
+        return static_cast<void*>(const_cast< ISerachProvider*>(this));
+    }
 
     return QObject::qt_metacast(_clname);
 }
@@ -107,12 +112,16 @@ int ISerachProvider::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
     _id = QObject::qt_metacall(_c, _id, _a);
 
     if(_id < 0)
-    { return _id; }
+    {
+        return _id;
+    }
 
     if(_c == QMetaObject::InvokeMetaMethod)
     {
         if(_id < 2)
-        { qt_static_metacall(this, _c, _id, _a); }
+        {
+            qt_static_metacall(this, _c, _id, _a);
+        }
 
         _id -= 2;
     }

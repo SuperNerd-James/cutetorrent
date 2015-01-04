@@ -215,7 +215,9 @@ public:
     void setupUi(QDialog* SettingsDialog)
     {
         if(SettingsDialog->objectName().isEmpty())
-        { SettingsDialog->setObjectName(QString::fromUtf8("SettingsDialog")); }
+        {
+            SettingsDialog->setObjectName(QString::fromUtf8("SettingsDialog"));
+        }
 
         SettingsDialog->resize(789, 332);
         QIcon icon;

@@ -45,7 +45,9 @@ public:
     void setupUi(QWidget* DTMountDialog)
     {
         if(DTMountDialog->objectName().isEmpty())
-        { DTMountDialog->setObjectName(QString::fromUtf8("DTMountDialog")); }
+        {
+            DTMountDialog->setObjectName(QString::fromUtf8("DTMountDialog"));
+        }
 
         DTMountDialog->resize(357, 196);
         QIcon icon;

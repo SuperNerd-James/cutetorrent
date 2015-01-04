@@ -65,7 +65,10 @@ void QtSingleCoreApplication::qt_static_metacall(QObject* _o, QMetaObject::Call 
             {
                 bool _r = _t->sendMessage((*reinterpret_cast< const QString(*) > (_a[1])), (*reinterpret_cast< int (*) > (_a[2])));
 
-                if(_a[0]) { *reinterpret_cast< bool*>(_a[0]) = _r; }
+                if(_a[0])
+                {
+                    *reinterpret_cast< bool*>(_a[0]) = _r;
+                }
             }
             break;
 
@@ -73,7 +76,10 @@ void QtSingleCoreApplication::qt_static_metacall(QObject* _o, QMetaObject::Call 
             {
                 bool _r = _t->sendMessage((*reinterpret_cast< const QString(*) > (_a[1])));
 
-                if(_a[0]) { *reinterpret_cast< bool*>(_a[0]) = _r; }
+                if(_a[0])
+                {
+                    *reinterpret_cast< bool*>(_a[0]) = _r;
+                }
             }
             break;
 
@@ -110,10 +116,15 @@ const QMetaObject* QtSingleCoreApplication::metaObject() const
 
 void* QtSingleCoreApplication::qt_metacast(const char* _clname)
 {
-    if(!_clname) { return 0; }
+    if(!_clname)
+    {
+        return 0;
+    }
 
     if(!strcmp(_clname, qt_meta_stringdata_QtSingleCoreApplication))
-    { return static_cast<void*>(const_cast< QtSingleCoreApplication*>(this)); }
+    {
+        return static_cast<void*>(const_cast< QtSingleCoreApplication*>(this));
+    }
 
     return QCoreApplication::qt_metacast(_clname);
 }
@@ -123,12 +134,16 @@ int QtSingleCoreApplication::qt_metacall(QMetaObject::Call _c, int _id, void** _
     _id = QCoreApplication::qt_metacall(_c, _id, _a);
 
     if(_id < 0)
-    { return _id; }
+    {
+        return _id;
+    }
 
     if(_c == QMetaObject::InvokeMetaMethod)
     {
         if(_id < 3)
-        { qt_static_metacall(this, _c, _id, _a); }
+        {
+            qt_static_metacall(this, _c, _id, _a);
+        }
 
         _id -= 3;
     }

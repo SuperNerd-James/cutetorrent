@@ -48,12 +48,18 @@ quint64 CreateTorrentDialog::listFolder(QString pathToList)
         QString iname(i.fileName());
 
         if(iname == "." || iname == ".." || iname.isEmpty())
-        { continue; }
+        {
+            continue;
+        }
 
         if(i.isDir())
-        { totalsize += listFolder(path + "/" + iname); }
+        {
+            totalsize += listFolder(path + "/" + iname);
+        }
         else
-        { totalsize += i.size(); }
+        {
+            totalsize += i.size();
+        }
     }
 
     return totalsize;
@@ -130,7 +136,9 @@ quint64 CreateTorrentDialog::getPiceSize()
                 needToSet = 8 * 1024;
             }
             else
-            { needToSet = 16 * 1024; }
+            {
+                needToSet = 16 * 1024;
+            }
 
             //qDebug() << needToSet;
             return needToSet;
@@ -208,7 +216,9 @@ void CreateTorrentDialog::BeginCreate()
     for(QStringList::iterator i = trackers.begin(); i != trackers.end(); ++i)
     {
         if((*i).isEmpty())
-        { trackers.removeOne(*i); }
+        {
+            trackers.removeOne(*i);
+        }
     }
 
     if(trackers.count() == 0)
@@ -227,7 +237,9 @@ void CreateTorrentDialog::BeginCreate()
     for(QStringList::iterator i = webseeds.begin(); i != webseeds.end(); ++i)
     {
         if((*i).isEmpty())
-        { webseeds.removeOne(*i); }
+        {
+            webseeds.removeOne(*i);
+        }
     }
 
     QFileInfo info(path);
@@ -246,7 +258,9 @@ void CreateTorrentDialog::BeginCreate()
         creator->create(pathEdit->text(), save_path, filterEdit->text(), trackers, webseeds, discribtionEdit->text(), privateCheckBox->isChecked(), getPiceSize() * 1024);
     }
     else
-    { createButton->setEnabled(true); }
+    {
+        createButton->setEnabled(true);
+    }
 }
 void CreateTorrentDialog::Cancel()
 {
@@ -279,7 +293,9 @@ void CreateTorrentDialog::ShowCreationFailture(QString msg)
 void CreateTorrentDialog::UpdateProgressBar(int val)
 {
     if(val <= progressBar->maximum())
-    { progressBar->setValue(val); }
+    {
+        progressBar->setValue(val);
+    }
 }
 
 QPushButton* CreateTorrentDialog::getCloseBtn()
@@ -355,9 +371,15 @@ public:
     static std::string filterString;
     static bool file_filter(std::string const& f)
     {
-        if(filename(f) [0] == '.') { return false; }
+        if(filename(f) [0] == '.')
+        {
+            return false;
+        }
 
-        if(!filterString.empty() && filename(f).find(filterString) != std::string::npos) { return false; }
+        if(!filterString.empty() && filename(f).find(filterString) != std::string::npos)
+        {
+            return false;
+        }
 
         return true;
     }
@@ -378,7 +400,10 @@ void torrentCreatorThread::run()
         FileFilter::filterString = filter.toStdString();
         add_files(fs, full_path, FileFilter::file_filter);
 
-        if(abort) { return; }
+        if(abort)
+        {
+            return;
+        }
 
         create_torrent t(fs, piece_size);
         // Add url seeds
@@ -394,18 +419,27 @@ void torrentCreatorThread::run()
             t.add_tracker(trackers.at(i).toStdString());
         }
 
-        if(abort) { return; }
+        if(abort)
+        {
+            return;
+        }
 
         set_piece_hashes(t, parent_path(full_path)
                          , boost::bind<void> (&sendProgressUpdateSignal, _1, t.num_pieces(), this));
 
-        if(abort) { return; }
+        if(abort)
+        {
+            return;
+        }
 
         t.set_creator(creator_str);
         t.set_comment((const char*) comment.toLocal8Bit());
         t.set_priv(is_private);
 
-        if(abort) { return; }
+        if(abort)
+        {
+            return;
+        }
 
         qDebug() << save_path.toLatin1().data();
         // create the torrent and print it to out

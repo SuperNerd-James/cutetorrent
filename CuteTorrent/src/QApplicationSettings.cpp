@@ -53,7 +53,9 @@ QApplicationSettings::~QApplicationSettings()
 QApplicationSettings* QApplicationSettings::getInstance()
 {
     if(_instance == NULL)
-    { _instance = new QApplicationSettings(); }
+    {
+        _instance = new QApplicationSettings();
+    }
 
     //qDebug() << "QApplicationSettings giving " <<_instanceCount<< " instance " ;
     _instanceCount++;
@@ -80,7 +82,10 @@ QStringList QApplicationSettings::GetGroupNames()
 
 void QApplicationSettings::setValue(const QString& group, const QString& key, const QVariant& value)
 {
-    if(!settings->group().isEmpty()) { settings->endGroup(); }
+    if(!settings->group().isEmpty())
+    {
+        settings->endGroup();
+    }
 
     settings->beginGroup(group);
     settings->setValue(key, value);
@@ -94,7 +99,10 @@ QVariant QApplicationSettings::value(const QString& group, const QString& key, c
     qDebug() << "QApplicationSettings::value " << group << " " << key << " " << defaultVal;
     locker->lock();
 
-    if(!settings->group().isEmpty()) { settings->endGroup(); }
+    if(!settings->group().isEmpty())
+    {
+        settings->endGroup();
+    }
 
     settings->beginGroup(group);
     QVariant res = settings->value(key);
@@ -126,7 +134,10 @@ QMap<QString, QVariant> QApplicationSettings::getGroupValues(QString group)
 {
     locker->lock();
 
-    if(!settings->group().isEmpty()) { settings->endGroup(); }
+    if(!settings->group().isEmpty())
+    {
+        settings->endGroup();
+    }
 
     settings->beginGroup(group);
     QStringList keys = settings->childKeys();
@@ -145,7 +156,10 @@ void QApplicationSettings::setGroupValues(QString group, QMap<QString, QVariant>
 {
     locker->lock();
 
-    if(!settings->group().isEmpty()) { settings->endGroup(); }
+    if(!settings->group().isEmpty())
+    {
+        settings->endGroup();
+    }
 
     settings->beginGroup(group);
     QStringList keys = values.keys();
@@ -193,7 +207,10 @@ QList<GroupForFileFiltering> QApplicationSettings::GetFileFilterGroups()
     QList<GroupForFileFiltering> res;
     locker->lock();
 
-    if(!settings->group().isEmpty()) { settings->endGroup(); }
+    if(!settings->group().isEmpty())
+    {
+        settings->endGroup();
+    }
 
     settings->beginGroup("FileFiltering");
     QStringList groupNames = settings->childKeys();
@@ -203,7 +220,9 @@ QList<GroupForFileFiltering> QApplicationSettings::GetFileFilterGroups()
         QStringList tmpVal = settings->value(groupNames.at(i)).toString().split(";;");
 
         if(tmpVal.at(0) != "savepath" && tmpVal.count() < 4)
-        { continue; }
+        {
+            continue;
+        }
         else
         {
             QString savepath = tmpVal.at(1);
@@ -245,13 +264,19 @@ QList<SchedulerTask> QApplicationSettings::GetSchedullerQueue()
         QXmlStreamReader::TokenType tType = xml.readNext();
 
         if(xml.name() == "tasks")
-        { continue; }
+        {
+            continue;
+        }
 
         if(xml.name() != "task")
-        { continue; }
+        {
+            continue;
+        }
 
         if(tType != QXmlStreamReader::StartElement)
-        { continue; }
+        {
+            continue;
+        }
 
         QXmlStreamAttributes atribbutes = xml.attributes();
         SchedulerTask::TaskType type = SchedulerTask::UNKNOWN;

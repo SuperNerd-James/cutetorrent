@@ -54,13 +54,19 @@ bool QtLockedFile::lock(LockMode mode, bool block)
     }
 
     if(mode == NoLock)
-    { return unlock(); }
+    {
+        return unlock();
+    }
 
     if(mode == m_lock_mode)
-    { return true; }
+    {
+        return true;
+    }
 
     if(m_lock_mode != NoLock)
-    { unlock(); }
+    {
+        unlock();
+    }
 
     struct flock fl;
 
@@ -79,7 +85,9 @@ bool QtLockedFile::lock(LockMode mode, bool block)
     if(ret == -1)
     {
         if(errno != EINTR && errno != EAGAIN)
-        { qWarning("QtLockedFile::lock(): fcntl: %s", strerror(errno)); }
+        {
+            qWarning("QtLockedFile::lock(): fcntl: %s", strerror(errno));
+        }
 
         return false;
     }
@@ -98,7 +106,9 @@ bool QtLockedFile::unlock()
     }
 
     if(!isLocked())
-    { return true; }
+    {
+        return true;
+    }
 
     struct flock fl;
 
@@ -125,6 +135,8 @@ bool QtLockedFile::unlock()
 QtLockedFile::~QtLockedFile()
 {
     if(isOpen())
-    { unlock(); }
+    {
+        unlock();
+    }
 }
 

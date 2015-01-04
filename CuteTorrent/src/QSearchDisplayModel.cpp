@@ -38,7 +38,10 @@ QVariant QSearchDisplayModel::data(const QModelIndex& index, int role /*= Qt::Di
         int col = index.column();
         SearchItemsStorrage* results = m_pSearchEngine->GetResults();
 
-        if(row > results->length()) { return QVariant(); }
+        if(row > results->length())
+        {
+            return QVariant();
+        }
 
         SearchResult* res = (*results) [row];
 

@@ -283,7 +283,9 @@ void BaseWindow<T>::resizeWindow(QMouseEvent* e)
                 }
             }
             else
-            { resize(wWidth, yMouse + 1); }
+            {
+                resize(wWidth, yMouse + 1);
+            }
         }
         else if(cursor().shape() == Qt::SizeHorCursor)
         {
@@ -299,7 +301,9 @@ void BaseWindow<T>::resizeWindow(QMouseEvent* e)
                 }
             }
             else
-            { resize(xMouse, wHeight); }
+            {
+                resize(xMouse, wHeight);
+            }
         }
         else if(cursor().shape() == Qt::SizeBDiagCursor)
         {
@@ -365,7 +369,9 @@ void BaseWindow<T>::resizeWindow(QMouseEvent* e)
                 }
             }
             else
-            { resize(xMouse + 1, yMouse + 1); }
+            {
+                resize(xMouse + 1, yMouse + 1);
+            }
         }
 
         e->accept();
@@ -390,11 +396,15 @@ void BaseWindow<T>::mouseDoubleClickEvent(QMouseEvent* e)
     if(position.x() < geometry.right() && position.y() < geometry.bottom()
             && position.x() >= geometry.x() && position.y() >= geometry.y()
             && getTitleIcon()->isVisible())
-    { close(); }
+    {
+        close();
+    }
     else if(position.x() < getTitleBar()->geometry().width()
             && position.y() < getTitleBar()->geometry().height()
             && m_titleMode != FullScreenMode)
-    { maximizeBtnClicked(); }
+    {
+        maximizeBtnClicked();
+    }
 
     e->accept();
 }
@@ -425,14 +435,22 @@ void BaseWindow<T>::mousePressEvent(QMouseEvent* e)
             if(pos.y() <= PIXELS_TO_ACT)
             {
                 if(pos.x() <= PIXELS_TO_ACT)
-                { resizeDiagSupEsq = true; }
+                {
+                    resizeDiagSupEsq = true;
+                }
                 else if(pos.x() >= geometry().width() - PIXELS_TO_ACT)
-                { resizeDiagSupDer = true; }
+                {
+                    resizeDiagSupDer = true;
+                }
                 else
-                { resizeVerSup = true; }
+                {
+                    resizeVerSup = true;
+                }
             }
             else if(pos.x() <= PIXELS_TO_ACT)
-            { resizeHorEsq = true; }
+            {
+                resizeHorEsq = true;
+            }
         }
         else if(pos.x() >= PIXELS_TO_ACT && pos.x() < getTitleBar()->geometry().width()
                 && pos.y() >= PIXELS_TO_ACT && pos.y() < getTitleBar()->geometry().height())
@@ -466,7 +484,9 @@ void BaseWindow<T>::mouseMoveEvent(QMouseEvent* e)
         moveWindow(e);
     }
     else if(allowToResize)
-    { resizeWindow(e); }
+    {
+        resizeWindow(e);
+    }
     //Cursor part dreta
     else if(isResizeEnabled)
     {
@@ -475,11 +495,17 @@ void BaseWindow<T>::mouseMoveEvent(QMouseEvent* e)
             inResizeZone = true;
 
             if(yMouse >= wHeight - PIXELS_TO_ACT)
-            { setCursor(Qt::SizeFDiagCursor); }
+            {
+                setCursor(Qt::SizeFDiagCursor);
+            }
             else if(yMouse <= PIXELS_TO_ACT)
-            { setCursor(Qt::SizeBDiagCursor); }
+            {
+                setCursor(Qt::SizeBDiagCursor);
+            }
             else
-            { setCursor(Qt::SizeHorCursor); }
+            {
+                setCursor(Qt::SizeHorCursor);
+            }
 
             resizeWindow(e);
         }
@@ -489,11 +515,17 @@ void BaseWindow<T>::mouseMoveEvent(QMouseEvent* e)
             inResizeZone = true;
 
             if(yMouse >= wHeight - PIXELS_TO_ACT)
-            { setCursor(Qt::SizeBDiagCursor); }
+            {
+                setCursor(Qt::SizeBDiagCursor);
+            }
             else if(yMouse <= PIXELS_TO_ACT)
-            { setCursor(Qt::SizeFDiagCursor); }
+            {
+                setCursor(Qt::SizeFDiagCursor);
+            }
             else
-            { setCursor(Qt::SizeHorCursor); }
+            {
+                setCursor(Qt::SizeHorCursor);
+            }
 
             resizeWindow(e);
         }

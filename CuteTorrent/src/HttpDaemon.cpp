@@ -10,7 +10,9 @@ HttpDaemon::HttpDaemon(quint16 port, QString baseFolder, QObject* parent /*= 0*/
 void HttpDaemon::incomingConnection(int socket)
 {
     if(disabled)
-    { return; }
+    {
+        return;
+    }
 
     QTcpSocket* s = new QTcpSocket(this);
     connect(s, SIGNAL(readyRead()), this, SLOT(readClient()));
@@ -31,7 +33,9 @@ void HttpDaemon::resume()
 void HttpDaemon::readClient()
 {
     if(disabled)
-    { return; }
+    {
+        return;
+    }
 
     QTcpSocket* socket = (QTcpSocket*) sender();
 

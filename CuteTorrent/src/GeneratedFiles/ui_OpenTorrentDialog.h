@@ -66,7 +66,9 @@ public:
     void setupUi(QDialog* OpenTorrentDialog)
     {
         if(OpenTorrentDialog->objectName().isEmpty())
-        { OpenTorrentDialog->setObjectName(QString::fromUtf8("OpenTorrentDialog")); }
+        {
+            OpenTorrentDialog->setObjectName(QString::fromUtf8("OpenTorrentDialog"));
+        }
 
         OpenTorrentDialog->resize(436, 482);
         QIcon icon;

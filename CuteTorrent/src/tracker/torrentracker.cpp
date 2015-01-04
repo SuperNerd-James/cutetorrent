@@ -59,6 +59,8 @@ void TorrentTracker::stop()
     if(httpServer != NULL)
     {
         if(httpServer->isListening())
-        { httpServer->close(); }
+        {
+            httpServer->close();
+        }
     }
 }

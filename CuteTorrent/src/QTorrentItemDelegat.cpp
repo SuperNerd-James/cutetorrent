@@ -224,7 +224,9 @@ QString QTorrentItemDelegat::GetStatusString(const Torrent& tor) const
     if(tor.isSeeding())
     {
         if(!upSpeed.isEmpty())
-        { return QString("%2 %3 - %1").arg(status).arg(QChar(0x2191)).arg(upSpeed); }
+        {
+            return QString("%2 %3 - %1").arg(status).arg(QChar(0x2191)).arg(upSpeed);
+        }
     }
 
     return status;
@@ -280,24 +282,48 @@ void QTorrentItemDelegat::drawTorrent(QPainter* painter, const QStyleOptionViewI
     //style->drawControl(QStyle::CE_ItemViewItem,&option,painter);
     QIcon::Mode im;
 
-    if(isPaused || !(option.state & QStyle::State_Enabled)) { im = QIcon::Disabled; }
-    else if(option.state & QStyle::State_Selected) { im = QIcon::Selected; }
-    else { im = QIcon::Normal; }
+    if(isPaused || !(option.state & QStyle::State_Enabled))
+    {
+        im = QIcon::Disabled;
+    }
+    else if(option.state & QStyle::State_Selected)
+    {
+        im = QIcon::Selected;
+    }
+    else
+    {
+        im = QIcon::Normal;
+    }
 
     QIcon::State qs;
 
-    if(isPaused) { qs = QIcon::Off; }
-    else { qs = QIcon::On; }
+    if(isPaused)
+    {
+        qs = QIcon::Off;
+    }
+    else
+    {
+        qs = QIcon::On;
+    }
 
     QPalette::ColorGroup cg = QPalette::Normal;
 
-    if(isPaused || !(option.state & QStyle::State_Enabled)) { cg = QPalette::Disabled; }
+    if(isPaused || !(option.state & QStyle::State_Enabled))
+    {
+        cg = QPalette::Disabled;
+    }
 
-    if(cg == QPalette::Normal && !(option.state & QStyle::State_Active)) { cg = QPalette::Inactive; }
+    if(cg == QPalette::Normal && !(option.state & QStyle::State_Active))
+    {
+        cg = QPalette::Inactive;
+    }
 
     QPalette::ColorRole cr;
 
-    if(option.state & QStyle::State_Selected) { cr = QPalette::HighlightedText; }
+    if(option.state & QStyle::State_Selected)
+    {
+        cr = QPalette::HighlightedText;
+    }
 
     cr = QPalette::Text;
     // layout
@@ -323,9 +349,13 @@ void QTorrentItemDelegat::drawTorrent(QPainter* painter, const QStyleOptionViewI
     //statusArea.setWidth(max_width);
     // render
     if(tor.hasError())
-    { painter->setPen(QColor("red")); }
+    {
+        painter->setPen(QColor("red"));
+    }
     else
-    { painter->setPen(opt.palette.color(cg, cr)); }
+    {
+        painter->setPen(opt.palette.color(cg, cr));
+    }
 
     mimeIcon.paint(painter, iconArea, Qt::AlignCenter, im, qs);
     painter->setFont(nameFont);
