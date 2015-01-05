@@ -18,19 +18,15 @@ HttpRequestHandler::~HttpRequestHandler() {}
 
 void HttpRequestHandler::initSettings()
 {
-	
 	QApplicationSettings* settings = QApplicationSettings::getInstance();
 	requireAuth = settings->valueBool(serverName, "requireAuth", false);
 	account.username = settings->valueString(serverName, "webui_login", "admin");
 	account.password = settings->valueString(serverName, "webui_password", "admin");
-	
-	
 	QApplicationSettings::FreeInstance();
 }
 void HttpRequestHandler::service(HttpRequest& request, HttpResponse& response)
 {
 	qCritical("HttpRequestHandler: you need to override the dispatch() function");
-	
 	response.setStatus(501, "not implemented");
 	response.write("501 not implemented", true);
 }
@@ -67,12 +63,10 @@ bool HttpRequestHandler::CheckCreditinals(HttpRequest& request, HttpResponse& re
 		QMap<QString, QString>* parametrsMap = new QMap<QString, QString>();;
 		QStringList paremaetrsParts = parametrs.split(',');
 
-		
 		for(int i = 0; i < paremaetrsParts.count(); i++)
 		{
 			QStringList keyValue = paremaetrsParts[i].split('=');
 
-			
 			if(keyValue.count() == 2)
 			{
 				parametrsMap->insert(keyValue[0].trimmed(), keyValue[1].trimmed().replace("\"", ""));
@@ -90,14 +84,11 @@ bool HttpRequestHandler::CheckCreditinals(HttpRequest& request, HttpResponse& re
 
 				value = value.replace("\"", "");
 				parametrsMap->insert(key, value);
-				
 			}
 		}
 
 		if(parametrsMap->value("username") != account.username)
 		{
-			
-			
 			response.setStatus(401, "Unauthorized");
 			response.setHeader("WWW-Authenticate", "Digest realm=\"realm@host.com\",qop=\"auth,auth-int\",nonce=\"dcd98b7102dd2f0e8b11d0f600bfb0c093\",opaque=\"5ccc069c403ebaf9f0171e9517f40e41\"");
 			response.write("<BODY><H1>401 Unauthorized.</H1></BODY>");
@@ -115,16 +106,12 @@ bool HttpRequestHandler::CheckCreditinals(HttpRequest& request, HttpResponse& re
 
 		if(Response.toHex() != parametrsMap->value("response"))
 		{
-			
-			
 			response.setStatus(401, "Unauthorized");
 			response.setHeader("WWW-Authenticate", "Digest realm=\"realm@host.com\",qop=\"auth,auth-int\",nonce=\"dcd98b7102dd2f0e8b11d0f600bfb0c093\",opaque=\"5ccc069c403ebaf9f0171e9517f40e41\"");
 			response.write("<BODY><H1>401 Unauthorized.</H1></BODY>");
 			return false;
 		}
 
-		
-		
 		delete parametrsMap;
 	}
 

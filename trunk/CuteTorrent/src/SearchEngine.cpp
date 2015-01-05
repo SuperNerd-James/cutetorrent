@@ -1,10 +1,12 @@
 #include "SearchEngine.h"
 #include <QMessageBox>
 #include "ExtratorrentSearchProvider.h"
+#include "RutorSearchProvider.h"
 SearchEngine::SearchEngine()
 {
 	m_pSearchProviders.append(new KickassSearchProvider());
 	m_pSearchProviders.append(new ExtratorrentSearchProvider());
+	m_pSearchProviders.append(new RutorSearchProvider());
 
 	for each(ISerachProvider * searchProvider in m_pSearchProviders)
 	{

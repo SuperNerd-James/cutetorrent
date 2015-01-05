@@ -39,7 +39,7 @@ public:
 
 	void setupUi(QWidget* MediaControls)
 	{
-		if(MediaControls->objectName().isEmpty())
+		if (MediaControls->objectName().isEmpty())
 		{
 			MediaControls->setObjectName(QString::fromUtf8("MediaControls"));
 		}

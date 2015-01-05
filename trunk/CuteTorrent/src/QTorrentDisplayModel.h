@@ -40,7 +40,7 @@ class QTorrentDisplayModel: public QAbstractListModel
 private:
 	TorrentStorrage* torrents;
 	int auto_id;
-	QListView* parrent;
+	QListView* m_pTorrentListView;
 	int selectedRow;
 	QMenu* menu;
 	QMenu* groupsMenu;

@@ -51,30 +51,30 @@ static const char qt_meta_stringdata_Application[] =
 
 void Application::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
 {
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
 		Q_ASSERT(staticMetaObject.cast(_o));
 		Application* _t = static_cast<Application*>(_o);
 
-		switch(_id)
+		switch (_id)
 		{
 			case 0:
-				_t->OpenTorrent((*reinterpret_cast< QString(*) > (_a[1])));
+				_t->OpenTorrent((*reinterpret_cast< QString(*)>(_a[1])));
 				break;
 
 			case 1:
-				_t->setLanguage((*reinterpret_cast< QString(*) > (_a[1])));
+				_t->setLanguage((*reinterpret_cast< QString(*)>(_a[1])));
 				break;
 
 			case 2:
-				_t->setLanguageQt((*reinterpret_cast< QString(*) > (_a[1])));
+				_t->setLanguageQt((*reinterpret_cast< QString(*)>(_a[1])));
 				break;
 
 			case 3:
 			{
 				QString _r = _t->currentLocale();
 
-				if(_a[0])
+				if (_a[0])
 				{
 					*reinterpret_cast< QString*>(_a[0]) = _r;
 				}
@@ -114,12 +114,12 @@ const QMetaObject* Application::metaObject() const
 
 void* Application::qt_metacast(const char* _clname)
 {
-	if(!_clname)
+	if (!_clname)
 	{
 		return 0;
 	}
 
-	if(!strcmp(_clname, qt_meta_stringdata_Application))
+	if (!strcmp(_clname, qt_meta_stringdata_Application))
 	{
 		return static_cast<void*>(const_cast< Application*>(this));
 	}
@@ -131,14 +131,14 @@ int Application::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
 {
 	_id = QtSingleApplication::qt_metacall(_c, _id, _a);
 
-	if(_id < 0)
+	if (_id < 0)
 	{
 		return _id;
 	}
 
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
-		if(_id < 4)
+		if (_id < 4)
 		{
 			qt_static_metacall(this, _c, _id, _a);
 		}

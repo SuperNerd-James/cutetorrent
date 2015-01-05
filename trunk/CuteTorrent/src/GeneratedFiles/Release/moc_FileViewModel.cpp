@@ -53,15 +53,15 @@ static const char qt_meta_stringdata_FileViewModel[] =
 
 void FileViewModel::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
 {
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
 		Q_ASSERT(staticMetaObject.cast(_o));
 		FileViewModel* _t = static_cast<FileViewModel*>(_o);
 
-		switch(_id)
+		switch (_id)
 		{
 			case 0:
-				_t->FileTabContextMenu((*reinterpret_cast< const QPoint(*) > (_a[1])));
+				_t->FileTabContextMenu((*reinterpret_cast< const QPoint(*)>(_a[1])));
 				break;
 
 			case 1:
@@ -121,12 +121,12 @@ const QMetaObject* FileViewModel::metaObject() const
 
 void* FileViewModel::qt_metacast(const char* _clname)
 {
-	if(!_clname)
+	if (!_clname)
 	{
 		return 0;
 	}
 
-	if(!strcmp(_clname, qt_meta_stringdata_FileViewModel))
+	if (!strcmp(_clname, qt_meta_stringdata_FileViewModel))
 	{
 		return static_cast<void*>(const_cast< FileViewModel*>(this));
 	}
@@ -138,14 +138,14 @@ int FileViewModel::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
 {
 	_id = QAbstractItemModel::qt_metacall(_c, _id, _a);
 
-	if(_id < 0)
+	if (_id < 0)
 	{
 		return _id;
 	}
 
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
-		if(_id < 7)
+		if (_id < 7)
 		{
 			qt_static_metacall(this, _c, _id, _a);
 		}

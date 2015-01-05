@@ -49,12 +49,12 @@ static const char qt_meta_stringdata_OpenTorrentDialog[] =
 
 void OpenTorrentDialog::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
 {
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
 		Q_ASSERT(staticMetaObject.cast(_o));
 		OpenTorrentDialog* _t = static_cast<OpenTorrentDialog*>(_o);
 
-		switch(_id)
+		switch (_id)
 		{
 			case 0:
 				_t->reject();
@@ -73,7 +73,7 @@ void OpenTorrentDialog::qt_static_metacall(QObject* _o, QMetaObject::Call _c, in
 				break;
 
 			case 4:
-				_t->DownloadMetadataCompleted((*reinterpret_cast< openmagnet_info(*) > (_a[1])));
+				_t->DownloadMetadataCompleted((*reinterpret_cast< openmagnet_info(*)>(_a[1])));
 				break;
 
 			default:
@@ -109,12 +109,12 @@ const QMetaObject* OpenTorrentDialog::metaObject() const
 
 void* OpenTorrentDialog::qt_metacast(const char* _clname)
 {
-	if(!_clname)
+	if (!_clname)
 	{
 		return 0;
 	}
 
-	if(!strcmp(_clname, qt_meta_stringdata_OpenTorrentDialog))
+	if (!strcmp(_clname, qt_meta_stringdata_OpenTorrentDialog))
 	{
 		return static_cast<void*>(const_cast< OpenTorrentDialog*>(this));
 	}
@@ -126,14 +126,14 @@ int OpenTorrentDialog::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
 {
 	_id = BaseWindow<QDialog>::qt_metacall(_c, _id, _a);
 
-	if(_id < 0)
+	if (_id < 0)
 	{
 		return _id;
 	}
 
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
-		if(_id < 5)
+		if (_id < 5)
 		{
 			qt_static_metacall(this, _c, _id, _a);
 		}

@@ -47,7 +47,6 @@ QApplicationSettings::QApplicationSettings()
 }
 QApplicationSettings::~QApplicationSettings()
 {
-	
 	WriteSettings();
 }
 QApplicationSettings* QApplicationSettings::getInstance()
@@ -57,7 +56,6 @@ QApplicationSettings* QApplicationSettings::getInstance()
 		_instance = new QApplicationSettings();
 	}
 
-	
 	_instanceCount++;
 	return _instance;
 }
@@ -65,7 +63,6 @@ void QApplicationSettings::FreeInstance()
 {
 	_instanceCount--;
 
-	
 	if(!_instanceCount)
 	{
 		_instance->~QApplicationSettings();
@@ -306,7 +303,6 @@ QList<SchedulerTask> QApplicationSettings::GetSchedullerQueue()
 			}
 			else
 			{
-				
 			}
 		}
 
@@ -339,7 +335,6 @@ QList<SchedulerTask> QApplicationSettings::GetSchedullerQueue()
 
 	if(xml.hasError())
 	{
-		
 	}
 
 	file.close();
@@ -404,14 +399,12 @@ void QApplicationSettings::SaveSchedullerQueue(QList<SchedulerTask>& tasks)
 	QXmlStreamWriter xml(&file);
 	xml.setAutoFormatting(true);
 	xml.writeStartDocument();
-	
 	qSort(tasks);
 	xml.writeStartElement("tasks");
 
 	for(QQueue<SchedulerTask>::iterator i = tasks.begin(); i != tasks.end(); ++i)
 	{
 		xml.writeStartElement("task");
-		
 		xml.writeAttribute("TYPE", StaticHelpers::SchedulerTypeToString(i->type()));
 		xml.writeAttribute("NAME", i->name());
 		xml.writeAttribute("LIMIT", QString::number(i->limit()));

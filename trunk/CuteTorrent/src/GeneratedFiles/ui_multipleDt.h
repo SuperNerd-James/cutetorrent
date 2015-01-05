@@ -44,7 +44,7 @@ public:
 
 	void setupUi(QWidget* DTMountDialog)
 	{
-		if(DTMountDialog->objectName().isEmpty())
+		if (DTMountDialog->objectName().isEmpty())
 		{
 			DTMountDialog->setObjectName(QString::fromUtf8("DTMountDialog"));
 		}

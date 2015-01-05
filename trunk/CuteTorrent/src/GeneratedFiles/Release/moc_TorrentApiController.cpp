@@ -73,12 +73,12 @@ const QMetaObject* TorrentApiController::metaObject() const
 
 void* TorrentApiController::qt_metacast(const char* _clname)
 {
-	if(!_clname)
+	if (!_clname)
 	{
 		return 0;
 	}
 
-	if(!strcmp(_clname, qt_meta_stringdata_TorrentApiController))
+	if (!strcmp(_clname, qt_meta_stringdata_TorrentApiController))
 	{
 		return static_cast<void*>(const_cast< TorrentApiController*>(this));
 	}
@@ -90,7 +90,7 @@ int TorrentApiController::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
 {
 	_id = HttpRequestHandler::qt_metacall(_c, _id, _a);
 
-	if(_id < 0)
+	if (_id < 0)
 	{
 		return _id;
 	}

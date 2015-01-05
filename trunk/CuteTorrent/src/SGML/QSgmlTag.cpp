@@ -131,16 +131,21 @@ void QSgmlTag::SetNameAttributes(const QString& InnerTag)
 // check if attribute has the value
 bool QSgmlTag::checkAttribute(QString AtrName, QString AtrValue)
 {
-	QString sValue = Attributes.value(AtrName);
+	if (Attributes.contains(AtrName))
+	{
+		QString sValue = Attributes.value(AtrName);
 
-	if(sValue == AtrValue)
-	{
-		return true;
+		if (sValue == AtrValue)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
 	}
-	else
-	{
-		return false;
-	}
+
+	return false;
 }
 
 // get the next tag on the same lefel

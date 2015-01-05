@@ -69,7 +69,6 @@ SettingsDialog::SettingsDialog(QWidget* parrent, int flags) : BaseWindow(BaseWin
 {
 	setupUi(this);
 	previousFocuse = NULL;
-	
 	settings = QApplicationSettings::getInstance();
 	rcon = RconWebService::getInstance();
 	tracker = TorrentTracker::getInstance();
@@ -279,7 +278,6 @@ SettingsDialog::~SettingsDialog()
 {
 	RconWebService::freeInstance();
 	TorrentTracker::freeInstance();
-	
 	QApplicationSettings::FreeInstance();
 }
 void SettingsDialog::ApplySettings()
@@ -412,7 +410,6 @@ void SettingsDialog::ApplySettings()
 		}
 	}
 
-	
 	if(settings->valueBool("TorrentTracker", "enabled", false))
 	{
 		tracker->start();

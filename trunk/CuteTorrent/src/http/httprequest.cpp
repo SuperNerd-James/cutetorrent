@@ -10,21 +10,18 @@
 #include "QApplicationSettings.h"
 HttpRequest::HttpRequest()
 {
-	
 	QApplicationSettings* settings = QApplicationSettings::getInstance();
 	status = waitForRequest;
 	currentSize = 0;
 	expectedBodySize = 0;
 	maxSize = settings->value("WebControl", "maxRequestSize", "16000").toInt();
 	maxMultiPartSize = settings->value("WebControl", "maxMultiPartSize", "1000000").toInt();
-	
 	QApplicationSettings::FreeInstance();
 }
 
 void HttpRequest::readRequest(QTcpSocket& socket)
 {
 #ifdef SUPERVERBOSE
-	
 #endif
 	int toRead = maxSize - currentSize + 1; // allow one byte more to be able to detect overflow
 	QByteArray newData = socket.readLine(toRead).trimmed();
@@ -52,7 +49,6 @@ void HttpRequest::readRequest(QTcpSocket& socket)
 void HttpRequest::readHeader(QTcpSocket& socket)
 {
 #ifdef SUPERVERBOSE
-	
 #endif
 	int toRead = maxSize - currentSize + 1; // allow one byte more to be able to detect overflow
 	QByteArray newData = socket.readLine(toRead).trimmed();
@@ -66,15 +62,14 @@ void HttpRequest::readHeader(QTcpSocket& socket)
 		QByteArray value = newData.mid(colon + 1).trimmed();
 		headers.insert(currentHeader, value);
 #ifdef SUPERVERBOSE
-		
 #endif
 	}
 	else if(!newData.isEmpty())
 	{
 		// received another line - belongs to the previous header
 #ifdef SUPERVERBOSE
-		
 #endif
+
 		// Received additional line of previous header
 		if(headers.contains(currentHeader))
 		{
@@ -85,7 +80,6 @@ void HttpRequest::readHeader(QTcpSocket& socket)
 	{
 		// received an empty line - end of headers reached
 #ifdef SUPERVERBOSE
-		
 #endif
 		// Empty line received, that means all headers have been received
 		// Check for multipart/form-data
@@ -111,7 +105,6 @@ void HttpRequest::readHeader(QTcpSocket& socket)
 		if(expectedBodySize == 0)
 		{
 #ifdef SUPERVERBOSE
-			
 #endif
 			status = complete;
 		}
@@ -128,7 +121,6 @@ void HttpRequest::readHeader(QTcpSocket& socket)
 		else
 		{
 #ifdef SUPERVERBOSE
-			
 #endif
 			status = waitForBody;
 		}
@@ -143,7 +135,6 @@ void HttpRequest::readBody(QTcpSocket& socket)
 	{
 		// normal body, no multipart
 #ifdef SUPERVERBOSE
-		
 #endif
 		int toRead = expectedBodySize - bodyData.size();
 		QByteArray newData = socket.read(toRead);
@@ -159,8 +150,8 @@ void HttpRequest::readBody(QTcpSocket& socket)
 	{
 		// multipart body, store into temp file
 #ifdef SUPERVERBOSE
-		
 #endif
+
 		if(!tempFile.isOpen())
 		{
 			tempFile.open();
@@ -185,7 +176,6 @@ void HttpRequest::readBody(QTcpSocket& socket)
 		else if(fileSize >= expectedBodySize)
 		{
 #ifdef SUPERVERBOSE
-			
 #endif
 			tempFile.flush();
 
@@ -204,7 +194,6 @@ void HttpRequest::readBody(QTcpSocket& socket)
 void HttpRequest::decodeRequestParams()
 {
 #ifdef SUPERVERBOSE
-	
 #endif
 	// Get URL parameters
 	QByteArray rawParameters;
@@ -256,7 +245,6 @@ void HttpRequest::decodeRequestParams()
 void HttpRequest::extractCookies()
 {
 #ifdef SUPERVERBOSE
-	
 #endif
 
 	foreach(QByteArray cookieStr, headers.values("Cookie"))
@@ -266,7 +254,6 @@ void HttpRequest::extractCookies()
 		foreach(QByteArray part, list)
 		{
 #ifdef SUPERVERBOSE
-			
 #endif                // Split the part into name and value
 			QByteArray name;
 			QByteArray value;
@@ -413,14 +400,12 @@ QByteArray HttpRequest::urlDecode(const QByteArray& sourceUrl)
 
 void HttpRequest::parseMultiPartFile()
 {
-	
 	tempFile.seek(0);
 	bool finished = false;
 
 	while(!tempFile.atEnd() && !finished && !tempFile.error())
 	{
 #ifdef SUPERVERBOSE
-		
 #endif
 		QByteArray fieldName;
 		QByteArray fileName;
@@ -450,12 +435,10 @@ void HttpRequest::parseMultiPartFile()
 					}
 
 #ifdef SUPERVERBOSE
-					
 #endif
 				}
 				else
 				{
-					
 				}
 			}
 			else if(line.isEmpty())
@@ -465,7 +448,6 @@ void HttpRequest::parseMultiPartFile()
 		}
 
 #ifdef SUPERVERBOSE
-		
 #endif
 		QTemporaryFile* uploadedFile = 0;
 		QByteArray fieldValue;
@@ -483,21 +465,17 @@ void HttpRequest::parseMultiPartFile()
 					// last field was a form field
 					fieldValue.remove(fieldValue.size() - 2, 2);
 					parameters.insert(fieldName, fieldValue);
-					
 				}
 				else if(!fileName.isEmpty() && !fieldName.isEmpty())
 				{
 					// last field was a file
 #ifdef SUPERVERBOSE
-					
 #endif
 					uploadedFile->resize(uploadedFile->size() - 2);
 					uploadedFile->flush();
 					uploadedFile->seek(0);
 					parameters.insert(fieldName, fileName);
-					
 					uploadedFiles.insert(fieldName, uploadedFile);
-					
 				}
 
 				if(line.contains(boundary + "--"))
@@ -541,7 +519,6 @@ void HttpRequest::parseMultiPartFile()
 	}
 
 #ifdef SUPERVERBOSE
-	
 #endif
 }
 

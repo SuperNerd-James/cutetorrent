@@ -5,7 +5,8 @@ class SearchResult
 {
 public:
 	QString Name;
-	QString TorrentUrl;
+	QString TorrentFileUrl;
+	QString TorrentDescUrl;
 	QString Engine;
 	long leechers;
 	long seeders;
@@ -17,7 +18,7 @@ public:
 			return false;
 		}
 
-		if(TorrentUrl != other.TorrentUrl)
+		if(TorrentFileUrl != other.TorrentFileUrl)
 		{
 			return false;
 		}

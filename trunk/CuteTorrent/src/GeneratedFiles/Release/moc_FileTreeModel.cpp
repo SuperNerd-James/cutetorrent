@@ -73,12 +73,12 @@ const QMetaObject* FileTreeModel::metaObject() const
 
 void* FileTreeModel::qt_metacast(const char* _clname)
 {
-	if(!_clname)
+	if (!_clname)
 	{
 		return 0;
 	}
 
-	if(!strcmp(_clname, qt_meta_stringdata_FileTreeModel))
+	if (!strcmp(_clname, qt_meta_stringdata_FileTreeModel))
 	{
 		return static_cast<void*>(const_cast< FileTreeModel*>(this));
 	}
@@ -90,7 +90,7 @@ int FileTreeModel::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
 {
 	_id = QAbstractItemModel::qt_metacall(_c, _id, _a);
 
-	if(_id < 0)
+	if (_id < 0)
 	{
 		return _id;
 	}

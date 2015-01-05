@@ -42,7 +42,7 @@ public:
 
 	void setupUi(QDialog* MessageBox)
 	{
-		if(MessageBox->objectName().isEmpty())
+		if (MessageBox->objectName().isEmpty())
 		{
 			MessageBox->setObjectName(QString::fromUtf8("MessageBox"));
 		}

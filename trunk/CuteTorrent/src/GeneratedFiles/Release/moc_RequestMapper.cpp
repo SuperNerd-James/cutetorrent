@@ -73,12 +73,12 @@ const QMetaObject* RequestMapper::metaObject() const
 
 void* RequestMapper::qt_metacast(const char* _clname)
 {
-	if(!_clname)
+	if (!_clname)
 	{
 		return 0;
 	}
 
-	if(!strcmp(_clname, qt_meta_stringdata_RequestMapper))
+	if (!strcmp(_clname, qt_meta_stringdata_RequestMapper))
 	{
 		return static_cast<void*>(const_cast< RequestMapper*>(this));
 	}
@@ -90,7 +90,7 @@ int RequestMapper::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
 {
 	_id = HttpRequestHandler::qt_metacall(_c, _id, _a);
 
-	if(_id < 0)
+	if (_id < 0)
 	{
 		return _id;
 	}

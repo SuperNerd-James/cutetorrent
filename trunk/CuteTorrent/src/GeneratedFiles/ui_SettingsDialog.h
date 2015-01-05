@@ -9,7 +9,6 @@
 #ifndef UI_SETTINGSDIALOG_H
 #define UI_SETTINGSDIALOG_H
 
-#include <QtCore/QLocale>
 #include <QtCore/QVariant>
 #include <QtGui/QAction>
 #include <QtGui/QApplication>
@@ -50,9 +49,6 @@ public:
 	QPushButton* pbClose;
 	QWidget* m_centralWidget;
 	QGridLayout* gridLayout_4;
-	QListWidget* listWidget;
-	QSpacerItem* horizontalSpacer_2;
-	QSpacerItem* horizontalSpacer;
 	QDialogButtonBox* buttonBox;
 	QStackedWidget* stackedWidget;
 	QWidget* torrentTab;
@@ -61,10 +57,6 @@ public:
 	QGridLayout* gridLayout_2;
 	QLabel* label_23;
 	QLineEdit* trackerPortEdit;
-	QLabel* label_26;
-	QComboBox* localeComboBox;
-	QComboBox* styleComboBox;
-	QLabel* label_8;
 	QGroupBox* groupBox_2;
 	QGridLayout* gridLayout_3;
 	QLabel* label_6;
@@ -77,10 +69,14 @@ public:
 	QLineEdit* activeDownloadLimitEdit;
 	QSpinBox* uploadLimitEdit;
 	QSpinBox* downloadLimitEdit;
-	QCheckBox* asociationCheckBox;
-	QCheckBox* magnetAssociationCheckBox;
+	QComboBox* styleComboBox;
 	QCheckBox* runOnbootCheckBox;
 	QCheckBox* startMinimizedCheckBox;
+	QCheckBox* asociationCheckBox;
+	QCheckBox* magnetAssociationCheckBox;
+	QLabel* label_26;
+	QComboBox* localeComboBox;
+	QLabel* label_8;
 	QWidget* page;
 	QGridLayout* gridLayout_20;
 	QLineEdit* portEdit;
@@ -211,15 +207,16 @@ public:
 	QScrollArea* hotKeyScrollArea;
 	QWidget* keyMapContainer;
 	QGridLayout* gridLayout_19;
+	QListWidget* listWidget;
 
 	void setupUi(QDialog* SettingsDialog)
 	{
-		if(SettingsDialog->objectName().isEmpty())
+		if (SettingsDialog->objectName().isEmpty())
 		{
 			SettingsDialog->setObjectName(QString::fromUtf8("SettingsDialog"));
 		}
 
-		SettingsDialog->resize(789, 332);
+		SettingsDialog->resize(793, 333);
 		QIcon icon;
 		icon.addFile(QString::fromUtf8(":/icons/app.ico"), QSize(), QIcon::Normal, QIcon::Off);
 		SettingsDialog->setWindowIcon(icon);
@@ -264,46 +261,17 @@ public:
 		gridLayout_4->setSpacing(0);
 		gridLayout_4->setObjectName(QString::fromUtf8("gridLayout_4"));
 		gridLayout_4->setContentsMargins(6, 0, 6, 6);
-		listWidget = new QListWidget(m_centralWidget);
-		new QListWidgetItem(listWidget);
-		new QListWidgetItem(listWidget);
-		new QListWidgetItem(listWidget);
-		new QListWidgetItem(listWidget);
-		new QListWidgetItem(listWidget);
-		new QListWidgetItem(listWidget);
-		new QListWidgetItem(listWidget);
-		new QListWidgetItem(listWidget);
-		new QListWidgetItem(listWidget);
-		listWidget->setObjectName(QString::fromUtf8("listWidget"));
-		QSizePolicy sizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
-		sizePolicy.setHorizontalStretch(0);
-		sizePolicy.setVerticalStretch(0);
-		sizePolicy.setHeightForWidth(listWidget->sizePolicy().hasHeightForWidth());
-		listWidget->setSizePolicy(sizePolicy);
-		listWidget->setMinimumSize(QSize(156, 280));
-		listWidget->setMaximumSize(QSize(156, 280));
-		listWidget->setStyleSheet(QString::fromUtf8("\n"
-		                          "                    QListView::item{\n"
-		                          "                    min-height:28px;\n"
-		                          "                    }\n"
-		                          "                  "));
-		listWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-		listWidget->setResizeMode(QListView::Adjust);
-		gridLayout_4->addWidget(listWidget, 0, 0, 1, 1);
-		horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-		gridLayout_4->addItem(horizontalSpacer_2, 1, 1, 1, 2);
-		horizontalSpacer = new QSpacerItem(330, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
-		gridLayout_4->addItem(horizontalSpacer, 1, 0, 1, 1);
 		buttonBox = new QDialogButtonBox(m_centralWidget);
 		buttonBox->setObjectName(QString::fromUtf8("buttonBox"));
-		buttonBox->setLocale(QLocale(QLocale::English, QLocale::UnitedStates));
+		buttonBox->setMinimumSize(QSize(0, 23));
+		buttonBox->setLayoutDirection(Qt::LeftToRight);
 		buttonBox->setOrientation(Qt::Horizontal);
 		buttonBox->setStandardButtons(QDialogButtonBox::Apply | QDialogButtonBox::Cancel | QDialogButtonBox::Ok);
 		buttonBox->setCenterButtons(false);
-		gridLayout_4->addWidget(buttonBox, 1, 3, 1, 1);
+		gridLayout_4->addWidget(buttonBox, 2, 3, 1, 1);
 		stackedWidget = new QStackedWidget(m_centralWidget);
 		stackedWidget->setObjectName(QString::fromUtf8("stackedWidget"));
-		stackedWidget->setMaximumSize(QSize(16777215, 278));
+		stackedWidget->setMaximumSize(QSize(16777215, 16777215));
 		stackedWidget->setStyleSheet(QString::fromUtf8(""));
 		torrentTab = new QWidget();
 		torrentTab->setObjectName(QString::fromUtf8("torrentTab"));
@@ -322,19 +290,6 @@ public:
 		trackerPortEdit->setObjectName(QString::fromUtf8("trackerPortEdit"));
 		gridLayout_2->addWidget(trackerPortEdit, 0, 1, 1, 1);
 		gridLayout_22->addWidget(trackerGroupBox, 0, 2, 2, 1);
-		label_26 = new QLabel(torrentTab);
-		label_26->setObjectName(QString::fromUtf8("label_26"));
-		gridLayout_22->addWidget(label_26, 1, 0, 1, 1);
-		localeComboBox = new QComboBox(torrentTab);
-		localeComboBox->setObjectName(QString::fromUtf8("localeComboBox"));
-		localeComboBox->setStyleSheet(QString::fromUtf8(""));
-		gridLayout_22->addWidget(localeComboBox, 0, 1, 1, 1);
-		styleComboBox = new QComboBox(torrentTab);
-		styleComboBox->setObjectName(QString::fromUtf8("styleComboBox"));
-		gridLayout_22->addWidget(styleComboBox, 1, 1, 1, 1);
-		label_8 = new QLabel(torrentTab);
-		label_8->setObjectName(QString::fromUtf8("label_8"));
-		gridLayout_22->addWidget(label_8, 0, 0, 1, 1);
 		groupBox_2 = new QGroupBox(torrentTab);
 		groupBox_2->setObjectName(QString::fromUtf8("groupBox_2"));
 		gridLayout_3 = new QGridLayout(groupBox_2);
@@ -371,19 +326,32 @@ public:
 		downloadLimitEdit->setObjectName(QString::fromUtf8("downloadLimitEdit"));
 		downloadLimitEdit->setMaximum(99999);
 		gridLayout_3->addWidget(downloadLimitEdit, 2, 1, 1, 1);
-		gridLayout_22->addWidget(groupBox_2, 3, 2, 7, 1);
-		asociationCheckBox = new QCheckBox(torrentTab);
-		asociationCheckBox->setObjectName(QString::fromUtf8("asociationCheckBox"));
-		gridLayout_22->addWidget(asociationCheckBox, 3, 0, 1, 2);
-		magnetAssociationCheckBox = new QCheckBox(torrentTab);
-		magnetAssociationCheckBox->setObjectName(QString::fromUtf8("magnetAssociationCheckBox"));
-		gridLayout_22->addWidget(magnetAssociationCheckBox, 4, 0, 1, 2);
+		gridLayout_22->addWidget(groupBox_2, 5, 0, 1, 2);
+		styleComboBox = new QComboBox(torrentTab);
+		styleComboBox->setObjectName(QString::fromUtf8("styleComboBox"));
+		gridLayout_22->addWidget(styleComboBox, 1, 1, 1, 1);
 		runOnbootCheckBox = new QCheckBox(torrentTab);
 		runOnbootCheckBox->setObjectName(QString::fromUtf8("runOnbootCheckBox"));
-		gridLayout_22->addWidget(runOnbootCheckBox, 6, 0, 1, 2);
+		gridLayout_22->addWidget(runOnbootCheckBox, 7, 0, 1, 2);
 		startMinimizedCheckBox = new QCheckBox(torrentTab);
 		startMinimizedCheckBox->setObjectName(QString::fromUtf8("startMinimizedCheckBox"));
-		gridLayout_22->addWidget(startMinimizedCheckBox, 7, 0, 1, 2);
+		gridLayout_22->addWidget(startMinimizedCheckBox, 8, 0, 1, 2);
+		asociationCheckBox = new QCheckBox(torrentTab);
+		asociationCheckBox->setObjectName(QString::fromUtf8("asociationCheckBox"));
+		gridLayout_22->addWidget(asociationCheckBox, 7, 2, 1, 1);
+		magnetAssociationCheckBox = new QCheckBox(torrentTab);
+		magnetAssociationCheckBox->setObjectName(QString::fromUtf8("magnetAssociationCheckBox"));
+		gridLayout_22->addWidget(magnetAssociationCheckBox, 8, 2, 1, 1);
+		label_26 = new QLabel(torrentTab);
+		label_26->setObjectName(QString::fromUtf8("label_26"));
+		gridLayout_22->addWidget(label_26, 1, 0, 1, 1);
+		localeComboBox = new QComboBox(torrentTab);
+		localeComboBox->setObjectName(QString::fromUtf8("localeComboBox"));
+		localeComboBox->setStyleSheet(QString::fromUtf8(""));
+		gridLayout_22->addWidget(localeComboBox, 0, 1, 1, 1);
+		label_8 = new QLabel(torrentTab);
+		label_8->setObjectName(QString::fromUtf8("label_8"));
+		gridLayout_22->addWidget(label_8, 0, 0, 1, 1);
 		stackedWidget->addWidget(torrentTab);
 		page = new QWidget();
 		page->setObjectName(QString::fromUtf8("page"));
@@ -773,11 +741,11 @@ public:
 		stackedWidget->addWidget(serchTab);
 		keyMappingTab = new QWidget();
 		keyMappingTab->setObjectName(QString::fromUtf8("keyMappingTab"));
-		QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
-		sizePolicy1.setHorizontalStretch(0);
-		sizePolicy1.setVerticalStretch(0);
-		sizePolicy1.setHeightForWidth(keyMappingTab->sizePolicy().hasHeightForWidth());
-		keyMappingTab->setSizePolicy(sizePolicy1);
+		QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+		sizePolicy.setHorizontalStretch(0);
+		sizePolicy.setVerticalStretch(0);
+		sizePolicy.setHeightForWidth(keyMappingTab->sizePolicy().hasHeightForWidth());
+		keyMappingTab->setSizePolicy(sizePolicy);
 		gridLayout_17 = new QGridLayout(keyMappingTab);
 		gridLayout_17->setContentsMargins(0, 0, 0, 0);
 		gridLayout_17->setObjectName(QString::fromUtf8("gridLayout_17"));
@@ -793,7 +761,33 @@ public:
 		hotKeyScrollArea->setWidget(keyMapContainer);
 		gridLayout_17->addWidget(hotKeyScrollArea, 0, 0, 1, 1);
 		stackedWidget->addWidget(keyMappingTab);
-		gridLayout_4->addWidget(stackedWidget, 0, 1, 1, 4);
+		gridLayout_4->addWidget(stackedWidget, 0, 2, 1, 2);
+		listWidget = new QListWidget(m_centralWidget);
+		new QListWidgetItem(listWidget);
+		new QListWidgetItem(listWidget);
+		new QListWidgetItem(listWidget);
+		new QListWidgetItem(listWidget);
+		new QListWidgetItem(listWidget);
+		new QListWidgetItem(listWidget);
+		new QListWidgetItem(listWidget);
+		new QListWidgetItem(listWidget);
+		new QListWidgetItem(listWidget);
+		listWidget->setObjectName(QString::fromUtf8("listWidget"));
+		sizePolicy.setHeightForWidth(listWidget->sizePolicy().hasHeightForWidth());
+		listWidget->setSizePolicy(sizePolicy);
+		listWidget->setMinimumSize(QSize(160, 0));
+		listWidget->setMaximumSize(QSize(16777215, 16777215));
+		listWidget->setStyleSheet(QString::fromUtf8("#listWidget{\n"
+		                          "    border-bottom:none;\n"
+		                          "    border-left:none;\n"
+		                          "}\n"
+		                          "QListView::item{\n"
+		                          "    min-height:28px;\n"
+		                          "}\n"
+		                          "                  "));
+		listWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
+		listWidget->setResizeMode(QListView::Adjust);
+		gridLayout_4->addWidget(listWidget, 0, 0, 3, 1);
 		verticalLayout->addWidget(m_centralWidget);
 		QWidget::setTabOrder(activeLimitEdit, activeSeedLimitEdit);
 		QWidget::setTabOrder(activeSeedLimitEdit, activeDownloadLimitEdit);
@@ -826,11 +820,11 @@ public:
 		QObject::connect(limitDlRadioButton, SIGNAL(clicked()), dlLimitEdit, SLOT(setFocus()));
 		QObject::connect(buttonBox, SIGNAL(clicked(QAbstractButton*)), SettingsDialog, SLOT(chooseAction(QAbstractButton*)));
 		QObject::connect(openWebUiButton, SIGNAL(clicked()), SettingsDialog, SLOT(OpenWebUI()));
-		listWidget->setCurrentRow(-1);
 		stackedWidget->setCurrentIndex(0);
 		inEncPolicyComboBox->setCurrentIndex(0);
 		encLevelComboBox->setCurrentIndex(2);
 		outEncPolicyComboBox->setCurrentIndex(0);
+		listWidget->setCurrentRow(-1);
 		QMetaObject::connectSlotsByName(SettingsDialog);
 	} // setupUi
 
@@ -839,31 +833,8 @@ public:
 		SettingsDialog->setWindowTitle(QApplication::translate("SettingsDialog", "SETTINGS_DIALOG", 0, QApplication::UnicodeUTF8));
 		tbMenu->setText(QString());
 		LTitle->setText(QApplication::translate("SettingsDialog", "SETTINGS_DIALOG", 0, QApplication::UnicodeUTF8));
-		const bool __sortingEnabled = listWidget->isSortingEnabled();
-		listWidget->setSortingEnabled(false);
-		QListWidgetItem* ___qlistwidgetitem = listWidget->item(0);
-		___qlistwidgetitem->setText(QApplication::translate("SettingsDialog", "TAB_TORRENT", 0, QApplication::UnicodeUTF8));
-		QListWidgetItem* ___qlistwidgetitem1 = listWidget->item(1);
-		___qlistwidgetitem1->setText(QApplication::translate("SettingsDialog", "TAB_NETWORK", 0, QApplication::UnicodeUTF8));
-		QListWidgetItem* ___qlistwidgetitem2 = listWidget->item(2);
-		___qlistwidgetitem2->setText(QApplication::translate("SettingsDialog", "TAB_HDD", 0, QApplication::UnicodeUTF8));
-		QListWidgetItem* ___qlistwidgetitem3 = listWidget->item(3);
-		___qlistwidgetitem3->setText(QApplication::translate("SettingsDialog", "TAB_TORRENT_FILTERING", 0, QApplication::UnicodeUTF8));
-		QListWidgetItem* ___qlistwidgetitem4 = listWidget->item(4);
-		___qlistwidgetitem4->setText(QApplication::translate("SettingsDialog", "TAB_DAEMONTOOLS", 0, QApplication::UnicodeUTF8));
-		QListWidgetItem* ___qlistwidgetitem5 = listWidget->item(5);
-		___qlistwidgetitem5->setText(QApplication::translate("SettingsDialog", "TAB_SCEDULER", 0, QApplication::UnicodeUTF8));
-		QListWidgetItem* ___qlistwidgetitem6 = listWidget->item(6);
-		___qlistwidgetitem6->setText(QApplication::translate("SettingsDialog", "TAB_WEB_CONTROL", 0, QApplication::UnicodeUTF8));
-		QListWidgetItem* ___qlistwidgetitem7 = listWidget->item(7);
-		___qlistwidgetitem7->setText(QApplication::translate("SettingsDialog", "TAB_SEARCH", 0, QApplication::UnicodeUTF8));
-		QListWidgetItem* ___qlistwidgetitem8 = listWidget->item(8);
-		___qlistwidgetitem8->setText(QApplication::translate("SettingsDialog", "TAB_KEY_MAPPINGS", 0, QApplication::UnicodeUTF8));
-		listWidget->setSortingEnabled(__sortingEnabled);
 		trackerGroupBox->setTitle(QApplication::translate("SettingsDialog", "START_TRACKER", 0, QApplication::UnicodeUTF8));
 		label_23->setText(QApplication::translate("SettingsDialog", "TRACKER_PORT", 0, QApplication::UnicodeUTF8));
-		label_26->setText(QApplication::translate("SettingsDialog", "STYLE", 0, QApplication::UnicodeUTF8));
-		label_8->setText(QApplication::translate("SettingsDialog", "LANGUAGE", 0, QApplication::UnicodeUTF8));
 		groupBox_2->setTitle(QApplication::translate("SettingsDialog", "RESTRICTIONS", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_WHATSTHIS
 		label_6->setWhatsThis(QApplication::translate("SettingsDialog", "UPLOAD_SPEED_LIMIT_WIT", 0, QApplication::UnicodeUTF8));
@@ -901,14 +872,6 @@ public:
 		downloadLimitEdit->setSuffix(QApplication::translate("SettingsDialog", " Kb\\s", 0, QApplication::UnicodeUTF8));
 		downloadLimitEdit->setPrefix(QString());
 #ifndef QT_NO_WHATSTHIS
-		asociationCheckBox->setWhatsThis(QApplication::translate("SettingsDialog", "TORRENT_FILES_ASSOCIATION_WIT", 0, QApplication::UnicodeUTF8));
-#endif // QT_NO_WHATSTHIS
-		asociationCheckBox->setText(QApplication::translate("SettingsDialog", "TORRENT_FILES_ASSOCIATION", 0, QApplication::UnicodeUTF8));
-#ifndef QT_NO_WHATSTHIS
-		magnetAssociationCheckBox->setWhatsThis(QApplication::translate("SettingsDialog", "MAGNET_ASSOCIATION_WIT", 0, QApplication::UnicodeUTF8));
-#endif // QT_NO_WHATSTHIS
-		magnetAssociationCheckBox->setText(QApplication::translate("SettingsDialog", "MAGNET_ASSOCIATION", 0, QApplication::UnicodeUTF8));
-#ifndef QT_NO_WHATSTHIS
 		runOnbootCheckBox->setWhatsThis(QApplication::translate("SettingsDialog", "START_ON_BOOT_WIT", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_WHATSTHIS
 		runOnbootCheckBox->setText(QApplication::translate("SettingsDialog", "START_ON_BOOT", 0, QApplication::UnicodeUTF8));
@@ -916,6 +879,16 @@ public:
 		startMinimizedCheckBox->setWhatsThis(QApplication::translate("SettingsDialog", "START_MINIMIZED_WIT", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_WHATSTHIS
 		startMinimizedCheckBox->setText(QApplication::translate("SettingsDialog", "START_MINIMIZED", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_WHATSTHIS
+		asociationCheckBox->setWhatsThis(QApplication::translate("SettingsDialog", "TORRENT_FILES_ASSOCIATION_WIT", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_WHATSTHIS
+		asociationCheckBox->setText(QApplication::translate("SettingsDialog", "TORRENT_FILES_ASSOCIATION", 0, QApplication::UnicodeUTF8));
+#ifndef QT_NO_WHATSTHIS
+		magnetAssociationCheckBox->setWhatsThis(QApplication::translate("SettingsDialog", "MAGNET_ASSOCIATION_WIT", 0, QApplication::UnicodeUTF8));
+#endif // QT_NO_WHATSTHIS
+		magnetAssociationCheckBox->setText(QApplication::translate("SettingsDialog", "MAGNET_ASSOCIATION", 0, QApplication::UnicodeUTF8));
+		label_26->setText(QApplication::translate("SettingsDialog", "STYLE", 0, QApplication::UnicodeUTF8));
+		label_8->setText(QApplication::translate("SettingsDialog", "LANGUAGE", 0, QApplication::UnicodeUTF8));
 		label->setText(QApplication::translate("SettingsDialog", "LISTEN_PORT", 0, QApplication::UnicodeUTF8));
 		proxyGroupBox->setTitle(QApplication::translate("SettingsDialog", "USE_PROXY", 0, QApplication::UnicodeUTF8));
 #ifndef QT_NO_WHATSTHIS
@@ -1091,10 +1064,10 @@ public:
 		                          "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 		                          "p, li { white-space: pre-wrap; }\n"
 		                          "</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-		                          "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">                                        </p>\n"
 		                          "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">                                        </span></p>\n"
-		                          "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">                                      </p></body></html>", 0,
-		                          QApplication::UnicodeUTF8));
+		                          "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">                                        </span></p>\n"
+		                          "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">                                      </span></p></body></html>",
+		                          0, QApplication::UnicodeUTF8));
 		webUILogginGroupBox->setTitle(QApplication::translate("SettingsDialog", "WEB_UI_LOGGING_ENABLED", 0, QApplication::UnicodeUTF8));
 		label_22->setText(QApplication::translate("SettingsDialog", "WEB_UI_LOG_NAME", 0, QApplication::UnicodeUTF8));
 		label_10->setText(QApplication::translate("SettingsDialog", "WEB_UI_LOGIN", 0, QApplication::UnicodeUTF8));
@@ -1110,6 +1083,27 @@ public:
 		label_25->setText(QApplication::translate("SettingsDialog", "SEARCH_PATERN", 0, QApplication::UnicodeUTF8));
 		addSearchButton->setText(QApplication::translate("SettingsDialog", "ADD_SEARCH", 0, QApplication::UnicodeUTF8));
 		removeSearchButton->setText(QApplication::translate("SettingsDialog", "REMOVE_SEARCH", 0, QApplication::UnicodeUTF8));
+		const bool __sortingEnabled = listWidget->isSortingEnabled();
+		listWidget->setSortingEnabled(false);
+		QListWidgetItem* ___qlistwidgetitem = listWidget->item(0);
+		___qlistwidgetitem->setText(QApplication::translate("SettingsDialog", "TAB_TORRENT", 0, QApplication::UnicodeUTF8));
+		QListWidgetItem* ___qlistwidgetitem1 = listWidget->item(1);
+		___qlistwidgetitem1->setText(QApplication::translate("SettingsDialog", "TAB_NETWORK", 0, QApplication::UnicodeUTF8));
+		QListWidgetItem* ___qlistwidgetitem2 = listWidget->item(2);
+		___qlistwidgetitem2->setText(QApplication::translate("SettingsDialog", "TAB_HDD", 0, QApplication::UnicodeUTF8));
+		QListWidgetItem* ___qlistwidgetitem3 = listWidget->item(3);
+		___qlistwidgetitem3->setText(QApplication::translate("SettingsDialog", "TAB_TORRENT_FILTERING", 0, QApplication::UnicodeUTF8));
+		QListWidgetItem* ___qlistwidgetitem4 = listWidget->item(4);
+		___qlistwidgetitem4->setText(QApplication::translate("SettingsDialog", "TAB_DAEMONTOOLS", 0, QApplication::UnicodeUTF8));
+		QListWidgetItem* ___qlistwidgetitem5 = listWidget->item(5);
+		___qlistwidgetitem5->setText(QApplication::translate("SettingsDialog", "TAB_SCEDULER", 0, QApplication::UnicodeUTF8));
+		QListWidgetItem* ___qlistwidgetitem6 = listWidget->item(6);
+		___qlistwidgetitem6->setText(QApplication::translate("SettingsDialog", "TAB_WEB_CONTROL", 0, QApplication::UnicodeUTF8));
+		QListWidgetItem* ___qlistwidgetitem7 = listWidget->item(7);
+		___qlistwidgetitem7->setText(QApplication::translate("SettingsDialog", "TAB_SEARCH", 0, QApplication::UnicodeUTF8));
+		QListWidgetItem* ___qlistwidgetitem8 = listWidget->item(8);
+		___qlistwidgetitem8->setText(QApplication::translate("SettingsDialog", "TAB_KEY_MAPPINGS", 0, QApplication::UnicodeUTF8));
+		listWidget->setSortingEnabled(__sortingEnabled);
 	} // retranslateUi
 
 };

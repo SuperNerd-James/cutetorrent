@@ -48,15 +48,15 @@ static const char qt_meta_stringdata_HttpConnectionHandler[] =
 
 void HttpConnectionHandler::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
 {
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
 		Q_ASSERT(staticMetaObject.cast(_o));
 		HttpConnectionHandler* _t = static_cast<HttpConnectionHandler*>(_o);
 
-		switch(_id)
+		switch (_id)
 		{
 			case 0:
-				_t->handleConnection((*reinterpret_cast< int (*) > (_a[1])));
+				_t->handleConnection((*reinterpret_cast< int(*)>(_a[1])));
 				break;
 
 			case 1:
@@ -104,12 +104,12 @@ const QMetaObject* HttpConnectionHandler::metaObject() const
 
 void* HttpConnectionHandler::qt_metacast(const char* _clname)
 {
-	if(!_clname)
+	if (!_clname)
 	{
 		return 0;
 	}
 
-	if(!strcmp(_clname, qt_meta_stringdata_HttpConnectionHandler))
+	if (!strcmp(_clname, qt_meta_stringdata_HttpConnectionHandler))
 	{
 		return static_cast<void*>(const_cast< HttpConnectionHandler*>(this));
 	}
@@ -121,14 +121,14 @@ int HttpConnectionHandler::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
 {
 	_id = QThread::qt_metacall(_c, _id, _a);
 
-	if(_id < 0)
+	if (_id < 0)
 	{
 		return _id;
 	}
 
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
-		if(_id < 4)
+		if (_id < 4)
 		{
 			qt_static_metacall(this, _c, _id, _a);
 		}

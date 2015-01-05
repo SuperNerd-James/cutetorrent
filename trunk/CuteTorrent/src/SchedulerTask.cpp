@@ -13,7 +13,6 @@ SchedulerTask::SchedulerTask(QString name, TaskType type, QVariant limit, QDateT
 
 		if(!ok)
 		{
-			
 		}
 	}
 
@@ -43,27 +42,21 @@ SchedulerTask::TaskType SchedulerTask::type() const
 
 void SchedulerTask::pefromTask()
 {
-	
 	TorrentManager* tManager = TorrentManager::getInstance();
-	
 	libtorrent::session_settings current = tManager->readSettings();
 
-	
 	switch(iType)
 	{
 		case START_ALL		:
-			
 			tManager->StartAllTorrents();
 			break;
 
 		case PAUSE_ALL		:
-			
 			tManager->PauseAllTorrents();
 			break;
 
 		case LIMIT_UPLOAD	:
 		{
-			
 			current.upload_rate_limit = _limit;
 			tManager->updateSettings(current);
 		}
@@ -71,14 +64,12 @@ void SchedulerTask::pefromTask()
 
 		case LIMIT_DOWNLOAD	:
 		{
-			
 			current.download_rate_limit = _limit;
 			tManager->updateSettings(current);
 		}
 		break;
 
 		default:
-			
 			break;
 	}
 

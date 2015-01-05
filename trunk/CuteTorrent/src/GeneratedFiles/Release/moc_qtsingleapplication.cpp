@@ -51,22 +51,22 @@ static const char qt_meta_stringdata_QtSingleApplication[] =
 
 void QtSingleApplication::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
 {
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
 		Q_ASSERT(staticMetaObject.cast(_o));
 		QtSingleApplication* _t = static_cast<QtSingleApplication*>(_o);
 
-		switch(_id)
+		switch (_id)
 		{
 			case 0:
-				_t->messageReceived((*reinterpret_cast< const QString(*) > (_a[1])));
+				_t->messageReceived((*reinterpret_cast< const QString(*)>(_a[1])));
 				break;
 
 			case 1:
 			{
-				bool _r = _t->sendMessage((*reinterpret_cast< const QString(*) > (_a[1])), (*reinterpret_cast< int (*) > (_a[2])));
+				bool _r = _t->sendMessage((*reinterpret_cast< const QString(*)>(_a[1])), (*reinterpret_cast< int(*)>(_a[2])));
 
-				if(_a[0])
+				if (_a[0])
 				{
 					*reinterpret_cast< bool*>(_a[0]) = _r;
 				}
@@ -75,9 +75,9 @@ void QtSingleApplication::qt_static_metacall(QObject* _o, QMetaObject::Call _c, 
 
 			case 2:
 			{
-				bool _r = _t->sendMessage((*reinterpret_cast< const QString(*) > (_a[1])));
+				bool _r = _t->sendMessage((*reinterpret_cast< const QString(*)>(_a[1])));
 
-				if(_a[0])
+				if (_a[0])
 				{
 					*reinterpret_cast< bool*>(_a[0]) = _r;
 				}
@@ -121,12 +121,12 @@ const QMetaObject* QtSingleApplication::metaObject() const
 
 void* QtSingleApplication::qt_metacast(const char* _clname)
 {
-	if(!_clname)
+	if (!_clname)
 	{
 		return 0;
 	}
 
-	if(!strcmp(_clname, qt_meta_stringdata_QtSingleApplication))
+	if (!strcmp(_clname, qt_meta_stringdata_QtSingleApplication))
 	{
 		return static_cast<void*>(const_cast< QtSingleApplication*>(this));
 	}
@@ -138,14 +138,14 @@ int QtSingleApplication::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
 {
 	_id = QApplication::qt_metacall(_c, _id, _a);
 
-	if(_id < 0)
+	if (_id < 0)
 	{
 		return _id;
 	}
 
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
-		if(_id < 4)
+		if (_id < 4)
 		{
 			qt_static_metacall(this, _c, _id, _a);
 		}

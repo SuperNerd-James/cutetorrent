@@ -68,7 +68,8 @@ void KickassSearchProvider::replyReady(QNetworkReply* pReply)
 				SearchResult* result = new SearchResult;
 				result->Engine = Name();
 				result->Name = torrentInfo["title"].toString();
-				result->TorrentUrl = torrentInfo["torrentLink"].toString();
+				result->TorrentFileUrl = torrentInfo["torrentLink"].toString();
+				result->TorrentDescUrl = torrentInfo["link"].toString();
 				result->leechers = torrentInfo["leechs"].toInt();
 				result->seeders = torrentInfo["seeds"].toInt();
 				result->size = torrentInfo["size"].toLongLong();

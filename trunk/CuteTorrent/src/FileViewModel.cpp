@@ -109,7 +109,6 @@ void FileViewModel::SetNotDownloadForCurrentFile()
 
 void FileViewModel::setFilePriority(int priorityToSet)
 {
-	
 	QModelIndexList selection = m_pView->selectionModel()->selectedIndexes();
 
 	for each(QModelIndex index in selection)
@@ -177,8 +176,6 @@ void FileViewModel::FileTabContextMenu(const QPoint& point)
 		openFile->setEnabled(item->GetType() == FileViewTreeItem::FILE);
 		int currentPriority = data(index(qmi.row(), 3, qmi.parent())).toInt();
 
-		
-		
 		switch(currentPriority)
 		{
 			case 1:
@@ -483,10 +480,8 @@ void FileViewModel::AddPath(std::string path, file_entry fe)
 
 		for(int j = 0; j < nChildrenCounmt; j++)
 		{
-			
 			if(iterator->GetNthChild(j)->GetName().compare(pathparts.at(i)) == 0)
 			{
-				
 				foundnum = j;
 				break;
 			}
@@ -500,14 +495,12 @@ void FileViewModel::AddPath(std::string path, file_entry fe)
 		{
 			if(i != nPartsCount - 1)
 			{
-				
 				fake_entery.path = (QString::fromStdString(iterator->GetFileEntery().path) + QDir::separator() + pathparts[i]).toStdString();
 				iterator->AddChild(new FileViewTreeItem(fake_entery, FileViewTreeItem::FOLDER, pathparts[i], iterator));
 				iterator = iterator->GetNthChild(iterator->GetChildrenCount() - 1);
 			}
 			else
 			{
-				
 				iterator->AddChild(new FileViewTreeItem(fe, FileViewTreeItem::FILE, pathparts[i], iterator));
 				iterator = iterator->GetNthChild(iterator->GetChildrenCount() - 1);
 			}

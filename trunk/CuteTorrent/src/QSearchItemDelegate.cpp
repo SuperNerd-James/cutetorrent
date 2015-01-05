@@ -107,7 +107,9 @@ void QSearchItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& o
 	progArea.setWidth(nameArea.width() / 2);
 	QRect statusArea(nameArea);
 	statusArea.moveTop(nameArea.y() + statusFM.lineSpacing() + GUI_PAD / 2);
-	statusArea.moveRight(nameArea.width() + iconArea.width() + GUI_PAD);
+	statusArea.moveLeft(nameArea.width() / 2 + iconArea.width() + GUI_PAD);
+	statusArea.setWidth(nameArea.width() / 2);
+	statusArea.setHeight(nameSize.height());
 	painter->setPen(opt.palette.color(cg, cr));
 	mimeIcon.paint(painter, iconArea, Qt::AlignCenter, im, qs);
 	painter->setFont(nameFont);
@@ -117,6 +119,7 @@ void QSearchItemDelegate::paint(QPainter* painter, const QStyleOptionViewItem& o
 	style->drawItemText(painter, statusArea, Qt::AlignRight, opt.palette, option.state & QStyle::State_Enabled, statusStr);
 	painter->setFont(progressFont);
 	style->drawItemText(painter, progArea, Qt::AlignLeft, opt.palette, option.state & QStyle::State_Enabled, progressStr);
+	painter->restore();
 }
 
 QSize QSearchItemDelegate::sizeHint(const QStyleOptionViewItem& option, const QModelIndex& index) const
@@ -159,10 +162,10 @@ QString QSearchItemDelegate::GetPeersStr(const SearchResult* res) const
 {
 	if(res->leechers >= 0 && res->seeders >= 0)
 	{
-		return QString("Leech: %1 Seeders: %2").arg(QString::number(res->leechers), QString::number(res->seeders));
+		return tr("Leechs: %1 Seeds: %2").arg(QString::number(res->leechers), QString::number(res->seeders));
 	}
 	else
 	{
-		return QString("Leech: N/A Seeders: N/A");
+		return tr("Leechs: N/A Seeds: N/A");
 	}
 }

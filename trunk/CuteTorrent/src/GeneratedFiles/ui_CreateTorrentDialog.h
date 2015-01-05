@@ -78,7 +78,7 @@ public:
 
 	void setupUi(QDialog* CreateTorrentDialog)
 	{
-		if(CreateTorrentDialog->objectName().isEmpty())
+		if (CreateTorrentDialog->objectName().isEmpty())
 		{
 			CreateTorrentDialog->setObjectName(QString::fromUtf8("CreateTorrentDialog"));
 		}

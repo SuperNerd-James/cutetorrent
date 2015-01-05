@@ -28,7 +28,6 @@ CreateTorrentDialog::CreateTorrentDialog(QWidget* parent, Qt::WindowFlags flags)
 	setupWindowIcons();
 	settings = QApplicationSettings::getInstance();
 	creator  = new torrentCreatorThread(this);
-	
 	mgr = TorrentManager::getInstance();
 	StyleEngene* style = StyleEngene::getInstance();
 	QObject::connect(style, SIGNAL(styleChanged()), this, SLOT(setupWindowIcons()));
@@ -94,7 +93,6 @@ quint64 CreateTorrentDialog::getPiceSize()
 
 			if(fi.isDir())
 			{
-				
 				dirSize = listFolder(file);
 				pieceSize = dirSize / 1000;
 			}
@@ -140,7 +138,6 @@ quint64 CreateTorrentDialog::getPiceSize()
 				needToSet = 16 * 1024;
 			}
 
-			
 			return needToSet;
 		}
 
@@ -233,7 +230,6 @@ void CreateTorrentDialog::BeginCreate()
 		}
 	}
 
-	
 	for(QStringList::iterator i = webseeds.begin(); i != webseeds.end(); ++i)
 	{
 		if((*i).isEmpty())
@@ -243,7 +239,6 @@ void CreateTorrentDialog::BeginCreate()
 	}
 
 	QFileInfo info(path);
-	
 	QString save_path = QFileDialog::getSaveFileName(this,
 	                    tr("CREATE_TORRENT_DIALOG"), info.isDir() ? path + QDir::separator() + info.fileName() : path + ".torrent",
 	                    tr("Торрент файлы (*.torrent)"));
@@ -254,7 +249,6 @@ void CreateTorrentDialog::BeginCreate()
 		QObject::connect(creator, SIGNAL(ShowCreationSucces(QString)), this, SLOT(ShowCreationSucces(QString)));
 		QObject::connect(creator, SIGNAL(ShowCreationFailture(QString)), this, SLOT(ShowCreationFailture(QString)));
 		QObject::connect(this, SIGNAL(AbortCreation()), creator, SLOT(terminate()));
-		
 		creator->create(pathEdit->text(), save_path, filterEdit->text(), trackers, webseeds, discribtionEdit->text(), privateCheckBox->isChecked(), getPiceSize() * 1024);
 	}
 	else
@@ -351,7 +345,6 @@ void torrentCreatorThread::create(QString _input_path, QString _save_path, QStri
 	is_private = _is_private;
 	piece_size = _piece_size;
 	abort = false;
-	
 	start();
 }
 
@@ -460,8 +453,6 @@ void torrentCreatorThread::run()
 	{
 		emit ShowCreationFailture(QString::fromUtf8(e.what()));
 	}
-
-	
 }
 
 //#include "moc_CreateTorrentDialog.cpp"
