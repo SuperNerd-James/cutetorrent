@@ -122,7 +122,7 @@ void ExtratorrentSearchProvider::ParseTableBody(QSgmlTag::QSgmlTaglist tableBody
 						if(pChild->Name.compare("a", Qt::CaseInsensitive) == 0)
 						{
 							pCurrentSearchResult = new SearchResult();
-							pCurrentSearchResult->TorrentUrl = Url() + pChild->getAttributeValue("href");
+							pCurrentSearchResult->TorrentFileUrl = Url() + pChild->getAttributeValue("href");
 							break;
 						}
 					}
@@ -149,6 +149,7 @@ void ExtratorrentSearchProvider::ParseTableBody(QSgmlTag::QSgmlTaglist tableBody
 							if(pChild->Name.compare("a", Qt::CaseInsensitive) == 0 && pCurrentSearchResult != NULL)
 							{
 								pCurrentSearchResult->Name = sgml->getInnerText(pChild);
+								pCurrentSearchResult->TorrentDescUrl = Url() + pChild->getAttributeValue("href");
 								break;
 							}
 						}

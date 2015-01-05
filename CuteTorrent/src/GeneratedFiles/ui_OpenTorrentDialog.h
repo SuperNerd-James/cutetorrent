@@ -65,7 +65,7 @@ public:
 
 	void setupUi(QDialog* OpenTorrentDialog)
 	{
-		if(OpenTorrentDialog->objectName().isEmpty())
+		if (OpenTorrentDialog->objectName().isEmpty())
 		{
 			OpenTorrentDialog->setObjectName(QString::fromUtf8("OpenTorrentDialog"));
 		}

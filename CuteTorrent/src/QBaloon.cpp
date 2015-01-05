@@ -10,13 +10,11 @@ QWidget* QBalloonTip::showBalloon(const QString& title,
                                   const QString& message, QBaloonType type, const QVariant& data, const QSystemTrayIcon::MessageIcon& icon,
                                   int timeout, bool showArrow, QWidget* parent)
 {
-	
 	theSolitaryBalloonTip = new QBalloonTip(title, message, type, data, icon, parent);
 
 	//hideBalloon();
 	if(current != NULL && current->isFinished())
 	{
-		
 		//	delete current;
 		current = theSolitaryBalloonTip;
 
@@ -31,7 +29,6 @@ QWidget* QBalloonTip::showBalloon(const QString& title,
 	{
 		if(current == NULL)
 		{
-			
 			current = theSolitaryBalloonTip;
 
 			if(timeout <= 0)
@@ -43,7 +40,6 @@ QWidget* QBalloonTip::showBalloon(const QString& title,
 		}
 		else
 		{
-			
 			baloonQueue.enqueue(theSolitaryBalloonTip);
 		}
 	}
@@ -53,7 +49,6 @@ QWidget* QBalloonTip::showBalloon(const QString& title,
 
 void QBalloonTip::hideBalloon()
 {
-	
 	if(!current)
 	{
 		return;
@@ -268,7 +263,6 @@ void QBalloonTip::balloon(int msecs, bool showArrow)
 	anim->setStartValue(0.f);
 	anim->setEndValue(1.f);
 	anim->start();
-	
 }
 
 void QBalloonTip::mousePressEvent(QMouseEvent* e)
@@ -331,7 +325,6 @@ bool QBalloonTip::isFinished()
 
 void QBalloonTip::closeEvent(QCloseEvent* e)
 {
-	
 	hideBalloon();
 
 	if(!baloonQueue.isEmpty())

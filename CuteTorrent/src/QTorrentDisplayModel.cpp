@@ -35,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 QTorrentDisplayModel::QTorrentDisplayModel(CuteTorrent* _mainWindow, QListView* _parrent, QObject* __parrent) : QAbstractListModel(__parrent)
 {
 	mainWindow = _mainWindow;
-	parrent = _parrent;
+	m_pTorrentListView = _parrent;
 	mgr = TorrentManager::getInstance();
 	torrents = TorrentStorrage::getInstance();
 	selectedRow = -1;
@@ -93,7 +93,7 @@ void QTorrentDisplayModel::MountDT()
 
 			if(images.size() > 1)
 			{
-				MultipleDTDialog dlg(images, parrent);
+				MultipleDTDialog dlg(images, m_pTorrentListView);
 				dlg.exec();
 			}
 			else
@@ -111,7 +111,7 @@ void QTorrentDisplayModel::updateVisibleTorrents()
 	{
 		mgr->PostTorrentUpdate();
 
-		if(!parrent->isVisible())
+		if(!m_pTorrentListView->isVisible())
 		{
 			locker->unlock();
 			return;
@@ -130,6 +130,11 @@ void QTorrentDisplayModel::updateVisibleTorrents()
 }
 void QTorrentDisplayModel::OpenDirSelected()
 {
+	if (m_pTorrentListView->model() != this)
+	{
+		return;
+	}
+
 	Torrent* tor = GetSelectedTorrent();
 
 	if(tor != NULL)
@@ -157,7 +162,12 @@ void QTorrentDisplayModel::OpenDirSelected()
 
 void QTorrentDisplayModel::contextualMenu(const QPoint& point)
 {
-	QModelIndex qmi = parrent->indexAt(point);
+	if (m_pTorrentListView->model() != this)
+	{
+		return;
+	}
+
+	QModelIndex qmi = m_pTorrentListView->indexAt(point);
 
 	if(qmi.isValid())
 	{
@@ -204,12 +214,12 @@ void QTorrentDisplayModel::contextualMenu(const QPoint& point)
 			}
 
 			setSequentual->setChecked(torrent->isSquential());
-			menu->exec(parrent->mapToGlobal(point));
+			menu->exec(m_pTorrentListView->mapToGlobal(point));
 		}
 	}
 	else
 	{
-		parrent->selectionModel()->reset();
+		m_pTorrentListView->selectionModel()->reset();
 		selectedRow = -1;
 	}
 
@@ -217,11 +227,11 @@ void QTorrentDisplayModel::contextualMenu(const QPoint& point)
 }
 
 
-void QTorrentDisplayModel::UpdateSelectedIndex(const QItemSelection& index)
+void QTorrentDisplayModel::UpdateSelectedIndex(const QItemSelection& selection)
 {
 	try
 	{
-		QModelIndexList indexes = index.indexes();
+		QModelIndexList indexes = selection.indexes();
 
 		if(indexes.count() == 1)
 		{
@@ -230,7 +240,7 @@ void QTorrentDisplayModel::UpdateSelectedIndex(const QItemSelection& index)
 		}
 		else
 		{
-			parrent->selectionModel()->reset();
+			m_pTorrentListView->selectionModel()->reset();
 			selectedRow = -1;
 			CurrentTorrent = NULL;
 		}
@@ -242,54 +252,7 @@ void QTorrentDisplayModel::UpdateSelectedIndex(const QItemSelection& index)
 		qDebug() << "Exception QTorrentDisplayModel::UpdateSelectedIndex" << e.what();
 	}
 }
-/*
-void QTorrentDisplayModel::TorrentCompletedProxy(const QString data)
-{
-	emit TorrentCompletedProxySender(data);
-}/*
-void QTorrentDisplayModel::AddTorrent(Torrent* tr)
-{
 
-	if (tr!=NULL)
-	{
-	//	locker->lock();
-		torrents->append(tr);
-	//	sort();
-	//	locker->unlock();
-	}
-}*//*
-void QTorrentDisplayModel::TorrentErrorProxy(const QString& name)
-{
-	emit TorrentErrorPoxySender(name);
-}/*
-void QTorrentDisplayModel::ChangeData(int row)
-{
-	if (row<rowCount())
-	{
-		QModelIndex qmi( index( row, 0 ) );
-	    emit dataChanged( qmi, qmi );
-	}
-
-}
-int QTorrentDisplayModel::hasTorrent(const QString& InfoHash) const
-{
-	int i=0;
-	for (QList<Torrent*>::const_iterator tor=torrents->begin();
-		tor!=torrents->end();
-		tor++
-		)
-	{
-		if( (*tor)->GetHashString() == InfoHash )
-			return i;
-		i++;
-	}
-	return -1;
-}
-void QTorrentDisplayModel::clear()
-{
-	torrents->clear();
-	reset( );
-}*/
 int QTorrentDisplayModel::rowCount(const QModelIndex& parent) const
 {
 	try
@@ -338,7 +301,7 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 	{
 		QList<Torrent*> selectedTorrents;
 		QList<int> rows;
-		QModelIndexList indexes = parrent->selectionModel()->selectedIndexes();
+		QModelIndexList indexes = m_pTorrentListView->selectionModel()->selectedIndexes();
 
 		foreach(QModelIndex index, indexes)
 		{
@@ -388,10 +351,9 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 
 			case remove:
 			{
-				if(QMessageBox::Cancel != MyMessageBox::warning(parrent, tr("TORRENT_DELITION"), tr("TORRENT_DELITION_MSG"), QMessageBox::Ok | QMessageBox::Cancel))
+				if(QMessageBox::Cancel != MyMessageBox::warning(m_pTorrentListView, tr("TORRENT_DELITION"), tr("TORRENT_DELITION_MSG"), QMessageBox::Ok | QMessageBox::Cancel))
 					foreach(int row, rows)
 					{
-						
 						removeRow(row, false);
 					}
 			}
@@ -399,11 +361,10 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 
 			case remove_all:
 			{
-				if(QMessageBox::Cancel != MyMessageBox::warning(parrent, tr("TORRENT_DELITION"), tr("TORRENT_ALL_DELITION_MSG"), QMessageBox::Ok | QMessageBox::Cancel))
+				if(QMessageBox::Cancel != MyMessageBox::warning(m_pTorrentListView, tr("TORRENT_DELITION"), tr("TORRENT_ALL_DELITION_MSG"), QMessageBox::Ok | QMessageBox::Cancel))
 				{
 					foreach(int row, rows)
 					{
-						
 						removeRow(row, true);
 					}
 				}
@@ -431,7 +392,7 @@ void QTorrentDisplayModel::ActionOnSelectedItem(action wtf)
 
 			case move_storrage:
 			{
-				QString path = QFileDialog::getExistingDirectory(parrent, tr("DIALOG_OPEN_FOLDER"),
+				QString path = QFileDialog::getExistingDirectory(m_pTorrentListView, tr("DIALOG_OPEN_FOLDER"),
 				               selectedTorrents[0]->GetSavePath(),
 				               QFileDialog::ShowDirsOnly
 				               | QFileDialog::DontResolveSymlinks);
@@ -542,7 +503,7 @@ bool QTorrentDisplayModel::removeRow(int row, bool delFiles)
 		return false;
 	}
 
-	parrent->selectionModel()->reset();
+	m_pTorrentListView->selectionModel()->reset();
 	locker->lock();
 
 	if(torrents->at(row) == CurrentTorrent)
@@ -568,7 +529,7 @@ bool QTorrentDisplayModel::removeRows(int row, int count, const QModelIndex& par
 	}
 
 	selectedRow = -1;
-	parrent->selectionModel()->reset();
+	m_pTorrentListView->selectionModel()->reset();
 	beginRemoveRows(parent, row, row + count);
 
 	for(int i = row; i < row + count; i++)
@@ -623,7 +584,7 @@ void QTorrentDisplayModel::playInPlayer()
 {
 	try
 	{
-		VideoPlayerWindow* vpw = new VideoPlayerWindow(parrent);
+		VideoPlayerWindow* vpw = new VideoPlayerWindow(m_pTorrentListView);
 		vpw->openFile(CurrentTorrent->GetSavePath() + QString::fromStdString(CurrentTorrent->GetFileDownloadInfo().storrage.at(0).path));
 		vpw->show();
 	}
@@ -635,7 +596,7 @@ void QTorrentDisplayModel::playInPlayer()
 
 void QTorrentDisplayModel::setupContextMenu()
 {
-	menu = new QMenu(parrent);
+	menu = new QMenu(m_pTorrentListView);
 	StyleEngene* style = StyleEngene::getInstance();
 	openDir = new QAction(style->getIcon("open_folder"), tr("ACTION_OPEN_FOLDER"), this);
 	openDir->setObjectName("ACTION_TORRENTLIST_OPEN_DIR");
@@ -691,9 +652,7 @@ void QTorrentDisplayModel::setupContextMenu()
 	menu->addAction(DelTorrentOnly);
 	groupsMenu = new QMenu(tr("ACTION_CHANGE_GROUP"), menu);
 	groupsMenu->setIcon(style->getIcon("groups"));
-	
 	QList<GroupForFileFiltering> filters = QApplicationSettings::getInstance()->GetFileFilterGroups();
-	
 	QApplicationSettings::FreeInstance();
 	QString type;
 
@@ -754,7 +713,7 @@ void QTorrentDisplayModel::changeGroup()
 			actions[i]->setChecked(actions[i] == senderAct);
 		}
 
-		QModelIndexList indexes = parrent->selectionModel()->selectedIndexes();
+		QModelIndexList indexes = m_pTorrentListView->selectionModel()->selectedIndexes();
 
 		foreach(QModelIndex index, indexes)
 		{

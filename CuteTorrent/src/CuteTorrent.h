@@ -76,9 +76,10 @@ private:
 	void initToolbarIcons();
 	void initStatusBarIcons();
 	void initMainMenuIcons();
-	StyleEngene* styleEngine;
+	StyleEngene* m_pStyleEngine;
 	QList<SearchItem> searchSources;
-	QComboBox* searchSource;
+	QComboBox* m_pTorrentSearchCategory;
+	QComboBox* m_pSearchCategory;
 	TorrentStorrage* torrents;
 	PeiceDisplayWidget* pieceView;
 	FileViewSortProxyModel* proxymodel;
@@ -86,9 +87,9 @@ private:
 	TorrentTracker* tracker;
 	QApplicationSettings* settings;
 	RconWebService* rcon;
-	UpdateNotifier* notyfire;
+	UpdateNotifier* m_pUpdateNotifier;
 	bool mayShowNotifies;
-	QSystemTrayIcon* trayIcon;
+	QSystemTrayIcon* m_pTrayIcon;
 	QSpinBox* ul, *dl;
 	QMenu* trayIconMenu;
 	QAction* minimizeAction;
@@ -104,8 +105,9 @@ private:
 	QTorrentItemDelegat* m_pTorrentItemDelegate;
 	QSearchDisplayModel* m_pSearchDisplayModel;
 	QSearchItemDelegate* m_pSearchItemDelegate;
-	TorrentManager* tManager;
-	QLineEdit* searchEdit;
+	TorrentManager* m_pTorrentManager;
+	QLineEdit* m_pTorrentSearchEdit;
+	QLineEdit* m_pSearchEdit;
 	QTreeWidgetItem* torrentTreeItem;
 	QTreeWidgetItem* dlTreeItem;
 	QTreeWidgetItem* ulTreeItem;
@@ -178,8 +180,8 @@ public slots:
 	void OnGotSerachResults();
 	void maximizeBtnClicked();
 	void minimizeBtnClicked();
-
-
+	void startDownloadTorrent();
+	void openSearchItemDescribtion();
 
 };
 

@@ -4,9 +4,7 @@
 HttpConnectionHandlerPool::HttpConnectionHandlerPool(QString name, HttpRequestHandler* _requestHandler)
 	: QObject()
 {
-	
 	serverName = name;
-	
 	this->settings = QApplicationSettings::getInstance();
 	this->requestHandler = _requestHandler;
 	cleanupTimer.start(settings->value(serverName, "cleanupInterval", 1000).toInt());
@@ -22,9 +20,7 @@ HttpConnectionHandlerPool::~HttpConnectionHandlerPool()
 		delete handler;
 	}
 
-	
 	QApplicationSettings::FreeInstance();
-	
 }
 
 
@@ -77,7 +73,6 @@ void HttpConnectionHandlerPool::cleanup()
 			{
 				pool.removeOne(handler);
 				delete handler;
-				
 				break; // remove only one handler in each interval
 			}
 		}

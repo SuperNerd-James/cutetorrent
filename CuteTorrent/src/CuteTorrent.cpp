@@ -50,17 +50,16 @@ CuteTorrent::CuteTorrent(QWidget* parent)
 	settings = QApplicationSettings::getInstance();
 	Application::setLanguage(settings->valueString("System", "Lang", "ru_RU"));
 	Application::setLanguageQt(settings->valueString("System", "Lang", "ru_RU"));
-	styleEngine = StyleEngene::getInstance();
+	m_pStyleEngine = StyleEngene::getInstance();
 	m_pSearchEngine = new SearchEngine();
-	styleEngine->setStyle(settings->valueString("System", "Style", "CuteTorrent"));
+	m_pStyleEngine->setStyle(settings->valueString("System", "Style", "CuteTorrent"));
 	setWindowModality(Qt::NonModal);
 	setupCustomeWindow();
-	
 	m_pTorrentDisplayModel = new QTorrentDisplayModel(this, m_pTorrentListView, this);
-	m_pSearchDisplayModel = new QSearchDisplayModel(m_pSearchEngine);
+	m_pSearchDisplayModel = new QSearchDisplayModel(m_pSearchEngine, m_pTorrentListView);
 	m_pSearchItemDelegate = new QSearchItemDelegate();
-	tManager = TorrentManager::getInstance();
-	notyfire = new UpdateNotifier();
+	m_pTorrentManager = TorrentManager::getInstance();
+	m_pUpdateNotifier = new UpdateNotifier();
 	mayShowNotifies = false;
 	setAcceptDrops(true);
 	setupStatusBar();
@@ -88,7 +87,7 @@ CuteTorrent::CuteTorrent(QWidget* parent)
 		if(settings->valueBool("WebControl", "enable_upnp", false))
 		{
 			int port = settings->valueInt("WebControl", "port", 8080);
-			tManager->AddPortMapping(session::tcp, port, port);
+			m_pTorrentManager->AddPortMapping(session::tcp, port, port);
 		}
 	}
 
@@ -101,7 +100,7 @@ CuteTorrent::CuteTorrent(QWidget* parent)
 	m_pGroupTreeWidget->installEventFilter(this);
 	QTextCodec* wantUnicode = QTextCodec::codecForName("UTF-8");
 	QTextCodec::setCodecForCStrings(wantUnicode);
-	tManager->initSession();
+	m_pTorrentManager->initSession();
 	torrents = TorrentStorrage::getInstance();
 	QTimer::singleShot(10000, this, SLOT(CheckForUpdates()));
 	Scheduller* sch = Scheduller::getInstance();
@@ -109,7 +108,7 @@ CuteTorrent::CuteTorrent(QWidget* parent)
 }
 void CuteTorrent::CheckForUpdates()
 {
-	notyfire->fetch();
+	m_pUpdateNotifier->fetch();
 }
 void CuteTorrent::ShowAbout()
 {
@@ -123,8 +122,8 @@ void CuteTorrent::ShowUpdateNitify(const QString& newVersion)
 }
 void CuteTorrent::initStatusBarIcons()
 {
-	upLabel->setPixmap(styleEngine->getIcon("status_bar_upload").pixmap(16, 16));
-	downLabel->setPixmap(styleEngine->getIcon("status_bar_download").pixmap(16, 16));
+	upLabel->setPixmap(m_pStyleEngine->getIcon("status_bar_upload").pixmap(16, 16));
+	downLabel->setPixmap(m_pStyleEngine->getIcon("status_bar_download").pixmap(16, 16));
 }
 
 void CuteTorrent::setupStatusBar()
@@ -209,25 +208,40 @@ void CuteTorrent::setupTabelWidgets()
 }
 void CuteTorrent::initToolbarIcons()
 {
-	ACTION_TOOLBAR_START->setIcon(styleEngine->getIcon("toolbar_start"));
-	ACTION_TOOLBAR_PAUSE->setIcon(styleEngine->getIcon("toolbar_pause"));
-	ACTION_TOOLBAR_REMOVE->setIcon(styleEngine->getIcon("toolbar_remove"));
-	ACTION_TOOLBAR_SETTINGS->setIcon(styleEngine->getIcon("toolbar_settings"));
+	ACTION_TOOLBAR_START->setIcon(m_pStyleEngine->getIcon("toolbar_start"));
+	ACTION_TOOLBAR_PAUSE->setIcon(m_pStyleEngine->getIcon("toolbar_pause"));
+	ACTION_TOOLBAR_REMOVE->setIcon(m_pStyleEngine->getIcon("toolbar_remove"));
+	ACTION_TOOLBAR_SETTINGS->setIcon(m_pStyleEngine->getIcon("toolbar_settings"));
+	ACTION_TOOLBAR_DOWNLOAD->setIcon(m_pStyleEngine->getIcon("toolbar_download"));
+	ACTION_TOOLBAR_OPEN_URL->setIcon(m_pStyleEngine->getIcon("toolbar_open_url"));
 }
 
 void CuteTorrent::setupToolBar()
 {
 	initToolbarIcons();
-	searchSource = new QComboBox(this);
-	searchSources = settings->GetSearchSources();
-
-	for(int i = 0; i < searchSources.size(); i++)
+	m_pTorrentSearchCategory = new QComboBox(this);
+	m_pSearchCategory = new QComboBox(this);
+	QMap<ISerachProvider::SearchCategories, QString> categoriesToStr;
+	categoriesToStr[ISerachProvider::Anime] =	 tr("ANIME_CATEGORY");
+	categoriesToStr[ISerachProvider::Music] =	 tr("MUSIC_CATEGORY");
+	categoriesToStr[ISerachProvider::TV] =		 tr("TV_CATEGORY");
+	categoriesToStr[ISerachProvider::Porn] =	 tr("PORN_CATEGORY");
+	categoriesToStr[ISerachProvider::Software] = tr("APP_CATEGORY"); 
+	categoriesToStr[ISerachProvider::Games] =	 tr("GAMES_CATEGORY");
+	categoriesToStr[ISerachProvider::Books] =	 tr("BOOKS_CATEGORY");
+	categoriesToStr[ISerachProvider::Movie] =	 tr("FILMS_CATEGORY");;
+	categoriesToStr[ISerachProvider::All] =		 tr("ALL_CATEGORY");;;
+	for (int i = categoriesToStr.size() - 1; i >= 0; i--)
 	{
-		searchSource->addItem(searchSources[i].getName());
+		m_pTorrentSearchCategory->addItem(categoriesToStr.values().at(i), categoriesToStr.keys().at(i));
+		m_pSearchCategory->addItem(categoriesToStr.values().at(i), categoriesToStr.keys().at(i));
 	}
-
-	searchEdit = new QLineEdit(this);
-	QObject::connect(searchEdit, SIGNAL(returnPressed()), this, SLOT(PeformSearch()));
+	m_pTorrentSearchCategory->setCurrentIndex(0);
+	m_pSearchCategory->setCurrentIndex(0);
+	m_pSearchEdit = new QLineEdit(this);
+	m_pTorrentSearchEdit = new QLineEdit(this);
+	QObject::connect(m_pTorrentSearchEdit, SIGNAL(returnPressed()), this, SLOT(PeformSearch()));
+	QObject::connect(m_pSearchEdit, SIGNAL(returnPressed()), this, SLOT(PeformSearch()));
 	ul = new QSpinBox(this);
 	ul->setSuffix(" Kb\\s");
 	ul->setMaximum(12000.0f);
@@ -246,17 +260,23 @@ void CuteTorrent::setupToolBar()
 	uploadLimit->setBuddy(ul);
 	downloadLimit = new QLabel(tr("LIMIT_DL"), this);
 	downloadLimit->setBuddy(dl);
-	searchEdit->setMaximumWidth(145);
-	searchSource->setMaximumWidth(150);
-	searchSource->setMinimumWidth(150);
+	m_pSearchEdit->setMaximumWidth(145);
+	m_pTorrentSearchEdit->setMaximumWidth(145);
+	m_pTorrentSearchCategory->setMinimumWidth(120);
+	m_pSearchCategory->setMinimumWidth(120);
 //   mainToolbar->addSeparator();
-	mainToolbar->addWidget(uploadLimit);
-	mainToolbar->addWidget(ul);
-	mainToolbar->addWidget(downloadLimit);
-	mainToolbar->addWidget(dl);
+	m_pTorrentToolBar->addWidget(uploadLimit);
+	m_pTorrentToolBar->addWidget(ul);
+	m_pTorrentToolBar->addWidget(downloadLimit);
+	m_pTorrentToolBar->addWidget(dl);
 //    mainToolbar->addSeparator();
-	mainToolbar->addWidget(searchEdit);
-	mainToolbar->addWidget(searchSource);
+	QWidget* spacer = new QWidget();
+	spacer->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Preferred);
+	m_pSearchToolBar->addWidget(spacer);
+	m_pSearchToolBar->addWidget(m_pSearchEdit);
+	m_pSearchToolBar->addWidget(m_pSearchCategory);
+	m_pTorrentToolBar->addWidget(m_pTorrentSearchEdit);
+	m_pTorrentToolBar->addWidget(m_pTorrentSearchCategory);
 	UpdateTabWidget(-2);
 }
 void CuteTorrent::setupConnections()
@@ -264,27 +284,30 @@ void CuteTorrent::setupConnections()
 	QObject::connect(m_pTorrentListView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)),
 	                 m_pTorrentDisplayModel, SLOT(UpdateSelectedIndex(const QItemSelection&)));
 	QObject::connect(m_pTorrentListView, SIGNAL(customContextMenuRequested(const QPoint&)), m_pTorrentDisplayModel, SLOT(contextualMenu(const QPoint&)));
-	QObject::connect(trayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+	QObject::connect(m_pTorrentListView, SIGNAL(customContextMenuRequested(const QPoint&)), m_pSearchDisplayModel, SLOT(contextualMenu(const QPoint&)));
+	QObject::connect(m_pTrayIcon, SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
 	                 this, SLOT(IconActivated(QSystemTrayIcon::ActivationReason)));
 	QObject::connect(ACTION_MENU_EXIT, SIGNAL(triggered()), qApp, SLOT(quit()));
 	QObject::connect(tabWidget, SIGNAL(currentChanged(int)), this, SLOT(UpdateTabWidget(int)));
 	QObject::connect(m_pTorrentDisplayModel, SIGNAL(updateTabSender(int)), this, SLOT(UpdateTabWidget(int)));
-	QObject::connect(tManager, SIGNAL(TorrentError(const QString&, const QString&)), this, SLOT(ShowTorrentError(const QString&, const QString&)));
-	QObject::connect(tManager, SIGNAL(TorrentCompleted(const QString&, const QString&)),
+	QObject::connect(m_pTorrentManager, SIGNAL(TorrentError(const QString&, const QString&)), this, SLOT(ShowTorrentError(const QString&, const QString&)));
+	QObject::connect(m_pTorrentManager, SIGNAL(TorrentCompleted(const QString&, const QString&)),
 	                 this, SLOT(ShowTorrentCompletedNotyfy(const QString, const QString)));
-	QObject::connect(tManager, SIGNAL(TorrentInfo(const QString&, const QString&)),
+	QObject::connect(m_pTorrentManager, SIGNAL(TorrentInfo(const QString&, const QString&)),
 	                 this, SLOT(ShowTorrentInfoNotyfy(const QString, const QString)));
 	//QObject::connect(mng,SIGNAL(AddTorrentGui(Torrent*)),model,SLOT(AddTorrent(Torrent*)));
-	QObject::connect(notyfire, SIGNAL(showUpdateNitify(const QString&)), this, SLOT(ShowUpdateNitify(const QString&)));
-	QObject::connect(notyfire, SIGNAL(showNoUpdateNitify(const QString&)), this, SLOT(ShowNoUpdateNitify(const QString&)));
+	QObject::connect(m_pUpdateNotifier, SIGNAL(showUpdateNitify(const QString&)), this, SLOT(ShowUpdateNitify(const QString&)));
+	QObject::connect(m_pUpdateNotifier, SIGNAL(showNoUpdateNitify(const QString&)), this, SLOT(ShowNoUpdateNitify(const QString&)));
 	QObject::connect(fileTableView, SIGNAL(customContextMenuRequested(const QPoint&)), fileViewModel, SLOT(FileTabContextMenu(const QPoint&)));
-	QObject::connect(tManager, SIGNAL(initCompleted()), m_pTorrentDisplayModel, SLOT(initSessionFinished()));
+	QObject::connect(m_pTorrentManager, SIGNAL(initCompleted()), m_pTorrentDisplayModel, SLOT(initSessionFinished()));
 	QObject::connect(m_pTorrentDisplayModel, SIGNAL(initCompleted()), this, SLOT(EnableNitifyShow()));
 	QObject::connect(m_pGroupTreeWidget, SIGNAL(itemSelectionChanged()), this, SLOT(ChnageTorrentFilter()));
-	QObject::connect(styleEngine, SIGNAL(styleChanged()), this, SLOT(initWindowIcons()));
-	QObject::connect(styleEngine, SIGNAL(styleChanged()), m_pTorrentDisplayModel, SLOT(setupContextMenu()));
+	QObject::connect(m_pStyleEngine, SIGNAL(styleChanged()), this, SLOT(initWindowIcons()));
+	QObject::connect(m_pStyleEngine, SIGNAL(styleChanged()), m_pTorrentDisplayModel, SLOT(setupContextMenu()));
 	QObject::connect(m_pTorrentListView, SIGNAL(doubleClicked(const QModelIndex&)), m_pTorrentDisplayModel, SLOT(OpenDirSelected()));
 	QObject::connect(m_pSearchEngine, SIGNAL(GotResults()), this, SLOT(OnGotSerachResults()));
+	QObject::connect(m_pTorrentSearchEdit, SIGNAL(textEdited(const QString&)), m_pSearchEdit, SLOT(setText(const QString&)));
+	QObject::connect(m_pSearchEdit, SIGNAL(textEdited(const QString&)), m_pTorrentSearchEdit, SLOT(setText(const QString&)));
 }
 void CuteTorrent::ShowNoUpdateNitify(const QString& ver)
 {
@@ -311,8 +334,7 @@ void CuteTorrent::ShowTorrentCompletedNotyfy(const QString& name, const QString&
 }
 void CuteTorrent::UpdateTabWidget(int tabIndex)
 {
-	
-	trayIcon->setToolTip("CuteTorrent "CT_VERSION"\nUpload: " + tManager->GetSessionUploadSpeed() + "\nDownload:" + tManager->GetSessionDownloadSpeed());
+	m_pTrayIcon->setToolTip("CuteTorrent "CT_VERSION"\nUpload: " + m_pTorrentManager->GetSessionUploadSpeed() + "\nDownload:" + m_pTorrentManager->GetSessionDownloadSpeed());
 
 	if(this->isMinimized())
 	{
@@ -331,7 +353,6 @@ void CuteTorrent::UpdateTabWidget(int tabIndex)
 		tabIndex = tabWidget->currentIndex();
 	}
 
-	
 	try
 	{
 		switch(tabIndex)
@@ -371,20 +392,20 @@ void CuteTorrent::UpdateTabWidget(int tabIndex)
 			}
 			else
 			{
-				if(ul->value() != tManager->GetUploadLimit() / 1024)
+				if(ul->value() != m_pTorrentManager->GetUploadLimit() / 1024)
 				{
-					ul->setValue(tManager->GetUploadLimit() / 1024);
+					ul->setValue(m_pTorrentManager->GetUploadLimit() / 1024);
 				}
 
-				if(dl->value() != tManager->GetDownloadLimit() / 1024)
+				if(dl->value() != m_pTorrentManager->GetDownloadLimit() / 1024)
 				{
-					dl->setValue(tManager->GetDownloadLimit() / 1024);
+					dl->setValue(m_pTorrentManager->GetDownloadLimit() / 1024);
 				}
 			}
 		}
 
-		upLabelText->setText(QString("%1(%2)").arg(tManager->GetSessionUploaded()).arg(tManager->GetSessionUploadSpeed()));
-		downLabelText->setText(QString("%1(%2)").arg(tManager->GetSessionDownloaded()).arg(tManager->GetSessionDownloadSpeed()));
+		upLabelText->setText(QString("%1(%2)").arg(m_pTorrentManager->GetSessionUploaded()).arg(m_pTorrentManager->GetSessionUploadSpeed()));
+		downLabelText->setText(QString("%1(%2)").arg(m_pTorrentManager->GetSessionDownloaded()).arg(m_pTorrentManager->GetSessionDownloadSpeed()));
 		//	torrentFilterModel->Update();
 	}
 	catch(std::exception e)
@@ -405,7 +426,6 @@ public:
 
 		if(!thisadr.isNull())
 		{
-			
 			QHostAddress otheradr(other.text());
 			return thisadr.toIPv4Address() < otheradr.toIPv4Address();
 		}
@@ -443,7 +463,6 @@ public:
 						break;
 				}
 
-				
 				switch(parts2[1][0].toLower().toLatin1())
 				{
 					case 'k':
@@ -466,13 +485,11 @@ public:
 						break;
 				}
 
-				
 				return speed1 < speed2;
 			}
 		}
 		else if(text().endsWith('%'))
 		{
-			
 			QString perc1 = text().remove('%'), perc2 = other.text().remove('%');
 			return perc1.toDouble() < perc2.toDouble();
 		}
@@ -500,8 +517,8 @@ void CuteTorrent::setupTray()
 {
 	createActions();
 	createTrayIcon();
-	trayIcon->setToolTip("CuteTorrent "CT_VERSION);
-	trayIcon->show();
+	m_pTrayIcon->setToolTip("CuteTorrent "CT_VERSION);
+	m_pTrayIcon->show();
 }
 
 void CuteTorrent::changeEvent(QEvent* event)
@@ -545,6 +562,26 @@ void CuteTorrent::changeEvent(QEvent* event)
 		dl->setSpecialValueText(tr("None"));
 		fileViewModel->retranslateUI();
 		m_pTorrentDisplayModel->retranslate();
+		m_pSearchDisplayModel->retranslate();
+		QMap<ISerachProvider::SearchCategories, QString> categoriesToStr;
+		categoriesToStr[ISerachProvider::Anime] = tr("ANIME_CATEGORY");
+		categoriesToStr[ISerachProvider::Music] = tr("MUSIC_CATEGORY");
+		categoriesToStr[ISerachProvider::TV] = tr("TV_CATEGORY");
+		categoriesToStr[ISerachProvider::Porn] = tr("PORN_CATEGORY");
+		categoriesToStr[ISerachProvider::Software] = tr("APP_CATEGORY");
+		categoriesToStr[ISerachProvider::Games] = tr("GAMES_CATEGORY");
+		categoriesToStr[ISerachProvider::Books] = tr("BOOKS_CATEGORY");
+		categoriesToStr[ISerachProvider::Movie] = tr("FILMS_CATEGORY");;
+		categoriesToStr[ISerachProvider::All] = tr("ALL_CATEGORY");;;
+		m_pSearchCategory->clear();
+		m_pTorrentSearchCategory->clear();
+		for (int i = categoriesToStr.size() - 1; i >= 0; i--)
+		{
+			m_pTorrentSearchCategory->addItem(categoriesToStr.values().at(i), categoriesToStr.keys().at(i));
+			m_pSearchCategory->addItem(categoriesToStr.values().at(i), categoriesToStr.keys().at(i));
+		}
+		m_pTorrentSearchCategory->setCurrentIndex(0);
+		m_pSearchCategory->setCurrentIndex(0);
 	}
 
 	QWidget::changeEvent(event);
@@ -580,25 +617,25 @@ void CuteTorrent::createTrayIcon()
 	trayIconMenu->addAction(restoreAction);
 	trayIconMenu->addSeparator();
 	trayIconMenu->addAction(quitAction);
-	trayIcon = new QSystemTrayIcon(this);
-	trayIcon->setIcon(QIcon(QString::fromUtf8(":/icons/app.ico")));
-	trayIcon->setContextMenu(trayIconMenu);
+	m_pTrayIcon = new QSystemTrayIcon(this);
+	m_pTrayIcon->setIcon(QIcon(QString::fromUtf8(":/icons/app.ico")));
+	m_pTrayIcon->setContextMenu(trayIconMenu);
 }
 void CuteTorrent::createActions()
 {
-	minimizeAction = new QAction(styleEngine->getIcon("app_min"), tr("ACTION_HIDE"), this);
+	minimizeAction = new QAction(m_pStyleEngine->getIcon("app_min"), tr("ACTION_HIDE"), this);
 	minimizeAction->setObjectName("ACTION_TRAY_MINIMIZE");
 	connect(minimizeAction, SIGNAL(triggered()), this, SLOT(hide()));
-	maximizeAction = new QAction(styleEngine->getIcon("app_max"), tr("ACTION_MAXIMIZE_FULLSCREEN"), this);
+	maximizeAction = new QAction(m_pStyleEngine->getIcon("app_max"), tr("ACTION_MAXIMIZE_FULLSCREEN"), this);
 	maximizeAction->setObjectName("ACTION_TRAY_MAXIMIZE");
 	connect(maximizeAction, SIGNAL(triggered()), this, SLOT(showMaximized()));
-	restoreAction = new QAction(styleEngine->getIcon("app_max"), tr("ACTION_MAXIMIZE"), this);
+	restoreAction = new QAction(m_pStyleEngine->getIcon("app_max"), tr("ACTION_MAXIMIZE"), this);
 	restoreAction->setObjectName("ACTION_TRAY_RESTORE");
 	connect(restoreAction, SIGNAL(triggered()), this, SLOT(showNormal()));
-	quitAction = new QAction(styleEngine->getIcon("app_close"), tr("ACTION_EXIT"), this);
+	quitAction = new QAction(m_pStyleEngine->getIcon("app_close"), tr("ACTION_EXIT"), this);
 	quitAction->setObjectName("ACTION_TRAY_EXIT");
 	connect(quitAction, SIGNAL(triggered()), qApp, SLOT(quit()));
-	copyContext = new QAction(styleEngine->getIcon("copy"), tr("ACTION_COPY"), describtionLabel);
+	copyContext = new QAction(m_pStyleEngine->getIcon("copy"), tr("ACTION_COPY"), describtionLabel);
 	copyContext->setObjectName("ACTION_OTHER_DISCRIBTION");
 	connect(copyContext, SIGNAL(triggered()), this, SLOT(CopyDiscribtion()));
 	describtionLabel->addAction(copyContext);
@@ -764,14 +801,6 @@ void CuteTorrent::OpenSettingsDialog()
 	QObject::connect(dlg, SIGNAL(needRetranslate()), this, SLOT(Retranslate()));
 	dlg->exec();
 	delete dlg;
-	searchSources = settings->GetSearchSources();
-	searchSource->clear();
-
-	for(int i = 0; i < searchSources.size(); i++)
-	{
-		searchSource->addItem(searchSources[i].getName());
-	}
-
 	setupGroupTreeWidget();
 	setupKeyMappings();
 	UpdateTabWidget(-2);
@@ -834,7 +863,6 @@ void CuteTorrent::dropEvent(QDropEvent* event)
 		}
 		else
 		{
-			
 		}
 	}
 }
@@ -869,10 +897,9 @@ CuteTorrent::~CuteTorrent()
 	}
 
 	settings->setValue("Window", "files_sizes", QVariant::fromValue(file_columns_sizes));
-	
 	TorrentTracker::freeInstance();
 	RconWebService::freeInstance();
-	trayIcon->hide();
+	m_pTrayIcon->hide();
 	TorrentManager::freeInstance();
 	delete m_pSearchDisplayModel;
 	delete m_pSearchEngine;
@@ -880,10 +907,9 @@ CuteTorrent::~CuteTorrent()
 	delete m_pSearchItemDelegate;
 	delete m_pTorrentItemDelegate;
 	Scheduller::freeInstance();
-	
 	QApplicationSettings::FreeInstance();
-	delete notyfire;
-	delete trayIcon;
+	delete m_pUpdateNotifier;
+	delete m_pTrayIcon;
 }
 
 void CuteTorrent::setupFileTabel()
@@ -938,9 +964,22 @@ void CuteTorrent::ProcessMagnet()
 
 void CuteTorrent::PeformSearch()
 {
-	QString searchText = searchEdit->text();
-	m_pSearchEngine->DoSerach(searchText, ISerachProvider::All, 1);
-	switchToSearchModel();
+	QString searchText = m_pTorrentSearchEdit->text().trimmed();
+	if (!searchText.isEmpty())
+	{
+		ISerachProvider::SearchCategories category;
+		if (m_pTorrentListView->model() == m_pTorrentDisplayModel)
+		{
+			category = (ISerachProvider::SearchCategories)m_pTorrentSearchCategory->itemData(m_pTorrentSearchCategory->currentIndex()).toInt();
+		}
+		else
+		{
+			category = (ISerachProvider::SearchCategories)m_pSearchCategory->itemData(m_pSearchCategory->currentIndex()).toInt();
+		}
+		
+		m_pSearchEngine->DoSerach(searchText, category, 1);
+		m_pGroupTreeWidget->setCurrentItem(searchTreeItem);
+	}
 }
 
 void CuteTorrent::resizeEvent(QResizeEvent* event)
@@ -958,7 +997,7 @@ void CuteTorrent::ShowTorrentInfoNotyfy(const QString& name, const QString& info
 	QBalloonTip::showBalloon("CuteTorrent", QString("%1\n%2").arg(name).arg(info), QBalloonTip::Info, qVariantFromValue(0),
 	                         QSystemTrayIcon::Information, 15000, false);
 #else
-	trayIcon->showMessage("CuteTorrent", QString("%1\n%2").arg(name).arg(info), QSystemTrayIcon::Information);
+	m_pTrayIcon->showMessage("CuteTorrent", QString("%1\n%2").arg(name).arg(info), QSystemTrayIcon::Information);
 #endif
 }
 
@@ -978,7 +1017,6 @@ void CuteTorrent::keyPressEvent(QKeyEvent* event)
 	 qDebug() << keyMap;*/
 	foreach(QString key, keys)
 	{
-		
 		if(QKeySequence(keyMap[key].toString()) == pressedKey)
 		{
 			QAction* action = this->findChild<QAction*> (key);
@@ -1032,7 +1070,6 @@ void CuteTorrent::ClearPieceDisplay()
 
 void CuteTorrent::UpdateUL(int kbps)
 {
-	
 	Torrent* tor = m_pTorrentDisplayModel->GetSelectedTorrent();
 
 	if(tor != NULL)
@@ -1044,13 +1081,12 @@ void CuteTorrent::UpdateUL(int kbps)
 		//settings = QApplicationSettings::getInstance();
 		settings->setValue("Torrent", "upload_rate_limit", kbps * 1024);
 		//QApplicationSettings::FreeInstance();
-		tManager->SetUlLimit(kbps * 1024);
+		m_pTorrentManager->SetUlLimit(kbps * 1024);
 	}
 }
 
 void CuteTorrent::UpdateDL(int kbps)
 {
-	
 	Torrent* tor = m_pTorrentDisplayModel->GetSelectedTorrent();
 
 	if(tor != NULL)
@@ -1062,7 +1098,7 @@ void CuteTorrent::UpdateDL(int kbps)
 		//	QApplicationSettings* settings = QApplicationSettings::getInstance();
 		settings->setValue("Torrent", "download_rate_limit", kbps * 1024);
 		//	QApplicationSettings::FreeInstance();
-		tManager->SetDlLimit(kbps * 1024);
+		m_pTorrentManager->SetDlLimit(kbps * 1024);
 	}
 }
 
@@ -1119,14 +1155,14 @@ void CuteTorrent::StopSelected()
 void CuteTorrent::setupGroupTreeWidget()
 {
 	m_pGroupTreeWidget->clear();
-	QIcon torrentsIcon = styleEngine->getIcon("torrents");
-	QIcon downloadingIcon = styleEngine->getIcon("downloading");
-	QIcon seedingIcon = styleEngine->getIcon("uploading");
-	QIcon completedIcon = styleEngine->getIcon("completed");
-	QIcon activeIcon = styleEngine->getIcon("active");
-	QIcon groupsIcon = styleEngine->getIcon("groups");
+	QIcon torrentsIcon = m_pStyleEngine->getIcon("torrents");
+	QIcon downloadingIcon = m_pStyleEngine->getIcon("downloading");
+	QIcon seedingIcon = m_pStyleEngine->getIcon("uploading");
+	QIcon completedIcon = m_pStyleEngine->getIcon("completed");
+	QIcon activeIcon = m_pStyleEngine->getIcon("active");
+	QIcon groupsIcon = m_pStyleEngine->getIcon("groups");
 	QIcon inactiveIcon(activeIcon.pixmap(QSize(16, 16), QIcon::Disabled, QIcon::On));
-	QIcon rssIcon = styleEngine->getIcon("rss");
+	QIcon rssIcon = m_pStyleEngine->getIcon("rss");
 	torrentTreeItem = new QTreeWidgetItem(m_pGroupTreeWidget);
 	torrentTreeItem->setIcon(0, torrentsIcon);
 	torrentTreeItem->setText(0, tr("TORRENTS_ACTIVITY"));
@@ -1169,7 +1205,7 @@ void CuteTorrent::setupGroupTreeWidget()
 	{
 		QTreeWidgetItem* item = new QTreeWidgetItem(groupsTreeItem);
 		item->setText(0, groups[i].Name());
-		item->setIcon(0, styleEngine->guessMimeIcon(groups[i].Extensions().split('|') [0], type));
+		item->setIcon(0, m_pStyleEngine->guessMimeIcon(groups[i].Extensions().split('|') [0], type));
 		item->setData(0, Qt::UserRole + 1, GROUP_FILTER_TYPE);
 		item->setData(0, Qt::UserRole + 2, groups[i].Name());
 	}
@@ -1179,7 +1215,7 @@ void CuteTorrent::setupGroupTreeWidget()
 	rssTreeItem->setText(0, tr("RSS_CHANELS"));
 	rssTreeItem->setData(0, Qt::UserRole + 1, RSS_FEED);
 	searchTreeItem = new QTreeWidgetItem(m_pGroupTreeWidget);
-	searchTreeItem->setIcon(0, styleEngine->getIcon("settings_search"));
+	searchTreeItem->setIcon(0, m_pStyleEngine->getIcon("settings_search"));
 	searchTreeItem->setText(0, tr("TAB_SEARCH"));
 	searchTreeItem->setData(0, Qt::UserRole + 1, SEARCH);
 	searchTreeItem->setData(0, Qt::UserRole + 2, "");
@@ -1192,7 +1228,7 @@ void CuteTorrent::setupGroupTreeWidget()
 		QTreeWidgetItem* item = new QTreeWidgetItem(searchTreeItem);
 		QString engineName = current->Name();
 		item->setText(0, engineName);
-		item->setIcon(0, styleEngine->getIcon(engineName));
+		item->setIcon(0, m_pStyleEngine->getIcon(engineName));
 		item->setData(0, Qt::UserRole + 1, SEARCH);
 		item->setData(0, Qt::UserRole + 2, engineName);
 	}
@@ -1250,21 +1286,21 @@ void CuteTorrent::startBackUpWizard()
 }
 void CuteTorrent::initMainMenuIcons()
 {
-	ACTION_MENU_ABAUT_CT->setIcon(styleEngine->getIcon("about"));
-	ACTION_MENU_CHECK_UPDATE->setIcon(styleEngine->getIcon("check_update"));
-	ACTION_MENU_CREATE->setIcon(styleEngine->getIcon("create_torrent"));
-	ACTION_MENU_EXIT->setIcon(styleEngine->getIcon("menu_exit"));
-	ACTION_MENU_OPEN_MAGNET->setIcon(styleEngine->getIcon("magnet"));
-	ACTION_MENU_OPEN_TORRENT->setIcon(styleEngine->getIcon("add_torrent"));
-	ACTION_MENU_SETTINGS->setIcon(styleEngine->getIcon("menu_settings"));
-	ACTION_MENU_BACKUP->setIcon(styleEngine->getIcon("menu_backup"));
+	ACTION_MENU_ABAUT_CT->setIcon(m_pStyleEngine->getIcon("about"));
+	ACTION_MENU_CHECK_UPDATE->setIcon(m_pStyleEngine->getIcon("check_update"));
+	ACTION_MENU_CREATE->setIcon(m_pStyleEngine->getIcon("create_torrent"));
+	ACTION_MENU_EXIT->setIcon(m_pStyleEngine->getIcon("menu_exit"));
+	ACTION_MENU_OPEN_MAGNET->setIcon(m_pStyleEngine->getIcon("magnet"));
+	ACTION_MENU_OPEN_TORRENT->setIcon(m_pStyleEngine->getIcon("add_torrent"));
+	ACTION_MENU_SETTINGS->setIcon(m_pStyleEngine->getIcon("menu_settings"));
+	ACTION_MENU_BACKUP->setIcon(m_pStyleEngine->getIcon("menu_backup"));
 }
 
 void CuteTorrent::initWindowIcons()
 {
-	pbMin->setIcon(styleEngine->getIcon("app_min"));
-	pbMax->setIcon(styleEngine->getIcon("app_max"));
-	pbClose->setIcon(styleEngine->getIcon("app_close"));
+	pbMin->setIcon(m_pStyleEngine->getIcon("app_min"));
+	pbMax->setIcon(m_pStyleEngine->getIcon("app_max"));
+	pbClose->setIcon(m_pStyleEngine->getIcon("app_close"));
 	setupGroupTreeWidget();
 	initToolbarIcons();
 	initStatusBarIcons();
@@ -1284,7 +1320,7 @@ void CuteTorrent::setupCustomeWindow()
 	if(settings->value("Window", "maximized", false).toBool())
 	{
 		showMaximized();
-		pbMax->setIcon(styleEngine->getIcon("app_rest"));
+		pbMax->setIcon(m_pStyleEngine->getIcon("app_rest"));
 	}
 
 	int selectedTab = settings->valueInt("Window", "selected_tab", 0);
@@ -1413,6 +1449,10 @@ void CuteTorrent::switchToTorrentsModel()
 	{
 		m_pTorrentListView->setModel(m_pTorrentDisplayModel);
 		m_pTorrentListView->setItemDelegate(m_pTorrentItemDelegate);
+		m_pToolBarsContainer->setCurrentIndex(0);
+		QObject::connect(m_pTorrentListView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)),
+		                 m_pTorrentDisplayModel, SLOT(UpdateSelectedIndex(const QItemSelection&)));
+		m_pTorrentSearchCategory->setCurrentIndex(m_pSearchCategory->currentIndex());
 	}
 }
 
@@ -1420,11 +1460,37 @@ void CuteTorrent::switchToSearchModel()
 {
 	if(m_pTorrentListView->model() != m_pSearchDisplayModel)
 	{
+		QObject::disconnect(m_pTorrentListView->selectionModel(), SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)),
+			m_pTorrentDisplayModel, SLOT(UpdateSelectedIndex(const QItemSelection&)));
 		m_pTorrentListView->setModel(m_pSearchDisplayModel);
 		m_pTorrentListView->setItemDelegate(m_pSearchItemDelegate);
+		m_pToolBarsContainer->setCurrentIndex(1);
+		m_pSearchCategory->setCurrentIndex(m_pTorrentSearchCategory->currentIndex());
 	}
 }
 
 void CuteTorrent::switchToRssModel()
 {
+}
+
+void CuteTorrent::openSearchItemDescribtion()
+{
+	if (m_pTorrentListView->model() != m_pSearchDisplayModel)
+	{
+		return;
+	}
+	QModelIndex index = m_pTorrentListView->currentIndex();
+	SearchResult* searchResult = index.data(QSearchDisplayModel::SearchItemRole).value<SearchResult*>();
+	QDesktopServices::openUrl(searchResult->TorrentDescUrl);
+}
+
+void CuteTorrent::startDownloadTorrent()
+{
+	if (m_pTorrentListView->model() != m_pSearchDisplayModel)
+	{
+		return;
+	}
+	QModelIndex index = m_pTorrentListView->currentIndex();
+	SearchResult* searchResult = index.data(QSearchDisplayModel::SearchItemRole).value<SearchResult*>();
+	QDesktopServices::openUrl(searchResult->TorrentFileUrl);
 }

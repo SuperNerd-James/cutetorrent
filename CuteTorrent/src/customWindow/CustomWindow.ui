@@ -211,128 +211,7 @@
       <property name="spacing">
        <number>0</number>
       </property>
-      <item row="2" column="0">
-       <widget class="QToolBar" name="mainToolbar">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <kerning>true</kerning>
-         </font>
-        </property>
-        <property name="contextMenuPolicy">
-         <enum>Qt::NoContextMenu</enum>
-        </property>
-        <property name="windowTitle">
-         <string>toolBar</string>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QToolBar {
-border-bottom: none;
-border-top: none;
-spacing:3px;
-padding-right:2px;
-}
-</string>
-        </property>
-        <property name="movable">
-         <bool>false</bool>
-        </property>
-        <property name="toolButtonStyle">
-         <enum>Qt::ToolButtonIconOnly</enum>
-        </property>
-        <addaction name="ACTION_TOOLBAR_START"/>
-        <addaction name="ACTION_TOOLBAR_PAUSE"/>
-        <addaction name="ACTION_TOOLBAR_REMOVE"/>
-        <addaction name="ACTION_TOOLBAR_SETTINGS"/>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QStatusBar" name="mystatusBar">
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>19</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QMenuBar" name="mainMenuBar">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>0</width>
-          <height>0</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>16777215</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true"/>
-        </property>
-        <property name="defaultUp">
-         <bool>false</bool>
-        </property>
-        <property name="nativeMenuBar">
-         <bool>false</bool>
-        </property>
-        <widget class="QMenu" name="menu">
-         <property name="styleSheet">
-          <string notr="true"/>
-         </property>
-         <property name="title">
-          <string>MENU_FILE</string>
-         </property>
-         <addaction name="ACTION_MENU_OPEN_TORRENT"/>
-         <addaction name="ACTION_MENU_OPEN_MAGNET"/>
-         <addaction name="separator"/>
-         <addaction name="ACTION_MENU_CREATE"/>
-         <addaction name="separator"/>
-         <addaction name="ACTION_MENU_EXIT"/>
-        </widget>
-        <widget class="QMenu" name="menu_2">
-         <property name="title">
-          <string>MENU_SETTINGS</string>
-         </property>
-         <addaction name="ACTION_MENU_SETTINGS"/>
-        </widget>
-        <widget class="QMenu" name="menu_CuteTorrent">
-         <property name="title">
-          <string>MENU_HELP</string>
-         </property>
-         <addaction name="ACTION_MENU_ABAUT_CT"/>
-         <addaction name="ACTION_MENU_CHECK_UPDATE"/>
-        </widget>
-        <widget class="QMenu" name="menuMENU_TOOLS">
-         <property name="title">
-          <string>MENU_TOOLS</string>
-         </property>
-         <addaction name="ACTION_MENU_BACKUP"/>
-        </widget>
-        <addaction name="menu"/>
-        <addaction name="menu_2"/>
-        <addaction name="menuMENU_TOOLS"/>
-        <addaction name="menu_CuteTorrent"/>
-       </widget>
-      </item>
-      <item row="3" column="0">
+      <item row="5" column="0">
        <layout class="QGridLayout" name="gridLayout_6">
         <property name="leftMargin">
          <number>0</number>
@@ -354,7 +233,7 @@ padding-right:2px;
           <property name="minimumSize">
            <size>
             <width>0</width>
-            <height>330</height>
+            <height>0</height>
            </size>
           </property>
           <property name="styleSheet">
@@ -376,7 +255,7 @@ padding-right:2px;
            <property name="minimumSize">
             <size>
              <width>0</width>
-             <height>330</height>
+             <height>0</height>
             </size>
            </property>
            <property name="styleSheet">
@@ -414,7 +293,7 @@ padding-right:2px;
             <enum>QTabWidget::North</enum>
            </property>
            <property name="currentIndex">
-            <number>0</number>
+            <number>3</number>
            </property>
            <property name="elideMode">
             <enum>Qt::ElideMiddle</enum>
@@ -759,6 +638,180 @@ padding-right:2px;
         </item>
        </layout>
       </item>
+      <item row="6" column="0">
+       <widget class="QStatusBar" name="mystatusBar">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>19</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QMenuBar" name="mainMenuBar">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
+        </property>
+        <property name="defaultUp">
+         <bool>false</bool>
+        </property>
+        <property name="nativeMenuBar">
+         <bool>false</bool>
+        </property>
+        <widget class="QMenu" name="menu">
+         <property name="styleSheet">
+          <string notr="true"/>
+         </property>
+         <property name="title">
+          <string>MENU_FILE</string>
+         </property>
+         <addaction name="ACTION_MENU_OPEN_TORRENT"/>
+         <addaction name="ACTION_MENU_OPEN_MAGNET"/>
+         <addaction name="separator"/>
+         <addaction name="ACTION_MENU_CREATE"/>
+         <addaction name="separator"/>
+         <addaction name="ACTION_MENU_EXIT"/>
+        </widget>
+        <widget class="QMenu" name="menu_2">
+         <property name="title">
+          <string>MENU_SETTINGS</string>
+         </property>
+         <addaction name="ACTION_MENU_SETTINGS"/>
+        </widget>
+        <widget class="QMenu" name="menu_CuteTorrent">
+         <property name="title">
+          <string>MENU_HELP</string>
+         </property>
+         <addaction name="ACTION_MENU_ABAUT_CT"/>
+         <addaction name="ACTION_MENU_CHECK_UPDATE"/>
+        </widget>
+        <widget class="QMenu" name="menuMENU_TOOLS">
+         <property name="title">
+          <string>MENU_TOOLS</string>
+         </property>
+         <addaction name="ACTION_MENU_BACKUP"/>
+        </widget>
+        <addaction name="menu"/>
+        <addaction name="menu_2"/>
+        <addaction name="menuMENU_TOOLS"/>
+        <addaction name="menu_CuteTorrent"/>
+       </widget>
+      </item>
+      <item row="3" column="0">
+       <widget class="QStackedWidget" name="m_pToolBarsContainer">
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>32</height>
+         </size>
+        </property>
+        <property name="currentIndex">
+         <number>0</number>
+        </property>
+        <widget class="QToolBar" name="m_pTorrentToolBar">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <kerning>true</kerning>
+          </font>
+         </property>
+         <property name="contextMenuPolicy">
+          <enum>Qt::NoContextMenu</enum>
+         </property>
+         <property name="windowTitle">
+          <string>toolBar</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">
+               QToolBar {
+               border-bottom: none;
+               border-top: none;
+               spacing:3px;
+               padding-right:2px;
+               }
+             </string>
+         </property>
+         <property name="movable">
+          <bool>false</bool>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonIconOnly</enum>
+         </property>
+         <addaction name="ACTION_TOOLBAR_START"/>
+         <addaction name="ACTION_TOOLBAR_PAUSE"/>
+         <addaction name="ACTION_TOOLBAR_REMOVE"/>
+         <addaction name="ACTION_TOOLBAR_SETTINGS"/>
+        </widget>
+        <widget class="QToolBar" name="m_pSearchToolBar">
+         <property name="enabled">
+          <bool>true</bool>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <kerning>true</kerning>
+          </font>
+         </property>
+         <property name="contextMenuPolicy">
+          <enum>Qt::NoContextMenu</enum>
+         </property>
+         <property name="windowTitle">
+          <string>toolBar</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">
+               QToolBar {
+               border-bottom: none;
+               border-top: none;
+               spacing:3px;
+               padding-right:2px;
+               }
+             </string>
+         </property>
+         <property name="movable">
+          <bool>false</bool>
+         </property>
+         <property name="toolButtonStyle">
+          <enum>Qt::ToolButtonIconOnly</enum>
+         </property>
+         <addaction name="ACTION_TOOLBAR_DOWNLOAD"/>
+         <addaction name="ACTION_TOOLBAR_OPEN_URL"/>
+         <addaction name="ACTION_TOOLBAR_SETTINGS"/>
+        </widget>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>
@@ -821,6 +874,22 @@ padding-right:2px;
    </property>
    <property name="iconText">
     <string>HINT_PAUSE</string>
+   </property>
+  </action>
+  <action name="ACTION_TOOLBAR_DOWNLOAD">
+   <property name="text">
+    <string>STR_DOWNLOAD</string>
+   </property>
+   <property name="iconText">
+    <string>HINT_DOWNLOAD</string>
+   </property>
+  </action>
+  <action name="ACTION_TOOLBAR_OPEN_URL">
+   <property name="text">
+    <string>STR_OPEN_URL</string>
+   </property>
+   <property name="iconText">
+    <string>HINT_OPEN_URL</string>
    </property>
   </action>
   <action name="ACTION_TOOLBAR_START">
@@ -1053,6 +1122,38 @@ padding-right:2px;
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>ACTION_TOOLBAR_DOWNLOAD</sender>
+   <signal>triggered()</signal>
+   <receiver>CustomWindow</receiver>
+   <slot>startDownloadTorrent()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>265</x>
+     <y>309</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>ACTION_TOOLBAR_OPEN_URL</sender>
+   <signal>triggered()</signal>
+   <receiver>CustomWindow</receiver>
+   <slot>openSearchItemDescribtion()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>265</x>
+     <y>309</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <signal>FillTorrentDetails(Torrent*)</signal>
@@ -1068,5 +1169,7 @@ padding-right:2px;
   <slot>copyDiscribtion()</slot>
   <slot>StopSelected()</slot>
   <slot>startBackUpWizard()</slot>
+  <slot>startDownloadTorrent()</slot>
+  <slot>openSearchItemDescribtion()</slot>
  </slots>
 </ui>

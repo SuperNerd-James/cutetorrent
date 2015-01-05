@@ -12,7 +12,6 @@
 StaticFileController::StaticFileController(QObject* parent)
 	: HttpRequestHandler("WebControl", parent)
 {
-	
 	settings = QApplicationSettings::getInstance();
 	maxAge = settings->valueInt("WebControl", "maxAge", 60000);
 	encoding = settings->valueString("WebControl", "encoding", "UTF-8");
@@ -24,16 +23,12 @@ StaticFileController::StaticFileController(QObject* parent)
 		docroot = QDir::cleanPath(dataDir + docroot);
 	}
 
-	
 	maxCachedFileSize = settings->valueInt("WebControl", "maxCachedFileSize", 65536);
-	
 	cache.setMaxCost(settings->valueInt("WebControl", "cacheSize", 1000000));
 
-	
 	try
 	{
 		cacheTimeout = settings->valueInt("WebControl", "cacheTime", 60000);
-		
 	}
 	catch(...)
 	{
@@ -68,7 +63,6 @@ void StaticFileController::service(HttpRequest& request, HttpResponse& response)
 	{
 		QByteArray document = entry->document; //copy the cached document, because other threads may destroy the cached entry immediately after mutex unlock.
 		mutex.unlock();
-		
 		setContentType(path, response);
 		response.setHeader("Cache-Control", "max-age=" + QByteArray::number(maxAge / 1000));
 		response.write(document);
@@ -77,7 +71,6 @@ void StaticFileController::service(HttpRequest& request, HttpResponse& response)
 	{
 		mutex.unlock();
 
-		
 		// The file is not in cache.
 		// If the filename is a directory, append index.html.
 		if(QFileInfo(docroot + path).isDir())
@@ -89,7 +82,6 @@ void StaticFileController::service(HttpRequest& request, HttpResponse& response)
 
 		if(file.exists())
 		{
-			
 			if(file.open(QIODevice::ReadOnly))
 			{
 				setContentType(path, response);
@@ -196,7 +188,6 @@ void StaticFileController::setContentType(QString fileName, HttpResponse& respon
 
 StaticFileController::~StaticFileController()
 {
-	
 	QApplicationSettings::FreeInstance();
 }
 
@@ -208,23 +199,23 @@ bool StaticFileController::CheckCreditinals( HttpRequest& request,HttpResponse& 
 	QString parametrs = autorsation.remove(0,method.length());
 	QMap<QString,QString>* parametrsMap = new QMap<QString,QString>();;
 	QStringList paremaetrsParts = parametrs.split(',');
-	
+
 	for (int i=0;i<paremaetrsParts.count();i++)
 	{
 		QStringList keyValue = paremaetrsParts[i].split('=');
-		
+
 		if (keyValue.count() ==2)
 		{
 			parametrsMap->insert(keyValue[0].trimmed(),keyValue[1].trimmed().replace("\"",""));
 		}
 		else
 		{
-			
+
 		}
 	}
 	if (parametrsMap->value("username")!=account.username)
 	{
-		
+
 		response.setStatus(401,"Unauthorized");
 		response.setHeader("WWW-Authenticate","Digest realm=\"realm@host.com\",qop=\"auth,auth-int\",nonce=\"dcd98b7102dd2f0e8b11d0f600bfb0c093\",opaque=\"5ccc069c403ebaf9f0171e9517f40e41\"");
 		response.write("<BODY><H1>401 Unauthorized.</H1></BODY>");
@@ -240,15 +231,15 @@ bool StaticFileController::CheckCreditinals( HttpRequest& request,HttpResponse& 
 													HA2.toHex()).toUtf8(),QCryptographicHash::Md5);
 	if (Response.toHex()!=parametrsMap->value("response"))
 	{
-		
+
 		response.setStatus(401,"Unauthorized");
 		response.setHeader("WWW-Authenticate","Digest realm=\"realm@host.com\",qop=\"auth,auth-int\",nonce=\"dcd98b7102dd2f0e8b11d0f600bfb0c093\",opaque=\"5ccc069c403ebaf9f0171e9517f40e41\"");
 		response.write("<BODY><H1>401 Unauthorized.</H1></BODY>");
 		return false;
 	}
 
-	
-	
+
+
 	delete parametrsMap;
 	return true;
 

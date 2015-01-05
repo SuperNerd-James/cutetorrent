@@ -34,19 +34,15 @@ void RconWebService::parseIpFilter(QString ipFilterStr)
 {
 	QStringList lines = ipFilterStr.split("\n");
 
-	
 	foreach(QString line, lines)
 	{
-		
 		if(line.trimmed().startsWith("#"))
 		{
-			
 			continue;
 		}
 
 		QStringList parts = line.trimmed().split(' ');
 
-		
 		if(parts[0] == "allow" || parts[0] == "deny")
 		{
 			if(parts[0] == "allow")
@@ -68,7 +64,6 @@ void RconWebService::parseIpFilter(QString ipFilterStr)
 				}
 				else
 				{
-					
 				}
 
 				if(parts[1].contains('-') && !parts[1].contains('*'))
@@ -88,7 +83,6 @@ void RconWebService::parseIpFilter(QString ipFilterStr)
 				}
 				else
 				{
-					
 				}
 			}
 			else
@@ -109,7 +103,6 @@ void RconWebService::parseIpFilter(QString ipFilterStr)
 					QHostAddress start(startIP);
 					QHostAddress end(endIP);
 
-					
 					if(start.toIPv4Address() > end.toIPv4Address())
 					{
 						qSwap(start, end);
@@ -119,7 +112,6 @@ void RconWebService::parseIpFilter(QString ipFilterStr)
 				}
 				else
 				{
-					
 				}
 
 				if(parts[1].contains('-') && !parts[1].contains('*'))
@@ -139,20 +131,16 @@ void RconWebService::parseIpFilter(QString ipFilterStr)
 				}
 				else
 				{
-					
 				}
 			}
 		}
 		else
 		{
-			
 		}
 	}
 
 	HttpConnectionHandler::allowedIP = allowedIP;
 	HttpConnectionHandler::notAllowedIP = notAllowedIP;
-	
-	
 }
 
 bool RconWebService::isRunning()

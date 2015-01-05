@@ -43,12 +43,12 @@ static const char qt_meta_stringdata_HttpSessionStore[] =
 
 void HttpSessionStore::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
 {
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
 		Q_ASSERT(staticMetaObject.cast(_o));
 		HttpSessionStore* _t = static_cast<HttpSessionStore*>(_o);
 
-		switch(_id)
+		switch (_id)
 		{
 			case 0:
 				_t->timerEvent();
@@ -89,12 +89,12 @@ const QMetaObject* HttpSessionStore::metaObject() const
 
 void* HttpSessionStore::qt_metacast(const char* _clname)
 {
-	if(!_clname)
+	if (!_clname)
 	{
 		return 0;
 	}
 
-	if(!strcmp(_clname, qt_meta_stringdata_HttpSessionStore))
+	if (!strcmp(_clname, qt_meta_stringdata_HttpSessionStore))
 	{
 		return static_cast<void*>(const_cast< HttpSessionStore*>(this));
 	}
@@ -106,14 +106,14 @@ int HttpSessionStore::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
 {
 	_id = QObject::qt_metacall(_c, _id, _a);
 
-	if(_id < 0)
+	if (_id < 0)
 	{
 		return _id;
 	}
 
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
-		if(_id < 1)
+		if (_id < 1)
 		{
 			qt_static_metacall(this, _c, _id, _a);
 		}

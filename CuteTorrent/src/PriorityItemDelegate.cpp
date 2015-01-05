@@ -8,6 +8,5 @@ QString PriorityItemDelegate::displayText(const QVariant& value, const QLocale& 
 		return StaticHelpers::filePriorityToString(value.toInt());
 	}
 
-	
 	return "";
 }

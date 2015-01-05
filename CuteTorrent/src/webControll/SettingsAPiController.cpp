@@ -2,12 +2,10 @@
 #include "json/json.h"
 SettingsAPiController::SettingsAPiController(QObject* parent) : HttpRequestHandler("WebControl", parent), settings(QApplicationSettings::getInstance())
 {
-	
 }
 
 SettingsAPiController::~SettingsAPiController(void)
 {
-	
 	QApplicationSettings::FreeInstance();
 }
 
@@ -60,8 +58,6 @@ void SettingsAPiController::service(HttpRequest& request, HttpResponse& response
 		{
 			QVariantList groups = settingsVal["filteringGroups"].toList();
 
-			
-			
 			if(!ok)
 			{
 				response.setStatus(500, "Internal Server Error");
@@ -93,7 +89,6 @@ void SettingsAPiController::service(HttpRequest& request, HttpResponse& response
 		}
 		else
 		{
-			
 			response.setStatus(400, "Bad Request");
 			response.write("<BODY><h3>400 Bad Request.</h3></BODY>");
 		}

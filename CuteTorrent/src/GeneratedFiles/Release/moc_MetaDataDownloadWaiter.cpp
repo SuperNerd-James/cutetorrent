@@ -44,15 +44,15 @@ static const char qt_meta_stringdata_MetaDataDownloadWaiter[] =
 
 void MetaDataDownloadWaiter::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
 {
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
 		Q_ASSERT(staticMetaObject.cast(_o));
 		MetaDataDownloadWaiter* _t = static_cast<MetaDataDownloadWaiter*>(_o);
 
-		switch(_id)
+		switch (_id)
 		{
 			case 0:
-				_t->DownloadCompleted((*reinterpret_cast< openmagnet_info(*) > (_a[1])));
+				_t->DownloadCompleted((*reinterpret_cast< openmagnet_info(*)>(_a[1])));
 				break;
 
 			default:
@@ -88,12 +88,12 @@ const QMetaObject* MetaDataDownloadWaiter::metaObject() const
 
 void* MetaDataDownloadWaiter::qt_metacast(const char* _clname)
 {
-	if(!_clname)
+	if (!_clname)
 	{
 		return 0;
 	}
 
-	if(!strcmp(_clname, qt_meta_stringdata_MetaDataDownloadWaiter))
+	if (!strcmp(_clname, qt_meta_stringdata_MetaDataDownloadWaiter))
 	{
 		return static_cast<void*>(const_cast< MetaDataDownloadWaiter*>(this));
 	}
@@ -105,14 +105,14 @@ int MetaDataDownloadWaiter::qt_metacall(QMetaObject::Call _c, int _id, void** _a
 {
 	_id = QThread::qt_metacall(_c, _id, _a);
 
-	if(_id < 0)
+	if (_id < 0)
 	{
 		return _id;
 	}
 
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
-		if(_id < 1)
+		if (_id < 1)
 		{
 			qt_static_metacall(this, _c, _id, _a);
 		}

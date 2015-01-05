@@ -47,19 +47,19 @@ static const char qt_meta_stringdata_SearchEngine[] =
 
 void SearchEngine::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
 {
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
 		Q_ASSERT(staticMetaObject.cast(_o));
 		SearchEngine* _t = static_cast<SearchEngine*>(_o);
 
-		switch(_id)
+		switch (_id)
 		{
 			case 0:
 				_t->GotResults();
 				break;
 
 			case 1:
-				_t->OnSearchReady((*reinterpret_cast< QList<SearchResult*>(*) > (_a[1])));
+				_t->OnSearchReady((*reinterpret_cast< QList<SearchResult*>(*)>(_a[1])));
 				break;
 
 			default:
@@ -95,12 +95,12 @@ const QMetaObject* SearchEngine::metaObject() const
 
 void* SearchEngine::qt_metacast(const char* _clname)
 {
-	if(!_clname)
+	if (!_clname)
 	{
 		return 0;
 	}
 
-	if(!strcmp(_clname, qt_meta_stringdata_SearchEngine))
+	if (!strcmp(_clname, qt_meta_stringdata_SearchEngine))
 	{
 		return static_cast<void*>(const_cast< SearchEngine*>(this));
 	}
@@ -112,14 +112,14 @@ int SearchEngine::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
 {
 	_id = QObject::qt_metacall(_c, _id, _a);
 
-	if(_id < 0)
+	if (_id < 0)
 	{
 		return _id;
 	}
 
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
-		if(_id < 2)
+		if (_id < 2)
 		{
 			qt_static_metacall(this, _c, _id, _a);
 		}

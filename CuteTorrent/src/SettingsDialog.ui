@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>789</width>
-    <height>332</height>
+    <width>793</width>
+    <height>333</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -159,119 +159,16 @@
       <property name="spacing">
        <number>0</number>
       </property>
-      <item row="0" column="0">
-       <widget class="QListWidget" name="listWidget">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
+      <item row="2" column="3">
+       <widget class="QDialogButtonBox" name="buttonBox">
         <property name="minimumSize">
          <size>
-          <width>156</width>
-          <height>280</height>
+          <width>0</width>
+          <height>23</height>
          </size>
         </property>
-        <property name="maximumSize">
-         <size>
-          <width>156</width>
-          <height>280</height>
-         </size>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">
-                    QListView::item{
-                    min-height:28px;
-                    }
-                  </string>
-        </property>
-        <property name="editTriggers">
-         <set>QAbstractItemView::NoEditTriggers</set>
-        </property>
-        <property name="resizeMode">
-         <enum>QListView::Adjust</enum>
-        </property>
-        <property name="currentRow">
-         <number>-1</number>
-        </property>
-        <item>
-         <property name="text">
-          <string>TAB_TORRENT</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>TAB_NETWORK</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>TAB_HDD</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>TAB_TORRENT_FILTERING</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>TAB_DAEMONTOOLS</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>TAB_SCEDULER</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>TAB_WEB_CONTROL</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>TAB_SEARCH</string>
-         </property>
-        </item>
-        <item>
-         <property name="text">
-          <string>TAB_KEY_MAPPINGS</string>
-         </property>
-        </item>
-       </widget>
-      </item>
-      <item row="1" column="1" colspan="2">
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="1" column="0">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>330</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="1" column="3">
-       <widget class="QDialogButtonBox" name="buttonBox">
-        <property name="locale">
-         <locale language="English" country="UnitedStates"/>
+        <property name="layoutDirection">
+         <enum>Qt::LeftToRight</enum>
         </property>
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
@@ -284,12 +181,12 @@
         </property>
        </widget>
       </item>
-      <item row="0" column="1" colspan="4">
+      <item row="0" column="2" colspan="2">
        <widget class="QStackedWidget" name="stackedWidget">
         <property name="maximumSize">
          <size>
           <width>16777215</width>
-          <height>278</height>
+          <height>16777215</height>
          </size>
         </property>
         <property name="styleSheet">
@@ -325,31 +222,7 @@
             </layout>
            </widget>
           </item>
-          <item row="1" column="0">
-           <widget class="QLabel" name="label_26">
-            <property name="text">
-             <string>STYLE</string>
-            </property>
-           </widget>
-          </item>
-          <item row="0" column="1">
-           <widget class="QComboBox" name="localeComboBox">
-            <property name="styleSheet">
-             <string notr="true"/>
-            </property>
-           </widget>
-          </item>
-          <item row="1" column="1">
-           <widget class="QComboBox" name="styleComboBox"/>
-          </item>
-          <item row="0" column="0">
-           <widget class="QLabel" name="label_8">
-            <property name="text">
-             <string>LANGUAGE</string>
-            </property>
-           </widget>
-          </item>
-          <item row="3" column="2" rowspan="7">
+          <item row="5" column="0" colspan="2">
            <widget class="QGroupBox" name="groupBox_2">
             <property name="title">
              <string>RESTRICTIONS</string>
@@ -461,27 +334,10 @@
             </layout>
            </widget>
           </item>
-          <item row="3" column="0" colspan="2">
-           <widget class="QCheckBox" name="asociationCheckBox">
-            <property name="whatsThis">
-             <string>TORRENT_FILES_ASSOCIATION_WIT</string>
-            </property>
-            <property name="text">
-             <string>TORRENT_FILES_ASSOCIATION</string>
-            </property>
-           </widget>
+          <item row="1" column="1">
+           <widget class="QComboBox" name="styleComboBox"/>
           </item>
-          <item row="4" column="0" colspan="2">
-           <widget class="QCheckBox" name="magnetAssociationCheckBox">
-            <property name="whatsThis">
-             <string>MAGNET_ASSOCIATION_WIT</string>
-            </property>
-            <property name="text">
-             <string>MAGNET_ASSOCIATION</string>
-            </property>
-           </widget>
-          </item>
-          <item row="6" column="0" colspan="2">
+          <item row="7" column="0" colspan="2">
            <widget class="QCheckBox" name="runOnbootCheckBox">
             <property name="whatsThis">
              <string>START_ON_BOOT_WIT</string>
@@ -491,13 +347,54 @@
             </property>
            </widget>
           </item>
-          <item row="7" column="0" colspan="2">
+          <item row="8" column="0" colspan="2">
            <widget class="QCheckBox" name="startMinimizedCheckBox">
             <property name="whatsThis">
              <string>START_MINIMIZED_WIT</string>
             </property>
             <property name="text">
              <string>START_MINIMIZED</string>
+            </property>
+           </widget>
+          </item>
+          <item row="7" column="2">
+           <widget class="QCheckBox" name="asociationCheckBox">
+            <property name="whatsThis">
+             <string>TORRENT_FILES_ASSOCIATION_WIT</string>
+            </property>
+            <property name="text">
+             <string>TORRENT_FILES_ASSOCIATION</string>
+            </property>
+           </widget>
+          </item>
+          <item row="8" column="2">
+           <widget class="QCheckBox" name="magnetAssociationCheckBox">
+            <property name="whatsThis">
+             <string>MAGNET_ASSOCIATION_WIT</string>
+            </property>
+            <property name="text">
+             <string>MAGNET_ASSOCIATION</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="label_26">
+            <property name="text">
+             <string>STYLE</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="1">
+           <widget class="QComboBox" name="localeComboBox">
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QLabel" name="label_8">
+            <property name="text">
+             <string>LANGUAGE</string>
             </property>
            </widget>
           </item>
@@ -1311,9 +1208,9 @@
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'MS Shell Dlg 2'; font-size:8.25pt; font-weight:400; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;                                        &lt;/p&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;                                        &lt;/span&gt;&lt;/p&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;                                      &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;                                        &lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt;&quot;&gt;                                      &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                   </property>
                  </widget>
                 </item>
@@ -1548,6 +1445,92 @@ p, li { white-space: pre-wrap; }
           </item>
          </layout>
         </widget>
+       </widget>
+      </item>
+      <item row="0" column="0" rowspan="3">
+       <widget class="QListWidget" name="listWidget">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>160</width>
+          <height>0</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>16777215</height>
+         </size>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">#listWidget{
+    border-bottom:none;
+    border-left:none;
+}
+QListView::item{
+    min-height:28px;
+}
+                  </string>
+        </property>
+        <property name="editTriggers">
+         <set>QAbstractItemView::NoEditTriggers</set>
+        </property>
+        <property name="resizeMode">
+         <enum>QListView::Adjust</enum>
+        </property>
+        <property name="currentRow">
+         <number>-1</number>
+        </property>
+        <item>
+         <property name="text">
+          <string>TAB_TORRENT</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>TAB_NETWORK</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>TAB_HDD</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>TAB_TORRENT_FILTERING</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>TAB_DAEMONTOOLS</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>TAB_SCEDULER</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>TAB_WEB_CONTROL</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>TAB_SEARCH</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>TAB_KEY_MAPPINGS</string>
+         </property>
+        </item>
        </widget>
       </item>
      </layout>

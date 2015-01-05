@@ -17,7 +17,6 @@ HttpSession::HttpSession(bool canStore)
 		dataPtr->lastAccess = QDateTime::currentMSecsSinceEpoch();
 		dataPtr->id = QUuid::createUuid().toString().toLocal8Bit();
 #ifdef SUPERVERBOSE
-		
 #endif
 	}
 	else
@@ -35,7 +34,6 @@ HttpSession::HttpSession(const HttpSession& other)
 		dataPtr->lock.lockForWrite();
 		dataPtr->refCount++;
 #ifdef SUPERVERBOSE
-		
 #endif
 		dataPtr->lock.unlock();
 	}
@@ -51,7 +49,6 @@ HttpSession& HttpSession::operator= (const HttpSession& other)
 		dataPtr->lock.lockForWrite();
 		dataPtr->refCount++;
 #ifdef SUPERVERBOSE
-		
 #endif
 		dataPtr->lastAccess = QDateTime::currentMSecsSinceEpoch();
 		dataPtr->lock.unlock();
@@ -63,7 +60,6 @@ HttpSession& HttpSession::operator= (const HttpSession& other)
 		oldPtr->lock.lockForRead();
 		refCount = oldPtr->refCount--;
 #ifdef SUPERVERBOSE
-		
 #endif
 		oldPtr->lock.unlock();
 
@@ -84,13 +80,11 @@ HttpSession::~HttpSession()
 		dataPtr->lock.lockForRead();
 		refCount = --dataPtr->refCount;
 #ifdef SUPERVERBOSE
-		
 #endif
 		dataPtr->lock.unlock();
 
 		if(refCount == 0)
 		{
-			
 			delete dataPtr;
 		}
 	}

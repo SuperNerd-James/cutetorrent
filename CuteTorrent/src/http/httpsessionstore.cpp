@@ -15,7 +15,6 @@ HttpSessionStore::HttpSessionStore(QSettings* settings, QObject* parent)
 	cleanupTimer.start(60000);
 	cookieName = settings->value("cookieName", "sessionid").toByteArray();
 	expirationTime = settings->value("expirationTime", 3600000).toInt();
-	
 }
 
 HttpSessionStore::~HttpSessionStore()
@@ -41,7 +40,6 @@ QByteArray HttpSessionStore::getSessionId(HttpRequest& request, HttpResponse& re
 	{
 		if(!sessions.contains(sessionId))
 		{
-			
 			sessionId.clear();
 		}
 	}
@@ -75,7 +73,6 @@ HttpSession HttpSessionStore::getSession(HttpRequest& request, HttpResponse& res
 		QByteArray cookieComment = settings->value("cookieComment").toByteArray();
 		QByteArray cookieDomain = settings->value("cookieDomain").toByteArray();
 		HttpSession session(true);
-		
 		sessions.insert(session.getId(), session);
 		response.setCookie(HttpCookie(_cookieName, session.getId(), expirationTime / 1000, cookiePath, cookieComment, cookieDomain));
 		mutex.unlock();

@@ -248,7 +248,6 @@ QVariant FileTreeModel::data(const QModelIndex& index, int role) const
 
 		if(!info.suffix().isEmpty() && item->childCount() == 0)
 		{
-			
 			QTemporaryFile tmpfile("tempFileXXXXXX." + info.suffix());
 			tmpfile.open();
 			tmpfile.close();
@@ -301,7 +300,6 @@ void FileTreeModel::addPath(QString path, QString size)
 
 	if(rootItem->childCount() == 0)
 	{
-		
 		FileTreeItem* curitem = rootItem;
 
 		for(int i = 0; i < pathparts.count(); i++)
@@ -320,10 +318,8 @@ void FileTreeModel::addPath(QString path, QString size)
 
 		for(int j = 0; j < iterator->childCount(); j++)
 		{
-			
 			if(iterator->child(j)->data(0).toString().compare(pathparts.at(i)) == 0)
 			{
-				
 				foundnum = j;
 				break;
 			}
@@ -335,10 +331,8 @@ void FileTreeModel::addPath(QString path, QString size)
 		}
 		else
 		{
-			
 			iterator->appendChild(new FileTreeItem(qMakePair(pathparts.at(i), i == pathparts.count() - 1 ? size : ""), iterator));
 			iterator = iterator->child(iterator->childCount() - 1);
-			
 		}
 	}
 

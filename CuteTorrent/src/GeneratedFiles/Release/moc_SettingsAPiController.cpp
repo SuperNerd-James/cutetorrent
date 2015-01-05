@@ -73,12 +73,12 @@ const QMetaObject* SettingsAPiController::metaObject() const
 
 void* SettingsAPiController::qt_metacast(const char* _clname)
 {
-	if(!_clname)
+	if (!_clname)
 	{
 		return 0;
 	}
 
-	if(!strcmp(_clname, qt_meta_stringdata_SettingsAPiController))
+	if (!strcmp(_clname, qt_meta_stringdata_SettingsAPiController))
 	{
 		return static_cast<void*>(const_cast< SettingsAPiController*>(this));
 	}
@@ -90,7 +90,7 @@ int SettingsAPiController::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
 {
 	_id = HttpRequestHandler::qt_metacall(_c, _id, _a);
 
-	if(_id < 0)
+	if (_id < 0)
 	{
 		return _id;
 	}

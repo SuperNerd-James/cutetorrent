@@ -55,30 +55,30 @@ static const char qt_meta_stringdata_ExtratorrentSearchProvider[] =
 
 void ExtratorrentSearchProvider::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
 {
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
 		Q_ASSERT(staticMetaObject.cast(_o));
 		ExtratorrentSearchProvider* _t = static_cast<ExtratorrentSearchProvider*>(_o);
 
-		switch(_id)
+		switch (_id)
 		{
 			case 0:
-				_t->SearchReady((*reinterpret_cast< QList<SearchResult*>(*) > (_a[1])));
+				_t->SearchReady((*reinterpret_cast< QList<SearchResult*>(*)>(_a[1])));
 				break;
 
 			case 1:
-				_t->Error((*reinterpret_cast< QString(*) > (_a[1])));
+				_t->Error((*reinterpret_cast< QString(*)>(_a[1])));
 				break;
 
 			case 2:
-				_t->replyReady((*reinterpret_cast< QNetworkReply* (*) > (_a[1])));
+				_t->replyReady((*reinterpret_cast< QNetworkReply*(*)>(_a[1])));
 				break;
 
 			case 3:
 			{
-				QString _r = _t->BuildUrl((*reinterpret_cast< QString(*) > (_a[1])), (*reinterpret_cast< SearchCategories(*) > (_a[2])), (*reinterpret_cast< int (*) > (_a[3])));
+				QString _r = _t->BuildUrl((*reinterpret_cast< QString(*)>(_a[1])), (*reinterpret_cast< SearchCategories(*)>(_a[2])), (*reinterpret_cast< int(*)>(_a[3])));
 
-				if(_a[0])
+				if (_a[0])
 				{
 					*reinterpret_cast< QString*>(_a[0]) = _r;
 				}
@@ -86,7 +86,7 @@ void ExtratorrentSearchProvider::qt_static_metacall(QObject* _o, QMetaObject::Ca
 			break;
 
 			case 4:
-				_t->ParseTableBody((*reinterpret_cast< QSgmlTag::QSgmlTaglist(*) > (_a[1])), (*reinterpret_cast< QSgml* (*) > (_a[2])));
+				_t->ParseTableBody((*reinterpret_cast< QSgmlTag::QSgmlTaglist(*)>(_a[1])), (*reinterpret_cast< QSgml*(*)>(_a[2])));
 				break;
 
 			default:
@@ -122,17 +122,17 @@ const QMetaObject* ExtratorrentSearchProvider::metaObject() const
 
 void* ExtratorrentSearchProvider::qt_metacast(const char* _clname)
 {
-	if(!_clname)
+	if (!_clname)
 	{
 		return 0;
 	}
 
-	if(!strcmp(_clname, qt_meta_stringdata_ExtratorrentSearchProvider))
+	if (!strcmp(_clname, qt_meta_stringdata_ExtratorrentSearchProvider))
 	{
 		return static_cast<void*>(const_cast< ExtratorrentSearchProvider*>(this));
 	}
 
-	if(!strcmp(_clname, "ISerachProvider"))
+	if (!strcmp(_clname, "ISerachProvider"))
 	{
 		return static_cast< ISerachProvider*>(const_cast< ExtratorrentSearchProvider*>(this));
 	}
@@ -144,14 +144,14 @@ int ExtratorrentSearchProvider::qt_metacall(QMetaObject::Call _c, int _id, void*
 {
 	_id = ISerachProvider::qt_metacall(_c, _id, _a);
 
-	if(_id < 0)
+	if (_id < 0)
 	{
 		return _id;
 	}
 
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
-		if(_id < 5)
+		if (_id < 5)
 		{
 			qt_static_metacall(this, _c, _id, _a);
 		}

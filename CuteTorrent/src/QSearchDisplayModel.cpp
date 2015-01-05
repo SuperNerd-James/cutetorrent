@@ -2,17 +2,19 @@
 #include "StaticHelpers.h"
 
 
-QSearchDisplayModel::QSearchDisplayModel(SearchEngine* pSearchEngine) : QAbstractListModel()
+QSearchDisplayModel::QSearchDisplayModel(SearchEngine* pSearchEngine, QListView* pTorrentListView) : QAbstractListModel()
 {
 	if(pSearchEngine == NULL)
 	{
 		throw std::logic_error("Search engine could not be null.");
 	}
 
+	m_pTorrentListView = pTorrentListView;
 	m_pSearchEngine = pSearchEngine;
 	QObject::connect(m_pSearchEngine, SIGNAL(GotResults()), this, SLOT(OnNewSearchResults()));
 	SearchItemsStorrage* pItems = m_pSearchEngine->GetResults();
 	QObject::connect(pItems, SIGNAL(reset()), this, SLOT(OnNewSearchResults()));
+	setupContextMenu();
 }
 
 
@@ -108,6 +110,35 @@ QVariant QSearchDisplayModel::headerData(int section, Qt::Orientation orientatio
 void QSearchDisplayModel::OnNewSearchResults()
 {
 	reset();
+}
+
+void QSearchDisplayModel::contextualMenu(const QPoint& point)
+{
+	if (m_pTorrentListView->model() != this)
+	{
+		return;
+	}
+
+	QModelIndex modelIndex = m_pTorrentListView->indexAt(point);
+
+	if (modelIndex.isValid())
+	{
+		m_pContextMenu->exec(m_pTorrentListView->mapToGlobal(point));
+	}
+}
+
+void QSearchDisplayModel::setupContextMenu()
+{
+	m_pContextMenu = new QMenu(m_pTorrentListView);
+	QAction* act1 = new QAction("Act1", m_pContextMenu);
+	m_pContextMenu->addAction(act1);
+	QAction* act2 = new QAction("Act2", m_pContextMenu);
+	m_pContextMenu->addAction(act2);
+}
+
+void QSearchDisplayModel::retranslate()
+{
+	
 }
 
 

@@ -3,7 +3,6 @@
 #include <QDebug>
 Scheduller::Scheduller()
 {
-	
 	settings = QApplicationSettings::getInstance();
 	tasks = settings->GetSchedullerQueue();
 	checkTasks();
@@ -11,9 +10,7 @@ Scheduller::Scheduller()
 	if(!tasks.isEmpty())
 	{
 		QDateTime now = QDateTime::currentDateTime();
-		
 		int toNextTask = tasks.first().startTime().toTime_t() - now.toTime_t();
-		
 		cuurentTimerID = startTimer(toNextTask * 1000);
 	}
 }
@@ -43,7 +40,6 @@ void Scheduller::freeInstance()
 
 Scheduller::~Scheduller()
 {
-	
 	QApplicationSettings::FreeInstance();
 }
 
@@ -63,10 +59,8 @@ void Scheduller::checkTasks()
 
 	for(QList<SchedulerTask>::iterator i = tasks.begin(); i != tasks.end(); ++i)
 	{
-		
 		if(i->startTime() < now)
 		{
-			
 			tasks.erase(i);
 		}
 	}

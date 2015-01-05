@@ -15,7 +15,6 @@ void UploadController::service(HttpRequest& request, HttpResponse& response)
 	if(request.getMethod() == "POST")
 	{
 		//std::map<QByteArray,QByteArray> parametrs=request.getParameterMap().toStdMap();
-		
 		QString save_path = request.getParameter("savePath");
 		QTemporaryFile* tfile = request.getUploadedFile("files[]");
 
@@ -24,7 +23,6 @@ void UploadController::service(HttpRequest& request, HttpResponse& response)
 			response.setStatus(400, "Bad Request");
 			response.write("<BODY><h3>400 Bad Request.</h3>");
 			response.write("<h3>Invalid save-path</h3></BODY>");
-			
 			return;
 		}
 
@@ -40,7 +38,6 @@ void UploadController::service(HttpRequest& request, HttpResponse& response)
 			response.setStatus(500, " Internal Server Error");
 			response.write("<BODY><h3>500  Internal Server Error.</h3>");
 			response.write("<h3>Unable to open output file</h3></BODY>");
-			
 			return;
 		}
 
@@ -52,7 +49,6 @@ void UploadController::service(HttpRequest& request, HttpResponse& response)
 			response.setStatus(500, " Internal Server Error");
 			response.write("<BODY><h3>500  Internal Server Error.</h3>");
 			response.write(QString("<h3>" + QString::fromStdString(ec.message()) + "</h3></BODY>").toUtf8());
-			
 			return;
 		}
 	}

@@ -60,12 +60,12 @@ static const char qt_meta_stringdata_MediaControls[] =
 
 void MediaControls::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
 {
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
 		Q_ASSERT(staticMetaObject.cast(_o));
 		MediaControls* _t = static_cast<MediaControls*>(_o);
 
-		switch(_id)
+		switch (_id)
 		{
 			case 0:
 				_t->forvard();
@@ -92,11 +92,11 @@ void MediaControls::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _i
 				break;
 
 			case 6:
-				_t->setVolume((*reinterpret_cast< int (*) > (_a[1])));
+				_t->setVolume((*reinterpret_cast< int(*)>(_a[1])));
 				break;
 
 			case 7:
-				_t->setPosition((*reinterpret_cast< int (*) > (_a[1])));
+				_t->setPosition((*reinterpret_cast< int(*)>(_a[1])));
 				break;
 
 			case 8:
@@ -104,11 +104,11 @@ void MediaControls::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _i
 				break;
 
 			case 9:
-				_t->updateTime((*reinterpret_cast< qint64(*) > (_a[1])));
+				_t->updateTime((*reinterpret_cast< qint64(*)>(_a[1])));
 				break;
 
 			case 10:
-				_t->updateTotalTime((*reinterpret_cast< qint64(*) > (_a[1])));
+				_t->updateTotalTime((*reinterpret_cast< qint64(*)>(_a[1])));
 				break;
 
 			case 11:
@@ -148,12 +148,12 @@ const QMetaObject* MediaControls::metaObject() const
 
 void* MediaControls::qt_metacast(const char* _clname)
 {
-	if(!_clname)
+	if (!_clname)
 	{
 		return 0;
 	}
 
-	if(!strcmp(_clname, qt_meta_stringdata_MediaControls))
+	if (!strcmp(_clname, qt_meta_stringdata_MediaControls))
 	{
 		return static_cast<void*>(const_cast< MediaControls*>(this));
 	}
@@ -165,14 +165,14 @@ int MediaControls::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
 {
 	_id = QWidget::qt_metacall(_c, _id, _a);
 
-	if(_id < 0)
+	if (_id < 0)
 	{
 		return _id;
 	}
 
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
-		if(_id < 12)
+		if (_id < 12)
 		{
 			qt_static_metacall(this, _c, _id, _a);
 		}

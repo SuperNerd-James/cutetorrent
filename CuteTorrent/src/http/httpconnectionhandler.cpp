@@ -13,7 +13,6 @@ QList<QPair<uint, uint> > HttpConnectionHandler::notAllowedIP;
 HttpConnectionHandler::HttpConnectionHandler(HttpRequestHandler* requestHandler)
 	: QThread()
 {
-	
 	this->settings = QApplicationSettings::getInstance();
 	this->requestHandler = requestHandler;
 	currentRequest = 0;
@@ -26,25 +25,21 @@ HttpConnectionHandler::HttpConnectionHandler(HttpRequestHandler* requestHandler)
 	connect(&socket, SIGNAL(disconnected()), SLOT(disconnected()));
 	connect(&readTimer, SIGNAL(timeout()), SLOT(readTimeout()));
 	readTimer.setSingleShot(true);
-	
 	this->start();
 }
 
 
 HttpConnectionHandler::~HttpConnectionHandler()
 {
-	
 	QApplicationSettings::FreeInstance();
 	socket.close();
 	quit();
 	wait();
-	
 }
 
 
 void HttpConnectionHandler::run()
 {
-	
 	try
 	{
 		exec();
@@ -53,14 +48,11 @@ void HttpConnectionHandler::run()
 	{
 		qCritical("HttpConnectionHandler (%p): an uncatched exception occured in the thread", this);
 	}
-
-	
 }
 
 
 void HttpConnectionHandler::handleConnection(int socketDescriptor)
 {
-	
 	busy = true;
 	Q_ASSERT(socket.isOpen() == false); // if not, then the handler is already busy
 	//UGLY workaround - we need to clear writebuffer before reusing this socket
@@ -131,7 +123,6 @@ void HttpConnectionHandler::setBusy()
 
 void HttpConnectionHandler::readTimeout()
 {
-	
 	//Commented out because QWebView cannot handle this.
 	socket.write("HTTP/1.1 408 request timeout\r\nConnection: close\r\n\r\n408 request timeout\r\n");
 	socket.disconnectFromHost();
@@ -142,7 +133,6 @@ void HttpConnectionHandler::readTimeout()
 
 void HttpConnectionHandler::disconnected()
 {
-	
 	socket.close();
 	readTimer.stop();
 	busy = false;
@@ -151,7 +141,6 @@ void HttpConnectionHandler::disconnected()
 void HttpConnectionHandler::read()
 {
 #ifdef SUPERVERBOSE
-	
 #endif
 
 	// Create new HttpRequest object if necessary
@@ -188,7 +177,6 @@ void HttpConnectionHandler::read()
 	if(currentRequest->getStatus() == HttpRequest::complete)
 	{
 		readTimer.stop();
-		
 		HttpResponse response(&socket);
 
 		if(blockClient && settings->valueBool("WebControl", "enable_ipfilter", false))

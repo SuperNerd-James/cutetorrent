@@ -49,9 +49,9 @@ DestName: "WizardForm.WizardBitmapImage2.bmp"; Source: "topline.bmp"; Flags: don
 ;// Не изменять эту секцию. Она создана автоматически.
 ;{ ISFormDesignerFilesEnd } // Не удалять эту строку!
 #ifdef x64
-Source: "datax64\*"; DestDir: "{app}"; Flags:  recursesubdirs
+Source: "datax64\*"; DestDir: "{app}"; Flags:  recursesubdirs ignoreversion
 #else
-Source: "data\*"; DestDir: "{app}"; Flags:  recursesubdirs
+Source: "data\*"; DestDir: "{app}"; Flags:  recursesubdirs ignoreversion
 #endif
 [Icons]
 Name: "{group}\CuteTorrent"; Filename: "{app}\CuteTorrent.exe"

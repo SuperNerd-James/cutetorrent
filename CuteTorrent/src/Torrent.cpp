@@ -215,7 +215,6 @@ Torrent::Torrent(libtorrent::torrent_handle torrentStatus, QString group)
 
 	base_suffix = StaticHelpers::GetBaseSuffix(storrgae);
 
-	
 	if(!base_suffix.isEmpty())
 	{
 		icon = StyleEngene::getInstance()->guessMimeIcon(base_suffix, type);
@@ -257,7 +256,6 @@ Torrent::Torrent(const Torrent& other)
 
 	base_suffix = StaticHelpers::GetBaseSuffix(storrgae);
 
-	
 	if(!base_suffix.isEmpty())
 	{
 		icon = StyleEngene::getInstance()->guessMimeIcon(base_suffix, type);
@@ -415,7 +413,6 @@ void Torrent::seqensialDownload()
 
 void Torrent::RemoveTorrent(bool delfiles)
 {
-	
 	TorrentManager::getInstance()->RemoveTorrent(m_hTorrent, delfiles);
 	TorrentManager::freeInstance();
 }
@@ -648,7 +645,6 @@ QString Torrent::GetDiscribtion()
 
 void Torrent::SetUlLimit(int val)
 {
-	
 	if(m_hTorrent.is_valid())
 	{
 		m_hTorrent.set_upload_limit(val);
@@ -657,7 +653,6 @@ void Torrent::SetUlLimit(int val)
 
 void Torrent::SetDlLimit(int val)
 {
-	
 	if(m_hTorrent.is_valid())
 	{
 		m_hTorrent.set_download_limit(val);

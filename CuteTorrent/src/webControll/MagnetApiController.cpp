@@ -22,7 +22,6 @@ void MagnetApiController::service(HttpRequest& request, HttpResponse& response)
 		QString magnetLink = request.getParameter("magnetLink");
 		QString savePath = request.getParameter("savePath");
 
-		
 		if(magnetLink.isEmpty() || savePath.isEmpty())
 		{
 			response.write("Invalid data passed");

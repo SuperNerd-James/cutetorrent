@@ -17,38 +17,30 @@ void RequestMapper::service(HttpRequest& request, HttpResponse& response)
 {
 	QByteArray path = request.getPath();
 
-	
 	if(path.startsWith("/magnet/api"))
 	{
-		
 		magnetController->service(request, response);
 	}
 	else if(path.startsWith("/settings/api"))
 	{
-		
 		settingsController->service(request, response);
 	}
 	else if(path.startsWith("/torrent/api"))
 	{
-		
 		torrentController->service(request, response);
 	}
 	else if(path.startsWith("/torrent/upload"))
 	{
-		
 		uploadController->service(request, response);
 	}
 	else if(path.startsWith("/torrent/action"))
 	{
-		
 		commandsController->service(request, response);
 	}
 	else
 	{
 		staticFileController->service(request, response);
 	}
-
-	
 }
 
 RequestMapper::~RequestMapper()

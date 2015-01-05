@@ -5,10 +5,8 @@ CommandsApiController::CommandsApiController(QObject* parent/*=0*/) : HttpReques
 
 void CommandsApiController::service(HttpRequest& request, HttpResponse& response)
 {
-	
 	if(requireAuth)
 	{
-		
 		if(!CheckCreditinals(request, response))
 		{
 			return;
@@ -23,7 +21,6 @@ void CommandsApiController::service(HttpRequest& request, HttpResponse& response
 
 		if(tor != NULL)
 		{
-			
 			if(action == "pause")
 			{
 				tor->pause();
@@ -38,12 +35,10 @@ void CommandsApiController::service(HttpRequest& request, HttpResponse& response
 			}
 			else
 			{
-				
 			}
 		}
 		else
 		{
-			
 		}
 	}
 	else

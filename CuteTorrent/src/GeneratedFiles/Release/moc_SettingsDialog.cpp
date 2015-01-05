@@ -75,12 +75,12 @@ static const char qt_meta_stringdata_SettingsDialog[] =
 
 void SettingsDialog::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
 {
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
 		Q_ASSERT(staticMetaObject.cast(_o));
 		SettingsDialog* _t = static_cast<SettingsDialog*>(_o);
 
-		switch(_id)
+		switch (_id)
 		{
 			case 0:
 				_t->needRetranslate();
@@ -91,7 +91,7 @@ void SettingsDialog::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _
 				break;
 
 			case 2:
-				_t->chooseAction((*reinterpret_cast< QAbstractButton* (*) > (_a[1])));
+				_t->chooseAction((*reinterpret_cast< QAbstractButton*(*)>(_a[1])));
 				break;
 
 			case 3:
@@ -119,11 +119,11 @@ void SettingsDialog::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _
 				break;
 
 			case 9:
-				_t->showSelectedGroup((*reinterpret_cast< int (*) > (_a[1])));
+				_t->showSelectedGroup((*reinterpret_cast< int(*)>(_a[1])));
 				break;
 
 			case 10:
-				_t->SetDate((*reinterpret_cast< QDate(*) > (_a[1])));
+				_t->SetDate((*reinterpret_cast< QDate(*)>(_a[1])));
 				break;
 
 			case 11:
@@ -135,7 +135,7 @@ void SettingsDialog::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _
 				break;
 
 			case 13:
-				_t->UpdateSchedullerTab((*reinterpret_cast< int (*) > (_a[1])));
+				_t->UpdateSchedullerTab((*reinterpret_cast< int(*)>(_a[1])));
 				break;
 
 			case 14:
@@ -147,7 +147,7 @@ void SettingsDialog::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _
 				break;
 
 			case 16:
-				_t->searchItemChanged((*reinterpret_cast< int (*) > (_a[1])));
+				_t->searchItemChanged((*reinterpret_cast< int(*)>(_a[1])));
 				break;
 
 			case 17:
@@ -199,12 +199,12 @@ const QMetaObject* SettingsDialog::metaObject() const
 
 void* SettingsDialog::qt_metacast(const char* _clname)
 {
-	if(!_clname)
+	if (!_clname)
 	{
 		return 0;
 	}
 
-	if(!strcmp(_clname, qt_meta_stringdata_SettingsDialog))
+	if (!strcmp(_clname, qt_meta_stringdata_SettingsDialog))
 	{
 		return static_cast<void*>(const_cast< SettingsDialog*>(this));
 	}
@@ -216,14 +216,14 @@ int SettingsDialog::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
 {
 	_id = BaseWindow<QDialog>::qt_metacall(_c, _id, _a);
 
-	if(_id < 0)
+	if (_id < 0)
 	{
 		return _id;
 	}
 
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
-		if(_id < 21)
+		if (_id < 21)
 		{
 			qt_static_metacall(this, _c, _id, _a);
 		}

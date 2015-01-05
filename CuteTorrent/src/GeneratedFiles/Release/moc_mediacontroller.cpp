@@ -56,19 +56,19 @@ static const char qt_meta_stringdata_MediaController[] =
 
 void MediaController::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
 {
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
 		Q_ASSERT(staticMetaObject.cast(_o));
 		MediaController* _t = static_cast<MediaController*>(_o);
 
-		switch(_id)
+		switch (_id)
 		{
 			case 0:
 				_t->updateMediaObject();
 				break;
 
 			case 1:
-				_t->newFile((*reinterpret_cast< QString(*) > (_a[1])));
+				_t->newFile((*reinterpret_cast< QString(*)>(_a[1])));
 				break;
 
 			case 2:
@@ -96,7 +96,7 @@ void MediaController::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int 
 				break;
 
 			case 8:
-				_t->updateStateStatus((*reinterpret_cast< Phonon::State(*) > (_a[1])), (*reinterpret_cast< Phonon::State(*) > (_a[2])));
+				_t->updateStateStatus((*reinterpret_cast< Phonon::State(*)>(_a[1])), (*reinterpret_cast< Phonon::State(*)>(_a[2])));
 				break;
 
 			default:
@@ -132,12 +132,12 @@ const QMetaObject* MediaController::metaObject() const
 
 void* MediaController::qt_metacast(const char* _clname)
 {
-	if(!_clname)
+	if (!_clname)
 	{
 		return 0;
 	}
 
-	if(!strcmp(_clname, qt_meta_stringdata_MediaController))
+	if (!strcmp(_clname, qt_meta_stringdata_MediaController))
 	{
 		return static_cast<void*>(const_cast< MediaController*>(this));
 	}
@@ -149,14 +149,14 @@ int MediaController::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
 {
 	_id = QObject::qt_metacall(_c, _id, _a);
 
-	if(_id < 0)
+	if (_id < 0)
 	{
 		return _id;
 	}
 
-	if(_c == QMetaObject::InvokeMetaMethod)
+	if (_c == QMetaObject::InvokeMetaMethod)
 	{
-		if(_id < 9)
+		if (_id < 9)
 		{
 			qt_static_metacall(this, _c, _id, _a);
 		}

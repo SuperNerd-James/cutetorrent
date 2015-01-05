@@ -74,7 +74,6 @@ void MediaControls::updateTime(qint64 time)
 {
 	QTime t(0, 0, 0);
 	t = t.addMSecs(reverseTime ? totalTime - time : time);
-	
 	ui->currentTimeLabel->setText(t.toString("hh:mm:ss"));
 }
 void MediaControls::updateTotalTime(qint64 time)
@@ -82,7 +81,6 @@ void MediaControls::updateTotalTime(qint64 time)
 	totalTime = time;
 	QTime t(0, 0, 0);
 	t = t.addMSecs(time);
-	
 	ui->totalTimeLabel->setText(t.toString("hh:mm:ss"));
 }
 bool MediaControls::eventFilter(QObject* obj, QEvent* event)
