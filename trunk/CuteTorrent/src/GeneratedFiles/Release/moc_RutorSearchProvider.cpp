@@ -22,7 +22,7 @@ static const uint qt_meta_data_RutorSearchProvider[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       4,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -35,7 +35,6 @@ static const uint qt_meta_data_RutorSearchProvider[] = {
 
  // slots: signature, parameters, type, tag, flags
       83,   20,   20,   20, 0x08,
-     125,  110,   20,   20, 0x08,
 
        0        // eod
 };
@@ -44,8 +43,6 @@ static const char qt_meta_stringdata_RutorSearchProvider[] = {
     "RutorSearchProvider\0\0result\0"
     "SearchReady(QList<SearchResult*>)\0"
     "error\0Error(QString)\0replyReady(QNetworkReply*)\0"
-    "tableBody,sgml\0"
-    "ParseTableBody(QSgmlTag::QSgmlTaglist,QSgml*)\0"
 };
 
 void RutorSearchProvider::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -57,7 +54,6 @@ void RutorSearchProvider::qt_static_metacall(QObject *_o, QMetaObject::Call _c, 
         case 0: _t->SearchReady((*reinterpret_cast< QList<SearchResult*>(*)>(_a[1]))); break;
         case 1: _t->Error((*reinterpret_cast< QString(*)>(_a[1]))); break;
         case 2: _t->replyReady((*reinterpret_cast< QNetworkReply*(*)>(_a[1]))); break;
-        case 3: _t->ParseTableBody((*reinterpret_cast< QSgmlTag::QSgmlTaglist(*)>(_a[1])),(*reinterpret_cast< QSgml*(*)>(_a[2]))); break;
         default: ;
         }
     }
@@ -95,9 +91,9 @@ int RutorSearchProvider::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 4)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 4;
+        _id -= 3;
     }
     return _id;
 }

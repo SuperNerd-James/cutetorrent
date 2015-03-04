@@ -20,15 +20,21 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <QDialog>
 #include <QFile>
-#include <QString>
 #include <QFileDialog>
+#include <QString>
 #include <QTreeWidgetItem>
-#include "ui_OpenTorrentDialog.h"
-#include "TorrentManager.h"
-#include "StaticHelpers.h"
+
+#include "CustomWindow.h"
 #include "FileTreeModel.h"
 #include "MetaDataDownloadWaiter.h"
-#include "CustomWindow.h"
+#include "StaticHelpers.h"
+#include "TorrentManager.h"
+#include "defs.h"
+#include "ui_OpenTorrentDialog.h"
+
+class FileTreeModel;
+class TorrentManager;
+
 class OpenTorrentDialog : public BaseWindow<QDialog> , private Ui::OpenTorrentDialog
 {
 	Q_OBJECT
@@ -56,6 +62,7 @@ private:
 	QLabel* getTitleIcon() override;
 private slots:
 	virtual void reject();
+	void OnError(QString);
 	void BrowseButton();
 	void AccepTorrent();
 	void ChangeGroup();

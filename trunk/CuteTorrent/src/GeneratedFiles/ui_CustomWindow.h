@@ -66,7 +66,7 @@ public:
     QSplitter *spliiter1;
     QTreeWidget *m_pGroupTreeWidget;
     QListView *m_pTorrentListView;
-    QTabWidget *tabWidget;
+    QTabWidget *m_pTabWidget;
     QWidget *tab;
     QGridLayout *gridLayout_4;
     QLabel *label_11;
@@ -117,6 +117,7 @@ public:
             CustomWindow->setObjectName(QString::fromUtf8("CustomWindow"));
         CustomWindow->setWindowModality(Qt::ApplicationModal);
         CustomWindow->resize(532, 620);
+        CustomWindow->setMouseTracking(true);
         CustomWindow->setStyleSheet(QString::fromUtf8(""));
         ACTION_MENU_OPEN_TORRENT = new QAction(CustomWindow);
         ACTION_MENU_OPEN_TORRENT->setObjectName(QString::fromUtf8("ACTION_MENU_OPEN_TORRENT"));
@@ -215,6 +216,7 @@ public:
 
         m_centralWidget = new QWidget(CustomWindow);
         m_centralWidget->setObjectName(QString::fromUtf8("m_centralWidget"));
+        m_centralWidget->setMouseTracking(true);
         m_centralWidget->setStyleSheet(QString::fromUtf8(""));
         gridLayout_3 = new QGridLayout(m_centralWidget);
         gridLayout_3->setSpacing(0);
@@ -233,6 +235,7 @@ public:
         sizePolicy.setHeightForWidth(spliiter->sizePolicy().hasHeightForWidth());
         spliiter->setSizePolicy(sizePolicy);
         spliiter->setMinimumSize(QSize(0, 0));
+        spliiter->setMouseTracking(true);
         spliiter->setStyleSheet(QString::fromUtf8(""));
         spliiter->setOrientation(Qt::Vertical);
         spliiter->setOpaqueResize(true);
@@ -241,6 +244,7 @@ public:
         sizePolicy.setHeightForWidth(spliiter1->sizePolicy().hasHeightForWidth());
         spliiter1->setSizePolicy(sizePolicy);
         spliiter1->setMinimumSize(QSize(0, 0));
+        spliiter1->setMouseTracking(true);
         spliiter1->setStyleSheet(QString::fromUtf8(""));
         spliiter1->setOrientation(Qt::Horizontal);
         spliiter1->setOpaqueResize(true);
@@ -249,21 +253,31 @@ public:
         __qtreewidgetitem->setText(0, QString::fromUtf8("1"));
         m_pGroupTreeWidget->setHeaderItem(__qtreewidgetitem);
         m_pGroupTreeWidget->setObjectName(QString::fromUtf8("m_pGroupTreeWidget"));
+        m_pGroupTreeWidget->setMouseTracking(true);
+        m_pGroupTreeWidget->setAnimated(true);
         m_pGroupTreeWidget->setHeaderHidden(true);
         spliiter1->addWidget(m_pGroupTreeWidget);
         m_pTorrentListView = new QListView(spliiter1);
         m_pTorrentListView->setObjectName(QString::fromUtf8("m_pTorrentListView"));
+        m_pTorrentListView->setMouseTracking(true);
+        m_pTorrentListView->setContextMenuPolicy(Qt::CustomContextMenu);
+        m_pTorrentListView->setDragDropMode(QAbstractItemView::DropOnly);
+        m_pTorrentListView->setSelectionMode(QAbstractItemView::ExtendedSelection);
+        m_pTorrentListView->setVerticalScrollMode(QAbstractItemView::ScrollPerPixel);
+        m_pTorrentListView->setHorizontalScrollMode(QAbstractItemView::ScrollPerPixel);
         spliiter1->addWidget(m_pTorrentListView);
         spliiter->addWidget(spliiter1);
-        tabWidget = new QTabWidget(spliiter);
-        tabWidget->setObjectName(QString::fromUtf8("tabWidget"));
-        sizePolicy.setHeightForWidth(tabWidget->sizePolicy().hasHeightForWidth());
-        tabWidget->setSizePolicy(sizePolicy);
-        tabWidget->setStyleSheet(QString::fromUtf8(""));
-        tabWidget->setTabPosition(QTabWidget::North);
-        tabWidget->setElideMode(Qt::ElideMiddle);
+        m_pTabWidget = new QTabWidget(spliiter);
+        m_pTabWidget->setObjectName(QString::fromUtf8("m_pTabWidget"));
+        sizePolicy.setHeightForWidth(m_pTabWidget->sizePolicy().hasHeightForWidth());
+        m_pTabWidget->setSizePolicy(sizePolicy);
+        m_pTabWidget->setMouseTracking(true);
+        m_pTabWidget->setStyleSheet(QString::fromUtf8(""));
+        m_pTabWidget->setTabPosition(QTabWidget::North);
+        m_pTabWidget->setElideMode(Qt::ElideMiddle);
         tab = new QWidget();
         tab->setObjectName(QString::fromUtf8("tab"));
+        tab->setMouseTracking(true);
         gridLayout_4 = new QGridLayout(tab);
         gridLayout_4->setSpacing(6);
         gridLayout_4->setContentsMargins(11, 11, 11, 11);
@@ -388,9 +402,10 @@ public:
 
         gridLayout_4->addWidget(label_9, 3, 3, 1, 1);
 
-        tabWidget->addTab(tab, QString());
+        m_pTabWidget->addTab(tab, QString());
         tab_3 = new QWidget();
         tab_3->setObjectName(QString::fromUtf8("tab_3"));
+        tab_3->setMouseTracking(true);
         gridLayout_2 = new QGridLayout(tab_3);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -415,47 +430,57 @@ public:
         peerTableWidget->setObjectName(QString::fromUtf8("peerTableWidget"));
         peerTableWidget->setMinimumSize(QSize(0, 10));
         peerTableWidget->setMaximumSize(QSize(16777215, 16777215));
+        peerTableWidget->setMouseTracking(true);
         peerTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-        peerTableWidget->setGridStyle(Qt::NoPen);
-        peerTableWidget->setSortingEnabled(true);
+        peerTableWidget->setShowGrid(false);
         peerTableWidget->horizontalHeader()->setCascadingSectionResizes(true);
-        peerTableWidget->horizontalHeader()->setProperty("showSortIndicator", QVariant(true));
+        peerTableWidget->horizontalHeader()->setProperty("showSortIndicator", QVariant(false));
         peerTableWidget->horizontalHeader()->setStretchLastSection(true);
+        peerTableWidget->verticalHeader()->setVisible(false);
+        peerTableWidget->verticalHeader()->setDefaultSectionSize(18);
 
         gridLayout_2->addWidget(peerTableWidget, 0, 0, 1, 1);
 
-        tabWidget->addTab(tab_3, QString());
+        m_pTabWidget->addTab(tab_3, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QString::fromUtf8("tab_2"));
+        tab_2->setMouseTracking(true);
         gridLayout = new QGridLayout(tab_2);
         gridLayout->setSpacing(6);
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         trackerTableWidget = new QTableWidget(tab_2);
-        if (trackerTableWidget->columnCount() < 3)
-            trackerTableWidget->setColumnCount(3);
+        if (trackerTableWidget->columnCount() < 4)
+            trackerTableWidget->setColumnCount(4);
         QTableWidgetItem *__qtablewidgetitem7 = new QTableWidgetItem();
         trackerTableWidget->setHorizontalHeaderItem(0, __qtablewidgetitem7);
         QTableWidgetItem *__qtablewidgetitem8 = new QTableWidgetItem();
         trackerTableWidget->setHorizontalHeaderItem(1, __qtablewidgetitem8);
         QTableWidgetItem *__qtablewidgetitem9 = new QTableWidgetItem();
         trackerTableWidget->setHorizontalHeaderItem(2, __qtablewidgetitem9);
+        QTableWidgetItem *__qtablewidgetitem10 = new QTableWidgetItem();
+        trackerTableWidget->setHorizontalHeaderItem(3, __qtablewidgetitem10);
         trackerTableWidget->setObjectName(QString::fromUtf8("trackerTableWidget"));
         trackerTableWidget->setMaximumSize(QSize(16777215, 16777215));
+        trackerTableWidget->setMouseTracking(true);
         trackerTableWidget->setLayoutDirection(Qt::LeftToRight);
         trackerTableWidget->setEditTriggers(QAbstractItemView::NoEditTriggers);
-        trackerTableWidget->setGridStyle(Qt::NoPen);
+        trackerTableWidget->setSelectionBehavior(QAbstractItemView::SelectRows);
+        trackerTableWidget->setShowGrid(false);
         trackerTableWidget->setSortingEnabled(true);
         trackerTableWidget->horizontalHeader()->setCascadingSectionResizes(true);
         trackerTableWidget->horizontalHeader()->setDefaultSectionSize(120);
         trackerTableWidget->horizontalHeader()->setProperty("showSortIndicator", QVariant(true));
         trackerTableWidget->horizontalHeader()->setStretchLastSection(true);
+        trackerTableWidget->verticalHeader()->setVisible(false);
+        trackerTableWidget->verticalHeader()->setDefaultSectionSize(18);
 
         gridLayout->addWidget(trackerTableWidget, 0, 0, 1, 1);
 
-        tabWidget->addTab(tab_2, QString());
+        m_pTabWidget->addTab(tab_2, QString());
         tab_4 = new QWidget();
         tab_4->setObjectName(QString::fromUtf8("tab_4"));
+        tab_4->setMouseTracking(true);
         gridLayout_5 = new QGridLayout(tab_4);
         gridLayout_5->setSpacing(6);
         gridLayout_5->setContentsMargins(11, 11, 11, 11);
@@ -463,11 +488,15 @@ public:
         fileTableView = new QTreeView(tab_4);
         fileTableView->setObjectName(QString::fromUtf8("fileTableView"));
         fileTableView->setMaximumSize(QSize(16777215, 16777215));
+        fileTableView->setMouseTracking(true);
+        fileTableView->setContextMenuPolicy(Qt::CustomContextMenu);
+        fileTableView->setSortingEnabled(true);
+        fileTableView->setAnimated(true);
 
         gridLayout_5->addWidget(fileTableView, 0, 0, 1, 1);
 
-        tabWidget->addTab(tab_4, QString());
-        spliiter->addWidget(tabWidget);
+        m_pTabWidget->addTab(tab_4, QString());
+        spliiter->addWidget(m_pTabWidget);
 
         gridLayout_6->addWidget(spliiter, 0, 0, 1, 2);
 
@@ -504,6 +533,7 @@ public:
         m_pToolBarsContainer = new QStackedWidget(m_centralWidget);
         m_pToolBarsContainer->setObjectName(QString::fromUtf8("m_pToolBarsContainer"));
         m_pToolBarsContainer->setMaximumSize(QSize(16777215, 32));
+        m_pToolBarsContainer->setMouseTracking(true);
         m_pTorrentToolBar = new QToolBar();
         m_pTorrentToolBar->setObjectName(QString::fromUtf8("m_pTorrentToolBar"));
         m_pTorrentToolBar->setEnabled(true);
@@ -584,7 +614,7 @@ public:
         QObject::connect(ACTION_TOOLBAR_DOWNLOAD, SIGNAL(triggered()), CustomWindow, SLOT(startDownloadTorrent()));
         QObject::connect(ACTION_TOOLBAR_OPEN_URL, SIGNAL(triggered()), CustomWindow, SLOT(openSearchItemDescribtion()));
 
-        tabWidget->setCurrentIndex(3);
+        m_pTabWidget->setCurrentIndex(0);
         m_pToolBarsContainer->setCurrentIndex(0);
 
 
@@ -647,7 +677,7 @@ public:
         label_5->setText(QApplication::translate("CustomWindow", "INFO_TOTAL_SIZE", 0, QApplication::UnicodeUTF8));
         downloadSpeedLabel->setText(QString());
         label_9->setText(QApplication::translate("CustomWindow", "INFO_UPLOAD_SPEED", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("CustomWindow", "TAB_INFO", 0, QApplication::UnicodeUTF8));
+        m_pTabWidget->setTabText(m_pTabWidget->indexOf(tab), QApplication::translate("CustomWindow", "TAB_INFO", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem = peerTableWidget->horizontalHeaderItem(0);
         ___qtablewidgetitem->setText(QApplication::translate("CustomWindow", "PEER_IP", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem1 = peerTableWidget->horizontalHeaderItem(1);
@@ -662,15 +692,17 @@ public:
         ___qtablewidgetitem5->setText(QApplication::translate("CustomWindow", "PEER_DOWNLOADED", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem6 = peerTableWidget->horizontalHeaderItem(6);
         ___qtablewidgetitem6->setText(QApplication::translate("CustomWindow", "PEER_UPLOADED", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("CustomWindow", "TAB_PEERS", 0, QApplication::UnicodeUTF8));
+        m_pTabWidget->setTabText(m_pTabWidget->indexOf(tab_3), QApplication::translate("CustomWindow", "TAB_PEERS", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem7 = trackerTableWidget->horizontalHeaderItem(0);
         ___qtablewidgetitem7->setText(QApplication::translate("CustomWindow", "TRACKER_URL", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem8 = trackerTableWidget->horizontalHeaderItem(1);
         ___qtablewidgetitem8->setText(QApplication::translate("CustomWindow", "TRACKER_STATUS", 0, QApplication::UnicodeUTF8));
         QTableWidgetItem *___qtablewidgetitem9 = trackerTableWidget->horizontalHeaderItem(2);
         ___qtablewidgetitem9->setText(QApplication::translate("CustomWindow", "TRACKER_NEXT_ANNOUNCE", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("CustomWindow", "TAB_TRACKERS", 0, QApplication::UnicodeUTF8));
-        tabWidget->setTabText(tabWidget->indexOf(tab_4), QApplication::translate("CustomWindow", "TAB_FILES", 0, QApplication::UnicodeUTF8));
+        QTableWidgetItem *___qtablewidgetitem10 = trackerTableWidget->horizontalHeaderItem(3);
+        ___qtablewidgetitem10->setText(QApplication::translate("CustomWindow", "TRACKER_PPERS", 0, QApplication::UnicodeUTF8));
+        m_pTabWidget->setTabText(m_pTabWidget->indexOf(tab_2), QApplication::translate("CustomWindow", "TAB_TRACKERS", 0, QApplication::UnicodeUTF8));
+        m_pTabWidget->setTabText(m_pTabWidget->indexOf(tab_4), QApplication::translate("CustomWindow", "TAB_FILES", 0, QApplication::UnicodeUTF8));
         menu->setTitle(QApplication::translate("CustomWindow", "MENU_FILE", 0, QApplication::UnicodeUTF8));
         menu_2->setTitle(QApplication::translate("CustomWindow", "MENU_SETTINGS", 0, QApplication::UnicodeUTF8));
         menu_CuteTorrent->setTitle(QApplication::translate("CustomWindow", "MENU_HELP", 0, QApplication::UnicodeUTF8));

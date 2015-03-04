@@ -1,6 +1,6 @@
+#include <stddef.h>
 #include "QSearchDisplayModel.h"
 #include "StaticHelpers.h"
-
 
 QSearchDisplayModel::QSearchDisplayModel(SearchEngine* pSearchEngine, QListView* pTorrentListView) : QAbstractListModel()
 {
@@ -138,7 +138,6 @@ void QSearchDisplayModel::setupContextMenu()
 
 void QSearchDisplayModel::retranslate()
 {
-	
 }
 
 

@@ -16,11 +16,18 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "CreateTorrentDialog.h"
 #include <QDebug>
 #include <QPainter>
-#include "messagebox.h"
+#include <exception>
+#include <iosfwd>
+#include <xstring>
+#include "CreateTorrentDialog.h"
+#include "QApplicationSettings.h"
 #include "StyleEngene.h"
+#include "TorrentManager.h"
+#include "versionInfo.h"
+#include "messagebox.h"
+
 CreateTorrentDialog::CreateTorrentDialog(QWidget* parent, Qt::WindowFlags flags) : BaseWindow(BaseWindow::OnlyCloseButton, BaseWindow::NoResize)
 {
 	setupUi(this);
@@ -38,22 +45,13 @@ quint64 CreateTorrentDialog::listFolder(QString pathToList)
 {
 	QDir currentFolder(pathToList);
 	quint64 totalsize = 0;
-	currentFolder.setFilter(QDir::Dirs | QDir::Files | QDir::NoSymLinks);
-	currentFolder.setSorting(QDir::Name);
-	QFileInfoList folderitems(currentFolder.entryInfoList());
+	QFileInfoList folderitems(currentFolder.entryInfoList(QDir::Files | QDir::Dirs | QDir::Hidden | QDir::NoSymLinks | QDir::NoDotAndDotDot));
 
 	foreach(QFileInfo i, folderitems)
 	{
-		QString iname(i.fileName());
-
-		if(iname == "." || iname == ".." || iname.isEmpty())
-		{
-			continue;
-		}
-
 		if(i.isDir())
 		{
-			totalsize += listFolder(path + "/" + iname);
+			totalsize += listFolder(i.filePath());
 		}
 		else
 		{
@@ -320,19 +318,19 @@ QLabel* CreateTorrentDialog::getTitleIcon()
 
 ////torrentCreatorThread\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-#include "libtorrent/entry.hpp"
-#include "libtorrent/bencode.hpp"
-#include "libtorrent/torrent_info.hpp"
-#include "libtorrent/file.hpp"
-#include "libtorrent/storage.hpp"
-#include "libtorrent/hasher.hpp"
-#include "libtorrent/create_torrent.hpp"
-#include "libtorrent/file.hpp"
-
 #include <boost/bind.hpp>
+#include <boost/filesystem/fstream.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/path.hpp>
-#include <boost/filesystem/fstream.hpp>
+#include <crtdbg.h>
+
+#include "libtorrent/bencode.hpp"
+#include "libtorrent/create_torrent.hpp"
+#include "libtorrent/entry.hpp"
+#include "libtorrent/file.hpp"
+#include "libtorrent/hasher.hpp"
+#include "libtorrent/storage.hpp"
+#include "libtorrent/torrent_info.hpp"
 
 void torrentCreatorThread::create(QString _input_path, QString _save_path, QString _filter, QStringList _trackers, QStringList _url_seeds, QString _comment, bool _is_private, qint64 _piece_size)
 {

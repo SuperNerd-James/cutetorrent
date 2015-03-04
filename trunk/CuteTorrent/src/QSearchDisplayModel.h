@@ -1,7 +1,11 @@
 #pragma once
 #include <QtGui>
+
 #include "SearchEngine.h"
-#define SEARCH_RESULTS_COLUNS_COUNT 5
+
+class SearchEngine;
+
+#define SEARCH_RESULTS_COLUNS_COUNT 1
 class QSearchDisplayModel: public QAbstractListModel
 {
 	Q_OBJECT

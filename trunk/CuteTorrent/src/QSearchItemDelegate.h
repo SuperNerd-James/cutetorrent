@@ -4,6 +4,7 @@
 #include "StyleEngene.h"
 class QSearchItemDelegate : public QStyledItemDelegate
 {
+	Q_OBJECT
 private:
 	StyleEngene* m_pStyleEngine;
 public:

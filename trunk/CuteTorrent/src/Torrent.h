@@ -18,25 +18,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef _TOR_H
 #define _TOR_H
-#include "TorrentManager.h"
-#include "StaticHelpers.h"
-#include <QString>
-#include <QStringList>
+#include <QFileIconProvider>
+#include <QHostAddress>
 #include <QIcon>
 #include <QList>
+#include <QString>
+#include <QStringList>
 #include <QVector>
-#include <QFileIconProvider>
-#include "StyleEngene.h"
-#include <QHostAddress>
-class TorrentManager;
-class StaticHelpers;
 
+#include "StaticHelpers.h"
+#include "StyleEngene.h"
+#include "TorrentManager.h"
 #include "defs.h"
+
+class StaticHelpers;
+class TorrentManager;
+
 class Torrent : public QObject
 {
 	Q_OBJECT
 
 private:
+	QMap<QString, int> trackerPeerCountMap;
 	bool m_hasMedia;
 	torrent_handle m_hTorrent;
 	libtorrent::size_type size;
@@ -97,9 +100,11 @@ public :
 	QString GetProgresString() const;
 	QString GetDwonloadSpeed() const;
 	QString GetUploadSpeed() const;
+	int GetPeerCountForTracker(QString url);
 	void RemoveTorrent(bool delfiles = false);
 	std::vector<peer_info> GetPeerInfo();
 	std::vector<announce_entry> GetTrackerInfo();
+	void SetTrackerPeersCnt(QString trackerUrl, int peerCount);
 	void announceRehash();
 	void updateTrackers();
 	void seqensialDownload();

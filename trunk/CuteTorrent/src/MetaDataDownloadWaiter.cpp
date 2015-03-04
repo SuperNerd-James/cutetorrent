@@ -17,11 +17,21 @@ void MetaDataDownloadWaiter::run()
 	error_code ec;
 	torrent_handle h = _tManager->ProcessMagnetLink(MetaLink, ec);
 
+	if (ec)
+	{
+		emit ErrorOccured(QString::fromStdString(ec.message()));
+		return;
+	}
+
 	if(!_autoAdd)
 	{
 		openmagnet_info* ti = _tManager->GetTorrentInfo(h);
-		ti->link = MetaLink;
-		emit DownloadCompleted(*ti);
+
+		if (ti != NULL)
+		{
+			ti->link = MetaLink;
+			emit DownloadCompleted(*ti);
+		}
 	}
 	else
 	{

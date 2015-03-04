@@ -16,14 +16,15 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "Torrent.h"
+#include <QDateTime>
+#include <QDebug>
+#include <QFileInfo>
+#include <QMap>
 #include <QStringList>
 #include <QTimer>
-#include <QDateTime>
-#include <QMap>
-#include <QFileInfo>
-#include <vector>
-#include <QDebug>
+
+#include "Torrent.h"
+#include "TorrentManager.h"
 
 bool Torrent::hasError() const
 {
@@ -786,6 +787,22 @@ void Torrent::setGroup(QString newGroup)
 torrent_handle& Torrent::GetInternalHandle()
 {
 	return m_hTorrent;
+}
+
+void Torrent::SetTrackerPeersCnt(QString trackerUrl, int peerCount)
+{
+	qDebug() << "Torrent::SetTrackerPeersCnt" << trackerUrl << peerCount;
+	trackerPeerCountMap[trackerUrl] = peerCount;
+}
+
+int Torrent::GetPeerCountForTracker(QString url)
+{
+	if (trackerPeerCountMap.contains(url))
+	{
+		return trackerPeerCountMap[url];
+	}
+
+	return 0;
 }
 
 

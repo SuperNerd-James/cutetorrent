@@ -18,50 +18,49 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 #ifndef TOR_MANAGER_H
 #define TOR_MANAGER_H
-#include "versionInfo.h"
-
-#include <iterator>
-#include <vector>
-#include <QVector>
-#include <QString>
-#include <QStringList>
 #include <QMap>
 #include <QSettings>
+#include <QString>
+#include <QStringList>
+#include <QVector>
+#include <iterator>
+#include <vector>
+#include <xstring>
 
-#define BOOST_ASIO_SEPARATE_COMPILATION
-
+#include "libtorrent/error_code.hpp"
+#include "libtorrent/session_settings.hpp"
+#include "libtorrent/torrent_handle.hpp"
+#include "versionInfo.h"
 
 #pragma warning (disable: 4005)
 #pragma warning (disable: 4100)
 #pragma warning (disable: 4267)
 
-#include "libtorrent/config.hpp"
-
-
 #include <boost/bind.hpp>
 #include <boost/unordered_set.hpp>
 
+#include "libtorrent/alert_types.hpp"
+#include "libtorrent/bencode.hpp"
+#include "libtorrent/bitfield.hpp"
+#include "libtorrent/config.hpp"
+#include "libtorrent/create_torrent.hpp"
+#include "libtorrent/entry.hpp"
 #include "libtorrent/extensions/metadata_transfer.hpp"
+#include "libtorrent/extensions/smart_ban.hpp"
 #include "libtorrent/extensions/ut_metadata.hpp"
 #include "libtorrent/extensions/ut_pex.hpp"
-#include "libtorrent/extensions/smart_ban.hpp"
-
-#include "libtorrent/upnp.hpp"
-#include "libtorrent/entry.hpp"
-#include "libtorrent/bencode.hpp"
-#include "libtorrent/session.hpp"
+#include "libtorrent/file.hpp"
+#include "libtorrent/file_pool.hpp"
 #include "libtorrent/identify_client.hpp"
-#include "libtorrent/alert_types.hpp"
 #include "libtorrent/ip_filter.hpp"
 #include "libtorrent/magnet_uri.hpp"
-#include "libtorrent/bitfield.hpp"
-#include "libtorrent/file.hpp"
 #include "libtorrent/peer_info.hpp"
+#include "libtorrent/session.hpp"
 #include "libtorrent/socket_io.hpp" // print_address
 #include "libtorrent/time.hpp"
-#include "libtorrent/create_torrent.hpp"
-#include "libtorrent/file_pool.hpp"
 #include "libtorrent/torrent_info.hpp"
+#include "libtorrent/upnp.hpp"
+
 using boost::bind;
 using namespace libtorrent;
 
@@ -72,18 +71,17 @@ using namespace libtorrent;
 #	define for if (false) {} else for
 #endif
 
-#include <windows.h>
 #include <conio.h>
+#include <windows.h>
 
 
 #else
 
-#include <stdlib.h>
 #include <stdio.h>
-
-#include <termios.h>
+#include <stdlib.h>
 #include <string.h>
 #include <sys/ioctl.h>
+#include <termios.h>
 
 #endif
 
@@ -91,12 +89,19 @@ using namespace libtorrent;
 #include "QApplicationSettings.h"
 #include "Torrent.h"
 #include "TorrentStorrage.h"
+#include "defs.h"
 
+class QApplicationSettings;
 class QTorrentDisplayModel;
 class Torrent;
 class TorrentStorrage;
-#include "defs.h"
-
+namespace libtorrent {
+class alert;
+class sha1_hash;
+}  // namespace libtorrent
+struct openmagnet_info;
+struct opentorrent_info;
+class MyMessageBox;
 class TorrentManager : public QObject
 {
 	Q_OBJECT
@@ -117,10 +122,9 @@ protected:
 private:
 	void handle_alert(alert*);
 	void writeSettings();
-	TorrentStorrage* torrents;
-	libtorrent::session* ses;
-	libtorrent::upnp* m_upnp;
-	QApplicationSettings* torrentSettings;
+	TorrentStorrage* m_pTorrentStorrage;
+	libtorrent::session* m_pTorrentSession;
+	QApplicationSettings* m_pTorrentSessionSettings;
 	int save_file(std::string const& filename, std::vector<char>& v);
 //settingsData TODO implement a container
 	QString DTInstallPath;
@@ -133,7 +137,7 @@ private:
 	void onClose();
 
 public:
-
+	void RefreshExternalPeerSettings();
 	void initSession();
 	libtorrent::session_settings readSettings();
 	libtorrent::pe_settings readEncSettings();

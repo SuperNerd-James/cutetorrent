@@ -5,6 +5,7 @@ class MetaDataDownloadWaiter : public QThread
 	Q_OBJECT
 signals:
 	void DownloadCompleted(openmagnet_info ti);
+	void ErrorOccured(QString error);
 public:
 	MetaDataDownloadWaiter(QString metaLink, QObject* parrent = NULL, bool autoAdd = false);
 	~MetaDataDownloadWaiter();
