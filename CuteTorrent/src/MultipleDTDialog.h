@@ -16,11 +16,13 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "ui_multipleDt.h"
-
 #include <QDialog>
 #include <QMouseEvent>
 #include "CustomWindow.h"
+#include "ui_multipleDt.h"
+
+class DT_mounter;
+
 class MultipleDTDialog : public BaseWindow<QDialog>, Ui::DTMountDialog
 {
 	Q_OBJECT

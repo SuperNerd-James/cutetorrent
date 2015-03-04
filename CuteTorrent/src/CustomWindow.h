@@ -1,6 +1,6 @@
 #pragma once
 
-#define PIXELS_TO_ACT 5
+#define PIXELS_TO_ACT 3
 #include <QtGui>
 #include "StyleEngene.h"
 template <class T>
@@ -466,12 +466,15 @@ void BaseWindow<T>::mousePressEvent(QMouseEvent* e)
 template <class T>
 void BaseWindow<T>::mouseMoveEvent(QMouseEvent* e)
 {
-	int xMouse = e->pos().x();
-	int yMouse = e->pos().y();
+	int xMouse = e->globalPos().x();
+	int yMouse = e->globalPos().y();
+	int wLeft = geometry().left();
+	int wTop = geometry().top();
 	int wWidth = geometry().width();
 	int wHeight = geometry().height();
 	bool isResizeEnabled = m_resizeMode == AllowResize;
 
+	//qDebug() << moveWidget << xMouse << yMouse << wWidth << wHeight << allowToResize << isResizeEnabled;
 	if(moveWidget)
 	{
 		inResizeZone = false;
@@ -487,18 +490,17 @@ void BaseWindow<T>::mouseMoveEvent(QMouseEvent* e)
 	{
 		resizeWindow(e);
 	}
-	//Cursor part dreta
 	else if(isResizeEnabled)
 	{
-		if(xMouse >= wWidth - PIXELS_TO_ACT || allowToResize)
+		if ((xMouse >= wLeft + wWidth - PIXELS_TO_ACT && xMouse <= wLeft + wWidth + PIXELS_TO_ACT) || allowToResize)
 		{
 			inResizeZone = true;
 
-			if(yMouse >= wHeight - PIXELS_TO_ACT)
+			if (yMouse >= wTop + wHeight - PIXELS_TO_ACT && yMouse <= wTop + wHeight + PIXELS_TO_ACT)
 			{
 				setCursor(Qt::SizeFDiagCursor);
 			}
-			else if(yMouse <= PIXELS_TO_ACT)
+			else if (yMouse >= wTop - PIXELS_TO_ACT && yMouse <= wTop + PIXELS_TO_ACT)
 			{
 				setCursor(Qt::SizeBDiagCursor);
 			}
@@ -510,15 +512,15 @@ void BaseWindow<T>::mouseMoveEvent(QMouseEvent* e)
 			resizeWindow(e);
 		}
 		//Cursor part esquerra
-		else if(xMouse <= PIXELS_TO_ACT || allowToResize)
+		else if ((xMouse >= wLeft - PIXELS_TO_ACT && xMouse <= wLeft + PIXELS_TO_ACT) || allowToResize)
 		{
 			inResizeZone = true;
 
-			if(yMouse >= wHeight - PIXELS_TO_ACT)
+			if (yMouse >= wTop + wHeight - PIXELS_TO_ACT && yMouse <= wTop + wHeight + PIXELS_TO_ACT)
 			{
 				setCursor(Qt::SizeBDiagCursor);
 			}
-			else if(yMouse <= PIXELS_TO_ACT)
+			else if (yMouse >= wTop - PIXELS_TO_ACT && yMouse <= wTop + PIXELS_TO_ACT)
 			{
 				setCursor(Qt::SizeFDiagCursor);
 			}
@@ -530,14 +532,14 @@ void BaseWindow<T>::mouseMoveEvent(QMouseEvent* e)
 			resizeWindow(e);
 		}
 		//Cursor part inferior
-		else if((yMouse >= wHeight - PIXELS_TO_ACT) || allowToResize)
+		else if ((yMouse >= wTop + wHeight - PIXELS_TO_ACT && yMouse <= wTop + wHeight + PIXELS_TO_ACT) || allowToResize)
 		{
 			inResizeZone = true;
 			setCursor(Qt::SizeVerCursor);
 			resizeWindow(e);
 		}
 		//Cursor part superior
-		else if(yMouse <= PIXELS_TO_ACT || allowToResize)
+		else if ((yMouse >= wTop - PIXELS_TO_ACT && yMouse <= wTop + PIXELS_TO_ACT) || allowToResize)
 		{
 			inResizeZone = true;
 			setCursor(Qt::SizeVerCursor);

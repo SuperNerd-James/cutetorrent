@@ -1,8 +1,9 @@
+#include <QDebug>
+#include <QPointer>
+
 #include "messagebox.h"
 #include "ui_messagebox.h"
-#include <QPointer>
-#include <QDebug>
-#include "StyleEngene.h"
+
 MyMessageBox::MyMessageBox(QWidget* parent) :
 	BaseWindow<QDialog> (OnlyCloseButton, NoResize),
 	ui(new Ui::MessageBox)
@@ -108,35 +109,34 @@ MyMessageBox::~MyMessageBox()
 	delete ui;
 }
 
-QMessageBox::StandardButton MyMessageBox::critical(QWidget* parent, const QString& title, const QString& text, QMessageBox::StandardButtons buttons, QMessageBox::StandardButton defaultButton)
+QMessageBox::StandardButton MyMessageBox::critical(QWidget* parent, const QString& title, const QString& text, QMessageBox::StandardButtons buttons)
 {
-	return showNewMessageBox(parent, QMessageBox::Critical, title, text, buttons, defaultButton);
+	return showNewMessageBox(parent, QMessageBox::Critical, title, text, buttons);
 }
 
-QMessageBox::StandardButton MyMessageBox::information(QWidget* parent, const QString& title, const QString& text, QMessageBox::StandardButtons buttons, QMessageBox::StandardButton defaultButton)
+QMessageBox::StandardButton MyMessageBox::information(QWidget* parent, const QString& title, const QString& text, QMessageBox::StandardButtons buttons)
 {
-	return showNewMessageBox(parent, QMessageBox::Information, title, text, buttons, defaultButton);
+	return showNewMessageBox(parent, QMessageBox::Information, title, text, buttons);
 }
 
-QMessageBox::StandardButton MyMessageBox::question(QWidget* parent, const QString& title, const QString& text, QMessageBox::StandardButtons buttons, QMessageBox::StandardButton defaultButton)
+QMessageBox::StandardButton MyMessageBox::question(QWidget* parent, const QString& title, const QString& text, QMessageBox::StandardButtons buttons)
 {
-	return showNewMessageBox(parent, QMessageBox::Question, title, text, buttons, defaultButton);
+	return showNewMessageBox(parent, QMessageBox::Question, title, text, buttons);
 }
 
-QMessageBox::StandardButton MyMessageBox::warning(QWidget* parent, const QString& title, const QString& text, QMessageBox::StandardButtons buttons, QMessageBox::StandardButton defaultButton)
+QMessageBox::StandardButton MyMessageBox::warning(QWidget* parent, const QString& title, const QString& text, QMessageBox::StandardButtons buttons)
 {
-	return showNewMessageBox(parent, QMessageBox::Warning, title, text, buttons, defaultButton);
+	return showNewMessageBox(parent, QMessageBox::Warning, title, text, buttons);
 }
 
 void MyMessageBox::about(QWidget* parent, const QString& title, const QString& text)
 {
-	showNewMessageBox(parent, QMessageBox::NoIcon, title, text, QMessageBox::Ok, QMessageBox::Ok);
+	showNewMessageBox(parent, QMessageBox::NoIcon, title, text, QMessageBox::Ok);
 }
 
 QMessageBox::StandardButton MyMessageBox::showNewMessageBox(QWidget* parent, QMessageBox::Icon icon,
         const QString& title, const QString& text,
-        QMessageBox::StandardButtons buttons,
-        QMessageBox::StandardButton defaultButton)
+        QMessageBox::StandardButtons buttons)
 {
 	MyMessageBox msgBox = MyMessageBox(icon, title, text, buttons, parent);
 	msgBox.showDialog();

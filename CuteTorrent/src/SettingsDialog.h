@@ -16,17 +16,27 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
+#ifndef _SETTINGS_DLG_H
+#define _SETTINGS_DLG_H
+
+
 #include <QDialog>
-#include <QStackedWidget>
-#include "ui_SettingsDialog.h"
-#include "QApplicationSettings.h"
-#include "GroupForFileFiltering.h"
-#include "searchitem.h"
 #include <QMouseEvent>
-#include "tracker/torrentracker.h"
-#include "webControll/RconWebService.h"
+#include <QStackedWidget>
+
 #include "CustomWindow.h"
-class SettingsDialog : public BaseWindow<QDialog> , private Ui::SettingsDialog
+#include "GroupForFileFiltering.h"
+#include "QApplicationSettings.h"
+#include "searchitem.h"
+#include "tracker/torrentracker.h"
+#include "ui_SettingsDialog.h"
+#include "webControll/RconWebService.h"
+
+class QApplicationSettings;
+class RconWebService;
+class TorrentTracker;
+
+class SettingsDialog : public BaseWindow<QDialog>, private Ui::SettingsDialog
 {
 	Q_OBJECT
 protected:
@@ -62,7 +72,7 @@ public:
 signals:
 	void needRetranslate();
 	void tasksChanged();
-private slots:
+	private slots:
 	void chooseAction(QAbstractButton* button);
 	void ApplyAndClose();
 	void ApplySettings();
@@ -83,3 +93,6 @@ private slots:
 	void setupWindowIcons();
 	void OpenWebUI();
 };
+
+#endif // !_SETTINGS_DLG_H
+

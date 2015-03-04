@@ -16,24 +16,26 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "OpenTorrentDialog.h"
-#include "QApplicationSettings.h"
+#include <stddef.h>
 #include <QDir>
 #include <QMap>
-#include <QTextCodec>
-#include <QMovie>
 #include <QMouseEvent>
+#include <QMovie>
 #include <QPainter>
-#include "StyleEngene.h"
+#include <QTextCodec>
 #include "messagebox.h"
-OpenTorrentDialog::OpenTorrentDialog(QWidget* parent, Qt::WindowFlags flags) : useGroup(false), BaseWindow(BaseWindow::OnlyCloseButton, BaseWindow::NoResize)
+#include "FileTreeModel.h"
+#include "OpenTorrentDialog.h"
+#include "QApplicationSettings.h"
+#include "TorrentManager.h"
+
+OpenTorrentDialog::OpenTorrentDialog(QWidget* parent, Qt::WindowFlags flags) : useGroup(false), BaseWindow(BaseWindow::OnlyCloseButton, BaseWindow::NoResize), model(NULL)
 {
 	setupUi(this);
 	setupCustomWindow();
 	setupWindowIcons();
 	mgr = TorrentManager::getInstance();
 	validTorrent = true;
-	model = NULL;
 	QTextCodec* wantUnicode = QTextCodec::codecForName("UTF-8");
 	/*QTextCodec::setCodecForTr(wantUnicode);
 	QTextCodec::setCodecForLocale(wantUnicode);*/
@@ -52,7 +54,11 @@ int OpenTorrentDialog::execConditional()
 OpenTorrentDialog::~OpenTorrentDialog()
 {
 	TorrentManager::freeInstance();
-	delete model;
+
+	if (model != NULL)
+	{
+		delete model;
+	}
 }
 
 
@@ -68,12 +74,8 @@ void OpenTorrentDialog::SetData(QString filename)
 		movie->start();
 		qRegisterMetaType<openmagnet_info> ("openmagnet_info");
 		MetaDataDownloadWaiter* magnetWaiter = new MetaDataDownloadWaiter(filename);
-
-		if(!QObject::connect(magnetWaiter, SIGNAL(DownloadCompleted(openmagnet_info)), this, SLOT(DownloadMetadataCompleted(openmagnet_info))))
-		{
-			MyMessageBox::critical(this, "ERROR", "NOT_CONNECTID");
-		}
-
+		QObject::connect(magnetWaiter, SIGNAL(DownloadCompleted(openmagnet_info)), this, SLOT(DownloadMetadataCompleted(openmagnet_info)));
+		QObject::connect(magnetWaiter, SIGNAL(ErrorOccured(QString)), this, SLOT(OnError(QString)));
 		magnetWaiter->start(QThread::HighPriority);
 		yesButton->setEnabled(false);
 	}
@@ -187,7 +189,8 @@ void OpenTorrentDialog::AccepTorrent()
 	{
 		QMap<QString, qint8> filePriorities = model->getFilePiorites();
 		error_code ec;
-		QString group = useGroup ? filters[GroupComboBox->currentIndex()].Name() : "" ;
+		int groupIndex = GroupComboBox->currentIndex();
+		QString group = groupIndex >= 0 ? filters[groupIndex].Name() : "";
 
 		if(!torrentFilename.startsWith("magnet"))
 		{
@@ -319,4 +322,10 @@ QLabel* OpenTorrentDialog::getTitleIcon()
 QWidget* OpenTorrentDialog::centralWidget()
 {
 	return m_centralWidget;
+}
+
+void OpenTorrentDialog::OnError(QString error_msg)
+{
+	MyMessageBox::critical(this, "Error", error_msg);
+	accept();
 }

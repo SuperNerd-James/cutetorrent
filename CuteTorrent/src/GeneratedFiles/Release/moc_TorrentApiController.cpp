@@ -16,85 +16,65 @@
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
-static const uint qt_meta_data_TorrentApiController[] =
-{
+static const uint qt_meta_data_TorrentApiController[] = {
 
-// content:
-	6,       // revision
-	0,       // classname
-	0,    0, // classinfo
-	0,    0, // methods
-	0,    0, // properties
-	0,    0, // enums/sets
-	0,    0, // constructors
-	0,       // flags
-	0,       // signalCount
+ // content:
+       6,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       0,    0, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
 
-	0        // eod
+       0        // eod
 };
 
-static const char qt_meta_stringdata_TorrentApiController[] =
-{
-	"TorrentApiController\0"
+static const char qt_meta_stringdata_TorrentApiController[] = {
+    "TorrentApiController\0"
 };
 
-void TorrentApiController::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
+void TorrentApiController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-	Q_UNUSED(_o);
-	Q_UNUSED(_id);
-	Q_UNUSED(_c);
-	Q_UNUSED(_a);
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
 }
 
-const QMetaObjectExtraData TorrentApiController::staticMetaObjectExtraData =
-{
-	0,  qt_static_metacall
+const QMetaObjectExtraData TorrentApiController::staticMetaObjectExtraData = {
+    0,  qt_static_metacall 
 };
 
-const QMetaObject TorrentApiController::staticMetaObject =
-{
-	{
-		&HttpRequestHandler::staticMetaObject, qt_meta_stringdata_TorrentApiController,
-		qt_meta_data_TorrentApiController, &staticMetaObjectExtraData
-	}
+const QMetaObject TorrentApiController::staticMetaObject = {
+    { &HttpRequestHandler::staticMetaObject, qt_meta_stringdata_TorrentApiController,
+      qt_meta_data_TorrentApiController, &staticMetaObjectExtraData }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
-const QMetaObject& TorrentApiController::getStaticMetaObject()
-{
-	return staticMetaObject;
-}
+const QMetaObject &TorrentApiController::getStaticMetaObject() { return staticMetaObject; }
 #endif //Q_NO_DATA_RELOCATION
 
-const QMetaObject* TorrentApiController::metaObject() const
+const QMetaObject *TorrentApiController::metaObject() const
 {
-	return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
 }
 
-void* TorrentApiController::qt_metacast(const char* _clname)
+void *TorrentApiController::qt_metacast(const char *_clname)
 {
-	if (!_clname)
-	{
-		return 0;
-	}
-
-	if (!strcmp(_clname, qt_meta_stringdata_TorrentApiController))
-	{
-		return static_cast<void*>(const_cast< TorrentApiController*>(this));
-	}
-
-	return HttpRequestHandler::qt_metacast(_clname);
+    if (!_clname) return 0;
+    if (!strcmp(_clname, qt_meta_stringdata_TorrentApiController))
+        return static_cast<void*>(const_cast< TorrentApiController*>(this));
+    return HttpRequestHandler::qt_metacast(_clname);
 }
 
-int TorrentApiController::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
+int TorrentApiController::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-	_id = HttpRequestHandler::qt_metacall(_c, _id, _a);
-
-	if (_id < 0)
-	{
-		return _id;
-	}
-
-	return _id;
+    _id = HttpRequestHandler::qt_metacall(_c, _id, _a);
+    if (_id < 0)
+        return _id;
+    return _id;
 }
 QT_END_MOC_NAMESPACE

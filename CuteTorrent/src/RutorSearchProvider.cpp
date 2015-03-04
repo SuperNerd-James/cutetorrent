@@ -17,12 +17,8 @@ int RutorSearchProvider::SupportedCategories()
 
 void RutorSearchProvider::PeformSearch(QString token, SearchCategories category, int page)
 {
-	QList<QNetworkCookie>  cookies = m_pNetworAccessManager->cookieJar()->cookiesForUrl(QUrl("http://rutor.org/"));
-	QVariant var;
-	var.setValue(QString("_ddn_intercept_2_=a505e586720fbb88d8652a3e4911d88a; max-age=604800; path=/"));
 	QNetworkRequest request;
 	request.setUrl(BuildUrl(token, category, page));
-	request.setHeader(QNetworkRequest::CookieHeader, var);
 	m_pNetworAccessManager->get(request);
 }
 

@@ -19,42 +19,60 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #ifndef LTORRENT_H
 #define LTORRENT_H
 
-#include <QtGui/QMainWindow>
-#include <QFileDialog>
-#include <QSpinBox>
-#include <QMenuBar>
-#include <QMenu>
-#include <QString>
-#include <QTimer>
-#include "application.h"
-#include "SettingsDialog.h"
-#include "TorrentManager.h"
-#include "CreateTorrentDialog.h"
-#include "OpenTorrentDialog.h"
-#include "QTorrentDisplayModel.h"
-#include "QTorrentItemDelegat.h"
 #include <qtsingleapplication.h>
-#include <QSystemTrayIcon>
-#include <QEvent>
 #include <QCloseEvent>
-#include "UpdateNotyfier.h"
 #include <QDesktopWidget>
+#include <QEvent>
+#include <QFileDialog>
+#include <QMenu>
+#include <QMenuBar>
 #include <QMutex>
-#include <QtNetwork/QHostAddress>
 #include <QScrollBar>
-#include "FileViewSortProxyModel.h"
-#include "tracker/torrentracker.h"
-#include "webControll/RconWebService.h"
-#include "FileViewModel.h"
-#include "TorrentStorrage.h"
-#include "searchitem.h"
-#include "peicedisplaywidget.h"
-#include "StyleEngene.h"
+#include <QSpinBox>
+#include <QString>
+#include <QSystemTrayIcon>
+#include <QTimer>
+#include <QtGui/QMainWindow>
+#include <QtNetwork/QHostAddress>
+
+#include "CreateTorrentDialog.h"
 #include "CustomWindow.h"
-#include "ui_CustomWindow.h"
-#include "SearchEngine.h"
+#include "FileViewModel.h"
+#include "FileViewSortProxyModel.h"
+#include "OpenTorrentDialog.h"
 #include "QSearchDisplayModel.h"
 #include "QSearchItemDelegate.h"
+#include "QTorrentDisplayModel.h"
+#include "QTorrentItemDelegat.h"
+#include "SearchEngine.h"
+#include "SettingsDialog.h"
+#include "StyleEngene.h"
+#include "TorrentManager.h"
+#include "TorrentStorrage.h"
+#include "UpdateNotyfier.h"
+#include "application.h"
+#include "peicedisplaywidget.h"
+#include "searchitem.h"
+#include "tracker/torrentracker.h"
+#include "ui_CustomWindow.h"
+#include "webControll/RconWebService.h"
+
+class Application;
+class FileViewModel;
+class FileViewSortProxyModel;
+class PeiceDisplayWidget;
+class QApplicationSettings;
+class QSearchDisplayModel;
+class QSearchItemDelegate;
+class QTorrentDisplayModel;
+class RconWebService;
+class SearchEngine;
+class StyleEngene;
+class TorrentManager;
+class TorrentStorrage;
+class TorrentTracker;
+class UpdateNotifier;
+
 Q_DECLARE_METATYPE(QHostAddress)
 class CuteTorrent : public BaseWindow<QWidget> , private Ui::CustomWindow
 {
@@ -80,13 +98,13 @@ private:
 	QList<SearchItem> searchSources;
 	QComboBox* m_pTorrentSearchCategory;
 	QComboBox* m_pSearchCategory;
-	TorrentStorrage* torrents;
-	PeiceDisplayWidget* pieceView;
-	FileViewSortProxyModel* proxymodel;
-	FileViewModel* fileViewModel;
-	TorrentTracker* tracker;
-	QApplicationSettings* settings;
-	RconWebService* rcon;
+	TorrentStorrage* m_pTorrents;
+	PeiceDisplayWidget* m_pPieceView;
+	FileViewSortProxyModel* m_pFileViewProxymodel;
+	FileViewModel* m_pFileViewModel;
+	TorrentTracker* m_pTracker;
+	QApplicationSettings* m_pSettings;
+	RconWebService* m_pRcon;
 	UpdateNotifier* m_pUpdateNotifier;
 	bool mayShowNotifies;
 	QSystemTrayIcon* m_pTrayIcon;
@@ -97,8 +115,8 @@ private:
 	QAction* restoreAction;
 	QAction* quitAction;
 	QAction* copyContext;
-	QAction* addPeer, * addTracker;
-	QLabel* upLabelText, *upLabel, *title;
+	QAction* addPeer, * addWebSeed, * addTracker, * removeTracker, * editTracker;
+	QLabel* upLabelText, *upLabel, *title, *dhtNodesLabel;
 	QLabel* uploadLimit, *downloadLimit;
 	QLabel* downLabelText, *downLabel;
 	QTorrentDisplayModel* m_pTorrentDisplayModel;

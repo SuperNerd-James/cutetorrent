@@ -17,19 +17,18 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "MultipleDTDialog.h"
-#include "QApplicationSettings.h"
-#include <QStandardItemModel>
-#include <QStandardItem>
-#include <QProcess>
-#include <QDebug>
 #include <QAbstractItemView>
-#include "StaticHelpers.h"
-#include "DT_mounter.h"
+#include <QDebug>
 #include <QPainter>
-#include <QStyleOption>
+#include <QProcess>
+#include <QStandardItem>
+#include <QStandardItemModel>
 #include <QStyle>
+#include <QStyleOption>
+#include "DT_mounter.h"
+#include "MultipleDTDialog.h"
 #include "StyleEngene.h"
+#include "TorrentManager.h"
 
 MultipleDTDialog::MultipleDTDialog(QStringList& _files, QWidget* parrent/* =0 */, int flags/* =0 */) : BaseWindow(BaseWindow::OnlyCloseButton, BaseWindow::NoResize)
 {

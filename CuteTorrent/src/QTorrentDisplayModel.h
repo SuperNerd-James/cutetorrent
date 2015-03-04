@@ -18,22 +18,26 @@ along with this program.  If not, see .
 */
 #ifndef _TOR_DIPL_MODEL_H
 #define _TOR_DIPL_MODEL_H
-#include <QMap>
-#include <QVector>
-#include <QSet>
+#include <TorrentStorrage.h>
+#include <stddef.h>
 #include <QAbstractListModel>
-#include <QSignalMapper>
 #include <QListView>
+#include <QMap>
+#include <QMenu>
+#include <QMutex>
+#include <QSet>
+#include <QSignalMapper>
+#include <QThread>
+#include <QTimer>
+#include <QVector>
+
 #include "Torrent.h"
 #include "TorrentManager.h"
-#include <QMenu>
-#include <QTimer>
-#include <QMutex>
-#include <QThread>
-#include <TorrentStorrage.h>
+
 class CuteTorrent;
 class Torrent;
 class TorrentManager;
+
 class QTorrentDisplayModel: public QAbstractListModel
 {
 	Q_OBJECT

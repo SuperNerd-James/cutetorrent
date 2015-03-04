@@ -1,14 +1,14 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'FileTreeModel.h'
+** Meta object code from reading C++ file 'QSearchItemDelegate.h'
 **
 ** Created by: The Qt Meta Object Compiler version 63 (Qt 4.8.6)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../FileTreeModel.h"
+#include "../../QSearchItemDelegate.h"
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'FileTreeModel.h' doesn't include <QObject>."
+#error "The header file 'QSearchItemDelegate.h' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 63
 #error "This file was generated using the moc from 4.8.6. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -16,7 +16,7 @@
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
-static const uint qt_meta_data_FileTreeModel[] = {
+static const uint qt_meta_data_QSearchItemDelegate[] = {
 
  // content:
        6,       // revision
@@ -32,11 +32,11 @@ static const uint qt_meta_data_FileTreeModel[] = {
        0        // eod
 };
 
-static const char qt_meta_stringdata_FileTreeModel[] = {
-    "FileTreeModel\0"
+static const char qt_meta_stringdata_QSearchItemDelegate[] = {
+    "QSearchItemDelegate\0"
 };
 
-void FileTreeModel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void QSearchItemDelegate::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     Q_UNUSED(_o);
     Q_UNUSED(_id);
@@ -44,35 +44,35 @@ void FileTreeModel::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
     Q_UNUSED(_a);
 }
 
-const QMetaObjectExtraData FileTreeModel::staticMetaObjectExtraData = {
+const QMetaObjectExtraData QSearchItemDelegate::staticMetaObjectExtraData = {
     0,  qt_static_metacall 
 };
 
-const QMetaObject FileTreeModel::staticMetaObject = {
-    { &QAbstractItemModel::staticMetaObject, qt_meta_stringdata_FileTreeModel,
-      qt_meta_data_FileTreeModel, &staticMetaObjectExtraData }
+const QMetaObject QSearchItemDelegate::staticMetaObject = {
+    { &QStyledItemDelegate::staticMetaObject, qt_meta_stringdata_QSearchItemDelegate,
+      qt_meta_data_QSearchItemDelegate, &staticMetaObjectExtraData }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
-const QMetaObject &FileTreeModel::getStaticMetaObject() { return staticMetaObject; }
+const QMetaObject &QSearchItemDelegate::getStaticMetaObject() { return staticMetaObject; }
 #endif //Q_NO_DATA_RELOCATION
 
-const QMetaObject *FileTreeModel::metaObject() const
+const QMetaObject *QSearchItemDelegate::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
 }
 
-void *FileTreeModel::qt_metacast(const char *_clname)
+void *QSearchItemDelegate::qt_metacast(const char *_clname)
 {
     if (!_clname) return 0;
-    if (!strcmp(_clname, qt_meta_stringdata_FileTreeModel))
-        return static_cast<void*>(const_cast< FileTreeModel*>(this));
-    return QAbstractItemModel::qt_metacast(_clname);
+    if (!strcmp(_clname, qt_meta_stringdata_QSearchItemDelegate))
+        return static_cast<void*>(const_cast< QSearchItemDelegate*>(this));
+    return QStyledItemDelegate::qt_metacast(_clname);
 }
 
-int FileTreeModel::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int QSearchItemDelegate::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-    _id = QAbstractItemModel::qt_metacall(_c, _id, _a);
+    _id = QStyledItemDelegate::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     return _id;

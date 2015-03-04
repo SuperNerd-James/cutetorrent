@@ -16,85 +16,65 @@
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
-static const uint qt_meta_data_StaticFileController[] =
-{
+static const uint qt_meta_data_StaticFileController[] = {
 
-// content:
-	6,       // revision
-	0,       // classname
-	0,    0, // classinfo
-	0,    0, // methods
-	0,    0, // properties
-	0,    0, // enums/sets
-	0,    0, // constructors
-	0,       // flags
-	0,       // signalCount
+ // content:
+       6,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       0,    0, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
 
-	0        // eod
+       0        // eod
 };
 
-static const char qt_meta_stringdata_StaticFileController[] =
-{
-	"StaticFileController\0"
+static const char qt_meta_stringdata_StaticFileController[] = {
+    "StaticFileController\0"
 };
 
-void StaticFileController::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
+void StaticFileController::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-	Q_UNUSED(_o);
-	Q_UNUSED(_id);
-	Q_UNUSED(_c);
-	Q_UNUSED(_a);
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
 }
 
-const QMetaObjectExtraData StaticFileController::staticMetaObjectExtraData =
-{
-	0,  qt_static_metacall
+const QMetaObjectExtraData StaticFileController::staticMetaObjectExtraData = {
+    0,  qt_static_metacall 
 };
 
-const QMetaObject StaticFileController::staticMetaObject =
-{
-	{
-		&HttpRequestHandler::staticMetaObject, qt_meta_stringdata_StaticFileController,
-		qt_meta_data_StaticFileController, &staticMetaObjectExtraData
-	}
+const QMetaObject StaticFileController::staticMetaObject = {
+    { &HttpRequestHandler::staticMetaObject, qt_meta_stringdata_StaticFileController,
+      qt_meta_data_StaticFileController, &staticMetaObjectExtraData }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
-const QMetaObject& StaticFileController::getStaticMetaObject()
-{
-	return staticMetaObject;
-}
+const QMetaObject &StaticFileController::getStaticMetaObject() { return staticMetaObject; }
 #endif //Q_NO_DATA_RELOCATION
 
-const QMetaObject* StaticFileController::metaObject() const
+const QMetaObject *StaticFileController::metaObject() const
 {
-	return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
 }
 
-void* StaticFileController::qt_metacast(const char* _clname)
+void *StaticFileController::qt_metacast(const char *_clname)
 {
-	if (!_clname)
-	{
-		return 0;
-	}
-
-	if (!strcmp(_clname, qt_meta_stringdata_StaticFileController))
-	{
-		return static_cast<void*>(const_cast< StaticFileController*>(this));
-	}
-
-	return HttpRequestHandler::qt_metacast(_clname);
+    if (!_clname) return 0;
+    if (!strcmp(_clname, qt_meta_stringdata_StaticFileController))
+        return static_cast<void*>(const_cast< StaticFileController*>(this));
+    return HttpRequestHandler::qt_metacast(_clname);
 }
 
-int StaticFileController::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
+int StaticFileController::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-	_id = HttpRequestHandler::qt_metacall(_c, _id, _a);
-
-	if (_id < 0)
-	{
-		return _id;
-	}
-
-	return _id;
+    _id = HttpRequestHandler::qt_metacall(_c, _id, _a);
+    if (_id < 0)
+        return _id;
+    return _id;
 }
 QT_END_MOC_NAMESPACE

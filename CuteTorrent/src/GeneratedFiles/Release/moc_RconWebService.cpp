@@ -16,85 +16,65 @@
 #endif
 
 QT_BEGIN_MOC_NAMESPACE
-static const uint qt_meta_data_RconWebService[] =
-{
+static const uint qt_meta_data_RconWebService[] = {
 
-// content:
-	6,       // revision
-	0,       // classname
-	0,    0, // classinfo
-	0,    0, // methods
-	0,    0, // properties
-	0,    0, // enums/sets
-	0,    0, // constructors
-	0,       // flags
-	0,       // signalCount
+ // content:
+       6,       // revision
+       0,       // classname
+       0,    0, // classinfo
+       0,    0, // methods
+       0,    0, // properties
+       0,    0, // enums/sets
+       0,    0, // constructors
+       0,       // flags
+       0,       // signalCount
 
-	0        // eod
+       0        // eod
 };
 
-static const char qt_meta_stringdata_RconWebService[] =
-{
-	"RconWebService\0"
+static const char qt_meta_stringdata_RconWebService[] = {
+    "RconWebService\0"
 };
 
-void RconWebService::qt_static_metacall(QObject* _o, QMetaObject::Call _c, int _id, void** _a)
+void RconWebService::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
-	Q_UNUSED(_o);
-	Q_UNUSED(_id);
-	Q_UNUSED(_c);
-	Q_UNUSED(_a);
+    Q_UNUSED(_o);
+    Q_UNUSED(_id);
+    Q_UNUSED(_c);
+    Q_UNUSED(_a);
 }
 
-const QMetaObjectExtraData RconWebService::staticMetaObjectExtraData =
-{
-	0,  qt_static_metacall
+const QMetaObjectExtraData RconWebService::staticMetaObjectExtraData = {
+    0,  qt_static_metacall 
 };
 
-const QMetaObject RconWebService::staticMetaObject =
-{
-	{
-		&QObject::staticMetaObject, qt_meta_stringdata_RconWebService,
-		qt_meta_data_RconWebService, &staticMetaObjectExtraData
-	}
+const QMetaObject RconWebService::staticMetaObject = {
+    { &QObject::staticMetaObject, qt_meta_stringdata_RconWebService,
+      qt_meta_data_RconWebService, &staticMetaObjectExtraData }
 };
 
 #ifdef Q_NO_DATA_RELOCATION
-const QMetaObject& RconWebService::getStaticMetaObject()
-{
-	return staticMetaObject;
-}
+const QMetaObject &RconWebService::getStaticMetaObject() { return staticMetaObject; }
 #endif //Q_NO_DATA_RELOCATION
 
-const QMetaObject* RconWebService::metaObject() const
+const QMetaObject *RconWebService::metaObject() const
 {
-	return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
+    return QObject::d_ptr->metaObject ? QObject::d_ptr->metaObject : &staticMetaObject;
 }
 
-void* RconWebService::qt_metacast(const char* _clname)
+void *RconWebService::qt_metacast(const char *_clname)
 {
-	if (!_clname)
-	{
-		return 0;
-	}
-
-	if (!strcmp(_clname, qt_meta_stringdata_RconWebService))
-	{
-		return static_cast<void*>(const_cast< RconWebService*>(this));
-	}
-
-	return QObject::qt_metacast(_clname);
+    if (!_clname) return 0;
+    if (!strcmp(_clname, qt_meta_stringdata_RconWebService))
+        return static_cast<void*>(const_cast< RconWebService*>(this));
+    return QObject::qt_metacast(_clname);
 }
 
-int RconWebService::qt_metacall(QMetaObject::Call _c, int _id, void** _a)
+int RconWebService::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
-	_id = QObject::qt_metacall(_c, _id, _a);
-
-	if (_id < 0)
-	{
-		return _id;
-	}
-
-	return _id;
+    _id = QObject::qt_metacall(_c, _id, _a);
+    if (_id < 0)
+        return _id;
+    return _id;
 }
 QT_END_MOC_NAMESPACE

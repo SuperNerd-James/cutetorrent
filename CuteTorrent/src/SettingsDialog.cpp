@@ -16,29 +16,34 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "SettingsDialog.h"
-
-#include <QFileDialog>
-#include <QString>
-#include <QDir>
-#include "messagebox.h"
-#include "TorrentManager.h"
+#include <stddef.h>
 #include <QDebug>
-#include <QTranslator>
-#include <QIntValidator>
-#include "application.h"
-#include "Scheduller.h"
-#include "webControll/RconWebService.h"
-#include <QPainter>
 #include <QDesktopServices>
-#include <QUrl>
-#include "qkeyedit.h"
-#include <QScrollArea>
+#include <QDir>
+#include <QFileDialog>
 #include <QFormLayout>
+#include <QIntValidator>
+#include <QPainter>
+#include <QScrollArea>
+#include <QString>
+#include <QTranslator>
+#include <QUrl>
+#include "application.h"
+#include "messagebox.h"
+#include "GroupForFileFiltering.h"
+#include "QApplicationSettings.h"
+#include "SchedulerTask.h"
+#include "Scheduller.h"
+#include "SettingsDialog.h"
 #include "StyleEngene.h"
+#include "TorrentManager.h"
+#include "searchitem.h"
+#include "qkeyedit.h"
+#include "tracker/torrentracker.h"
+#include "webControll/RconWebService.h"
 #ifdef Q_WS_WIN //file association for windows
-#include <windows.h>
 #include <tchar.h>
+#include <windows.h>
 
 typedef BOOL (WINAPI* LPFN_ISWOW64PROCESS)(HANDLE, PBOOL);
 
@@ -200,6 +205,11 @@ void SettingsDialog::FillTorrentTab()
 
 	trackerGroupBox->setChecked(settings->valueBool("TorrentTracker", "enabled", false));
 	trackerPortEdit->setText(settings->valueString("TorrentTracker", "port", "6996"));
+	useDHTCheckBox->setChecked(settings->valueBool("Torrent", "use_dht", true));
+	useLSDCheckBox->setChecked(settings->valueBool("Torrent", "use_lsd", true));
+	usePExCheckBox->setChecked(settings->valueBool("Torrent", "use_pex", true));
+	useDifDhtPorrtGroupBox->setChecked(settings->valueBool("Torrent", "use_special_dht_port", false));
+	specDhtPortEdit->setText(settings->valueString("Torrent", "special_dht_port", "6881"));
 	StyleEngene* styleEngine = StyleEngene::getInstance();
 	QList<StyleInfo> styleInfos = styleEngine->getAvaliableStyles();
 	StyleInfo currentStyle = styleEngine->getCuurentStyle();
@@ -282,13 +292,18 @@ SettingsDialog::~SettingsDialog()
 }
 void SettingsDialog::ApplySettings()
 {
-	settings->setValue("Torrent", "listen_port",					qVariantFromValue(portEdit->text().toInt()));
+	settings->setValue("Torrent", "listen_port",				qVariantFromValue(portEdit->text().toInt()));
 	settings->setValue("Torrent", "active_limit",				qVariantFromValue(activeLimitEdit->text().toInt()));
 	settings->setValue("Torrent", "active_downloads",			qVariantFromValue(activeDownloadLimitEdit->text().toInt()));
 	settings->setValue("Torrent", "active_seeds",				qVariantFromValue(activeSeedLimitEdit->text().toInt()));
 	settings->setValue("Torrent", "upload_rate_limit",			qVariantFromValue(uploadLimitEdit->value() * 1024));
-	settings->setValue("Torrent", "download_rate_limit",			qVariantFromValue(downloadLimitEdit->value() * 1024));
+	settings->setValue("Torrent", "download_rate_limit",		qVariantFromValue(downloadLimitEdit->value() * 1024));
 	settings->setValue("Torrent", "useProxy",					qVariantFromValue(proxyGroupBox->isChecked()));
+	settings->setValue("Torrent", "use_dht",					qVariantFromValue(useDHTCheckBox->isChecked()));
+	settings->setValue("Torrent", "use_lsd",					qVariantFromValue(useLSDCheckBox->isChecked()));
+	settings->setValue("Torrent", "use_pex",					qVariantFromValue(usePExCheckBox->isChecked()));
+	settings->setValue("Torrent", "use_special_dht_port",		qVariantFromValue(useDifDhtPorrtGroupBox->isChecked()));
+	settings->setValue("Torrent", "special_dht_port",			qVariantFromValue(specDhtPortEdit->text().toInt()));
 
 	if(proxyGroupBox->isChecked())
 	{
@@ -472,6 +487,7 @@ void SettingsDialog::ApplySettingsToSession()
 	current.upload_rate_limit	= uploadLimitEdit->value() * 1024;
 	current.download_rate_limit = downloadLimitEdit->value() * 1024;
 	manager->updateSettings(current);
+	manager->RefreshExternalPeerSettings();
 	pe_settings enc_settings = manager->readEncSettings();
 	enc_settings.in_enc_policy = (pe_settings::enc_policy) inEncPolicyComboBox->currentIndex();
 	enc_settings.out_enc_policy = (pe_settings::enc_policy) outEncPolicyComboBox->currentIndex();

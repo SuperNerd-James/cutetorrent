@@ -22,8 +22,7 @@ private:
 	QNetworkAccessManager* m_pNetworAccessManager;
 	QMap<SearchCategories, QString> m_categoryMap;
 	QString BuildUrl(QString token, SearchCategories category, int page);
+	void ParseTableBody(QSgmlTag::QSgmlTaglist tableBody, QSgml* sgml);
 private slots:
 	void replyReady(QNetworkReply*);
-	void ParseTableBody(QSgmlTag::QSgmlTaglist tableBody, QSgml* sgml);
-protected:
 };

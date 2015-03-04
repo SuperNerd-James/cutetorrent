@@ -1,8 +1,9 @@
 #pragma once
 
 #include <QtGui>
-#include "ui_messagebox.h"
+
 #include "CustomWindow.h"
+#include "ui_messagebox.h"
 
 class MyMessageBox : public BaseWindow<QDialog>
 {
@@ -25,20 +26,17 @@ public:
 	~MyMessageBox();
 
 	static QMessageBox::StandardButton critical(QWidget* parent, const QString& title,
-	        const QString& text, QMessageBox::StandardButtons buttons = QMessageBox::Ok,
-	        QMessageBox::StandardButton defaultButton = QMessageBox::NoButton);
+	        const QString& text, QMessageBox::StandardButtons buttons = QMessageBox::Ok);
 	static QMessageBox::StandardButton information(QWidget* parent, const QString& title,
-	        const QString& text, QMessageBox::StandardButtons buttons = QMessageBox::Ok,
-	        QMessageBox::StandardButton defaultButton = QMessageBox::NoButton);
+	        const QString& text, QMessageBox::StandardButtons buttons = QMessageBox::Ok);
 	static QMessageBox::StandardButton question(QWidget* parent, const QString& title,
-	        const QString& text, QMessageBox::StandardButtons buttons = QMessageBox::Ok,
-	        QMessageBox::StandardButton defaultButton = QMessageBox::NoButton);
+	        const QString& text, QMessageBox::StandardButtons buttons = QMessageBox::Ok);
 	static QMessageBox::StandardButton warning(QWidget* parent, const QString& title, const QString& text,
-	        QMessageBox::StandardButtons buttons = QMessageBox::Ok, QMessageBox::StandardButton defaultButton = QMessageBox::NoButton);
+	        QMessageBox::StandardButtons buttons = QMessageBox::Ok);
 	static void about(QWidget* parent, const QString& title, const QString& text);
 	static QMessageBox::StandardButton showNewMessageBox(QWidget* parent,
 	        QMessageBox::Icon icon, const QString& title, const QString& text,
-	        QMessageBox::StandardButtons buttons, QMessageBox::StandardButton defaultButton);
+	        QMessageBox::StandardButtons buttons);
 private:
 	void showDialog();
 	Ui::MessageBox* ui;

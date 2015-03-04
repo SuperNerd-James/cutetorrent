@@ -16,22 +16,26 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
-#include "QTorrentDisplayModel.h"
 #include <QClipboard>
-#include "QApplicationSettings.h"
-#include <QProcess>
-#include <QItemSelectionModel>
+#include <QDebug>
 #include <QDesktopServices>
 #include <QDir>
-#include <QUrl>
-#include <QDebug>
+#include <QItemSelectionModel>
+#include <QProcess>
 #include <QThread>
+#include <QUrl>
+#include <exception>
 #include "MultipleDTDialog.h"
-#include "VideoPlayer/VideoPlayerWindow.h"
 #include "DT_mounter.h"
-#include "CuteTorrent.h"
+#include "QApplicationSettings.h"
+#include "QTorrentDisplayModel.h"
 #include "StyleEngene.h"
+#include "Torrent.h"
+#include "TorrentManager.h"
+#include "TorrentStorrage.h"
+#include "VideoPlayer\VideoPlayerWindow.h"
 #include "messagebox.h"
+
 QTorrentDisplayModel::QTorrentDisplayModel(CuteTorrent* _mainWindow, QListView* _parrent, QObject* __parrent) : QAbstractListModel(__parrent)
 {
 	mainWindow = _mainWindow;
